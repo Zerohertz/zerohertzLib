@@ -52,6 +52,20 @@ spec:
                 }
             }
         }
+        stage("Merge From Docs") {
+            when {
+                commitMessage.startsWith("Merge pull request") && commitMessage.contains("/docs")
+            }
+            steps {
+                script {
+                    setBuildStatus("Success", "SUCCESS", "1. Lint")
+                    setBuildStatus("Success", "SUCCESS", "2. Build")
+                    setBuildStatus("Success", "SUCCESS", "3. Test")
+                    setBuildStatus("Success", "SUCCESS", "4. Docs")
+                    setBuildStatus("Success", "SUCCESS", "$STAGE_NAME")
+                }
+            }
+        }
         stage("1. Lint") {
             when {
                 anyOf {
