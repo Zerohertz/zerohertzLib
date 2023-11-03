@@ -54,7 +54,9 @@ spec:
         }
         stage("Merge From Docs") {
             when {
-                commitMessage.startsWith("Merge pull request") && commitMessage.contains("/docs")
+                expression {
+                    return commitMessage.startsWith("Merge pull request") && commitMessage.contains("/docs")
+                }
             }
             steps {
                 script {
