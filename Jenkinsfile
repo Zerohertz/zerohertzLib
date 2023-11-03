@@ -1,7 +1,7 @@
 void setBuildStatus(String message, String state, String context) {
     step([
         $class: "GitHubCommitStatusSetter",
-        reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/Zerohertz/pkg"],
+        reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/Zerohertz/zerohertzLib"],
         contextSource: [$class: "ManuallyEnteredCommitContextSource", context: context],
         errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
         statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
@@ -197,7 +197,7 @@ spec:
                             sh '''
                             curl -X POST -H "Authorization: token $GIT_PASSWORD" \
                             -H "Accept: application/vnd.github.v3+json" \
-                            https://api.github.com/repos/Zerohertz/pkg/pulls \
+                            https://api.github.com/repos/Zerohertz/zerohertzLib/pulls \
                             -d @payload.json
                             '''
                         }
