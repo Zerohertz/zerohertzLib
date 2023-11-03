@@ -251,7 +251,7 @@ spec:
                                     container("python") {
                                         sh "pip install twine"
                                         withCredentials([usernamePassword(credentialsId: "PyPI", usernameVariable: "PYPI_USERNAME", passwordVariable: "PYPI_PASSWORD")]) {
-                                            sh "twine upload -u ${PYPI_USERNAME} -p ${PYPI_PASSWORD} dist/*"
+                                            sh 'twine upload -u $PYPI_USERNAME -p $PYPI_PASSWORD dist/*'
                                         }
                                     }
                                     def endTime = System.currentTimeMillis()
