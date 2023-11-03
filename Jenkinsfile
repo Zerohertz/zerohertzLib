@@ -200,7 +200,7 @@ spec:
                                 sh "touch docs/.nojekyll"
                             }
                             def hasDocsChanges = sh(
-                                script: 'git diff --name-only | grep -w docs',
+                                script: "git diff --name-only | grep -w docs",
                                 returnStatus: true
                             ) == 0
                             if (!hasDocsChanges) {
@@ -250,7 +250,7 @@ spec:
                                     setBuildStatus("Deploy...", "PENDING", "$STAGE_NAME")
                                     container("python") {
                                         sh "pip install twine"
-                                        withCredentials([usernamePassword(credentialsId: 'PyPI', usernameVariable: 'PYPI_USERNAME', passwordVariable: 'PYPI_PASSWORD')]) {
+                                        withCredentials([usernamePassword(credentialsId: "PyPI", usernameVariable: "PYPI_USERNAME", passwordVariable: "PYPI_PASSWORD")]) {
                                             sh "twine upload -u ${PYPI_USERNAME} -p ${PYPI_PASSWORD} dist/*"
                                         }
                                     }
@@ -269,7 +269,7 @@ spec:
                                 try {
                                     def startTime = System.currentTimeMillis()
                                     setBuildStatus("Deploy...", "PENDING", "$STAGE_NAME")
-                                    def PACKAGE_VERSION = ''
+                                    def PACKAGE_VERSION = ""
                                     container("python") {
                                         PACKAGE_VERSION = sh(
                                             script: 'python -c "import zerohertzLib; print(zerohertzLib.__version__)"',
