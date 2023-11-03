@@ -1,0 +1,279 @@
+void setBuildStatus(String message, String state, String context) {
+    step([
+        $class: "GitHubCommitStatusSetter",
+        reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/Zerohertz/pkg"],
+        contextSource: [$class: "ManuallyEnteredCommitContextSource", context: context],
+        errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
+        statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
+    ]);
+}
+
+pipeline {
+    agent {
+        kubernetes {
+            yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    jenkins/agent-type: python
+spec:
+  containers:
+    - name: jnlp
+      image: jenkins/inbound-agent:latest
+      resources:
+        requests:
+          memory: "512Mi"
+          cpu: "500m"
+        limits:
+          memory: "1024Mi"
+          cpu: "1000m"
+    - name: python
+      image: python:3.8-slim
+      command:
+        - cat
+      tty: true
+      resources:
+        requests:
+          memory: "2048Mi"
+          cpu: "2000m"
+        limits:
+          memory: "4096Mi"
+          cpu: "4000m"
+            """
+        }
+    }
+
+    stages {
+        stage("Setup") {
+            steps {
+                script {
+                    commitMessage = sh(script: "git log -1 --pretty=%B ${env.GIT_COMMIT}", returnStdout: true).trim()
+                }
+            }
+        }
+        stage("1. Lint") {
+            when {
+                anyOf {
+                    branch pattern: "dev.*", comparator: "REGEXP"
+                    expression {
+                        def isMasterPR = env.CHANGE_TARGET == "master"
+                        def commitMessage = sh(script: "git log -1 --pretty=%B", returnStdout: true).trim()
+                        def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.contains("/docs")
+                        return isMasterPR && isNotDocsMerge
+                    }
+                }
+            }
+            steps {
+                script {
+                    try {
+                        def startTime = System.currentTimeMillis()
+                        setBuildStatus("Checking Lint...", "PENDING", "$STAGE_NAME")
+                        container("python") {
+                            sh "pip install black"
+                            sh "black --check ."
+                        }
+                        def endTime = System.currentTimeMillis()
+                        def DURATION = (endTime - startTime) / 1000
+                        setBuildStatus("Successful in ${DURATION}s", "SUCCESS", "$STAGE_NAME")
+                    } catch (Exception e) {
+                        def STAGE_ERROR_MESSAGE = e.getMessage().split("\n")[0]
+                        setBuildStatus(STAGE_ERROR_MESSAGE, "FAILURE", "$STAGE_NAME")
+                        throw e
+                    }
+                }
+            }
+        }
+        stage("2. Build") {
+            when {
+                anyOf {
+                    branch "master"
+                    branch pattern: "dev.*", comparator: "REGEXP"
+                    expression {
+                        def isMasterPR = env.CHANGE_TARGET == "master"
+                        def commitMessage = sh(script: "git log -1 --pretty=%B", returnStdout: true).trim()
+                        def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.contains("/docs")
+                        return isMasterPR && isNotDocsMerge
+                    }
+                }
+            }
+            steps {
+                script {
+                    try {
+                        def startTime = System.currentTimeMillis()
+                        setBuildStatus("Build...", "PENDING", "$STAGE_NAME")
+                        container("python") {
+                            sh "python setup.py sdist bdist_wheel"
+                            sh "pip install dist/*.whl"
+                        }
+                        def endTime = System.currentTimeMillis()
+                        def DURATION = (endTime - startTime) / 1000
+                        setBuildStatus("Successful in ${DURATION}s", "SUCCESS", "$STAGE_NAME")
+                    } catch (Exception e) {
+                        def STAGE_ERROR_MESSAGE = e.getMessage().split("\n")[0]
+                        setBuildStatus(STAGE_ERROR_MESSAGE, "FAILURE", "$STAGE_NAME")
+                        throw e
+                    }
+                }
+            }
+        }
+        stage("3. Test") {
+            when {
+                anyOf {
+                    branch pattern: "dev.*", comparator: "REGEXP"
+                    expression {
+                        def isMasterPR = env.CHANGE_TARGET == "master"
+                        def commitMessage = sh(script: "git log -1 --pretty=%B", returnStdout: true).trim()
+                        def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.contains("/docs")
+                        return isMasterPR && isNotDocsMerge
+                    }
+                }
+            }
+            steps {
+                script {
+                    try {
+                        def startTime = System.currentTimeMillis()
+                        setBuildStatus("Test...", "PENDING", "$STAGE_NAME")
+                        container("python") {
+                            sh "pip install pytest"
+                            sh "pytest"
+                        }
+                        def endTime = System.currentTimeMillis()
+                        def DURATION = (endTime - startTime) / 1000
+                        setBuildStatus("Successful in ${DURATION}s", "SUCCESS", "$STAGE_NAME")
+                    } catch (Exception e) {
+                        def STAGE_ERROR_MESSAGE = e.getMessage().split("\n")[0]
+                        setBuildStatus(STAGE_ERROR_MESSAGE, "FAILURE", "$STAGE_NAME")
+                        throw e
+                    }
+                }
+            }
+        }
+        stage("4. Docs") {
+            when {
+                expression {
+                    def isMasterPR = env.CHANGE_TARGET == "master"
+                    def commitMessage = sh(script: "git log -1 --pretty=%B", returnStdout: true).trim()
+                    def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.contains("/docs")
+                    return isMasterPR && isNotDocsMerge
+                }
+            }
+            steps {
+                script {
+                    try {
+                        def startTime = System.currentTimeMillis()
+                        setBuildStatus("Build...", "PENDING", "$STAGE_NAME")
+                        withCredentials([usernamePassword(credentialsId: "GitHub", usernameVariable: "GIT_USERNAME", passwordVariable: "GIT_PASSWORD")]) {
+                            sh '''
+                            git config --global user.email "ohg3417@gmail.com"
+                            git config --global user.name "${GIT_USERNAME}"
+                            git config --global credential.helper "!f() { echo username=${GIT_USERNAME}; echo password=${GIT_PASSWORD}; }; f"
+                            '''
+                            def isExistDocsRemote = sh(returnStdout: true, script: "git ls-remote --heads origin docs").trim()
+                            if (isExistDocsRemote) {
+                                sh "git push origin --delete docs"
+                            }
+                            sh "git checkout -b docs"
+                            container("python") {
+                                sh "apt update"
+                                sh "apt install build-essential -y"
+                                sh "pip install sphinx sphinx-rtd-theme"
+                                sh "cd sphinx && make html"
+                                sh "rm -rf docs"
+                                sh "mv sphinx/build/html docs"
+                                sh "touch docs/.nojekyll"
+                            }
+                            sh "git add docs"
+                            sh "git commit -m ':memo: Docs: Build Sphinx (#${env.CHANGE_ID})'"
+                            sh "git push origin docs"
+                            sh """
+                            echo '{
+                                "title": "[Docs] Build by Sphinx for GitHub Pages",
+                                "head": "docs",
+                                "base": "${env.CHANGE_BRANCH}",
+                                "body": "#${env.CHANGE_ID} (Build: ${env.GIT_COMMIT})"
+                            }' > payload.json
+                            """
+                            sh '''
+                            curl -X POST -H "Authorization: token $GIT_PASSWORD" \
+                            -H "Accept: application/vnd.github.v3+json" \
+                            https://api.github.com/repos/Zerohertz/pkg/pulls \
+                            -d @payload.json
+                            '''
+                        }
+                        def endTime = System.currentTimeMillis()
+                        def DURATION = (endTime - startTime) / 1000
+                        setBuildStatus("Successful in ${DURATION}s", "SUCCESS", "$STAGE_NAME")
+                    } catch (Exception e) {
+                        def STAGE_ERROR_MESSAGE = e.getMessage().split("\n")[0]
+                        setBuildStatus(STAGE_ERROR_MESSAGE, "FAILURE", "$STAGE_NAME")
+                        throw e
+                    }
+                }
+            }
+        }
+        stage("Deploy") {
+            when {
+                branch "master"
+            }
+            steps {
+                script {
+                    parallel(
+                        PyPI: {
+                            stage("PyPI") {
+                                try {
+                                    def startTime = System.currentTimeMillis()
+                                    setBuildStatus("Deploy...", "PENDING", "$STAGE_NAME")
+                                    container("python") {
+                                        sh "pip install twine"
+                                        withCredentials([usernamePassword(credentialsId: 'PyPI', usernameVariable: 'PYPI_USERNAME', passwordVariable: 'PYPI_PASSWORD')]) {
+                                            sh "twine upload -u ${PYPI_USERNAME} -p ${PYPI_PASSWORD} dist/*"
+                                        }
+                                    }
+                                    def endTime = System.currentTimeMillis()
+                                    def DURATION = (endTime - startTime) / 1000
+                                    setBuildStatus("Successful in ${DURATION}s", "SUCCESS", "$STAGE_NAME")
+                                } catch (Exception e) {
+                                    def STAGE_ERROR_MESSAGE = e.getMessage().split("\n")[0]
+                                    setBuildStatus(STAGE_ERROR_MESSAGE, "FAILURE", "$STAGE_NAME")
+                                    throw e
+                                }
+                            }
+                        },
+                        GitHub: {
+                            stage("GitHub") {
+                                try {
+                                    def startTime = System.currentTimeMillis()
+                                    setBuildStatus("Deploy...", "PENDING", "$STAGE_NAME")
+                                    def PACKAGE_VERSION = ''
+                                    container("python") {
+                                        PACKAGE_VERSION = sh(
+                                            script: 'python -c "import zerohertzPkg; print(zerohertzPkg.__version__)"',
+                                            returnStdout: true
+                                        ).trim()
+                                    }
+                                    withCredentials([usernamePassword(credentialsId: "GitHub", usernameVariable: "GIT_USERNAME", passwordVariable: "GIT_PASSWORD")]) {
+                                        sh '''
+                                        git config --global user.email "ohg3417@gmail.com"
+                                        git config --global user.name "${GIT_USERNAME}"
+                                        git config --global credential.helper "!f() { echo username=${GIT_USERNAME}; echo password=${GIT_PASSWORD}; }; f"
+                                        '''
+                                        sh "git tag ${PACKAGE_VERSION}"
+                                        sh "git push origin ${PACKAGE_VERSION}"
+                                    }
+                                    def endTime = System.currentTimeMillis()
+                                    def DURATION = (endTime - startTime) / 1000
+                                    setBuildStatus("Successful in ${DURATION}s", "SUCCESS", "$STAGE_NAME")
+                                } catch (Exception e) {
+                                    def STAGE_ERROR_MESSAGE = e.getMessage().split("\n")[0]
+                                    setBuildStatus(STAGE_ERROR_MESSAGE, "FAILURE", "$STAGE_NAME")
+                                    throw e
+                                }
+                            }
+                        }
+                    )
+                }
+            }
+        }
+    }
+}
