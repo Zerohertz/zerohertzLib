@@ -1,0 +1,35 @@
+import zerohertzLib as zz
+
+
+# FROM: https://www.acmicpc.net/problem/1260
+def test_dfs():
+    assert zz.algorithm.dfs([[], [2, 3, 4], [1, 4], [1, 4], [1, 2, 3]], 1) == [
+        1,
+        2,
+        4,
+        3,
+    ]
+    assert zz.algorithm.dfs([[], [2, 3], [1, 5], [1, 4], [3, 5], [2, 4]], 3) == [
+        3,
+        1,
+        2,
+        5,
+        4,
+    ]
+
+
+# FROM: https://www.acmicpc.net/problem/1260
+def test_bfs():
+    assert zz.algorithm.bfs([[], [2, 3, 4], [1, 4], [1, 4], [1, 2, 3]], 1) == [
+        1,
+        2,
+        3,
+        4,
+    ]
+    assert zz.algorithm.bfs([[], [2, 3], [1, 5], [1, 4], [3, 5], [2, 4]], 3) == [
+        3,
+        1,
+        4,
+        2,
+        5,
+    ]

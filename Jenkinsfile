@@ -1,7 +1,7 @@
 void setBuildStatus(String message, String state, String context) {
     step([
         $class: "GitHubCommitStatusSetter",
-        reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/Zerohertz/pkg"],
+        reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/Zerohertz/zerohertzLib"],
         contextSource: [$class: "ManuallyEnteredCommitContextSource", context: context],
         errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
         statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
@@ -49,6 +49,22 @@ spec:
             steps {
                 script {
                     commitMessage = sh(script: "git log -1 --pretty=%B ${env.GIT_COMMIT}", returnStdout: true).trim()
+                }
+            }
+        }
+        stage("Merge From Docs") {
+            when {
+                expression {
+                    return commitMessage.startsWith("Merge pull request") && commitMessage.contains("/docs")
+                }
+            }
+            steps {
+                script {
+                    setBuildStatus("Success", "SUCCESS", "1. Lint")
+                    setBuildStatus("Success", "SUCCESS", "2. Build")
+                    setBuildStatus("Success", "SUCCESS", "3. Test")
+                    setBuildStatus("Success", "SUCCESS", "4. Docs")
+                    setBuildStatus("Success", "SUCCESS", "$STAGE_NAME")
                 }
             }
         }
@@ -197,7 +213,7 @@ spec:
                             sh '''
                             curl -X POST -H "Authorization: token $GIT_PASSWORD" \
                             -H "Accept: application/vnd.github.v3+json" \
-                            https://api.github.com/repos/Zerohertz/pkg/pulls \
+                            https://api.github.com/repos/Zerohertz/zerohertzLib/pulls \
                             -d @payload.json
                             '''
                         }

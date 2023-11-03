@@ -1,6 +1,3 @@
-__all__ = ["add"]
-__version__ = "v0.1"
+from . import algorithm
 
-
-def add(a, b):
-    return a + b
+__version__ = "v0.1.1"
