@@ -199,23 +199,31 @@ spec:
                                 sh "mv sphinx/build/html docs"
                                 sh "touch docs/.nojekyll"
                             }
-                            sh "git add docs"
-                            sh "git commit -m ':memo: Docs: Build Sphinx (#${env.CHANGE_ID})'"
-                            sh "git push origin docs"
-                            sh """
-                            echo '{
-                                "title": "[Docs] Build by Sphinx for GitHub Pages",
-                                "head": "docs",
-                                "base": "${env.CHANGE_BRANCH}",
-                                "body": "#${env.CHANGE_ID} (Build: ${env.GIT_COMMIT})"
-                            }' > payload.json
-                            """
-                            sh '''
-                            curl -X POST -H "Authorization: token $GIT_PASSWORD" \
-                            -H "Accept: application/vnd.github.v3+json" \
-                            https://api.github.com/repos/Zerohertz/zerohertzLib/pulls \
-                            -d @payload.json
-                            '''
+                            def hasDocsChanges = sh(
+                                script: 'git diff --name-only | grep -w docs',
+                                returnStatus: true
+                            ) == 0
+                            if (!hasDocsChanges) {
+                                    setBuildStatus("Success", "SUCCESS", "Merge From Docs")
+                            } else {
+                                sh "git add docs"
+                                sh "git commit -m ':memo: Docs: Build Sphinx (#${env.CHANGE_ID})'"
+                                sh "git push origin docs"
+                                sh """
+                                echo '{
+                                    "title": "[Docs] Build by Sphinx for GitHub Pages",
+                                    "head": "docs",
+                                    "base": "${env.CHANGE_BRANCH}",
+                                    "body": "#${env.CHANGE_ID} (Build: ${env.GIT_COMMIT})"
+                                }' > payload.json
+                                """
+                                sh '''
+                                curl -X POST -H "Authorization: token $GIT_PASSWORD" \
+                                -H "Accept: application/vnd.github.v3+json" \
+                                https://api.github.com/repos/Zerohertz/zerohertzLib/pulls \
+                                -d @payload.json
+                                '''
+                            }
                         }
                         def endTime = System.currentTimeMillis()
                         def DURATION = (endTime - startTime) / 1000
