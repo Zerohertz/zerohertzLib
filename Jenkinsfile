@@ -264,7 +264,7 @@ spec:
                                     def PACKAGE_VERSION = ''
                                     container("python") {
                                         PACKAGE_VERSION = sh(
-                                            script: 'python -c "import zerohertzPkg; print(zerohertzPkg.__version__)"',
+                                            script: 'python -c "import zerohertzLib; print(zerohertzLib.__version__)"',
                                             returnStdout: true
                                         ).trim()
                                     }
