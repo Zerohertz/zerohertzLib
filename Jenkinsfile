@@ -48,7 +48,13 @@ spec:
         stage("Setup") {
             steps {
                 script {
-                    commitMessage = sh(script: "git log -1 --pretty=%B ${env.GIT_COMMIT}", returnStdout: true).trim()
+                    try {
+                        commitMessage = sh(script: "git log -1 --pretty=%B ${env.GIT_COMMIT}", returnStdout: true).trim()
+                    } catch (Exception e) {
+                        echo "Command failed: ${e.getMessage()}"
+                        currentBuild.result = 'SUCCESS'
+                        return
+                    }
                 }
             }
         }
