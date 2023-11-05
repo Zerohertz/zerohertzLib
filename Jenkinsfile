@@ -80,7 +80,6 @@ spec:
                     branch pattern: "dev.*", comparator: "REGEXP"
                     expression {
                         def isMasterPR = env.CHANGE_TARGET == "master"
-                        def commitMessage = sh(script: "git log -1 --pretty=%B", returnStdout: true).trim()
                         def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.contains("/docs")
                         return isMasterPR && isNotDocsMerge
                     }
@@ -113,7 +112,6 @@ spec:
                     branch pattern: "dev.*", comparator: "REGEXP"
                     expression {
                         def isMasterPR = env.CHANGE_TARGET == "master"
-                        def commitMessage = sh(script: "git log -1 --pretty=%B", returnStdout: true).trim()
                         def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.contains("/docs")
                         return isMasterPR && isNotDocsMerge
                     }
@@ -145,7 +143,6 @@ spec:
                     branch pattern: "dev.*", comparator: "REGEXP"
                     expression {
                         def isMasterPR = env.CHANGE_TARGET == "master"
-                        def commitMessage = sh(script: "git log -1 --pretty=%B", returnStdout: true).trim()
                         def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.contains("/docs")
                         return isMasterPR && isNotDocsMerge
                     }
@@ -175,7 +172,6 @@ spec:
             when {
                 expression {
                     def isMasterPR = env.CHANGE_TARGET == "master"
-                    def commitMessage = sh(script: "git log -1 --pretty=%B", returnStdout: true).trim()
                     def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.contains("/docs")
                     return isMasterPR && isNotDocsMerge
                 }
