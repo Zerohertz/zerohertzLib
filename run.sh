@@ -1,13 +1,13 @@
-# sphinx-apidoc -f -o sphinx/source zerohertzLib
-# sed -i '/.. automodule::/a\   :private-members:' sphinx/source/*.rst
-
 pip uninstall zerohertzLib -y
 pip uninstall zerohertzLib -y
 rm -rf build
 rm -rf dist
 rm -rf *.egg-info
+rm -rf docs
 python setup.py sdist bdist_wheel
 pip install dist/*.whl
+# sphinx-apidoc -f -o sphinx/source zerohertzLib --implicit-namespaces
+# sed -i '/.. automodule::/a\   :private-members:' sphinx/source/*.rst
 cd sphinx
 rm -rf build
 make html
