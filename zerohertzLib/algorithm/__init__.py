@@ -1,2 +1,4 @@
-from .bfs import bfs
-from .dfs import dfs
+from .graph import bfs, dfs
+from .prime import SoE
+
+__all__ = ["bfs", "dfs", "SoE"]
