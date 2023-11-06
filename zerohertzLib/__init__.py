@@ -1,3 +1,3 @@
 from . import algorithm, api
 
-__version__ = "v0.1.3"
+__version__ = "dev-v0.1.4"
