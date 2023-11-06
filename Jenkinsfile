@@ -181,7 +181,7 @@ spec:
                     try {
                         def startTime = System.currentTimeMillis()
                         setBuildStatus("Build...", "PENDING", "$STAGE_NAME")
-                        def branchName = env.GIT_BRANCH
+                        def branchName = env.CHANGE_BRANCH
                         branchName = branchName.replace("origin/dev-", "")
                         sh "sed -i 's/^__version__ = .*/__version__ = \"'${branchName}'\"/' zerohertzLib/__init__.py"
                         withCredentials([usernamePassword(credentialsId: "GitHub", usernameVariable: "GIT_USERNAME", passwordVariable: "GIT_PASSWORD")]) {
