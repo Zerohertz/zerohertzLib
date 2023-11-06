@@ -181,6 +181,8 @@ spec:
                     try {
                         def startTime = System.currentTimeMillis()
                         setBuildStatus("Build...", "PENDING", "$STAGE_NAME")
+                        def version = env.CHANGE_BRANCH.replace("dev-", "")
+                        sh "sed -i 's/^__version__ = .*/__version__ = \"'${version}'\"/' zerohertzLib/__init__.py"
                         withCredentials([usernamePassword(credentialsId: "GitHub", usernameVariable: "GIT_USERNAME", passwordVariable: "GIT_PASSWORD")]) {
                             sh '''
                             git config --global user.email "ohg3417@gmail.com"
@@ -192,6 +194,15 @@ spec:
                                 sh "git push origin --delete docs"
                             }
                             sh "git checkout -b docs"
+                            def hasVersionChanges = sh(
+                                script: "git diff --name-only | grep -w zerohertzLib/__init__.py",
+                                returnStatus: true
+                            ) == 0
+                            if (hasVersionChanges) {
+                                sh "git add zerohertzLib/__init__.py"
+                                sh "git commit -m ':hammer: Update: Version (#${env.CHANGE_ID})'"
+                                sh "git push origin docs"
+                            }
                             container("python") {
                                 sh "apt update"
                                 sh "apt install build-essential -y"
