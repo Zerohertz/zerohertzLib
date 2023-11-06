@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 
 def bar(
     data: Dict[str, Union[int, float]],
-    xlab: str = "변수",
+    xlab: str = "변수 [단위]",
     ylab: str = "빈도 [단위]",
     title: str = "tmp",
     ratio: Tuple[int] = (15, 10),
@@ -75,7 +75,7 @@ def bar(
 
 def hist(
     data: Dict[str, List[Union[int, float]]],
-    xlab: str = "변수",
+    xlab: str = "변수 [단위]",
     ylab: str = "빈도 [단위]",
     title: str = "tmp",
     cnt: int = 30,
