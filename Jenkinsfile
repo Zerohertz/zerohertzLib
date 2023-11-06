@@ -123,6 +123,8 @@ spec:
                         def startTime = System.currentTimeMillis()
                         setBuildStatus("Build...", "PENDING", "$STAGE_NAME")
                         container("python") {
+                            sh "apt update"
+                            sh "apt install python3-opencv -y"
                             sh "python setup.py sdist bdist_wheel"
                             sh "pip install dist/*.whl"
                         }
