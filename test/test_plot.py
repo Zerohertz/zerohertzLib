@@ -9,6 +9,12 @@ def test_bar():
     )
 
 
+def test_barh():
+    zz.plot.barh(
+        {"테란": 27, "저그": 40, "프로토스": 30}, xlab="인구 [명]", ylab="종족", title="Star Craft"
+    )
+
+
 def test_hist():
     zz.plot.hist(
         {
