@@ -6,7 +6,7 @@ from setuptools import find_packages, setup
 
 NAME = "zerohertzLib"
 DESCRIPTION = "Zerohertz's Library"
-URL = ""
+URL = "https://github.com/Zerohertz/zerohertzLib"
 AUTHOR = "Zerohertz"
 REQUIRES_PYTHON = ">=3.7.0"
 HERE = Path(__file__).parent
@@ -51,4 +51,7 @@ setup(
     url=URL,
     packages=find_packages(),
     install_requires=requirements,
+    package_data={
+        "zerohertzLib": ["plot/*.ttf"],
+    },
 )
