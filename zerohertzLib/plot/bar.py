@@ -1,5 +1,5 @@
 import sys
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Union
 
 import numpy as np
 import seaborn as sns
@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 
 
 def bar(
-    data: Dict[str, int],
+    data: Dict[str, Union[int, float]],
     xlab: str = "변수",
     ylab: str = "빈도 [단위]",
     title: str = "tmp",
@@ -23,7 +23,7 @@ def bar(
         :align: center
 
     Args:
-        data (``Dict[str, int]``): 입력 데이터
+        data (``Dict[str, Union[int, float]]``): 입력 데이터
         xlab (``str``): Graph에 출력될 X축 label
         ylab (``str``): Graph에 출력될 Y축 label
         title (``str``): Graph에 표시될 제목 및 파일명
@@ -74,7 +74,7 @@ def bar(
 
 
 def hist(
-    data: Dict[str, List[int]],
+    data: Dict[str, List[Union[int, float]]],
     xlab: str = "변수",
     ylab: str = "빈도 [단위]",
     title: str = "tmp",
@@ -90,7 +90,7 @@ def hist(
         :align: center
 
     Args:
-        data (``Dict[str, List[int]]``): 입력 데이터
+        data (``Dict[str, List[Union[int, float]]]``): 입력 데이터
         xlab (``str``): Graph에 출력될 X축 label
         ylab (``str``): Graph에 출력될 Y축 label
         title (``str``): Graph에 표시될 제목 및 파일명
