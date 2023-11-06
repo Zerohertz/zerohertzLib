@@ -1,6 +1,5 @@
 from typing import Dict, List, Tuple, Union
 
-import numpy as np
 import seaborn as sns
 from matplotlib import pyplot as plt
 
@@ -36,7 +35,6 @@ def plot(
         >>> import zerohertzLib as zz
         >>> zz.plot.plot([i for i in range(20)],{"테란": list(np.random.rand(20) * 10), "저그": list(np.random.rand(20) * 10 + 1), "프로토스": list(np.random.rand(20) * 10 + 2)}, xlab="시간 [초]", ylab="성적 [점]", title="Star Craft")
     """
-    N = len(y)
     colors = sns.color_palette("husl", n_colors=len(y))
     plt.figure(figsize=ratio)
     # list(plt.Line2D.lineStyles.keys())
