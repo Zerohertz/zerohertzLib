@@ -3,8 +3,25 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to zerohertzLib's documentation!
+⚡ Zerohertz's Library ⚡
 ========================================
+
+.. raw:: html
+
+   <p align="center">
+      <a href="https://github.com/Zerohertz/zerohertzLib">
+         <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"/>
+      </a>
+      <a href="https://pypi.org/project/zerohertzLib/">
+         <img src="https://img.shields.io/badge/PyPI-3775A9?style=for-the-badge&logo=PyPI&logoColor=white"/>
+      </a>
+      <a href="https://jenkins.zerohertz.xyz/blue/organizations/jenkins/zerohertzLib/activity">
+         <img src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=Jenkins&logoColor=white"/>
+      </a>
+      <a href="https://zerohertz.github.io/zerohertzLib/">
+         <img src="https://img.shields.io/badge/Sphinx-000000?style=for-the-badge&logo=Sphinx&logoColor=white"/>
+      </a>
+   </p>
 
 .. toctree::
    :maxdepth: 2

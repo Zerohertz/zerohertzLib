@@ -5,9 +5,10 @@ Subpackages
 -----------
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 1
 
    zerohertzLib.algorithm
+   zerohertzLib.api
 
 Module contents
 ---------------
