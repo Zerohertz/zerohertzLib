@@ -10,6 +10,7 @@ Subpackages
    zerohertzLib.algorithm
    zerohertzLib.api
    zerohertzLib.plot
+   zerohertzLib.vision
 
 Module contents
 ---------------
