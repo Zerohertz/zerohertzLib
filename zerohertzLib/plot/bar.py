@@ -1,5 +1,5 @@
 import sys
-from typing import Dict, List, Tuple, Union
+from typing import Dict, List, Optional, Tuple, Union
 
 import numpy as np
 import seaborn as sns
@@ -8,13 +8,13 @@ from matplotlib import pyplot as plt
 
 def bar(
     data: Dict[str, Union[int, float]],
-    xlab: str = "변수 [단위]",
-    ylab: str = "빈도 [단위]",
-    title: str = "tmp",
-    ratio: Tuple[int] = (15, 10),
-    dpi: int = 300,
-    rot: int = 0,
-    per: bool = True,
+    xlab: Optional[str] = "변수 [단위]",
+    ylab: Optional[str] = "빈도 [단위]",
+    title: Optional[str] = "tmp",
+    ratio: Optional[Tuple[int]] = (15, 10),
+    dpi: Optional[int] = 300,
+    rot: Optional[int] = 0,
+    per: Optional[bool] = True,
 ) -> None:
     """Dictionary로 입력받은 데이터를 bar graph로 시각화
 
@@ -24,13 +24,13 @@ def bar(
 
     Args:
         data (``Dict[str, Union[int, float]]``): 입력 데이터
-        xlab (``str``): Graph에 출력될 X축 label
-        ylab (``str``): Graph에 출력될 Y축 label
-        title (``str``): Graph에 표시될 제목 및 파일명
-        ratio (``Tuple[int]``): Graph의 가로, 세로 길이
-        dpi: (``int``): Graph 저장 시 DPI (Dots Per Inch)
-        rot: (``int``): X축의 눈금 회전 각도
-        per: (``bool``): 각 bar 상단에 percentage 표시 여부
+        xlab (``Optional[str]``): Graph에 출력될 X축 label
+        ylab (``Optional[str]``): Graph에 출력될 Y축 label
+        title (``Optional[str]``): Graph에 표시될 제목 및 파일명
+        ratio (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
+        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        rot: (``Optional[int]``): X축의 눈금 회전 각도
+        per: (``Optional[bool]``): 각 bar 상단에 percentage 표시 여부
 
     Returns:
         ``None``: 현재 directory에 바로 graph 저장
@@ -75,13 +75,13 @@ def bar(
 
 def hist(
     data: Dict[str, List[Union[int, float]]],
-    xlab: str = "변수 [단위]",
-    ylab: str = "빈도 [단위]",
-    title: str = "tmp",
-    cnt: int = 30,
-    ovp: bool = True,
-    ratio: Tuple[int] = (15, 10),
-    dpi: int = 300,
+    xlab: Optional[str] = "변수 [단위]",
+    ylab: Optional[str] = "빈도 [단위]",
+    title: Optional[str] = "tmp",
+    cnt: Optional[int] = 30,
+    ovp: Optional[bool] = True,
+    ratio: Optional[Tuple[int]] = (15, 10),
+    dpi: Optional[int] = 300,
 ) -> None:
     """Dictionary로 입력받은 데이터를 histogram으로 시각화
 
@@ -91,13 +91,13 @@ def hist(
 
     Args:
         data (``Dict[str, List[Union[int, float]]]``): 입력 데이터
-        xlab (``str``): Graph에 출력될 X축 label
-        ylab (``str``): Graph에 출력될 Y축 label
-        title (``str``): Graph에 표시될 제목 및 파일명
-        cnt (``int``): Bin의 개수
-        ovp (``bool``): Class에 따른 histogram overlap 여부
-        ratio (``Tuple[int]``): Graph의 가로, 세로 길이
-        dpi: (``int``): Graph 저장 시 DPI (Dots Per Inch)
+        xlab (``Optional[str]``): Graph에 출력될 X축 label
+        ylab (``Optional[str]``): Graph에 출력될 Y축 label
+        title (``Optional[str]``): Graph에 표시될 제목 및 파일명
+        cnt (``Optional[int]``): Bin의 개수
+        ovp (``Optional[bool]``): Class에 따른 histogram overlap 여부
+        ratio (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
+        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``None``: 현재 directory에 바로 graph 저장

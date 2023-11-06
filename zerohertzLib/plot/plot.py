@@ -1,4 +1,4 @@
-from typing import Dict, List, Tuple, Union
+from typing import Dict, List, Optional, Tuple, Union
 
 import seaborn as sns
 from matplotlib import pyplot as plt
@@ -7,11 +7,11 @@ from matplotlib import pyplot as plt
 def plot(
     x: List[Union[int, float]],
     y: Dict[str, List[Union[int, float]]],
-    xlab: str = "x축 [단위]",
-    ylab: str = "y축 [단위]",
-    title: str = "tmp",
-    ratio: Tuple[int] = (15, 10),
-    dpi: int = 300,
+    xlab: Optional[str] = "x축 [단위]",
+    ylab: Optional[str] = "y축 [단위]",
+    title: Optional[str] = "tmp",
+    ratio: Optional[Tuple[int]] = (15, 10),
+    dpi: Optional[int] = 300,
 ) -> None:
     """Dictionary로 입력받은 데이터를 bar graph로 시각화
 
@@ -22,11 +22,11 @@ def plot(
     Args:
         x (``List[Union[int, float]]``): 입력 데이터 (X축)
         y (``Dict[str, List[Union[int, float]]]``): 입력 데이터 (Y축)
-        xlab (``str``): Graph에 출력될 X축 label
-        ylab (``str``): Graph에 출력될 Y축 label
-        title (``str``): Graph에 표시될 제목 및 파일명
-        ratio (``Tuple[int]``): Graph의 가로, 세로 길이
-        dpi: (``int``): Graph 저장 시 DPI (Dots Per Inch)
+        xlab (``Optional[str]``): Graph에 출력될 X축 label
+        ylab (``Optional[str]``): Graph에 출력될 Y축 label
+        title (``Optional[str]``): Graph에 표시될 제목 및 파일명
+        ratio (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
+        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``None``: 현재 directory에 바로 graph 저장
