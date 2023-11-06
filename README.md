@@ -18,6 +18,10 @@
     <a href="https://zerohertz.github.io/zerohertzLib/">
         <img src="https://img.shields.io/badge/Sphinx-000000?style=for-the-badge&logo=Sphinx&logoColor=white"/>
     </a>
+    </br>
+    <a href="https://app.codacy.com/gh/Zerohertz/zerohertzLib/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade">
+        <img src="https://app.codacy.com/project/badge/Grade/b08b1d140ee54ae1aa8ee251cb5888ff"/>
+    </a>
 </p>
 
 ```bash
