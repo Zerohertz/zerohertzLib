@@ -1,7 +1,8 @@
 requests
-openai
+openai==0.28.0
 matplotlib
 seaborn
 numpy
 Pillow
 opencv-python
+tritonclient[grpc]

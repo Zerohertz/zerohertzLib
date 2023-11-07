@@ -1,3 +1,7 @@
+cd ..
+rm -rf tmp
+cp -r zerohertzLib tmp
+cd tmp
 pip uninstall zerohertzLib -y
 pip uninstall zerohertzLib -y
 rm -rf build

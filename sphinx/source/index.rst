@@ -3,11 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-⚡ Zerohertz's Library ⚡
-========================================
-
 .. raw:: html
 
+   <h2 align = "center">
+      ⚡ Zerohertz's Library ⚡
+   </h2>
    <p align="center">
       <a href="https://github.com/Zerohertz/zerohertzLib">
          <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"/>
@@ -24,7 +24,20 @@
       <a href="https://zerohertz.github.io/zerohertzLib/">
          <img src="https://img.shields.io/badge/Sphinx-000000?style=for-the-badge&logo=Sphinx&logoColor=white"/>
       </a>
+      </br>
+      <a href="https://app.codacy.com/gh/Zerohertz/zerohertzLib/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade">
+         <img src="https://app.codacy.com/project/badge/Grade/b08b1d140ee54ae1aa8ee251cb5888ff"/>
+      </a>
    </p>
+
+.. code-block:: bash
+
+   $ sudo apt install python3-opencv -y
+   $ pip install zerohertzLib
+
+.. code-block:: python
+
+   import zerohertzLib as zz
 
 .. toctree::
    :maxdepth: 2

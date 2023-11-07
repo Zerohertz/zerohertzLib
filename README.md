@@ -25,6 +25,7 @@
 </p>
 
 ```bash
+$ sudo apt install python3-opencv -y
 $ pip install zerohertzLib
 ```
 

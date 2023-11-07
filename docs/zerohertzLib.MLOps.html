@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>zerohertzLib.MLOps package &mdash; zerohertzLib v0.1.7 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=49eb8eb1"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="zerohertzLib.algorithm package" href="zerohertzLib.algorithm.html" />
+    <link rel="prev" title="zerohertzLib package" href="zerohertzLib.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            zerohertzLib
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">zerohertzLib</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="zerohertzLib.html">zerohertzLib package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="zerohertzLib.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">zerohertzLib.MLOps package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zerohertzLib.algorithm.html">zerohertzLib.algorithm package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zerohertzLib.api.html">zerohertzLib.api package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zerohertzLib.logging.html">zerohertzLib.logging package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zerohertzLib.plot.html">zerohertzLib.plot package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zerohertzLib.vision.html">zerohertzLib.vision package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="zerohertzLib.html#module-zerohertzLib">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">zerohertzLib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">zerohertzLib</a></li>
+          <li class="breadcrumb-item"><a href="zerohertzLib.html">zerohertzLib package</a></li>
+      <li class="breadcrumb-item active">zerohertzLib.MLOps package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/zerohertzLib.MLOps.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="zerohertzlib-mlops-package">
+<h1>zerohertzLib.MLOps package<a class="headerlink" href="#zerohertzlib-mlops-package" title="Permalink to this heading">¶</a></h1>
+<section id="module-zerohertzLib.MLOps">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-zerohertzLib.MLOps" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="zerohertzLib.MLOps.tritonClientK8s">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.MLOps.</span></span><span class="sig-name descname"><span class="pre">tritonClientK8s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">svc_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">8001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.MLOps.tritonClientK8s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zerohertzLib.MLOps.tritonClientURL" title="zerohertzLib.MLOps.triton.tritonClientURL"><code class="xref py py-class docutils literal notranslate"><span class="pre">tritonClientURL</span></code></a></p>
+<p>Kubernetes에서 실행되는 Triton Inference Server의 호출을 위한 Class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>svc_name</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 호출할 Triton Inference Server의 Kubernetes Service의 이름</p></li>
+<li><p><strong>namespace</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 호출할 Triton Inference Server의 Namespace</p></li>
+<li><p><strong>model_name</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 호출할 Triton Inference Server 내 model의 이름</p></li>
+<li><p><strong>port</strong> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – Triton Inference Server의 GRPC 통신 port 번호</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.MLOps.tritonClientK8s.inputs">
+<span class="sig-name descname"><span class="pre">inputs</span></span><a class="headerlink" href="#zerohertzLib.MLOps.tritonClientK8s.inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>지정된 model의 입력</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[Dict[str,</span> <span class="pre">any]]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.MLOps.tritonClientK8s.output">
+<span class="sig-name descname"><span class="pre">output</span></span><a class="headerlink" href="#zerohertzLib.MLOps.tritonClientK8s.output" title="Permalink to this definition">¶</a></dt>
+<dd><p>지정된 model의 출력</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[Dict[str,</span> <span class="pre">any]]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.MLOps.tritonClientK8s.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.MLOps.tritonClientK8s.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Model 호출 수행</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>*args</strong> (<code class="docutils literal notranslate"><span class="pre">List[any]</span></code>) – Model 호출 시 사용될 입력 (<code class="docutils literal notranslate"><span class="pre">self.inputs</span></code>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>호출된 model의 결과</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">np.ndarray]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Examples</p>
+<p>Kubernetes:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; kubectl get svc -n yolo
+NAME                          TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+fastapi-svc                   ClusterIP   10.106.72.126   &lt;none&gt;        80/TCP     90s
+triton-inference-server-svc   ClusterIP   10.96.28.172    &lt;none&gt;        8001/TCP   90s
+&gt;&gt;&gt; docker exec -it ${API_CONTAINER} bash
+</pre></div>
+</div>
+<p>Python:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">zerohertzLib</span> <span class="k">as</span> <span class="nn">zz</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">MLOps</span><span class="o">.</span><span class="n">tritonClientK8s</span><span class="p">(</span><span class="s2">&quot;triton-inference-server-svc&quot;</span><span class="p">,</span> <span class="s2">&quot;yolo&quot;</span><span class="p">,</span> <span class="s2">&quot;YOLO&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="o">.</span><span class="n">inputs</span>
+<span class="go">[{&#39;name&#39;: &#39;images&#39;, &#39;data_type&#39;: &#39;TYPE_FP32&#39;, &#39;dims&#39;: [&#39;1&#39;, &#39;3&#39;, &#39;640&#39;, &#39;640&#39;]}]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="o">.</span><span class="n">outputs</span>
+<span class="go">[{&#39;name&#39;: &#39;output0&#39;, &#39;data_type&#39;: &#39;TYPE_FP32&#39;, &#39;dims&#39;: [&#39;1&#39;, &#39;25200&#39;, &#39;85&#39;]}]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">640</span><span class="p">,</span> <span class="mi">640</span><span class="p">)))</span>
+<span class="go">{&#39;output0&#39;: array([[[3.90108061e+00, 3.51982164e+00, 7.49971962e+00, ...,</span>
+<span class="go">2.21481919e-03, 1.17585063e-03, 1.36753917e-03]]], dtype=float32)}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="zerohertzLib.MLOps.tritonClientURL">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.MLOps.</span></span><span class="sig-name descname"><span class="pre">tritonClientURL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">URL</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">8001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.MLOps.tritonClientURL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>외부에서 실행되는 Triton Inference Server의 호출을 위한 Class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>URL</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 호출할 Triton Inference Server의 URL</p></li>
+<li><p><strong>model_name</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 호출할 Triton Inference Server 내 model의 이름</p></li>
+<li><p><strong>port</strong> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – Triton Inference Server의 GRPC 통신 port 번호</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.MLOps.tritonClientURL.inputs">
+<span class="sig-name descname"><span class="pre">inputs</span></span><a class="headerlink" href="#zerohertzLib.MLOps.tritonClientURL.inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>지정된 model의 입력</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[Dict[str,</span> <span class="pre">any]]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.MLOps.tritonClientURL.output">
+<span class="sig-name descname"><span class="pre">output</span></span><a class="headerlink" href="#zerohertzLib.MLOps.tritonClientURL.output" title="Permalink to this definition">¶</a></dt>
+<dd><p>지정된 model의 출력</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[Dict[str,</span> <span class="pre">any]]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.MLOps.tritonClientURL.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.MLOps.tritonClientURL.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Model 호출 수행</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>*args</strong> (<code class="docutils literal notranslate"><span class="pre">List[any]</span></code>) – Model 호출 시 사용될 입력 (<code class="docutils literal notranslate"><span class="pre">self.inputs</span></code>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>호출된 model의 결과</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">np.ndarray]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">zerohertzLib</span> <span class="k">as</span> <span class="nn">zz</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">MLOps</span><span class="o">.</span><span class="n">tritonClientURL</span><span class="p">(</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="s2">&quot;YOLO&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="o">.</span><span class="n">inputs</span>
+<span class="go">[{&#39;name&#39;: &#39;images&#39;, &#39;data_type&#39;: &#39;TYPE_FP32&#39;, &#39;dims&#39;: [&#39;1&#39;, &#39;3&#39;, &#39;640&#39;, &#39;640&#39;]}]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="o">.</span><span class="n">outputs</span>
+<span class="go">[{&#39;name&#39;: &#39;output0&#39;, &#39;data_type&#39;: &#39;TYPE_FP32&#39;, &#39;dims&#39;: [&#39;1&#39;, &#39;25200&#39;, &#39;85&#39;]}]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">640</span><span class="p">,</span> <span class="mi">640</span><span class="p">)))</span>
+<span class="go">{&#39;output0&#39;: array([[[3.90108061e+00, 3.51982164e+00, 7.49971962e+00, ...,</span>
+<span class="go">2.21481919e-03, 1.17585063e-03, 1.36753917e-03]]], dtype=float32)}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="zerohertzLib.html" class="btn btn-neutral float-left" title="zerohertzLib package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="zerohertzLib.algorithm.html" class="btn btn-neutral float-right" title="zerohertzLib.algorithm package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Zerohertz.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

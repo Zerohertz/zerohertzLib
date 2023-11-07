@@ -1,25 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="ko" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>zerohertzLib.algorithm package &mdash; zerohertzLib v0.1.6 문서</title>
+  <title>zerohertzLib.algorithm package &mdash; zerohertzLib v0.1.7 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=3ac8ef60"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=49eb8eb1"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=4825356b"></script>
-        <script src="_static/translations.js?v=b5f768d8"></script>
     <script src="_static/js/theme.js"></script>
-    <link rel="index" title="색인" href="genindex.html" />
-    <link rel="search" title="검색" href="search.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="zerohertzLib.api package" href="zerohertzLib.api.html" />
-    <link rel="prev" title="zerohertzLib package" href="zerohertzLib.html" /> 
+    <link rel="prev" title="zerohertzLib.MLOps package" href="zerohertzLib.MLOps.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -46,8 +45,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">zerohertzLib</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="zerohertzLib.html">zerohertzLib package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="zerohertzLib.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="zerohertzLib.MLOps.html">zerohertzLib.MLOps package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">zerohertzLib.algorithm package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="zerohertzLib.api.html">zerohertzLib.api package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zerohertzLib.logging.html">zerohertzLib.logging package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="zerohertzLib.plot.html">zerohertzLib.plot package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="zerohertzLib.vision.html">zerohertzLib.vision package</a></li>
 </ul>
@@ -86,25 +87,25 @@
            <div itemprop="articleBody">
              
   <section id="zerohertzlib-algorithm-package">
-<h1>zerohertzLib.algorithm package<a class="headerlink" href="#zerohertzlib-algorithm-package" title="이 제목에 대한 퍼머링크">¶</a></h1>
+<h1>zerohertzLib.algorithm package<a class="headerlink" href="#zerohertzlib-algorithm-package" title="Permalink to this heading">¶</a></h1>
 <section id="module-zerohertzLib.algorithm">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-zerohertzLib.algorithm" title="이 제목에 대한 퍼머링크">¶</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-zerohertzLib.algorithm" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.algorithm.SoE">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.algorithm.</span></span><span class="sig-name descname"><span class="pre">SoE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#zerohertzLib.algorithm.SoE" title="이 정의에 대한 퍼머링크">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.algorithm.</span></span><span class="sig-name descname"><span class="pre">SoE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#zerohertzLib.algorithm.SoE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sieve of Eratosthenes</p>
 <dl class="field-list simple">
-<dt class="field-odd">매개변수<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>N</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – 구하고자 하는 소수 범위의 최댓값</p>
 </dd>
-<dt class="field-even">반환<span class="colon">:</span></dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>N까지 존재하는 소수 list</p>
 </dd>
-<dt class="field-odd">반환 형식<span class="colon">:</span></dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[int]</span></code></p>
 </dd>
 </dl>
-<p class="rubric">예제</p>
+<p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">zerohertzLib</span> <span class="k">as</span> <span class="nn">zz</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">algorithm</span><span class="o">.</span><span class="n">SoE</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="go">[2, 3, 5, 7]</span>
@@ -114,23 +115,23 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.algorithm.bfs">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.algorithm.</span></span><span class="sig-name descname"><span class="pre">bfs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#zerohertzLib.algorithm.bfs" title="이 정의에 대한 퍼머링크">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.algorithm.</span></span><span class="sig-name descname"><span class="pre">bfs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#zerohertzLib.algorithm.bfs" title="Permalink to this definition">¶</a></dt>
 <dd><p>BFS를 수행하기 위한 함수</p>
 <dl class="field-list simple">
-<dt class="field-odd">매개변수<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>maps</strong> (<code class="docutils literal notranslate"><span class="pre">List[List[int]]</span></code>) – 입력 그래프</p></li>
 <li><p><strong>start</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – 그래프의 시작 지점</p></li>
 </ul>
 </dd>
-<dt class="field-even">반환<span class="colon">:</span></dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>방문 순서</p>
 </dd>
-<dt class="field-odd">반환 형식<span class="colon">:</span></dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[int]</span></code></p>
 </dd>
 </dl>
-<p class="rubric">예제</p>
+<p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">zerohertzLib</span> <span class="k">as</span> <span class="nn">zz</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">algorithm</span><span class="o">.</span><span class="n">bfs</span><span class="p">([[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]],</span> <span class="mi">1</span><span class="p">)</span>
 <span class="go">[1, 2, 3, 4]</span>
@@ -140,23 +141,23 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.algorithm.dfs">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.algorithm.</span></span><span class="sig-name descname"><span class="pre">dfs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#zerohertzLib.algorithm.dfs" title="이 정의에 대한 퍼머링크">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.algorithm.</span></span><span class="sig-name descname"><span class="pre">dfs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#zerohertzLib.algorithm.dfs" title="Permalink to this definition">¶</a></dt>
 <dd><p>DFS를 수행하기 위한 함수</p>
 <dl class="field-list simple">
-<dt class="field-odd">매개변수<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>maps</strong> (<code class="docutils literal notranslate"><span class="pre">List[List[int]]</span></code>) – 입력 그래프</p></li>
 <li><p><strong>start</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – 그래프의 시작 지점</p></li>
 </ul>
 </dd>
-<dt class="field-even">반환<span class="colon">:</span></dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>방문 순서</p>
 </dd>
-<dt class="field-odd">반환 형식<span class="colon">:</span></dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[int]</span></code></p>
 </dd>
 </dl>
-<p class="rubric">예제</p>
+<p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">zerohertzLib</span> <span class="k">as</span> <span class="nn">zz</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">algorithm</span><span class="o">.</span><span class="n">dfs</span><span class="p">([[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]],</span> <span class="mi">1</span><span class="p">)</span>
 <span class="go">[1, 2, 4, 3]</span>
@@ -171,7 +172,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="zerohertzLib.html" class="btn btn-neutral float-left" title="zerohertzLib package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="zerohertzLib.MLOps.html" class="btn btn-neutral float-left" title="zerohertzLib.MLOps package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="zerohertzLib.api.html" class="btn btn-neutral float-right" title="zerohertzLib.api package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
