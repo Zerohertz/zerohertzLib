@@ -1,23 +1,22 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="ko" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>zerohertzLib.vision package &mdash; zerohertzLib v0.1.6 문서</title>
+  <title>zerohertzLib.vision package &mdash; zerohertzLib v0.1.7 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=3ac8ef60"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=49eb8eb1"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=4825356b"></script>
-        <script src="_static/translations.js?v=b5f768d8"></script>
     <script src="_static/js/theme.js"></script>
-    <link rel="index" title="색인" href="genindex.html" />
-    <link rel="search" title="검색" href="search.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="zerohertzLib.plot package" href="zerohertzLib.plot.html" /> 
 </head>
 
@@ -45,8 +44,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">zerohertzLib</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="zerohertzLib.html">zerohertzLib package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="zerohertzLib.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="zerohertzLib.MLOps.html">zerohertzLib.MLOps package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="zerohertzLib.algorithm.html">zerohertzLib.algorithm package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="zerohertzLib.api.html">zerohertzLib.api package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zerohertzLib.logging.html">zerohertzLib.logging package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="zerohertzLib.plot.html">zerohertzLib.plot package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">zerohertzLib.vision package</a></li>
 </ul>
@@ -85,30 +86,30 @@
            <div itemprop="articleBody">
              
   <section id="zerohertzlib-vision-package">
-<h1>zerohertzLib.vision package<a class="headerlink" href="#zerohertzlib-vision-package" title="이 제목에 대한 퍼머링크">¶</a></h1>
+<h1>zerohertzLib.vision package<a class="headerlink" href="#zerohertzlib-vision-package" title="Permalink to this heading">¶</a></h1>
 <section id="module-zerohertzLib.vision">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-zerohertzLib.vision" title="이 제목에 대한 퍼머링크">¶</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-zerohertzLib.vision" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.vision.img2gif">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">img2gif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'tmp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">500</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#zerohertzLib.vision.img2gif" title="이 정의에 대한 퍼머링크">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">img2gif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'tmp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">500</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#zerohertzLib.vision.img2gif" title="Permalink to this definition">¶</a></dt>
 <dd><p>Directory 내 이미지들을 GIF로 변환</p>
 <img alt="GIF Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280735315-2eaa059e-0cf5-4cb7-8983-5b7e1f2d3f21.gif" />
 <dl class="field-list simple">
-<dt class="field-odd">매개변수<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>images_path</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – GIF로 변환할 이미지들이 존재하는 경로</p></li>
 <li><p><strong>output_filename</strong> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 출력될 GIF 파일명</p></li>
 <li><p><strong>duration</strong> – (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>): ms 단위의 사진 간 간격</p></li>
 </ul>
 </dd>
-<dt class="field-even">반환<span class="colon">:</span></dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>현재 directory에 바로 GIF 저장</p>
 </dd>
-<dt class="field-odd">반환 형식<span class="colon">:</span></dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
-<p class="rubric">예제</p>
+<p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">zerohertzLib</span> <span class="k">as</span> <span class="nn">zz</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">img2gif</span><span class="p">(</span><span class="s2">&quot;./&quot;</span><span class="p">)</span>
 </pre></div>
@@ -117,11 +118,11 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.vision.vid2gif">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">vid2gif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'tmp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quality</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">15</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.vid2gif" title="이 정의에 대한 퍼머링크">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">vid2gif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'tmp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quality</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">15</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.vid2gif" title="Permalink to this definition">¶</a></dt>
 <dd><p>동영상을 GIF로 변환</p>
 <img alt="GIF Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280735327-ba590c0b-6180-4dce-a256-ccf12d0ba64b.gif" />
 <dl class="field-list simple">
-<dt class="field-odd">매개변수<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>video_path</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – GIF로 변환할 동영상이 존재하는 경로</p></li>
 <li><p><strong>output_filename</strong> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 출력될 GIF 파일명</p></li>
@@ -129,14 +130,14 @@
 <li><p><strong>fps</strong> – (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>): 출력될 GIF의 FPS (Frames Per Second)</p></li>
 </ul>
 </dd>
-<dt class="field-even">반환<span class="colon">:</span></dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>현재 directory에 바로 GIF 저장</p>
 </dd>
-<dt class="field-odd">반환 형식<span class="colon">:</span></dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
-<p class="rubric">예제</p>
+<p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">zerohertzLib</span> <span class="k">as</span> <span class="nn">zz</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">vid2gif</span><span class="p">(</span><span class="s2">&quot;tmp.mp4&quot;</span><span class="p">)</span>
 </pre></div>
