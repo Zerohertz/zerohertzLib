@@ -11,6 +11,7 @@ Subpackages
    zerohertzLib.api
    zerohertzLib.plot
    zerohertzLib.vision
+   zerohertzLib.MLOps
 
 Module contents
 ---------------
