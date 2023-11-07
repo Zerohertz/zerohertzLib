@@ -52,28 +52,28 @@ class tritonClientURL:
 
     def __call__(self, *args) -> Dict[str, np.ndarray]:
         assert len(self.inputs) == len(args)
-        INPUTS = []
-        for input, arg in zip(self.inputs, args):
-            INPUTS.append(self._set_input(input, arg))
-        OUTPUTS = []
+        triton_inputs = []
+        for input_info, arg in zip(self.inputs, args):
+            triton_inputs.append(self._set_input(input_info, arg))
+        triton_outputs = []
         for output in self.outputs:
-            OUTPUTS.append(grpcclient.InferRequestedOutput(output["name"]))
+            triton_outputs.append(grpcclient.InferRequestedOutput(output["name"]))
         response = self.triton_client.infer(
-            model_name=self.model_name, inputs=INPUTS, outputs=OUTPUTS
+            model_name=self.model_name, inputs=triton_inputs, outputs=triton_outputs
         )
         response.get_response()
-        RESULTS = {}
+        triton_results = {}
         for output in self.outputs:
-            RESULTS[output["name"]] = response.as_numpy(output["name"])
-        return RESULTS
+            triton_results[output["name"]] = response.as_numpy(output["name"])
+        return triton_results
 
-    def _set_input(self, input, var):
-        assert len(input["dims"]) == len(var.shape)
-        var = var.astype(triton_to_np_dtype(input["data_type"][5:]))
+    def _set_input(self, input_info, var):
+        assert len(input_info["dims"]) == len(var.shape)
+        var = var.astype(triton_to_np_dtype(input_info["data_type"][5:]))
         return grpcclient.InferInput(
-            input["name"],
+            input_info["name"],
             var.shape,
-            input["data_type"][5:],
+            input_info["data_type"][5:],
         ).set_data_from_numpy(var)
 
 
