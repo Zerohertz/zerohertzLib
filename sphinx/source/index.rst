@@ -30,6 +30,15 @@
       </a>
    </p>
 
+.. code-block:: bash
+
+   $ sudo apt install python3-opencv -y
+   $ pip install zerohertzLib
+
+.. code-block:: python
+
+   import zerohertzLib as zz
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
