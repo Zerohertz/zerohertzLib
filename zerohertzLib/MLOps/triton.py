@@ -67,13 +67,13 @@ class tritonClientURL:
             RESULTS[output["name"]] = response.as_numpy(output["name"])
         return RESULTS
 
-    def _set_input(self, input, var):
-        assert len(input["dims"]) == len(var.shape)
-        var = var.astype(triton_to_np_dtype(input["data_type"][5:]))
+    def _set_input(self, input_info, var):
+        assert len(input_info["dims"]) == len(var.shape)
+        var = var.astype(triton_to_np_dtype(input_info["data_type"][5:]))
         return grpcclient.InferInput(
-            input["name"],
+            input_info["name"],
             var.shape,
-            input["data_type"][5:],
+            input_info["data_type"][5:],
         ).set_data_from_numpy(var)
 
 
