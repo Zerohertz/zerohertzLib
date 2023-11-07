@@ -5,3 +5,4 @@ seaborn
 numpy
 Pillow
 opencv-python
+tritonclient[grpc]
