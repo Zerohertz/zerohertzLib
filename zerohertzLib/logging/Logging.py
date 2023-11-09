@@ -18,15 +18,15 @@ class Logger:
     Examples:
         >>> logger = zz.logging.Logger("TEST_1")
         >>> logger.debug("debug")
-        2023-11-07 21:41:36,505 | TEST_1 | DEBUG    | debug
+        2023-11-07 21:41:36,505 | DEBUG    | TEST_1 | debug
         >>> logger.info("info")
-        2023-11-07 21:41:36,505 | TEST_1 | INFO     | info
+        2023-11-07 21:41:36,505 | INFO     | TEST_1 | info
         >>> logger.warning("warning")
-        2023-11-07 21:41:36,505 | TEST_1 | WARNING  | warning
+        2023-11-07 21:41:36,505 | WARNING  | TEST_1 | warning
         >>> logger.error("error")
-        2023-11-07 21:41:36,505 | TEST_1 | ERROR    | error
+        2023-11-07 21:41:36,505 | ERROR    | TEST_1 | error
         >>> logger.critical("critical")
-        2023-11-07 21:41:36,505 | TEST_1 | CRITICAL | critical
+        2023-11-07 21:41:36,505 | CRITICAL | TEST_1 | critical
     """
 
     def __init__(
@@ -40,7 +40,7 @@ class Logger:
         self.logger = logging.getLogger(logger_name)
         self.logger.setLevel(loggerLevel)
         formatter = logging.Formatter(
-            "%(asctime)s | %(name)s | %(levelname)-8s | %(message)s"
+            "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"
         )
         console_handler = logging.StreamHandler()
         console_handler.setLevel(consoleLevel)
