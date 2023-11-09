@@ -15,7 +15,7 @@ class tritonClientURL:
 
     Attributes:
         inputs (``List[Dict[str, any]]``): 지정된 model의 입력
-        output (``List[Dict[str, any]]``): 지정된 model의 출력
+        outputs (``List[Dict[str, any]]``): 지정된 model의 출력
 
     Methods:
         __call__:
@@ -88,7 +88,7 @@ class tritonClientK8s(tritonClientURL):
 
     Attributes:
         inputs (``List[Dict[str, any]]``): 지정된 model의 입력
-        output (``List[Dict[str, any]]``): 지정된 model의 출력
+        outputs (``List[Dict[str, any]]``): 지정된 model의 출력
 
     Methods:
         __call__:
