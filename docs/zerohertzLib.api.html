@@ -4,14 +4,14 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>zerohertzLib.api package &mdash; zerohertzLib v0.1.7 documentation</title>
+  <title>zerohertzLib.api package &mdash; zerohertzLib v0.1.8 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=49eb8eb1"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=a1f12d73"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/js/theme.js"></script>
@@ -156,11 +156,16 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.api.send_discord_message">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.api.</span></span><span class="sig-name descname"><span class="pre">send_discord_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">webhook_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Response</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#zerohertzLib.api.send_discord_message" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.api.</span></span><span class="sig-name descname"><span class="pre">send_discord_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">webhook_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeblock</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Response</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#zerohertzLib.api.send_discord_message" title="Permalink to this definition">¶</a></dt>
 <dd><p>Discord Webhook에 메세지 전송</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>message</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Discord Webhook의 입력</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>webhook_url</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Discord Webhook의 URL</p></li>
+<li><p><strong>message</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Discord Webhook의 입력</p></li>
+<li><p><strong>t</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – <code class="docutils literal notranslate"><span class="pre">message</span></code> 의 전송 간 간격</p></li>
+<li><p><strong>codeblock</strong> (<code class="docutils literal notranslate"><span class="pre">bool</span></code>) – 전송되는 메세지의 스타일</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Discord Webhook의 응답</p>
