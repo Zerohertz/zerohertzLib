@@ -1,5 +1,10 @@
+import io
 import logging
-from typing import Optional
+from typing import List, Optional
+
+import requests
+
+from zerohertzLib.api import send_discord_message
 
 
 class Logger:
@@ -11,6 +16,7 @@ class Logger:
     Args:
         logger_name (``Optional[str]``): Logger의 이름
         file_name(``Optional[str]``): ``.log`` 파일의 이름 (미입력 시 미출력)
+        discord (``Optional[str]``): Discord webhook의 URL (``loggerLevel`` 적용)
         loggerLevel (``Optional[int]``): ``logging.getLogger`` 의 level
         consoleLevel (``Optional[int]``): ``logging.StreamHandler`` 의 level
         fileLevel (``Optional[int]``): ``logging.FileHandler`` 의 level
@@ -18,21 +24,22 @@ class Logger:
     Examples:
         >>> logger = zz.logging.Logger("TEST_1")
         >>> logger.debug("debug")
-        2023-11-07 21:41:36,505 | TEST_1 | DEBUG    | debug
+        2023-11-07 21:41:36,505 | DEBUG    | TEST_1 | debug
         >>> logger.info("info")
-        2023-11-07 21:41:36,505 | TEST_1 | INFO     | info
+        2023-11-07 21:41:36,505 | INFO     | TEST_1 | info
         >>> logger.warning("warning")
-        2023-11-07 21:41:36,505 | TEST_1 | WARNING  | warning
+        2023-11-07 21:41:36,505 | WARNING  | TEST_1 | warning
         >>> logger.error("error")
-        2023-11-07 21:41:36,505 | TEST_1 | ERROR    | error
+        2023-11-07 21:41:36,505 | ERROR    | TEST_1 | error
         >>> logger.critical("critical")
-        2023-11-07 21:41:36,505 | TEST_1 | CRITICAL | critical
+        2023-11-07 21:41:36,505 | CRITICAL | TEST_1 | critical
     """
 
     def __init__(
         self,
         logger_name: Optional[str] = None,
         file_name: Optional[str] = None,
+        discord: Optional[str] = None,
         loggerLevel: Optional[int] = logging.DEBUG,
         consoleLevel: Optional[int] = logging.DEBUG,
         fileLevel: Optional[int] = logging.DEBUG,
@@ -40,7 +47,7 @@ class Logger:
         self.logger = logging.getLogger(logger_name)
         self.logger.setLevel(loggerLevel)
         formatter = logging.Formatter(
-            "%(asctime)s | %(name)s | %(levelname)-8s | %(message)s"
+            "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"
         )
         console_handler = logging.StreamHandler()
         console_handler.setLevel(consoleLevel)
@@ -51,18 +58,44 @@ class Logger:
             file_handler.setLevel(fileLevel)
             file_handler.setFormatter(formatter)
             self.logger.addHandler(file_handler)
+        self.discord = discord
+        if not self.discord is None:
+            self.log_stream = io.StringIO()
+            stream_handler = logging.StreamHandler(self.log_stream)
+            stream_handler.setLevel(loggerLevel)
+            stream_handler.setFormatter(formatter)
+            self.logger.addHandler(stream_handler)
 
     def debug(self, log: str) -> None:
         self.logger.debug(log)
+        if not self.discord is None:
+            self._send_discord_message()
 
     def info(self, log: str) -> None:
         self.logger.info(log)
+        if not self.discord is None:
+            self._send_discord_message()
 
     def warning(self, log: str) -> None:
         self.logger.warning(log)
+        if not self.discord is None:
+            self._send_discord_message()
 
     def error(self, log: str) -> None:
         self.logger.error(log)
+        if not self.discord is None:
+            self._send_discord_message()
 
     def critical(self, log: str) -> None:
         self.logger.critical(log)
+        if not self.discord is None:
+            self._send_discord_message()
+
+    def _send_discord_message(self) -> List[requests.models.Response]:
+        # TODO: response에 대한 처리
+        response = send_discord_message(
+            self.discord, self.log_stream.getvalue(), t=0, codeblock=True
+        )
+        self.log_stream.seek(0)
+        self.log_stream.truncate()
+        return response
