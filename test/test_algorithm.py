@@ -37,3 +37,13 @@ def test_bfs():
 
 def test_SoE():
     assert zz.algorithm.SoE(10) == [2, 3, 5, 7]
+
+
+def test_fft():
+    assert zz.algorithm.fft([1, 0, 0, 0], 0) == [(1 + 0j), (1 + 0j), (1 + 0j), (1 + 0j)]
+    assert zz.algorithm.fft([1 + 0j, 1 + 0j, 1 + 0j, 1 + 0j], 1) == [
+        (4 + 0j),
+        0j,
+        0j,
+        0j,
+    ]
