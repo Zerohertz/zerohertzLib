@@ -27,7 +27,6 @@ def send_discord_message(
         ``List[requests.models.Response]``: Discord Webhook의 응답
 
     Examples:
-        >>> import zerohertzLib as zz
         >>> zz.api.send_discord_message("https://discord.com/api/webhooks/...", "Testing...")
         [<Response [204]>]
     """

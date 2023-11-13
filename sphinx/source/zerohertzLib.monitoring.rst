@@ -1,10 +1,10 @@
-zerohertzLib.MLOps package
+zerohertzLib.monitoring package
 ==============================
 
 Module contents
 ---------------
 
-.. automodule:: zerohertzLib.MLOps
+.. automodule:: zerohertzLib.monitoring
    :members:
    :undoc-members:
    :show-inheritance:

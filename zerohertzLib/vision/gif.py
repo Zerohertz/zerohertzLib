@@ -35,7 +35,6 @@ def img2gif(
         ``None``: 현재 directory에 바로 GIF 저장
 
     Examples:
-        >>> import zerohertzLib as zz
         >>> zz.vision.img2gif("./")
     """
     image_files = [
@@ -70,7 +69,6 @@ def vid2gif(
         ``None``: 현재 directory에 바로 GIF 저장
 
     Examples:
-        >>> import zerohertzLib as zz
         >>> zz.vision.vid2gif("tmp.mp4")
     """
     frames = []

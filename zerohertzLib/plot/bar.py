@@ -36,7 +36,6 @@ def bar(
         ``None``: 현재 directory에 바로 graph 저장
 
     Examples:
-        >>> import zerohertzLib as zz
         >>> zz.plot.bar({"테란": 27, "저그": 40, "프로토스": 30}, xlab="종족", ylab="인구 [명]", title="Star Craft")
     """
     colors = sns.color_palette("husl", n_colors=len(data))
@@ -103,7 +102,6 @@ def barh(
         ``None``: 현재 directory에 바로 graph 저장
 
     Examples:
-        >>> import zerohertzLib as zz
         >>> zz.plot.barh({"테란": 27, "저그": 40, "프로토스": 30}, xlab="인구 [명]", ylab="종족", title="Star Craft")
     """
     colors = sns.color_palette("husl", n_colors=len(data))
@@ -172,7 +170,6 @@ def hist(
         ``None``: 현재 directory에 바로 graph 저장
 
     Examples:
-        >>> import zerohertzLib as zz
         >>> zz.plot.hist({"테란": list(np.random.rand(1000) * 10), "저그": list(np.random.rand(1000) * 10 + 1), "프로토스": list(np.random.rand(1000) * 10 + 2)}, xlab="성적 [점]", ylab="인원 [명]", title="Star Craft")
     """
     colors = sns.color_palette("husl", n_colors=len(data))
