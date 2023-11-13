@@ -1,8 +1,15 @@
+# API
 requests
 openai==0.28.0
+
+# MLOps
+tritonclient[grpc]
+
+# Vision
+numpy
+opencv-python
+Pillow
+
+# Visualization
 matplotlib
 seaborn
-numpy
-Pillow
-opencv-python
-tritonclient[grpc]
