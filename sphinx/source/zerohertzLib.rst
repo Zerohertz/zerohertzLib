@@ -11,6 +11,7 @@ Subpackages
    zerohertzLib.api
    zerohertzLib.logging
    zerohertzLib.mlops
+   zerohertzLib.monitoring
    zerohertzLib.plot
    zerohertzLib.vision
 
