@@ -17,7 +17,6 @@ def api_key(api_key: str) -> openai.openai_object.OpenAIObject:
         ``openai.openai_object.OpenAIObject``: 사용 가능한 model들의 정보
 
     Examples:
-        >>> import zerohertzLib as zz
         >>> zz.api.api_key("sk-...")
         <OpenAIObject list at ...> JSON: {
             "object": "list",
@@ -50,7 +49,6 @@ def gpt(message: str) -> str:
         ``str``: ChatGPT 3.5의 출력
 
     Examples:
-        >>> import zerohertzLib as zz
         >>> zz.api.api_key("sk-...")
         >>> zz.api.gpt("hi")
         'Hello! How can I assist you today?'

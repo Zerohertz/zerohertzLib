@@ -11,7 +11,6 @@ def SoE(N: int) -> List[int]:
         ``List[int]``: N까지 존재하는 소수 list
 
     Examples:
-        >>> import zerohertzLib as zz
         >>> zz.algorithm.SoE(10)
         [2, 3, 5, 7]
     """

@@ -32,7 +32,6 @@ def plot(
         ``None``: 현재 directory에 바로 graph 저장
 
     Examples:
-        >>> import zerohertzLib as zz
         >>> zz.plot.plot([i for i in range(20)],{"테란": list(np.random.rand(20) * 10), "저그": list(np.random.rand(20) * 10 + 1), "프로토스": list(np.random.rand(20) * 10 + 2)}, xlab="시간 [초]", ylab="성적 [점]", title="Star Craft")
     """
     colors = sns.color_palette("husl", n_colors=len(y))

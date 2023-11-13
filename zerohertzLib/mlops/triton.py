@@ -28,7 +28,6 @@ class tritonClientURL:
                 ``Dict[str, np.ndarray]``: 호출된 model의 결과
 
     Examples:
-        >>> import zerohertzLib as zz
         >>> tc = zz.mlops.tritonClientURL("localhost", "YOLO")
         >>> tc.inputs
         [{'name': 'images', 'data_type': 'TYPE_FP32', 'dims': ['1', '3', '640', '640']}]
@@ -111,7 +110,6 @@ class tritonClientK8s(tritonClientURL):
 
         Python:
 
-        >>> import zerohertzLib as zz
         >>> tc = zz.mlops.tritonClientK8s("triton-inference-server-svc", "yolo", "YOLO")
         >>> tc.inputs
         [{'name': 'images', 'data_type': 'TYPE_FP32', 'dims': ['1', '3', '640', '640']}]

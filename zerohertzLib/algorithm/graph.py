@@ -13,7 +13,6 @@ def bfs(maps: List[List[int]], start: int) -> List[int]:
         ``List[int]``: 방문 순서
 
     Examples:
-        >>> import zerohertzLib as zz
         >>> zz.algorithm.bfs([[], [2, 3, 4], [1, 4], [1, 4], [1, 2, 3]], 1)
         [1, 2, 3, 4]
     """
@@ -43,7 +42,6 @@ def dfs(maps: List[List[int]], start: int) -> List[int]:
         ``List[int]``: 방문 순서
 
     Examples:
-        >>> import zerohertzLib as zz
         >>> zz.algorithm.dfs([[], [2, 3, 4], [1, 4], [1, 4], [1, 2, 3]], 1)
         [1, 2, 4, 3]
     """
