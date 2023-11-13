@@ -10,4 +10,4 @@ font_manager.fontManager.addfont(
 )
 plt.rcParams["font.family"] = "Noto Sans KR"
 
-__all__ = ["bar", "hist", "plot"]
+__all__ = ["bar", "barh", "hist", "plot"]
