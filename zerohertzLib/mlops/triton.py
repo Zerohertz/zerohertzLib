@@ -29,7 +29,7 @@ class tritonClientURL:
 
     Examples:
         >>> import zerohertzLib as zz
-        >>> tc = zz.MLOps.tritonClientURL("localhost", "YOLO")
+        >>> tc = zz.mlops.tritonClientURL("localhost", "YOLO")
         >>> tc.inputs
         [{'name': 'images', 'data_type': 'TYPE_FP32', 'dims': ['1', '3', '640', '640']}]
         >>> tc.outputs
@@ -112,7 +112,7 @@ class tritonClientK8s(tritonClientURL):
         Python:
 
         >>> import zerohertzLib as zz
-        >>> tc = zz.MLOps.tritonClientK8s("triton-inference-server-svc", "yolo", "YOLO")
+        >>> tc = zz.mlops.tritonClientK8s("triton-inference-server-svc", "yolo", "YOLO")
         >>> tc.inputs
         [{'name': 'images', 'data_type': 'TYPE_FP32', 'dims': ['1', '3', '640', '640']}]
         >>> tc.outputs
