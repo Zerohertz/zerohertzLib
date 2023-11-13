@@ -4,14 +4,14 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>zerohertzLib.api package &mdash; zerohertzLib v0.1.8 documentation</title>
+  <title>zerohertzLib.api package &mdash; zerohertzLib v0.1.9 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=a1f12d73"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=0589a96a"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/js/theme.js"></script>
@@ -45,10 +45,11 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">zerohertzLib</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="zerohertzLib.html">zerohertzLib package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="zerohertzLib.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="zerohertzLib.MLOps.html">zerohertzLib.MLOps package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="zerohertzLib.algorithm.html">zerohertzLib.algorithm package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">zerohertzLib.api package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="zerohertzLib.logging.html">zerohertzLib.logging package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zerohertzLib.mlops.html">zerohertzLib.mlops package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zerohertzLib.monitoring.html">zerohertzLib.monitoring package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="zerohertzLib.plot.html">zerohertzLib.plot package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="zerohertzLib.vision.html">zerohertzLib.vision package</a></li>
 </ul>
@@ -108,8 +109,7 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">zerohertzLib</span> <span class="k">as</span> <span class="nn">zz</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">api_key</span><span class="p">(</span><span class="s2">&quot;sk-...&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">api_key</span><span class="p">(</span><span class="s2">&quot;sk-...&quot;</span><span class="p">)</span>
 <span class="go">&lt;OpenAIObject list at ...&gt; JSON: {</span>
 <span class="go">    &quot;object&quot;: &quot;list&quot;,</span>
 <span class="go">    &quot;data&quot;: [</span>
@@ -146,8 +146,7 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">zerohertzLib</span> <span class="k">as</span> <span class="nn">zz</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">api_key</span><span class="p">(</span><span class="s2">&quot;sk-...&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">api_key</span><span class="p">(</span><span class="s2">&quot;sk-...&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">gpt</span><span class="p">(</span><span class="s2">&quot;hi&quot;</span><span class="p">)</span>
 <span class="go">&#39;Hello! How can I assist you today?&#39;</span>
 </pre></div>
@@ -175,8 +174,7 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">zerohertzLib</span> <span class="k">as</span> <span class="nn">zz</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">send_discord_message</span><span class="p">(</span><span class="s2">&quot;https://discord.com/api/webhooks/...&quot;</span><span class="p">,</span> <span class="s2">&quot;Testing...&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">send_discord_message</span><span class="p">(</span><span class="s2">&quot;https://discord.com/api/webhooks/...&quot;</span><span class="p">,</span> <span class="s2">&quot;Testing...&quot;</span><span class="p">)</span>
 <span class="go">[&lt;Response [204]&gt;]</span>
 </pre></div>
 </div>
