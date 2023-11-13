@@ -7,10 +7,11 @@ Subpackages
 .. toctree::
    :maxdepth: 1
 
-   zerohertzLib.MLOps
    zerohertzLib.algorithm
    zerohertzLib.api
    zerohertzLib.logging
+   zerohertzLib.mlops
+   zerohertzLib.monitoring
    zerohertzLib.plot
    zerohertzLib.vision
 
