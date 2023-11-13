@@ -33,9 +33,9 @@ def pie(
     colors = sns.color_palette("husl", n_colors=len(data))
     plt.figure(figsize=ratio)
     if dim == "":
-        labels = [f"{k} ({v})" for k, v in data.items()]
+        labels = [f"{k} ({v:.2f})" for k, v in data.items()]
     else:
-        labels = [f"{k} ({v} {dim})" for k, v in data.items()]
+        labels = [f"{k} ({v:.2f} {dim})" for k, v in data.items()]
     plt.pie(
         data.values(),
         labels=labels,
@@ -43,6 +43,7 @@ def pie(
         startangle=90,
         radius=1,
         colors=colors,
+        normalize=True,
     )
     plt.title(title, fontsize=25)
     plt.axis("equal")
