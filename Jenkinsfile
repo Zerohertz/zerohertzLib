@@ -46,18 +46,15 @@ spec:
 
     stages {
         stage("Setup") {
-            when {
-                anyOf {
-                    branch "master"
-                    branch pattern: "dev.*", comparator: "REGEXP"
-                    expression {
-                        return env.CHANGE_TARGET == "master"
-                    }
-                }
-            }
             steps {
                 script {
-                    commitMessage = sh(script: "git log -1 --pretty=%B ${env.GIT_COMMIT}", returnStdout: true).trim()
+                    def status = sh(script: "git log -1 --pretty=%B ${env.GIT_COMMIT}", returnStdout: true, returnStatus: true)
+                    if (status != 0) {
+                        commitMessage = ""
+                        currentBuild.result = "SUCCESS"
+                    } else {
+                        commitMessage = sh(script: "git log -1 --pretty=%B ${env.GIT_COMMIT}", returnStdout: true).trim()
+                    }
                 }
             }
         }
