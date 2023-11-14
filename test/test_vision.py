@@ -22,20 +22,20 @@ def test_vid2gif():
 
 
 def test_before_after():
-    before = cv2.imread("test.jpg")
+    before = cv2.imread(f"{tmp}test.jpg")
     after = cv2.GaussianBlur(before, (0, 0), 25)
     after = cv2.cvtColor(after, cv2.COLOR_BGR2GRAY)
     zz.vision.before_after(before, after, quality=10, output_filename="ba1")
     assert "ba1.png" in os.listdir()
-    before = cv2.imread("test.jpg")
+    before = cv2.imread(f"{tmp}test.jpg")
     after = cv2.resize(before, (100, 100))
     zz.vision.before_after(before, after, [20, 40, 30, 60], output_filename="ba2")
     assert "ba2.png" in os.listdir()
 
 
 def test_grid():
-    tmp = cv2.imread("test.jpg")
-    imgs = [(tmp + np.random.rand(*tmp.shape)).astype(np.uint8) for _ in range(8)]
+    test = cv2.imread(f"{tmp}test.jpg")
+    imgs = [(test + np.random.rand(*test.shape)).astype(np.uint8) for _ in range(8)]
     imgs[2] = cv2.cvtColor(imgs[2], cv2.COLOR_BGR2GRAY)
     zz.vision.grid(*imgs, output_filename="grid")
     assert "grid.png" in os.listdir()
