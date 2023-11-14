@@ -46,6 +46,12 @@ jobs:
               });
 
               files.data.forEach(file => {
+                if (file.filename.startsWith('Jenkins') || file.filename.startsWith('.github/workflows')) {
+                  labelsToAdd.push('chore');
+                }
+                if (file.filename.startsWith('docs')) {
+                  labelsToAdd.push('docs');
+                }
                 if (file.filename.startsWith('zerohertzLib/algorithm/')) {
                   labelsToAdd.push('feat/algorithm');
                 }
