@@ -1,0 +1,88 @@
+name: PR Controller
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  add-labels:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Assign Zerohertz to PR
+        if: github.event_name == 'pull_request' && github.event.action == 'opened'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{secrets.GH_TOKEN}}
+          script: |
+            github.rest.issues.addAssignees({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              assignees: ['Zerohertz']
+            })
+
+      - name: Add labels based on file path and branch
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{secrets.GH_TOKEN}}
+          script: |
+            const baseBranch = context.payload.pull_request.base.ref;
+            const headBranch = context.payload.pull_request.head.ref;
+            const issueNumber = context.issue.number;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            let labelsToAdd = [];
+
+            // Check for PR from dev* to master
+            if (baseBranch === 'master' && headBranch.startsWith('dev')) {
+              const files = await github.rest.pulls.listFiles({
+                owner,
+                repo,
+                pull_number: issueNumber
+              });
+
+              files.data.forEach(file => {
+                if (file.filename.startsWith('zerohertzLib/algorithm/')) {
+                  labelsToAdd.push('feat/algorithm');
+                }
+                if (file.filename.startsWith('zerohertzLib/api/')) {
+                  labelsToAdd.push('feat/api');
+                }
+                if (file.filename.startsWith('zerohertzLib/logging/')) {
+                  labelsToAdd.push('feat/logging');
+                }
+                if (file.filename.startsWith('zerohertzLib/mlops/')) {
+                  labelsToAdd.push('feat/mlops');
+                }
+                if (file.filename.startsWith('zerohertzLib/monitoring/')) {
+                  labelsToAdd.push('feat/monitoring');
+                }
+                if (file.filename.startsWith('zerohertzLib/plot/')) {
+                  labelsToAdd.push('feat/plot');
+                }
+                if (file.filename.startsWith('zerohertzLib/vision/')) {
+                  labelsToAdd.push('feat/vision');
+                }
+              });
+            }
+
+            // Check for PR from docs to dev*
+            if (baseBranch.startsWith('dev') && headBranch === 'docs') {
+              labelsToAdd.push('docs');
+            }
+
+            // Remove duplicates
+            labelsToAdd = [...new Set(labelsToAdd)];
+
+            if (labelsToAdd.length > 0) {
+              await github.rest.issues.addLabels({
+                issue_number: issueNumber,
+                owner,
+                repo,
+                labels: labelsToAdd
+              });
+            }
