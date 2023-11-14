@@ -13,7 +13,7 @@ def plot(
     ratio: Optional[Tuple[int]] = (15, 10),
     dpi: Optional[int] = 300,
 ) -> None:
-    """List와 Dictionary로 입력받은 데이터를 line graph로 시각화
+    """List와 Dictionary로 입력받은 데이터를 line chart로 시각화
 
     .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280603766-22a0f42c-91b0-4f34-aa73-29de6fdbd4e9.png
         :alt: Visualzation Result

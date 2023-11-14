@@ -16,7 +16,7 @@ def bar(
     rot: Optional[int] = 0,
     per: Optional[bool] = True,
 ) -> None:
-    """Dictionary로 입력받은 데이터를 bar graph로 시각화
+    """Dictionary로 입력받은 데이터를 가로 bar chart로 시각화
 
     .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280595386-1c930639-762a-47b7-9ae1-1babf789803c.png
         :alt: Visualzation Result
@@ -82,7 +82,7 @@ def barh(
     rot: Optional[int] = 0,
     per: Optional[bool] = True,
 ) -> None:
-    """Dictionary로 입력받은 데이터를 세로 bar graph로 시각화
+    """Dictionary로 입력받은 데이터를 세로 bar chart로 시각화
 
     .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280707484-361611aa-f1bd-4909-b2a2-fadc26aa1416.png
         :alt: Visualzation Result

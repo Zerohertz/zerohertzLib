@@ -11,7 +11,7 @@ def pie(
     ratio: Optional[Tuple[int]] = (15, 10),
     dpi: Optional[int] = 300,
 ) -> None:
-    """Dictionary로 입력받은 데이터를 pie graph로 시각화
+    """Dictionary로 입력받은 데이터를 pie chart로 시각화
 
     .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/282473748-bec83476-9ed6-4fe8-8f1a-2651344c1b7c.png
         :alt: Visualzation Result
