@@ -46,6 +46,7 @@ jobs:
               });
 
               files.data.forEach(file => {
+                labelsToAdd.push('release');
                 if (file.filename.startsWith('Jenkins') || file.filename.startsWith('.github/workflows')) {
                   labelsToAdd.push('chore');
                 }
