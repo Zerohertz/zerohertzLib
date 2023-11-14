@@ -4,24 +4,24 @@ import seaborn as sns
 from matplotlib import pyplot as plt
 
 
-def plot(
-    x: List[Union[int, float]],
-    y: Dict[str, List[Union[int, float]]],
+def scatter(
+    data: Dict[str, List[List[Union[int, float]]]],
+    size: Optional[float] = 36,
     xlab: Optional[str] = "x축 [단위]",
     ylab: Optional[str] = "y축 [단위]",
     title: Optional[str] = "tmp",
     ratio: Optional[Tuple[int]] = (15, 10),
     dpi: Optional[int] = 300,
 ) -> None:
-    """List와 Dictionary로 입력받은 데이터를 line chart로 시각화
+    """Dictionary로 입력받은 데이터를 scatter plot으로 시각화
 
-    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280603766-22a0f42c-91b0-4f34-aa73-29de6fdbd4e9.png
+    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/282639459-efca04cc-3c4a-42c5-b07d-e64705a5f791.png
         :alt: Visualzation Result
         :align: center
 
     Args:
-        x (``List[Union[int, float]]``): 입력 데이터 (X축)
-        y (``Dict[str, List[Union[int, float]]]``): 입력 데이터 (Y축)
+        data (``Dict[str, List[List[Union[int, float]]]]``): 입력 데이터
+        size (``Optional[int]``): Graph에 출력될 marker의 크기
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
         title (``Optional[str]``): Graph에 표시될 제목 및 파일명
@@ -32,25 +32,16 @@ def plot(
         ``None``: 현재 directory에 바로 graph 저장
 
     Examples:
-        >>> zz.plot.plot([i for i in range(20)],{"테란": list(np.random.rand(20) * 10), "저그": list(np.random.rand(20) * 10 + 1), "프로토스": list(np.random.rand(20) * 10 + 2)}, xlab="시간 [초]", ylab="성적 [점]", title="Star Craft")
+        >>> zz.plot.scatter({"테란": [list(np.random.rand(200) * 10), list(np.random.rand(200) * 10)], "저그": [list(np.random.rand(200) * 5 - 1), list(np.random.rand(200) * 5 + 1)], "프로토스": [list(np.random.rand(200) * 10 + 3), list(np.random.rand(200) * 10 - 2)]}, size=400, xlab="비용 [미네랄]", ylab="전투력 [점]", title="Star Craft")
     """
-    colors = sns.color_palette("husl", n_colors=len(y))
+    colors = sns.color_palette("husl", n_colors=len(data))
     plt.figure(figsize=ratio)
-    # list(plt.Line2D.lineStyles.keys())
-    linestyle = ["-", "--", "-.", ":"]
     # import matplotlib.markers as mmarkers
     # markers = list(mmarkers.MarkerStyle.markers.keys())
     marker = ["o", "v", "^", "s", "p", "*", "x"]
-    for i, (k, v) in enumerate(y.items()):
-        plt.plot(
-            x,
-            v,
-            color=colors[i],
-            linestyle=linestyle[i % len(linestyle)],
-            linewidth=2,
-            marker=marker[i],
-            markersize=12,
-            label=k,
+    for i, (k, v) in enumerate(data.items()):
+        plt.scatter(
+            v[0], v[1], s=size, color=colors[i], marker=marker[i], label=k, zorder=2
         )
     plt.grid(zorder=0)
     plt.xlabel(xlab)
