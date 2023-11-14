@@ -1,5 +1,5 @@
 zerohertzLib.monitoring package
-==============================
+=================================
 
 Module contents
 ---------------
