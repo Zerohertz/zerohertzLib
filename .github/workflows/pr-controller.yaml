@@ -35,7 +35,7 @@ jobs:
             const owner = context.repo.owner;
             const repo = context.repo.repo;
 
-            let labelsToAdd = [];
+            let labelsToAdd = ['release'];
 
             // Check for PR from dev* to master
             if (baseBranch === 'master' && headBranch.startsWith('dev')) {
