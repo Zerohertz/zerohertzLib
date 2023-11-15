@@ -9,6 +9,16 @@ def _split_string_in_chunks(text: str, chunk_size: int) -> List[str]:
     return [text[i : i + chunk_size] for i in range(0, len(text), chunk_size)]
 
 
+def _send_discord_message(
+    webhook_url: str, message: str, codeblock: Optional[bool] = False
+) -> requests.models.Response:
+    headers = {"Content-Type": "application/json"}
+    if codeblock:
+        message = "```\n" + message + "\n```"
+    data = {"content": message}
+    return requests.post(webhook_url, data=json.dumps(data), headers=headers)
+
+
 def send_discord_message(
     webhook_url: str,
     message: str,
@@ -30,16 +40,10 @@ def send_discord_message(
         >>> zz.api.send_discord_message("https://discord.com/api/webhooks/...", "Testing...")
         [<Response [204]>]
     """
-    headers = {"Content-Type": "application/json"}
     contents = _split_string_in_chunks(message, 1500)
     responses = []
     for content in contents:
-        if codeblock:
-            content = "```\n" + content + "\n```"
-        data = {"content": content}
-        responses.append(
-            requests.post(webhook_url, data=json.dumps(data), headers=headers)
-        )
+        responses.append(_send_discord_message(webhook_url, content, codeblock))
         if t > 0:
             time.sleep(t)
     return responses
