@@ -158,7 +158,7 @@ def _make_text(txt: str, shape: Tuple[int], color: Tuple[int]):
     palette = Image.new("RGBA", size, (255, 255, 255, 0))
     draw = ImageDraw.Draw(palette)
     font = ImageFont.truetype(
-        __file__.replace("vision/visual.py", "plot/NotoSansKR-Medium.ttf"), 30
+        __file__.replace("vision/visual.py", "plot/NotoSansKR-Medium.ttf"), 100
     )
     text_width, text_height = draw.textsize(txt, font=font)
     x, y = (size[0] - text_width) // 2, (size[1] - text_height) // 2
