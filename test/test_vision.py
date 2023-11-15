@@ -142,3 +142,30 @@ def test_text():
     GRAY = zz.vision.text(img, box, "행복해라")
     cv2.imwrite("TEXT_GRAY.png", GRAY)
     assert "TEXT_GRAY.png" in os.listdir()
+
+
+def test_xyxy2xywh():
+    box = np.array(
+        [
+            [200, 100],
+            [1500, 100],
+            [1500, 1500],
+            [200, 1500],
+        ]
+    )
+    assert (zz.vision.xyxy2xywh(box) == np.array([850.0, 800.0, 1300.0, 1400.0])).all()
+
+
+def test_xywh2xyxy():
+    box = np.array([850, 800, 1300, 1400])
+    assert (
+        zz.vision.xywh2xyxy(box)
+        == np.array(
+            [
+                [200, 100],
+                [1500, 100],
+                [1500, 1500],
+                [200, 1500],
+            ]
+        )
+    ).all()
