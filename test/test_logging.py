@@ -1,5 +1,7 @@
 import zerohertzLib as zz
 
+WEBHOOK = "https://discord.com/api/webhooks/1174193014923591791/vBPMpb0otKQH0lflp169u0a-8gJPZyDg17SPEsxKDDlmv3PMFl4eNrt3KWQgUmnWpYJ9"
+
 
 def test_logging():
     log = zz.logging.Logger("TEST_1")
@@ -12,9 +14,9 @@ def test_logging():
 
 def test_logging_discord():
     log = zz.logging.Logger(
-        "TEST_3",
+        "TEST_2",
         loggerLevel=20,
-        discord="https://discord.com/api/webhooks/1170962638583373904/xVJKW1KkNo7Pc1HykJ85cHs_4SvRkKCbOvbf1qe1j8QXOnJyTGyJy8T7sI7kvfA8SGb-",
+        discord=WEBHOOK,
     )
     log.debug("debug")
     log.info("info")
