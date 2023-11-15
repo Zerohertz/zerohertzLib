@@ -1,104 +1,250 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>zerohertzLib.api package &mdash; zerohertzLib v0.2.1 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZCW0CR8M8X"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            
+            gtag('config', 'G-ZCW0CR8M8X');
+            
+        </script>
+        <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
+    <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
+    <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
+    <link rel="apple-touch-icon" href="_static/favicon.png" sizes="802x802" type="image/png"><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="zerohertzLib.logging" href="zerohertzLib.logging.html" /><link rel="prev" title="zerohertzLib.algorithm" href="zerohertzLib.algorithm.html" />
+        <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.api.html" />
+
+    <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
+        <title>zerohertzLib.api - zerohertzLib v0.2.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx_paramlinks.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/solid.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --color-brand-primary: #800a0a;
+  --color-brand-content: #800a0a;
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b465448e"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="zerohertzLib.logging package" href="zerohertzLib.logging.html" />
-    <link rel="prev" title="zerohertzLib.algorithm package" href="zerohertzLib.algorithm.html" /> 
-</head>
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #800a0a;
+  --color-brand-content: #800a0a;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #800a0a;
+  --color-brand-content: #800a0a;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
 
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
 
-          
-          
-          <a href="index.html" class="icon icon-home">
-            zerohertzLib
-          </a>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">zerohertzLib</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="zerohertzLib.html">zerohertzLib package</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="zerohertzLib.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="zerohertzLib.algorithm.html">zerohertzLib.algorithm package</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">zerohertzLib.api package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="zerohertzLib.logging.html">zerohertzLib.logging package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="zerohertzLib.mlops.html">zerohertzLib.mlops package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="zerohertzLib.monitoring.html">zerohertzLib.monitoring package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="zerohertzLib.plot.html">zerohertzLib.plot package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="zerohertzLib.vision.html">zerohertzLib.vision package</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="zerohertzLib.html#module-zerohertzLib">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
 
-        </div>
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">zerohertzLib v0.2.2 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
       </div>
-    </nav>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">zerohertzLib v0.2.2 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="zerohertzLib.algorithm.html">zerohertzLib.algorithm</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">zerohertzLib.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zerohertzLib.logging.html">zerohertzLib.logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zerohertzLib.mlops.html">zerohertzLib.mlops</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zerohertzLib.monitoring.html">zerohertzLib.monitoring</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zerohertzLib.plot.html">zerohertzLib.plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zerohertzLib.vision.html">zerohertzLib.vision</a></li>
+</ul>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">zerohertzLib</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="modules.html">zerohertzLib</a></li>
-          <li class="breadcrumb-item"><a href="zerohertzLib.html">zerohertzLib package</a></li>
-      <li class="breadcrumb-item active">zerohertzLib.api package</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/zerohertzLib.api.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="zerohertzlib-api-package">
-<h1>zerohertzLib.api package<a class="headerlink" href="#zerohertzlib-api-package" title="Permalink to this heading">¶</a></h1>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/Zerohertz/zerohertzLib/edit/master/sphinx/source/zerohertzLib.api.rst" title="Edit this page">
+    <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+    </svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="zerohertzlib-api">
+<h1>zerohertzLib.api<a class="headerlink" href="#zerohertzlib-api" title="Permalink to this heading">#</a></h1>
 <section id="module-zerohertzLib.api">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-zerohertzLib.api" title="Permalink to this heading">¶</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-zerohertzLib.api" title="Permalink to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="zerohertzLib.api.Discord">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.api.</span></span><span class="sig-name descname"><span class="pre">Discord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">webhook_url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.Discord" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.api.</span></span><span class="sig-name descname"><span class="pre">Discord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">webhook_url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.Discord" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Discord Webhook의 데이터 전송을 위한 클래스</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>webhook_url</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Discord Webhook의 URL</p>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.api.Discord.params.webhook_url"></span><strong>webhook_url</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.params.webhook_url">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Discord Webhook의 URL</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -107,11 +253,11 @@
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.api.Discord.image">
-<span class="sig-name descname"><span class="pre">image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.Discord.image" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.Discord.image" title="Permalink to this definition">#</a></dt>
 <dd><p>Discord Webhook에 이미지 전송</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>image_path</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 전송할 이미지 경로</p>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.api.Discord.image.params.image_path"></span><strong>image_path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.image.params.image_path">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 전송할 이미지 경로</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Discord Webhook의 응답</p>
@@ -130,14 +276,14 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.api.Discord.message">
-<span class="sig-name descname"><span class="pre">message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeblock</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.Discord.message" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeblock</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.Discord.message" title="Permalink to this definition">#</a></dt>
 <dd><p>Discord Webhook에 메세지 전송</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>message</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Discord Webhook의 입력</p></li>
-<li><p><strong>t</strong> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – <code class="docutils literal notranslate"><span class="pre">message</span></code> 의 전송 간 간격 (<code class="docutils literal notranslate"><span class="pre">message</span></code> 가 1500자 이내라면 0)</p></li>
-<li><p><strong>codeblock</strong> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 전송되는 메세지의 스타일</p></li>
+<li><p><span class="target" id="zerohertzLib.api.Discord.message.params.message"></span><strong>message</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.message.params.message">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Discord Webhook의 입력</p></li>
+<li><p><span class="target" id="zerohertzLib.api.Discord.message.params.t"></span><strong>t</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.message.params.t">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – <code class="docutils literal notranslate"><span class="pre">message</span></code> 의 전송 간 간격 (<code class="docutils literal notranslate"><span class="pre">message</span></code> 가 1500자 이내라면 0)</p></li>
+<li><p><span class="target" id="zerohertzLib.api.Discord.message.params.codeblock"></span><strong>codeblock</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.message.params.codeblock">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 전송되는 메세지의 스타일</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -159,13 +305,13 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.api.api_key">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.api.</span></span><span class="sig-name descname"><span class="pre">api_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.api_key" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.api.</span></span><span class="sig-name descname"><span class="pre">api_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.api_key" title="Permalink to this definition">#</a></dt>
 <dd><p>OpenAI의 API 키 등록</p>
 <img alt="OpenAI API Key" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280564436-27d62c06-f59a-4772-8cd6-48be49147a86.png" />
 <p>위와 같이 <a class="reference external" href="https://platform.openai.com/account/api-keys">OpenAI</a> 페이지에서 발급 후 API를 등록해야 사용할 수 있다.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>api_key</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – OpenAI의 API Key</p>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.api.api_key.params.api_key"></span><strong>api_key</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.api_key.params.api_key">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – OpenAI의 API Key</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>사용 가능한 model들의 정보</p>
@@ -198,11 +344,11 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.api.gpt">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.api.</span></span><span class="sig-name descname"><span class="pre">gpt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.gpt" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.api.</span></span><span class="sig-name descname"><span class="pre">gpt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.gpt" title="Permalink to this definition">#</a></dt>
 <dd><p>GPT 3.5 실행</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>message</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – ChatGPT 3.5의 입력</p>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.api.gpt.params.message"></span><strong>message</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.gpt.params.message">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – ChatGPT 3.5의 입력</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>ChatGPT 3.5의 출력</p>
@@ -222,35 +368,93 @@
 </section>
 </section>
 
-
-           </div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="zerohertzLib.logging.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">zerohertzLib.logging</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="zerohertzLib.algorithm.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">zerohertzLib.algorithm</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023, Zerohertz
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="zerohertzLib.algorithm.html" class="btn btn-neutral float-left" title="zerohertzLib.algorithm package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="zerohertzLib.logging.html" class="btn btn-neutral float-right" title="zerohertzLib.logging package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link fa-brands fa-solid fa-github fa-2x" href="https://github.com/Zerohertz" aria-label="GitHub"></a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
     </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">zerohertzLib.api</a><ul>
+<li><a class="reference internal" href="#module-zerohertzLib.api">Module contents</a><ul>
+<li><a class="reference internal" href="#zerohertzLib.api.Discord"><code class="docutils literal notranslate"><span class="pre">Discord</span></code></a><ul>
+<li><a class="reference internal" href="#zerohertzLib.api.Discord.image"><code class="docutils literal notranslate"><span class="pre">Discord.image()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.Discord.message"><code class="docutils literal notranslate"><span class="pre">Discord.message()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#zerohertzLib.api.api_key"><code class="docutils literal notranslate"><span class="pre">api_key()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.gpt"><code class="docutils literal notranslate"><span class="pre">gpt()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2023, Zerohertz.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
+          </div>
         </div>
       </div>
-    </section>
+      
+      
+    </aside>
   </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
-
-</body>
+</div><script src="_static/jquery.js?v=5d32c60e"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=839dcee4"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    </body>
 </html>
