@@ -58,6 +58,7 @@ def masks(
     color: Optional[Tuple[int]] = (0, 0, 255),
     class_list: Optional[List[Union[int, str]]] = None,
     class_color: Optional[Dict[Union[int, str], Tuple[int]]] = None,
+    border: Optional[bool] = True,
     alpha: Optional[float] = 0.5,
 ) -> NDArray[np.uint8]:
     """Masks 시각화
@@ -68,6 +69,7 @@ def masks(
         color (``Optional[Tuple[int]]``): Mask의 색
         class_list (``Optional[List[Union[int, str]]]``): ``mks`` 의 index에 따른 class
         class_color (``Optional[Dict[Union[int, str], Tuple[int]]]``): Class에 따른 색 (``color`` 무시)
+        border (``Optional[bool]``): Mask의 경계선 표시 여부
         alpha (``Optional[float]``): Mask의 투명도
 
     Returns:
@@ -79,13 +81,22 @@ def masks(
     elif shape[2] == 4:
         color = (*color, 255)
     overlay = img.copy()
-    if class_list is not None and class_color is not None:
-        assert mks.shape[0] == len(class_list)
-        for mask, cls in zip(mks, class_list):
-            overlay[mask] = class_color[cls]
-    else:
-        for mask in mks:
-            overlay[mask] = color
+    cumulative_mask = np.zeros(img.shape[:2], dtype=bool)
+    for idx, mask in enumerate(mks):
+        if class_list is not None and class_color is not None:
+            color = class_color[class_list[idx]]
+        overlapping = cumulative_mask & mask
+        non_overlapping = mask & ~cumulative_mask
+        cumulative_mask |= mask
+        if overlapping.any():
+            overlapping_color = overlay[overlapping].astype(np.float32)
+            mixed_color = ((overlapping_color + color) / 2).astype(np.uint8)
+            overlay[overlapping] = mixed_color
+        if non_overlapping.any():
+            overlay[non_overlapping] = color
+        if border:
+            edges = cv2.Canny(mask.astype(np.uint8) * 255, 100, 200)
+            overlay[edges > 0] = color
     return cv2.addWeighted(img, 1 - alpha, overlay, alpha, 0)
 
 
