@@ -25,6 +25,12 @@
          <img src="https://img.shields.io/badge/Sphinx-000000?style=for-the-badge&logo=Sphinx&logoColor=white"/>
       </a>
       </br>
+      <a href="https://pypi.org/project/zerohertzLib/">
+         <img src="https://badge.fury.io/py/zerohertzLib.svg" alt="PyPI version">
+      </a>
+      <a href="https://pypi.org/project/zerohertzLib/">
+         <img alt="PyPI wheel" src="https://img.shields.io/pypi/wheel/zerohertzLib">
+      </a>
       <a href="https://app.codacy.com/gh/Zerohertz/zerohertzLib/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade">
          <img src="https://app.codacy.com/project/badge/Grade/b08b1d140ee54ae1aa8ee251cb5888ff"/>
       </a>
@@ -40,13 +46,19 @@
    import zerohertzLib as zz
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
-   modules
+   zerohertzLib.algorithm
+   zerohertzLib.api
+   zerohertzLib.logging
+   zerohertzLib.mlops
+   zerohertzLib.monitoring
+   zerohertzLib.plot
+   zerohertzLib.vision
 
 Indices and tables
-==================
+-------------------
 
 * :ref:`genindex`
 * :ref:`modindex`

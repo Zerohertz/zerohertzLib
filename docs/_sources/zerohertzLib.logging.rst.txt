@@ -1,4 +1,4 @@
-zerohertzLib.logging package
+zerohertzLib.logging
 ==============================
 
 Module contents
