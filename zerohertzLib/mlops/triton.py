@@ -1,11 +1,11 @@
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 
-import numpy as np
 import tritonclient.grpc as grpcclient
+from numpy.typing import DTypeLike, NDArray
 from tritonclient.utils import triton_to_np_dtype
 
 
-class tritonClientURL:
+class TritonClientURL:
     """외부에서 실행되는 Triton Inference Server의 호출을 위한 Class
 
     Args:
@@ -14,21 +14,21 @@ class tritonClientURL:
         port (``Optional[int]``): Triton Inference Server의 GRPC 통신 port 번호
 
     Attributes:
-        inputs (``List[Dict[str, any]]``): 지정된 model의 입력
-        outputs (``List[Dict[str, any]]``): 지정된 model의 출력
+        inputs (``List[Dict[str, Any]]``): 지정된 model의 입력
+        outputs (``List[Dict[str, Any]]``): 지정된 model의 출력
 
     Methods:
         __call__:
             Model 호출 수행
 
             Args:
-                *args (``List[any]``): Model 호출 시 사용될 입력 (``self.inputs``)
+                *args (``List[NDArray[DTypeLike]]``): Model 호출 시 사용될 입력 (``self.inputs``)
 
             Returns:
-                ``Dict[str, np.ndarray]``: 호출된 model의 결과
+                ``Dict[str, NDArray[DTypeLike]]``: 호출된 model의 결과
 
     Examples:
-        >>> tc = zz.mlops.tritonClientURL("localhost", "YOLO")
+        >>> tc = zz.mlops.TritonClientURL("localhost", "YOLO")
         >>> tc.inputs
         [{'name': 'images', 'data_type': 'TYPE_FP32', 'dims': ['1', '3', '640', '640']}]
         >>> tc.outputs
@@ -49,7 +49,7 @@ class tritonClientURL:
         self.inputs = self.IO["config"]["input"]
         self.outputs = self.IO["config"]["output"]
 
-    def __call__(self, *args) -> Dict[str, np.ndarray]:
+    def __call__(self, *args) -> Dict[str, NDArray[DTypeLike]]:
         assert len(self.inputs) == len(args)
         triton_inputs = []
         for input_info, arg in zip(self.inputs, args):
@@ -66,7 +66,7 @@ class tritonClientURL:
             triton_results[output["name"]] = response.as_numpy(output["name"])
         return triton_results
 
-    def _set_input(self, input_info, var):
+    def _set_input(self, input_info: Dict[str, List[int]], var: NDArray[DTypeLike]):
         assert len(input_info["dims"]) == len(var.shape)
         var = var.astype(triton_to_np_dtype(input_info["data_type"][5:]))
         return grpcclient.InferInput(
@@ -76,7 +76,7 @@ class tritonClientURL:
         ).set_data_from_numpy(var)
 
 
-class tritonClientK8s(tritonClientURL):
+class TritonClientK8s(TritonClientURL):
     """Kubernetes에서 실행되는 Triton Inference Server의 호출을 위한 Class
 
     Args:
@@ -86,18 +86,18 @@ class tritonClientK8s(tritonClientURL):
         port (``Optional[int]``): Triton Inference Server의 GRPC 통신 port 번호
 
     Attributes:
-        inputs (``List[Dict[str, any]]``): 지정된 model의 입력
-        outputs (``List[Dict[str, any]]``): 지정된 model의 출력
+        inputs (``List[Dict[str, Any]]``): 지정된 model의 입력
+        outputs (``List[Dict[str, Any]]``): 지정된 model의 출력
 
     Methods:
         __call__:
             Model 호출 수행
 
             Args:
-                *args (``List[any]``): Model 호출 시 사용될 입력 (``self.inputs``)
+                *args (``List[NDArray[DTypeLike]]``): Model 호출 시 사용될 입력 (``self.inputs``)
 
             Returns:
-                ``Dict[str, np.ndarray]``: 호출된 model의 결과
+                ``Dict[str, NDArray[DTypeLike]]``: 호출된 model의 결과
 
     Examples:
         Kubernetes:
@@ -110,7 +110,7 @@ class tritonClientK8s(tritonClientURL):
 
         Python:
 
-        >>> tc = zz.mlops.tritonClientK8s("triton-inference-server-svc", "yolo", "YOLO")
+        >>> tc = zz.mlops.TritonClientK8s("triton-inference-server-svc", "yolo", "YOLO")
         >>> tc.inputs
         [{'name': 'images', 'data_type': 'TYPE_FP32', 'dims': ['1', '3', '640', '640']}]
         >>> tc.outputs

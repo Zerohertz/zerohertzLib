@@ -1,11 +1,13 @@
 import os
-from typing import Optional
+from typing import List, Optional
 
 import cv2
 from PIL import Image
 
 
-def _create_gif_from_frames(frames, output_filename, duration):
+def _create_gif_from_frames(
+    frames: List[Image.Image], output_filename: str, duration: int
+) -> None:
     frames[0].save(
         f"{output_filename}.gif",
         save_all=True,
@@ -52,7 +54,7 @@ def vid2gif(
     output_filename: Optional[str] = "tmp",
     quality: Optional[int] = 100,
     fps: Optional[int] = 15,
-):
+) -> None:
     """동영상을 GIF로 변환
 
     .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280735327-ba590c0b-6180-4dce-a256-ccf12d0ba64b.gif

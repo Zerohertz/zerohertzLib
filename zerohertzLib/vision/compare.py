@@ -3,6 +3,7 @@ from typing import List, Optional, Union
 
 import cv2
 import numpy as np
+from numpy.typing import NDArray
 
 
 def _rel2abs(x1: float, x2: float, y1: float, y2: float, w: int, h: int) -> List[int]:
@@ -10,9 +11,9 @@ def _rel2abs(x1: float, x2: float, y1: float, y2: float, w: int, h: int) -> List
 
 
 def before_after(
-    before: np.ndarray,
-    after: np.ndarray,
-    area: Optional[List[Union[int, float]]] = [0.0, 100.0, 0.0, 100.0],
+    before: NDArray[np.uint8],
+    after: NDArray[np.uint8],
+    area: Optional[List[Union[int, float]]] = None,
     per: Optional[bool] = True,
     quality: Optional[int] = 100,
     output_filename: Optional[str] = "tmp",
@@ -24,8 +25,8 @@ def before_after(
         :align: center
 
     Args:
-        before (``np.ndarray``): 원본 이미지
-        after (``np.ndarray``): 영상 처리 혹은 모델 추론 후 이미지
+        before (``NDArray[np.uint8]``): 원본 이미지
+        after (``NDArray[np.uint8]``): 영상 처리 혹은 모델 추론 후 이미지
         area: (``Optional[List[Union[int, float]]]``): 비교할 좌표 (``[x1, x2, y1, y2]``)
         per (``Optional[bool]``): ``area`` 의 백분율 여부
         quality (``Optional[int]``): 출력 이미지의 quality (단위: %)
@@ -49,6 +50,11 @@ def before_after(
         >>> after = cv2.resize(before, (100, 100))
         >>> zz.vision.before_after(before, after, [20, 40, 30, 60])
     """
+    if area is None:
+        if per:
+            area = [0.0, 100.0, 0.0, 100.0]
+        else:
+            raise Exception("'area' not provided while 'per' is False")
     before_shape = before.shape
     if per:
         x1, x2, y1, y2 = _rel2abs(*area, *before_shape[:2])
@@ -75,10 +81,10 @@ def before_after(
 
 
 def grid(
-    *imgs: List[np.array],
+    *imgs: List[NDArray[np.uint8]],
     size: int = 1000,
     output_filename: Optional[str] = "tmp",
-):
+) -> None:
     """여러 이미지를 입력받아 한 이미지로 병합
 
     .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/282752504-591cf407-c5bc-460b-99cf-0be569198855.png
@@ -86,7 +92,7 @@ def grid(
         :align: center
 
     Args:
-        *imgs (``List[np.array]``): 입력 이미지
+        *imgs (``List[NDArray[np.uint8]]``): 입력 이미지
         size: (``int``): 출력 이미지의 크기
         output_filename: (``Optional[str]``): 저장될 파일의 이름
 
@@ -118,7 +124,7 @@ def grid(
                 y * length,
                 (y + 1) * length,
             )
-        elif W < H:
+        elif W > H:
             h, w = int(length / W * H), length
             gap = (length - h) // 2
             x1, x2, y1, y2 = (
@@ -127,7 +133,6 @@ def grid(
                 y * length + gap,
                 y * length + gap + h,
             )
-            x1, x2, y1, y2 = x * length, (x + 1) * length, y * length, (y + 1) * length
         else:
             h = w = length
             x1, x2, y1, y2 = x * length, (x + 1) * length, y * length, (y + 1) * length

@@ -4,14 +4,14 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>zerohertzLib.mlops package &mdash; zerohertzLib v0.2.0 documentation</title>
+  <title>zerohertzLib.mlops package &mdash; zerohertzLib v0.2.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=101dc097"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b465448e"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/js/theme.js"></script>
@@ -92,9 +92,9 @@
 <section id="module-zerohertzLib.mlops">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-zerohertzLib.mlops" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="zerohertzLib.mlops.tritonClientK8s">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.mlops.</span></span><span class="sig-name descname"><span class="pre">tritonClientK8s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">svc_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">8001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.mlops.tritonClientK8s" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#zerohertzLib.mlops.tritonClientURL" title="zerohertzLib.mlops.triton.tritonClientURL"><code class="xref py py-class docutils literal notranslate"><span class="pre">tritonClientURL</span></code></a></p>
+<dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientK8s">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.mlops.</span></span><span class="sig-name descname"><span class="pre">TritonClientK8s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">svc_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.mlops.TritonClientK8s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zerohertzLib.mlops.TritonClientURL" title="zerohertzLib.mlops.triton.TritonClientURL"><code class="xref py py-class docutils literal notranslate"><span class="pre">TritonClientURL</span></code></a></p>
 <p>Kubernetes에서 실행되는 Triton Inference Server의 호출을 위한 Class</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -107,40 +107,40 @@
 </dd>
 </dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="zerohertzLib.mlops.tritonClientK8s.inputs">
-<span class="sig-name descname"><span class="pre">inputs</span></span><a class="headerlink" href="#zerohertzLib.mlops.tritonClientK8s.inputs" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientK8s.inputs">
+<span class="sig-name descname"><span class="pre">inputs</span></span><a class="headerlink" href="#zerohertzLib.mlops.TritonClientK8s.inputs" title="Permalink to this definition">¶</a></dt>
 <dd><p>지정된 model의 입력</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[Dict[str,</span> <span class="pre">any]]</span></code></p>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[Dict[str,</span> <span class="pre">Any]]</span></code></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="zerohertzLib.mlops.tritonClientK8s.outputs">
-<span class="sig-name descname"><span class="pre">outputs</span></span><a class="headerlink" href="#zerohertzLib.mlops.tritonClientK8s.outputs" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientK8s.outputs">
+<span class="sig-name descname"><span class="pre">outputs</span></span><a class="headerlink" href="#zerohertzLib.mlops.TritonClientK8s.outputs" title="Permalink to this definition">¶</a></dt>
 <dd><p>지정된 model의 출력</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[Dict[str,</span> <span class="pre">any]]</span></code></p>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[Dict[str,</span> <span class="pre">Any]]</span></code></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="zerohertzLib.mlops.tritonClientK8s.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.mlops.tritonClientK8s.__call__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientK8s.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.mlops.TritonClientK8s.__call__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Model 호출 수행</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>*args</strong> (<code class="docutils literal notranslate"><span class="pre">List[any]</span></code>) – Model 호출 시 사용될 입력 (<code class="docutils literal notranslate"><span class="pre">self.inputs</span></code>)</p>
+<dd class="field-odd"><p><strong>*args</strong> (<code class="docutils literal notranslate"><span class="pre">List[NDArray[DTypeLike]]</span></code>) – Model 호출 시 사용될 입력 (<code class="docutils literal notranslate"><span class="pre">self.inputs</span></code>)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>호출된 model의 결과</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">np.ndarray]</span></code></p>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">NDArray[DTypeLike]]</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -155,7 +155,7 @@ triton-inference-server-svc   ClusterIP   10.96.28.172    &lt;none&gt;        80
 </pre></div>
 </div>
 <p>Python:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">mlops</span><span class="o">.</span><span class="n">tritonClientK8s</span><span class="p">(</span><span class="s2">&quot;triton-inference-server-svc&quot;</span><span class="p">,</span> <span class="s2">&quot;yolo&quot;</span><span class="p">,</span> <span class="s2">&quot;YOLO&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">mlops</span><span class="o">.</span><span class="n">TritonClientK8s</span><span class="p">(</span><span class="s2">&quot;triton-inference-server-svc&quot;</span><span class="p">,</span> <span class="s2">&quot;yolo&quot;</span><span class="p">,</span> <span class="s2">&quot;YOLO&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="o">.</span><span class="n">inputs</span>
 <span class="go">[{&#39;name&#39;: &#39;images&#39;, &#39;data_type&#39;: &#39;TYPE_FP32&#39;, &#39;dims&#39;: [&#39;1&#39;, &#39;3&#39;, &#39;640&#39;, &#39;640&#39;]}]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="o">.</span><span class="n">outputs</span>
@@ -168,8 +168,8 @@ triton-inference-server-svc   ClusterIP   10.96.28.172    &lt;none&gt;        80
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="zerohertzLib.mlops.tritonClientURL">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.mlops.</span></span><span class="sig-name descname"><span class="pre">tritonClientURL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">URL</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">8001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.mlops.tritonClientURL" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientURL">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.mlops.</span></span><span class="sig-name descname"><span class="pre">TritonClientURL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">URL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.mlops.TritonClientURL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>외부에서 실행되는 Triton Inference Server의 호출을 위한 Class</p>
 <dl class="field-list simple">
@@ -182,46 +182,46 @@ triton-inference-server-svc   ClusterIP   10.96.28.172    &lt;none&gt;        80
 </dd>
 </dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="zerohertzLib.mlops.tritonClientURL.inputs">
-<span class="sig-name descname"><span class="pre">inputs</span></span><a class="headerlink" href="#zerohertzLib.mlops.tritonClientURL.inputs" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientURL.inputs">
+<span class="sig-name descname"><span class="pre">inputs</span></span><a class="headerlink" href="#zerohertzLib.mlops.TritonClientURL.inputs" title="Permalink to this definition">¶</a></dt>
 <dd><p>지정된 model의 입력</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[Dict[str,</span> <span class="pre">any]]</span></code></p>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[Dict[str,</span> <span class="pre">Any]]</span></code></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="zerohertzLib.mlops.tritonClientURL.outputs">
-<span class="sig-name descname"><span class="pre">outputs</span></span><a class="headerlink" href="#zerohertzLib.mlops.tritonClientURL.outputs" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientURL.outputs">
+<span class="sig-name descname"><span class="pre">outputs</span></span><a class="headerlink" href="#zerohertzLib.mlops.TritonClientURL.outputs" title="Permalink to this definition">¶</a></dt>
 <dd><p>지정된 model의 출력</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[Dict[str,</span> <span class="pre">any]]</span></code></p>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[Dict[str,</span> <span class="pre">Any]]</span></code></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="zerohertzLib.mlops.tritonClientURL.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.mlops.tritonClientURL.__call__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientURL.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.mlops.TritonClientURL.__call__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Model 호출 수행</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>*args</strong> (<code class="docutils literal notranslate"><span class="pre">List[any]</span></code>) – Model 호출 시 사용될 입력 (<code class="docutils literal notranslate"><span class="pre">self.inputs</span></code>)</p>
+<dd class="field-odd"><p><strong>*args</strong> (<code class="docutils literal notranslate"><span class="pre">List[NDArray[DTypeLike]]</span></code>) – Model 호출 시 사용될 입력 (<code class="docutils literal notranslate"><span class="pre">self.inputs</span></code>)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>호출된 model의 결과</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">np.ndarray]</span></code></p>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">NDArray[DTypeLike]]</span></code></p>
 </dd>
 </dl>
 </dd></dl>
 
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">mlops</span><span class="o">.</span><span class="n">tritonClientURL</span><span class="p">(</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="s2">&quot;YOLO&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">mlops</span><span class="o">.</span><span class="n">TritonClientURL</span><span class="p">(</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="s2">&quot;YOLO&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="o">.</span><span class="n">inputs</span>
 <span class="go">[{&#39;name&#39;: &#39;images&#39;, &#39;data_type&#39;: &#39;TYPE_FP32&#39;, &#39;dims&#39;: [&#39;1&#39;, &#39;3&#39;, &#39;640&#39;, &#39;640&#39;]}]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="o">.</span><span class="n">outputs</span>
