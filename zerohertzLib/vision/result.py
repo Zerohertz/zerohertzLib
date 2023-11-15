@@ -3,7 +3,7 @@ from typing import List, Optional, Union
 
 import cv2
 import numpy as np
-from numpy._typing import NDArray
+from numpy.typing import NDArray
 
 
 def _rel2abs(x1: float, x2: float, y1: float, y2: float, w: int, h: int) -> List[int]:
@@ -25,8 +25,8 @@ def before_after(
         :align: center
 
     Args:
-        before (``np.ndarray``): 원본 이미지
-        after (``np.ndarray``): 영상 처리 혹은 모델 추론 후 이미지
+        before (``NDArray[np.uint8]``): 원본 이미지
+        after (``NDArray[np.uint8]``): 영상 처리 혹은 모델 추론 후 이미지
         area: (``Optional[List[Union[int, float]]]``): 비교할 좌표 (``[x1, x2, y1, y2]``)
         per (``Optional[bool]``): ``area`` 의 백분율 여부
         quality (``Optional[int]``): 출력 이미지의 quality (단위: %)
@@ -92,7 +92,7 @@ def grid(
         :align: center
 
     Args:
-        *imgs (``List[np.array]``): 입력 이미지
+        *imgs (``List[NDArray[np.uint8]]``): 입력 이미지
         size: (``int``): 출력 이미지의 크기
         output_filename: (``Optional[str]``): 저장될 파일의 이름
 

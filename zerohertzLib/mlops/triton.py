@@ -1,7 +1,7 @@
 from typing import Dict, List, Optional
 
 import tritonclient.grpc as grpcclient
-from numpy._typing import DTypeLike, NDArray
+from numpy.typing import DTypeLike, NDArray
 from tritonclient.utils import triton_to_np_dtype
 
 
@@ -25,7 +25,7 @@ class tritonClientURL:
                 *args (``List[any]``): Model 호출 시 사용될 입력 (``self.inputs``)
 
             Returns:
-                ``Dict[str, np.ndarray]``: 호출된 model의 결과
+                ``Dict[str, NDArray[DTypeLike]]``: 호출된 model의 결과
 
     Examples:
         >>> tc = zz.mlops.tritonClientURL("localhost", "YOLO")
@@ -97,7 +97,7 @@ class tritonClientK8s(tritonClientURL):
                 *args (``List[any]``): Model 호출 시 사용될 입력 (``self.inputs``)
 
             Returns:
-                ``Dict[str, np.ndarray]``: 호출된 model의 결과
+                ``Dict[str, NDArray[DTypeLike]]``: 호출된 model의 결과
 
     Examples:
         Kubernetes:
