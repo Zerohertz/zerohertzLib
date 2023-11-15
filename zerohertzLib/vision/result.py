@@ -3,6 +3,7 @@ from typing import List, Optional, Union
 
 import cv2
 import numpy as np
+from numpy._typing import NDArray
 
 
 def _rel2abs(x1: float, x2: float, y1: float, y2: float, w: int, h: int) -> List[int]:
@@ -10,9 +11,9 @@ def _rel2abs(x1: float, x2: float, y1: float, y2: float, w: int, h: int) -> List
 
 
 def before_after(
-    before: np.ndarray,
-    after: np.ndarray,
-    area: Optional[List[Union[int, float]]] = [0.0, 100.0, 0.0, 100.0],
+    before: NDArray[np.uint8],
+    after: NDArray[np.uint8],
+    area: Optional[List[Union[int, float]]] = None,
     per: Optional[bool] = True,
     quality: Optional[int] = 100,
     output_filename: Optional[str] = "tmp",
@@ -49,6 +50,11 @@ def before_after(
         >>> after = cv2.resize(before, (100, 100))
         >>> zz.vision.before_after(before, after, [20, 40, 30, 60])
     """
+    if area is None:
+        if per:
+            area = [0.0, 100.0, 0.0, 100.0]
+        else:
+            raise Exception("'area' not provided while 'per' is False")
     before_shape = before.shape
     if per:
         x1, x2, y1, y2 = _rel2abs(*area, *before_shape[:2])
