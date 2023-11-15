@@ -124,7 +124,7 @@ def grid(
                 y * length,
                 (y + 1) * length,
             )
-        elif W < H:
+        elif W > H:
             h, w = int(length / W * H), length
             gap = (length - h) // 2
             x1, x2, y1, y2 = (
@@ -133,7 +133,6 @@ def grid(
                 y * length + gap,
                 y * length + gap + h,
             )
-            x1, x2, y1, y2 = x * length, (x + 1) * length, y * length, (y + 1) * length
         else:
             h = w = length
             x1, x2, y1, y2 = x * length, (x + 1) * length, y * length, (y + 1) * length
