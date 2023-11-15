@@ -208,7 +208,7 @@ spec:
                             container("python") {
                                 sh "apt update"
                                 sh "apt install build-essential -y"
-                                sh "pip install sphinx sphinx-rtd-theme"
+                                sh "pip install sphinx sphinx-rtd-theme sphinx-favicon"
                                 sh "cd sphinx && make html"
                                 sh "rm -rf docs"
                                 sh "mv sphinx/build/html docs"

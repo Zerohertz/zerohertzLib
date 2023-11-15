@@ -32,7 +32,7 @@ release = zz.__version__
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ["sphinx.ext.autodoc", "sphinx.ext.napoleon"]
+extensions = ["sphinx.ext.autodoc", "sphinx.ext.napoleon", "sphinx_favicon"]
 # add_module_names = False
 
 # Add any paths that contain templates here, relative to this directory.
@@ -64,6 +64,17 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-# html_static_path = ["_static"]
+html_static_path = ["_static"]
+
+favicons = [
+    {"href": "favicon.png"},
+    {"href": "favicon-16x16.png"},
+    {"href": "favicon-32x32.png"},
+    {
+        "rel": "apple-touch-icon",
+        "href": "favicon.png",
+    },
+]
+
 
 autodoc_typehints = "none"
