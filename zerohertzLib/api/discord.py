@@ -40,7 +40,7 @@ class Discord:
 
         Args:
             message (``str``): Discord Webhook의 입력
-            t (``Optional[int]``): ``message`` 의 전송 간 간격
+            t (``Optional[int]``): ``message`` 의 전송 간 간격 (``message`` 가 1500자 이내라면 0)
             codeblock (``Optional[bool]``): 전송되는 메세지의 스타일
 
         Returns:
@@ -53,10 +53,13 @@ class Discord:
         """
         contents = self._split_string_in_chunks(message, 1500)
         responses = []
-        for content in contents:
-            responses.append(self._message(content, codeblock))
-            if t > 0:
-                time.sleep(t)
+        if len(contents) == 1:
+            responses.append(self._message(contents[0], codeblock))
+        else:
+            for content in contents:
+                responses.append(self._message(content, codeblock))
+                if t > 0:
+                    time.sleep(t)
         return responses
 
     def image(self, image_path: str) -> requests.models.Response:

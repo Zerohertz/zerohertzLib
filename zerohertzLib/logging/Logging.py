@@ -94,7 +94,7 @@ class Logger:
 
     def _send_discord_message(self) -> List[requests.models.Response]:
         # TODO: response에 대한 처리
-        response = self.Discord.message(self.log_stream.getvalue(), t=0, codeblock=True)
+        response = self.Discord.message(self.log_stream.getvalue(), codeblock=True)
         self.log_stream.seek(0)
         self.log_stream.truncate()
         return response
