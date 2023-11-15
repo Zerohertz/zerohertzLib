@@ -75,6 +75,7 @@ favicons = [
         "href": "favicon.png",
     },
 ]
+html_logo = "_static/logo.png"
 
 
 autodoc_typehints = "none"
