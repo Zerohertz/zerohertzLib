@@ -1,6 +1,6 @@
+from zerohertzLib.vision.compare import before_after, grid
 from zerohertzLib.vision.convert import xywh2xyxy, xyxy2xywh
 from zerohertzLib.vision.gif import img2gif, vid2gif
-from zerohertzLib.vision.result import before_after, grid
 from zerohertzLib.vision.visual import bbox, masks, text
 
 __all__ = [
