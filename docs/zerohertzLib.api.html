@@ -4,14 +4,14 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>zerohertzLib.api package &mdash; zerohertzLib v0.2.0 documentation</title>
+  <title>zerohertzLib.api package &mdash; zerohertzLib v0.2.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=101dc097"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b465448e"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/js/theme.js"></script>
@@ -91,9 +91,75 @@
 <h1>zerohertzLib.api package<a class="headerlink" href="#zerohertzlib-api-package" title="Permalink to this heading">¶</a></h1>
 <section id="module-zerohertzLib.api">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-zerohertzLib.api" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="zerohertzLib.api.Discord">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.api.</span></span><span class="sig-name descname"><span class="pre">Discord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">webhook_url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.Discord" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Discord Webhook의 데이터 전송을 위한 클래스</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>webhook_url</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Discord Webhook의 URL</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">discord</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">Discord</span><span class="p">(</span><span class="s2">&quot;https://discord.com/api/webhooks/...&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.api.Discord.image">
+<span class="sig-name descname"><span class="pre">image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.Discord.image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Discord Webhook에 이미지 전송</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>image_path</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 전송할 이미지 경로</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Discord Webhook의 응답</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">requests.models.Response</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">discord</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">Discord</span><span class="p">(</span><span class="s2">&quot;https://discord.com/api/webhooks/...&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="s2">&quot;test.jpg&quot;</span><span class="p">)</span>
+<span class="go">&lt;Response [200]&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.api.Discord.message">
+<span class="sig-name descname"><span class="pre">message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeblock</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.Discord.message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Discord Webhook에 메세지 전송</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Discord Webhook의 입력</p></li>
+<li><p><strong>t</strong> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – <code class="docutils literal notranslate"><span class="pre">message</span></code> 의 전송 간 간격 (<code class="docutils literal notranslate"><span class="pre">message</span></code> 가 1500자 이내라면 0)</p></li>
+<li><p><strong>codeblock</strong> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 전송되는 메세지의 스타일</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Discord Webhook의 응답</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[requests.models.Response]</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">discord</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">Discord</span><span class="p">(</span><span class="s2">&quot;https://discord.com/api/webhooks/...&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">discord</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="s2">&quot;Testing...&quot;</span><span class="p">)</span>
+<span class="go">[&lt;Response [204]&gt;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.api.api_key">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.api.</span></span><span class="sig-name descname"><span class="pre">api_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">OpenAIObject</span></span></span><a class="headerlink" href="#zerohertzLib.api.api_key" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.api.</span></span><span class="sig-name descname"><span class="pre">api_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.api_key" title="Permalink to this definition">¶</a></dt>
 <dd><p>OpenAI의 API 키 등록</p>
 <img alt="OpenAI API Key" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280564436-27d62c06-f59a-4772-8cd6-48be49147a86.png" />
 <p>위와 같이 <a class="reference external" href="https://platform.openai.com/account/api-keys">OpenAI</a> 페이지에서 발급 후 API를 등록해야 사용할 수 있다.</p>
@@ -132,7 +198,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.api.gpt">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.api.</span></span><span class="sig-name descname"><span class="pre">gpt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#zerohertzLib.api.gpt" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.api.</span></span><span class="sig-name descname"><span class="pre">gpt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.gpt" title="Permalink to this definition">¶</a></dt>
 <dd><p>GPT 3.5 실행</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -149,33 +215,6 @@
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">api_key</span><span class="p">(</span><span class="s2">&quot;sk-...&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">gpt</span><span class="p">(</span><span class="s2">&quot;hi&quot;</span><span class="p">)</span>
 <span class="go">&#39;Hello! How can I assist you today?&#39;</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="zerohertzLib.api.send_discord_message">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.api.</span></span><span class="sig-name descname"><span class="pre">send_discord_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">webhook_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeblock</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Response</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#zerohertzLib.api.send_discord_message" title="Permalink to this definition">¶</a></dt>
-<dd><p>Discord Webhook에 메세지 전송</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>webhook_url</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Discord Webhook의 URL</p></li>
-<li><p><strong>message</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Discord Webhook의 입력</p></li>
-<li><p><strong>t</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – <code class="docutils literal notranslate"><span class="pre">message</span></code> 의 전송 간 간격</p></li>
-<li><p><strong>codeblock</strong> (<code class="docutils literal notranslate"><span class="pre">bool</span></code>) – 전송되는 메세지의 스타일</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Discord Webhook의 응답</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[requests.models.Response]</span></code></p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">send_discord_message</span><span class="p">(</span><span class="s2">&quot;https://discord.com/api/webhooks/...&quot;</span><span class="p">,</span> <span class="s2">&quot;Testing...&quot;</span><span class="p">)</span>
-<span class="go">[&lt;Response [204]&gt;]</span>
 </pre></div>
 </div>
 </dd></dl>
