@@ -32,6 +32,10 @@ def bbox(
 ) -> NDArray[np.uint8]:
     """Bbox 시각화
 
+    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/283126390-32d73013-293b-4eec-8ed5-19ce64863fd6.png
+        :alt: Visualzation Result
+        :align: center
+
     Args:
         img (``NDArray[np.uint8]``): Input image (``[H, W, C]``)
         box (``NDArray[DTypeLike]``): 하나의 bbox (``[4, 2]``)
@@ -40,6 +44,11 @@ def bbox(
 
     Returns:
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, C]``)
+
+    Examples:
+        >>> img = cv2.imread("test.jpg")
+        >>> box = np.array([[100, 200], [100, 1500], [1400, 1500], [1400, 200]])
+        >>> zz.vision.bbox(img, box, thickness=10)
     """
     img = img.copy()
     shape = img.shape
@@ -63,6 +72,10 @@ def masks(
 ) -> NDArray[np.uint8]:
     """Masks 시각화
 
+    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/283127171-6f6c0b60-ca62-48b7-91f9-dba899275a72.png
+        :alt: Visualzation Result
+        :align: center
+
     Args:
         img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, C]``)
         mks (``NDArray[bool]``): 입력 이미지 위에 병합할 ``N`` 개의 mask들 (``[N, H, W]``)
@@ -74,6 +87,19 @@ def masks(
 
     Returns:
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, C]``)
+
+    Examples:
+        >>> img = cv2.imread("test.jpg")
+        >>> H, W, _ = img.shape
+        >>> cnt = 30
+        >>> mks = np.zeros((cnt, H, W), np.uint8)
+        >>> for mask in mks:
+        >>>     center_x = random.randint(0, W)
+        >>>     center_y = random.randint(0, H)
+        >>>     radius = random.randint(100, 400)
+        >>>     cv2.circle(mask, (center_x, center_y), radius, (True), -1)
+        >>> mks = mks.astype(bool)
+        >>> zz.vision.masks(img, mks)
     """
     shape = img.shape
     if len(shape) == 2:
@@ -172,6 +198,10 @@ def text(
 ) -> NDArray[np.uint8]:
     """Text 시각화
 
+    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/283129282-fb8c4d03-c909-4ede-bc9c-dff860a11d31.png
+        :alt: Visualzation Result
+        :align: center
+
     Args:
         img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, C]``)
         box (``NDArray[DTypeLike]``): 문자열이 존재할 bbox (``[4, 2]``)
@@ -180,6 +210,11 @@ def text(
 
     Returns:
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
+
+    Examples:
+        >>> img = cv2.imread("test.jpg")
+        >>> box = np.array([[100, 200], [100, 1500], [1400, 1500], [1400, 200]])
+        >>> zz.vision.text(img, box, "먼지야")
     """
     img = img.copy()
     img = _cvtBGRA(img)

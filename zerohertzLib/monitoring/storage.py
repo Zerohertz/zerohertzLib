@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 
 import zerohertzLib as zz
 
@@ -17,7 +18,7 @@ def _get_size(path: str) -> int:
         return total
 
 
-def storage(path: str, threshold: int = 1) -> None:
+def storage(path: str, threshold: Optional[int] = 1) -> None:
     """지정한 경로에 존재하는 파일에 따른 용량을 pie graph로 시각화
 
     .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/282481985-15ce10ff-e4b1-4b6a-84ea-6e948b684e0c.png

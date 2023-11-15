@@ -14,15 +14,15 @@ class TritonClientURL:
         port (``Optional[int]``): Triton Inference Server의 GRPC 통신 port 번호
 
     Attributes:
-        inputs (``List[Dict[str, any]]``): 지정된 model의 입력
-        outputs (``List[Dict[str, any]]``): 지정된 model의 출력
+        inputs (``List[Dict[str, Any]]``): 지정된 model의 입력
+        outputs (``List[Dict[str, Any]]``): 지정된 model의 출력
 
     Methods:
         __call__:
             Model 호출 수행
 
             Args:
-                *args (``List[any]``): Model 호출 시 사용될 입력 (``self.inputs``)
+                *args (``List[NDArray[DTypeLike]]``): Model 호출 시 사용될 입력 (``self.inputs``)
 
             Returns:
                 ``Dict[str, NDArray[DTypeLike]]``: 호출된 model의 결과
@@ -86,15 +86,15 @@ class TritonClientK8s(TritonClientURL):
         port (``Optional[int]``): Triton Inference Server의 GRPC 통신 port 번호
 
     Attributes:
-        inputs (``List[Dict[str, any]]``): 지정된 model의 입력
-        outputs (``List[Dict[str, any]]``): 지정된 model의 출력
+        inputs (``List[Dict[str, Any]]``): 지정된 model의 입력
+        outputs (``List[Dict[str, Any]]``): 지정된 model의 출력
 
     Methods:
         __call__:
             Model 호출 수행
 
             Args:
-                *args (``List[any]``): Model 호출 시 사용될 입력 (``self.inputs``)
+                *args (``List[NDArray[DTypeLike]]``): Model 호출 시 사용될 입력 (``self.inputs``)
 
             Returns:
                 ``Dict[str, NDArray[DTypeLike]]``: 호출된 model의 결과

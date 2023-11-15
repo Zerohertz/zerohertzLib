@@ -13,9 +13,9 @@ def fft(sig: List[complex], inv: Optional[bool] = False) -> List[complex]:
         ``List[complex]``: 변환된 결과 (복소수 리스트)
 
     Examples:
-        >>> zz.algorithm.fft([1, 0, 0, 0], 0)
+        >>> zz.algorithm.fft([1, 0, 0, 0])
         [(1+0j), (1+0j), (1+0j), (1+0j)]
-        >>> zz.algorithm.fft([1+0j, 1+0j, 1+0j, 1+0j], 1)
+        >>> zz.algorithm.fft([1+0j, 1+0j, 1+0j, 1+0j], True)
         [(4+0j), 0j, 0j, 0j]
     """
     N = len(sig)
