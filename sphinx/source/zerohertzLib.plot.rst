@@ -1,4 +1,4 @@
-zerohertzLib.plot package
+zerohertzLib.plot
 ==============================
 
 Module contents

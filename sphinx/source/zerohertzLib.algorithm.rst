@@ -1,4 +1,4 @@
-zerohertzLib.algorithm package
+zerohertzLib.algorithm
 ==============================
 
 Module contents

@@ -1,4 +1,4 @@
-zerohertzLib.mlops package
+zerohertzLib.mlops
 ==============================
 
 Module contents

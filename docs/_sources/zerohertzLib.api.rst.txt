@@ -1,4 +1,4 @@
-zerohertzLib.api package
+zerohertzLib.api
 ==============================
 
 Module contents

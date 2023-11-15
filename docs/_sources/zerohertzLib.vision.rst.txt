@@ -1,4 +1,4 @@
-zerohertzLib.vision package
+zerohertzLib.vision
 ==============================
 
 Module contents
