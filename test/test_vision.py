@@ -1,4 +1,5 @@
 import os
+import random
 
 import cv2
 import numpy as np
@@ -39,3 +40,105 @@ def test_grid():
     imgs[2] = cv2.cvtColor(imgs[2], cv2.COLOR_BGR2GRAY)
     zz.vision.grid(*imgs, output_filename="grid")
     assert "grid.png" in os.listdir()
+
+
+def test_bbox():
+    img = cv2.imread(f"{tmp}test.jpg")
+    box = np.array(
+        [
+            [100, 200],
+            [100, 1500],
+            [1400, 1500],
+            [1400, 200],
+        ]
+    )
+    BGR = zz.vision.bbox(img, box, thickness=10)
+    cv2.imwrite("BBOX_BGR.png", BGR)
+    assert "BBOX_BGR.png" in os.listdir()
+
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
+    BGRA = zz.vision.bbox(img, box, thickness=10)
+    cv2.imwrite("BBOX_BGRA.png", BGRA)
+    assert "BBOX_BGRA.png" in os.listdir()
+
+    img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
+    GRAY = zz.vision.bbox(img, box, thickness=10)
+    cv2.imwrite("BBOX_GRAY.png", GRAY)
+    assert "BBOX_GRAY.png" in os.listdir()
+
+
+def test_masks():
+    img = cv2.imread(f"{tmp}test.jpg")
+    H, W, _ = img.shape
+    cnt = 30
+    mks = np.zeros((cnt, H, W), np.uint8)
+    for mask in mks:
+        center_x = random.randint(0, W)
+        center_y = random.randint(0, H)
+        radius = random.randint(100, 400)
+        cv2.circle(mask, (center_x, center_y), radius, (True), -1)
+    mks = mks.astype(bool)
+    BGR = zz.vision.masks(img, mks)
+    cv2.imwrite("MASK_BGR.png", BGR)
+    assert "MASK_BGR.png" in os.listdir()
+
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
+    BGRA = zz.vision.masks(img, mks, [random.randint(0, 255) for _ in range(3)])
+    cv2.imwrite("MASK_BGRA.png", BGRA)
+    assert "MASK_BGRA.png" in os.listdir()
+
+    img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
+
+    cls = [0 for _ in range(cnt)]
+    class_list = [cls[random.randint(0, 2)] for _ in range(cnt)]
+    class_color = {}
+    for c in cls:
+        class_color[c] = [random.randint(0, 255) for _ in range(3)]
+    GRAY = zz.vision.masks(
+        img, mks, class_list=class_list, class_color=class_color, alpha=1
+    )
+    cv2.imwrite("MASK_GRAY_INT.png", GRAY)
+    assert "MASK_GRAY_INT.png" in os.listdir()
+
+    cls = ["a", "b", "c"]
+    class_list = [cls[random.randint(0, 2)] for _ in range(cnt)]
+    class_color = {}
+    for c in cls:
+        class_color[c] = [random.randint(0, 255) for _ in range(3)]
+    GRAY = zz.vision.masks(img, mks, class_list=class_list, class_color=class_color)
+    cv2.imwrite("MASK_GRAY_STR.png", GRAY)
+    assert "MASK_GRAY_STR.png" in os.listdir()
+
+
+def test_text():
+    img = cv2.imread(f"{tmp}test.jpg")
+    box = np.array(
+        [
+            [100, 200],
+            [100, 1500],
+            [1400, 1500],
+            [1400, 200],
+        ]
+    )
+    BGR = zz.vision.text(img, box, "먼지야")
+    cv2.imwrite("TEXT_BGR.png", BGR)
+    assert "TEXT_BGR.png" in os.listdir()
+
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
+    BGRA = zz.vision.text(img, box, "오래오래", (255, 0, 0))
+    box = np.array(
+        [
+            [200, 100],
+            [1500, 100],
+            [1500, 1500],
+            [200, 1500],
+        ]
+    )
+    BGRA = zz.vision.text(img, box, "오래오래", (255, 0, 0))
+    cv2.imwrite("TEXT_BGRA.png", BGRA)
+    assert "TEXT_BGRA.png" in os.listdir()
+
+    img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
+    GRAY = zz.vision.text(img, box, "행복해라")
+    cv2.imwrite("TEXT_GRAY.png", GRAY)
+    assert "TEXT_GRAY.png" in os.listdir()
