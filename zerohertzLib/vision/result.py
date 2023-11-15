@@ -81,10 +81,10 @@ def before_after(
 
 
 def grid(
-    *imgs: List[np.array],
+    *imgs: List[NDArray[np.uint8]],
     size: int = 1000,
     output_filename: Optional[str] = "tmp",
-):
+) -> None:
     """여러 이미지를 입력받아 한 이미지로 병합
 
     .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/282752504-591cf407-c5bc-460b-99cf-0be569198855.png

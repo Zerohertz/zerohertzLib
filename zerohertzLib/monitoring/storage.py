@@ -3,7 +3,7 @@ import os
 import zerohertzLib as zz
 
 
-def _get_size(path):
+def _get_size(path: str) -> int:
     if os.path.isfile(path):
         return os.path.getsize(path)
     else:

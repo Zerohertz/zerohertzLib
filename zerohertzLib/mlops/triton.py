@@ -1,7 +1,7 @@
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 
-import numpy as np
 import tritonclient.grpc as grpcclient
+from numpy._typing import DTypeLike, NDArray
 from tritonclient.utils import triton_to_np_dtype
 
 
@@ -49,7 +49,7 @@ class tritonClientURL:
         self.inputs = self.IO["config"]["input"]
         self.outputs = self.IO["config"]["output"]
 
-    def __call__(self, *args) -> Dict[str, np.ndarray]:
+    def __call__(self, *args) -> Dict[str, NDArray[DTypeLike]]:
         assert len(self.inputs) == len(args)
         triton_inputs = []
         for input_info, arg in zip(self.inputs, args):
@@ -66,7 +66,7 @@ class tritonClientURL:
             triton_results[output["name"]] = response.as_numpy(output["name"])
         return triton_results
 
-    def _set_input(self, input_info, var):
+    def _set_input(self, input_info: Dict[str, List[int]], var: NDArray[DTypeLike]):
         assert len(input_info["dims"]) == len(var.shape)
         var = var.astype(triton_to_np_dtype(input_info["data_type"][5:]))
         return grpcclient.InferInput(

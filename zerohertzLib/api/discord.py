@@ -5,7 +5,7 @@ from typing import List, Optional
 import requests
 
 
-def _split_string_in_chunks(text, chunk_size):
+def _split_string_in_chunks(text: str, chunk_size: int) -> List[str]:
     return [text[i : i + chunk_size] for i in range(0, len(text), chunk_size)]
 
 
@@ -20,8 +20,8 @@ def send_discord_message(
     Args:
         webhook_url (``str``): Discord Webhook의 URL
         message (``str``): Discord Webhook의 입력
-        t (``int``): ``message`` 의 전송 간 간격
-        codeblock (``bool``): 전송되는 메세지의 스타일
+        t (``Optional[int]``): ``message`` 의 전송 간 간격
+        codeblock (``Optional[bool]``): 전송되는 메세지의 스타일
 
     Returns:
         ``List[requests.models.Response]``: Discord Webhook의 응답
