@@ -46,11 +46,11 @@ def test_SoE():
 
 
 def test_fft():
-    assert zz.algorithm.fft([1, 0, 0, 0], 0) == [(1 + 0j), (1 + 0j), (1 + 0j), (1 + 0j)]
+    assert zz.algorithm.fft([1, 0, 0, 0]) == [(1 + 0j), (1 + 0j), (1 + 0j), (1 + 0j)]
 
 
 def test_fft_inv():
-    assert zz.algorithm.fft([1 + 0j, 1 + 0j, 1 + 0j, 1 + 0j], 1) == [
+    assert zz.algorithm.fft([1 + 0j, 1 + 0j, 1 + 0j, 1 + 0j], True) == [
         (4 + 0j),
         0j,
         0j,
