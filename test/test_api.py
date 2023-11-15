@@ -1,7 +1,7 @@
 import zerohertzLib as zz
 
 WEBHOOK = "https://discord.com/api/webhooks/1174193014923591791/vBPMpb0otKQH0lflp169u0a-8gJPZyDg17SPEsxKDDlmv3PMFl4eNrt3KWQgUmnWpYJ9"
-tmp = __file__.replace("test_vision.py", "")
+tmp = __file__.replace("test_api.py", "")
 
 
 def test_discord_message():
