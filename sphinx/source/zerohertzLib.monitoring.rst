@@ -1,4 +1,4 @@
-zerohertzLib.monitoring package
+zerohertzLib.monitoring
 =================================
 
 Module contents
