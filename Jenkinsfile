@@ -208,7 +208,7 @@ spec:
                             container("python") {
                                 sh "apt update"
                                 sh "apt install build-essential -y"
-                                sh "pip install sphinx furo sphinxcontrib-gtagjs sphinx-favicon sphinx-copybutton sphinx-paramlinks"
+                                sh "pip install sphinx furo sphinxcontrib-jquery sphinxcontrib-gtagjs sphinx-favicon sphinx-copybutton sphinx-paramlinks"
                                 sh "cd sphinx && make html"
                                 sh "rm -rf docs"
                                 sh "mv sphinx/build/html docs"
