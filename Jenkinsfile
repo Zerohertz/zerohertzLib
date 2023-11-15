@@ -58,6 +58,7 @@ spec:
                 }
             }
         }
+        // [`*` Push] "Merge pull request*/docs*"
         stage("Merge From Docs") {
             when {
                 expression {
@@ -74,6 +75,8 @@ spec:
                 }
             }
         }
+        // [`dev*` Push]
+        // [`master` PR] (Except "Merge pull request*/docs*")
         stage("1. Lint") {
             when {
                 anyOf {
@@ -105,6 +108,8 @@ spec:
                 }
             }
         }
+        // [`dev*` Push]
+        // [`master` PR] (Except "Merge pull request*/docs*")
         stage("2. Build") {
             when {
                 anyOf {
@@ -139,6 +144,8 @@ spec:
                 }
             }
         }
+        // [`dev*` Push]
+        // [`master` PR] (Except "Merge pull request*/docs*")
         stage("3. Test") {
             when {
                 anyOf {
@@ -170,6 +177,7 @@ spec:
                 }
             }
         }
+        // [`master` PR] Push (Except "Merge pull request*/docs*")
         stage("4. Docs") {
             when {
                 expression {
@@ -251,6 +259,7 @@ spec:
                 }
             }
         }
+        // [`master` Push]
         stage("Deploy") {
             when {
                 branch "master"
