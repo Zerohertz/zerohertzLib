@@ -8,7 +8,7 @@ tritonclient[grpc]
 # Vision
 numpy==1.22.4
 opencv-python
-Pillow
+Pillow==8.4.0
 
 # Visualization
 matplotlib
