@@ -5,7 +5,7 @@ from numpy.typing import DTypeLike, NDArray
 from tritonclient.utils import triton_to_np_dtype
 
 
-class tritonClientURL:
+class TritonClientURL:
     """외부에서 실행되는 Triton Inference Server의 호출을 위한 Class
 
     Args:
@@ -28,7 +28,7 @@ class tritonClientURL:
                 ``Dict[str, NDArray[DTypeLike]]``: 호출된 model의 결과
 
     Examples:
-        >>> tc = zz.mlops.tritonClientURL("localhost", "YOLO")
+        >>> tc = zz.mlops.TritonClientURL("localhost", "YOLO")
         >>> tc.inputs
         [{'name': 'images', 'data_type': 'TYPE_FP32', 'dims': ['1', '3', '640', '640']}]
         >>> tc.outputs
@@ -76,7 +76,7 @@ class tritonClientURL:
         ).set_data_from_numpy(var)
 
 
-class tritonClientK8s(tritonClientURL):
+class TritonClientK8s(TritonClientURL):
     """Kubernetes에서 실행되는 Triton Inference Server의 호출을 위한 Class
 
     Args:
@@ -110,7 +110,7 @@ class tritonClientK8s(tritonClientURL):
 
         Python:
 
-        >>> tc = zz.mlops.tritonClientK8s("triton-inference-server-svc", "yolo", "YOLO")
+        >>> tc = zz.mlops.TritonClientK8s("triton-inference-server-svc", "yolo", "YOLO")
         >>> tc.inputs
         [{'name': 'images', 'data_type': 'TYPE_FP32', 'dims': ['1', '3', '640', '640']}]
         >>> tc.outputs
