@@ -4,7 +4,7 @@ from typing import List, Optional
 
 import requests
 
-from zerohertzLib.api import send_discord_message
+from zerohertzLib.api import Discord
 
 
 class Logger:
@@ -60,6 +60,7 @@ class Logger:
             self.logger.addHandler(file_handler)
         self.discord = discord
         if not self.discord is None:
+            self.Discord = Discord(discord)
             self.log_stream = io.StringIO()
             stream_handler = logging.StreamHandler(self.log_stream)
             stream_handler.setLevel(loggerLevel)
@@ -93,9 +94,7 @@ class Logger:
 
     def _send_discord_message(self) -> List[requests.models.Response]:
         # TODO: response에 대한 처리
-        response = send_discord_message(
-            self.discord, self.log_stream.getvalue(), t=0, codeblock=True
-        )
+        response = self.Discord.message(self.log_stream.getvalue(), t=0, codeblock=True)
         self.log_stream.seek(0)
         self.log_stream.truncate()
         return response
