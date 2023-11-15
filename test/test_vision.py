@@ -89,7 +89,7 @@ def test_masks():
 
     img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
 
-    cls = [0 for _ in range(cnt)]
+    cls = [i for i in range(cnt)]
     class_list = [cls[random.randint(0, 2)] for _ in range(cnt)]
     class_color = {}
     for c in cls:
@@ -125,16 +125,14 @@ def test_text():
     assert "TEXT_BGR.png" in os.listdir()
 
     img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
-    BGRA = zz.vision.text(img, box, "오래오래", (255, 0, 0))
-    box = np.array(
-        [
-            [200, 100],
-            [1500, 100],
-            [1500, 1500],
-            [200, 1500],
-        ]
-    )
-    BGRA = zz.vision.text(img, box, "오래오래", (255, 0, 0))
+    box = np.array([img.shape[1] / 2, img.shape[0] / 3, 500, 1000])
+    box = zz.vision.xywh2xyxy(box)
+    BGRA = zz.vision.text(img, box, "오래오래", (0, 255, 0))
+    BGRA = zz.vision.bbox(BGRA, box, thickness=10)
+    box = np.array([img.shape[1] / 2, img.shape[0] / 3 * 2, 1000, 500])
+    box = zz.vision.xywh2xyxy(box)
+    BGRA = zz.vision.text(BGRA, box, "오래오래", (255, 0, 0))
+    BGRA = zz.vision.bbox(BGRA, box, thickness=10)
     cv2.imwrite("TEXT_BGRA.png", BGRA)
     assert "TEXT_BGRA.png" in os.listdir()
 
