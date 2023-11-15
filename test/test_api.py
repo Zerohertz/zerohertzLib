@@ -9,6 +9,9 @@ def test_discord_message():
     for response in discord.message("Testing..."):
         assert response.status_code == 204
 
+
+def test_discord_messages():
+    discord = zz.api.Discord(WEBHOOK)
     for response in discord.message("Testing..." * 200):
         assert response.status_code == 204
 
