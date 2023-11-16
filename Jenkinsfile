@@ -227,6 +227,7 @@ spec:
                                 sh "apt update"
                                 sh "apt install build-essential -y"
                                 sh "pip install sphinx furo sphinxcontrib-jquery sphinxcontrib-gtagjs sphinx-favicon sphinx-copybutton sphinx-paramlinks myst-parser"
+                                sh 'python sphinx/release_note.py --token $GIT_PASSWORD'
                                 sh "cd sphinx && make html"
                                 sh "rm -rf docs"
                                 sh "mv sphinx/build/html docs"
