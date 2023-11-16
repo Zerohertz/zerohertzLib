@@ -108,12 +108,17 @@ spec:
                 }
             }
         }
+        // [`master` Push] (Except "Merge pull request*/docs*")
         // [`dev*` Push]
         // [`master` PR] (Except "Merge pull request*/docs")
         stage("2. Build") {
             when {
                 anyOf {
-                    branch "master"
+                    expression {
+                        def isMasterBranch = env.BRANCH_NAME == "master"
+                        def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.contains("/docs")
+                        return isMasterBranch && isNotDocsMerge
+                    }
                     branch pattern: "dev.*", comparator: "REGEXP"
                     expression {
                         def isMasterPR = env.CHANGE_TARGET == "master"
@@ -191,8 +196,13 @@ spec:
                     try {
                         def startTime = System.currentTimeMillis()
                         setBuildStatus("Build...", "PENDING", "$STAGE_NAME")
-                        def version = env.CHANGE_BRANCH.replace("dev-", "")
-                        sh "sed -i 's/^__version__ = .*/__version__ = \"'${version}'\"/' zerohertzLib/__init__.py"
+                        if (env.CHANGE_BRANCH.startsWith("dev-")) {
+                            sh "sed -i 's/^__version__ = .*/__version__ = \"'${env.CHANGE_BRANCH.replace('dev-', '')}'\"/' zerohertzLib/__init__.py"
+                        } else if (env.CHANGE_BRANCH.startsWith("docs-")) {
+                            echo "No action required for docs- branch"
+                        } else {
+                            error "Unsupported branch type: ${env.CHANGE_BRANCH}"
+                        }
                         withCredentials([usernamePassword(credentialsId: "GitHub", usernameVariable: "GIT_USERNAME", passwordVariable: "GIT_PASSWORD")]) {
                             sh '''
                             git config --global user.email "ohg3417@gmail.com"
@@ -263,9 +273,9 @@ spec:
         stage("Deploy") {
             when {
                 expression {
-                    def isMaster = env.BRANCH_NAME == "master"
+                    def isMasterBranch = env.BRANCH_NAME == "master"
                     def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.contains("/docs")
-                    return isMaster && isNotDocsMerge
+                    return isMasterBranch && isNotDocsMerge
                 }
             }
             steps {
