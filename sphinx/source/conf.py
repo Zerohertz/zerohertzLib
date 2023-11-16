@@ -47,6 +47,7 @@ extensions = [
     "sphinx_favicon",
     "sphinx_copybutton",
     "sphinx_paramlinks",
+    "myst_parser",
 ]
 autodoc_typehints = "none"
 gtagjs_ids = [

@@ -56,6 +56,7 @@
    zerohertzLib.monitoring
    zerohertzLib.plot
    zerohertzLib.vision
+   test
 
 Indices and tables
 -------------------

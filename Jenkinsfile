@@ -58,10 +58,11 @@ spec:
                 }
             }
         }
+        // [`*` Push] "Merge pull request*/docs"
         stage("Merge From Docs") {
             when {
                 expression {
-                    return commitMessage.startsWith("Merge pull request") && commitMessage.contains("/docs")
+                    return commitMessage.startsWith("Merge pull request") && commitMessage.endsWith("[Docs] Build by Sphinx for GitHub Pages")
                 }
             }
             steps {
@@ -74,13 +75,15 @@ spec:
                 }
             }
         }
+        // [`dev*` Push]
+        // [`master` PR] (Except "Merge pull request*/docs")
         stage("1. Lint") {
             when {
                 anyOf {
                     branch pattern: "dev.*", comparator: "REGEXP"
                     expression {
                         def isMasterPR = env.CHANGE_TARGET == "master"
-                        def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.contains("/docs")
+                        def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.endsWith("[Docs] Build by Sphinx for GitHub Pages")
                         return isMasterPR && isNotDocsMerge
                     }
                 }
@@ -105,14 +108,21 @@ spec:
                 }
             }
         }
+        // [`master` Push] (Except "Merge pull request*/docs*")
+        // [`dev*` Push]
+        // [`master` PR] (Except "Merge pull request*/docs")
         stage("2. Build") {
             when {
                 anyOf {
-                    branch "master"
+                    expression {
+                        def isMasterBranch = env.BRANCH_NAME == "master"
+                        def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.contains("/docs")
+                        return isMasterBranch && isNotDocsMerge
+                    }
                     branch pattern: "dev.*", comparator: "REGEXP"
                     expression {
                         def isMasterPR = env.CHANGE_TARGET == "master"
-                        def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.contains("/docs")
+                        def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.endsWith("[Docs] Build by Sphinx for GitHub Pages")
                         return isMasterPR && isNotDocsMerge
                     }
                 }
@@ -139,13 +149,15 @@ spec:
                 }
             }
         }
+        // [`dev*` Push]
+        // [`master` PR] (Except "Merge pull request*/docs")
         stage("3. Test") {
             when {
                 anyOf {
                     branch pattern: "dev.*", comparator: "REGEXP"
                     expression {
                         def isMasterPR = env.CHANGE_TARGET == "master"
-                        def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.contains("/docs")
+                        def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.endsWith("[Docs] Build by Sphinx for GitHub Pages")
                         return isMasterPR && isNotDocsMerge
                     }
                 }
@@ -170,11 +182,12 @@ spec:
                 }
             }
         }
+        // [`master` PR] (Except "Merge pull request*/docs")
         stage("4. Docs") {
             when {
                 expression {
                     def isMasterPR = env.CHANGE_TARGET == "master"
-                    def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.contains("/docs")
+                    def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.endsWith("[Docs] Build by Sphinx for GitHub Pages")
                     return isMasterPR && isNotDocsMerge
                 }
             }
@@ -183,8 +196,13 @@ spec:
                     try {
                         def startTime = System.currentTimeMillis()
                         setBuildStatus("Build...", "PENDING", "$STAGE_NAME")
-                        def version = env.CHANGE_BRANCH.replace("dev-", "")
-                        sh "sed -i 's/^__version__ = .*/__version__ = \"'${version}'\"/' zerohertzLib/__init__.py"
+                        if (env.CHANGE_BRANCH.startsWith("dev-")) {
+                            sh "sed -i 's/^__version__ = .*/__version__ = \"'${env.CHANGE_BRANCH.replace('dev-', '')}'\"/' zerohertzLib/__init__.py"
+                        } else if (env.CHANGE_BRANCH.startsWith("docs-")) {
+                            echo "No action required for docs- branch"
+                        } else {
+                            error "Unsupported branch type: ${env.CHANGE_BRANCH}"
+                        }
                         withCredentials([usernamePassword(credentialsId: "GitHub", usernameVariable: "GIT_USERNAME", passwordVariable: "GIT_PASSWORD")]) {
                             sh '''
                             git config --global user.email "ohg3417@gmail.com"
@@ -208,7 +226,7 @@ spec:
                             container("python") {
                                 sh "apt update"
                                 sh "apt install build-essential -y"
-                                sh "pip install sphinx furo sphinxcontrib-jquery sphinxcontrib-gtagjs sphinx-favicon sphinx-copybutton sphinx-paramlinks"
+                                sh "pip install sphinx furo sphinxcontrib-jquery sphinxcontrib-gtagjs sphinx-favicon sphinx-copybutton sphinx-paramlinks myst-parser"
                                 sh "cd sphinx && make html"
                                 sh "rm -rf docs"
                                 sh "mv sphinx/build/html docs"
@@ -251,9 +269,14 @@ spec:
                 }
             }
         }
+        // [`master` Push] (Except "Merge pull request*/docs*")
         stage("Deploy") {
             when {
-                branch "master"
+                expression {
+                    def isMasterBranch = env.BRANCH_NAME == "master"
+                    def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.contains("/docs")
+                    return isMasterBranch && isNotDocsMerge
+                }
             }
             steps {
                 script {

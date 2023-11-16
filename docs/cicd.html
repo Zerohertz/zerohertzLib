@@ -16,11 +16,11 @@
         <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
-    <link rel="apple-touch-icon" href="_static/favicon.png" sizes="802x802" type="image/png"><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="zerohertzLib" href="zerohertzLib.html" />
-        <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/index.html" />
+    <link rel="apple-touch-icon" href="_static/favicon.png" sizes="802x802" type="image/png"><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Release Notes" href="release.html" />
+        <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/cicd.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib v0.2.2 documentation</title>
+        <title>CI/CD Pipelines - zerohertzLib v0.2.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -148,7 +148,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="#"><div class="brand">zerohertzLib v0.2.2 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.2.2 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -168,7 +168,7 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   <div class="sidebar-logo-container">
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
@@ -182,7 +182,7 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul>
+  <ul class="current">
 <li class="toctree-l1 has-children"><a class="reference internal" href="zerohertzLib.html">zerohertzLib</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of zerohertzLib</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="zerohertzLib.algorithm.html">zerohertzLib.algorithm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zerohertzLib.api.html">zerohertzLib.api</a></li>
@@ -194,7 +194,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="release.html">Release Notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cicd.html">CI/CD Pipelines</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">CI/CD Pipelines</a></li>
 </ul>
 
 </div>
@@ -215,7 +215,7 @@
         </a>
         <div class="content-icon-container">
           <div class="edit-this-page">
-  <a class="muted-link" href="https://github.com/Zerohertz/zerohertzLib/edit/master/sphinx/source/index.md" title="Edit this page">
+  <a class="muted-link" href="https://github.com/Zerohertz/zerohertzLib/edit/master/sphinx/source/cicd.md" title="Edit this page">
     <svg aria-hidden="true" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
       <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
@@ -237,84 +237,70 @@
           </label>
         </div>
         <article role="main">
-          <h2 align = "center">
-    ⚡ Zerohertz's Library ⚡
-</h2>
+          <section id="ci-cd-pipelines">
+<h1>CI/CD Pipelines<a class="headerlink" href="#ci-cd-pipelines" title="Permalink to this heading">#</a></h1>
 <p align="center">
-    </br>
-    <a href="https://github.com/Zerohertz/zerohertzLib">
-        <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"/>
-    </a>
-    <a href="https://pypi.org/project/zerohertzLib/">
-        <img src="https://img.shields.io/badge/PyPI-3775A9?style=for-the-badge&logo=PyPI&logoColor=white"/>
-    </a>
-    <a href="https://jenkins.zerohertz.xyz/blue/organizations/jenkins/zerohertzLib/activity">
-        <img src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=Jenkins&logoColor=white"/>
-    </a>
-    <a href = "https://zerohertz.github.io/python-pkg-cicd/">
-        <img src="https://img.shields.io/badge/Zerohertz's%20Blog-800a0a?style=for-the-badge&logo=beatsbydre&logoColor=white"/>
-    </a>
-    <a href="https://zerohertz.github.io/zerohertzLib/">
-        <img src="https://img.shields.io/badge/Sphinx-000000?style=for-the-badge&logo=Sphinx&logoColor=white"/>
-    </a>
-    </br>
-    <a href="https://pypi.org/project/zerohertzLib/">
-        <img src="https://badge.fury.io/py/zerohertzLib.svg" alt="PyPI version">
-    </a>
-    <a href="https://pypi.org/project/zerohertzLib/">
-        <img alt="PyPI wheel" src="https://img.shields.io/pypi/wheel/zerohertzLib">
-    </a>
-    <a href="https://app.codacy.com/gh/Zerohertz/zerohertzLib/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade">
-        <img src="https://app.codacy.com/project/badge/Grade/b08b1d140ee54ae1aa8ee251cb5888ff"/>
-    </a>
+    <img width="1844" alt="CI/CD" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/283340051-f8e81344-e662-4cac-9e8f-fb722997dbff.png">
 </p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-opencv<span class="w"> </span>-y
-$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>zerohertzLib
-</pre></div>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Stage</p></th>
+<th class="head"><p>AS-IS</p></th>
+<th class="head"><p>TO-BE</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>1. <code class="docutils literal notranslate"><span class="pre">Setup</span></code></p></td>
+<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">*</span></code> Push]</p></td>
+<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">*</span></code> Push]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>2. <code class="docutils literal notranslate"><span class="pre">Merge</span> <span class="pre">From</span> <span class="pre">Docs</span></code></p></td>
+<td><p>👎 [<code class="docutils literal notranslate"><span class="pre">*</span></code> Push] “Merge pull request*/docs*”</p></td>
+<td><p>👍 [<code class="docutils literal notranslate"><span class="pre">*</span></code> Push] “Merge pull request*/docs”</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>3. <code class="docutils literal notranslate"><span class="pre">1.</span> <span class="pre">Lint</span></code></p></td>
+<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>👎 [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs*”)</p></td>
+<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>👍 [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs”)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>4. <code class="docutils literal notranslate"><span class="pre">2.</span> <span class="pre">Build</span></code></p></td>
+<td><p>👎 [<code class="docutils literal notranslate"><span class="pre">master</span></code> Push]</br>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>👎 [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs*”)</p></td>
+<td><p>👍 [<code class="docutils literal notranslate"><span class="pre">master</span></code> Push] (Except “Merge pull request*/docs*”)</br>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>👍 [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs”)</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>5. <code class="docutils literal notranslate"><span class="pre">3.</span> <span class="pre">Test</span></code></p></td>
+<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>👎 [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs*”)</p></td>
+<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>👍 [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs”)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>6. <code class="docutils literal notranslate"><span class="pre">4.</span> <span class="pre">Docs</span></code></p></td>
+<td><p>👎 [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs*”)</p></td>
+<td><p>👍 [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs”)</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>7. <code class="docutils literal notranslate"><span class="pre">Deploy</span></code></p></td>
+<td><p>👎 [<code class="docutils literal notranslate"><span class="pre">master</span></code> Push]</p></td>
+<td><p>👍 [<code class="docutils literal notranslate"><span class="pre">master</span></code> Push] (Except “Merge pull request*/docs*”)</p></td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">zerohertzLib</span> <span class="k">as</span> <span class="nn">zz</span>
-</pre></div>
-</div>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="zerohertzLib.html">zerohertzLib</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="zerohertzLib.algorithm.html">zerohertzLib.algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="zerohertzLib.api.html">zerohertzLib.api</a></li>
-<li class="toctree-l2"><a class="reference internal" href="zerohertzLib.logging.html">zerohertzLib.logging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="zerohertzLib.mlops.html">zerohertzLib.mlops</a></li>
-<li class="toctree-l2"><a class="reference internal" href="zerohertzLib.monitoring.html">zerohertzLib.monitoring</a></li>
-<li class="toctree-l2"><a class="reference internal" href="zerohertzLib.plot.html">zerohertzLib.plot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="zerohertzLib.vision.html">zerohertzLib.vision</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="release.html">Release Notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cicd.html">CI/CD Pipelines</a></li>
-</ul>
-</div>
-<h3 align = "center">
-    📇 Index 📇
-</h3>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
-</ul>
+</section>
 
         </article>
       </div>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="zerohertzLib.html">
+          
+          <a class="prev-page" href="release.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
-                  <span>Next</span>
+                  <span>Previous</span>
                 </div>
-                <div class="title">zerohertzLib</div>
+                
+                <div class="title">Release Notes</div>
+                
               </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          
         </div>
         <div class="bottom-of-page">
           <div class="left-details">

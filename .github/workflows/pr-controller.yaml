@@ -77,8 +77,27 @@ jobs:
               });
             }
 
-            // Check for PR from docs to dev*
-            if (baseBranch.startsWith('dev') && headBranch === 'docs') {
+            // Check for PR from docs-* to master
+            if (baseBranch === 'master' && headBranch.startsWith('docs-')) {
+              const files = await github.rest.pulls.listFiles({
+                owner,
+                repo,
+                pull_number: issueNumber
+              });
+
+              files.data.forEach(file => {
+                labelsToAdd.push('release/docs');
+                if (file.filename.startsWith('Jenkins') || file.filename.startsWith('.github/workflows')) {
+                  labelsToAdd.push('chore');
+                }
+                if (file.filename.startsWith('docs')) {
+                  labelsToAdd.push('docs');
+                }
+              });
+            }
+
+            // Check for PR from docs to dev* or docs*
+            if ((baseBranch.startsWith('dev') || baseBranch.startsWith('docs')) && headBranch === 'docs') {
               labelsToAdd.push('docs');
             }
 
