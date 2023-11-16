@@ -58,11 +58,11 @@ spec:
                 }
             }
         }
-        // [`*` Push] "Merge pull request*/docs*"
+        // [`*` Push] "Merge pull request*/docs"
         stage("Merge From Docs") {
             when {
                 expression {
-                    return commitMessage.startsWith("Merge pull request") && commitMessage.contains("/docs")
+                    return commitMessage.startsWith("Merge pull request") && commitMessage.endsWith("/docs")
                 }
             }
             steps {
@@ -76,14 +76,14 @@ spec:
             }
         }
         // [`dev*` Push]
-        // [`master` PR] (Except "Merge pull request*/docs*")
+        // [`master` PR] (Except "Merge pull request*/docs")
         stage("1. Lint") {
             when {
                 anyOf {
                     branch pattern: "dev.*", comparator: "REGEXP"
                     expression {
                         def isMasterPR = env.CHANGE_TARGET == "master"
-                        def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.contains("/docs")
+                        def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.endsWith("/docs")
                         return isMasterPR && isNotDocsMerge
                     }
                 }
@@ -109,7 +109,7 @@ spec:
             }
         }
         // [`dev*` Push]
-        // [`master` PR] (Except "Merge pull request*/docs*")
+        // [`master` PR] (Except "Merge pull request*/docs")
         stage("2. Build") {
             when {
                 anyOf {
@@ -117,7 +117,7 @@ spec:
                     branch pattern: "dev.*", comparator: "REGEXP"
                     expression {
                         def isMasterPR = env.CHANGE_TARGET == "master"
-                        def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.contains("/docs")
+                        def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.endsWith("/docs")
                         return isMasterPR && isNotDocsMerge
                     }
                 }
@@ -145,14 +145,14 @@ spec:
             }
         }
         // [`dev*` Push]
-        // [`master` PR] (Except "Merge pull request*/docs*")
+        // [`master` PR] (Except "Merge pull request*/docs")
         stage("3. Test") {
             when {
                 anyOf {
                     branch pattern: "dev.*", comparator: "REGEXP"
                     expression {
                         def isMasterPR = env.CHANGE_TARGET == "master"
-                        def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.contains("/docs")
+                        def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.endsWith("/docs")
                         return isMasterPR && isNotDocsMerge
                     }
                 }
@@ -177,12 +177,12 @@ spec:
                 }
             }
         }
-        // [`master` PR] Push (Except "Merge pull request*/docs*")
+        // [`master` PR] (Except "Merge pull request*/docs")
         stage("4. Docs") {
             when {
                 expression {
                     def isMasterPR = env.CHANGE_TARGET == "master"
-                    def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.contains("/docs")
+                    def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.endsWith("/docs")
                     return isMasterPR && isNotDocsMerge
                 }
             }
@@ -259,10 +259,14 @@ spec:
                 }
             }
         }
-        // [`master` Push]
+        // [`master` Push] (Except "Merge pull request*/docs*")
         stage("Deploy") {
             when {
-                branch "master"
+                expression {
+                    def isMaster = env.BRANCH_NAME == "master"
+                    def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.contains("/docs")
+                    return isMaster && isNotDocsMerge
+                }
             }
             steps {
                 script {
