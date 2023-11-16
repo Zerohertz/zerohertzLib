@@ -42,16 +42,11 @@ import zerohertzLib as zz
 
 ```{eval-rst}
 .. toctree::
-    :maxdepth: 1
-    :caption: Contents:
+    :maxdepth: 2
 
-    zerohertzLib.algorithm
-    zerohertzLib.api
-    zerohertzLib.logging
-    zerohertzLib.mlops
-    zerohertzLib.monitoring
-    zerohertzLib.plot
-    zerohertzLib.vision
+    zerohertzLib
+    release
+    cicd
 ```
 
 <h3 align = "center">
