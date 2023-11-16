@@ -1,0 +1,38 @@
+# v0.1.2
+
+## [v0.1.2] Chore Update ([#7](https://github.com/Zerohertz/zerohertzLib/pull/7))
+
+```{admonition} Release Date
+:class: tip
+
+2023/11/03
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+
+
+### Chore
+
++ [Insecure한 pipeline](https://www.jenkins.io/doc/book/pipeline/jenkinsfile//#string-interpolation) 수정
+## [v0.1.2] Docs Update ([#8](https://github.com/Zerohertz/zerohertzLib/pull/8))
+
+```{admonition} Release Date
+:class: tip
+
+2023/11/03
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+
+
+### Docs
+
++ `__init__.py`의 버전 수동 업데이트

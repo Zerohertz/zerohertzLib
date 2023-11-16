@@ -1,0 +1,27 @@
+# v0.1.8
+
+## [v0.1.8] Release ([#32](https://github.com/Zerohertz/zerohertzLib/pull/32))
+
+```{admonition} Release Date
+:class: tip
+
+2023/11/12
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/logging"><img src="https://img.shields.io/badge/feat/logging-477A5E?style=flat-square&logo=github" alt="feat/logging"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+
+
+### Features
+
++ `logging`
+  + `Logger`의 출력 양식 변경
+  + `Logger`가 Discord Webhook을 이용할 수 있게 수정
+
+### Docs
+
++ 기타 sphinx 문서의 오타, 양식 수정
