@@ -1,9 +1,7 @@
-## 내용
+## Problem Definition
 
-ISSUE의 내용을 적어주세요.
+CONTENTS
 
-## 작업 내용
+## To Do
 
 - [ ] Todo 1
-
-## 참고 사항

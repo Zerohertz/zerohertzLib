@@ -1,7 +1,9 @@
-## 작업 내용
+## Features
 
-resolves: #{이슈번호}
++ SUBMODULE_NAME
+  + FEAT: CONTENTS (resolves: #ISSUE_NUMBER)
+...
 
-## 참고 사항
+## Docs
 
-PR을 리뷰할 때 중점적으로 리뷰가 필요하거나 참고가 필요한 내용을 적어주세요.
+## Chore
