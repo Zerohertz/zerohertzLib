@@ -1,0 +1,31 @@
+# v0.2.3
+
+## [v0.2.3] Release ([#65](https://github.com/Zerohertz/zerohertzLib/pull/65))
+
+```{admonition} Release Date
+:class: tip
+
+2023/11/16
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/api"><img src="https://img.shields.io/badge/feat/api-541B9A?style=flat-square&logo=github" alt="feat/api"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+
+
+### Features
+
++ `api`
+  + GitHub API 활용을 위한 `GitHub` 객체 개발 (resolves: [#62](https://github.com/Zerohertz/zerohertzLib/issues/62))
+  + Release note의 문서화를 위한 메서드 개발
+
+### Docs
+
++ Sphinx 문서화를 위한 Issue 및 PR template 변경
+
+### Chore
+
++ GitHub API를 통한 Release Note 자동 생성

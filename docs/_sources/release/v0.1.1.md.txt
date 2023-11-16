@@ -1,0 +1,50 @@
+# v0.1.1
+
+## [v0.1.1] Release ([#1](https://github.com/Zerohertz/zerohertzLib/pull/1))
+
+```{admonition} Release Date
+:class: tip
+
+2023/11/03
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/algorithm"><img src="https://img.shields.io/badge/feat/algorithm-0759DE?style=flat-square&logo=github" alt="feat/algorithm"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+
+
+### Features
+
++ `algorithm`
+  + `bfs`, `dfs` 개발
+
+### Docs
+
++ Sphinx 초기 설정
+
+### Chore
+
++ Sphinx build pipeline 구축
+## [v0.1.1] Chore Update ([#6](https://github.com/Zerohertz/zerohertzLib/pull/6))
+
+```{admonition} Release Date
+:class: tip
+
+2023/11/03
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+
+
+### Chore
+
++ Jenkins에서 Sphinx build 후 변경사항이 존재하지 않는 것에 대한 예외 처리
++ Legacy code 수정
