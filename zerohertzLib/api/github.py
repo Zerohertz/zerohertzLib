@@ -135,9 +135,12 @@ class GitHub:
 
     def _merge_release_note_version(self, version: str, data: List[List[Any]]) -> str:
         merge_release_note = f"# {version}\n\n"
-        for number, html_url, labels, title, closed_at, body in data:
+        for number, html_url, labels, title, updated_at, closed_at, body in data:
             merge_release_note += f"## {title} ([#{number}]({html_url}))\n\n"
-            date = closed_at.split("T")[0].replace("-", "/")
+            if closed_at is None:
+                date = updated_at.split("T")[0].replace("-", "/")
+            else:
+                date = closed_at.split("T")[0].replace("-", "/")
             merge_release_note += "```{admonition} Release Date\n"
             merge_release_note += f":class: tip\n\n{date}\n```\n\n"
             merge_release_note += f"{self._labels_markdown(labels)}\n\n"
@@ -193,6 +196,7 @@ class GitHub:
                     release["html_url"],
                     release["labels"],
                     release["title"],
+                    release["updated_at"],
                     release["closed_at"],
                     release["body"],
                 ]
