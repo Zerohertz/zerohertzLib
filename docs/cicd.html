@@ -17,10 +17,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/cicd.html" />
 <meta property="og:site_name" content="Zerohertz's Library v0.2.4 Documents" />
-<meta property="og:description" content=",,, Stage, AS-IS, TO-BE,,, 1. Setup, ⭕ [* Push], ⭕ [* Push],, 2. Merge From Docs, 👎 [* Push] “Merge pull request*/docs*”, 👍 [* Push] “Merge pull request*/docs”,, 3. 1. Lint, ⭕ [ dev* Push] 👎 [ mast..." />
+<meta property="og:description" content=",, Stage, Condition,,, 1. Setup, ⭕ [* Push],, 2. Merge From Docs, ⭕ [* Push] “Merge pull request*/docs” ⭕ [* Push] “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”,, 3. 1. Lint, ⭕ [ dev..." />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
 <meta property="og:image:alt" content="Zerohertz's Library v0.2.4 Documents" />
-<meta name="description" content=",,, Stage, AS-IS, TO-BE,,, 1. Setup, ⭕ [* Push], ⭕ [* Push],, 2. Merge From Docs, 👎 [* Push] “Merge pull request*/docs*”, 👍 [* Push] “Merge pull request*/docs”,, 3. 1. Lint, ⭕ [ dev* Push] 👎 [ mast..." />
+<meta name="description" content=",, Stage, Condition,,, 1. Setup, ⭕ [* Push],, 2. Merge From Docs, ⭕ [* Push] “Merge pull request*/docs” ⭕ [* Push] “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”,, 3. 1. Lint, ⭕ [ dev..." />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -167,7 +167,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -257,7 +257,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -272,42 +272,94 @@
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-center"><p>Stage</p></th>
-<th class="head"><p>AS-IS</p></th>
-<th class="head"><p>TO-BE</p></th>
+<th class="head"><p>Condition</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td class="text-center"><p>1. <code class="docutils literal notranslate"><span class="pre">Setup</span></code></p></td>
 <td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">*</span></code> Push]</p></td>
-<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">*</span></code> Push]</p></td>
 </tr>
 <tr class="row-odd"><td class="text-center"><p>2. <code class="docutils literal notranslate"><span class="pre">Merge</span> <span class="pre">From</span> <span class="pre">Docs</span></code></p></td>
-<td><p>👎 [<code class="docutils literal notranslate"><span class="pre">*</span></code> Push] “Merge pull request*/docs*”</p></td>
-<td><p>👍 [<code class="docutils literal notranslate"><span class="pre">*</span></code> Push] “Merge pull request*/docs”</p></td>
+<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">*</span></code> Push] “Merge pull request*/docs”</br>⭕ [<code class="docutils literal notranslate"><span class="pre">*</span></code> Push] “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”</p></td>
 </tr>
 <tr class="row-even"><td class="text-center"><p>3. <code class="docutils literal notranslate"><span class="pre">1.</span> <span class="pre">Lint</span></code></p></td>
-<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>👎 [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs*”)</p></td>
-<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>👍 [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs”)</p></td>
+<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs” &amp;&amp; “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”)</p></td>
 </tr>
 <tr class="row-odd"><td class="text-center"><p>4. <code class="docutils literal notranslate"><span class="pre">2.</span> <span class="pre">Build</span></code></p></td>
-<td><p>👎 [<code class="docutils literal notranslate"><span class="pre">master</span></code> Push]</br>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>👎 [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs*”)</p></td>
-<td><p>👍 [<code class="docutils literal notranslate"><span class="pre">master</span></code> Push] (Except “Merge pull request*/docs*”)</br>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>👍 [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs”)</p></td>
+<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> Push] (Except “Merge pull request*/docs*”)</br>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs” &amp;&amp; “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”)</p></td>
 </tr>
 <tr class="row-even"><td class="text-center"><p>5. <code class="docutils literal notranslate"><span class="pre">3.</span> <span class="pre">Test</span></code></p></td>
-<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>👎 [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs*”)</p></td>
-<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>👍 [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs”)</p></td>
+<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs” &amp;&amp; “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”)</p></td>
 </tr>
 <tr class="row-odd"><td class="text-center"><p>6. <code class="docutils literal notranslate"><span class="pre">4.</span> <span class="pre">Docs</span></code></p></td>
-<td><p>👎 [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs*”)</p></td>
-<td><p>👍 [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs”)</p></td>
+<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs” &amp;&amp; “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”)</p></td>
 </tr>
 <tr class="row-even"><td class="text-center"><p>7. <code class="docutils literal notranslate"><span class="pre">Deploy</span></code></p></td>
-<td><p>👎 [<code class="docutils literal notranslate"><span class="pre">master</span></code> Push]</p></td>
-<td><p>👍 [<code class="docutils literal notranslate"><span class="pre">master</span></code> Push] (Except “Merge pull request*/docs*”)</p></td>
+<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> Push] (Except “Merge pull request*/docs*”)</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+<section id="dev-branch">
+<h2>Dev Branch<a class="headerlink" href="#dev-branch" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dev-*</span></code> push</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Setup</span></code>: Commit message parsing</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1.</span> <span class="pre">Lint</span></code>: Check format of python codes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2.</span> <span class="pre">Build</span></code>: Install dependencies &amp; build package</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3.</span> <span class="pre">Test</span></code>: Do PyTest</p></li>
+</ol>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dev-*</span></code> → <code class="docutils literal notranslate"><span class="pre">master</span></code></p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Setup</span></code>: Commit message parsing</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1.</span> <span class="pre">Lint</span></code>: Check format of python codes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2.</span> <span class="pre">Build</span></code>: Install dependencies &amp; build package</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3.</span> <span class="pre">Test</span></code>: Do PyTest</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">4.</span> <span class="pre">Docs</span></code>: Create PR (<code class="docutils literal notranslate"><span class="pre">docs</span></code> → <code class="docutils literal notranslate"><span class="pre">dev-*</span></code>) including the build results generated by Sphinx</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Merge</span> <span class="pre">From</span> <span class="pre">Docs</span></code>: If merge PR from <code class="docutils literal notranslate"><span class="pre">docs</span></code>, can merge <code class="docutils literal notranslate"><span class="pre">dev-*</span></code> → <code class="docutils literal notranslate"><span class="pre">master</span></code></p></li>
+</ol>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">master</span></code> push</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Setup</span></code>: Commit message parsing</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2.</span> <span class="pre">Build</span></code>: Install dependencies &amp; build package</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Deploy</span></code></p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">GitHub</span></code>: Deploy to GitHub</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PyPI</span></code>: Deploy to PyPI</p></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</section>
+<section id="docs-branch">
+<h2>Docs Branch<a class="headerlink" href="#docs-branch" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">docs-*</span></code> push</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Setup</span></code>: Commit message parsing</p></li>
+</ol>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docs-*</span></code> → <code class="docutils literal notranslate"><span class="pre">master</span></code></p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Setup</span></code>: Commit message parsing</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1.</span> <span class="pre">Lint</span></code>: Check format of python codes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2.</span> <span class="pre">Build</span></code>: Install dependencies &amp; build package</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3.</span> <span class="pre">Test</span></code>: Do PyTest</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">4.</span> <span class="pre">Docs</span></code>: Create PR (<code class="docutils literal notranslate"><span class="pre">docs</span></code> → <code class="docutils literal notranslate"><span class="pre">docs-*</span></code>) including the build results generated by Sphinx</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Merge</span> <span class="pre">From</span> <span class="pre">Docs</span></code>: If merge PR from <code class="docutils literal notranslate"><span class="pre">docs</span></code>, can merge <code class="docutils literal notranslate"><span class="pre">docs-*</span></code> → <code class="docutils literal notranslate"><span class="pre">master</span></code></p></li>
+</ol>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">master</span></code> push</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Setup</span></code>: Commit message parsing</p></li>
+</ol>
+</li>
+</ol>
+</section>
 </section>
 
         </article>
@@ -348,8 +400,28 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">CI/CD Pipelines</a><ul>
+<li><a class="reference internal" href="#dev-branch">Dev Branch</a></li>
+<li><a class="reference internal" href="#docs-branch">Docs Branch</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
