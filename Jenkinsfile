@@ -59,10 +59,11 @@ spec:
             }
         }
         // [`*` Push] "Merge pull request*/docs"
+        // [`*` Push] "Merge pull request*[Docs] Build by Sphinx for GitHub Pages"
         stage("Merge From Docs") {
             when {
                 expression {
-                    return commitMessage.startsWith("Merge pull request") && commitMessage.endsWith("[Docs] Build by Sphinx for GitHub Pages")
+                    return commitMessage.startsWith("Merge pull request") && (commitMessage.endsWith("Zerohertz/docs") || commitMessage.endsWith("[Docs] Build by Sphinx for GitHub Pages"))
                 }
             }
             steps {
@@ -76,14 +77,14 @@ spec:
             }
         }
         // [`dev*` Push]
-        // [`master` PR] (Except "Merge pull request*/docs")
+        // [`master` PR] (Except "Merge pull request*/docs" && "Merge pull request*[Docs] Build by Sphinx for GitHub Pages")
         stage("1. Lint") {
             when {
                 anyOf {
                     branch pattern: "dev.*", comparator: "REGEXP"
                     expression {
                         def isMasterPR = env.CHANGE_TARGET == "master"
-                        def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.endsWith("[Docs] Build by Sphinx for GitHub Pages")
+                        def isNotDocsMerge = !(commitMessage.startsWith("Merge pull request") && !(commitMessage.endsWith("Zerohertz/docs") || commitMessage.endsWith("[Docs] Build by Sphinx for GitHub Pages")))
                         return isMasterPR && isNotDocsMerge
                     }
                 }
@@ -110,13 +111,13 @@ spec:
         }
         // [`master` Push] (Except "Merge pull request*/docs*")
         // [`dev*` Push]
-        // [`master` PR] (Except "Merge pull request*/docs")
+        // [`master` PR] (Except "Merge pull request*/docs" && "Merge pull request*[Docs] Build by Sphinx for GitHub Pages")
         stage("2. Build") {
             when {
                 anyOf {
                     expression {
                         def isMasterBranch = env.BRANCH_NAME == "master"
-                        def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.contains("/docs")
+                        def isNotDocsMerge = !(commitMessage.startsWith("Merge pull request") && !(commitMessage.endsWith("Zerohertz/docs") || commitMessage.endsWith("[Docs] Build by Sphinx for GitHub Pages")))
                         return isMasterBranch && isNotDocsMerge
                     }
                     branch pattern: "dev.*", comparator: "REGEXP"
@@ -150,14 +151,14 @@ spec:
             }
         }
         // [`dev*` Push]
-        // [`master` PR] (Except "Merge pull request*/docs")
+        // [`master` PR] (Except "Merge pull request*/docs" && "Merge pull request*[Docs] Build by Sphinx for GitHub Pages")
         stage("3. Test") {
             when {
                 anyOf {
                     branch pattern: "dev.*", comparator: "REGEXP"
                     expression {
                         def isMasterPR = env.CHANGE_TARGET == "master"
-                        def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.endsWith("[Docs] Build by Sphinx for GitHub Pages")
+                        def isNotDocsMerge = !(commitMessage.startsWith("Merge pull request") && !(commitMessage.endsWith("Zerohertz/docs") || commitMessage.endsWith("[Docs] Build by Sphinx for GitHub Pages")))
                         return isMasterPR && isNotDocsMerge
                     }
                 }
@@ -182,12 +183,12 @@ spec:
                 }
             }
         }
-        // [`master` PR] (Except "Merge pull request*/docs")
+        // [`master` PR] (Except "Merge pull request*/docs" && "Merge pull request*[Docs] Build by Sphinx for GitHub Pages")
         stage("4. Docs") {
             when {
                 expression {
                     def isMasterPR = env.CHANGE_TARGET == "master"
-                    def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.endsWith("[Docs] Build by Sphinx for GitHub Pages")
+                    def isNotDocsMerge = !(commitMessage.startsWith("Merge pull request") && !(commitMessage.endsWith("Zerohertz/docs") || commitMessage.endsWith("[Docs] Build by Sphinx for GitHub Pages")))
                     return isMasterPR && isNotDocsMerge
                 }
             }
