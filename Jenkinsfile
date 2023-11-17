@@ -117,7 +117,7 @@ spec:
                 anyOf {
                     expression {
                         def isMasterBranch = env.BRANCH_NAME == "master"
-                        def isNotDocsMerge = !(commitMessage.startsWith("Merge pull request") && (commitMessage.endsWith("Zerohertz/docs") || commitMessage.endsWith("[Docs] Build by Sphinx for GitHub Pages")))
+                        def isNotDocsMerge = !(commitMessage.startsWith("Merge pull request") && commitMessage.contains("/docs"))
                         return isMasterBranch && isNotDocsMerge
                     }
                     branch pattern: "dev.*", comparator: "REGEXP"
