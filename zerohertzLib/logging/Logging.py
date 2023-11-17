@@ -43,7 +43,7 @@ class Logger:
         loggerLevel: Optional[int] = logging.DEBUG,
         consoleLevel: Optional[int] = logging.DEBUG,
         fileLevel: Optional[int] = logging.DEBUG,
-    ):
+    ) -> None:
         self.logger = logging.getLogger(logger_name)
         self.logger.setLevel(loggerLevel)
         formatter = logging.Formatter(
