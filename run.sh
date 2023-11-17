@@ -18,4 +18,4 @@ rm -rf build
 make html
 mv build/html ../docs
 cd ../docs
-python -m http.server
+python -m http.server 1547

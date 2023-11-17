@@ -44,6 +44,7 @@ extensions = [
     "sphinx.ext.todo",
     "sphinxcontrib.jquery",
     "sphinxcontrib.gtagjs",
+    "sphinxext.opengraph",
     "sphinx_favicon",
     "sphinx_copybutton",
     "sphinx_paramlinks",
@@ -124,6 +125,14 @@ html_theme_options = {
         },
     ],
 }
+
+ogp_site_url = "https://zerohertz.github.io/zerohertzLib/"
+ogp_description_length = 200
+ogp_site_name = f"Zerohertz's Library {release} Documents"
+ogp_image = "_static/og.png"
+ogp_type = "website"
+
+
 # -- Options for sphinx_rtd_theme -------------------------------------------------
 
 # html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
