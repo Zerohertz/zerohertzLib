@@ -1,6 +1,11 @@
-<h2 align = "center">
+```{eval-rst}
+:og:title: ⚡ Zerohertz's Library ⚡
+:og:description: pip install zerohertzLib
+```
+
+<h3 align = "center">
     ⚡ Zerohertz's Library ⚡
-</h2>
+</h3>
 
 <p align="center">
     </br>

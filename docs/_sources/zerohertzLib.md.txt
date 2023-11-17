@@ -11,6 +11,7 @@
     zerohertzLib.mlops
     zerohertzLib.monitoring
     zerohertzLib.plot
+    zerohertzLib.util
     zerohertzLib.vision
 ```
 

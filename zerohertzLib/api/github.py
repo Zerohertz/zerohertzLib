@@ -190,6 +190,11 @@ class GitHub:
         bodies_version = defaultdict(list)
         for release in releases:
             version = self._parse_version(release["title"])
+            if "\x08" in release["title"]:
+                error_title = release["title"].replace("\x08", "-> \\x08 <-")
+                raise Exception(
+                    f"""\\x08 is in '{release["html_url"]}'\n\tError Title: {error_title}"""
+                )
             bodies_version[version].append(
                 [
                     release["number"],

@@ -1,6 +1,6 @@
 # v0.2.2
 
-## [v0.2.2] Docs Update ([#59](https://github.com/Zerohertz/zerohertzLib/pull/59))
+## [v0.2.2] Docs Update ([#59](https://github.com/Zerohertz/zerohertzLib/pull/59))
 
 ```{admonition} Release Date
 :class: tip

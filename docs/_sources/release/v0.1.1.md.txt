@@ -29,7 +29,7 @@
 ### Chore
 
 + Sphinx build pipeline 구축
-## [v0.1.1] Chore Update ([#6](https://github.com/Zerohertz/zerohertzLib/pull/6))
+## [v0.1.1] Chore Update ([#6](https://github.com/Zerohertz/zerohertzLib/pull/6))
 
 ```{admonition} Release Date
 :class: tip

@@ -18,7 +18,7 @@
 ### Chore
 
 + [Insecure한 pipeline](https://www.jenkins.io/doc/book/pipeline/jenkinsfile//#string-interpolation) 수정
-## [v0.1.2] Docs Update ([#8](https://github.com/Zerohertz/zerohertzLib/pull/8))
+## [v0.1.2] Docs Update ([#8](https://github.com/Zerohertz/zerohertzLib/pull/8))
 
 ```{admonition} Release Date
 :class: tip

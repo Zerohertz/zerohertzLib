@@ -5,6 +5,7 @@
 	:maxdepth: 2
 	:caption: Contents:
 
+	release/v0.2.4
 	release/v0.2.3
 	release/v0.2.2
 	release/v0.2.1

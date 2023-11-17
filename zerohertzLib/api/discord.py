@@ -15,7 +15,7 @@ class Discord:
         >>> discord = zz.api.Discord("https://discord.com/api/webhooks/...")
     """
 
-    def __init__(self, webhook_url: str):
+    def __init__(self, webhook_url: str) -> None:
         self.webhook_url = webhook_url
 
     def _split_string_in_chunks(self, text: str, chunk_size: int) -> List[str]:

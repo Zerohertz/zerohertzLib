@@ -38,7 +38,7 @@ class TritonClientURL:
         2.21481919e-03, 1.17585063e-03, 1.36753917e-03]]], dtype=float32)}
     """
 
-    def __init__(self, URL: str, model_name: str, port: Optional[int] = 8001):
+    def __init__(self, URL: str, model_name: str, port: Optional[int] = 8001) -> None:
         self.server_url = f"{URL}:{port}"
         self.model_name = model_name
         self.triton_client = grpcclient.InferenceServerClient(
@@ -122,5 +122,5 @@ class TritonClientK8s(TritonClientURL):
 
     def __init__(
         self, svc_name: str, namespace: str, model_name: str, port: Optional[int] = 8001
-    ):
+    ) -> None:
         super().__init__(f"{svc_name}.{namespace}", model_name, port)
