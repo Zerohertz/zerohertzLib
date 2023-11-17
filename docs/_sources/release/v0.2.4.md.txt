@@ -20,6 +20,8 @@
 
 ### Features
 
++ `api`
+  + PR title 예외 처리
 + `util` (resolves: [#69](https://github.com/Zerohertz/zerohertzLib/issues/69))
   + json 형식 파일을 읽고 사용하기 위한 클래스 `Json`, `JsonDir` 개발
   +  json 파일 내 값에 따라 data를 구축하는 `MakeData` 객체 개발
@@ -39,3 +41,24 @@
 ### Style
 
 + `__init__()`의 type hint 누락 수정
+## [v0.2.4] Docs Update  ([#74](https://github.com/Zerohertz/zerohertzLib/pull/74))
+
+```{admonition} Release Date
+:class: tip
+
+2023/11/17
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release/docs"><img src="https://img.shields.io/badge/release/docs-D9B701?style=flat-square&logo=github" alt="release/docs"/></a>
+</p>
+
+
+### Docs
+
++ CI/CD pipeline 표 수정 및 설명 글 추가
+
+### Chore
+
++ Merge From Docs stage의 trigger 변경 (resolves: [#73](https://github.com/Zerohertz/zerohertzLib/issues/73))
