@@ -1,4 +1,4 @@
-from zerohertzLib import algorithm, api, logging, mlops, monitoring, plot
+from zerohertzLib import algorithm, api, logging, mlops, monitoring, plot, util
 
 try:
     from zerohertzLib import vision
