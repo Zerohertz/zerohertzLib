@@ -18,12 +18,12 @@ def test_img2gif():
 
 
 def test_vid2gif():
-    zz.vision.vid2gif(f"{tmp}test.mov", "vid", quality=20)
+    zz.vision.vid2gif(f"{tmp}data/test.mov", "vid", quality=20)
     assert "vid.gif" in os.listdir()
 
 
 def test_before_after_org():
-    before = cv2.imread(f"{tmp}test.jpg")
+    before = cv2.imread(f"{tmp}data/test.jpg")
     after = cv2.GaussianBlur(before, (0, 0), 25)
     after = cv2.cvtColor(after, cv2.COLOR_BGR2GRAY)
     zz.vision.before_after(before, after, quality=10, output_filename="ba1")
@@ -31,14 +31,14 @@ def test_before_after_org():
 
 
 def test_before_after_crop():
-    before = cv2.imread(f"{tmp}test.jpg")
+    before = cv2.imread(f"{tmp}data/test.jpg")
     after = cv2.resize(before, (100, 100))
     zz.vision.before_after(before, after, [20, 40, 30, 60], output_filename="ba2")
     assert "ba2.png" in os.listdir()
 
 
 def test_grid_vertical():
-    test = cv2.imread(f"{tmp}test.jpg")
+    test = cv2.imread(f"{tmp}data/test.jpg")
     imgs = [(test + np.random.rand(*test.shape)).astype(np.uint8) for _ in range(8)]
     imgs[2] = cv2.cvtColor(imgs[2], cv2.COLOR_BGR2GRAY)
     zz.vision.grid(*imgs, output_filename="grid_vertical")
@@ -46,7 +46,7 @@ def test_grid_vertical():
 
 
 def test_grid_horizontal():
-    test = cv2.imread(f"{tmp}test.jpg")
+    test = cv2.imread(f"{tmp}data/test.jpg")
     shape = test.shape
     test = cv2.resize(test, (shape[0], shape[1]))
     imgs = [(test + np.random.rand(*test.shape)).astype(np.uint8) for _ in range(8)]
@@ -56,7 +56,7 @@ def test_grid_horizontal():
 
 
 def test_bbox_bgr():
-    img = cv2.imread(f"{tmp}test.jpg")
+    img = cv2.imread(f"{tmp}data/test.jpg")
     box = np.array(
         [
             [100, 200],
@@ -71,7 +71,7 @@ def test_bbox_bgr():
 
 
 def test_bbox_bgra():
-    img = cv2.imread(f"{tmp}test.jpg")
+    img = cv2.imread(f"{tmp}data/test.jpg")
     box = np.array(
         [
             [100, 200],
@@ -87,7 +87,7 @@ def test_bbox_bgra():
 
 
 def test_bbox_gray():
-    img = cv2.imread(f"{tmp}test.jpg")
+    img = cv2.imread(f"{tmp}data/test.jpg")
     box = np.array(
         [
             [100, 200],
@@ -103,7 +103,7 @@ def test_bbox_gray():
 
 
 def test_masks_bgr():
-    img = cv2.imread(f"{tmp}test.jpg")
+    img = cv2.imread(f"{tmp}data/test.jpg")
     H, W, _ = img.shape
     cnt = 30
     mks = np.zeros((cnt, H, W), np.uint8)
@@ -119,7 +119,7 @@ def test_masks_bgr():
 
 
 def test_masks_bgra():
-    img = cv2.imread(f"{tmp}test.jpg")
+    img = cv2.imread(f"{tmp}data/test.jpg")
     H, W, _ = img.shape
     cnt = 30
     mks = np.zeros((cnt, H, W), np.uint8)
@@ -136,7 +136,7 @@ def test_masks_bgra():
 
 
 def test_masks_gray_int():
-    img = cv2.imread(f"{tmp}test.jpg")
+    img = cv2.imread(f"{tmp}data/test.jpg")
     H, W, _ = img.shape
     cnt = 30
     mks = np.zeros((cnt, H, W), np.uint8)
@@ -160,7 +160,7 @@ def test_masks_gray_int():
 
 
 def test_masks_gray_str():
-    img = cv2.imread(f"{tmp}test.jpg")
+    img = cv2.imread(f"{tmp}data/test.jpg")
     H, W, _ = img.shape
     cnt = 30
     mks = np.zeros((cnt, H, W), np.uint8)
@@ -182,7 +182,7 @@ def test_masks_gray_str():
 
 
 def test_text_bgr():
-    img = cv2.imread(f"{tmp}test.jpg")
+    img = cv2.imread(f"{tmp}data/test.jpg")
     box = np.array(
         [
             [100, 200],
@@ -197,7 +197,7 @@ def test_text_bgr():
 
 
 def test_text_bgra():
-    img = cv2.imread(f"{tmp}test.jpg")
+    img = cv2.imread(f"{tmp}data/test.jpg")
     img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
     box = np.array(
         [
@@ -220,7 +220,7 @@ def test_text_bgra():
 
 
 def test_text_gray():
-    img = cv2.imread(f"{tmp}test.jpg")
+    img = cv2.imread(f"{tmp}data/test.jpg")
     img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
     box = np.array(
         [

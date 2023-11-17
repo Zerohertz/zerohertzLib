@@ -18,5 +18,5 @@ def test_discord_messages():
 
 def test_discord_image():
     discord = zz.api.Discord(WEBHOOK)
-    response = discord.image(f"{tmp}/test.jpg")
+    response = discord.image(f"{tmp}data/test.jpg")
     assert response.status_code == 200
