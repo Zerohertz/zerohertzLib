@@ -26,3 +26,38 @@ def test_JsonDir():
     assert jsd._getKey("language") == "head/repo/language"
     assert type(jsd.unique("sha")) == set
     jsd.tree()
+
+
+def test_write_csv():
+    zz.util.write_csv(
+        [
+            ["id", "종족", "점수"],
+            ["5hi9", "프로토스", 1248],
+            ["gor2", "테란", 2309],
+            ["gk03", "저그", 291],
+        ],
+        "star_craft",
+    )
+    assert "star_craft.csv" in os.listdir()
+
+
+def test_write_csv():
+    zz.util.write_tsv(
+        [
+            ["id", "종족", "점수"],
+            ["5hi9", "프로토스", 1248],
+            ["gor2", "테란", 2309],
+            ["gk03", "저그", 291],
+        ],
+        "star_craft",
+        True,
+    )
+    assert "star_craft.tsv" in os.listdir()
+
+
+def test_write_json():
+    zz.util.write_json(
+        [{"id": "4169", "전투력": 4209, "정보": ["아무", "거나"]}] * 100,
+        "star_craft",
+    )
+    assert "star_craft.json" in os.listdir()
