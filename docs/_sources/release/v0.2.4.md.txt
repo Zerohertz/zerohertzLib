@@ -1,0 +1,30 @@
+# v0.2.4
+
+## [v0.2.4] Release ([#70](https://github.com/Zerohertz/zerohertzLib/pull/70))
+
+```{admonition} Release Date
+:class: tip
+
+2023/11/17
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/api"><img src="https://img.shields.io/badge/feat/api-541B9A?style=flat-square&logo=github" alt="feat/api"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/logging"><img src="https://img.shields.io/badge/feat/logging-477A5E?style=flat-square&logo=github" alt="feat/logging"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/mlops"><img src="https://img.shields.io/badge/feat/mlops-EE5D2A?style=flat-square&logo=github" alt="feat/mlops"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/plot"><img src="https://img.shields.io/badge/feat/plot-968B14?style=flat-square&logo=github" alt="feat/plot"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/util"><img src="https://img.shields.io/badge/feat/util-DEBEAA?style=flat-square&logo=github" alt="feat/util"/></a>
+</p>
+
+
+### Features
+
++ `util`
+  + FEAT: CONTENTS (resolves: #ISSUE_NUMBER)
+...
+
+### Docs
+
+### Chore
