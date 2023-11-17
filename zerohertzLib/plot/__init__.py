@@ -8,7 +8,7 @@ from zerohertzLib.plot.scatter import scatter
 
 plt.rcParams["font.size"] = 20
 font_manager.fontManager.addfont(
-    f"{__file__.replace('__init__.py', '')}NotoSansKR-Medium.ttf"
+    __file__.replace("__init__.py", "NotoSansKR-Medium.ttf")
 )
 plt.rcParams["font.family"] = "Noto Sans KR"
 
