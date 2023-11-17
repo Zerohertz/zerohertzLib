@@ -41,8 +41,8 @@ def test_write_csv():
     assert "star_craft.csv" in os.listdir()
 
 
-def test_write_csv():
-    zz.util.write_tsv(
+def test_write_tsv():
+    zz.util.write_csv(
         [
             ["id", "종족", "점수"],
             ["5hi9", "프로토스", 1248],
