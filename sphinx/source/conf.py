@@ -51,6 +51,7 @@ extensions = [
     "myst_parser",
 ]
 autodoc_typehints = "none"
+todo_include_todos = True
 gtagjs_ids = [
     "G-ZCW0CR8M8X",
 ]
