@@ -3,6 +3,10 @@
 :og:description: pip install zerohertzLib
 ```
 
+<p align="center">
+    <img src="_static/logo.png">
+</p>
+
 <h3 align = "center">
     ⚡ Zerohertz's Library ⚡
 </h3>
@@ -30,6 +34,9 @@
     </a>
     <a href="https://pypi.org/project/zerohertzLib/">
         <img alt="PyPI wheel" src="https://img.shields.io/pypi/wheel/zerohertzLib">
+    </a>
+    <a href="">
+        <img src="https://img.shields.io/badge/code%20style-black-black">
     </a>
     <a href="https://app.codacy.com/gh/Zerohertz/zerohertzLib/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade">
         <img src="https://app.codacy.com/project/badge/Grade/b08b1d140ee54ae1aa8ee251cb5888ff"/>
