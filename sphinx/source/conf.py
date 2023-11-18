@@ -42,15 +42,17 @@ extensions = [
     "sphinx.ext.mathjax",
     "sphinx.ext.napoleon",
     "sphinx.ext.todo",
-    "sphinxcontrib.jquery",
     "sphinxcontrib.gtagjs",
+    "sphinxcontrib.jquery",
     "sphinxext.opengraph",
-    "sphinx_favicon",
     "sphinx_copybutton",
+    "sphinx_favicon",
     "sphinx_paramlinks",
+    "sphinx_sitemap",
     "myst_parser",
 ]
 autodoc_typehints = "none"
+todo_include_todos = True
 gtagjs_ids = [
     "G-ZCW0CR8M8X",
 ]
@@ -132,6 +134,7 @@ ogp_site_name = f"Zerohertz's Library {release} Documents"
 ogp_image = "_static/og.png"
 ogp_type = "website"
 
+sitemap_url_scheme = "{link}"
 
 # -- Options for sphinx_rtd_theme -------------------------------------------------
 

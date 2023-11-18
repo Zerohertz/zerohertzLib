@@ -117,7 +117,7 @@ spec:
                 anyOf {
                     expression {
                         def isMasterBranch = env.BRANCH_NAME == "master"
-                        def isNotDocsMerge = !(commitMessage.startsWith("Merge pull request") && (commitMessage.endsWith("Zerohertz/docs") || commitMessage.endsWith("[Docs] Build by Sphinx for GitHub Pages")))
+                        def isNotDocsMerge = !(commitMessage.startsWith("Merge pull request") && commitMessage.contains("/docs"))
                         return isMasterBranch && isNotDocsMerge
                     }
                     branch pattern: "dev.*", comparator: "REGEXP"
@@ -227,7 +227,7 @@ spec:
                             container("python") {
                                 sh "apt update"
                                 sh "apt install build-essential -y"
-                                sh "pip install sphinx furo sphinxcontrib-jquery sphinxcontrib-gtagjs sphinxext-opengraph sphinx-favicon sphinx-copybutton sphinx-paramlinks myst-parser"
+                                sh "pip install sphinx furo sphinxcontrib-gtagjs sphinxcontrib-jquery sphinxext-opengraph sphinx-copybutton sphinx-favicon sphinx-paramlinks sphinx-sitemap myst-parser"
                                 sh 'python sphinx/release_note.py --token $GIT_PASSWORD'
                                 sh "cd sphinx && make html"
                                 sh "rm -rf docs"
