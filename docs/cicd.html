@@ -16,10 +16,10 @@
     <meta property="og:title" content="CI/CD Pipelines" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/cicd.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.2.4 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.2.5 Documents" />
 <meta property="og:description" content=",, Stage, Condition,,, 1. Setup, ⭕ [* Push],, 2. Merge From Docs, ⭕ [* Push] “Merge pull request*/docs” ⭕ [* Push] “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”,, 3. 1. Lint, ⭕ [ dev..." />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.2.4 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.2.5 Documents" />
 <meta name="description" content=",, Stage, Condition,,, 1. Setup, ⭕ [* Push],, 2. Merge From Docs, ⭕ [* Push] “Merge pull request*/docs” ⭕ [* Push] “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”,, 3. 1. Lint, ⭕ [ dev..." />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
@@ -28,7 +28,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/cicd.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>CI/CD Pipelines - zerohertzLib v0.2.4 documentation</title>
+        <title>CI/CD Pipelines - zerohertzLib v0.2.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -156,7 +156,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.2.4 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.2.5 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.2.4 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.2.5 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -203,6 +203,7 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="release.html">Release Notes</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Release Notes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="release/v0.2.5.html">v0.2.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.2.4.html">v0.2.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.2.3.html">v0.2.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.2.2.html">v0.2.2</a></li>
@@ -265,8 +266,15 @@
         <article role="main">
           <section id="ci-cd-pipelines">
 <h1>CI/CD Pipelines<a class="headerlink" href="#ci-cd-pipelines" title="Permalink to this heading">#</a></h1>
+<div class="important admonition">
+<p class="admonition-title">Used Stacks</p>
+<ol class="arabic simple">
+<li><p>Jenkins (Black, Setuptools, PyTest, Sphinx)</p></li>
+<li><p>GitHub Actions</p></li>
+</ol>
+</div>
 <p align="center">
-    <img width="1844" alt="CI/CD" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/283340051-f8e81344-e662-4cac-9e8f-fb722997dbff.png">
+    <img width="1844" alt="CI/CD" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/283978168-5c8db5de-1d72-44f4-b6a1-8a7b914a3460.png">
 </p>
 <div class="table-wrapper colwidths-auto docutils container">
 <table class="docutils align-default">
@@ -302,6 +310,9 @@
 </div>
 <section id="dev-branch">
 <h2>Dev Branch<a class="headerlink" href="#dev-branch" title="Permalink to this heading">#</a></h2>
+<p align="center">
+   <img width="872" alt="dev-branch" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/283978156-45e1568a-77d5-49bb-9ad7-fb3c5d74996a.png">
+</p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">dev-*</span></code> push</p>
 <ol class="arabic simple">
@@ -337,6 +348,9 @@
 </section>
 <section id="docs-branch">
 <h2>Docs Branch<a class="headerlink" href="#docs-branch" title="Permalink to this heading">#</a></h2>
+<p align="center">
+   <img width="872" alt="dev-branch" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/283978137-5b8f720b-0779-4980-98b6-eea515f24a31.png">
+</p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">docs-*</span></code> push</p>
 <ol class="arabic simple">
@@ -428,7 +442,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=ec6cda30"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=48145e29"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

@@ -1,7 +1,14 @@
 # CI/CD Pipelines
 
+```{admonition} Used Stacks
+:class: important
+
+1. Jenkins (Black, Setuptools, PyTest, Sphinx)
+2. GitHub Actions
+```
+
 <p align="center">
-    <img width="1844" alt="CI/CD" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/283340051-f8e81344-e662-4cac-9e8f-fb722997dbff.png">
+    <img width="1844" alt="CI/CD" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/283978168-5c8db5de-1d72-44f4-b6a1-8a7b914a3460.png">
 </p>
 
 |Stage|Condition|
@@ -15,6 +22,10 @@
 |7. `Deploy`|⭕ [`master` Push] (Except "Merge pull request\*/docs\*")|
 
 ## Dev Branch
+
+<p align="center">
+   <img width="872" alt="dev-branch" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/283978156-45e1568a-77d5-49bb-9ad7-fb3c5d74996a.png">
+</p>
 
 1. `dev-*` push
    1. `Setup`: Commit message parsing
@@ -36,6 +47,10 @@
       2. `PyPI`: Deploy to PyPI
 
 ## Docs Branch
+
+<p align="center">
+   <img width="872" alt="dev-branch" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/283978137-5b8f720b-0779-4980-98b6-eea515f24a31.png">
+</p>
 
 1. `docs-*` push
    1. `Setup`: Commit message parsing
