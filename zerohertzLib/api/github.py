@@ -88,19 +88,17 @@ class GitHub:
                 f"GitHub API Response: {response.status_code}\n\t{response.json()}"
             )
         results = response.json()
-        """
-        ISSUE
-        dict_keys(['url', 'repository_url', 'labels_url', 'comments_url', 'events_url', 'html_url', 'id', 'node_id', 'number', 'title', 'user', 'labels', 'state', 'locked', 'assignee', 'assignees', 'milestone', 'comments', 'created_at', 'updated_at', 'closed_at', 'author_association', 'active_lock_reason', 'body', 'reactions', 'timeline_url', 'performed_via_github_app', 'state_reason'])
-        PULL REQUEST
-        dict_keys(['url', 'repository_url', 'labels_url', 'comments_url', 'events_url', 'html_url', 'id', 'node_id', 'number', 'title', 'user', 'labels', 'state', 'locked', 'assignee', 'assignees', 'milestone', 'comments', 'created_at', 'updated_at', 'closed_at', 'author_association', 'active_lock_reason', 'draft', 'pull_request', 'body', 'reactions', 'timeline_url', 'performed_via_github_app', 'state_reason'])
-        
-        html_url: HTML의 URL                         https://github.com/Zerohertz/zerohertzLib/pull/64
-        number: Issue 또는 PR의 번호                   64
-        title: Issue 또는 PR의 제목                    [Docs] Build by Sphinx for GitHub Pages
-        body: Issue 또는 PR의 MarkDown                #63 (Build: 6095f8f85a0d6d8936a2caa373e675c6f5368644)
-        labels: Issue 또는 PR에 할당된 label들          List[dict_keys(['id', 'node_id', 'url', 'name', 'color', 'default', 'description'])]
-        closed_at: Issue 또는 PR이 종료된 시점           2023-11-16T07:48:51Z
-        """
+        # ISSUE
+        # dict_keys(['url', 'repository_url', 'labels_url', 'comments_url', 'events_url', 'html_url', 'id', 'node_id', 'number', 'title', 'user', 'labels', 'state', 'locked', 'assignee', 'assignees', 'milestone', 'comments', 'created_at', 'updated_at', 'closed_at', 'author_association', 'active_lock_reason', 'body', 'reactions', 'timeline_url', 'performed_via_github_app', 'state_reason'])
+        # PULL REQUEST
+        # dict_keys(['url', 'repository_url', 'labels_url', 'comments_url', 'events_url', 'html_url', 'id', 'node_id', 'number', 'title', 'user', 'labels', 'state', 'locked', 'assignee', 'assignees', 'milestone', 'comments', 'created_at', 'updated_at', 'closed_at', 'author_association', 'active_lock_reason', 'draft', 'pull_request', 'body', 'reactions', 'timeline_url', 'performed_via_github_app', 'state_reason'])
+
+        # html_url: HTML의 URL                         https://github.com/Zerohertz/zerohertzLib/pull/64
+        # number: Issue 또는 PR의 번호                   64
+        # title: Issue 또는 PR의 제목                    [Docs] Build by Sphinx for GitHub Pages
+        # body: Issue 또는 PR의 MarkDown                #63 (Build: 6095f8f85a0d6d8936a2caa373e675c6f5368644)
+        # labels: Issue 또는 PR에 할당된 label들          List[dict_keys(['id', 'node_id', 'url', 'name', 'color', 'default', 'description'])]
+        # closed_at: Issue 또는 PR이 종료된 시점           2023-11-16T07:48:51Z
         return results
 
     def _parse_version(self, title):
