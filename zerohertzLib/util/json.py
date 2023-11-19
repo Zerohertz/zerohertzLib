@@ -76,7 +76,7 @@ class Json:
         return self.data[key]
 
     def __getKeys(self, data: Any, key: str, cnt: int):
-        if type(data) == dict:
+        if isinstance(data, dict):
             for k, v in data.items():
                 self.map.append(" " * 4 * cnt + "└─ " + str(k))
                 if key is None:
