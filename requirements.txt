@@ -1,6 +1,6 @@
 # api
 requests
-openai==0.28.0
+openai
 
 # mlops
 tritonclient[grpc]
