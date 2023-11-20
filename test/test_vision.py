@@ -103,6 +103,50 @@ def test_bbox_gray():
     assert "BBOX_GRAY.png" in os.listdir()
 
 
+def test_bboxes_bgr():
+    img = cv2.imread(f"{data}/test.jpg")
+    boxes = np.array(
+        [
+            [[200, 100], [1500, 100], [1500, 1500], [200, 1500]],
+            [[150, 100], [450, 100], [450, 500], [150, 500]],
+            [[1050, 1050], [1350, 1050], [1350, 1350], [1050, 1350]],
+        ]
+    )
+    BGR = zz.vision.bbox(img, boxes, thickness=10)
+    cv2.imwrite("BBOXES_BGR.png", BGR)
+    assert "BBOXES_BGR.png" in os.listdir()
+
+
+def test_bboxes_bgra():
+    img = cv2.imread(f"{data}/test.jpg")
+    boxes = np.array(
+        [
+            [[200, 100], [1500, 100], [1500, 1500], [200, 1500]],
+            [[150, 100], [450, 100], [450, 500], [150, 500]],
+            [[1050, 1050], [1350, 1050], [1350, 1350], [1050, 1350]],
+        ]
+    )
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
+    BGRA = zz.vision.bbox(img, boxes, thickness=10)
+    cv2.imwrite("BBOXES_BGRA.png", BGRA)
+    assert "BBOXES_BGRA.png" in os.listdir()
+
+
+def test_bboxes_gray():
+    img = cv2.imread(f"{data}/test.jpg")
+    boxes = np.array(
+        [
+            [[200, 100], [1500, 100], [1500, 1500], [200, 1500]],
+            [[150, 100], [450, 100], [450, 500], [150, 500]],
+            [[1050, 1050], [1350, 1050], [1350, 1350], [1050, 1350]],
+        ]
+    )
+    img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
+    GRAY = zz.vision.bbox(img, boxes, thickness=10)
+    cv2.imwrite("BBOXES_GRAY.png", GRAY)
+    assert "BBOXES_GRAY.png" in os.listdir()
+
+
 def test_masks_bgr():
     img = cv2.imread(f"{data}/test.jpg")
     H, W, _ = img.shape
