@@ -184,7 +184,7 @@ class GitHub:
             >>> gh = zz.api.GitHub("Zerohertz", "zerohertzLib", token="ghp_...")
             >>> gh.release_note(sphinx_source_path=os.path.join(sphinx, "source"))
         """
-        releases = self("release") + self("release/docs")
+        releases = self("release") + self("release/chore")
         bodies_version = defaultdict(list)
         for release in releases:
             version = self._parse_version(release["title"])
