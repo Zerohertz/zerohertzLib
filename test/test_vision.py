@@ -236,7 +236,7 @@ def test_text_gray():
     assert "TEXT_GRAY.png" in os.listdir()
 
 
-def test_xyxy2xywh():
+def test_xyxy2xywh_bbox():
     box = np.array(
         [
             [200, 100],
@@ -245,10 +245,26 @@ def test_xyxy2xywh():
             [200, 1500],
         ]
     )
-    assert (zz.vision.xyxy2xywh(box) == np.array([850.0, 800.0, 1300.0, 1400.0])).all()
+    assert (zz.vision.xyxy2xywh(box) == np.array([850, 800, 1300, 1400])).all()
 
 
-def test_xywh2xyxy():
+def test_xyxy2xywh_bboxes():
+    boxes = np.array(
+        [
+            [[200, 100], [1500, 100], [1500, 1500], [200, 1500]],
+            [[150, 100], [450, 100], [450, 500], [150, 500]],
+            [[1050, 1050], [1350, 1050], [1350, 1350], [1050, 1350]],
+        ]
+    )
+    assert (
+        zz.vision.xyxy2xywh(boxes)
+        == np.array(
+            [[850, 800, 1300, 1400], [300, 300, 300, 400], [1200, 1200, 300, 300]]
+        )
+    ).all()
+
+
+def test_xywh2xyxy_bbox():
     box = np.array([850, 800, 1300, 1400])
     assert (
         zz.vision.xywh2xyxy(box)
@@ -258,6 +274,22 @@ def test_xywh2xyxy():
                 [1500, 100],
                 [1500, 1500],
                 [200, 1500],
+            ]
+        )
+    ).all()
+
+
+def test_xywh2xyxy_bboxes():
+    boxes = np.array(
+        [[850, 800, 1300, 1400], [300, 300, 300, 400], [1200, 1200, 300, 300]]
+    )
+    assert (
+        zz.vision.xywh2xyxy(boxes)
+        == np.array(
+            [
+                [[200, 100], [1500, 100], [1500, 1500], [200, 1500]],
+                [[150, 100], [450, 100], [450, 500], [150, 500]],
+                [[1050, 1050], [1350, 1050], [1350, 1350], [1050, 1350]],
             ]
         )
     ).all()
