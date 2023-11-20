@@ -50,7 +50,7 @@ jobs:
                 if (file.filename.startsWith('Jenkins') || file.filename.startsWith('.github/workflows')) {
                   labelsToAdd.push('chore');
                 }
-                if (file.filename.startsWith('docs')) {
+                if (file.filename.startsWith('sphinx')) {
                   labelsToAdd.push('docs');
                 }
                 if (file.filename.startsWith('zerohertzLib/algorithm/')) {
@@ -80,8 +80,8 @@ jobs:
               });
             }
 
-            // Check for PR from docs-* to master
-            if (baseBranch === 'master' && headBranch.startsWith('docs-')) {
+            // Check for PR from chore-* to master
+            if (baseBranch === 'master' && headBranch.startsWith('chore')) {
               const files = await github.rest.pulls.listFiles({
                 owner,
                 repo,
@@ -89,18 +89,18 @@ jobs:
               });
 
               files.data.forEach(file => {
-                labelsToAdd.push('release/docs');
+                labelsToAdd.push('release/chore');
                 if (file.filename.startsWith('Jenkins') || file.filename.startsWith('.github/workflows')) {
                   labelsToAdd.push('chore');
                 }
-                if (file.filename.startsWith('docs')) {
+                if (file.filename.startsWith('sphinx')) {
                   labelsToAdd.push('docs');
                 }
               });
             }
 
-            // Check for PR from docs to dev* or docs*
-            if ((baseBranch.startsWith('dev') || baseBranch.startsWith('docs')) && headBranch === 'docs') {
+            // Check for PR from docs to dev* or chore*
+            if ((baseBranch.startsWith('dev') || baseBranch.startsWith('chore')) && headBranch === 'docs') {
               labelsToAdd.push('docs');
             }
 
