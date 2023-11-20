@@ -160,7 +160,7 @@ class GitHub:
     def _write_release_note(
         self, name: str, sphinx_source_path: str, versions: List[str]
     ) -> None:
-        release_note_body = "# Release Notes\n\n```{eval-rst}\n.. toctree::\n\t:maxdepth: 1\n\t:caption: Contents:\n\n"
+        release_note_body = "# Release Notes\n\n```{eval-rst}\n.. toctree::\n\t:maxdepth: 1\n\n"
         for version in versions:
             release_note_body += f"\t{name}/{version}\n"
         release_note_body += "```\n"
