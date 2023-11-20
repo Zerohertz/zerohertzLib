@@ -21,7 +21,7 @@
 |4. `2. Build`|⭕ [`master` Push] (Except "Merge pull request\*/chore\*")</br>⭕ [`dev*` Push]<br>⭕ [`master` PR] (Except "Merge pull request\*/docs" && "Merge pull request\*[Docs] Build by Sphinx for GitHub Pages")|
 |5. `3. Test`|⭕ [`dev*` Push]<br>⭕ [`master` PR] (Except "Merge pull request\*/docs" && "Merge pull request\*[Docs] Build by Sphinx for GitHub Pages")|
 |6. `4. Docs`|⭕ [`master` PR] (Except "Merge pull request\*/docs" && "Merge pull request\*[Docs] Build by Sphinx for GitHub Pages")|
-|7. `Deploy`|⭕ [`master` Push] (Except "Merge pull request\*/chore\*")|
+|7. `Deploy`|⭕ [`master` Push] "Merge pull request\*from Zerohertz/dev\*" (Except "\*from Zerohertz/chore\*")|
 
 ### Dev Branch
 
@@ -90,7 +90,7 @@ The `chore` branch is utilized when the build result is not different, but there
   + `contains(github.event.issue.title, '[Docs]')` → `labels: ['docs']`
 + [Pull Request](https://github.com/Zerohertz/zerohertzLib/blob/master/.github/workflows/pr-controller.yaml)
   + `assignees: ['Zerohertz']`
-  + `body.includes('bug') || body.includes('fix')` → `labelsToAdd.push('fix')`
+  + `body.includes('bug') || body.includes('fix') || body.includes('수정')` → `labelsToAdd.push('fix')`
   + `body.includes('style')` → `labelsToAdd.push('style')`
   + `baseBranch === 'master' && headBranch.startsWith('dev')`
     + `labelsToAdd.push('release')`

@@ -242,6 +242,7 @@ spec:
                                     setBuildStatus("Success", "SUCCESS", "Merge From Docs")
                             } else {
                                 sh "git add docs"
+                                sh "git add sphinx/source"
                                 sh "git commit -m ':memo: Docs: Build Sphinx (#${env.CHANGE_ID})'"
                                 sh "git push origin docs"
                                 sh """
@@ -271,13 +272,15 @@ spec:
                 }
             }
         }
-        // [`master` Push] (Except "Merge pull request*/chore*")
+        // [`master` Push] "Merge pull request*from Zerohertz/dev*" (Except "*from Zerohertz/chore*")
         stage("Deploy") {
             when {
                 expression {
                     def isMasterBranch = env.BRANCH_NAME == "master"
-                    def isNotChoreMerge = !(commitMessage.startsWith("Merge pull request") && commitMessage.contains("/chore"))
-                    return isMasterBranch && isNotChoreMerge
+                    def isPR = commitMessage.startsWith("Merge pull request")
+                    def isDevMerge = commitMessage.contains("from Zerohertz/dev")
+                    def isChoreMerge = commitMessage.contains("from Zerohertz/chore")
+                    return isMasterBranch && isPR && isDevMerge && !isChoreMerge
                 }
             }
             steps {

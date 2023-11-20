@@ -38,7 +38,7 @@ jobs:
 
             let labelsToAdd = [];
 
-            if (body.includes('bug') || body.includes('fix')) {
+            if (body.includes('bug') || body.includes('fix') || body.includes('수정')) {
               labelsToAdd.push('fix');
             }
             if (body.includes('style')) {
