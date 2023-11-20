@@ -23,10 +23,10 @@
   + GitHub API 활용을 위한 `GitHub` 객체 개발 (resolves: [#62](https://github.com/Zerohertz/zerohertzLib/issues/62))
   + Release note의 문서화를 위한 메서드 개발
 
-### Chore
-
-+ GitHub API를 통한 Release Note 자동 생성
-
 ### Docs
 
 + Sphinx 문서화를 위한 Issue 및 PR template 변경
+
+### Chore
+
++ GitHub API를 통한 Release Note 자동 생성

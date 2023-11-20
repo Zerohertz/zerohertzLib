@@ -34,15 +34,15 @@
 <p align="center">
 <a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
 <a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
-<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release/chore"><img src="https://img.shields.io/badge/release/chore-22FD7F?style=flat-square&logo=github" alt="release/chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release/docs"><img src="https://img.shields.io/badge/release/docs-D9B701?style=flat-square&logo=github" alt="release/docs"/></a>
 </p>
 
+
+### Docs
+
++ `.rst` → `.md` refactoring
 
 ### Chore
 
 + Jenkins: `docs-*` → `master` 빌드 추가 (resolves: [#61](https://github.com/Zerohertz/zerohertzLib/issues/61))
 + GitHub Actions: `docs-*` → `master`에 대한 PR Label 코드 추가
-
-### Docs
-
-+ `.rst` → `.md` refactoring

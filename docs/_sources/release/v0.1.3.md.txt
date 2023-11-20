@@ -23,10 +23,10 @@
   + `dfs`, `bfs`의 구조 수정
   + `SoE` 함수 추가
 
-### Chore
-
-+ `commitMessage`를 정의하는 파이프라인 추가 ([#10](https://github.com/Zerohertz/zerohertzLib/issues/10))
-
 ### Docs
 
 + GitHub `README.md` update
+
+### Chore
+
++ `commitMessage`를 정의하는 파이프라인 추가 ([#10](https://github.com/Zerohertz/zerohertzLib/issues/10))

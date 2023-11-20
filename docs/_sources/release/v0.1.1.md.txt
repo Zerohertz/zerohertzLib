@@ -22,13 +22,13 @@
 + `algorithm`
   + `bfs`, `dfs` 개발
 
-### Chore
-
-+ Sphinx build pipeline 구축
-
 ### Docs
 
 + Sphinx 초기 설정
+
+### Chore
+
++ Sphinx build pipeline 구축
 ## [v0.1.1] Chore Update ([#6](https://github.com/Zerohertz/zerohertzLib/pull/6))
 
 ```{admonition} Release Date

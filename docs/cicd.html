@@ -16,11 +16,11 @@
     <meta property="og:title" content="CI/CD Pipelines" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/cicd.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.2.6 Documents" />
-<meta property="og:description" content="Jenkins:,, Stage, Condition,,, 1. Setup, ⭕ [* Push],, 2. Merge From Docs, ⭕ [* Push] “Merge pull request*/docs” ⭕ [* Push] “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”,, 3. 1. Lint,..." />
+<meta property="og:site_name" content="Zerohertz's Library v0.2.5 Documents" />
+<meta property="og:description" content=",, Stage, Condition,,, 1. Setup, ⭕ [* Push],, 2. Merge From Docs, ⭕ [* Push] “Merge pull request*/docs” ⭕ [* Push] “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”,, 3. 1. Lint, ⭕ [ dev..." />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.2.6 Documents" />
-<meta name="description" content="Jenkins:,, Stage, Condition,,, 1. Setup, ⭕ [* Push],, 2. Merge From Docs, ⭕ [* Push] “Merge pull request*/docs” ⭕ [* Push] “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”,, 3. 1. Lint,..." />
+<meta property="og:image:alt" content="Zerohertz's Library v0.2.5 Documents" />
+<meta name="description" content=",, Stage, Condition,,, 1. Setup, ⭕ [* Push],, 2. Merge From Docs, ⭕ [* Push] “Merge pull request*/docs” ⭕ [* Push] “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”,, 3. 1. Lint, ⭕ [ dev..." />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -28,7 +28,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/cicd.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>CI/CD Pipelines - zerohertzLib v0.2.6 documentation</title>
+        <title>CI/CD Pipelines - zerohertzLib v0.2.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -156,7 +156,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.2.6 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.2.5 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.2.6 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.2.5 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -203,7 +203,6 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="release.html">Release Notes</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Release Notes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="release/v0.2.6.html">v0.2.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.2.5.html">v0.2.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.2.4.html">v0.2.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.2.3.html">v0.2.3</a></li>
@@ -274,10 +273,8 @@
 <li><p>GitHub Actions</p></li>
 </ol>
 </div>
-<section id="jenkins">
-<h2>Jenkins<a class="headerlink" href="#jenkins" title="Permalink to this heading">#</a></h2>
 <p align="center">
-    <img width="1844" alt="CI/CD" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284097735-f7893be3-1e0f-4124-b22e-1e56dbc4f585.png">
+    <img width="1844" alt="CI/CD" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/283978168-5c8db5de-1d72-44f4-b6a1-8a7b914a3460.png">
 </p>
 <div class="table-wrapper colwidths-auto docutils container">
 <table class="docutils align-default">
@@ -297,7 +294,7 @@
 <td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs” &amp;&amp; “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”)</p></td>
 </tr>
 <tr class="row-odd"><td class="text-center"><p>4. <code class="docutils literal notranslate"><span class="pre">2.</span> <span class="pre">Build</span></code></p></td>
-<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> Push] (Except “Merge pull request*/chore*”)</br>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs” &amp;&amp; “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”)</p></td>
+<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> Push] (Except “Merge pull request*/docs*”)</br>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs” &amp;&amp; “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”)</p></td>
 </tr>
 <tr class="row-even"><td class="text-center"><p>5. <code class="docutils literal notranslate"><span class="pre">3.</span> <span class="pre">Test</span></code></p></td>
 <td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs” &amp;&amp; “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”)</p></td>
@@ -306,19 +303,15 @@
 <td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs” &amp;&amp; “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”)</p></td>
 </tr>
 <tr class="row-even"><td class="text-center"><p>7. <code class="docutils literal notranslate"><span class="pre">Deploy</span></code></p></td>
-<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> Push] (Except “Merge pull request*/chore*”)</p></td>
+<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> Push] (Except “Merge pull request*/docs*”)</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <section id="dev-branch">
-<h3>Dev Branch<a class="headerlink" href="#dev-branch" title="Permalink to this heading">#</a></h3>
-<div class="note admonition">
-<p class="admonition-title">Branch Rule</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">dev</span></code> branch is used when there are functional changes resulting in different build outcomes.</p>
-</div>
+<h2>Dev Branch<a class="headerlink" href="#dev-branch" title="Permalink to this heading">#</a></h2>
 <p align="center">
-   <img width="872" alt="dev-branch" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284097739-895d55da-2812-44c8-8d5e-0f632b43a83a.png">
+   <img width="872" alt="dev-branch" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/283978156-45e1568a-77d5-49bb-9ad7-fb3c5d74996a.png">
 </p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">dev-*</span></code> push</p>
@@ -353,29 +346,25 @@
 </li>
 </ol>
 </section>
-<section id="chore-branch">
-<h3>Chore Branch<a class="headerlink" href="#chore-branch" title="Permalink to this heading">#</a></h3>
-<div class="note admonition">
-<p class="admonition-title">Branch Rule</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">chore</span></code> branch is utilized when the build result is not different, but there are changes in the CI/CD pipeline or documentation.</p>
-</div>
+<section id="docs-branch">
+<h2>Docs Branch<a class="headerlink" href="#docs-branch" title="Permalink to this heading">#</a></h2>
 <p align="center">
-   <img width="872" alt="dev-branch" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284097744-66dfa600-5f44-4500-9171-326000588d74.png">
+   <img width="872" alt="dev-branch" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/283978137-5b8f720b-0779-4980-98b6-eea515f24a31.png">
 </p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">chore-*</span></code> push</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">docs-*</span></code> push</p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Setup</span></code>: Commit message parsing</p></li>
 </ol>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">chore-*</span></code> → <code class="docutils literal notranslate"><span class="pre">master</span></code></p>
+<li><p><code class="docutils literal notranslate"><span class="pre">docs-*</span></code> → <code class="docutils literal notranslate"><span class="pre">master</span></code></p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Setup</span></code>: Commit message parsing</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">1.</span> <span class="pre">Lint</span></code>: Check format of python codes</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">2.</span> <span class="pre">Build</span></code>: Install dependencies &amp; build package</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">3.</span> <span class="pre">Test</span></code>: Do PyTest</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">4.</span> <span class="pre">Docs</span></code>: Create PR (<code class="docutils literal notranslate"><span class="pre">docs</span></code> → <code class="docutils literal notranslate"><span class="pre">chore-*</span></code>) including the build results generated by Sphinx</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Merge</span> <span class="pre">From</span> <span class="pre">Docs</span></code>: If merge PR from <code class="docutils literal notranslate"><span class="pre">docs</span></code>, can merge <code class="docutils literal notranslate"><span class="pre">chore-*</span></code> → <code class="docutils literal notranslate"><span class="pre">master</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">4.</span> <span class="pre">Docs</span></code>: Create PR (<code class="docutils literal notranslate"><span class="pre">docs</span></code> → <code class="docutils literal notranslate"><span class="pre">docs-*</span></code>) including the build results generated by Sphinx</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Merge</span> <span class="pre">From</span> <span class="pre">Docs</span></code>: If merge PR from <code class="docutils literal notranslate"><span class="pre">docs</span></code>, can merge <code class="docutils literal notranslate"><span class="pre">docs-*</span></code> → <code class="docutils literal notranslate"><span class="pre">master</span></code></p></li>
 </ol>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">master</span></code> push</p>
@@ -384,66 +373,6 @@
 </ol>
 </li>
 </ol>
-</section>
-</section>
-<section id="github-actions">
-<h2>GitHub Actions<a class="headerlink" href="#github-actions" title="Permalink to this heading">#</a></h2>
-<section id="managing-labels-for-issues-and-pull-requests-in-github">
-<h3>Managing Labels for Issues and Pull Requests in GitHub<a class="headerlink" href="#managing-labels-for-issues-and-pull-requests-in-github" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/Zerohertz/zerohertzLib/blob/master/.github/workflows/issue-controller.yaml">Issue</a></p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">assignees:</span> <span class="pre">['Zerohertz']</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">contains(github.event.issue.title,</span> <span class="pre">'[Bug]')</span></code> → <code class="docutils literal notranslate"><span class="pre">labels:</span> <span class="pre">['fix']</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">contains(github.event.issue.title,</span> <span class="pre">'[Chore]')</span></code> → <code class="docutils literal notranslate"><span class="pre">labels:</span> <span class="pre">['chore']</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">contains(github.event.issue.title,</span> <span class="pre">'[Style]')</span></code> → <code class="docutils literal notranslate"><span class="pre">labels:</span> <span class="pre">['style']</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">contains(github.event.issue.title,</span> <span class="pre">'[Docs]')</span></code> → <code class="docutils literal notranslate"><span class="pre">labels:</span> <span class="pre">['docs']</span></code></p></li>
-</ul>
-</li>
-<li><p><a class="reference external" href="https://github.com/Zerohertz/zerohertzLib/blob/master/.github/workflows/pr-controller.yaml">Pull Request</a></p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">assignees:</span> <span class="pre">['Zerohertz']</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">body.includes('bug')</span> <span class="pre">||</span> <span class="pre">body.includes('fix')</span></code> → <code class="docutils literal notranslate"><span class="pre">labelsToAdd.push('fix')</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">body.includes('style')</span></code> → <code class="docutils literal notranslate"><span class="pre">labelsToAdd.push('style')</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">baseBranch</span> <span class="pre">===</span> <span class="pre">'master'</span> <span class="pre">&amp;&amp;</span> <span class="pre">headBranch.startsWith('dev')</span></code></p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">labelsToAdd.push('release')</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">(file.filename.startsWith('Jenkins')</span> <span class="pre">||</span> <span class="pre">file.filename.startsWith('.github/workflows'))</span></code> → <code class="docutils literal notranslate"><span class="pre">labelsToAdd.push('chore')</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">file.filename.startsWith('sphinx')</span></code> → <code class="docutils literal notranslate"><span class="pre">labelsToAdd.push('docs')</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">file.filename.startsWith('zerohertzLib/algorithm/'</span></code> → <code class="docutils literal notranslate"><span class="pre">labelsToAdd.push('feat/algorithm')</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">file.filename.startsWith('zerohertzLib/api/'</span></code> → <code class="docutils literal notranslate"><span class="pre">labelsToAdd.push('feat/api')</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">file.filename.startsWith('zerohertzLib/mlops/'</span></code> → <code class="docutils literal notranslate"><span class="pre">labelsToAdd.push('feat/mlops')</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">file.filename.startsWith('zerohertzLib/plot/'</span></code> → <code class="docutils literal notranslate"><span class="pre">labelsToAdd.push('feat/plot')</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">file.filename.startsWith('zerohertzLib/util/'</span></code> → <code class="docutils literal notranslate"><span class="pre">labelsToAdd.push('feat/util')</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">file.filename.startsWith('zerohertzLib/vision/'</span></code> → <code class="docutils literal notranslate"><span class="pre">labelsToAdd.push('feat/vision')</span></code></p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">baseBranch</span> <span class="pre">===</span> <span class="pre">'master'</span> <span class="pre">&amp;&amp;</span> <span class="pre">headBranch.startsWith('chore')</span></code></p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">labelsToAdd.push('release/chore')</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">file.filename.startsWith('Jenkins')</span> <span class="pre">||</span> <span class="pre">file.filename.startsWith('.github/workflows')</span></code> → <code class="docutils literal notranslate"><span class="pre">labelsToAdd.push('chore')</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">file.filename.startsWith('sphinx')</span> <span class="pre">||</span> <span class="pre">file.filename.startsWith('.github/workflows')</span></code> → <code class="docutils literal notranslate"><span class="pre">labelsToAdd.push('docs')</span></code></p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">baseBranch.startsWith('dev')</span> <span class="pre">||</span> <span class="pre">baseBranch.startsWith('chore'))</span> <span class="pre">&amp;&amp;</span> <span class="pre">headBranch</span> <span class="pre">===</span> <span class="pre">'docs'</span></code></p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">labelsToAdd.push('docs')</span></code></p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="sphinx-documentation-deployment">
-<h3>Sphinx Documentation Deployment<a class="headerlink" href="#sphinx-documentation-deployment" title="Permalink to this heading">#</a></h3>
-<div class="note admonition">
-<p class="admonition-title">Branch Rule</p>
-<p>Documents created and built using Sphinx are deployed via GitHub Actions and GitHub Pages</p>
-</div>
-<p align="center">
-   <img width="872" alt="pages-build-and-deployment" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284098708-158ea625-5bba-4b5b-8f9e-d7cb72b880f0.png">
-</p>
-</section>
 </section>
 </section>
 
@@ -498,16 +427,8 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">CI/CD Pipelines</a><ul>
-<li><a class="reference internal" href="#jenkins">Jenkins</a><ul>
 <li><a class="reference internal" href="#dev-branch">Dev Branch</a></li>
-<li><a class="reference internal" href="#chore-branch">Chore Branch</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#github-actions">GitHub Actions</a><ul>
-<li><a class="reference internal" href="#managing-labels-for-issues-and-pull-requests-in-github">Managing Labels for Issues and Pull Requests in GitHub</a></li>
-<li><a class="reference internal" href="#sphinx-documentation-deployment">Sphinx Documentation Deployment</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#docs-branch">Docs Branch</a></li>
 </ul>
 </li>
 </ul>
@@ -521,7 +442,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=7fecd443"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=48145e29"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
