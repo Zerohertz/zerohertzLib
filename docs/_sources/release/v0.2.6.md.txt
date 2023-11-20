@@ -35,6 +35,7 @@
 
 + Branch Rule 변경 (`docs-*` → `chore-*)
 + PR의 `body` 내 키워드를 통해 `fix`와 `chore` label 추가
++ Jenkin의 `Deploy` stage 구동 조건 수정
 
 ### Style
 
@@ -43,4 +44,22 @@
 ### Docs
 
 + GitHub Actions 기반 Label 관리 방법론 문서화
+
+## [v0.2.6] Chore Update ([#90](https://github.com/Zerohertz/zerohertzLib/pull/90))
+
+```{admonition} Release Date
+:class: tip
+
+2023/11/20
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+
+
+### Chore
+
++ Jenkin의 `Deploy` stage 구동 조건 수정
 
