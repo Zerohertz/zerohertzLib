@@ -34,8 +34,16 @@ jobs:
             const issueNumber = context.issue.number;
             const owner = context.repo.owner;
             const repo = context.repo.repo;
+            const body = context.payload.pull_request.body.toLowerCase();
 
             let labelsToAdd = [];
+
+            if (body.includes('bug') || body.includes('fix')) {
+              labelsToAdd.push('fix');
+            }
+            if (body.includes('style')) {
+              labelsToAdd.push('style');
+            }
 
             // Check for PR from dev* to master
             if (baseBranch === 'master' && headBranch.startsWith('dev')) {
@@ -50,7 +58,7 @@ jobs:
                 if (file.filename.startsWith('Jenkins') || file.filename.startsWith('.github/workflows')) {
                   labelsToAdd.push('chore');
                 }
-                if (file.filename.startsWith('docs')) {
+                if (file.filename.startsWith('sphinx')) {
                   labelsToAdd.push('docs');
                 }
                 if (file.filename.startsWith('zerohertzLib/algorithm/')) {
@@ -80,8 +88,8 @@ jobs:
               });
             }
 
-            // Check for PR from docs-* to master
-            if (baseBranch === 'master' && headBranch.startsWith('docs-')) {
+            // Check for PR from chore-* to master
+            if (baseBranch === 'master' && headBranch.startsWith('chore')) {
               const files = await github.rest.pulls.listFiles({
                 owner,
                 repo,
@@ -89,18 +97,18 @@ jobs:
               });
 
               files.data.forEach(file => {
-                labelsToAdd.push('release/docs');
+                labelsToAdd.push('release/chore');
                 if (file.filename.startsWith('Jenkins') || file.filename.startsWith('.github/workflows')) {
                   labelsToAdd.push('chore');
                 }
-                if (file.filename.startsWith('docs')) {
+                if (file.filename.startsWith('sphinx')) {
                   labelsToAdd.push('docs');
                 }
               });
             }
 
-            // Check for PR from docs to dev* or docs*
-            if ((baseBranch.startsWith('dev') || baseBranch.startsWith('docs')) && headBranch === 'docs') {
+            // Check for PR from docs to dev* or chore*
+            if ((baseBranch.startsWith('dev') || baseBranch.startsWith('chore')) && headBranch === 'docs') {
               labelsToAdd.push('docs');
             }
 

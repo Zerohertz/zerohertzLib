@@ -4,6 +4,8 @@
   + FEAT: CONTENTS (resolves: #ISSUE_NUMBER)
 ...
 
-### Docs
-
 ### Chore
+
+### Style
+
+### Docs

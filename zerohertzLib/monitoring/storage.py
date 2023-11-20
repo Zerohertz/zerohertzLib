@@ -26,11 +26,11 @@ def storage(path: str, threshold: Optional[int] = 1) -> None:
         :align: center
 
     Args:
-        path (``str``): 입력 데이터
+        path (``str``): 용량을 시각화할 경로
         threshold: (``Optional[int]``): Etc.로 분류될 임계값 (단위: %)
 
     Returns:
-        ``None``: 현재 directory에 바로 graph 저장
+        ``None``: 지정한 경로에 바로 graph 저장
 
     Examples:
         >>> zz.monitoring.storage(".")

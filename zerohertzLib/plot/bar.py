@@ -174,9 +174,9 @@ def hist(
     """
     colors = sns.color_palette("husl", n_colors=len(data))
     m, M = sys.maxsize, -sys.maxsize
-    for l in data.values():
-        m = min(m, min(l))
-        M = max(M, max(l))
+    for d in data.values():
+        m = min(m, min(d))
+        M = max(M, max(d))
     bins = np.linspace(m, M, cnt)
     plt.figure(figsize=ratio)
     if ovp:

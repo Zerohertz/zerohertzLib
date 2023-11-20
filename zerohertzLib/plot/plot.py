@@ -9,6 +9,9 @@ def plot(
     y: Dict[str, List[Union[int, float]]],
     xlab: Optional[str] = "x축 [단위]",
     ylab: Optional[str] = "y축 [단위]",
+    xlim: Optional[List[Union[int, float]]] = None,
+    ylim: Optional[List[Union[int, float]]] = None,
+    ncol: Optional[int] = 1,
     title: Optional[str] = "tmp",
     ratio: Optional[Tuple[int]] = (15, 10),
     dpi: Optional[int] = 300,
@@ -24,6 +27,9 @@ def plot(
         y (``Dict[str, List[Union[int, float]]]``): 입력 데이터 (Y축)
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
+        xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
+        ylim (``Optional[List[Union[int, float]]]``): Graph에 출력될 Y축 limit
+        ncol (``Optional[int]``): Graph에 표시될 legend 열의 수
         title (``Optional[str]``): Graph에 표시될 제목 및 파일명
         ratio (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
@@ -48,15 +54,19 @@ def plot(
             color=colors[i],
             linestyle=linestyle[i % len(linestyle)],
             linewidth=2,
-            marker=marker[i],
+            marker=marker[i % len(marker)],
             markersize=12,
             label=k,
         )
     plt.grid(zorder=0)
     plt.xlabel(xlab)
     plt.ylabel(ylab)
+    if xlim is not None:
+        plt.xlim(xlim)
+    if ylim is not None:
+        plt.ylim(ylim)
     plt.title(title, fontsize=25)
-    plt.legend()
+    plt.legend(ncol=ncol)
     plt.savefig(
         f"{title.lower().replace(' ', '_')}.png",
         dpi=dpi,
