@@ -1,0 +1,25 @@
+# Release Notes
+
+```{eval-rst}
+.. toctree::
+	:maxdepth: 1
+	:caption: Contents:
+
+	release/v0.2.6
+	release/v0.2.5
+	release/v0.2.4
+	release/v0.2.3
+	release/v0.2.2
+	release/v0.2.1
+	release/v0.2.0
+	release/v0.1.10
+	release/v0.1.9
+	release/v0.1.8
+	release/v0.1.7
+	release/v0.1.6
+	release/v0.1.5
+	release/v0.1.4
+	release/v0.1.3
+	release/v0.1.2
+	release/v0.1.1
+```
