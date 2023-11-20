@@ -3,7 +3,6 @@
 ```{eval-rst}
 .. toctree::
     :maxdepth: 2
-    :caption: Contents:
 
     zerohertzLib.algorithm
     zerohertzLib.api

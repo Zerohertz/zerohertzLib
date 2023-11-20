@@ -111,7 +111,7 @@ The `chore` branch is utilized when the build result is not different, but there
 
 ### Sphinx Documentation Deployment
 
-```{admonition} Branch Rule
+```{admonition} Sphinx Documentation
 :class: note
 
 Documents created and built using Sphinx are deployed via GitHub Actions and GitHub Pages
