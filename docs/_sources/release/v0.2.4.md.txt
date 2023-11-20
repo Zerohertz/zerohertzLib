@@ -27,11 +27,6 @@
   +  json 파일 내 값에 따라 data를 구축하는 `MakeData` 객체 개발
   + CSV, TSV JSON 파일을 작성하는 함수 `write_csv`, `write_json` 함수 개발
 
-### Docs
-
-+ `sphinxext-opengraph`를 통한 OpenGraph meta data 추가 (resolves: [#67](https://github.com/Zerohertz/zerohertzLib/issues/67))
-+ Sphinx 문서의 Releases Notes에서 PR title이 깨지는 문제 해결 (resolves: [#68](https://github.com/Zerohertz/zerohertzLib/issues/68))
-
 ### Chore
 
 + PR Controller에 `feat/util` label 추가
@@ -41,6 +36,11 @@
 ### Style
 
 + `__init__()`의 type hint 누락 수정
+
+### Docs
+
++ `sphinxext-opengraph`를 통한 OpenGraph meta data 추가 (resolves: [#67](https://github.com/Zerohertz/zerohertzLib/issues/67))
++ Sphinx 문서의 Releases Notes에서 PR title이 깨지는 문제 해결 (resolves: [#68](https://github.com/Zerohertz/zerohertzLib/issues/68))
 ## [v0.2.4] Docs Update  ([#74](https://github.com/Zerohertz/zerohertzLib/pull/74))
 
 ```{admonition} Release Date
@@ -52,14 +52,14 @@
 <p align="center">
 <a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
 <a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
-<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release/docs"><img src="https://img.shields.io/badge/release/docs-D9B701?style=flat-square&logo=github" alt="release/docs"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release/chore"><img src="https://img.shields.io/badge/release/chore-22FD7F?style=flat-square&logo=github" alt="release/chore"/></a>
 </p>
 
-
-### Docs
-
-+ CI/CD pipeline 표 수정 및 설명 글 추가
 
 ### Chore
 
 + Merge From Docs stage의 trigger 변경 (resolves: [#73](https://github.com/Zerohertz/zerohertzLib/issues/73))
+
+### Docs
+
++ CI/CD pipeline 표 수정 및 설명 글 추가
