@@ -1,5 +1,30 @@
 # v0.3
 
+## v0.3.1
+
+<h3>[v0.3.1] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/95>#95</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2023/11/20
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/api"><img src="https://img.shields.io/badge/feat/api-541B9A?style=flat-square&logo=github" alt="feat/api"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `api`
+  + `OpenAI` 버전 update
+
+<h4>Docs</h4>
+
++ PyPI의 logo update
+
 ## v0.3.0
 
 <h3>[v0.3.0] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/93>#93</a>)</h3>
