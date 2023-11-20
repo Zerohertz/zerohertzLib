@@ -48,7 +48,7 @@ def plot(
             color=colors[i],
             linestyle=linestyle[i % len(linestyle)],
             linewidth=2,
-            marker=marker[i],
+            marker=marker[i % len(marker)],
             markersize=12,
             label=k,
         )

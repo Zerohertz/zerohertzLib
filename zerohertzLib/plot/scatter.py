@@ -41,7 +41,13 @@ def scatter(
     marker = ["o", "v", "^", "s", "p", "*", "x"]
     for i, (k, v) in enumerate(data.items()):
         plt.scatter(
-            v[0], v[1], s=size, color=colors[i], marker=marker[i], label=k, zorder=2
+            v[0],
+            v[1],
+            s=size,
+            color=colors[i],
+            marker=marker[i % len(marker)],
+            label=k,
+            zorder=2,
         )
     plt.grid(zorder=0)
     plt.xlabel(xlab)
