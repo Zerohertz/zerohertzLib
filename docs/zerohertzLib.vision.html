@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.vision" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.vision.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.3.1 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.3.2 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.3.1 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.3.2 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.vision.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.vision - zerohertzLib v0.3.1 documentation</title>
+        <title>zerohertzLib.vision - zerohertzLib v0.3.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.3.1 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.3.2 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.3.1 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.3.2 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -254,13 +254,13 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.vision.bbox">
 <span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">bbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">255)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.bbox" title="Permalink to this definition">#</a></dt>
-<dd><p>Bbox 시각화</p>
-<img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/283126390-32d73013-293b-4eec-8ed5-19ce64863fd6.png" />
+<dd><p>여러 Bbox 시각화</p>
+<img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284277697-e35d3dc4-9a77-4568-81bc-482a8393ab08.png" />
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><span class="target" id="zerohertzLib.vision.bbox.params.img"></span><strong>img</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.bbox.params.img">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[np.uint8]</span></code>) – Input image (<code class="docutils literal notranslate"><span class="pre">[H,</span> <span class="pre">W,</span> <span class="pre">C]</span></code>)</p></li>
-<li><p><span class="target" id="zerohertzLib.vision.bbox.params.box"></span><strong>box</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.bbox.params.box">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – 하나의 bbox (<code class="docutils literal notranslate"><span class="pre">[4,</span> <span class="pre">2]</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.bbox.params.box"></span><strong>box</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.bbox.params.box">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – 하나 혹은 여러 개의 bbox (<code class="docutils literal notranslate"><span class="pre">[4,</span> <span class="pre">2]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4,</span> <span class="pre">2]</span></code>)</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.bbox.params.color"></span><strong>color</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.bbox.params.color">¶</a> (<code class="docutils literal notranslate"><span class="pre">Tuple[int]</span></code>) – bbox의 색</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.bbox.params.thickness"></span><strong>thickness</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.bbox.params.thickness">¶</a> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – bbox 선의 두께</p></li>
 </ul>
@@ -276,6 +276,14 @@
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;test.jpg&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">box</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1500</span><span class="p">],</span> <span class="p">[</span><span class="mi">1400</span><span class="p">,</span> <span class="mi">1500</span><span class="p">],</span> <span class="p">[</span><span class="mi">1400</span><span class="p">,</span> <span class="mi">200</span><span class="p">]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">bbox</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">box</span><span class="p">,</span> <span class="n">thickness</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">boxes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+<span class="go">    [</span>
+<span class="go">        [[200, 100], [1500, 100], [1500, 1500], [200, 1500]],</span>
+<span class="go">        [[150, 100], [450, 100], [450, 500], [150, 500]],</span>
+<span class="go">        [[1050, 1050], [1350, 1050], [1350, 1350], [1050, 1350]],</span>
+<span class="go">    ]</span>
+<span class="go">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">bbox</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">boxes</span><span class="p">,</span> <span class="n">thickness</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -476,10 +484,10 @@
 <dd><p>Bbox 변환</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="target" id="zerohertzLib.vision.xywh2xyxy.params.box"></span><strong>box</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.xywh2xyxy.params.box">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – <code class="docutils literal notranslate"><span class="pre">[cx,</span> <span class="pre">cy,</span> <span class="pre">w,</span> <span class="pre">h]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4]</span></code>)</p>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.vision.xywh2xyxy.params.box"></span><strong>box</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.xywh2xyxy.params.box">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – <code class="docutils literal notranslate"><span class="pre">[cx,</span> <span class="pre">cy,</span> <span class="pre">w,</span> <span class="pre">h]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4]</span></code>)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">[[x1,</span> <span class="pre">y1],</span> <span class="pre">[x2,</span> <span class="pre">y2],</span> <span class="pre">[x3,</span> <span class="pre">y3],</span> <span class="pre">[x4,</span> <span class="pre">y4]]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4,</span> <span class="pre">2]</span></code>)</p>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">[[x1,</span> <span class="pre">y1],</span> <span class="pre">[x2,</span> <span class="pre">y2],</span> <span class="pre">[x3,</span> <span class="pre">y3],</span> <span class="pre">[x4,</span> <span class="pre">y4]]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4,</span> <span class="pre">2]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4,</span> <span class="pre">2]</span></code>)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code></p>
@@ -488,10 +496,20 @@
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">box</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">850</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">1300</span><span class="p">,</span> <span class="mi">1400</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">xywh2xyxy</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
-<span class="go">array([[ 200.,  100.],</span>
-<span class="go">       [1500.,  100.],</span>
-<span class="go">       [1500., 1500.],</span>
-<span class="go">       [ 200., 1500.]])</span>
+<span class="go">array([[ 200,  100],</span>
+<span class="go">       [1500,  100],</span>
+<span class="go">       [1500, 1500],</span>
+<span class="go">       [ 200, 1500]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">boxes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">750</span><span class="p">,</span> <span class="mi">850</span><span class="p">,</span> <span class="mi">1300</span><span class="p">,</span> <span class="mi">1300</span><span class="p">],</span> <span class="p">[</span><span class="mi">850</span><span class="p">,</span> <span class="mi">950</span><span class="p">,</span> <span class="mi">1300</span><span class="p">,</span> <span class="mi">1300</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">xywh2xyxy</span><span class="p">(</span><span class="n">boxes</span><span class="p">)</span>
+<span class="go">array([[[ 100,  200],</span>
+<span class="go">        [1400,  200],</span>
+<span class="go">        [1400, 1500],</span>
+<span class="go">        [ 100, 1500]],</span>
+<span class="go">       [[ 200,  300],</span>
+<span class="go">        [1500,  300],</span>
+<span class="go">        [1500, 1600],</span>
+<span class="go">        [ 200, 1600]]])</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -502,10 +520,10 @@
 <dd><p>Bbox 변환</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="target" id="zerohertzLib.vision.xyxy2xywh.params.box"></span><strong>box</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.xyxy2xywh.params.box">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – <code class="docutils literal notranslate"><span class="pre">[[x1,</span> <span class="pre">y1],</span> <span class="pre">[x2,</span> <span class="pre">y2],</span> <span class="pre">[x3,</span> <span class="pre">y3],</span> <span class="pre">[x4,</span> <span class="pre">y4]]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4,</span> <span class="pre">2]</span></code>)</p>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.vision.xyxy2xywh.params.box"></span><strong>box</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.xyxy2xywh.params.box">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – <code class="docutils literal notranslate"><span class="pre">[[x1,</span> <span class="pre">y1],</span> <span class="pre">[x2,</span> <span class="pre">y2],</span> <span class="pre">[x3,</span> <span class="pre">y3],</span> <span class="pre">[x4,</span> <span class="pre">y4]]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4,</span> <span class="pre">2]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4,</span> <span class="pre">2]</span></code>)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">[cx,</span> <span class="pre">cy,</span> <span class="pre">w,</span> <span class="pre">h]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4]</span></code>)</p>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">[cx,</span> <span class="pre">cy,</span> <span class="pre">w,</span> <span class="pre">h]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4]</span></code>)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code></p>
@@ -514,7 +532,12 @@
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">box</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1500</span><span class="p">],</span> <span class="p">[</span><span class="mi">1400</span><span class="p">,</span> <span class="mi">1500</span><span class="p">],</span> <span class="p">[</span><span class="mi">1400</span><span class="p">,</span> <span class="mi">200</span><span class="p">]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">xyxy2xywh</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
-<span class="go">array([ 750.,  850., 1300., 1300.])</span>
+<span class="go">array([ 750,  850, 1300, 1300])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">boxes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1500</span><span class="p">],</span> <span class="p">[</span><span class="mi">1400</span><span class="p">,</span> <span class="mi">1500</span><span class="p">],</span> <span class="p">[</span><span class="mi">1400</span><span class="p">,</span> <span class="mi">200</span><span class="p">]],</span>
+<span class="go">                      [[200, 300], [200, 1600], [1500, 1600], [1500, 300]]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">xyxy2xywh</span><span class="p">(</span><span class="n">boxes</span><span class="p">)</span>
+<span class="go">array([[ 750,  850, 1300, 1300],</span>
+<span class="go">      [ 850,  950, 1300, 1300]])</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -602,7 +625,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=c5b00ed7"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=f24884bd"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
