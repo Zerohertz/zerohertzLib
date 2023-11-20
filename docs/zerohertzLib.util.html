@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.util" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.util.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.3.1 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.3.2 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.3.1 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.3.2 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.util.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.util - zerohertzLib v0.3.1 documentation</title>
+        <title>zerohertzLib.util - zerohertzLib v0.3.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.3.1 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.3.2 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.3.1 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.3.2 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -635,6 +635,41 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="zerohertzLib.util.read_csv">
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.util.</span></span><span class="sig-name descname"><span class="pre">read_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.util.read_csv" title="Permalink to this definition">#</a></dt>
+<dd><p>CSV (Comma-Separated Values) 혹은 TSV (Tab-Separated Values)를 작성하는 함수</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.util.read_csv.params.path"></span><strong>path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.util.read_csv.params.path">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 입력될 CSV 혹은 TSV 경로 및 파일명</p></li>
+<li><p><span class="target" id="zerohertzLib.util.read_csv.params.header"></span><strong>header</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.util.read_csv.params.header">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – Header의 존재 유무</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Header의 값을 기반으로 column에 따라 <cite>List</cite> 로 구성</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">List[str]]</span></code></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Header가 존재하지 않는 경우 <cite>0</cite> 부터 차례대로 key 값 정의</p>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;star_craft.csv&quot;</span><span class="p">)</span>
+<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;id&#39;: [&#39;5hi9&#39;, &#39;gor2&#39;, &#39;gk03&#39;], &#39;종족&#39;: [&#39;프로토스&#39;, &#39;테란&#39;, &#39;저그&#39;], &#39;점수&#39;: [&#39;1248&#39;, &#39;2309&#39;, &#39;291&#39;]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;star_craft.tsv&quot;</span><span class="p">)</span>
+<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;id&#39;: [&#39;5hi9&#39;, &#39;gor2&#39;, &#39;gk03&#39;], &#39;종족&#39;: [&#39;프로토스&#39;, &#39;테란&#39;, &#39;저그&#39;], &#39;점수&#39;: [&#39;1248&#39;, &#39;2309&#39;, &#39;291&#39;]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;star_craft.csv&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {0: [&#39;id&#39;, &#39;5hi9&#39;, &#39;gor2&#39;, &#39;gk03&#39;], 1: [&#39;종족&#39;, &#39;프로토스&#39;, &#39;테란&#39;, &#39;저그&#39;], 2: [&#39;점수&#39;, &#39;1248&#39;, &#39;2309&#39;, &#39;291&#39;]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;star_craft.tsv&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {0: [&#39;id&#39;, &#39;5hi9&#39;, &#39;gor2&#39;, &#39;gk03&#39;], 1: [&#39;종족&#39;, &#39;프로토스&#39;, &#39;테란&#39;, &#39;저그&#39;], 2: [&#39;점수&#39;, &#39;1248&#39;, &#39;2309&#39;, &#39;291&#39;]})</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.util.write_csv">
 <span class="sig-prename descclassname"><span class="pre">zerohertzLib.util.</span></span><span class="sig-name descname"><span class="pre">write_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tsv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.util.write_csv" title="Permalink to this definition">#</a></dt>
 <dd><p>CSV (Comma-Separated Values) 혹은 TSV (Tab-Separated Values)를 작성하는 함수</p>
@@ -794,6 +829,7 @@
 <li><a class="reference internal" href="#zerohertzLib.util.MakeData.make"><code class="docutils literal notranslate"><span class="pre">MakeData.make()</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#zerohertzLib.util.read_csv"><code class="docutils literal notranslate"><span class="pre">read_csv()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.util.write_csv"><code class="docutils literal notranslate"><span class="pre">write_csv()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.util.write_json"><code class="docutils literal notranslate"><span class="pre">write_json()</span></code></a></li>
 </ul>
@@ -809,7 +845,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=c5b00ed7"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=f24884bd"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

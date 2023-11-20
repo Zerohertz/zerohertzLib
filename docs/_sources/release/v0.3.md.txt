@@ -1,5 +1,34 @@
 # v0.3
 
+## v0.3.2
+
+<h3>[v0.3.2] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/97>#97</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2023/11/20
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/vision"><img src="https://img.shields.io/badge/feat/vision-D1F9CB?style=flat-square&logo=github" alt="feat/vision"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/util"><img src="https://img.shields.io/badge/feat/util-DEBEAA?style=flat-square&logo=github" alt="feat/util"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `util`
+  + CSV를 읽어오는 함수 개발
++ `vision`
+  + 여러 bbox에 대한 변환 (`xyxy2xywh`, `xywh2xyxy`) 및 시각화 (`bbox`) 함수 일반화
+
+<h4>Chore</h4>
+
++ PyPI에 대해 E-Mail 및 License 추가
+
 ## v0.3.1
 
 <h3>[v0.3.1] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/95>#95</a>)</h3>
@@ -12,6 +41,7 @@
 
 <p align="center">
 <a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/api"><img src="https://img.shields.io/badge/feat/api-541B9A?style=flat-square&logo=github" alt="feat/api"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
 <a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
 </p>
 
