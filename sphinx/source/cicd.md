@@ -90,6 +90,8 @@ The `chore` branch is utilized when the build result is not different, but there
   + `contains(github.event.issue.title, '[Docs]')` → `labels: ['docs']`
 + [Pull Request](https://github.com/Zerohertz/zerohertzLib/blob/master/.github/workflows/pr-controller.yaml)
   + `assignees: ['Zerohertz']`
+  + `body.includes('bug') || body.includes('fix')` → `labelsToAdd.push('fix')`
+  + `body.includes('style')` → `labelsToAdd.push('style')`
   + `baseBranch === 'master' && headBranch.startsWith('dev')`
     + `labelsToAdd.push('release')`
     + `(file.filename.startsWith('Jenkins') || file.filename.startsWith('.github/workflows'))` → `labelsToAdd.push('chore')`

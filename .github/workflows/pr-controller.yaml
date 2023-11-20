@@ -34,8 +34,16 @@ jobs:
             const issueNumber = context.issue.number;
             const owner = context.repo.owner;
             const repo = context.repo.repo;
+            const body = context.payload.pull_request.body.toLowerCase();
 
             let labelsToAdd = [];
+
+            if (body.includes('bug') || body.includes('fix')) {
+              labelsToAdd.push('fix');
+            }
+            if (body.includes('style') {
+              labelsToAdd.push('style');
+            }
 
             // Check for PR from dev* to master
             if (baseBranch === 'master' && headBranch.startsWith('dev')) {
