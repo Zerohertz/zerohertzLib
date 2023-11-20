@@ -113,7 +113,7 @@ class GitHub:
     def _replace_issue_markdown(self, body: str, issue: str) -> str:
         return body.replace(
             f"#{issue}",
-            f"[#{issue}](https://github.com/{self.user}/{self.repo}/issues/{issue})",
+            f"""<a href="https://github.com/{self.user}/{self.repo}/issues/{issue}">#{issue}</a>""",
         )
 
     def _shield_icon(self, tag: str, color: str, href: str):
@@ -131,10 +131,17 @@ class GitHub:
         labels_markdown += "</p>\n"
         return labels_markdown
 
+    def _replace_pr_title(self, body: str) -> str:
+        pattern = r"### (.*?)\n"
+        replacement = r"<h4>\1</h4>\n"
+        return re.sub(pattern, replacement, body)
+
     def _merge_release_note_version(self, version: str, data: List[List[Any]]) -> str:
-        merge_release_note = f"# {version}\n\n"
+        merge_release_note = f"## {version}\n\n"
         for number, html_url, labels, title, updated_at, closed_at, body in data:
-            merge_release_note += f"## {title} ([#{number}]({html_url}))\n\n"
+            merge_release_note += (
+                f"""<h3>{title} (<a href={html_url}>#{number}</a>)</h3>\n\n"""
+            )
             if closed_at is None:
                 date = updated_at.split("T")[0].replace("-", "/")
             else:
@@ -143,9 +150,11 @@ class GitHub:
             merge_release_note += f":class: tip\n\n{date}\n```\n\n"
             merge_release_note += f"{self._labels_markdown(labels)}\n\n"
             if body is not None:
+                body = body.replace("\r\n", "\n")
                 issues = self._parse_issues_from_pr_body(body)
                 for issue in issues:
                     body = self._replace_issue_markdown(body, issue)
+                body = self._replace_pr_title(body)
                 merge_release_note += body + "\n"
         return merge_release_note
 
@@ -155,12 +164,14 @@ class GitHub:
         with open(
             f"{sphinx_source_path}/{name}/{version}.md", "w", encoding="utf-8"
         ) as f:
-            f.writelines(body)
+            f.writelines(f"# {version}\n\n" + body)
 
     def _write_release_note(
         self, name: str, sphinx_source_path: str, versions: List[str]
     ) -> None:
-        release_note_body = "# Release Notes\n\n```{eval-rst}\n.. toctree::\n\t:maxdepth: 1\n\n"
+        release_note_body = (
+            "# Release Notes\n\n```{eval-rst}\n.. toctree::\n\t:maxdepth: 1\n\n"
+        )
         for version in versions:
             release_note_body += f"\t{name}/{version}\n"
         release_note_body += "```\n"
@@ -186,6 +197,7 @@ class GitHub:
         """
         releases = self("release") + self("release/chore")
         bodies_version = defaultdict(list)
+        versions = defaultdict(str)
         for release in releases:
             version = self._parse_version(release["title"])
             if "\x08" in release["title"]:
@@ -205,13 +217,16 @@ class GitHub:
                 ]
             )
         for data in bodies_version.values():
-            data.sort()
-        self._write_release_note(name, sphinx_source_path, list(bodies_version.keys()))
+            data.sort(reverse=True)
         try:
             shutil.rmtree(f"{sphinx_source_path}/{name}")
         except:
             pass
         os.mkdir(f"{sphinx_source_path}/{name}")
         for version, data in bodies_version.items():
+            ver = ".".join(version.split(".")[:-1])
             body = self._merge_release_note_version(version, data)
+            versions[ver] += body
+        for version, body in versions.items():
             self._write_release_note_version(name, sphinx_source_path, version, body)
+        self._write_release_note(name, sphinx_source_path, list(versions.keys()))
