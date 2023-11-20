@@ -31,10 +31,10 @@
 + `plot`
   + Pie chart로 시각화하는 `pie` 함수 추가
 
-### Docs
-
-+ Sphinx docs 내 Examples format 수정
-
 ### Chore
 
 + Jenkins의 trigger 수정 (resolves: [#34](https://github.com/Zerohertz/zerohertzLib/issues/34))
+
+### Docs
+
++ Sphinx docs 내 Examples format 수정
