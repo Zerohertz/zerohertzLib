@@ -52,25 +52,11 @@ def xyxy2xywh(
         raise Exception("The 'box' must be of shape [4, 2] or [N, 4, 2]")
 
 
-def xywh2xyxy(
+def _xywh2xyxy(
     box: NDArray[DTypeLike],
 ) -> NDArray[DTypeLike]:
-    """Bbox 변환
-
-    Args:
-        box (``NDArray[DTypeLike]``): ``[cx, cy, w, h]`` 로 구성된 bbox (``[4]``)
-
-    Returns:
-        ``NDArray[DTypeLike]``: ``[[x1, y1], [x2, y2], [x3, y3], [x4, y4]]`` 로 구성된 bbox (``[4, 2]``)
-
-    Examples:
-        >>> box = np.array([850, 800, 1300, 1400])
-        >>> zz.vision.xywh2xyxy(box)
-        array([[ 200.,  100.],
-               [1500.,  100.],
-               [1500., 1500.],
-               [ 200., 1500.]])
-    """
+    shape = box.shape
+    assert shape[0] == 4
     cx, cy, w, h = box
     xa = cx - w / 2
     xb = cx + w / 2
@@ -80,4 +66,46 @@ def xywh2xyxy(
     x2, y2 = xb, ya
     x3, y3 = xb, yb
     x4, y4 = xa, yb
-    return np.array([[x1, y1], [x2, y2], [x3, y3], [x4, y4]])
+    return np.array([[x1, y1], [x2, y2], [x3, y3], [x4, y4]], dtype=box.dtype)
+
+
+def xywh2xyxy(
+    box: NDArray[DTypeLike],
+) -> NDArray[DTypeLike]:
+    """Bbox 변환
+
+    Args:
+        box (``NDArray[DTypeLike]``): ``[cx, cy, w, h]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
+
+    Returns:
+        ``NDArray[DTypeLike]``: ``[[x1, y1], [x2, y2], [x3, y3], [x4, y4]]`` 로 구성된 bbox (``[4, 2]`` or ``[N, 4, 2]``)
+
+    Examples:
+        >>> box = np.array([850, 800, 1300, 1400])
+        >>> zz.vision.xywh2xyxy(box)
+        array([[ 200,  100],
+               [1500,  100],
+               [1500, 1500],
+               [ 200, 1500]])
+        >>> boxes = np.array([[750, 850, 1300, 1300], [850, 950, 1300, 1300]])
+        >>> zz.vision.xywh2xyxy(boxes)
+        array([[[ 100,  200],
+                [1400,  200],
+                [1400, 1500],
+                [ 100, 1500]],
+               [[ 200,  300],
+                [1500,  300],
+                [1500, 1600],
+                [ 200, 1600]]])
+    """
+    shape = box.shape
+    if len(shape) == 1:
+        return _xywh2xyxy(box)
+    elif len(shape) == 2:
+        assert shape[1] == 4
+        converted_boxes = np.zeros((shape[0], 4, 2), box.dtype)
+        for i, b in enumerate(box):
+            converted_boxes[i] = _xywh2xyxy(b)
+        return converted_boxes
+    else:
+        raise Exception("The 'box' must be of shape [4] or [N, 4]")
