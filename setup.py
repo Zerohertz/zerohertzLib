@@ -56,4 +56,5 @@ setup(
     package_data={
         "zerohertzLib": ["plot/*.ttf"],
     },
+    license="MIT",
 )
