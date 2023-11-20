@@ -41,7 +41,7 @@ jobs:
             if (body.includes('bug') || body.includes('fix')) {
               labelsToAdd.push('fix');
             }
-            if (body.includes('style') {
+            if (body.includes('style')) {
               labelsToAdd.push('style');
             }
 
