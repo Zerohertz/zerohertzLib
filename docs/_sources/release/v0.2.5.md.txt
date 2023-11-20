@@ -21,16 +21,15 @@
 + `api`
   + Release Notes 생성 시 표시되는 깊이 수정 (`2` → `1`)
 
-### Chore
-
-+ `2. Build` stage의 구동 조건 변경
-
 ### Docs
 
 + CI/CD pipeline의 설명글 수정
 + `sitemap.xml` 생성
 + Add logo of `zerohertzLib`
 
+### Chore
+
++ `2. Build` stage의 구동 조건 변경
 ## [v0.2.5] Docs & Style Update ([#81](https://github.com/Zerohertz/zerohertzLib/pull/81))
 
 ```{admonition} Release Date
@@ -42,16 +41,15 @@
 <p align="center">
 <a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
 <a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:style"><img src="https://img.shields.io/badge/style-03A17F?style=flat-square&logo=github" alt="style"/></a>
-<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release/chore"><img src="https://img.shields.io/badge/release/chore-22FD7F?style=flat-square&logo=github" alt="release/chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release/docs"><img src="https://img.shields.io/badge/release/docs-D9B701?style=flat-square&logo=github" alt="release/docs"/></a>
 </p>
 
-
-### Style
-
-+ 코드 내 문서가 아닌 주석 수정 (resolves: [#79](https://github.com/Zerohertz/zerohertzLib/issues/79))
-+ `type()` 대신 `isinstance()` 사용 (resolves: [#80](https://github.com/Zerohertz/zerohertzLib/issues/80))
 
 ### Docs
 
 + Black badge의 `href` 추가
 
+### Style
+
++ 코드 내 문서가 아닌 주석 수정 (resolves: [#79](https://github.com/Zerohertz/zerohertzLib/issues/79))
++ `type()` 대신 `isinstance()` 사용 (resolves: [#80](https://github.com/Zerohertz/zerohertzLib/issues/80))

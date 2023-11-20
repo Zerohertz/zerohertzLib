@@ -5,9 +5,6 @@ openai==0.28.0
 # mlops
 tritonclient[grpc]
 
-# monitoring
-psutil
-
 # plot
 matplotlib
 seaborn

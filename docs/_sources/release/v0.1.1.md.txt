@@ -22,14 +22,13 @@
 + `algorithm`
   + `bfs`, `dfs` 개발
 
-### Chore
-
-+ Sphinx build pipeline 구축
-
 ### Docs
 
 + Sphinx 초기 설정
 
+### Chore
+
++ Sphinx build pipeline 구축
 ## [v0.1.1] Chore Update ([#6](https://github.com/Zerohertz/zerohertzLib/pull/6))
 
 ```{admonition} Release Date
@@ -49,4 +48,3 @@
 
 + Jenkins에서 Sphinx build 후 변경사항이 존재하지 않는 것에 대한 예외 처리
 + Legacy code 수정
-

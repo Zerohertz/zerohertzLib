@@ -30,6 +30,12 @@
   + 이미지 시각화 함수 `bbox`, `masks`, `text` 개발 (resolves: [#49](https://github.com/Zerohertz/zerohertzLib/issues/49))
   + Bbox에 대한 전환 함수 개발 (`xyxy2xywh`, `xywh2xyxy`)
 
+### Docs
+
++ `numpy`에 대한 더 상세한 type hint 작성 (resolves: [#53](https://github.com/Zerohertz/zerohertzLib/issues/53))
++ Type hint 검수 (resolves: [#54](https://github.com/Zerohertz/zerohertzLib/issues/54))
++ 문서 내 난잡한 type hint 제거
+
 ### Chore
 
 + Test image의 resolution 감소
@@ -38,10 +44,4 @@
 ### Style
 
 + `mlops` submodule 내 객체의 camel case 수정
-
-### Docs
-
-+ `numpy`에 대한 더 상세한 type hint 작성 (resolves: [#53](https://github.com/Zerohertz/zerohertzLib/issues/53))
-+ Type hint 검수 (resolves: [#54](https://github.com/Zerohertz/zerohertzLib/issues/54))
-+ 문서 내 난잡한 type hint 제거
 

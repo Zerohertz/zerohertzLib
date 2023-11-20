@@ -146,7 +146,7 @@ class GitHub:
                 issues = self._parse_issues_from_pr_body(body)
                 for issue in issues:
                     body = self._replace_issue_markdown(body, issue)
-                merge_release_note += body + "\n"
+                merge_release_note += body
         return merge_release_note
 
     def _write_release_note_version(
@@ -184,7 +184,7 @@ class GitHub:
             >>> gh = zz.api.GitHub("Zerohertz", "zerohertzLib", token="ghp_...")
             >>> gh.release_note(sphinx_source_path=os.path.join(sphinx, "source"))
         """
-        releases = self("release") + self("release/chore")
+        releases = self("release") + self("release/docs")
         bodies_version = defaultdict(list)
         for release in releases:
             version = self._parse_version(release["title"])

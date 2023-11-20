@@ -109,7 +109,7 @@ spec:
                 }
             }
         }
-        // [`master` Push] (Except "Merge pull request*/chore*")
+        // [`master` Push] (Except "Merge pull request*/docs*")
         // [`dev*` Push]
         // [`master` PR] (Except "Merge pull request*/docs" && "Merge pull request*[Docs] Build by Sphinx for GitHub Pages")
         stage("2. Build") {
@@ -117,8 +117,8 @@ spec:
                 anyOf {
                     expression {
                         def isMasterBranch = env.BRANCH_NAME == "master"
-                        def isNotChoreMerge = !(commitMessage.startsWith("Merge pull request") && commitMessage.contains("/chore"))
-                        return isMasterBranch && isNotChoreMerge
+                        def isNotDocsMerge = !(commitMessage.startsWith("Merge pull request") && commitMessage.contains("/docs"))
+                        return isMasterBranch && isNotDocsMerge
                     }
                     branch pattern: "dev.*", comparator: "REGEXP"
                     expression {
@@ -271,13 +271,13 @@ spec:
                 }
             }
         }
-        // [`master` Push] (Except "Merge pull request*/chore*")
+        // [`master` Push] (Except "Merge pull request*/docs*")
         stage("Deploy") {
             when {
                 expression {
                     def isMasterBranch = env.BRANCH_NAME == "master"
-                    def isNotChoreMerge = !(commitMessage.startsWith("Merge pull request") && !commitMessage.contains("/chore"))
-                    return isMasterBranch && isNotChoreMerge
+                    def isNotDocsMerge = !commitMessage.startsWith("Merge pull request") || !commitMessage.contains("/docs")
+                    return isMasterBranch && isNotDocsMerge
                 }
             }
             steps {
