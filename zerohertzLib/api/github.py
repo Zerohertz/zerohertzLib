@@ -146,7 +146,7 @@ class GitHub:
                 issues = self._parse_issues_from_pr_body(body)
                 for issue in issues:
                     body = self._replace_issue_markdown(body, issue)
-                merge_release_note += body
+                merge_release_note += body + "\n"
         return merge_release_note
 
     def _write_release_note_version(
