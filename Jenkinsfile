@@ -276,7 +276,7 @@ spec:
             when {
                 expression {
                     def isMasterBranch = env.BRANCH_NAME == "master"
-                    def isNotChoreMerge = !(commitMessage.startsWith("Merge pull request") && !commitMessage.contains("/chore"))
+                    def isNotChoreMerge = !(commitMessage.startsWith("Merge pull request") && commitMessage.contains("/chore"))
                     return isMasterBranch && isNotChoreMerge
                 }
             }
