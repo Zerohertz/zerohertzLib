@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="sphinx/source/_static/logo.png">
+    <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284166558-0ba4b755-39cc-48ee-ba3b-5c02f54c4ca7.png">
 </p>
 
 <h2 align = "center">

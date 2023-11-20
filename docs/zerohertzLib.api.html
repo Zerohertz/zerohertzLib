@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.api" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.api.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.3.0 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.3.1 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.3.0 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.3.1 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.api.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.api - zerohertzLib v0.3.0 documentation</title>
+        <title>zerohertzLib.api - zerohertzLib v0.3.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.3.0 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.3.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.3.0 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.3.1 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -387,66 +387,142 @@
 
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="zerohertzLib.api.api_key">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.api.</span></span><span class="sig-name descname"><span class="pre">api_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.api_key" title="Permalink to this definition">#</a></dt>
-<dd><p>OpenAI의 API 키 등록</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="zerohertzLib.api.OpenAI">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.api.</span></span><span class="sig-name descname"><span class="pre">OpenAI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.OpenAI" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">OpenAI</span></code></p>
+<p>OpenAI의 client instance 생성</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference external" href="https://github.com/openai/openai-python">공식 OpenAI GitHub</a> 참고</p>
+</div>
 <img alt="OpenAI API Key" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280564436-27d62c06-f59a-4772-8cd6-48be49147a86.png" />
 <p>위와 같이 <a class="reference external" href="https://platform.openai.com/account/api-keys">OpenAI</a> 페이지에서 발급 후 API를 등록해야 사용할 수 있다.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="target" id="zerohertzLib.api.api_key.params.api_key"></span><strong>api_key</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.api_key.params.api_key">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – OpenAI의 API Key</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>사용 가능한 model들의 정보</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">openai.openai_object.OpenAIObject</span></code></p>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.api.OpenAI.params.api_key"></span><strong>api_key</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.OpenAI.params.api_key">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 위에서 등록한 OpenAI의 API key</p>
 </dd>
 </dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">api_key</span><span class="p">(</span><span class="s2">&quot;sk-...&quot;</span><span class="p">)</span>
-<span class="go">&lt;OpenAIObject list at ...&gt; JSON: {</span>
-<span class="go">    &quot;object&quot;: &quot;list&quot;,</span>
-<span class="go">    &quot;data&quot;: [</span>
-<span class="go">        {</span>
-<span class="go">        &quot;id&quot;: &quot;text-search-babbage-doc-001&quot;,</span>
-<span class="go">        &quot;object&quot;: &quot;model&quot;,</span>
-<span class="go">        &quot;created&quot;: ...,</span>
-<span class="go">        &quot;owned_by&quot;: &quot;openai-dev&quot;</span>
-<span class="go">        },</span>
-<span class="go">        {</span>
-<span class="go">        &quot;id&quot;: &quot;gpt-3.5-turbo-16k-0613&quot;,</span>
-<span class="go">        &quot;object&quot;: &quot;model&quot;,</span>
-<span class="go">        &quot;created&quot;: ...,</span>
-<span class="go">        &quot;owned_by&quot;: &quot;openai&quot;</span>
-<span class="go">        },</span>
-<span class="go">        ...</span>
-</pre></div>
-</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#zerohertzLib.api.OpenAI.model" title="Permalink to this definition">#</a></dt>
+<dd><p>사용 가능한 model의 이름</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[str]</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="zerohertzLib.api.gpt">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.api.</span></span><span class="sig-name descname"><span class="pre">gpt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.gpt" title="Permalink to this definition">#</a></dt>
-<dd><p>GPT 3.5 실행</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.OpenAI.__call__" title="Permalink to this definition">#</a></dt>
+<dd><p>Model 호출 수행</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="target" id="zerohertzLib.api.gpt.params.message"></span><strong>message</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.gpt.params.message">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – ChatGPT 3.5의 입력</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Model 호출 시 사용될 입력</p></li>
+<li><p><strong>model</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 호출할 model 선택</p></li>
+<li><p><strong>stream</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 응답의 실시간 출력 여부</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>ChatGPT 3.5의 출력</p>
+<dd class="field-even"><p>호출된 model의 결과</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p>
 </dd>
 </dl>
+</dd></dl>
+
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">api_key</span><span class="p">(</span><span class="s2">&quot;sk-...&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">gpt</span><span class="p">(</span><span class="s2">&quot;hi&quot;</span><span class="p">)</span>
-<span class="go">&#39;Hello! How can I assist you today?&#39;</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">client</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">OpenAI</span><span class="p">(</span><span class="s2">&quot;sk-...&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+<span class="go">SyncPage[Model](data=[Model(id=&#39;text-search-babbage-doc-001&#39;, created=1651172509, object=&#39;model&#39;, owned_by=&#39;openai-dev&#39;),</span>
+<span class="go">                      Model(id=&#39;gpt-4&#39;, created=1687882411, object=&#39;model&#39;, owned_by=&#39;openai&#39;), ...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">model</span>
+<span class="go">[&#39;gpt3&#39;, &#39;gpt4&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;Kubernetes에 대해 설명해&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt3&quot;</span><span class="p">)</span>
+<span class="go">&#39;Kubernetes는 컨테이너화된 애플리케이션을 자동화하고 관리하기 위한 오픈소스 플랫폼입니다. ...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;Kubernetes에 대해 설명해&quot;</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
+<img alt="client(&quot;Kubernetes에 대해 설명해&quot;, stream=True)" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284217669-043e3445-2e9a-4667-86af-e11f142ec931.gif" />
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.api_key">
+<span class="sig-name descname"><span class="pre">api_key</span></span><a class="headerlink" href="#zerohertzLib.api.OpenAI.api_key" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.audio">
+<span class="sig-name descname"><span class="pre">audio</span></span><a class="headerlink" href="#zerohertzLib.api.OpenAI.audio" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.beta">
+<span class="sig-name descname"><span class="pre">beta</span></span><a class="headerlink" href="#zerohertzLib.api.OpenAI.beta" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.chat">
+<span class="sig-name descname"><span class="pre">chat</span></span><a class="headerlink" href="#zerohertzLib.api.OpenAI.chat" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.completions">
+<span class="sig-name descname"><span class="pre">completions</span></span><a class="headerlink" href="#zerohertzLib.api.OpenAI.completions" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.edits">
+<span class="sig-name descname"><span class="pre">edits</span></span><a class="headerlink" href="#zerohertzLib.api.OpenAI.edits" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.embeddings">
+<span class="sig-name descname"><span class="pre">embeddings</span></span><a class="headerlink" href="#zerohertzLib.api.OpenAI.embeddings" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.files">
+<span class="sig-name descname"><span class="pre">files</span></span><a class="headerlink" href="#zerohertzLib.api.OpenAI.files" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.fine_tunes">
+<span class="sig-name descname"><span class="pre">fine_tunes</span></span><a class="headerlink" href="#zerohertzLib.api.OpenAI.fine_tunes" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.fine_tuning">
+<span class="sig-name descname"><span class="pre">fine_tuning</span></span><a class="headerlink" href="#zerohertzLib.api.OpenAI.fine_tuning" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.images">
+<span class="sig-name descname"><span class="pre">images</span></span><a class="headerlink" href="#zerohertzLib.api.OpenAI.images" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.models">
+<span class="sig-name descname"><span class="pre">models</span></span><a class="headerlink" href="#zerohertzLib.api.OpenAI.models" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.moderations">
+<span class="sig-name descname"><span class="pre">moderations</span></span><a class="headerlink" href="#zerohertzLib.api.OpenAI.moderations" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.organization">
+<span class="sig-name descname"><span class="pre">organization</span></span><a class="headerlink" href="#zerohertzLib.api.OpenAI.organization" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.with_raw_response">
+<span class="sig-name descname"><span class="pre">with_raw_response</span></span><a class="headerlink" href="#zerohertzLib.api.OpenAI.with_raw_response" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </section>
@@ -520,8 +596,26 @@
 <li><a class="reference internal" href="#zerohertzLib.api.GitHub.release_note"><code class="docutils literal notranslate"><span class="pre">GitHub.release_note()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#zerohertzLib.api.api_key"><code class="docutils literal notranslate"><span class="pre">api_key()</span></code></a></li>
-<li><a class="reference internal" href="#zerohertzLib.api.gpt"><code class="docutils literal notranslate"><span class="pre">gpt()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.OpenAI"><code class="docutils literal notranslate"><span class="pre">OpenAI</span></code></a><ul>
+<li><a class="reference internal" href="#zerohertzLib.api.OpenAI.model"><code class="docutils literal notranslate"><span class="pre">OpenAI.model</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.OpenAI.__call__"><code class="docutils literal notranslate"><span class="pre">OpenAI.__call__()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.OpenAI.api_key"><code class="docutils literal notranslate"><span class="pre">OpenAI.api_key</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.OpenAI.audio"><code class="docutils literal notranslate"><span class="pre">OpenAI.audio</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.OpenAI.beta"><code class="docutils literal notranslate"><span class="pre">OpenAI.beta</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.OpenAI.chat"><code class="docutils literal notranslate"><span class="pre">OpenAI.chat</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.OpenAI.completions"><code class="docutils literal notranslate"><span class="pre">OpenAI.completions</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.OpenAI.edits"><code class="docutils literal notranslate"><span class="pre">OpenAI.edits</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.OpenAI.embeddings"><code class="docutils literal notranslate"><span class="pre">OpenAI.embeddings</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.OpenAI.files"><code class="docutils literal notranslate"><span class="pre">OpenAI.files</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.OpenAI.fine_tunes"><code class="docutils literal notranslate"><span class="pre">OpenAI.fine_tunes</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.OpenAI.fine_tuning"><code class="docutils literal notranslate"><span class="pre">OpenAI.fine_tuning</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.OpenAI.images"><code class="docutils literal notranslate"><span class="pre">OpenAI.images</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.OpenAI.models"><code class="docutils literal notranslate"><span class="pre">OpenAI.models</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.OpenAI.moderations"><code class="docutils literal notranslate"><span class="pre">OpenAI.moderations</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.OpenAI.organization"><code class="docutils literal notranslate"><span class="pre">OpenAI.organization</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.OpenAI.with_raw_response"><code class="docutils literal notranslate"><span class="pre">OpenAI.with_raw_response</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -535,7 +629,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=61c88ace"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=c5b00ed7"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

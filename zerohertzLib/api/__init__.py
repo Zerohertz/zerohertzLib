@@ -1,5 +1,5 @@
 from zerohertzLib.api.discord import Discord
 from zerohertzLib.api.github import GitHub
-from zerohertzLib.api.OpenAI import api_key, gpt
+from zerohertzLib.api.OpenAI import OpenAI
 
-__all__ = ["api_key", "gpt", "Discord", "GitHub"]
+__all__ = ["Discord", "GitHub", "OpenAI"]
