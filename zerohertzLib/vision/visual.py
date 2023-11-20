@@ -24,7 +24,7 @@ def _cvtBGRA(img: NDArray[np.uint8]) -> NDArray[np.uint8]:
         return img
 
 
-def bbox(
+def _bbox(
     img: NDArray[np.uint8],
     box: NDArray[DTypeLike],
     color: Tuple[int] = (0, 0, 255),
@@ -50,15 +50,62 @@ def bbox(
         >>> box = np.array([[100, 200], [100, 1500], [1400, 1500], [1400, 200]])
         >>> zz.vision.bbox(img, box, thickness=10)
     """
+    return cv2.polylines(
+        img, [box.astype(np.int32)], isClosed=True, color=color, thickness=thickness
+    )
+
+
+def bbox(
+    img: NDArray[np.uint8],
+    box: NDArray[DTypeLike],
+    color: Tuple[int] = (0, 0, 255),
+    thickness: int = 2,
+) -> NDArray[np.uint8]:
+    """여러 Bbox 시각화
+
+    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284277697-e35d3dc4-9a77-4568-81bc-482a8393ab08.png
+        :alt: Visualzation Result
+        :align: center
+
+    Args:
+        img (``NDArray[np.uint8]``): Input image (``[H, W, C]``)
+        box (``NDArray[DTypeLike]``): 하나 혹은 여러 개의 bbox (``[4, 2]`` or ``[N, 4, 2]``)
+        color (``Tuple[int]``): bbox의 색
+        thickness (``int``): bbox 선의 두께
+
+    Returns:
+        ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, C]``)
+
+    Examples:
+        >>> img = cv2.imread("test.jpg")
+        >>> box = np.array([[100, 200], [100, 1500], [1400, 1500], [1400, 200]])
+        >>> zz.vision.bbox(img, box, thickness=10)
+        >>> boxes = np.array(
+            [
+                [[200, 100], [1500, 100], [1500, 1500], [200, 1500]],
+                [[150, 100], [450, 100], [450, 500], [150, 500]],
+                [[1050, 1050], [1350, 1050], [1350, 1350], [1050, 1350]],
+            ]
+        )
+        >>> zz.vision.bbox(img, boxes, thickness=10)
+    """
     img = img.copy()
     shape = img.shape
     if len(shape) == 2:
         img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
     elif shape[2] == 4:
         color = (*color, 255)
-    return cv2.polylines(
-        img, [box.astype(np.int32)], isClosed=True, color=color, thickness=thickness
-    )
+    shape = box.shape
+    if len(shape) == 2:
+        assert shape[0] == 4
+        assert shape[1] == 2
+        img = _bbox(img, box, color, thickness)
+    else:
+        assert shape[1] == 4
+        assert shape[2] == 2
+        for b in box:
+            img = _bbox(img, b, color, thickness)
+    return img
 
 
 def masks(

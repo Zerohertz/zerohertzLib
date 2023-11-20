@@ -8,6 +8,7 @@ NAME = "zerohertzLib"
 DESCRIPTION = "Zerohertz's Library"
 URL = "https://github.com/Zerohertz/zerohertzLib"
 AUTHOR = "Zerohertz"
+AUTHOR_EMAIL = "ohg3417@gmail.com"
 REQUIRES_PYTHON = ">=3.7.0"
 HERE = Path(__file__).parent
 try:
@@ -47,6 +48,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     author=AUTHOR,
+    author_email=AUTHOR_EMAIL,
     python_requires=REQUIRES_PYTHON,
     url=URL,
     packages=find_packages(),

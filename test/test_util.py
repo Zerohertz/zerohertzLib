@@ -28,7 +28,15 @@ def test_JsonDir():
     jsd.tree()
 
 
-def test_write_csv():
+def test_write_json():
+    zz.util.write_json(
+        [{"id": "4169", "전투력": 4209, "정보": ["아무", "거나"]}] * 100,
+        "star_craft",
+    )
+    assert "star_craft.json" in os.listdir()
+
+
+def test_csv():
     zz.util.write_csv(
         [
             ["id", "종족", "점수"],
@@ -39,9 +47,14 @@ def test_write_csv():
         "star_craft",
     )
     assert "star_craft.csv" in os.listdir()
+    data = zz.util.read_csv("star_craft.csv")
+    assert list(data.keys()) == ["id", "종족", "점수"]
+    data = zz.util.read_csv("star_craft.csv", False)
+    assert data[0][1] == "5hi9"
+    assert data[2][3] == "291"
 
 
-def test_write_tsv():
+def test_tsv():
     zz.util.write_csv(
         [
             ["id", "종족", "점수"],
@@ -53,11 +66,8 @@ def test_write_tsv():
         True,
     )
     assert "star_craft.tsv" in os.listdir()
-
-
-def test_write_json():
-    zz.util.write_json(
-        [{"id": "4169", "전투력": 4209, "정보": ["아무", "거나"]}] * 100,
-        "star_craft",
-    )
-    assert "star_craft.json" in os.listdir()
+    data = zz.util.read_csv("star_craft.tsv")
+    assert list(data.keys()) == ["id", "종족", "점수"]
+    data = zz.util.read_csv("star_craft.tsv", False)
+    assert data[0][1] == "5hi9"
+    assert data[2][3] == "291"

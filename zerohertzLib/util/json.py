@@ -1,7 +1,7 @@
 import json
 import os
 from glob import glob
-from typing import Any, Optional, Set
+from typing import Any, Dict, List, Optional, Set, Union
 
 from tqdm import tqdm
 
@@ -254,3 +254,40 @@ class JsonDir:
             data = json_instance._getValue(key)
             uq.add(str(data))
         return uq
+
+
+def write_json(data: Union[Dict[Any, Any], List[Dict[Any, Any]]], path: str) -> str:
+    """JSON (JavaScript Object Notation)를 작성하는 함수
+
+    Args:
+        data (``Dict[Any, Any]``): 입력 데이터 (header 포함 무관)
+        path (``str``): 출력될 json 파일의 경로 및 파일명
+
+    Returns:
+        ``str``: 파일의 절대 경로
+
+    Examples:
+        >>> zz.util.write_json([{"id": "4169", "전투력": 4209, "정보": ["아무", "거나"]}]*100, "zerohertzLib/star_craft")
+        '/.../star_craft.json'
+        [
+            {
+                "id": "4169",
+                "전투력": 4209,
+                "정보": [
+                    "아무",
+                    "거나"
+                ]
+            },
+            {
+                "id": "4169",
+                "전투력": 4209,
+                "정보": [
+                    "아무",
+                    "거나"
+                ]
+            },
+        ...
+    """
+    with open(f"{path}.json", "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=4, ensure_ascii=False)
+    return os.path.abspath(f"{path}.json")
