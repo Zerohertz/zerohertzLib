@@ -96,8 +96,8 @@ def _isBbox(shape: Tuple[int]) -> bool:
 def bbox(
     img: NDArray[np.uint8],
     box: NDArray[DTypeLike],
-    color: Tuple[int] = (0, 0, 255),
-    thickness: int = 2,
+    color: Optional[Tuple[int]] = (0, 0, 255),
+    thickness: Optional[int] = 2,
 ) -> NDArray[np.uint8]:
     """여러 Bbox 시각화
 
@@ -108,8 +108,8 @@ def bbox(
     Args:
         img (``NDArray[np.uint8]``): Input image (``[H, W, C]``)
         box (``NDArray[DTypeLike]``): 하나 혹은 여러 개의 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
-        color (``Tuple[int]``): bbox의 색
-        thickness (``int``): bbox 선의 두께
+        color (``Optional[Tuple[int]]``): bbox의 색
+        thickness (``Optional[int]``): bbox 선의 두께
 
     Returns:
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, C]``)
@@ -225,7 +225,7 @@ def _paste(img: NDArray[np.uint8], target: NDArray[np.uint8]) -> NDArray[np.uint
     return img
 
 
-def _make_text(txt: str, shape: Tuple[int], color: Tuple[int]):
+def _make_text(txt: str, shape: Tuple[int], color: Tuple[int]) -> NDArray[np.uint8]:
     """배경이 투명한 문자열 이미지 생성
 
     Args:
