@@ -21,10 +21,6 @@ def _get_size(path: str) -> int:
 def storage(path: str, threshold: Optional[int] = 1) -> None:
     """지정한 경로에 존재하는 파일에 따른 용량을 pie graph로 시각화
 
-    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/282481985-15ce10ff-e4b1-4b6a-84ea-6e948b684e0c.png
-        :alt: Visualzation Result
-        :align: center
-
     Args:
         path (``str``): 용량을 시각화할 경로
         threshold: (``Optional[int]``): Etc.로 분류될 임계값 (단위: %)
@@ -34,6 +30,11 @@ def storage(path: str, threshold: Optional[int] = 1) -> None:
 
     Examples:
         >>> zz.monitoring.storage(".")
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/282481985-15ce10ff-e4b1-4b6a-84ea-6e948b684e0c.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 600px
     """
     sizes = {}
     for filename in os.listdir(path):

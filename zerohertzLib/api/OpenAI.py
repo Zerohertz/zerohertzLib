@@ -12,6 +12,7 @@ class OpenAI(openai.OpenAI):
     .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280564436-27d62c06-f59a-4772-8cd6-48be49147a86.png
         :alt: OpenAI API Key
         :align: center
+        :width: 300px
 
     위와 같이 `OpenAI <https://platform.openai.com/account/api-keys>`_ 페이지에서 발급 후 API를 등록해야 사용할 수 있다.
 
@@ -47,6 +48,7 @@ class OpenAI(openai.OpenAI):
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284217669-043e3445-2e9a-4667-86af-e11f142ec931.gif
             :alt: client("Kubernetes에 대해 설명해", stream=True)
             :align: center
+            :width: 600px
     """
 
     def __init__(self, api_key: str) -> None:

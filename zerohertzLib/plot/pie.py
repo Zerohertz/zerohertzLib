@@ -14,10 +14,6 @@ def pie(
 ) -> None:
     """Dictionary로 입력받은 데이터를 pie chart로 시각화
 
-    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/282473748-bec83476-9ed6-4fe8-8f1a-2651344c1b7c.png
-        :alt: Visualzation Result
-        :align: center
-
     Args:
         data (``Dict[str, Union[int, float]]``): 입력 데이터
         dim: (``Optional[str]``): 입력 ``data`` 의 단위
@@ -31,6 +27,11 @@ def pie(
 
     Examples:
         >>> zz.plot.pie({"테란": 27, "저그": 40, "프로토스": 30}, dim="명", title="Star Craft")
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/282473748-bec83476-9ed6-4fe8-8f1a-2651344c1b7c.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 300px
     """
     colors = sns.color_palette("husl", n_colors=len(data))
     plt.figure(figsize=ratio)

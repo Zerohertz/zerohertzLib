@@ -24,10 +24,6 @@ def img2gif(
 ) -> None:
     """Directory 내 이미지들을 GIF로 변환
 
-    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280735315-2eaa059e-0cf5-4cb7-8983-5b7e1f2d3f21.gif
-        :alt: GIF Result
-        :align: center
-
     Args:
         images_path (``str``): GIF로 변환할 이미지들이 존재하는 경로
         output_filename (``Optional[str]``): 출력될 GIF 파일명
@@ -38,6 +34,11 @@ def img2gif(
 
     Examples:
         >>> zz.vision.img2gif("./")
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280735315-2eaa059e-0cf5-4cb7-8983-5b7e1f2d3f21.gif
+            :alt: GIF Result
+            :align: center
+            :width: 200px
     """
     image_files = [
         f for f in os.listdir(images_path) if f.endswith((".png", ".jpg", ".jpeg"))
@@ -57,10 +58,6 @@ def vid2gif(
 ) -> None:
     """동영상을 GIF로 변환
 
-    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280735327-ba590c0b-6180-4dce-a256-ccf12d0ba64b.gif
-        :alt: GIF Result
-        :align: center
-
     Args:
         video_path (``str``): GIF로 변환할 동영상이 존재하는 경로
         output_filename (``Optional[str]``): 출력될 GIF 파일명
@@ -72,6 +69,11 @@ def vid2gif(
 
     Examples:
         >>> zz.vision.vid2gif("tmp.mp4")
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280735327-ba590c0b-6180-4dce-a256-ccf12d0ba64b.gif
+            :alt: GIF Result
+            :align: center
+            :width: 300px
     """
     frames = []
     cap = cv2.VideoCapture(video_path)

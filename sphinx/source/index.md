@@ -13,11 +13,12 @@
 
 <p align="center">
     </br>
+    <a href="https://pypi.org/project/zerohertzLib/">
+        <img src="https://img.shields.io/pypi/v/zerohertzLib?style=for-the-badge&logo=PyPI&logoColor=FFFFFF&labelColor=3775A9&color=007EC6" alt="PyPI version">
+    </a>
+    </br>
     <a href="https://github.com/Zerohertz/zerohertzLib">
         <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"/>
-    </a>
-    <a href="https://pypi.org/project/zerohertzLib/">
-        <img src="https://img.shields.io/badge/PyPI-3775A9?style=for-the-badge&logo=PyPI&logoColor=white"/>
     </a>
     <a href="https://jenkins.zerohertz.xyz/blue/organizations/jenkins/zerohertzLib/activity">
         <img src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=Jenkins&logoColor=white"/>
@@ -29,8 +30,8 @@
         <img src="https://img.shields.io/badge/Sphinx-000000?style=for-the-badge&logo=Sphinx&logoColor=white"/>
     </a>
     </br>
-    <a href="https://pypi.org/project/zerohertzLib/">
-        <img src="https://badge.fury.io/py/zerohertzLib.svg" alt="PyPI version">
+    <a href="https://github.com/Zerohertz/zerohertzLib/blob/master/LICENSE">
+        <img src="https://img.shields.io/pypi/l/zerohertzLib", alt="LICENSE">
     </a>
     <a href="https://pypi.org/project/zerohertzLib/">
         <img alt="PyPI wheel" src="https://img.shields.io/pypi/wheel/zerohertzLib">

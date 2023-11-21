@@ -18,10 +18,6 @@ def plot(
 ) -> None:
     """List와 Dictionary로 입력받은 데이터를 line chart로 시각화
 
-    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280603766-22a0f42c-91b0-4f34-aa73-29de6fdbd4e9.png
-        :alt: Visualzation Result
-        :align: center
-
     Args:
         x (``List[Union[int, float]]``): 입력 데이터 (X축)
         y (``Dict[str, List[Union[int, float]]]``): 입력 데이터 (Y축)
@@ -39,6 +35,11 @@ def plot(
 
     Examples:
         >>> zz.plot.plot([i for i in range(20)],{"테란": list(np.random.rand(20) * 10), "저그": list(np.random.rand(20) * 10 + 1), "프로토스": list(np.random.rand(20) * 10 + 2)}, xlab="시간 [초]", ylab="성적 [점]", title="Star Craft")
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280603766-22a0f42c-91b0-4f34-aa73-29de6fdbd4e9.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 300px
     """
     colors = sns.color_palette("husl", n_colors=len(y))
     plt.figure(figsize=ratio)
