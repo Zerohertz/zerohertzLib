@@ -5,7 +5,7 @@ import numpy as np
 from numpy.typing import DTypeLike, NDArray
 from PIL import Image, ImageDraw, ImageFont
 
-from .convert import xywh2xyxy, xyxy2xywh
+from .convert import poly2mask, xywh2xyxy, xyxy2xywh
 
 
 def _cvtBGRA(img: NDArray[np.uint8]) -> NDArray[np.uint8]:
@@ -342,3 +342,47 @@ def text(
         if vis:
             img = _bbox(img, box_xyxy, (0, 0, 255, 255), 2)
     return img
+
+
+def cutout(
+    img: NDArray[np.uint8],
+    poly: NDArray[DTypeLike],
+    alpha: Optional[int] = 255,
+    crop: Optional[bool] = True,
+) -> NDArray[np.uint8]:
+    """이미지 내에서 지정한 좌표를 제외한 부분을 투명화
+
+    Args:
+        img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, C]``)
+        poly (``NDArray[DTypeLike]``): 지정할 좌표 (``[N, 2]``)
+        alpha (``Optional[int]``): 지정한 좌표 영역의 투명도
+        crop (``Optional[bool]``): 출력 이미지의 Crop 여부
+
+    Returns:
+        ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
+
+    Examples:
+        >>> img = cv2.imread("test.jpg")
+        >>> poly = (np.array([[10, 10], [20, 10], [30, 40], [20, 60], [10, 20]]) + 10) * 10
+        >>> poly[:, 0] *= 4
+        >>> zz.vision.cutout(img, poly)
+        >>> zz.vision.cutout(img, poly, 128, False)
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284496575-389adc84-b981-4f6a-b1d1-c1b3901e8c04.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 300px
+    """
+    shape = img.shape[:2]
+    poly = poly.astype(np.int32)
+    x0, x1 = poly[:, 0].min(), poly[:, 0].max()
+    y0, y1 = poly[:, 1].min(), poly[:, 1].max()
+    mask = poly2mask(poly, shape)
+    mask = (mask * alpha).astype(np.uint8)
+    img = Image.fromarray(img)
+    mask = Image.fromarray(mask)
+    img.putalpha(mask)
+    if crop:
+        return np.array(img)[y0:y1, x0:x1, :]
+    else:
+        return np.array(img)
