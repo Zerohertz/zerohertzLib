@@ -1,4 +1,7 @@
+from typing import Tuple
+
 import numpy as np
+from matplotlib.path import Path
 from numpy.typing import DTypeLike, NDArray
 
 
@@ -109,3 +112,35 @@ def xywh2xyxy(
         return converted_boxes
     else:
         raise Exception("The 'box' must be of shape [4] or [N, 4]")
+
+
+def poly2mask(poly: NDArray[DTypeLike], shape: Tuple[int]) -> NDArray[bool]:
+    """다각형 좌표를 입력받아 mask로 변환
+
+    Args:
+        poly (``NDArray[DTypeLike]``): Mask의 꼭짓점 좌표 (``[N, 2]``)
+        shape (``Tuple[int]``): 출력될 mask의 shape ``(H, W)``
+
+    Returns:
+        ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, C]``)
+
+    Examples:
+        >>> poly = np.array([[10, 10], [20, 10], [30, 40], [20, 60], [10, 20]])
+        >>> mask = zz.vision.poly2mask(poly, (70, 100))
+        >>> mask.shape
+        (70, 100)
+        >>> mask.dtype
+        dtype('bool')
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284488846-9237c52b-d181-447c-95da-f67aa8fb2854.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 300px
+    """
+    poly = Path(poly)
+    x, y = np.meshgrid(np.arange(shape[1]), np.arange(shape[0]))
+    x, y = x.flatten(), y.flatten()
+    points = np.vstack((x, y)).T
+    grid = poly.contains_points(points)
+    mask = grid.reshape(shape)
+    return mask
