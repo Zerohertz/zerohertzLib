@@ -386,3 +386,76 @@ def cutout(
         return np.array(img)[y0:y1, x0:x1, :]
     else:
         return np.array(img)
+
+
+def paste(
+    img: NDArray[np.uint8],
+    target: NDArray[np.uint8],
+    box: List[int],
+    resize: Optional[bool] = False,
+    vis: Optional[bool] = False,
+) -> NDArray[np.uint8]:
+    """``target`` 이미지를 ``img`` 위에 투명도를 포함하여 병합
+
+    Note:
+        `PIL.Image.paste` 를 `numpy` 와 `cv2` 기반으로 구현
+
+        >>> img = Image.open("test.png").convert("RGBA")
+        >>> target = Image.open("target.png").convert("RGBA")
+        >>> img.paste(target, (0, 0), target)
+
+    Args:
+        img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, C]``)
+        target (``NDArray[np.uint8]``): 타겟 이미지 (``[H, W, 4]``)
+        box (``List[int]``): 병합될 영역
+        resize (``Optional[bool]``): 타겟 이미지의 resize 여부
+        vis (``Optional[bool]``): 지정한 영역 (``box``)의 시각화 여부
+
+    Returns:
+        ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
+
+    Examples:
+        >>> img = cv2.imread("test.jpg")
+        >>> poly = (np.array([[10, 10], [20, 10], [30, 40], [20, 60], [10, 20]]) + 10) * 10
+        >>> poly[:, 0] *= 4
+        >>> target = zz.vision.cutout(img, poly, 128)
+        >>> zz.vision.paste(img, target, [200, 200, 1200, 1500], False, True)
+        >>> zz.vision.paste(img, target, [200, 200, 1200, 1500], True, True)
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284500684-f72f12ca-f849-454b-a6c9-1ee35138a880.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 300px
+    """
+    x0, y0, x1, y1 = box
+    H, W = y1 - y0, x1 - x0
+    img = img.copy()
+    img = _cvtBGRA(img)
+    h, w = target.shape[:2]
+    if resize:
+        target = cv2.resize(target, (W, H), interpolation=cv2.INTER_LINEAR)
+    else:
+        if w / h > W / H:
+            target = cv2.resize(
+                target, (W, int(h * W / w)), interpolation=cv2.INTER_LINEAR
+            )
+        elif w / h < W / H:
+            target = cv2.resize(
+                target, (int(w * H / h), H), interpolation=cv2.INTER_LINEAR
+            )
+        else:
+            target = cv2.resize(target, (W, H), interpolation=cv2.INTER_LINEAR)
+        h, w, _ = target.shape
+        top, bottom = (H - h) // 2, (H - h) // 2 + (H - h) % 2
+        left, right = (W - w) // 2, (W - w) // 2 + (W - w) % 2
+        target = np.pad(
+            target,
+            ((top, bottom), (left, right), (0, 0)),
+            mode="constant",
+            constant_values=((0, 0), (0, 0), (0, 0)),
+        )
+    img[y0:y1, x0:x1, :] = _paste(img[y0:y1, x0:x1, :], target)
+    if vis:
+        box = np.array([[x0, y0], [x0, y1], [x1, y1], [x1, y0]])
+        img = _bbox(img, box, (0, 0, 255, 255), 2)
+    return img
