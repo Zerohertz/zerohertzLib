@@ -6,8 +6,8 @@ import numpy as np
 from numpy.typing import NDArray
 
 
-def _rel2abs(x1: float, x2: float, y1: float, y2: float, w: int, h: int) -> List[int]:
-    return [int(x1 * w / 100), int(x2 * w / 100), int(y1 * h / 100), int(y2 * h / 100)]
+def _rel2abs(x0: float, y0: float, x1: float, y1: float, w: int, h: int) -> List[int]:
+    return [int(x0 * w / 100), int(y0 * h / 100), int(x1 * w / 100), int(y1 * h / 100)]
 
 
 def before_after(
@@ -23,7 +23,7 @@ def before_after(
     Args:
         before (``NDArray[np.uint8]``): 원본 이미지
         after (``NDArray[np.uint8]``): 영상 처리 혹은 모델 추론 후 이미지
-        area: (``Optional[List[Union[int, float]]]``): 비교할 좌표 (``[x1, x2, y1, y2]``)
+        area: (``Optional[List[Union[int, float]]]``): 비교할 좌표 (``[x0, y0, x1, y1]``)
         per (``Optional[bool]``): ``area`` 의 백분율 여부
         quality (``Optional[int]``): 출력 이미지의 quality (단위: %)
         output_filename: (``Optional[str]``): 저장될 파일의 이름
@@ -58,14 +58,14 @@ def before_after(
     """
     if area is None:
         if per:
-            area = [0.0, 100.0, 0.0, 100.0]
+            area = [0.0, 0.0, 100.0, 100.0]
         else:
             raise Exception("'area' not provided while 'per' is False")
     before_shape = before.shape
     if per:
-        x1, x2, y1, y2 = _rel2abs(*area, *before_shape[:2])
+        x0, y0, x1, y1 = _rel2abs(*area, *before_shape[:2])
     else:
-        x1, x2, y1, y2 = area
+        x0, y0, x1, y1 = area
     if len(before_shape) == 2:
         before = cv2.cvtColor(before, cv2.COLOR_GRAY2BGR)
         before_shape = before.shape
@@ -76,7 +76,7 @@ def before_after(
     if not before_shape == after_shape:
         after = cv2.resize(after, before_shape[:2][::-1])
         after_shape = after.shape
-    before, after = before[x1:x2, y1:y2, :], after[x1:x2, y1:y2, :]
+    before, after = before[x0:x1, y0:y1, :], after[x0:x1, y0:y1, :]
     before_shape = before.shape
     H, W, C = before_shape
     palette = np.zeros((H, 2 * W, C), dtype=np.uint8)
@@ -118,31 +118,31 @@ def grid(
     palette = np.full((size, size, 3), 255, dtype=np.uint8)
     for idx, img in enumerate(imgs):
         y, x = divmod(idx, cnt)
-        x1, x2, y1, y2 = x * length, (x + 1) * length, y * length, (y + 1) * length
+        x0, y0, x1, y1 = x * length, y * length, (x + 1) * length, (y + 1) * length
         if len(img.shape) == 2:
             img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
         H, W, _ = img.shape
         if H > W:
             h, w = length, int(length / H * W)
             gap = (length - w) // 2
-            x1, x2, y1, y2 = (
+            x0, y0, x1, y1 = (
                 x * length + gap,
-                x * length + gap + w,
                 y * length,
+                x * length + gap + w,
                 (y + 1) * length,
             )
         elif W > H:
             h, w = int(length / W * H), length
             gap = (length - h) // 2
-            x1, x2, y1, y2 = (
+            x0, y0, x1, y1 = (
                 x * length,
-                (x + 1) * length,
                 y * length + gap,
+                (x + 1) * length,
                 y * length + gap + h,
             )
         else:
             h = w = length
-            x1, x2, y1, y2 = x * length, (x + 1) * length, y * length, (y + 1) * length
+            x0, y0, x1, y1 = x * length, y * length, (x + 1) * length, (y + 1) * length
         img = cv2.resize(img, (w, h))
-        palette[y1:y2, x1:x2, :] = img
+        palette[y0:y1, x0:x1, :] = img
     cv2.imwrite(f"{output_filename}.png", palette)

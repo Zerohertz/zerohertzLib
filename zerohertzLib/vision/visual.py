@@ -211,10 +211,10 @@ def _make_text(txt: str, shape: Tuple[int], color: Tuple[int]) -> NDArray[np.uin
     )
     text_width, text_height = draw.textsize(txt, font=font)
     x, y = (size[0] - text_width) // 2, (size[1] - text_height) // 2
-    w0, w1 = x, x + text_width
-    h0, h1 = y, y + text_height
+    x0, x1 = x, x + text_width
+    y0, y1 = y, y + text_height
     draw.text((x, y), txt, font=font, fill=(*color, 255))
-    palette = np.array(palette)[h0:h1, w0:w1, :]
+    palette = np.array(palette)[y0:y1, x0:x1, :]
     h, w, _ = palette.shape
     H, W = shape
     if w / h > W / H:
@@ -253,11 +253,11 @@ def _text(
     Returns:
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
     """
-    w0, h0 = (box_xywh[:2] - box_xywh[2:] / 2).astype(np.int32)
-    w1, h1 = (box_xywh[:2] + box_xywh[2:] / 2).astype(np.int32)
-    w, h = w1 - w0, h1 - h0
+    x0, y0 = (box_xywh[:2] - box_xywh[2:] / 2).astype(np.int32)
+    x1, y1 = (box_xywh[:2] + box_xywh[2:] / 2).astype(np.int32)
+    w, h = x1 - x0, y1 - y0
     txt = _make_text(txt, (h, w), color)
-    img[h0:h1, w0:w1, :] = _paste(img[h0:h1, w0:w1, :], txt)
+    img[y0:y1, x0:x1, :] = _paste(img[y0:y1, x0:x1, :], txt)
     return img
 
 

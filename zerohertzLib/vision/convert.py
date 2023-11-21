@@ -23,13 +23,13 @@ def _isBbox(shape: Tuple[int]) -> Tuple[bool]:
         if shape[1] == 4:
             multi = True
             poly = False
-        # [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
+        # [[x0, y0], [x1, y1], [x2, y2], [x3, y3]]
         elif shape[0] == 4 and shape[1] == 2:
             multi = False
             poly = True
         else:
             raise Exception("The 'box' must be of shape [4], [N, 4], [4, 2], [N, 4, 2]")
-    # N * [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
+        # [[x0, y0], [x1, y1], [x2, y2], [x3, y3]]
     elif len(shape) == 3 and shape[1] == 4 and shape[2] == 2:
         multi = True
         poly = True
@@ -204,7 +204,7 @@ def poly2cwh(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
     """Bbox 변환
 
     Args:
-        box (``NDArray[DTypeLike]``): ``[[x1, y1], [x2, y2], [x3, y3], [x4, y4]]`` 로 구성된 bbox (``[4, 2]`` or ``[N, 4, 2]``)
+        box (``NDArray[DTypeLike]``): ``[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]`` 로 구성된 bbox (``[4, 2]`` or ``[N, 4, 2]``)
 
     Returns:
         ``NDArray[DTypeLike]``: ``[cx, cy, w, h]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
