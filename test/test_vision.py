@@ -9,17 +9,19 @@ import zerohertzLib as zz
 tmp = os.path.dirname(__file__)
 data = os.path.join(tmp, "data")
 
-BOX_XYXY = np.array([[100, 200], [100, 1000], [1200, 1000], [1200, 200]])
-BOX_XYWH = np.array([650, 600, 1100, 800])
+BOX_CWH = np.array([650, 600, 1100, 800])
+BOX_XYXY = np.array([100, 200, 1200, 1000])
+BOX_POLY = np.array([[100, 200], [1200, 200], [1200, 1000], [100, 1000]])
+BOXES_CWH = np.array([[250, 200, 100, 100], [600, 600, 800, 200], [900, 300, 300, 400]])
 BOXES_XYXY = np.array(
+    [[200, 150, 300, 250], [200, 500, 1000, 700], [750, 100, 1050, 500]]
+)
+BOXES_POLY = np.array(
     [
         [[200, 150], [300, 150], [300, 250], [200, 250]],
         [[200, 500], [1000, 500], [1000, 700], [200, 700]],
         [[750, 100], [1050, 100], [1050, 500], [750, 500]],
     ]
-)
-BOXES_XYWH = np.array(
-    [[250, 200, 100, 100], [600, 600, 800, 200], [900, 300, 300, 400]]
 )
 
 
@@ -71,106 +73,106 @@ def test_grid_horizontal():
 
 def test_bbox_bgr_xyxy():
     img = cv2.imread(f"{data}/test.jpg")
-    box = BOX_XYXY
+    box = BOX_POLY
     BGR = zz.vision.bbox(img, box, thickness=10)
-    cv2.imwrite("BBOX_BGR_XYXY.png", BGR)
-    assert "BBOX_BGR_XYXY.png" in os.listdir()
+    cv2.imwrite("BBOX_BGR_POLY.png", BGR)
+    assert "BBOX_BGR_POLY.png" in os.listdir()
 
 
 def test_bbox_bgra_xyxy():
     img = cv2.imread(f"{data}/test.jpg")
-    box = BOX_XYXY
+    box = BOX_POLY
     img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
     BGRA = zz.vision.bbox(img, box, thickness=10)
-    cv2.imwrite("BBOX_BGRA_XYXY.png", BGRA)
-    assert "BBOX_BGRA_XYXY.png" in os.listdir()
+    cv2.imwrite("BBOX_BGRA_POLY.png", BGRA)
+    assert "BBOX_BGRA_POLY.png" in os.listdir()
 
 
 def test_bbox_gray_xyxy():
     img = cv2.imread(f"{data}/test.jpg")
-    box = BOX_XYXY
+    box = BOX_POLY
     img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
     GRAY = zz.vision.bbox(img, box, thickness=10)
-    cv2.imwrite("BBOX_GRAY_XYXY.png", GRAY)
-    assert "BBOX_GRAY_XYXY.png" in os.listdir()
+    cv2.imwrite("BBOX_GRAY_POLY.png", GRAY)
+    assert "BBOX_GRAY_POLY.png" in os.listdir()
 
 
 def test_bboxes_bgr_xyxy():
     img = cv2.imread(f"{data}/test.jpg")
-    boxes = BOXES_XYXY
+    boxes = BOXES_POLY
     BGR = zz.vision.bbox(img, boxes, thickness=10)
-    cv2.imwrite("BBOXES_BGR_XYXY.png", BGR)
-    assert "BBOXES_BGR_XYXY.png" in os.listdir()
+    cv2.imwrite("BBOXES_BGR_POLY.png", BGR)
+    assert "BBOXES_BGR_POLY.png" in os.listdir()
 
 
 def test_bboxes_bgra_xyxy():
     img = cv2.imread(f"{data}/test.jpg")
-    boxes = BOXES_XYXY
+    boxes = BOXES_POLY
     img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
     BGRA = zz.vision.bbox(img, boxes, thickness=10)
-    cv2.imwrite("BBOXES_BGRA_XYXY.png", BGRA)
-    assert "BBOXES_BGRA_XYXY.png" in os.listdir()
+    cv2.imwrite("BBOXES_BGRA_POLY.png", BGRA)
+    assert "BBOXES_BGRA_POLY.png" in os.listdir()
 
 
 def test_bboxes_gray_xyxy():
     img = cv2.imread(f"{data}/test.jpg")
-    boxes = BOXES_XYXY
+    boxes = BOXES_POLY
     img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
     GRAY = zz.vision.bbox(img, boxes, thickness=10)
-    cv2.imwrite("BBOXES_GRAY_XYXY.png", GRAY)
-    assert "BBOXES_GRAY_XYXY.png" in os.listdir()
+    cv2.imwrite("BBOXES_GRAY_POLY.png", GRAY)
+    assert "BBOXES_GRAY_POLY.png" in os.listdir()
 
 
 def test_bbox_bgr_xyxwh():
     img = cv2.imread(f"{data}/test.jpg")
-    box = BOX_XYWH
+    box = BOX_CWH
     BGR = zz.vision.bbox(img, box, thickness=10)
-    cv2.imwrite("BBOX_BGR_XYWH.png", BGR)
-    assert "BBOX_BGR_XYWH.png" in os.listdir()
+    cv2.imwrite("BBOX_BGR_CWH.png", BGR)
+    assert "BBOX_BGR_CWH.png" in os.listdir()
 
 
 def test_bbox_bgra_xywh():
     img = cv2.imread(f"{data}/test.jpg")
-    box = BOX_XYWH
+    box = BOX_CWH
     img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
     BGRA = zz.vision.bbox(img, box, thickness=10)
-    cv2.imwrite("BBOX_BGRA_XYWH.png", BGRA)
-    assert "BBOX_BGRA_XYWH.png" in os.listdir()
+    cv2.imwrite("BBOX_BGRA_CWH.png", BGRA)
+    assert "BBOX_BGRA_CWH.png" in os.listdir()
 
 
 def test_bbox_gray_xywh():
     img = cv2.imread(f"{data}/test.jpg")
-    box = BOX_XYWH
+    box = BOX_CWH
     img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
     GRAY = zz.vision.bbox(img, box, thickness=10)
-    cv2.imwrite("BBOX_GRAY_XYWH.png", GRAY)
-    assert "BBOX_GRAY_XYWH.png" in os.listdir()
+    cv2.imwrite("BBOX_GRAY_CWH.png", GRAY)
+    assert "BBOX_GRAY_CWH.png" in os.listdir()
 
 
 def test_bboxes_bgr_xywh():
     img = cv2.imread(f"{data}/test.jpg")
-    boxes = BOXES_XYWH
+    boxes = BOXES_CWH
     BGR = zz.vision.bbox(img, boxes, thickness=10)
-    cv2.imwrite("BBOXES_BGR_XYWH.png", BGR)
-    assert "BBOXES_BGR_XYWH.png" in os.listdir()
+    cv2.imwrite("BBOXES_BGR_CWH.png", BGR)
+    assert "BBOXES_BGR_CWH.png" in os.listdir()
 
 
 def test_bboxes_bgra_xywh():
     img = cv2.imread(f"{data}/test.jpg")
-    boxes = BOXES_XYWH
+    boxes = BOXES_CWH
     img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
     BGRA = zz.vision.bbox(img, boxes, thickness=10)
-    cv2.imwrite("BBOXES_BGRA_XYWH.png", BGRA)
-    assert "BBOXES_BGRA_XYWH.png" in os.listdir()
+    cv2.imwrite("BBOXES_BGRA_CWH.png", BGRA)
+    assert "BBOXES_BGRA_CWH.png" in os.listdir()
 
 
 def test_bboxes_gray_xywh():
     img = cv2.imread(f"{data}/test.jpg")
-    boxes = BOXES_XYWH
+    boxes = BOXES_CWH
     img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
     GRAY = zz.vision.bbox(img, boxes, thickness=10)
-    cv2.imwrite("BBOXES_GRAY_XYWH.png", GRAY)
-    assert "BBOXES_GRAY_XYWH.png" in os.listdir()
+    cv2.imwrite("BBOXES_GRAY_CWH.png", GRAY)
+    assert "BBOXES_GRAY_CWH.png" in os.listdir()
 
 
 def test_masks_bgr():
@@ -254,110 +256,72 @@ def test_masks_gray_str():
 
 def test_text_bgr_xyxy():
     img = cv2.imread(f"{data}/test.jpg")
-    box = BOX_XYXY
+    box = BOX_POLY
     BGR = zz.vision.text(img, box, "먼지야", vis=True)
-    cv2.imwrite("TEXT_BGR_XYXY.png", BGR)
-    assert "TEXT_BGR_XYXY.png" in os.listdir()
+    cv2.imwrite("TEXT_BGR_POLY.png", BGR)
+    assert "TEXT_BGR_POLY.png" in os.listdir()
 
 
 def test_text_bgra_xyxy():
     img = cv2.imread(f"{data}/test.jpg")
     img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
-    boxes = BOXES_XYXY
+    boxes = BOXES_POLY
     BGRA = zz.vision.text(img, boxes, ["오래오래", "오래오래", "오래오래"], (0, 255, 0), vis=True)
-    cv2.imwrite("TEXT_BGRA_XYXY.png", BGRA)
-    assert "TEXT_BGRA_XYXY.png" in os.listdir()
+    cv2.imwrite("TEXT_BGRA_POLY.png", BGRA)
+    assert "TEXT_BGRA_POLY.png" in os.listdir()
 
 
 def test_text_gray_xyxy():
     img = cv2.imread(f"{data}/test.jpg")
     img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
-    box = BOX_XYXY
+    box = BOX_POLY
     GRAY = zz.vision.text(img, box, "행복해라", vis=True)
-    cv2.imwrite("TEXT_GRAY_XYXY.png", GRAY)
-    assert "TEXT_GRAY_XYXY.png" in os.listdir()
+    cv2.imwrite("TEXT_GRAY_POLY.png", GRAY)
+    assert "TEXT_GRAY_POLY.png" in os.listdir()
 
 
 def test_text_bgr_xywh():
     img = cv2.imread(f"{data}/test.jpg")
-    boxes = BOXES_XYWH
+    boxes = BOXES_CWH
     BGR = zz.vision.text(img, boxes, ["먼지야", "먼지야", "먼지야"], vis=True)
-    cv2.imwrite("TEXT_BGR_XYWH.png", BGR)
-    assert "TEXT_BGR_XYWH.png" in os.listdir()
+    cv2.imwrite("TEXT_BGR_CWH.png", BGR)
+    assert "TEXT_BGR_CWH.png" in os.listdir()
 
 
 def test_text_bgra_xywh():
     img = cv2.imread(f"{data}/test.jpg")
     img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
-    boxes = BOXES_XYWH
+    boxes = BOXES_CWH
     BGRA = zz.vision.text(img, boxes, ["오래오래", "오래오래", "오래오래"], (0, 255, 0), vis=True)
-    cv2.imwrite("TEXT_BGRA_XYWH.png", BGRA)
-    assert "TEXT_BGRA_XYWH.png" in os.listdir()
+    cv2.imwrite("TEXT_BGRA_CWH.png", BGRA)
+    assert "TEXT_BGRA_CWH.png" in os.listdir()
 
 
 def test_text_gray_xywh():
     img = cv2.imread(f"{data}/test.jpg")
     img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
-    box = BOX_XYWH
+    box = BOX_CWH
     GRAY = zz.vision.text(img, box, "행복해라", vis=True)
-    cv2.imwrite("TEXT_GRAY_XYWH.png", GRAY)
-    assert "TEXT_GRAY_XYXY.png" in os.listdir()
+    cv2.imwrite("TEXT_GRAY_CWH.png", GRAY)
+    assert "TEXT_GRAY_CWH.png" in os.listdir()
 
 
-def test_xyxy2xywh_bbox():
-    box = np.array(
-        [
-            [200, 100],
-            [1500, 100],
-            [1500, 1500],
-            [200, 1500],
-        ]
-    )
-    assert (zz.vision.xyxy2xywh(box) == np.array([850, 800, 1300, 1400])).all()
+def test_convert_cwh():
+    assert (BOX_CWH == zz.vision.xyxy2cwh(BOX_XYXY)).all()
+    assert (BOXES_CWH == zz.vision.xyxy2cwh(BOXES_XYXY)).all()
+    assert (BOX_CWH == zz.vision.poly2cwh(BOX_POLY)).all()
+    assert (BOXES_CWH == zz.vision.poly2cwh(BOXES_POLY)).all()
 
 
-def test_xyxy2xywh_bboxes():
-    boxes = np.array(
-        [
-            [[200, 100], [1500, 100], [1500, 1500], [200, 1500]],
-            [[150, 100], [450, 100], [450, 500], [150, 500]],
-            [[1050, 1050], [1350, 1050], [1350, 1350], [1050, 1350]],
-        ]
-    )
-    assert (
-        zz.vision.xyxy2xywh(boxes)
-        == np.array(
-            [[850, 800, 1300, 1400], [300, 300, 300, 400], [1200, 1200, 300, 300]]
-        )
-    ).all()
+def test_convert_xyxy():
+    assert (BOX_XYXY == zz.vision.cwh2xyxy(BOX_CWH)).all()
+    assert (BOXES_XYXY == zz.vision.cwh2xyxy(BOXES_CWH)).all()
+    assert (BOX_XYXY == zz.vision.poly2xyxy(BOX_POLY)).all()
+    assert (BOXES_XYXY == zz.vision.poly2xyxy(BOXES_POLY)).all()
 
 
-def test_xywh2xyxy_bbox():
-    box = np.array([850, 800, 1300, 1400])
-    assert (
-        zz.vision.xywh2xyxy(box)
-        == np.array(
-            [
-                [200, 100],
-                [1500, 100],
-                [1500, 1500],
-                [200, 1500],
-            ]
-        )
-    ).all()
-
-
-def test_xywh2xyxy_bboxes():
-    boxes = np.array(
-        [[850, 800, 1300, 1400], [300, 300, 300, 400], [1200, 1200, 300, 300]]
-    )
-    assert (
-        zz.vision.xywh2xyxy(boxes)
-        == np.array(
-            [
-                [[200, 100], [1500, 100], [1500, 1500], [200, 1500]],
-                [[150, 100], [450, 100], [450, 500], [150, 500]],
-                [[1050, 1050], [1350, 1050], [1350, 1350], [1050, 1350]],
-            ]
-        )
-    ).all()
+def test_convert_poly():
+    assert (BOX_POLY == zz.vision.cwh2poly(BOX_CWH)).all()
+    assert (BOXES_POLY == zz.vision.cwh2poly(BOXES_CWH)).all()
+    assert (BOX_POLY == zz.vision.xyxy2poly(BOX_XYXY)).all()
+    assert (BOXES_POLY == zz.vision.xyxy2poly(BOXES_XYXY)).all()

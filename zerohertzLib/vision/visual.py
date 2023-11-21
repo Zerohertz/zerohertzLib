@@ -5,7 +5,7 @@ import numpy as np
 from numpy.typing import DTypeLike, NDArray
 from PIL import Image, ImageDraw, ImageFont
 
-from .convert import poly2mask, xywh2xyxy, xyxy2xywh
+from .convert import _isBbox, cwh2poly, poly2cwh, poly2mask
 
 
 def _cvtBGRA(img: NDArray[np.uint8]) -> NDArray[np.uint8]:
@@ -52,39 +52,6 @@ def _bbox(
     )
 
 
-def _isBbox(shape: Tuple[int]) -> Tuple[bool]:
-    """Bbox 여부 검증
-
-    Args:
-        shape (``Tuple[int]``): Bbox의 `shape`
-
-    Returns:
-        ``bool``: 복수의 bbox 여부 및 format의 정보
-    """
-    # [cx, cy, w, h]
-    if len(shape) == 1 and shape[0] == 4:
-        multi = False
-        xyxy = False
-    elif len(shape) == 2:
-        # N * [cx, cy, w, h]
-        if shape[1] == 4:
-            multi = True
-            xyxy = False
-        # [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
-        elif shape[0] == 4 and shape[1] == 2:
-            multi = False
-            xyxy = True
-        else:
-            raise Exception("The 'box' must be of shape [4], [N, 4], [4, 2], [N, 4, 2]")
-    # N * [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
-    elif len(shape) == 3 and shape[1] == 4 and shape[2] == 2:
-        multi = True
-        xyxy = True
-    else:
-        raise Exception("The 'box' must be of shape [4], [N, 4], [4, 2], [N, 4, 2]")
-    return multi, xyxy
-
-
 def bbox(
     img: NDArray[np.uint8],
     box: NDArray[DTypeLike],
@@ -125,9 +92,9 @@ def bbox(
     elif shape[2] == 4:
         color = (*color, 255)
     shape = box.shape
-    multi, xyxy = _isBbox(shape)
-    if not xyxy:
-        box = xywh2xyxy(box)
+    multi, poly = _isBbox(shape)
+    if not poly:
+        box = cwh2poly(box)
     if multi:
         for b in box:
             img = _bbox(img, b, color, thickness)
@@ -332,12 +299,12 @@ def text(
     img = img.copy()
     img = _cvtBGRA(img)
     shape = box.shape
-    multi, xyxy = _isBbox(shape)
-    if xyxy:
+    multi, poly = _isBbox(shape)
+    if poly:
         box_xyxy = box
-        box_xywh = xyxy2xywh(box)
+        box_xywh = poly2cwh(box)
     else:
-        box_xyxy = xywh2xyxy(box)
+        box_xyxy = cwh2poly(box)
         box_xywh = box
     if multi:
         if not shape[0] == len(txt):
