@@ -28,39 +28,27 @@ def _cvtBGRA(img: NDArray[np.uint8]) -> NDArray[np.uint8]:
 
 def _bbox(
     img: NDArray[np.uint8],
-    box: NDArray[DTypeLike],
+    box_xyxy: NDArray[DTypeLike],
     color: Tuple[int],
     thickness: int,
 ) -> NDArray[np.uint8]:
     """Bbox 시각화
 
-    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/283126390-32d73013-293b-4eec-8ed5-19ce64863fd6.png
-        :alt: Visualzation Result
-        :align: center
-
     Args:
         img (``NDArray[np.uint8]``): Input image (``[H, W, C]``)
-        box (``NDArray[DTypeLike]``): 하나의 bbox (``[4]`` or ``[4, 2]``)
+        box_xyxy (``NDArray[DTypeLike]``): 하나의 bbox (``[4, 2]``)
         color (``Tuple[int]``): bbox의 색
         thickness (``int``): bbox 선의 두께
 
     Returns:
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, C]``)
-
-    Examples:
-        >>> img = cv2.imread("test.jpg")
-        >>> box = np.array([[100, 200], [100, 1500], [1400, 1500], [1400, 200]])
-        >>> zz.vision.bbox(img, box, thickness=10)
     """
-    shape = box.shape
-    if len(shape) == 1 and shape[0] == 4:
-        box = xywh2xyxy(box)
-    elif len(shape) == 2 and shape[0] == 4 and shape[1] == 2:
-        pass
-    else:
-        raise Exception("The 'box' must be of shape [4] or [4, 2]")
     return cv2.polylines(
-        img, [box.astype(np.int32)], isClosed=True, color=color, thickness=thickness
+        img,
+        [box_xyxy.astype(np.int32)],
+        isClosed=True,
+        color=color,
+        thickness=thickness,
     )
 
 
@@ -138,7 +126,9 @@ def bbox(
     elif shape[2] == 4:
         color = (*color, 255)
     shape = box.shape
-    multi, _ = _isBbox(shape)
+    multi, xyxy = _isBbox(shape)
+    if not xyxy:
+        box = xywh2xyxy(box)
     if multi:
         for b in box:
             img = _bbox(img, b, color, thickness)
