@@ -14,12 +14,12 @@ def _isBbox(shape: Tuple[int]) -> Tuple[bool]:
     Returns:
         ``bool``: 복수의 bbox 여부 및 format의 정보
     """
-    # [cx, cy, w, h]
+    # [cx, cy, w, h] or N * [x0, y0, x1, y1]
     if len(shape) == 1 and shape[0] == 4:
         multi = False
         poly = False
     elif len(shape) == 2:
-        # N * [cx, cy, w, h]
+        # N * [cx, cy, w, h] or N * [x0, y0, x1, y1]
         if shape[1] == 4:
             multi = True
             poly = False
