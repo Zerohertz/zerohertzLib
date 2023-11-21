@@ -5,6 +5,8 @@ import numpy as np
 from numpy.typing import DTypeLike, NDArray
 from PIL import Image, ImageDraw, ImageFont
 
+from .convert import xywh2xyxy
+
 
 def _cvtBGRA(img: NDArray[np.uint8]) -> NDArray[np.uint8]:
     """cv2로 읽어온 이미지를 BGRA 채널로 전환
@@ -27,8 +29,8 @@ def _cvtBGRA(img: NDArray[np.uint8]) -> NDArray[np.uint8]:
 def _bbox(
     img: NDArray[np.uint8],
     box: NDArray[DTypeLike],
-    color: Tuple[int] = (0, 0, 255),
-    thickness: int = 2,
+    color: Tuple[int],
+    thickness: int,
 ) -> NDArray[np.uint8]:
     """Bbox 시각화
 
@@ -38,7 +40,7 @@ def _bbox(
 
     Args:
         img (``NDArray[np.uint8]``): Input image (``[H, W, C]``)
-        box (``NDArray[DTypeLike]``): 하나의 bbox (``[4, 2]``)
+        box (``NDArray[DTypeLike]``): 하나의 bbox (``[4]`` or ``[4, 2]``)
         color (``Tuple[int]``): bbox의 색
         thickness (``int``): bbox 선의 두께
 
@@ -50,9 +52,45 @@ def _bbox(
         >>> box = np.array([[100, 200], [100, 1500], [1400, 1500], [1400, 200]])
         >>> zz.vision.bbox(img, box, thickness=10)
     """
+    shape = box.shape
+    if len(shape) == 1 and shape[0] == 4:
+        box = xywh2xyxy(box)
+    elif len(shape) == 2 and shape[0] == 4 and shape[1] == 2:
+        pass
+    else:
+        raise Exception("The 'box' must be of shape [4] or [4, 2]")
     return cv2.polylines(
         img, [box.astype(np.int32)], isClosed=True, color=color, thickness=thickness
     )
+
+
+def _isBbox(shape: Tuple[int]) -> bool:
+    """Bbox 여부 검증
+
+    Args:
+        shape (``Tuple[int]``): Bbox의 `shape`
+
+    Returns:
+        ``bool``: 복수의 bbox 여부
+    """
+    # [cx, cy, w, h]
+    if len(shape) == 1 and shape[0] == 4:
+        multi = False
+    elif len(shape) == 2:
+        # N * [cx, cy, w, h]
+        if shape[1] == 4:
+            multi = True
+        # [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
+        elif shape[0] == 4 and shape[1] == 2:
+            multi = False
+        else:
+            raise Exception("The 'box' must be of shape [4], [N, 4], [4, 2], [N, 4, 2]")
+    # N * [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
+    elif len(shape) == 3 and shape[1] == 4 and shape[2] == 2:
+        multi = True
+    else:
+        raise Exception("The 'box' must be of shape [4], [N, 4], [4, 2], [N, 4, 2]")
+    return multi
 
 
 def bbox(
@@ -69,7 +107,7 @@ def bbox(
 
     Args:
         img (``NDArray[np.uint8]``): Input image (``[H, W, C]``)
-        box (``NDArray[DTypeLike]``): 하나 혹은 여러 개의 bbox (``[4, 2]`` or ``[N, 4, 2]``)
+        box (``NDArray[DTypeLike]``): 하나 혹은 여러 개의 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
         color (``Tuple[int]``): bbox의 색
         thickness (``int``): bbox 선의 두께
 
@@ -96,15 +134,12 @@ def bbox(
     elif shape[2] == 4:
         color = (*color, 255)
     shape = box.shape
-    if len(shape) == 2:
-        assert shape[0] == 4
-        assert shape[1] == 2
-        img = _bbox(img, box, color, thickness)
-    else:
-        assert shape[1] == 4
-        assert shape[2] == 2
+    multi = _isBbox(shape)
+    if multi:
         for b in box:
             img = _bbox(img, b, color, thickness)
+    else:
+        img = _bbox(img, box, color, thickness)
     return img
 
 
