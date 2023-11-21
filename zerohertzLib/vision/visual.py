@@ -93,10 +93,6 @@ def bbox(
 ) -> NDArray[np.uint8]:
     """여러 Bbox 시각화
 
-    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284457018-1bf97633-f650-4d28-b955-1212cdd243ef.png
-        :alt: Visualzation Result
-        :align: center
-
     Args:
         img (``NDArray[np.uint8]``): Input image (``[H, W, C]``)
         box (``NDArray[DTypeLike]``): 하나 혹은 여러 개의 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
@@ -108,14 +104,19 @@ def bbox(
 
     Examples:
         >>> img = cv2.imread("test.jpg")
-        >>> box = np.array([[100, 200], [100, 1500], [1400, 1500], [1400, 200]])
+        >>> box = np.array([[100, 200], [100, 1000], [1200, 1000], [1200, 200]])
         >>> box.shape
         (4, 2)
         >>> zz.vision.bbox(img, box, thickness=10)
-        >>> boxes = np.array([[850, 800, 1300, 1400], [300, 300, 300, 400], [1200, 1200, 300, 300]])
+        >>> boxes = np.array([[250, 200, 100, 100], [600, 600, 800, 200], [900, 300, 300, 400]])
         >>> boxes.shape
         (3, 4)
         >>> zz.vision.bbox(img, boxes, (0, 255, 0), thickness=10)
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284566751-ec443fc2-6b71-4ba3-a770-590fa873e944.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 600px
     """
     img = img.copy()
     shape = img.shape
@@ -146,10 +147,6 @@ def masks(
 ) -> NDArray[np.uint8]:
     """Masks 시각화
 
-    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/283127171-6f6c0b60-ca62-48b7-91f9-dba899275a72.png
-        :alt: Visualzation Result
-        :align: center
-
     Args:
         img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, C]``)
         mks (``NDArray[bool]``): 입력 이미지 위에 병합할 ``N`` 개의 mask들 (``[N, H, W]``)
@@ -170,10 +167,21 @@ def masks(
         >>> for mask in mks:
         >>>     center_x = random.randint(0, W)
         >>>     center_y = random.randint(0, H)
-        >>>     radius = random.randint(100, 400)
+        >>>     radius = random.randint(30, 200)
         >>>     cv2.circle(mask, (center_x, center_y), radius, (True), -1)
         >>> mks = mks.astype(bool)
         >>> zz.vision.masks(img, mks)
+        >>> cls = [i for i in range(cnt)]
+        >>> class_list = [cls[random.randint(0, 2)] for _ in range(cnt)]
+        >>> class_color = {}
+        >>> for c in cls:
+        >>>     class_color[c] = [random.randint(0, 255) for _ in range(3)]
+        >>> zz.vision.masks(img, mks, class_list=class_list, class_color=class_color)
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284525631-53c2be9d-e7a6-45eb-bf5e-a08a6bb09e1c.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 600px
     """
     shape = img.shape
     if len(shape) == 2:
@@ -295,10 +303,6 @@ def text(
 ) -> NDArray[np.uint8]:
     """Text 시각화
 
-    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284456581-a5ffb8e0-059d-4145-ace4-dbb073780612.png
-        :alt: Visualzation Result
-        :align: center
-
     Args:
         img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, C]``)
         box (``NDArray[DTypeLike]``): 문자열이 존재할 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
@@ -311,14 +315,19 @@ def text(
 
     Examples:
         >>> img = cv2.imread("test.jpg")
-        >>> box = np.array([[100, 200], [100, 1500], [1400, 1500], [1400, 200]])
+        >>> box = np.array([[100, 200], [100, 1000], [1200, 1000], [1200, 200]])
         >>> box.shape
         (4, 2)
         >>> zz.vision.text(img, box, "먼지야")
-        >>> boxes = np.array([[850, 800, 1300, 1400], [300, 300, 300, 400], [1200, 1200, 300, 300]])
+        >>> boxes = np.array([[250, 200, 100, 100], [600, 600, 800, 200], [900, 300, 300, 400]])
         >>> boxes.shape
         (3, 4)
         >>> zz.vision.text(img, boxes, ["먼지야", "먼지야", "먼지야"], vis=True)
+
+    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284566305-fe9d1be6-b506-4140-bca9-db2a210f333c.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 600px
     """
     img = img.copy()
     img = _cvtBGRA(img)
@@ -363,15 +372,14 @@ def cutout(
 
     Examples:
         >>> img = cv2.imread("test.jpg")
-        >>> poly = (np.array([[10, 10], [20, 10], [30, 40], [20, 60], [10, 20]]) + 10) * 10
-        >>> poly[:, 0] *= 4
+        >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
         >>> zz.vision.cutout(img, poly)
         >>> zz.vision.cutout(img, poly, 128, False)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284496575-389adc84-b981-4f6a-b1d1-c1b3901e8c04.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284564607-9df73033-f99e-4b54-a321-2a47a6c89a32.png
             :alt: Visualzation Result
             :align: center
-            :width: 300px
+            :width: 600px
     """
     shape = img.shape[:2]
     poly = poly.astype(np.int32)
@@ -416,16 +424,15 @@ def paste(
 
     Examples:
         >>> img = cv2.imread("test.jpg")
-        >>> poly = (np.array([[10, 10], [20, 10], [30, 40], [20, 60], [10, 20]]) + 10) * 10
-        >>> poly[:, 0] *= 4
-        >>> target = zz.vision.cutout(img, poly, 128)
-        >>> zz.vision.paste(img, target, [200, 200, 1200, 1500], False, True)
-        >>> zz.vision.paste(img, target, [200, 200, 1200, 1500], True, True)
+        >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
+        >>> target = zz.vision.cutout(img, poly, 200)
+        >>> zz.vision.paste(img, target, [200, 200, 1000, 800], False, True)
+        >>> zz.vision.paste(img, target, [200, 200, 1000, 800], True, True)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284500684-f72f12ca-f849-454b-a6c9-1ee35138a880.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284563666-2b7f33a9-5c1d-454e-afd8-9b4d3606b4e4.png
             :alt: Visualzation Result
             :align: center
-            :width: 300px
+            :width: 600px
     """
     x0, y0, x1, y1 = box
     H, W = y1 - y0, x1 - x0

@@ -18,10 +18,6 @@ def bar(
 ) -> None:
     """Dictionary로 입력받은 데이터를 가로 bar chart로 시각화
 
-    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280595386-1c930639-762a-47b7-9ae1-1babf789803c.png
-        :alt: Visualzation Result
-        :align: center
-
     Args:
         data (``Dict[str, Union[int, float]]``): 입력 데이터
         xlab (``Optional[str]``): Graph에 출력될 X축 label
@@ -37,6 +33,11 @@ def bar(
 
     Examples:
         >>> zz.plot.bar({"테란": 27, "저그": 40, "프로토스": 30}, xlab="종족", ylab="인구 [명]", title="Star Craft")
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280595386-1c930639-762a-47b7-9ae1-1babf789803c.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 300px
     """
     colors = sns.color_palette("husl", n_colors=len(data))
     plt.figure(figsize=ratio)
@@ -84,10 +85,6 @@ def barh(
 ) -> None:
     """Dictionary로 입력받은 데이터를 세로 bar chart로 시각화
 
-    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280707484-361611aa-f1bd-4909-b2a2-fadc26aa1416.png
-        :alt: Visualzation Result
-        :align: center
-
     Args:
         data (``Dict[str, Union[int, float]]``): 입력 데이터
         xlab (``Optional[str]``): Graph에 출력될 X축 label
@@ -103,6 +100,11 @@ def barh(
 
     Examples:
         >>> zz.plot.barh({"테란": 27, "저그": 40, "프로토스": 30}, xlab="인구 [명]", ylab="종족", title="Star Craft")
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280707484-361611aa-f1bd-4909-b2a2-fadc26aa1416.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 200px
     """
     colors = sns.color_palette("husl", n_colors=len(data))
     plt.figure(figsize=ratio)
@@ -152,10 +154,6 @@ def hist(
 ) -> None:
     """Dictionary로 입력받은 데이터를 histogram으로 시각화
 
-    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280599183-2508d4d4-7398-48ac-ad94-54296934c300.png
-        :alt: Visualzation Result
-        :align: center
-
     Args:
         data (``Dict[str, List[Union[int, float]]]``): 입력 데이터
         xlab (``Optional[str]``): Graph에 출력될 X축 label
@@ -171,6 +169,11 @@ def hist(
 
     Examples:
         >>> zz.plot.hist({"테란": list(np.random.rand(1000) * 10), "저그": list(np.random.rand(1000) * 10 + 1), "프로토스": list(np.random.rand(1000) * 10 + 2)}, xlab="성적 [점]", ylab="인원 [명]", title="Star Craft")
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280599183-2508d4d4-7398-48ac-ad94-54296934c300.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 600px
     """
     colors = sns.color_palette("husl", n_colors=len(data))
     m, M = sys.maxsize, -sys.maxsize

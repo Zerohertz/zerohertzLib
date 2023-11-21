@@ -15,10 +15,6 @@ def cpu(
 ) -> None:
     """시간에 따른 CPU의 사용량을 각 코어에 따라 line chart로 시각화
 
-    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284103719-cdbbb87c-ee2a-4ce7-87cf-df648d10b317.png
-        :alt: Visualzation Result
-        :align: center
-
     Args:
         tick (``Optional[int]``): Update 주기
         threshold: (``Optional[int]``): 시각화할 총 시간
@@ -30,6 +26,11 @@ def cpu(
 
     Examples:
         >>> zz.monitoring.cpu(threshold=15)
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284103719-cdbbb87c-ee2a-4ce7-87cf-df648d10b317.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 600px
     """
     t = 0
     ti = []

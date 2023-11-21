@@ -23,10 +23,6 @@ def gpu_usages(
 ) -> None:
     """시간에 따른 GPU의 사용량을 각 GPU에 따라 line chart로 시각화
 
-    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284106493-2c6ac15c-ee68-47b4-a157-3734a0f53ddc.png
-        :alt: Visualzation Result
-        :align: center
-
     Args:
         tick (``Optional[int]``): Update 주기
         threshold: (``Optional[int]``): 시각화할 총 시간
@@ -38,6 +34,11 @@ def gpu_usages(
 
     Examples:
         >>> zz.monitoring.gpu_usages(threshold=15)
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284106493-2c6ac15c-ee68-47b4-a157-3734a0f53ddc.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 600px
     """
     t = 0
     ti = []
@@ -89,10 +90,6 @@ def gpu_memory(
 ) -> None:
     """시간에 따른 GPU의 memory 사용량을 각 GPU에 따라 line chart로 시각화
 
-    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284106494-ad8eec4c-62e4-4524-a696-29fda244428d.png
-        :alt: Visualzation Result
-        :align: center
-
     Args:
         tick (``Optional[int]``): Update 주기
         threshold: (``Optional[int]``): 시각화할 총 시간
@@ -104,6 +101,11 @@ def gpu_memory(
 
     Examples:
         >>> zz.monitoring.gpu_memory(threshold=15)
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284106494-ad8eec4c-62e4-4524-a696-29fda244428d.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 600px
     """
     t = 0
     ti = []

@@ -20,10 +20,6 @@ def before_after(
 ) -> None:
     """두 이미지를 비교하는 이미지 생성
 
-    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/282745206-fcddd725-e596-471d-b66c-27fe296ccb63.png
-        :alt: Result
-        :align: center
-
     Args:
         before (``NDArray[np.uint8]``): 원본 이미지
         after (``NDArray[np.uint8]``): 영상 처리 혹은 모델 추론 후 이미지
@@ -44,11 +40,21 @@ def before_after(
         >>> after = cv2.cvtColor(after, cv2.COLOR_BGR2GRAY)
         >>> zz.vision.before_after(before, after, quality=10)
 
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284503831-44cbe7a2-c1a2-4d44-91bf-7f35c2f80d2e.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 300px
+
         BGR, Resize:
 
         >>> before = cv2.imread("test.jpg")
         >>> after = cv2.resize(before, (100, 100))
         >>> zz.vision.before_after(before, after, [20, 40, 30, 60])
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284503976-789c6f8d-1b98-4941-b528-523b2973e4b4.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 300px
     """
     if area is None:
         if per:
@@ -87,10 +93,6 @@ def grid(
 ) -> None:
     """여러 이미지를 입력받아 한 이미지로 병합
 
-    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/282752504-591cf407-c5bc-460b-99cf-0be569198855.png
-        :alt: Result
-        :align: center
-
     Args:
         *imgs (``List[NDArray[np.uint8]]``): 입력 이미지
         size: (``int``): 출력 이미지의 크기
@@ -104,6 +106,11 @@ def grid(
         >>> imgs = [(tmp + np.random.rand(*tmp.shape)).astype(np.uint8) for _ in range(8)]
         >>> imgs[2] = cv2.cvtColor(imgs[2], cv2.COLOR_BGR2GRAY)
         >>> zz.vision.grid(*imgs)
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284504218-9859abdb-7fd3-47d1-a9c8-569f8c95d5b7.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 300px
     """
     cnt = math.ceil(math.sqrt(len(imgs)))
     length = size // cnt

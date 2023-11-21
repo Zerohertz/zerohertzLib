@@ -12,7 +12,7 @@ python setup.py sdist bdist_wheel
 pip install dist/*.whl
 # sphinx-apidoc -f -o sphinx/source zerohertzLib --implicit-namespaces
 # sed -i '/.. automodule::/a\   :private-members:' sphinx/source/*.rst
-python sphinx/release_note.py
+# python sphinx/release_note.py
 cd sphinx
 rm -rf build
 make html
