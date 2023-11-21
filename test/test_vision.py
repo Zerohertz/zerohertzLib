@@ -284,7 +284,7 @@ def test_masks_gray_str():
     assert "MASK_GRAY_STR.png" in os.listdir()
 
 
-def test_text_bgr():
+def test_text_bgr_xyxy():
     img = cv2.imread(f"{data}/test.jpg")
     box = np.array(
         [
@@ -294,35 +294,27 @@ def test_text_bgr():
             [1400, 200],
         ]
     )
-    BGR = zz.vision.text(img, box, "먼지야")
-    cv2.imwrite("TEXT_BGR.png", BGR)
-    assert "TEXT_BGR.png" in os.listdir()
+    BGR = zz.vision.text(img, box, "먼지야", vis=True)
+    cv2.imwrite("TEXT_BGR_XYXY.png", BGR)
+    assert "TEXT_BGR_XYXY.png" in os.listdir()
 
 
-def test_text_bgra():
+def test_text_bgra_xyxy():
     img = cv2.imread(f"{data}/test.jpg")
     img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
-    box = np.array(
+    boxes = np.array(
         [
-            [100, 200],
-            [100, 1500],
-            [1400, 1500],
-            [1400, 200],
+            [img.shape[1] / 2, img.shape[0] / 3, 500, 1000],
+            [img.shape[1] / 2, img.shape[0] / 3 * 2, 1000, 500],
         ]
     )
-    box = np.array([img.shape[1] / 2, img.shape[0] / 3, 500, 1000])
-    box = zz.vision.xywh2xyxy(box)
-    BGRA = zz.vision.text(img, box, "오래오래", (0, 255, 0))
-    BGRA = zz.vision.bbox(BGRA, box, thickness=10)
-    box = np.array([img.shape[1] / 2, img.shape[0] / 3 * 2, 1000, 500])
-    box = zz.vision.xywh2xyxy(box)
-    BGRA = zz.vision.text(BGRA, box, "오래오래", (255, 0, 0))
-    BGRA = zz.vision.bbox(BGRA, box, thickness=10)
-    cv2.imwrite("TEXT_BGRA.png", BGRA)
-    assert "TEXT_BGRA.png" in os.listdir()
+    boxes = zz.vision.xywh2xyxy(boxes)
+    BGRA = zz.vision.text(img, boxes, ["오래오래", "오래오래"], (0, 255, 0), vis=True)
+    cv2.imwrite("TEXT_BGRA_XYXY.png", BGRA)
+    assert "TEXT_BGRA_XYXY.png" in os.listdir()
 
 
-def test_text_gray():
+def test_text_gray_xyxy():
     img = cv2.imread(f"{data}/test.jpg")
     img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
     box = np.array(
@@ -333,9 +325,50 @@ def test_text_gray():
             [1400, 200],
         ]
     )
-    GRAY = zz.vision.text(img, box, "행복해라")
-    cv2.imwrite("TEXT_GRAY.png", GRAY)
-    assert "TEXT_GRAY.png" in os.listdir()
+    GRAY = zz.vision.text(img, box, "행복해라", vis=True)
+    cv2.imwrite("TEXT_GRAY_XYXY.png", GRAY)
+    assert "TEXT_GRAY_XYXY.png" in os.listdir()
+
+
+def test_text_bgr_xywh():
+    img = cv2.imread(f"{data}/test.jpg")
+    boxes = np.array(
+        [[850, 800, 1300, 1400], [300, 300, 300, 400], [1200, 1200, 300, 300]]
+    )
+    BGR = zz.vision.text(img, boxes, ["먼지야", "먼지야", "먼지야"], vis=True)
+    cv2.imwrite("TEXT_BGR_XYWH.png", BGR)
+    assert "TEXT_BGR_XYWH.png" in os.listdir()
+
+
+def test_text_bgra_xywh():
+    img = cv2.imread(f"{data}/test.jpg")
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
+    boxes = np.array(
+        [
+            [img.shape[1] / 2, img.shape[0] / 3, 500, 1000],
+            [img.shape[1] / 2, img.shape[0] / 3 * 2, 1000, 500],
+        ]
+    )
+    BGRA = zz.vision.text(img, boxes, ["오래오래", "오래오래"], (0, 255, 0), vis=True)
+    cv2.imwrite("TEXT_BGRA_XYWH.png", BGRA)
+    assert "TEXT_BGRA_XYWH.png" in os.listdir()
+
+
+def test_text_gray_xywh():
+    img = cv2.imread(f"{data}/test.jpg")
+    img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
+    box = np.array(
+        [
+            [100, 200],
+            [100, 1500],
+            [1400, 1500],
+            [1400, 200],
+        ]
+    )
+    box = zz.vision.xyxy2xywh(box)
+    GRAY = zz.vision.text(img, box, "행복해라", vis=True)
+    cv2.imwrite("TEXT_GRAY_XYWH.png", GRAY)
+    assert "TEXT_GRAY_XYXY.png" in os.listdir()
 
 
 def test_xyxy2xywh_bbox():

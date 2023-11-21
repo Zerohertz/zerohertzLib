@@ -5,7 +5,7 @@ import numpy as np
 from numpy.typing import DTypeLike, NDArray
 from PIL import Image, ImageDraw, ImageFont
 
-from .convert import xywh2xyxy
+from .convert import xywh2xyxy, xyxy2xywh
 
 
 def _cvtBGRA(img: NDArray[np.uint8]) -> NDArray[np.uint8]:
@@ -64,33 +64,37 @@ def _bbox(
     )
 
 
-def _isBbox(shape: Tuple[int]) -> bool:
+def _isBbox(shape: Tuple[int]) -> Tuple[bool]:
     """Bbox 여부 검증
 
     Args:
         shape (``Tuple[int]``): Bbox의 `shape`
 
     Returns:
-        ``bool``: 복수의 bbox 여부
+        ``bool``: 복수의 bbox 여부 및 format의 정보
     """
     # [cx, cy, w, h]
     if len(shape) == 1 and shape[0] == 4:
         multi = False
+        xyxy = False
     elif len(shape) == 2:
         # N * [cx, cy, w, h]
         if shape[1] == 4:
             multi = True
+            xyxy = False
         # [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
         elif shape[0] == 4 and shape[1] == 2:
             multi = False
+            xyxy = True
         else:
             raise Exception("The 'box' must be of shape [4], [N, 4], [4, 2], [N, 4, 2]")
     # N * [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
     elif len(shape) == 3 and shape[1] == 4 and shape[2] == 2:
         multi = True
+        xyxy = True
     else:
         raise Exception("The 'box' must be of shape [4], [N, 4], [4, 2], [N, 4, 2]")
-    return multi
+    return multi, xyxy
 
 
 def bbox(
@@ -134,7 +138,7 @@ def bbox(
     elif shape[2] == 4:
         color = (*color, 255)
     shape = box.shape
-    multi = _isBbox(shape)
+    multi, _ = _isBbox(shape)
     if multi:
         for b in box:
             img = _bbox(img, b, color, thickness)
@@ -272,11 +276,34 @@ def _make_text(txt: str, shape: Tuple[int], color: Tuple[int]) -> NDArray[np.uin
     return palette
 
 
+def _text(
+    img: NDArray[np.uint8], box_xywh: NDArray[DTypeLike], txt: str, color: Tuple[int]
+) -> NDArray[np.uint8]:
+    """단일 text 시각화
+
+    Args:
+        img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, C]``)
+        box_xywh (``NDArray[DTypeLike]``): 문자열이 존재할 bbox (``[4, 2]``)
+        txt (``str``): 이미지에 추가할 문자열
+        color (``Tuple[int]``): 문자의 색
+
+    Returns:
+        ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
+    """
+    w0, h0 = (box_xywh[:2] - box_xywh[2:] / 2).astype(np.int32)
+    w1, h1 = (box_xywh[:2] + box_xywh[2:] / 2).astype(np.int32)
+    w, h = w1 - w0, h1 - h0
+    txt = _make_text(txt, (h, w), color)
+    img[h0:h1, w0:w1, :] = _paste(img[h0:h1, w0:w1, :], txt)
+    return img
+
+
 def text(
     img: NDArray[np.uint8],
     box: NDArray[DTypeLike],
-    txt: str,
+    txt: Union[str, List[str]],
     color: Optional[Tuple[int]] = (0, 0, 0),
+    vis: Optional[bool] = False,
 ) -> NDArray[np.uint8]:
     """Text 시각화
 
@@ -286,9 +313,10 @@ def text(
 
     Args:
         img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, C]``)
-        box (``NDArray[DTypeLike]``): 문자열이 존재할 bbox (``[4, 2]``)
+        box (``NDArray[DTypeLike]``): 문자열이 존재할 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
         txt (``str``): 이미지에 추가할 문자열
-        color (``Optional[Tuple[int]``): bbox의 색
+        color (``Optional[Tuple[int]]``): 문자의 색
+        vis (``Optional[bool]``): 문자 영역의 시각화 여부
 
     Returns:
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
@@ -300,9 +328,23 @@ def text(
     """
     img = img.copy()
     img = _cvtBGRA(img)
-    w0, w1 = map(int, (min(box[:, 0]), max(box[:, 0])))
-    h0, h1 = map(int, (min(box[:, 1]), max(box[:, 1])))
-    w, h = w1 - w0, h1 - h0
-    txt = _make_text(txt, (h, w), color)
-    img[h0:h1, w0:w1, :] = _paste(img[h0:h1, w0:w1, :], txt)
+    shape = box.shape
+    multi, xyxy = _isBbox(shape)
+    if xyxy:
+        box_xyxy = box
+        box_xywh = xyxy2xywh(box)
+    else:
+        box_xyxy = xywh2xyxy(box)
+        box_xywh = box
+    if multi:
+        if not shape[0] == len(txt):
+            raise Exception("'box.shape[0]' and 'len(txt)' must be equal")
+        for b_xyxy, b_xywh, t in zip(box_xyxy, box_xywh, txt):
+            img = _text(img, b_xywh, t, color)
+            if vis:
+                img = _bbox(img, b_xyxy, (0, 0, 255, 255), 2)
+    else:
+        img = _text(img, box_xywh, txt, color)
+        if vis:
+            img = _bbox(img, box_xyxy, (0, 0, 255, 255), 2)
     return img
