@@ -93,7 +93,7 @@ def bbox(
 ) -> NDArray[np.uint8]:
     """여러 Bbox 시각화
 
-    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284277697-e35d3dc4-9a77-4568-81bc-482a8393ab08.png
+    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284457018-1bf97633-f650-4d28-b955-1212cdd243ef.png
         :alt: Visualzation Result
         :align: center
 
@@ -109,15 +109,13 @@ def bbox(
     Examples:
         >>> img = cv2.imread("test.jpg")
         >>> box = np.array([[100, 200], [100, 1500], [1400, 1500], [1400, 200]])
+        >>> box.shape
+        (4, 2)
         >>> zz.vision.bbox(img, box, thickness=10)
-        >>> boxes = np.array(
-            [
-                [[200, 100], [1500, 100], [1500, 1500], [200, 1500]],
-                [[150, 100], [450, 100], [450, 500], [150, 500]],
-                [[1050, 1050], [1350, 1050], [1350, 1350], [1050, 1350]],
-            ]
-        )
-        >>> zz.vision.bbox(img, boxes, thickness=10)
+        >>> boxes = np.array([[850, 800, 1300, 1400], [300, 300, 300, 400], [1200, 1200, 300, 300]])
+        >>> boxes.shape
+        (3, 4)
+        >>> zz.vision.bbox(img, boxes, (0, 255, 0), thickness=10)
     """
     img = img.copy()
     shape = img.shape
@@ -297,7 +295,7 @@ def text(
 ) -> NDArray[np.uint8]:
     """Text 시각화
 
-    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/283129282-fb8c4d03-c909-4ede-bc9c-dff860a11d31.png
+    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284456581-a5ffb8e0-059d-4145-ace4-dbb073780612.png
         :alt: Visualzation Result
         :align: center
 
@@ -314,7 +312,13 @@ def text(
     Examples:
         >>> img = cv2.imread("test.jpg")
         >>> box = np.array([[100, 200], [100, 1500], [1400, 1500], [1400, 200]])
+        >>> box.shape
+        (4, 2)
         >>> zz.vision.text(img, box, "먼지야")
+        >>> boxes = np.array([[850, 800, 1300, 1400], [300, 300, 300, 400], [1200, 1200, 300, 300]])
+        >>> boxes.shape
+        (3, 4)
+        >>> zz.vision.text(img, boxes, ["먼지야", "먼지야", "먼지야"], vis=True)
     """
     img = img.copy()
     img = _cvtBGRA(img)
