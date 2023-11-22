@@ -394,7 +394,7 @@ def paste(
     Args:
         img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, C]``)
         target (``NDArray[np.uint8]``): 타겟 이미지 (``[H, W, 4]``)
-        box (``List[int]``): 병합될 영역
+        box (``List[int]``): 병합될 영역 (``xyxy`` 형식)
         resize (``Optional[bool]``): 타겟 이미지의 resize 여부
         vis (``Optional[bool]``): 지정한 영역 (``box``)의 시각화 여부
 
