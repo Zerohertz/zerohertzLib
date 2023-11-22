@@ -97,6 +97,32 @@ class MakeData:
                                         {"name": f"{fileName}.png", "poly": poly.tolist()},
                                         os.path.join(self.endJsonPath, fileName),
                                     )
+
+            Make Data:
+
+            .. code-block:: python
+
+                class MakeDataCarAugment(zz.util.MakeData):
+                    def makeData(self, json_instance, dataName):
+                        img = cv2.imread(
+                            random.choice(glob("*"))
+                        )
+                        target = cv2.imread(
+                            os.path.join(self.startDataPath, dataName), cv2.IMREAD_UNCHANGED
+                        )
+                        H, W, _ = img.shape
+                        h, w, _ = target.shape
+                        x, y = random.randrange(100, W - w - 100), random.randrange(100, H - h - 100)
+                        box = [x, y, x + w, y + h]
+                        img = zz.vision.paste(img, target, box, False, False)
+                        fileName = ".".join(dataName.split(".")[:-1])
+                        cv2.imwrite(
+                            os.path.join(
+                                self.endDataPath,
+                                f"{fileName}.png",
+                            ),
+                            img,
+                        )
         """
         return True
 
@@ -104,11 +130,11 @@ class MakeData:
         """Data 구축 방법 정의
 
         Args:
-            json_instance (``zerohertzLib.util.Json``): ```Json`` instance의 정보
+            json_instance (``zerohertzLib.util.Json``): ``Json`` instance의 정보
             dataName (``str``): ``jsonKey`` 에 의해 출력된 data의 이름
 
         Returns:
-            ``None``: ``endDataPath`` 와 ``endJsonPath`` 와 본 함수를 통해 data 구축
+            ``None``: ``endDataPath``, ``endJsonPath`` 와 본 함수를 통해 data 구축
         """
         try:
             shutil.copy(
@@ -130,27 +156,14 @@ class MakeData:
             실행 시 ``targetPath`` 삭제 후 구축 진행
 
         Examples:
-            Condition:
-
-            >>> mdc = MakeDataCar(startDataPath, startJsonPath, "file_name", targetPath)
-            >>> mdc.make()
+            >>> md = MakeData(startDataPath, startJsonPath, jsonKey, targetPath)
+            >>> md.make()
             100%|█████████████| 403559/403559 [00:54<00:00, 7369.96it/s]
             ====================================================================================================
             DATA PATH:       /.../data
             JSON PATH:       /.../json
             ====================================================================================================
             100%|█████████████| 403559/403559 [01:04<00:00, 6292.39it/s]
-
-            Condition & Make Data:
-
-            >>> mdcd = MakeDataCarDamage(startDataPath, startJsonPath, "file_name", targetPath)
-            >>> mdcd.make()
-            100%|█████████████| 50445/50445 [00:08<00:00, 6227.74it/s]
-            ====================================================================================================
-            DATA PATH:       /.../data
-            JSON PATH:       /.../json
-            ====================================================================================================
-            100%|█████████████| 50445/50445 [14:56<00:00, 56.26it/s]
         """
         try:
             shutil.rmtree(self.targetPath)
