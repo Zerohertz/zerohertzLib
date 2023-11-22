@@ -2,7 +2,6 @@ import sys
 from typing import Dict, List, Optional, Tuple, Union
 
 import numpy as np
-import seaborn as sns
 from matplotlib import pyplot as plt
 
 from .util import _save, color

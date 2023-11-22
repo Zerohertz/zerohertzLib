@@ -95,8 +95,9 @@ spec:
                         def startTime = System.currentTimeMillis()
                         setBuildStatus("Checking Lint...", "PENDING", "$STAGE_NAME")
                         container("python") {
-                            sh "pip install black"
+                            sh "pip install black flake8"
                             sh "black --check ."
+                            sh "flake8 ."
                         }
                         def endTime = System.currentTimeMillis()
                         def DURATION = (endTime - startTime) / 1000

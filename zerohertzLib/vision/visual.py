@@ -146,7 +146,7 @@ def masks(
             for k, v in class_color.items():
                 if len(v) == 3:
                     class_color[k] = [*v, 255]
-    if not poly is None:
+    if poly is not None:
         mks = poly2mask(poly, (shape[:2]))
     shape = mks.shape
     overlay = img.copy()

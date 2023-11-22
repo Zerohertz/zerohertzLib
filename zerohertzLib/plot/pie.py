@@ -1,6 +1,5 @@
 from typing import Dict, Optional, Tuple, Union
 
-import seaborn as sns
 from matplotlib import pyplot as plt
 
 from .util import _save, color

@@ -145,7 +145,7 @@ class MakeData:
                 os.path.join(self.startJsonPath, json_instance.name),
                 os.path.join(self.endJsonPath, json_instance.name),
             )
-        except:
+        except FileNotFoundError:
             print("Missing:\t", os.path.join(self.startDataPath, dataName))
 
     def make(self) -> None:
@@ -167,7 +167,7 @@ class MakeData:
         """
         try:
             shutil.rmtree(self.targetPath)
-        except:
+        except FileNotFoundError:
             pass
         print("=" * 100)
         print("DATA PATH:\t", self.endDataPath)

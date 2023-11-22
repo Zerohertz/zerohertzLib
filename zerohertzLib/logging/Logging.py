@@ -53,13 +53,13 @@ class Logger:
         console_handler.setLevel(consoleLevel)
         console_handler.setFormatter(formatter)
         self.logger.addHandler(console_handler)
-        if not file_name is None:
+        if file_name is not None:
             file_handler = logging.FileHandler(f"{file_name}.log")
             file_handler.setLevel(fileLevel)
             file_handler.setFormatter(formatter)
             self.logger.addHandler(file_handler)
         self.discord = discord
-        if not self.discord is None:
+        if self.discord is not None:
             self.Discord = Discord(discord)
             self.log_stream = io.StringIO()
             stream_handler = logging.StreamHandler(self.log_stream)
@@ -69,27 +69,27 @@ class Logger:
 
     def debug(self, log: str) -> None:
         self.logger.debug(log)
-        if not self.discord is None:
+        if self.discord is not None:
             self._send_discord_message()
 
     def info(self, log: str) -> None:
         self.logger.info(log)
-        if not self.discord is None:
+        if self.discord is not None:
             self._send_discord_message()
 
     def warning(self, log: str) -> None:
         self.logger.warning(log)
-        if not self.discord is None:
+        if self.discord is not None:
             self._send_discord_message()
 
     def error(self, log: str) -> None:
         self.logger.error(log)
-        if not self.discord is None:
+        if self.discord is not None:
             self._send_discord_message()
 
     def critical(self, log: str) -> None:
         self.logger.critical(log)
-        if not self.discord is None:
+        if self.discord is not None:
             self._send_discord_message()
 
     def _send_discord_message(self) -> List[requests.models.Response]:

@@ -3,7 +3,7 @@
 ```{admonition} Used Stacks
 :class: important
 
-1. Jenkins (Black, Setuptools, PyTest, Sphinx)
+1. Jenkins (Black, flake8, Setuptools, PyTest, Sphinx)
 2. GitHub Actions
 ```
 

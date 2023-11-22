@@ -95,7 +95,7 @@ class Json:
         keys = self._getKeys()
         if key in keys:
             return key
-        if not "/" in key:
+        if "/" not in key:
             for k in keys:
                 if k.endswith(key):
                     key = k

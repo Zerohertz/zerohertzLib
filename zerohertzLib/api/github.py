@@ -220,7 +220,7 @@ class GitHub:
             data.sort(reverse=True)
         try:
             shutil.rmtree(f"{sphinx_source_path}/{name}")
-        except:
+        except FileNotFoundError:
             pass
         os.mkdir(f"{sphinx_source_path}/{name}")
         for version, data in bodies_version.items():
