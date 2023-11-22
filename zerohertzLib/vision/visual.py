@@ -5,7 +5,8 @@ import numpy as np
 from numpy.typing import DTypeLike, NDArray
 from PIL import Image, ImageDraw, ImageFont
 
-from .convert import _isBbox, cwh2poly, poly2cwh, poly2mask
+from .convert import cwh2poly, poly2cwh, poly2mask
+from .util import _isBbox
 
 
 def _cvtBGRA(img: NDArray[np.uint8]) -> NDArray[np.uint8]:
