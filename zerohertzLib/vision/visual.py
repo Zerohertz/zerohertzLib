@@ -329,6 +329,7 @@ def cutout(
     poly: NDArray[DTypeLike],
     alpha: Optional[int] = 255,
     crop: Optional[bool] = True,
+    background: Optional[int] = 0,
 ) -> NDArray[np.uint8]:
     """이미지 내에서 지정한 좌표를 제외한 부분을 투명화
 
@@ -337,6 +338,7 @@ def cutout(
         poly (``NDArray[DTypeLike]``): 지정할 좌표 (``[N, 2]``)
         alpha (``Optional[int]``): 지정한 좌표 영역의 투명도
         crop (``Optional[bool]``): 출력 이미지의 Crop 여부
+        background (``Optional[int]``): 지정한 좌표 외 배경의 투명도
 
     Returns:
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
@@ -346,8 +348,9 @@ def cutout(
         >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
         >>> zz.vision.cutout(img, poly)
         >>> zz.vision.cutout(img, poly, 128, False)
+        >>> zz.vision.cutout(img, poly, background=128)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284564607-9df73033-f99e-4b54-a321-2a47a6c89a32.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284778462-8a1e3017-328e-4776-adeb-b2f24fd09c58.png
             :alt: Visualzation Result
             :align: center
             :width: 600px
@@ -357,7 +360,12 @@ def cutout(
     x0, x1 = poly[:, 0].min(), poly[:, 0].max()
     y0, y1 = poly[:, 1].min(), poly[:, 1].max()
     mask = poly2mask(poly, shape)
-    mask = (mask * alpha).astype(np.uint8)
+    if background == 0:
+        mask = (mask * alpha).astype(np.uint8)
+    else:
+        mask = mask.astype(np.uint8)
+        mask[mask == 0] = background
+        mask[mask == 1] = alpha
     img = Image.fromarray(img)
     mask = Image.fromarray(mask)
     img.putalpha(mask)
