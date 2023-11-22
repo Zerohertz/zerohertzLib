@@ -29,28 +29,29 @@ def test_img2gif():
     for i in range(5):
         img = np.random.randint(0, 256, (64, 64, 3), dtype=np.uint8)
         cv2.imwrite(f"{data}/{i}.png", img)
-    zz.vision.img2gif(data, "img")
-    assert "img.gif" in os.listdir()
+    zz.vision.img2gif(data, "IMG")
+    assert "IMG.gif" in os.listdir()
 
 
 def test_vid2gif():
-    zz.vision.vid2gif(f"{data}/test.mov", "vid", quality=20)
-    assert "vid.gif" in os.listdir()
+    zz.vision.vid2gif(f"{data}/test.mov", "VID", quality=20)
+    assert "VID.gif" in os.listdir()
 
 
 def test_before_after_org():
     before = cv2.imread(f"{data}/test.jpg")
     after = cv2.GaussianBlur(before, (0, 0), 25)
     after = cv2.cvtColor(after, cv2.COLOR_BGR2GRAY)
-    zz.vision.before_after(before, after, quality=10, output_filename="ba1")
-    assert "ba1.png" in os.listdir()
+    zz.vision.before_after(before, after, quality=10, output_filename="BA1")
+    assert "BA1.png" in os.listdir()
 
 
 def test_before_after_crop():
     before = cv2.imread(f"{data}/test.jpg")
     after = cv2.resize(before, (100, 100))
-    zz.vision.before_after(before, after, [20, 40, 30, 60], output_filename="ba2")
-    assert "ba2.png" in os.listdir()
+    after = cv2.cvtColor(after, cv2.COLOR_BGR2BGRA)
+    zz.vision.before_after(before, after, [20, 40, 30, 60], output_filename="BA2")
+    assert "BA2.png" in os.listdir()
 
 
 def test_grid_vertical():
@@ -58,16 +59,19 @@ def test_grid_vertical():
     test = cv2.resize(test, (200, 300))
     imgs = [(test + np.random.rand(*test.shape)).astype(np.uint8) for _ in range(8)]
     imgs[2] = cv2.cvtColor(imgs[2], cv2.COLOR_BGR2GRAY)
-    zz.vision.grid(*imgs, output_filename="grid_vertical")
-    assert "grid_vertical.png" in os.listdir()
+    imgs[3] = cv2.cvtColor(imgs[3], cv2.COLOR_BGR2BGRA)
+    zz.vision.grid(*imgs, output_filename="GRID_VERTICAL")
+    assert "GRID_VERTICAL.png" in os.listdir()
 
 
 def test_grid_horizontal():
+    test = cv2.imread(f"{data}/test.jpg")
     test = cv2.resize(test, (300, 200))
     imgs = [(test + np.random.rand(*test.shape)).astype(np.uint8) for _ in range(8)]
     imgs[2] = cv2.cvtColor(imgs[2], cv2.COLOR_BGR2GRAY)
-    zz.vision.grid(*imgs, output_filename="grid_horizontal")
-    assert "grid_horizontal.png" in os.listdir()
+    imgs[3] = cv2.cvtColor(imgs[3], cv2.COLOR_BGR2BGRA)
+    zz.vision.grid(*imgs, output_filename="GRID_HORIZONTAL")
+    assert "GRID_HORIZONTAL.png" in os.listdir()
 
 
 def test_vert():
@@ -76,8 +80,10 @@ def test_vert():
         cv2.resize(test, (random.randrange(300, 600), random.randrange(300, 600)))
         for _ in range(5)
     ]
-    zz.vision.vert(*imgs, output_filename="vert")
-    assert "vert.png" in os.listdir()
+    imgs[2] = cv2.cvtColor(imgs[2], cv2.COLOR_BGR2GRAY)
+    imgs[3] = cv2.cvtColor(imgs[3], cv2.COLOR_BGR2BGRA)
+    zz.vision.vert(*imgs, output_filename="VERT")
+    assert "VERT.png" in os.listdir()
 
 
 def test_bbox_bgr_poly():
@@ -212,7 +218,7 @@ def test_masks_bgra():
         cv2.circle(mask, (center_x, center_y), radius, (True), -1)
     mks = mks.astype(bool)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
-    BGRA = zz.vision.masks(img, mks, [random.randint(0, 255) for _ in range(3)])
+    BGRA = zz.vision.masks(img, mks, color=[random.randint(0, 255) for _ in range(3)])
     cv2.imwrite("MASK_BGRA.png", BGRA)
     assert "MASK_BGRA.png" in os.listdir()
 

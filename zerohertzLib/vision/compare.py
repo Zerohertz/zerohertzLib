@@ -5,6 +5,8 @@ import cv2
 import numpy as np
 from numpy.typing import NDArray
 
+from .util import _cvtBGRA
+
 
 def _rel2abs(x0: float, y0: float, x1: float, y1: float, w: int, h: int) -> List[int]:
     return [int(x0 * w / 100), int(y0 * h / 100), int(x1 * w / 100), int(y1 * h / 100)]
@@ -56,23 +58,20 @@ def before_after(
             :align: center
             :width: 300px
     """
+    before_shape = before.shape
     if area is None:
         if per:
             area = [0.0, 0.0, 100.0, 100.0]
         else:
             raise ValueError("'area' not provided while 'per' is False")
-    before_shape = before.shape
     if per:
         x0, y0, x1, y1 = _rel2abs(*area, *before_shape[:2])
     else:
         x0, y0, x1, y1 = area
-    if len(before_shape) == 2:
-        before = cv2.cvtColor(before, cv2.COLOR_GRAY2BGR)
-        before_shape = before.shape
+    before = _cvtBGRA(before)
+    before_shape = before.shape
+    after = _cvtBGRA(after)
     after_shape = after.shape
-    if len(after_shape) == 2:
-        after = cv2.cvtColor(after, cv2.COLOR_GRAY2BGR)
-        after_shape = after.shape
     if not before_shape == after_shape:
         after = cv2.resize(after, before_shape[:2][::-1])
         after_shape = after.shape
@@ -115,12 +114,11 @@ def grid(
     cnt = math.ceil(math.sqrt(len(imgs)))
     length = size // cnt
     size = int(length * cnt)
-    palette = np.full((size, size, 3), 255, dtype=np.uint8)
+    palette = np.full((size, size, 4), 255, dtype=np.uint8)
     for idx, img in enumerate(imgs):
         y, x = divmod(idx, cnt)
         x0, y0, x1, y1 = x * length, y * length, (x + 1) * length, (y + 1) * length
-        if len(img.shape) == 2:
-            img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+        img = _cvtBGRA(img)
         H, W, _ = img.shape
         if H > W:
             h, w = length, int(length / H * W)
@@ -177,8 +175,7 @@ def vert(
     width = 0
     for img in imgs:
         shape = img.shape
-        if len(shape) == 2:
-            img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+        img = _cvtBGRA(img)
         if shape[0] != height:
             w = int(height / shape[0] * shape[1])
             img = cv2.resize(img, (w, height))
@@ -186,7 +183,7 @@ def vert(
             w = shape[1]
         width += w
         resized_imgs.append(img)
-    palette = np.full((height, width, 3), 255, dtype=np.uint8)
+    palette = np.full((height, width, 4), 255, dtype=np.uint8)
     width = 0
     for img in resized_imgs:
         h, w, _ = img.shape

@@ -1,5 +1,6 @@
 from typing import List, Tuple, Union
 
+import cv2
 import numpy as np
 from matplotlib.path import Path
 from numpy.typing import DTypeLike, NDArray
