@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.plot" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.plot.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.3.4 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.4.0 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.3.4 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.4.0 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.plot.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.plot - zerohertzLib v0.3.4 documentation</title>
+        <title>zerohertzLib.plot - zerohertzLib v0.4.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.3.4 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.4.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.3.4 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.4.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -201,6 +201,7 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="release.html">Release Notes</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Release Notes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="release/v0.4.html">v0.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.3.html">v0.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.2.html">v0.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.1.html">v0.1</a></li>
@@ -251,37 +252,10 @@
         <article role="main">
           <section id="module-zerohertzLib.plot">
 <span id="zerohertzlib-plot"></span><h1>zerohertzLib.plot<a class="headerlink" href="#module-zerohertzLib.plot" title="Permalink to this heading">#</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="zerohertzLib.plot.bar">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.plot.</span></span><span class="sig-name descname"><span class="pre">bar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlab</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'변수</span> <span class="pre">[단위]'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylab</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'빈도</span> <span class="pre">[단위]'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tmp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(15,</span> <span class="pre">10)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.plot.bar" title="Permalink to this definition">#</a></dt>
-<dd><p>Dictionary로 입력받은 데이터를 가로 bar chart로 시각화</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.plot.bar.params.data"></span><strong>data</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.bar.params.data">¶</a> (<code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">Union[int,</span> <span class="pre">float]]</span></code>) – 입력 데이터</p></li>
-<li><p><span class="target" id="zerohertzLib.plot.bar.params.xlab"></span><strong>xlab</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.bar.params.xlab">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Graph에 출력될 X축 label</p></li>
-<li><p><span class="target" id="zerohertzLib.plot.bar.params.ylab"></span><strong>ylab</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.bar.params.ylab">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Graph에 출력될 Y축 label</p></li>
-<li><p><span class="target" id="zerohertzLib.plot.bar.params.title"></span><strong>title</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.bar.params.title">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Graph에 표시될 제목 및 file 이름</p></li>
-<li><p><span class="target" id="zerohertzLib.plot.bar.params.ratio"></span><strong>ratio</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.bar.params.ratio">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[Tuple[int]]</span></code>) – Graph의 가로, 세로 길이</p></li>
-<li><p><span class="target" id="zerohertzLib.plot.bar.params.dpi"></span><strong>dpi</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.bar.params.dpi">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>): Graph 저장 시 DPI (Dots Per Inch)</p></li>
-<li><p><span class="target" id="zerohertzLib.plot.bar.params.rot"></span><strong>rot</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.bar.params.rot">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>): X축의 눈금 회전 각도</p></li>
-<li><p><span class="target" id="zerohertzLib.plot.bar.params.per"></span><strong>per</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.bar.params.per">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>): 각 bar 상단에 percentage 표시 여부</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>현재 directory에 바로 graph 저장</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">({</span><span class="s2">&quot;테란&quot;</span><span class="p">:</span> <span class="mi">27</span><span class="p">,</span> <span class="s2">&quot;저그&quot;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span> <span class="s2">&quot;프로토스&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">},</span> <span class="n">xlab</span><span class="o">=</span><span class="s2">&quot;종족&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s2">&quot;인구 [명]&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Star Craft&quot;</span><span class="p">)</span>
-</pre></div>
+<div class="hint admonition">
+<p class="admonition-title">Plot</p>
+<p>다양한 변수들을 최대한 지정하지 않고 사용할 수 있는 시각화 함수들</p>
 </div>
-<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280595386-1c930639-762a-47b7-9ae1-1babf789803c.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280595386-1c930639-762a-47b7-9ae1-1babf789803c.png" style="width: 300px;" /></a>
-</dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.plot.barh">
 <span class="sig-prename descclassname"><span class="pre">zerohertzLib.plot.</span></span><span class="sig-name descname"><span class="pre">barh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlab</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'빈도</span> <span class="pre">[단위]'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylab</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'변수</span> <span class="pre">[단위]'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tmp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(10,</span> <span class="pre">15)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.plot.barh" title="Permalink to this definition">#</a></dt>
@@ -311,6 +285,37 @@
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280707484-361611aa-f1bd-4909-b2a2-fadc26aa1416.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280707484-361611aa-f1bd-4909-b2a2-fadc26aa1416.png" style="width: 200px;" /></a>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="zerohertzLib.plot.barv">
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.plot.</span></span><span class="sig-name descname"><span class="pre">barv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlab</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'변수</span> <span class="pre">[단위]'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylab</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'빈도</span> <span class="pre">[단위]'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tmp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(15,</span> <span class="pre">10)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.plot.barv" title="Permalink to this definition">#</a></dt>
+<dd><p>Dictionary로 입력받은 데이터를 가로 bar chart로 시각화</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.plot.barv.params.data"></span><strong>data</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.barv.params.data">¶</a> (<code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">Union[int,</span> <span class="pre">float]]</span></code>) – 입력 데이터</p></li>
+<li><p><span class="target" id="zerohertzLib.plot.barv.params.xlab"></span><strong>xlab</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.barv.params.xlab">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Graph에 출력될 X축 label</p></li>
+<li><p><span class="target" id="zerohertzLib.plot.barv.params.ylab"></span><strong>ylab</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.barv.params.ylab">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Graph에 출력될 Y축 label</p></li>
+<li><p><span class="target" id="zerohertzLib.plot.barv.params.title"></span><strong>title</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.barv.params.title">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Graph에 표시될 제목 및 file 이름</p></li>
+<li><p><span class="target" id="zerohertzLib.plot.barv.params.ratio"></span><strong>ratio</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.barv.params.ratio">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[Tuple[int]]</span></code>) – Graph의 가로, 세로 길이</p></li>
+<li><p><span class="target" id="zerohertzLib.plot.barv.params.dpi"></span><strong>dpi</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.barv.params.dpi">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>): Graph 저장 시 DPI (Dots Per Inch)</p></li>
+<li><p><span class="target" id="zerohertzLib.plot.barv.params.rot"></span><strong>rot</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.barv.params.rot">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>): X축의 눈금 회전 각도</p></li>
+<li><p><span class="target" id="zerohertzLib.plot.barv.params.per"></span><strong>per</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.barv.params.per">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>): 각 bar 상단에 percentage 표시 여부</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>현재 directory에 바로 graph 저장</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">({</span><span class="s2">&quot;테란&quot;</span><span class="p">:</span> <span class="mi">27</span><span class="p">,</span> <span class="s2">&quot;저그&quot;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span> <span class="s2">&quot;프로토스&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">},</span> <span class="n">xlab</span><span class="o">=</span><span class="s2">&quot;종족&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s2">&quot;인구 [명]&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Star Craft&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280595386-1c930639-762a-47b7-9ae1-1babf789803c.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280595386-1c930639-762a-47b7-9ae1-1babf789803c.png" style="width: 300px;" /></a>
 </dd></dl>
 
 <dl class="py function">
@@ -411,13 +416,13 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.plot.plot">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.plot.</span></span><span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlab</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'x축</span> <span class="pre">[단위]'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylab</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'y축</span> <span class="pre">[단위]'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tmp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(15,</span> <span class="pre">10)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.plot.plot" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.plot.</span></span><span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xdata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ydata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlab</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'x축</span> <span class="pre">[단위]'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylab</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'y축</span> <span class="pre">[단위]'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tmp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(15,</span> <span class="pre">10)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.plot.plot" title="Permalink to this definition">#</a></dt>
 <dd><p>List와 Dictionary로 입력받은 데이터를 line chart로 시각화</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.plot.plot.params.x"></span><strong>x</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.plot.params.x">¶</a> (<code class="docutils literal notranslate"><span class="pre">List[Union[int,</span> <span class="pre">float]]</span></code>) – 입력 데이터 (X축)</p></li>
-<li><p><span class="target" id="zerohertzLib.plot.plot.params.y"></span><strong>y</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.plot.params.y">¶</a> (<code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">List[Union[int,</span> <span class="pre">float]]]</span></code>) – 입력 데이터 (Y축)</p></li>
+<li><p><span class="target" id="zerohertzLib.plot.plot.params.xdata"></span><strong>xdata</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.plot.params.xdata">¶</a> (<code class="docutils literal notranslate"><span class="pre">List[Union[int,</span> <span class="pre">float]]</span></code>) – 입력 데이터 (X축)</p></li>
+<li><p><span class="target" id="zerohertzLib.plot.plot.params.ydata"></span><strong>ydata</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.plot.params.ydata">¶</a> (<code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">List[Union[int,</span> <span class="pre">float]]]</span></code>) – 입력 데이터 (Y축)</p></li>
 <li><p><span class="target" id="zerohertzLib.plot.plot.params.xlab"></span><strong>xlab</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.plot.params.xlab">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Graph에 출력될 X축 label</p></li>
 <li><p><span class="target" id="zerohertzLib.plot.plot.params.ylab"></span><strong>ylab</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.plot.params.ylab">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Graph에 출력될 Y축 label</p></li>
 <li><p><span class="target" id="zerohertzLib.plot.plot.params.xlim"></span><strong>xlim</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.plot.params.xlim">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[List[Union[int,</span> <span class="pre">float]]]</span></code>) – Graph에 출력될 X축 limit</p></li>
@@ -533,8 +538,8 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">zerohertzLib.plot</a><ul>
-<li><a class="reference internal" href="#zerohertzLib.plot.bar"><code class="docutils literal notranslate"><span class="pre">bar()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.plot.barh"><code class="docutils literal notranslate"><span class="pre">barh()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.plot.barv"><code class="docutils literal notranslate"><span class="pre">barv()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.plot.color"><code class="docutils literal notranslate"><span class="pre">color()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.plot.hist"><code class="docutils literal notranslate"><span class="pre">hist()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.plot.pie"><code class="docutils literal notranslate"><span class="pre">pie()</span></code></a></li>
@@ -553,7 +558,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=9db99069"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=ef937b00"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
