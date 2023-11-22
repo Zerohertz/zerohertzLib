@@ -232,7 +232,7 @@ def test_masks_gray_int():
     assert "MASK_GRAY_INT.png" in os.listdir()
 
 
-def test_masks_gray_str():
+def test_masks_bgra_str():
     img = cv2.imread(f"{data}/test.jpg")
     H, W, _ = img.shape
     cnt = 30
@@ -243,15 +243,15 @@ def test_masks_gray_str():
         radius = random.randint(30, 200)
         cv2.circle(mask, (center_x, center_y), radius, (True), -1)
     mks = mks.astype(bool)
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
     cls = ["a", "b", "c"]
     class_list = [cls[random.randint(0, 2)] for _ in range(cnt)]
     class_color = {}
     for c in cls:
         class_color[c] = [random.randint(0, 255) for _ in range(3)]
-    GRAY = zz.vision.masks(img, mks, class_list=class_list, class_color=class_color)
-    cv2.imwrite("MASK_GRAY_STR.png", GRAY)
-    assert "MASK_GRAY_STR.png" in os.listdir()
+    BGRA = zz.vision.masks(img, mks, class_list=class_list, class_color=class_color)
+    cv2.imwrite("MASK_BGRA_STR.png", BGRA)
+    assert "MASK_BGRA_STR.png" in os.listdir()
 
 
 def test_text_bgr_poly():

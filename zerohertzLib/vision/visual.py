@@ -155,6 +155,10 @@ def masks(
         img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
     elif shape[2] == 4:
         color = (*color, 255)
+        if class_list is not None and class_color is not None:
+            for k, v in class_color.items():
+                if len(v) == 3:
+                    class_color[k] = [*v, 255]
     overlay = img.copy()
     cumulative_mask = np.zeros(img.shape[:2], dtype=bool)
     for idx, mask in enumerate(mks):
