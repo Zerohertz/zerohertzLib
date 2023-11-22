@@ -3,7 +3,7 @@ from typing import Dict, List, Optional, Tuple, Union
 import seaborn as sns
 from matplotlib import pyplot as plt
 
-from .util import _save
+from .util import _save, color
 
 
 def plot(
@@ -43,7 +43,7 @@ def plot(
             :align: center
             :width: 300px
     """
-    colors = sns.color_palette("husl", n_colors=len(y))
+    colors = color(len(y))
     plt.figure(figsize=ratio)
     # list(plt.Line2D.lineStyles.keys())
     linestyle = ["-", "--", "-.", ":"]

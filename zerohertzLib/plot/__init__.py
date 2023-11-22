@@ -5,6 +5,7 @@ from zerohertzLib.plot.bar import bar, barh, hist
 from zerohertzLib.plot.pie import pie
 from zerohertzLib.plot.plot import plot
 from zerohertzLib.plot.scatter import scatter
+from zerohertzLib.plot.util import color
 
 plt.rcParams["font.size"] = 20
 font_manager.fontManager.addfont(
@@ -12,4 +13,4 @@ font_manager.fontManager.addfont(
 )
 plt.rcParams["font.family"] = "Noto Sans KR"
 
-__all__ = ["bar", "barh", "hist", "plot", "pie", "scatter"]
+__all__ = ["bar", "barh", "hist", "plot", "pie", "scatter", "color"]

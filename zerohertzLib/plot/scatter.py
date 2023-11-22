@@ -3,7 +3,7 @@ from typing import Dict, List, Optional, Tuple, Union
 import seaborn as sns
 from matplotlib import pyplot as plt
 
-from .util import _save
+from .util import _save, color
 
 
 def scatter(
@@ -37,7 +37,7 @@ def scatter(
             :align: center
             :width: 300px
     """
-    colors = sns.color_palette("husl", n_colors=len(data))
+    colors = color(len(data))
     plt.figure(figsize=ratio)
     # import matplotlib.markers as mmarkers
     # markers = list(mmarkers.MarkerStyle.markers.keys())
