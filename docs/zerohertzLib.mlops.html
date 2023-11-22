@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.mlops" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.mlops.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.3.4 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.4.0 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.3.4 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.4.0 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.mlops.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.mlops - zerohertzLib v0.3.4 documentation</title>
+        <title>zerohertzLib.mlops - zerohertzLib v0.4.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.3.4 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.4.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.3.4 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.4.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -201,6 +201,7 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="release.html">Release Notes</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Release Notes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="release/v0.4.html">v0.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.3.html">v0.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.2.html">v0.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.1.html">v0.1</a></li>
@@ -251,6 +252,10 @@
         <article role="main">
           <section id="module-zerohertzLib.mlops">
 <span id="zerohertzlib-mlops"></span><h1>zerohertzLib.mlops<a class="headerlink" href="#module-zerohertzLib.mlops" title="Permalink to this heading">#</a></h1>
+<div class="hint admonition">
+<p class="admonition-title">MLOps</p>
+<p>MLOps에서 사용되는 class들</p>
+</div>
 <dl class="py class">
 <dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientK8s">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.mlops.</span></span><span class="sig-name descname"><span class="pre">TritonClientK8s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">svc_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.mlops.TritonClientK8s" title="Permalink to this definition">#</a></dt>
@@ -329,13 +334,13 @@ triton-inference-server-svc   ClusterIP   10.96.28.172    &lt;none&gt;        80
 
 <dl class="py class">
 <dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientURL">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.mlops.</span></span><span class="sig-name descname"><span class="pre">TritonClientURL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">URL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.mlops.TritonClientURL" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.mlops.</span></span><span class="sig-name descname"><span class="pre">TritonClientURL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.mlops.TritonClientURL" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>외부에서 실행되는 triton inference server의 호출을 위한 class</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.params.URL"></span><strong>URL</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.params.URL">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 호출할 triton inference server의 URL</p></li>
+<li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.params.url"></span><strong>url</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.params.url">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 호출할 triton inference server의 URL</p></li>
 <li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.params.model_name"></span><strong>model_name</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.params.model_name">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 호출할 triton inference server 내 model의 이름</p></li>
 <li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.params.port"></span><strong>port</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.params.port">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – triton inference server의 GRPC 통신 port 번호</p></li>
 </ul>
@@ -479,7 +484,7 @@ triton-inference-server-svc   ClusterIP   10.96.28.172    &lt;none&gt;        80
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=9db99069"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=ef937b00"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

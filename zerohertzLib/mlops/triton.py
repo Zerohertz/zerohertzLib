@@ -1,3 +1,27 @@
+"""
+MIT License
+
+Copyright (c) 2023 Hyogeun Oh
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
+
 from typing import Dict, List, Optional
 
 import tritonclient.grpc as grpcclient
@@ -9,7 +33,7 @@ class TritonClientURL:
     """외부에서 실행되는 triton inference server의 호출을 위한 class
 
     Args:
-        URL (``str``): 호출할 triton inference server의 URL
+        url (``str``): 호출할 triton inference server의 URL
         model_name(``str``): 호출할 triton inference server 내 model의 이름
         port (``Optional[int]``): triton inference server의 GRPC 통신 port 번호
 
@@ -38,16 +62,16 @@ class TritonClientURL:
         2.21481919e-03, 1.17585063e-03, 1.36753917e-03]]], dtype=float32)}
     """
 
-    def __init__(self, URL: str, model_name: str, port: Optional[int] = 8001) -> None:
-        self.server_url = f"{URL}:{port}"
+    def __init__(self, url: str, model_name: str, port: Optional[int] = 8001) -> None:
+        self.server_url = f"{url}:{port}"
         self.model_name = model_name
         self.triton_client = grpcclient.InferenceServerClient(
             url=self.server_url, verbose=False
         )
-        self.IO = self.triton_client.get_model_config(model_name, as_json=True)
-        assert self.IO["config"]["name"] == model_name
-        self.inputs = self.IO["config"]["input"]
-        self.outputs = self.IO["config"]["output"]
+        self.info = self.triton_client.get_model_config(model_name, as_json=True)
+        assert self.info["config"]["name"] == model_name
+        self.inputs = self.info["config"]["input"]
+        self.outputs = self.info["config"]["output"]
 
     def __call__(self, *args) -> Dict[str, NDArray[DTypeLike]]:
         assert len(self.inputs) == len(args)
@@ -66,14 +90,14 @@ class TritonClientURL:
             triton_results[output["name"]] = response.as_numpy(output["name"])
         return triton_results
 
-    def _set_input(self, input_info: Dict[str, List[int]], var: NDArray[DTypeLike]):
-        assert len(input_info["dims"]) == len(var.shape)
-        var = var.astype(triton_to_np_dtype(input_info["data_type"][5:]))
+    def _set_input(self, input_info: Dict[str, List[int]], value: NDArray[DTypeLike]):
+        assert len(input_info["dims"]) == len(value.shape)
+        value = value.astype(triton_to_np_dtype(input_info["data_type"][5:]))
         return grpcclient.InferInput(
             input_info["name"],
-            var.shape,
+            value.shape,
             input_info["data_type"][5:],
-        ).set_data_from_numpy(var)
+        ).set_data_from_numpy(value)
 
 
 class TritonClientK8s(TritonClientURL):

@@ -1,3 +1,27 @@
+"""
+MIT License
+
+Copyright (c) 2023 Hyogeun Oh
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
+
 import os
 from collections import defaultdict
 from typing import Any, Dict, List, Optional, Union
@@ -30,8 +54,8 @@ def read_csv(
     """
     data = defaultdict(list)
     keys = []
-    with open(path, "r", encoding="utf-8") as f:
-        raw = f.readlines()
+    with open(path, "r", encoding="utf-8") as file:
+        raws = file.readlines()
     if path.endswith(".csv"):
         delimiter = ","
     elif path.endswith(".tsv"):
@@ -39,16 +63,16 @@ def read_csv(
     else:
         raise ValueError("File is not CSV or TSV")
     if header:
-        r = raw[0]
-        for key in r.strip().split(delimiter):
+        raw = raws[0]
+        for key in raw.strip().split(delimiter):
             keys.append(key)
-        raw = raw[1:]
+        raws = raws[1:]
     else:
-        for key in range(len(raw[0].strip().split(delimiter))):
+        for key in range(len(raws[0].strip().split(delimiter))):
             keys.append(key)
-    for r in raw:
-        for k, d in zip(keys, r.strip().split(delimiter)):
-            data[k].append(d)
+    for raw in raws:
+        for key, value in zip(keys, raw.strip().split(delimiter)):
+            data[key].append(value)
     return data
 
 
@@ -70,12 +94,11 @@ def write_csv(data: List[List[Any]], path: str, tsv: Optional[bool] = False) -> 
         '/.../star_craft.tsv'
     """
     if tsv:
-        with open(f"{path}.tsv", "w", encoding="utf-8") as f:
-            for d in data:
-                f.writelines("\t".join(list(map(str, d))) + "\n")
+        with open(f"{path}.tsv", "w", encoding="utf-8") as file:
+            for data_ in data:
+                file.writelines("\t".join(list(map(str, data_))) + "\n")
         return os.path.abspath(f"{path}.tsv")
-    else:
-        with open(f"{path}.csv", "w", encoding="utf-8") as f:
-            for d in data:
-                f.writelines(",".join(list(map(str, d))) + "\n")
-        return os.path.abspath(f"{path}.csv")
+    with open(f"{path}.csv", "w", encoding="utf-8") as file:
+        for data_ in data:
+            file.writelines(",".join(list(map(str, data_))) + "\n")
+    return os.path.abspath(f"{path}.csv")

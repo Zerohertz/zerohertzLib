@@ -1,3 +1,27 @@
+"""
+MIT License
+
+Copyright (c) 2023 Hyogeun Oh
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
+
 import os
 from typing import Tuple
 
@@ -5,19 +29,19 @@ import cv2
 import numpy as np
 from numpy.typing import NDArray
 
-import zerohertzLib as zz
+from zerohertzLib.util import Json, JsonDir
 
 
 class JsonImageLoader:
     """JSON file을 통해 image와 JSON file 내 정보를 불러오는 class
 
     Args:
-        dataPath (``str``): 목표 data가 존재하는 directory 경로
-        jsonPath (``str``): 목표 JSON file이 존재하는 directory 경로
-        jsonKey (``str``): ``dataPath`` 에서 data의 file 이름을 나타내는 key 값
+        data_path (``str``): 목표 data가 존재하는 directory 경로
+        json_path (``str``): 목표 JSON file이 존재하는 directory 경로
+        json_key (``str``): ``data_path`` 에서 data의 file 이름을 나타내는 key 값
 
     Attributes:
-        gt (``zerohertzLib.util.JsonDir``): JSON file들을 읽어 data 구축 시 활용
+        json (``zerohertzLib.util.JsonDir``): JSON file들을 읽어 data 구축 시 활용
 
     Methods:
         __getitem__:
@@ -30,7 +54,7 @@ class JsonImageLoader:
                 ``Tuple[NDArray[np.uint8], zerohertzLib.util.Json]``: Image와 JSON 내 정보
 
     Examples:
-        >>> jil = zz.vision.JsonImageLoader(dataPath, jsonPath, jsonKey)
+        >>> jil = zz.vision.JsonImageLoader(data_path, json_path, json_key)
         100%|█████████████| 17248/17248 [00:04<00:00, 3581.22it/s]
         >>> img, js = jil[10]
         >>> img.shape
@@ -44,16 +68,16 @@ class JsonImageLoader:
 
     def __init__(
         self,
-        dataPath: str,
-        jsonPath: str,
-        jsonKey: str,
+        data_path: str,
+        json_path: str,
+        json_key: str,
     ) -> None:
-        self.dataPath = dataPath
-        self.jsonPath = jsonPath
-        self.gt = zz.util.JsonDir(jsonPath)
-        self.jsonKey = self.gt._getKey(jsonKey)
+        self.data_path = data_path
+        self.json_path = json_path
+        self.json = JsonDir(json_path)
+        self.json_key = self.json._get_key(json_key)
 
-    def __getitem__(self, idx: int) -> Tuple[NDArray[np.uint8], zz.util.Json]:
-        dataName = self.gt[idx].get(self.jsonKey)
-        img = cv2.imread(os.path.join(self.dataPath, dataName), cv2.IMREAD_UNCHANGED)
-        return img, self.gt[idx]
+    def __getitem__(self, idx: int) -> Tuple[NDArray[np.uint8], Json]:
+        data_name = self.json[idx].get(self.json_key)
+        img = cv2.imread(os.path.join(self.data_path, data_name), cv2.IMREAD_UNCHANGED)
+        return img, self.json[idx]

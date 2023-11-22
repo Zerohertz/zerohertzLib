@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.util" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.util.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.3.4 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.4.0 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.3.4 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.4.0 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.util.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.util - zerohertzLib v0.3.4 documentation</title>
+        <title>zerohertzLib.util - zerohertzLib v0.4.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.3.4 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.4.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.3.4 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.4.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -201,6 +201,7 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="release.html">Release Notes</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Release Notes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="release/v0.4.html">v0.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.3.html">v0.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.2.html">v0.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.1.html">v0.1</a></li>
@@ -251,6 +252,10 @@
         <article role="main">
           <section id="module-zerohertzLib.util">
 <span id="zerohertzlib-util"></span><h1>zerohertzLib.util<a class="headerlink" href="#module-zerohertzLib.util" title="Permalink to this heading">#</a></h1>
+<div class="hint admonition">
+<p class="admonition-title">Util</p>
+<p>다양한 format의 data를 hadling하는 함수 및 class들</p>
+</div>
 <dl class="py class">
 <dt class="sig sig-object py" id="zerohertzLib.util.Json">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.util.</span></span><span class="sig-name descname"><span class="pre">Json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.util.Json" title="Permalink to this definition">#</a></dt>
@@ -302,8 +307,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="zerohertzLib.util.Json._getKey">
-<span class="sig-name descname"><span class="pre">_getKey</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.util.Json._getKey" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="zerohertzLib.util.Json._get_key">
+<span class="sig-name descname"><span class="pre">_get_key</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.util.Json._get_key" title="Permalink to this definition">#</a></dt>
 <dd><p>Key의 경로를 찾아주는 method</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -319,12 +324,12 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="zerohertzLib.util.Json._getValue">
-<span class="sig-name descname"><span class="pre">_getValue</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.util.Json._getValue" title="Permalink to this definition">#</a></dt>
-<dd><p><code class="docutils literal notranslate"><span class="pre">Json._getKey</span></code> 로 생성된 key 값을 입력 받아 value return</p>
+<dt class="sig sig-object py" id="zerohertzLib.util.Json._get_value">
+<span class="sig-name descname"><span class="pre">_get_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.util.Json._get_value" title="Permalink to this definition">#</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">Json._get_key</span></code> 로 생성된 key 값을 입력 받아 value return</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>key</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – <code class="docutils literal notranslate"><span class="pre">Json._getKey</span></code> 로 생성된 key 값</p>
+<dd class="field-odd"><p><strong>key</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – <code class="docutils literal notranslate"><span class="pre">Json._get_key</span></code> 로 생성된 key 값</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Key에 따른 value</p>
@@ -339,10 +344,10 @@
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">js</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">Json</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">js</span><span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">]</span>
 <span class="go">&#39;[v0.2.3] Release&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">key</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="n">_getKey</span><span class="p">(</span><span class="s2">&quot;language&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">key</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="n">_get_key</span><span class="p">(</span><span class="s2">&quot;language&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">key</span>
 <span class="go">&#39;head/repo/language&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">js</span><span class="o">.</span><span class="n">_getValue</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">js</span><span class="o">.</span><span class="n">_get_value</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 <span class="go">&#39;Python&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">js</span><span class="o">.</span><span class="n">name</span>
 <span class="go">&#39;65.json&#39;</span>
@@ -353,7 +358,7 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.util.Json.get">
 <span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.util.Json.get" title="Permalink to this definition">#</a></dt>
-<dd><p><code class="docutils literal notranslate"><span class="pre">Json._getKey</span></code> 로 생성된 key 값을 입력 받아 value return</p>
+<dd><p><code class="docutils literal notranslate"><span class="pre">Json._get_key</span></code> 로 생성된 key 값을 입력 받아 value return</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="target" id="zerohertzLib.util.Json.get.params.key"></span><strong>key</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.util.Json.get.params.key">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 읽어온 JSON file에서 불러올 key 값 (깊이 무관)</p>
@@ -465,8 +470,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="zerohertzLib.util.JsonDir._getKey">
-<span class="sig-name descname"><span class="pre">_getKey</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.util.JsonDir._getKey" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="zerohertzLib.util.JsonDir._get_key">
+<span class="sig-name descname"><span class="pre">_get_key</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.util.JsonDir._get_key" title="Permalink to this definition">#</a></dt>
 <dd><p>Key의 경로를 찾아주는 method</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -490,7 +495,7 @@
 <span class="go">&lt;zerohertzLib.util.json.Json object at 0x7f2562b83d00&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">jsd</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;title&quot;</span><span class="p">]</span>
 <span class="go">&#39;[v0.2.3] Release&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">jsd</span><span class="o">.</span><span class="n">_getKey</span><span class="p">(</span><span class="s2">&quot;language&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">jsd</span><span class="o">.</span><span class="n">_get_key</span><span class="p">(</span><span class="s2">&quot;language&quot;</span><span class="p">)</span>
 <span class="go">&#39;head/repo/language&#39;</span>
 </pre></div>
 </div>
@@ -539,24 +544,24 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="zerohertzLib.util.MakeData">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.util.</span></span><span class="sig-name descname"><span class="pre">MakeData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startDataPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startJsonPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jsonKey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targetPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endDataDir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'data'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endJsonDir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'json'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.util.MakeData" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.util.</span></span><span class="sig-name descname"><span class="pre">MakeData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_data_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_json_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_data_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'data'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_json_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'json'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.util.MakeData" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>JSON file 내 값에 따라 data를 구축하는 함수</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.util.MakeData.params.startDataPath"></span><strong>startDataPath</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.util.MakeData.params.startDataPath">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 목표 data가 존재하는 directory 경로</p></li>
-<li><p><span class="target" id="zerohertzLib.util.MakeData.params.startJsonPath"></span><strong>startJsonPath</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.util.MakeData.params.startJsonPath">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 목표 JSON file이 존재하는 directory 경로</p></li>
-<li><p><span class="target" id="zerohertzLib.util.MakeData.params.jsonKey"></span><strong>jsonKey</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.util.MakeData.params.jsonKey">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – <code class="docutils literal notranslate"><span class="pre">dataPath</span></code> 에서 data의 file 이름을 나타내는 key 값</p></li>
-<li><p><span class="target" id="zerohertzLib.util.MakeData.params.targetPath"></span><strong>targetPath</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.util.MakeData.params.targetPath">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Data 구축 경로</p></li>
-<li><p><span class="target" id="zerohertzLib.util.MakeData.params.endDataDir"></span><strong>endDataDir</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.util.MakeData.params.endDataDir">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 구축될 data file들의 directory 이름</p></li>
-<li><p><span class="target" id="zerohertzLib.util.MakeData.params.endJsonDir"></span><strong>endJsonDir</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.util.MakeData.params.endJsonDir">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 구축될 JSON file들의 directory 이름</p></li>
+<li><p><span class="target" id="zerohertzLib.util.MakeData.params.start_data_path"></span><strong>start_data_path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.util.MakeData.params.start_data_path">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 목표 data가 존재하는 directory 경로</p></li>
+<li><p><span class="target" id="zerohertzLib.util.MakeData.params.start_json_path"></span><strong>start_json_path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.util.MakeData.params.start_json_path">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 목표 JSON file이 존재하는 directory 경로</p></li>
+<li><p><span class="target" id="zerohertzLib.util.MakeData.params.json_key"></span><strong>json_key</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.util.MakeData.params.json_key">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – <code class="docutils literal notranslate"><span class="pre">dataPath</span></code> 에서 data의 file 이름을 나타내는 key 값</p></li>
+<li><p><span class="target" id="zerohertzLib.util.MakeData.params.target_path"></span><strong>target_path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.util.MakeData.params.target_path">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Data 구축 경로</p></li>
+<li><p><span class="target" id="zerohertzLib.util.MakeData.params.end_data_dir"></span><strong>end_data_dir</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.util.MakeData.params.end_data_dir">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 구축될 data file들의 directory 이름</p></li>
+<li><p><span class="target" id="zerohertzLib.util.MakeData.params.end_json_dir"></span><strong>end_json_dir</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.util.MakeData.params.end_json_dir">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 구축될 JSON file들의 directory 이름</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="zerohertzLib.util.MakeData.gt">
-<span class="sig-name descname"><span class="pre">gt</span></span><a class="headerlink" href="#zerohertzLib.util.MakeData.gt" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="zerohertzLib.util.MakeData.json">
+<span class="sig-name descname"><span class="pre">json</span></span><a class="headerlink" href="#zerohertzLib.util.MakeData.json" title="Permalink to this definition">#</a></dt>
 <dd><p>JSON file들을 읽어 data 구축 시 활용</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -566,9 +571,9 @@
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="zerohertzLib.util.MakeData.endDataPath">
-<span class="sig-name descname"><span class="pre">endDataPath</span></span><a class="headerlink" href="#zerohertzLib.util.MakeData.endDataPath" title="Permalink to this definition">#</a></dt>
-<dd><p><code class="docutils literal notranslate"><span class="pre">{targetPath}/{endDataDir}</span></code></p>
+<dt class="sig sig-object py" id="zerohertzLib.util.MakeData.end_data_path">
+<span class="sig-name descname"><span class="pre">end_data_path</span></span><a class="headerlink" href="#zerohertzLib.util.MakeData.end_data_path" title="Permalink to this definition">#</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">{target_path}/{end_data_dir}</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p>
@@ -577,9 +582,9 @@
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="zerohertzLib.util.MakeData.endJsonPath">
-<span class="sig-name descname"><span class="pre">endJsonPath</span></span><a class="headerlink" href="#zerohertzLib.util.MakeData.endJsonPath" title="Permalink to this definition">#</a></dt>
-<dd><p><code class="docutils literal notranslate"><span class="pre">{targetPath}/{endJsonDir}</span></code></p>
+<dt class="sig sig-object py" id="zerohertzLib.util.MakeData.end_json_path">
+<span class="sig-name descname"><span class="pre">end_json_path</span></span><a class="headerlink" href="#zerohertzLib.util.MakeData.end_json_path" title="Permalink to this definition">#</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">{target_path}/{end_json_dir}</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p>
@@ -607,8 +612,8 @@
 <p>Condition:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MakeDataCar</span><span class="p">(</span><span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">MakeData</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">condition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_instance</span><span class="p">):</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="n">json_instance</span><span class="o">.</span><span class="n">_getKey</span><span class="p">(</span><span class="s2">&quot;supercategory_name&quot;</span><span class="p">)</span>
-        <span class="n">category</span> <span class="o">=</span> <span class="n">json_instance</span><span class="o">.</span><span class="n">_getValue</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">json_instance</span><span class="o">.</span><span class="n">_get_key</span><span class="p">(</span><span class="s2">&quot;supercategory_name&quot;</span><span class="p">)</span>
+        <span class="n">category</span> <span class="o">=</span> <span class="n">json_instance</span><span class="o">.</span><span class="n">_get_value</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;CityCar&quot;</span> <span class="ow">or</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;Mid-size car&quot;</span>
 </pre></div>
 </div>
@@ -619,8 +624,8 @@
         <span class="k">return</span> <span class="p">(</span><span class="n">annotations</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;color&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;White&quot;</span><span class="p">,</span> <span class="s2">&quot;Black&quot;</span><span class="p">])</span> <span class="ow">and</span> <span class="p">(</span>
             <span class="n">json_instance</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;supercategory_name&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;CityCar&quot;</span>
         <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">makeData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_instance</span><span class="p">,</span> <span class="n">dataName</span><span class="p">):</span>
-        <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">startDataPath</span><span class="p">,</span> <span class="n">dataName</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">makeData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_instance</span><span class="p">,</span> <span class="n">data_name</span><span class="p">):</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_data_path</span><span class="p">,</span> <span class="n">data_name</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ant</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">json_instance</span><span class="p">[</span><span class="s2">&quot;annotations&quot;</span><span class="p">]):</span>
             <span class="n">label</span> <span class="o">=</span> <span class="n">ant</span><span class="p">[</span><span class="s2">&quot;damage&quot;</span><span class="p">]</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -629,40 +634,40 @@
                 <span class="n">tmp</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">cutout</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">poly</span><span class="p">)</span>
                 <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">shape</span>
                 <span class="k">if</span> <span class="mi">100</span> <span class="o">&lt;=</span> <span class="n">h</span> <span class="o">&lt;=</span> <span class="mi">300</span> <span class="ow">and</span> <span class="mi">100</span> <span class="o">&lt;=</span> <span class="n">w</span> <span class="o">&lt;=</span> <span class="mi">300</span><span class="p">:</span>
-                    <span class="n">fileName</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dataName</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="n">fileName</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
                     <span class="n">xm</span><span class="p">,</span> <span class="n">ym</span> <span class="o">=</span> <span class="n">poly</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">poly</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
                     <span class="n">poly</span> <span class="o">-=</span> <span class="p">(</span><span class="n">xm</span><span class="p">,</span> <span class="n">ym</span><span class="p">)</span>
                     <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span>
                         <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">endDataPath</span><span class="p">,</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">end_data_path</span><span class="p">,</span>
                             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fileName</span><span class="si">}</span><span class="s2">.png&quot;</span><span class="p">,</span>
                         <span class="p">),</span>
                         <span class="n">tmp</span><span class="p">,</span>
                     <span class="p">)</span>
                     <span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">write_json</span><span class="p">(</span>
                         <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fileName</span><span class="si">}</span><span class="s2">.png&quot;</span><span class="p">,</span> <span class="s2">&quot;poly&quot;</span><span class="p">:</span> <span class="n">poly</span><span class="o">.</span><span class="n">tolist</span><span class="p">()},</span>
-                        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">endJsonPath</span><span class="p">,</span> <span class="n">fileName</span><span class="p">),</span>
+                        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end_json_path</span><span class="p">,</span> <span class="n">fileName</span><span class="p">),</span>
                     <span class="p">)</span>
 </pre></div>
 </div>
 <p>Make Data:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MakeDataCarAugment</span><span class="p">(</span><span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">MakeData</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">makeData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_instance</span><span class="p">,</span> <span class="n">dataName</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">makeData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_instance</span><span class="p">,</span> <span class="n">data_name</span><span class="p">):</span>
         <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span>
             <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">))</span>
         <span class="p">)</span>
         <span class="n">target</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">startDataPath</span><span class="p">,</span> <span class="n">dataName</span><span class="p">),</span> <span class="n">cv2</span><span class="o">.</span><span class="n">IMREAD_UNCHANGED</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_data_path</span><span class="p">,</span> <span class="n">data_name</span><span class="p">),</span> <span class="n">cv2</span><span class="o">.</span><span class="n">IMREAD_UNCHANGED</span>
         <span class="p">)</span>
         <span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span>
         <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">shape</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">W</span> <span class="o">-</span> <span class="n">w</span> <span class="o">-</span> <span class="mi">100</span><span class="p">),</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">H</span> <span class="o">-</span> <span class="n">h</span> <span class="o">-</span> <span class="mi">100</span><span class="p">)</span>
         <span class="n">box</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">w</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">h</span><span class="p">]</span>
         <span class="n">img</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">paste</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">box</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-        <span class="n">fileName</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dataName</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">fileName</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
         <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span>
             <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">endDataPath</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">end_data_path</span><span class="p">,</span>
                 <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fileName</span><span class="si">}</span><span class="s2">.png&quot;</span><span class="p">,</span>
             <span class="p">),</span>
             <span class="n">img</span><span class="p">,</span>
@@ -677,10 +682,10 @@
 <dd><p>Data 구축 실행</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>실행 시 <code class="docutils literal notranslate"><span class="pre">targetPath</span></code> 삭제 후 구축 진행</p>
+<p>실행 시 <code class="docutils literal notranslate"><span class="pre">target_path</span></code> 삭제 후 구축 진행</p>
 </div>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">md</span> <span class="o">=</span> <span class="n">MakeData</span><span class="p">(</span><span class="n">startDataPath</span><span class="p">,</span> <span class="n">startJsonPath</span><span class="p">,</span> <span class="n">jsonKey</span><span class="p">,</span> <span class="n">targetPath</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">md</span> <span class="o">=</span> <span class="n">MakeData</span><span class="p">(</span><span class="n">start_data_path</span><span class="p">,</span> <span class="n">start_json_path</span><span class="p">,</span> <span class="n">json_key</span><span class="p">,</span> <span class="n">target_path</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">md</span><span class="o">.</span><span class="n">make</span><span class="p">()</span>
 <span class="go">100%|█████████████| 403559/403559 [00:54&lt;00:00, 7369.96it/s]</span>
 <span class="go">====================================================================================================</span>
@@ -693,18 +698,18 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="zerohertzLib.util.MakeData.makeData">
-<span class="sig-name descname"><span class="pre">makeData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataName</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.util.MakeData.makeData" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="zerohertzLib.util.MakeData.make_data">
+<span class="sig-name descname"><span class="pre">make_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.util.MakeData.make_data" title="Permalink to this definition">#</a></dt>
 <dd><p>Data 구축 방법 정의</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.util.MakeData.makeData.params.json_instance"></span><strong>json_instance</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.util.MakeData.makeData.params.json_instance">¶</a> (<code class="docutils literal notranslate"><span class="pre">zerohertzLib.util.Json</span></code>) – <code class="docutils literal notranslate"><span class="pre">Json</span></code> instance의 정보</p></li>
-<li><p><span class="target" id="zerohertzLib.util.MakeData.makeData.params.dataName"></span><strong>dataName</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.util.MakeData.makeData.params.dataName">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – <code class="docutils literal notranslate"><span class="pre">jsonKey</span></code> 에 의해 출력된 data의 이름</p></li>
+<li><p><span class="target" id="zerohertzLib.util.MakeData.make_data.params.json_instance"></span><strong>json_instance</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.util.MakeData.make_data.params.json_instance">¶</a> (<code class="docutils literal notranslate"><span class="pre">zerohertzLib.util.Json</span></code>) – <code class="docutils literal notranslate"><span class="pre">Json</span></code> instance의 정보</p></li>
+<li><p><span class="target" id="zerohertzLib.util.MakeData.make_data.params.data_name"></span><strong>data_name</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.util.MakeData.make_data.params.data_name">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – <code class="docutils literal notranslate"><span class="pre">json_key</span></code> 에 의해 출력된 data의 이름</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">endDataPath</span></code>, <code class="docutils literal notranslate"><span class="pre">endJsonPath</span></code> 와 본 함수를 통해 data 구축</p>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">end_data_path</span></code>, <code class="docutils literal notranslate"><span class="pre">end_json_path</span></code> 와 본 함수를 통해 data 구축</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
@@ -885,8 +890,8 @@
 <li><a class="reference internal" href="#zerohertzLib.util.Json.name"><code class="docutils literal notranslate"><span class="pre">Json.name</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.util.Json.keys"><code class="docutils literal notranslate"><span class="pre">Json.keys</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.util.Json.__getitem__"><code class="docutils literal notranslate"><span class="pre">Json.__getitem__()</span></code></a></li>
-<li><a class="reference internal" href="#zerohertzLib.util.Json._getKey"><code class="docutils literal notranslate"><span class="pre">Json._getKey()</span></code></a></li>
-<li><a class="reference internal" href="#zerohertzLib.util.Json._getValue"><code class="docutils literal notranslate"><span class="pre">Json._getValue()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.util.Json._get_key"><code class="docutils literal notranslate"><span class="pre">Json._get_key()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.util.Json._get_value"><code class="docutils literal notranslate"><span class="pre">Json._get_value()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.util.Json.get"><code class="docutils literal notranslate"><span class="pre">Json.get()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.util.Json.tree"><code class="docutils literal notranslate"><span class="pre">Json.tree()</span></code></a></li>
 </ul>
@@ -896,18 +901,18 @@
 <li><a class="reference internal" href="#zerohertzLib.util.JsonDir.data"><code class="docutils literal notranslate"><span class="pre">JsonDir.data</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.util.JsonDir.__len__"><code class="docutils literal notranslate"><span class="pre">JsonDir.__len__()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.util.JsonDir.__getitem__"><code class="docutils literal notranslate"><span class="pre">JsonDir.__getitem__()</span></code></a></li>
-<li><a class="reference internal" href="#zerohertzLib.util.JsonDir._getKey"><code class="docutils literal notranslate"><span class="pre">JsonDir._getKey()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.util.JsonDir._get_key"><code class="docutils literal notranslate"><span class="pre">JsonDir._get_key()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.util.JsonDir.tree"><code class="docutils literal notranslate"><span class="pre">JsonDir.tree()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.util.JsonDir.unique"><code class="docutils literal notranslate"><span class="pre">JsonDir.unique()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#zerohertzLib.util.MakeData"><code class="docutils literal notranslate"><span class="pre">MakeData</span></code></a><ul>
-<li><a class="reference internal" href="#zerohertzLib.util.MakeData.gt"><code class="docutils literal notranslate"><span class="pre">MakeData.gt</span></code></a></li>
-<li><a class="reference internal" href="#zerohertzLib.util.MakeData.endDataPath"><code class="docutils literal notranslate"><span class="pre">MakeData.endDataPath</span></code></a></li>
-<li><a class="reference internal" href="#zerohertzLib.util.MakeData.endJsonPath"><code class="docutils literal notranslate"><span class="pre">MakeData.endJsonPath</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.util.MakeData.json"><code class="docutils literal notranslate"><span class="pre">MakeData.json</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.util.MakeData.end_data_path"><code class="docutils literal notranslate"><span class="pre">MakeData.end_data_path</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.util.MakeData.end_json_path"><code class="docutils literal notranslate"><span class="pre">MakeData.end_json_path</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.util.MakeData.condition"><code class="docutils literal notranslate"><span class="pre">MakeData.condition()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.util.MakeData.make"><code class="docutils literal notranslate"><span class="pre">MakeData.make()</span></code></a></li>
-<li><a class="reference internal" href="#zerohertzLib.util.MakeData.makeData"><code class="docutils literal notranslate"><span class="pre">MakeData.makeData()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.util.MakeData.make_data"><code class="docutils literal notranslate"><span class="pre">MakeData.make_data()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#zerohertzLib.util.read_csv"><code class="docutils literal notranslate"><span class="pre">read_csv()</span></code></a></li>
@@ -926,7 +931,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=9db99069"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=ef937b00"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

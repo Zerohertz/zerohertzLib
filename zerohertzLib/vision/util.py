@@ -1,3 +1,27 @@
+"""
+MIT License
+
+Copyright (c) 2023 Hyogeun Oh
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
+
 from typing import List, Tuple, Union
 
 import cv2
@@ -6,7 +30,7 @@ from matplotlib.path import Path
 from numpy.typing import DTypeLike, NDArray
 
 
-def _cvtBGRA(img: NDArray[np.uint8]) -> NDArray[np.uint8]:
+def _cvt_bgra(img: NDArray[np.uint8]) -> NDArray[np.uint8]:
     """cv2로 읽어온 image를 BGRA 채널로 전환
 
     Args:
@@ -18,13 +42,12 @@ def _cvtBGRA(img: NDArray[np.uint8]) -> NDArray[np.uint8]:
     shape = img.shape
     if len(shape) == 2:
         return cv2.cvtColor(img, cv2.COLOR_GRAY2BGRA)
-    elif shape[2] == 3:
+    if shape[2] == 3:
         return cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
-    else:
-        return img
+    return img
 
 
-def _isBbox(shape: Tuple[int]) -> Tuple[bool]:
+def _is_bbox(shape: Tuple[int]) -> Tuple[bool]:
     """Bbox 여부 검증
 
     Args:
@@ -59,7 +82,7 @@ def _isBbox(shape: Tuple[int]) -> Tuple[bool]:
     return multi, poly
 
 
-def isPtsInPoly(
+def is_pts_in_poly(
     poly: NDArray[DTypeLike], pts: Union[List[Union[int, float]], NDArray[DTypeLike]]
 ) -> Union[bool, NDArray[bool]]:
     """지점들의 좌표 내 존재 여부 확인 함수
@@ -73,28 +96,25 @@ def isPtsInPoly(
 
     Examples:
         >>> poly = np.array([[10, 10], [20, 10], [30, 40], [20, 60], [10, 20]])
-        >>> zz.vision.isPtsInPoly(poly, [20, 20])
+        >>> zz.vision.is_pts_in_poly(poly, [20, 20])
         True
-        >>> zz.vision.isPtsInPoly(poly, [[20, 20], [100, 100]])
+        >>> zz.vision.is_pts_in_poly(poly, [[20, 20], [100, 100]])
         array([ True, False])
-        >>> zz.vision.isPtsInPoly(poly, np.array([20, 20]))
+        >>> zz.vision.is_pts_in_poly(poly, np.array([20, 20]))
         True
-        >>> zz.vision.isPtsInPoly(poly, np.array([[20, 20], [100, 100]]))
+        >>> zz.vision.is_pts_in_poly(poly, np.array([[20, 20], [100, 100]]))
         array([ True, False])
     """
     poly = Path(poly)
     if isinstance(pts, list):
         if isinstance(pts[0], list):
             return poly.contains_points(pts)
-        else:
-            return poly.contains_point(pts)
-    elif isinstance(pts, np.ndarray):
+        return poly.contains_point(pts)
+    if isinstance(pts, np.ndarray):
         shape = pts.shape
         if len(shape) == 1:
             return poly.contains_point(pts)
-        elif len(shape) == 2:
+        if len(shape) == 2:
             return poly.contains_points(pts)
-        else:
-            raise ValueError("The 'pts' must be of shape [2], [N, 2]")
-    else:
-        raise TypeError("The 'pts' must be 'list' or 'np.ndarray'")
+        raise ValueError("The 'pts' must be of shape [2], [N, 2]")
+    raise TypeError("The 'pts' must be 'list' or 'np.ndarray'")

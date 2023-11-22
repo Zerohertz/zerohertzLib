@@ -5,8 +5,8 @@ import numpy as np
 import zerohertzLib as zz
 
 
-def test_bar():
-    zz.plot.bar(
+def test_barv():
+    zz.plot.barv(
         {"테란": 27, "저그": 40, "프로토스": 30},
         xlab="종족",
         ylab="인구 [명]",

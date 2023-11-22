@@ -1,3 +1,27 @@
+"""
+MIT License
+
+Copyright (c) 2023 Hyogeun Oh
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
+
 import json
 import time
 from typing import List, Optional
@@ -28,19 +52,21 @@ class Discord:
         if codeblock:
             message = "```\n" + message + "\n```"
         data = {"content": message}
-        return requests.post(self.webhook_url, data=json.dumps(data), headers=headers)
+        return requests.post(
+            self.webhook_url, data=json.dumps(data), headers=headers, timeout=10
+        )
 
     def message(
         self,
         message: str,
-        t: Optional[int] = 1,
+        gap: Optional[int] = 1,
         codeblock: Optional[bool] = False,
     ) -> List[requests.models.Response]:
         """Discord Webhook에 message 전송
 
         Args:
             message (``str``): Discord Webhook의 입력
-            t (``Optional[int]``): ``message`` 의 전송 간 간격 (``message`` 가 1500자 이내라면 0)
+            gap (``Optional[int]``): ``message`` 의 전송 간 간격 (``message`` 가 1500자 이내라면 0)
             codeblock (``Optional[bool]``): 전송되는 message의 스타일
 
         Returns:
@@ -51,15 +77,15 @@ class Discord:
             >>> discord.message("Testing...")
             [<Response [204]>]
         """
-        contents = self._split_string_in_chunks(message, 1500)
+        cts = self._split_string_in_chunks(message, 1500)
         responses = []
-        if len(contents) == 1:
-            responses.append(self._message(contents[0], codeblock))
+        if len(cts) == 1:
+            responses.append(self._message(cts[0], codeblock))
         else:
-            for content in contents:
+            for content in cts:
                 responses.append(self._message(content, codeblock))
-                if t > 0:
-                    time.sleep(t)
+                if gap > 0:
+                    time.sleep(gap)
         return responses
 
     def image(self, image_path: str) -> requests.models.Response:
@@ -76,9 +102,9 @@ class Discord:
             >>> zz.api.image("test.jpg")
             <Response [200]>
         """
-        with open(image_path, "rb") as f:
+        with open(image_path, "rb") as file:
             files = {
-                "file": (image_path, f),
+                "file": (image_path, file),
             }
-            response = requests.post(self.webhook_url, files=files)
+            response = requests.post(self.webhook_url, files=files, timeout=10)
         return response

@@ -1,9 +1,33 @@
+"""
+MIT License
+
+Copyright (c) 2023 Hyogeun Oh
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
+
 import subprocess
 import time
 from collections import defaultdict
 from typing import Optional
 
-import zerohertzLib as zz
+from zerohertzLib.plot import plot
 
 
 def _get_gpu_usages():
@@ -40,16 +64,16 @@ def gpu_usages(
             :align: center
             :width: 600px
     """
-    t = 0
-    ti = []
+    tmp = 0
+    time_list = []
     data = defaultdict(list)
     while True:
-        ti.append(t)
-        gpu_usages = _get_gpu_usages()
-        for num, gpu_usage in enumerate(gpu_usages):
+        time_list.append(tmp)
+        gpu_usages_list = _get_gpu_usages()
+        for num, gpu_usage in enumerate(gpu_usages_list):
             data[f"GPU {num+1}"].append(gpu_usage)
-        zz.plot.plot(
-            ti,
+        plot(
+            time_list,
             data,
             "시간 [초]",
             "GPU 사용률 [%]",
@@ -60,8 +84,8 @@ def gpu_usages(
             dpi=dpi,
         )
         time.sleep(tick)
-        t += tick
-        if t > threshold:
+        tmp += tick
+        if tmp > threshold:
             break
 
 
@@ -107,18 +131,18 @@ def gpu_memory(
             :align: center
             :width: 600px
     """
-    t = 0
-    ti = []
+    tmp = 0
+    time_list = []
     data = defaultdict(list)
     gpu_memory_max = 0
     while True:
-        ti.append(t)
-        gpu_usages = _get_gpu_memory()
-        for num, (gpu_memory_usage, gpu_memory_total) in enumerate(gpu_usages):
+        time_list.append(tmp)
+        gpu_usages_list = _get_gpu_memory()
+        for num, (gpu_memory_usage, gpu_memory_total) in enumerate(gpu_usages_list):
             gpu_memory_max = max(gpu_memory_total / 1024, gpu_memory_max)
             data[f"GPU {num+1}"].append(gpu_memory_usage / 1024)
-        zz.plot.plot(
-            ti,
+        plot(
+            time_list,
             data,
             "시간 [초]",
             "GPU Memory [GB]",
@@ -129,6 +153,6 @@ def gpu_memory(
             dpi=dpi,
         )
         time.sleep(tick)
-        t += tick
-        if t > threshold:
+        tmp += tick
+        if tmp > threshold:
             break
