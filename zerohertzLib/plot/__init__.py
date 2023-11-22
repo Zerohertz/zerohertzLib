@@ -6,7 +6,7 @@
 """
 
 
-import matplotlib.font_manager as font_manager
+from matplotlib import font_manager
 from matplotlib import pyplot as plt
 
 from zerohertzLib.plot.bar_chart import barh, barv, hist

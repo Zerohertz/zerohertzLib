@@ -40,10 +40,10 @@ class Logger:
     Args:
         logger_name (``Optional[str]``): Logger의 이름
         file_name(``Optional[str]``): ``.log`` file의 이름 (미입력 시 미출력)
-        discord (``Optional[str]``): Discord webhook의 URL (``loggerLevel`` 적용)
-        loggerLevel (``Optional[int]``): ``logging.getLogger`` 의 level
-        consoleLevel (``Optional[int]``): ``logging.StreamHandler`` 의 level
-        fileLevel (``Optional[int]``): ``logging.FileHandler`` 의 level
+        discord (``Optional[str]``): Discord webhook의 URL (``logger_level`` 적용)
+        logger_level (``Optional[int]``): ``logging.getLogger`` 의 level
+        console_level (``Optional[int]``): ``logging.StreamHandler`` 의 level
+        file_level (``Optional[int]``): ``logging.FileHandler`` 의 level
 
     Examples:
         >>> logger = zz.logging.Logger("TEST_1")
@@ -64,22 +64,22 @@ class Logger:
         logger_name: Optional[str] = None,
         file_name: Optional[str] = None,
         discord: Optional[str] = None,
-        loggerLevel: Optional[int] = logging.DEBUG,
-        consoleLevel: Optional[int] = logging.DEBUG,
-        fileLevel: Optional[int] = logging.DEBUG,
+        logger_level: Optional[int] = logging.DEBUG,
+        console_level: Optional[int] = logging.DEBUG,
+        file_level: Optional[int] = logging.DEBUG,
     ) -> None:
         self.logger = logging.getLogger(logger_name)
-        self.logger.setLevel(loggerLevel)
+        self.logger.setLevel(logger_level)
         formatter = logging.Formatter(
             "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"
         )
         console_handler = logging.StreamHandler()
-        console_handler.setLevel(consoleLevel)
+        console_handler.setLevel(console_level)
         console_handler.setFormatter(formatter)
         self.logger.addHandler(console_handler)
         if file_name is not None:
             file_handler = logging.FileHandler(f"{file_name}.log")
-            file_handler.setLevel(fileLevel)
+            file_handler.setLevel(file_level)
             file_handler.setFormatter(formatter)
             self.logger.addHandler(file_handler)
         self.discord = discord
@@ -87,7 +87,7 @@ class Logger:
             self._discord = Discord(discord)
             self.log_stream = io.StringIO()
             stream_handler = logging.StreamHandler(self.log_stream)
-            stream_handler.setLevel(loggerLevel)
+            stream_handler.setLevel(logger_level)
             stream_handler.setFormatter(formatter)
             self.logger.addHandler(stream_handler)
 

@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import sys
 from typing import Dict, List, Optional, Tuple, Union
 
 import numpy as np
@@ -191,10 +190,8 @@ def hist(
             :width: 600px
     """
     colors = color(len(data))
-    minimum, maximum = sys.maxsize, -sys.maxsize
-    for data_ in data.values():
-        minimum = min(minimum, min(data_))
-        maximum = max(maximum, max(data_))
+    minimum = min(list(data.values()))
+    maximum = max(list(data.values()))
     bins = np.linspace(minimum, maximum, cnt)
     plt.figure(figsize=ratio)
     if ovp:

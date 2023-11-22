@@ -111,7 +111,7 @@ class Json:
                     self.__get_keys(val_, f"{key}/{key_}", cnt + 1)
 
     def _get_keys(self, key: str = None, cnt=0):
-        if self.keys == [] and self.map == []:
+        if not self.keys and not self.map:
             self.__get_keys(self.data, key, cnt)
         return self.keys
 
