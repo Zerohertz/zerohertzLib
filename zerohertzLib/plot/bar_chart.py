@@ -190,8 +190,8 @@ def hist(
             :width: 600px
     """
     colors = color(len(data))
-    minimum = min(list(data.values()))
-    maximum = max(list(data.values()))
+    tmp = np.array(list(data.values()))
+    minimum, maximum = tmp.min(), tmp.max()
     bins = np.linspace(minimum, maximum, cnt)
     plt.figure(figsize=ratio)
     if ovp:

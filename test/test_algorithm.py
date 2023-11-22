@@ -42,7 +42,7 @@ def test_bfs_2():
 
 
 def test_SoE():
-    assert zz.algorithm.SoE(10) == [2, 3, 5, 7]
+    assert zz.algorithm.soe(10) == [2, 3, 5, 7]
 
 
 def test_fft():

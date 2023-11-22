@@ -266,7 +266,7 @@ def _make_text(txt: str, shape: Tuple[int], color: Tuple[int]) -> NDArray[np.uin
     top, bottom = (tar_height - pal_height) // 2, (tar_height - pal_height) // 2 + (
         tar_height - pal_height
     ) % 2
-    left, right = (tar_height - pal_width) // 2, (tar_width - pal_width) // 2 + (
+    left, right = (tar_width - pal_width) // 2, (tar_width - pal_width) // 2 + (
         tar_width - pal_width
     ) % 2
     palette = np.pad(

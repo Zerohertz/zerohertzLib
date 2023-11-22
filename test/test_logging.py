@@ -15,7 +15,7 @@ def test_logging():
 def test_logging_discord():
     log = zz.logging.Logger(
         "TEST_2",
-        loggerLevel=20,
+        logger_level=20,
         discord=WEBHOOK,
     )
     log.debug("debug")
