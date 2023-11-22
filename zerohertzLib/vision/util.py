@@ -1,4 +1,8 @@
-from typing import Tuple
+from typing import List, Tuple, Union
+
+import numpy as np
+from matplotlib.path import Path
+from numpy.typing import DTypeLike, NDArray
 
 
 def _isBbox(shape: Tuple[int]) -> Tuple[bool]:
@@ -32,3 +36,44 @@ def _isBbox(shape: Tuple[int]) -> Tuple[bool]:
     else:
         raise Exception("The 'box' must be of shape [4], [N, 4], [4, 2], [N, 4, 2]")
     return multi, poly
+
+
+def isPtsInPoly(
+    poly: NDArray[DTypeLike], pts: Union[List[Union[int, float]], NDArray[DTypeLike]]
+) -> Union[bool, NDArray[bool]]:
+    """지점들의 좌표 내 존재 여부 확인 함수
+
+    Args:
+        poly (``NDArray[DTypeLike]``): 다각형 (``[N, 2]``)
+        pts (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): point (``[2]`` or ``[N, 2]``)
+
+    Returns:
+        ``Union[bool, NDArray[DTypeLike]]``: 입력 ``point`` 의 다각형 ``poly`` 내부 존재 여부
+
+    Examples:
+        >>> poly = np.array([[10, 10], [20, 10], [30, 40], [20, 60], [10, 20]])
+        >>> zz.vision.isPtsInPoly(poly, [20, 20])
+        True
+        >>> zz.vision.isPtsInPoly(poly, [[20, 20], [100, 100]])
+        array([ True, False])
+        >>> zz.vision.isPtsInPoly(poly, np.array([20, 20]))
+        True
+        >>> zz.vision.isPtsInPoly(poly, np.array([[20, 20], [100, 100]]))
+        array([ True, False])
+    """
+    poly = Path(poly)
+    if isinstance(pts, list):
+        if isinstance(pts[0], list):
+            return poly.contains_points(pts)
+        else:
+            return poly.contains_point(pts)
+    elif isinstance(pts, np.ndarray):
+        shape = pts.shape
+        if len(shape) == 1:
+            return poly.contains_point(pts)
+        elif len(shape) == 2:
+            return poly.contains_points(pts)
+        else:
+            raise Exception("The 'pts' must be of shape [2], [N, 2]")
+    else:
+        raise Exception("The 'pts' must be 'list' or 'np.ndarray'")

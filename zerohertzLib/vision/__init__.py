@@ -9,6 +9,7 @@ from zerohertzLib.vision.convert import (
     xyxy2poly,
 )
 from zerohertzLib.vision.gif import img2gif, vid2gif
+from zerohertzLib.vision.util import isPtsInPoly
 from zerohertzLib.vision.visual import bbox, cutout, masks, paste, text
 
 __all__ = [
@@ -28,4 +29,5 @@ __all__ = [
     "xyxy2poly",
     "cutout",
     "paste",
+    "isPtsInPoly",
 ]
