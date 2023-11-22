@@ -106,7 +106,8 @@ def bbox(
 
 def masks(
     img: NDArray[np.uint8],
-    mks: NDArray[bool],
+    mks: Optional[NDArray[bool]] = None,
+    poly: Optional[NDArray[DTypeLike]] = None,
     color: Optional[Tuple[int]] = (0, 0, 255),
     class_list: Optional[List[Union[int, str]]] = None,
     class_color: Optional[Dict[Union[int, str], Tuple[int]]] = None,
@@ -117,7 +118,8 @@ def masks(
 
     Args:
         img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, C]``)
-        mks (``NDArray[bool]``): 입력 이미지 위에 병합할 ``N`` 개의 mask들 (``[N, H, W]``)
+        mks (``Optional[NDArray[bool]]``): 입력 이미지 위에 병합할 mask (``[H, W]`` or ``[N, H, W]``)
+        poly (``Optional[NDArray[DTypeLike]]``): 입력 이미지 위에 병합할 mask (``[N, 2]``)
         color (``Optional[Tuple[int]]``): Mask의 색
         class_list (``Optional[List[Union[int, str]]]``): ``mks`` 의 index에 따른 class
         class_color (``Optional[Dict[Union[int, str], Tuple[int]]]``): Class에 따른 색 (``color`` 무시)
@@ -145,8 +147,10 @@ def masks(
         >>> for c in cls:
         >>>     class_color[c] = [random.randint(0, 255) for _ in range(3)]
         >>> zz.vision.masks(img, mks, class_list=class_list, class_color=class_color)
+        >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
+        >>> zz.vision.masks(img, poly=poly)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284525631-53c2be9d-e7a6-45eb-bf5e-a08a6bb09e1c.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284878547-c36cd4ff-2b36-4b0f-a125-89ed8380a456.png
             :alt: Visualzation Result
             :align: center
             :width: 600px
@@ -160,23 +164,34 @@ def masks(
             for k, v in class_color.items():
                 if len(v) == 3:
                     class_color[k] = [*v, 255]
+    if not poly is None:
+        mks = poly2mask(poly, (shape[:2]))
+    shape = mks.shape
     overlay = img.copy()
     cumulative_mask = np.zeros(img.shape[:2], dtype=bool)
-    for idx, mask in enumerate(mks):
-        if class_list is not None and class_color is not None:
-            color = class_color[class_list[idx]]
-        overlapping = cumulative_mask & mask
-        non_overlapping = mask & ~cumulative_mask
-        cumulative_mask |= mask
-        if overlapping.any():
-            overlapping_color = overlay[overlapping].astype(np.float32)
-            mixed_color = ((overlapping_color + color) / 2).astype(np.uint8)
-            overlay[overlapping] = mixed_color
-        if non_overlapping.any():
-            overlay[non_overlapping] = color
+    if len(shape) == 2:
+        overlay[mks] = color
         if border:
-            edges = cv2.Canny(mask.astype(np.uint8) * 255, 100, 200)
+            edges = cv2.Canny(mks.astype(np.uint8) * 255, 100, 200)
             overlay[edges > 0] = color
+    elif len(shape) == 3:
+        for idx, mask in enumerate(mks):
+            if class_list is not None and class_color is not None:
+                color = class_color[class_list[idx]]
+            overlapping = cumulative_mask & mask
+            non_overlapping = mask & ~cumulative_mask
+            cumulative_mask |= mask
+            if overlapping.any():
+                overlapping_color = overlay[overlapping].astype(np.float32)
+                mixed_color = ((overlapping_color + color) / 2).astype(np.uint8)
+                overlay[overlapping] = mixed_color
+            if non_overlapping.any():
+                overlay[non_overlapping] = color
+            if border:
+                edges = cv2.Canny(mask.astype(np.uint8) * 255, 100, 200)
+                overlay[edges > 0] = color
+    else:
+        raise Exception("The 'mks' must be of shape [H, W] or [N, H, W]")
     return cv2.addWeighted(img, 1 - alpha, overlay, alpha, 0)
 
 
