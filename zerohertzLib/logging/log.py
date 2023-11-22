@@ -1,3 +1,27 @@
+"""
+MIT License
+
+Copyright (c) 2023 Hyogeun Oh
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
+
 import io
 import logging
 from typing import List, Optional
@@ -60,7 +84,7 @@ class Logger:
             self.logger.addHandler(file_handler)
         self.discord = discord
         if self.discord is not None:
-            self.Discord = Discord(discord)
+            self._discord = Discord(discord)
             self.log_stream = io.StringIO()
             stream_handler = logging.StreamHandler(self.log_stream)
             stream_handler.setLevel(loggerLevel)
@@ -93,8 +117,7 @@ class Logger:
             self._send_discord_message()
 
     def _send_discord_message(self) -> List[requests.models.Response]:
-        # TODO: response에 대한 처리
-        response = self.Discord.message(self.log_stream.getvalue(), codeblock=True)
+        response = self._discord.message(self.log_stream.getvalue(), codeblock=True)
         self.log_stream.seek(0)
         self.log_stream.truncate()
         return response

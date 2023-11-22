@@ -1,3 +1,27 @@
+"""
+MIT License
+
+Copyright (c) 2023 Hyogeun Oh
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
+
 import math
 from typing import List, Optional, Union
 
@@ -5,11 +29,18 @@ import cv2
 import numpy as np
 from numpy.typing import NDArray
 
-from .util import _cvtBGRA
+from .util import _cvt_bgra
 
 
-def _rel2abs(x0: float, y0: float, x1: float, y1: float, w: int, h: int) -> List[int]:
-    return [int(x0 * w / 100), int(y0 * h / 100), int(x1 * w / 100), int(y1 * h / 100)]
+def _rel2abs(
+    x_0: float, y_0: float, x_1: float, y_1: float, width: int, height: int
+) -> List[int]:
+    return [
+        int(x_0 * width / 100),
+        int(y_0 * height / 100),
+        int(x_1 * width / 100),
+        int(y_1 * height / 100),
+    ]
 
 
 def before_after(
@@ -25,7 +56,7 @@ def before_after(
     Args:
         before (``NDArray[np.uint8]``): 원본 image
         after (``NDArray[np.uint8]``): 영상 처리 혹은 모델 추론 후 image
-        area: (``Optional[List[Union[int, float]]]``): 비교할 좌표 (``[x0, y0, x1, y1]``)
+        area: (``Optional[List[Union[int, float]]]``): 비교할 좌표 (``[x_0, y_0, x_1, y_1]``)
         per (``Optional[bool]``): ``area`` 의 백분율 여부
         quality (``Optional[int]``): 출력 image의 quality (단위: %)
         output_filename: (``Optional[str]``): 저장될 file의 이름
@@ -65,22 +96,22 @@ def before_after(
         else:
             raise ValueError("'area' not provided while 'per' is False")
     if per:
-        x0, y0, x1, y1 = _rel2abs(*area, *before_shape[:2])
+        x_0, y_0, x_1, y_1 = _rel2abs(*area, *before_shape[:2])
     else:
-        x0, y0, x1, y1 = area
-    before = _cvtBGRA(before)
+        x_0, y_0, x_1, y_1 = area
+    before = _cvt_bgra(before)
     before_shape = before.shape
-    after = _cvtBGRA(after)
+    after = _cvt_bgra(after)
     after_shape = after.shape
     if not before_shape == after_shape:
         after = cv2.resize(after, before_shape[:2][::-1])
         after_shape = after.shape
-    before, after = before[x0:x1, y0:y1, :], after[x0:x1, y0:y1, :]
+    before, after = before[x_0:x_1, y_0:y_1, :], after[x_0:x_1, y_0:y_1, :]
     before_shape = before.shape
-    H, W, C = before_shape
-    palette = np.zeros((H, 2 * W, C), dtype=np.uint8)
-    palette[:, :W, :] = before
-    palette[:, W:, :] = after
+    height, width, channel = before_shape
+    palette = np.zeros((height, 2 * width, channel), dtype=np.uint8)
+    palette[:, :width, :] = before
+    palette[:, width:, :] = after
     palette = cv2.resize(palette, (0, 0), fx=quality / 100, fy=quality / 100)
     cv2.imwrite(f"{output_filename}.png", palette)
 
@@ -116,33 +147,43 @@ def grid(
     size = int(length * cnt)
     palette = np.full((size, size, 4), 255, dtype=np.uint8)
     for idx, img in enumerate(imgs):
-        y, x = divmod(idx, cnt)
-        x0, y0, x1, y1 = x * length, y * length, (x + 1) * length, (y + 1) * length
-        img = _cvtBGRA(img)
-        H, W, _ = img.shape
-        if H > W:
-            h, w = length, int(length / H * W)
-            gap = (length - w) // 2
-            x0, y0, x1, y1 = (
-                x * length + gap,
-                y * length,
-                x * length + gap + w,
-                (y + 1) * length,
+        d_y, d_x = divmod(idx, cnt)
+        x_0, y_0, x_1, y_1 = (
+            d_x * length,
+            d_y * length,
+            (d_x + 1) * length,
+            (d_y + 1) * length,
+        )
+        img = _cvt_bgra(img)
+        img_height, img_width, _ = img.shape
+        if img_height > img_width:
+            tar_height, tar_width = length, int(length / img_height * img_width)
+            gap = (length - tar_width) // 2
+            x_0, y_0, x_1, y_1 = (
+                d_x * length + gap,
+                d_y * length,
+                d_x * length + gap + tar_width,
+                (d_y + 1) * length,
             )
-        elif W > H:
-            h, w = int(length / W * H), length
-            gap = (length - h) // 2
-            x0, y0, x1, y1 = (
-                x * length,
-                y * length + gap,
-                (x + 1) * length,
-                y * length + gap + h,
+        elif img_height > img_width:
+            tar_height, tar_width = int(length / img_width * img_height), length
+            gap = (length - tar_height) // 2
+            x_0, y_0, x_1, y_1 = (
+                d_x * length,
+                d_y * length + gap,
+                (d_x + 1) * length,
+                d_y * length + gap + tar_height,
             )
         else:
-            h = w = length
-            x0, y0, x1, y1 = x * length, y * length, (x + 1) * length, (y + 1) * length
-        img = cv2.resize(img, (w, h))
-        palette[y0:y1, x0:x1, :] = img
+            tar_height = tar_width = length
+            x_0, y_0, x_1, y_1 = (
+                d_x * length,
+                d_y * length,
+                (d_x + 1) * length,
+                (d_y + 1) * length,
+            )
+        img = cv2.resize(img, (tar_width, tar_height))
+        palette[y_0:y_1, x_0:x_1, :] = img
     cv2.imwrite(f"{output_filename}.png", palette)
 
 
@@ -175,18 +216,18 @@ def vert(
     width = 0
     for img in imgs:
         shape = img.shape
-        img = _cvtBGRA(img)
+        img = _cvt_bgra(img)
         if shape[0] != height:
-            w = int(height / shape[0] * shape[1])
-            img = cv2.resize(img, (w, height))
+            tar_width = int(height / shape[0] * shape[1])
+            img = cv2.resize(img, (tar_width, height))
         else:
-            w = shape[1]
-        width += w
+            tar_width = shape[1]
+        width += tar_width
         resized_imgs.append(img)
     palette = np.full((height, width, 4), 255, dtype=np.uint8)
     width = 0
     for img in resized_imgs:
-        h, w, _ = img.shape
-        palette[:h, width : width + w, :] = img
-        width += w
+        img_height, img_width, _ = img.shape
+        palette[:img_height, width : width + img_width, :] = img
+        width += img_width
     cv2.imwrite(f"{output_filename}.png", palette)

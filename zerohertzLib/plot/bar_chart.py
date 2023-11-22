@@ -1,3 +1,27 @@
+"""
+MIT License
+
+Copyright (c) 2023 Hyogeun Oh
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
+
 import sys
 from typing import Dict, List, Optional, Tuple, Union
 
@@ -7,7 +31,7 @@ from matplotlib import pyplot as plt
 from .util import _save, color
 
 
-def bar(
+def barv(
     data: Dict[str, Union[int, float]],
     xlab: Optional[str] = "변수 [단위]",
     ylab: Optional[str] = "빈도 [단위]",
@@ -55,12 +79,12 @@ def bar(
     plt.ylim([0, 1.1 * max(list(data.values()))])
     plt.title(title, fontsize=25)
     if per:
-        SUM = sum(list(data.values()))
-        for bar in bars:
-            height = bar.get_height()
-            percentage = (height / SUM) * 100
+        total = sum(list(data.values()))
+        for bar_ in bars:
+            height = bar_.get_height()
+            percentage = (height / total) * 100
             plt.text(
-                bar.get_x() + bar.get_width() / 2,
+                bar_.get_x() + bar_.get_width() / 2,
                 height,
                 f"{percentage:.1f}%",
                 ha="center",
@@ -117,14 +141,14 @@ def barh(
     plt.xlim([0, 1.1 * max(list(data.values()))])
     plt.title(title, fontsize=25)
     if per:
-        MAX = max(list(data.values()))
-        SUM = sum(list(data.values()))
-        for bar in bars:
-            width = bar.get_width()
-            percentage = (width / SUM) * 100
+        maximum = max(list(data.values()))
+        total = sum(list(data.values()))
+        for bar_ in bars:
+            width = bar_.get_width()
+            percentage = (width / total) * 100
             plt.text(
-                width + MAX * 0.01,
-                bar.get_y() + bar.get_height() / 2,
+                width + maximum * 0.01,
+                bar_.get_y() + bar_.get_height() / 2,
                 f"{percentage:.1f}%",
                 ha="left",
                 va="center",
@@ -167,15 +191,15 @@ def hist(
             :width: 600px
     """
     colors = color(len(data))
-    m, M = sys.maxsize, -sys.maxsize
-    for d in data.values():
-        m = min(m, min(d))
-        M = max(M, max(d))
-    bins = np.linspace(m, M, cnt)
+    minimum, maximum = sys.maxsize, -sys.maxsize
+    for data_ in data.values():
+        minimum = min(minimum, min(data_))
+        maximum = max(maximum, max(data_))
+    bins = np.linspace(minimum, maximum, cnt)
     plt.figure(figsize=ratio)
     if ovp:
-        for i, (k, v) in enumerate(data.items()):
-            plt.hist(v, bins=bins, color=colors[i], label=k, alpha=0.7, zorder=2)
+        for i, (key, value) in enumerate(data.items()):
+            plt.hist(value, bins=bins, color=colors[i], label=key, alpha=0.7, zorder=2)
     else:
         plt.hist(
             list(data.values()),

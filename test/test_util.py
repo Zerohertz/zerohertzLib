@@ -9,12 +9,12 @@ data = os.path.join(tmp, "data", "json")
 def test_Json():
     js = zz.util.Json(data)
     assert isinstance(js["title"], str)
-    key = js._getKey("language")
+    key = js._get_key("language")
     assert key == "head/repo/language"
-    assert js._getValue(key) == "Python"
+    assert js._get_value(key) == "Python"
     assert js.name.endswith(".json")
     assert isinstance(js.keys, list)
-    assert js.get("language") == js._getValue(key)
+    assert js.get("language") == js._get_value(key)
     js.tree()
 
 
@@ -23,7 +23,7 @@ def test_JsonDir():
     assert len(jsd) == 5
     assert isinstance(jsd[0], zz.util.Json)
     assert isinstance(jsd[0]["title"], str)
-    assert jsd._getKey("language") == "head/repo/language"
+    assert jsd._get_key("language") == "head/repo/language"
     assert isinstance(jsd.unique("sha"), set)
     jsd.tree()
 

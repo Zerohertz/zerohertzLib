@@ -1,3 +1,27 @@
+"""
+MIT License
+
+Copyright (c) 2023 Hyogeun Oh
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
+
 import json
 import os
 from glob import glob
@@ -28,7 +52,7 @@ class Json:
             Returns:
                 ``Any``: Key에 따른 value 값
 
-        _getKey:
+        _get_key:
             Key의 경로를 찾아주는 method
 
             Args:
@@ -37,11 +61,11 @@ class Json:
             Returns:
                 ``str``: ``/`` 으로 깊이를 표시한 key 값
 
-        _getValue:
-            ``Json._getKey`` 로 생성된 key 값을 입력 받아 value return
+        _get_value:
+            ``Json._get_key`` 로 생성된 key 값을 입력 받아 value return
 
             Args:
-                key (``str``): ``Json._getKey`` 로 생성된 key 값
+                key (``str``): ``Json._get_key`` 로 생성된 key 값
 
             Returns:
                 ``Any``: Key에 따른 value
@@ -50,10 +74,10 @@ class Json:
         >>> js = zz.util.Json()
         >>> js["title"]
         '[v0.2.3] Release'
-        >>> key = js._getKey("language")
+        >>> key = js._get_key("language")
         >>> key
         'head/repo/language'
-        >>> js._getValue(key)
+        >>> js._get_value(key)
         'Python'
         >>> js.name
         '65.json'
@@ -67,50 +91,49 @@ class Json:
         elif not path.endswith(".json"):
             path = glob(f"{path}/*.json")[0]
         self.name = path.replace(os.path.dirname(path), "").replace("/", "")
-        with open(path, "r", encoding="utf-8") as f:
-            self.data = json.load(f)
+        with open(path, "r", encoding="utf-8") as file:
+            self.data = json.load(file)
         self.keys = []
         self.map = []
 
     def __getitem__(self, key: str) -> Any:
         return self.data[key]
 
-    def __getKeys(self, data: Any, key: str, cnt: int):
+    def __get_keys(self, data: Any, key: str, cnt: int):
         if isinstance(data, dict):
-            for k, v in data.items():
-                self.map.append(" " * 4 * cnt + "└─ " + str(k))
+            for key_, val_ in data.items():
+                self.map.append(" " * 4 * cnt + "└─ " + str(key_))
                 if key is None:
-                    self.keys.append(f"{k}")
-                    self.__getKeys(v, f"{k}", cnt + 1)
+                    self.keys.append(f"{key_}")
+                    self.__get_keys(val_, f"{key_}", cnt + 1)
                 else:
-                    self.keys.append(f"{key}/{k}")
-                    self.__getKeys(v, f"{key}/{k}", cnt + 1)
+                    self.keys.append(f"{key}/{key_}")
+                    self.__get_keys(val_, f"{key}/{key_}", cnt + 1)
 
-    def _getKeys(self, key: str = None, cnt=0):
+    def _get_keys(self, key: str = None, cnt=0):
         if self.keys == [] and self.map == []:
-            self.__getKeys(self.data, key, cnt)
+            self.__get_keys(self.data, key, cnt)
         return self.keys
 
-    def _getKey(self, key: str) -> str:
-        keys = self._getKeys()
+    def _get_key(self, key: str) -> str:
+        keys = self._get_keys()
         if key in keys:
             return key
         if "/" not in key:
-            for k in keys:
-                if k.endswith(key):
-                    key = k
+            for key_ in keys:
+                if key_.endswith(key):
+                    key = key_
                     break
         return key
 
-    def _getValue(self, key: str) -> Any:
+    def _get_value(self, key: str) -> Any:
         value = self.data
-        keys = key.split("/")
-        for key in keys:
-            value = value.get(key)
+        for key_ in key.split("/"):
+            value = value.get(key_)
         return value
 
     def get(self, key: str) -> Any:
-        """``Json._getKey`` 로 생성된 key 값을 입력 받아 value return
+        """``Json._get_key`` 로 생성된 key 값을 입력 받아 value return
 
         Args:
             key (``str``): 읽어온 JSON file에서 불러올 key 값 (깊이 무관)
@@ -132,7 +155,7 @@ class Json:
             >>> js.get("language")
             'Python'
         """
-        return self._getValue(self._getKey(key))
+        return self._get_value(self._get_key(key))
 
     def tree(self) -> None:
         """JSON의 구조를 출력하는 method
@@ -147,7 +170,7 @@ class Json:
                 └─ id
             ...
         """
-        self._getKeys()
+        self._get_keys()
         print("\n".join(self.map))
 
 
@@ -177,7 +200,7 @@ class JsonDir:
             Returns:
                 ``zerohertzLib.util.Json``: Index에 따른 ``Json`` instance
 
-        _getKey:
+        _get_key:
             Key의 경로를 찾아주는 method
 
             Args:
@@ -195,7 +218,7 @@ class JsonDir:
         <zerohertzLib.util.json.Json object at 0x7f2562b83d00>
         >>> jsd[0]["title"]
         '[v0.2.3] Release'
-        >>> jsd._getKey("language")
+        >>> jsd._get_key("language")
         'head/repo/language'
     """
 
@@ -204,9 +227,9 @@ class JsonDir:
             raise ValueError("'path' ends with '*.json'")
         self.data = {}
         self.name = []
-        for j in tqdm(glob(os.path.join(path, "*.json"))):
-            name = j.replace(path, "").replace("/", "")
-            self.data[name] = Json(j)
+        for json_path in tqdm(glob(os.path.join(path, "*.json"))):
+            name = json_path.replace(path, "").replace("/", "")
+            self.data[name] = Json(json_path)
             self.name.append(name)
 
     def __len__(self) -> int:
@@ -215,8 +238,8 @@ class JsonDir:
     def __getitem__(self, idx: int) -> Json:
         return self.data[self.name[idx]]
 
-    def _getKey(self, key: str) -> str:
-        return self[0]._getKey(key)
+    def _get_key(self, key: str) -> str:
+        return self[0]._get_key(key)
 
     def tree(self) -> None:
         """JSON의 구조를 출력하는 method
@@ -248,12 +271,12 @@ class JsonDir:
             >>> jsd.unique("sha")
             {'dfd53a0bfc73221dbe96d5e44a49c524d5a8596b', 'bc33235424e89cbbf23434b2a824ea068d167c7d', '97f52f9b81ba885fe69b9726632e580f5cba94be', '768c7711f94af0be00cd55e0ce7b892465cfa64a', '97e103788359f0361f4ec0e138a14218f28eddd4'}
         """
-        key = self._getKey(key)
-        uq = set()
+        key = self._get_key(key)
+        uniq = set()
         for json_instance in self:
-            data = json_instance._getValue(key)
-            uq.add(str(data))
-        return uq
+            data = json_instance._get_value(key)
+            uniq.add(str(data))
+        return uniq
 
 
 def write_json(data: Union[Dict[Any, Any], List[Dict[Any, Any]]], path: str) -> str:
@@ -288,6 +311,6 @@ def write_json(data: Union[Dict[Any, Any], List[Dict[Any, Any]]], path: str) -> 
             },
         ...
     """
-    with open(f"{path}.json", "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=4, ensure_ascii=False)
+    with open(f"{path}.json", "w", encoding="utf-8") as file:
+        json.dump(data, file, indent=4, ensure_ascii=False)
     return os.path.abspath(f"{path}.json")

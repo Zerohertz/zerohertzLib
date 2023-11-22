@@ -1,3 +1,27 @@
+"""
+MIT License
+
+Copyright (c) 2023 Hyogeun Oh
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
+
 from typing import Dict, List, Optional, Tuple, Union
 
 import cv2
@@ -6,7 +30,7 @@ from numpy.typing import DTypeLike, NDArray
 from PIL import Image, ImageDraw, ImageFont
 
 from .convert import cwh2poly, poly2cwh, poly2mask
-from .util import _cvtBGRA, _isBbox
+from .util import _cvt_bgra, _is_bbox
 
 
 def _bbox(
@@ -75,12 +99,12 @@ def bbox(
     elif shape[2] == 4:
         color = (*color, 255)
     shape = box.shape
-    multi, poly = _isBbox(shape)
+    multi, poly = _is_bbox(shape)
     if not poly:
         box = cwh2poly(box)
     if multi:
-        for b in box:
-            img = _bbox(img, b, color, thickness)
+        for box_ in box:
+            img = _bbox(img, box_, color, thickness)
     else:
         img = _bbox(img, box, color, thickness)
     return img
@@ -143,9 +167,9 @@ def masks(
     elif shape[2] == 4:
         color = (*color, 255)
         if class_list is not None and class_color is not None:
-            for k, v in class_color.items():
-                if len(v) == 3:
-                    class_color[k] = [*v, 255]
+            for key, value in class_color.items():
+                if len(value) == 3:
+                    class_color[key] = [*value, 255]
     if poly is not None:
         mks = poly2mask(poly, (shape[:2]))
     shape = mks.shape
@@ -189,8 +213,11 @@ def _paste(img: NDArray[np.uint8], target: NDArray[np.uint8]) -> NDArray[np.uint
     """
     alpha_overlay = target[:, :, 3] / 255.0
     alpha_background = 1.0 - alpha_overlay
-    for c in range(0, 3):
-        img[:, :, c] = alpha_overlay * target[:, :, c] + alpha_background * img[:, :, c]
+    for channel in range(0, 3):
+        img[:, :, channel] = (
+            alpha_overlay * target[:, :, channel]
+            + alpha_background * img[:, :, channel]
+        )
     return img
 
 
@@ -212,26 +239,36 @@ def _make_text(txt: str, shape: Tuple[int], color: Tuple[int]) -> NDArray[np.uin
         __file__.replace("vision/visual.py", "plot/NotoSansKR-Medium.ttf"), 100
     )
     text_width, text_height = draw.textsize(txt, font=font)
-    x, y = (size[0] - text_width) // 2, (size[1] - text_height) // 2
-    x0, x1 = x, x + text_width
-    y0, y1 = y, y + text_height
-    draw.text((x, y), txt, font=font, fill=(*color, 255))
-    palette = np.array(palette)[y0:y1, x0:x1, :]
-    h, w, _ = palette.shape
-    H, W = shape
-    if w / h > W / H:
+    d_x, d_y = (size[0] - text_width) // 2, (size[1] - text_height) // 2
+    x_0, x_1 = d_x, d_x + text_width
+    y_0, y_1 = d_y, d_y + text_height
+    draw.text((d_x, d_y), txt, font=font, fill=(*color, 255))
+    palette = np.array(palette)[y_0:y_1, x_0:x_1, :]
+    pal_height, pal_width, _ = palette.shape
+    tar_height, tar_width = shape
+    if pal_width / pal_height > tar_width / tar_height:
         palette = cv2.resize(
-            palette, (W, int(h * W / w)), interpolation=cv2.INTER_LINEAR
+            palette,
+            (tar_width, int(pal_height * tar_width / pal_width)),
+            interpolation=cv2.INTER_LINEAR,
         )
-    elif w / h < W / H:
+    elif pal_width / pal_height < tar_width / tar_height:
         palette = cv2.resize(
-            palette, (int(w * H / h), H), interpolation=cv2.INTER_LINEAR
+            palette,
+            (int(pal_width * tar_height / pal_height), tar_height),
+            interpolation=cv2.INTER_LINEAR,
         )
     else:
-        palette = cv2.resize(palette, (W, H), interpolation=cv2.INTER_LINEAR)
-    h, w, _ = palette.shape
-    top, bottom = (H - h) // 2, (H - h) // 2 + (H - h) % 2
-    left, right = (W - w) // 2, (W - w) // 2 + (W - w) % 2
+        palette = cv2.resize(
+            palette, (tar_width, tar_height), interpolation=cv2.INTER_LINEAR
+        )
+    pal_height, pal_width, _ = palette.shape
+    top, bottom = (tar_height - pal_height) // 2, (tar_height - pal_height) // 2 + (
+        tar_height - pal_height
+    ) % 2
+    left, right = (tar_height - pal_width) // 2, (tar_width - pal_width) // 2 + (
+        tar_width - pal_width
+    ) % 2
     palette = np.pad(
         palette,
         ((top, bottom), (left, right), (0, 0)),
@@ -255,11 +292,11 @@ def _text(
     Returns:
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
     """
-    x0, y0 = (box_xywh[:2] - box_xywh[2:] / 2).astype(np.int32)
-    x1, y1 = (box_xywh[:2] + box_xywh[2:] / 2).astype(np.int32)
-    w, h = x1 - x0, y1 - y0
-    txt = _make_text(txt, (h, w), color)
-    img[y0:y1, x0:x1, :] = _paste(img[y0:y1, x0:x1, :], txt)
+    x_0, y_0 = (box_xywh[:2] - box_xywh[2:] / 2).astype(np.int32)
+    x_1, y_1 = (box_xywh[:2] + box_xywh[2:] / 2).astype(np.int32)
+    width, height = x_1 - x_0, y_1 - y_0
+    txt = _make_text(txt, (height, width), color)
+    img[y_0:y_1, x_0:x_1, :] = _paste(img[y_0:y_1, x_0:x_1, :], txt)
     return img
 
 
@@ -299,9 +336,9 @@ def text(
             :width: 600px
     """
     img = img.copy()
-    img = _cvtBGRA(img)
+    img = _cvt_bgra(img)
     shape = box.shape
-    multi, poly = _isBbox(shape)
+    multi, poly = _is_bbox(shape)
     if poly:
         box_xyxy = box
         box_xywh = poly2cwh(box)
@@ -311,8 +348,8 @@ def text(
     if multi:
         if not shape[0] == len(txt):
             raise ValueError("'box.shape[0]' and 'len(txt)' must be equal")
-        for b_xyxy, b_xywh, t in zip(box_xyxy, box_xywh, txt):
-            img = _text(img, b_xywh, t, color)
+        for b_xyxy, b_xywh, txt_ in zip(box_xyxy, box_xywh, txt):
+            img = _text(img, b_xywh, txt_, color)
             if vis:
                 img = _bbox(img, b_xyxy, (0, 0, 255, 255), 2)
     else:
@@ -355,8 +392,8 @@ def cutout(
     """
     shape = img.shape[:2]
     poly = poly.astype(np.int32)
-    x0, x1 = poly[:, 0].min(), poly[:, 0].max()
-    y0, y1 = poly[:, 1].min(), poly[:, 1].max()
+    x_0, x_1 = poly[:, 0].min(), poly[:, 0].max()
+    y_0, y_1 = poly[:, 1].min(), poly[:, 1].max()
     mask = poly2mask(poly, shape)
     if background == 0:
         mask = (mask * alpha).astype(np.uint8)
@@ -368,9 +405,8 @@ def cutout(
     mask = Image.fromarray(mask)
     img.putalpha(mask)
     if crop:
-        return np.array(img)[y0:y1, x0:x1, :]
-    else:
-        return np.array(img)
+        return np.array(img)[y_0:y_1, x_0:x_1, :]
+    return np.array(img)
 
 
 def paste(
@@ -411,35 +447,47 @@ def paste(
             :align: center
             :width: 600px
     """
-    x0, y0, x1, y1 = box
-    H, W = y1 - y0, x1 - x0
+    x_0, y_0, x_1, y_1 = box
+    box_height, box_width = y_1 - y_0, x_1 - x_0
     img = img.copy()
-    img = _cvtBGRA(img)
-    h, w = target.shape[:2]
+    img = _cvt_bgra(img)
+    tar_height, tar_width = target.shape[:2]
     if resize:
-        target = cv2.resize(target, (W, H), interpolation=cv2.INTER_LINEAR)
+        target = cv2.resize(
+            target, (box_width, box_height), interpolation=cv2.INTER_LINEAR
+        )
     else:
-        if w / h > W / H:
+        if tar_width / tar_height > box_width / box_height:
             target = cv2.resize(
-                target, (W, int(h * W / w)), interpolation=cv2.INTER_LINEAR
+                target,
+                (box_width, int(tar_height * box_width / tar_width)),
+                interpolation=cv2.INTER_LINEAR,
             )
-        elif w / h < W / H:
+        elif tar_width / tar_height < box_width / box_height:
             target = cv2.resize(
-                target, (int(w * H / h), H), interpolation=cv2.INTER_LINEAR
+                target,
+                (int(tar_width * box_height / tar_height), box_height),
+                interpolation=cv2.INTER_LINEAR,
             )
         else:
-            target = cv2.resize(target, (W, H), interpolation=cv2.INTER_LINEAR)
-        h, w, _ = target.shape
-        top, bottom = (H - h) // 2, (H - h) // 2 + (H - h) % 2
-        left, right = (W - w) // 2, (W - w) // 2 + (W - w) % 2
+            target = cv2.resize(
+                target, (box_width, box_height), interpolation=cv2.INTER_LINEAR
+            )
+        tar_height, tar_width, _ = target.shape
+        top, bottom = (box_height - tar_height) // 2, (box_height - tar_height) // 2 + (
+            box_height - tar_height
+        ) % 2
+        left, right = (box_width - tar_width) // 2, (box_width - tar_width) // 2 + (
+            box_width - tar_width
+        ) % 2
         target = np.pad(
             target,
             ((top, bottom), (left, right), (0, 0)),
             mode="constant",
             constant_values=((0, 0), (0, 0), (0, 0)),
         )
-    img[y0:y1, x0:x1, :] = _paste(img[y0:y1, x0:x1, :], target)
+    img[y_0:y_1, x_0:x_1, :] = _paste(img[y_0:y_1, x_0:x_1, :], target)
     if vis:
-        box = np.array([[x0, y0], [x0, y1], [x1, y1], [x1, y0]])
+        box = np.array([[x_0, y_0], [x_0, y_1], [x_1, y_1], [x_1, y_0]])
         img = _bbox(img, box, (0, 0, 255, 255), 2)
     return img

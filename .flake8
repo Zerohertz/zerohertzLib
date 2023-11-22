@@ -1,2 +1,8 @@
 [flake8]
-ignore=F401,E203,E402,E501
+ignore = E203, E501, F401, W503
+enable-extensions = VNE
+
+; E203 whitespace before ':'
+; E501 line too long (260 > 79 characters)
+; F401 '*' imported but unused
+; W503 line break before binary operator
