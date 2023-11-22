@@ -8,6 +8,7 @@ from zerohertzLib.vision.convert import (
     xyxy2cwh,
     xyxy2poly,
 )
+from zerohertzLib.vision.data import JsonImageLoader
 from zerohertzLib.vision.gif import img2gif, vid2gif
 from zerohertzLib.vision.util import isPtsInPoly
 from zerohertzLib.vision.visual import bbox, cutout, masks, paste, text
@@ -30,4 +31,5 @@ __all__ = [
     "cutout",
     "paste",
     "isPtsInPoly",
+    "JsonImageLoader",
 ]
