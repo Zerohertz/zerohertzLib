@@ -5,25 +5,8 @@ import numpy as np
 from numpy.typing import DTypeLike, NDArray
 from PIL import Image, ImageDraw, ImageFont
 
-from .convert import _isBbox, cwh2poly, poly2cwh, poly2mask
-
-
-def _cvtBGRA(img: NDArray[np.uint8]) -> NDArray[np.uint8]:
-    """cv2로 읽어온 이미지를 BGRA 채널로 전환
-
-    Args:
-        img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, C]``)
-
-    Returns:
-        ``NDArray[np.uint8]``: BGRA 이미지 (``[H, W, 4]``)
-    """
-    shape = img.shape
-    if len(shape) == 2:
-        return cv2.cvtColor(img, cv2.COLOR_GRAY2BGRA)
-    elif shape[2] == 3:
-        return cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
-    else:
-        return img
+from .convert import cwh2poly, poly2cwh, poly2mask
+from .util import _cvtBGRA, _isBbox
 
 
 def _bbox(
@@ -105,7 +88,8 @@ def bbox(
 
 def masks(
     img: NDArray[np.uint8],
-    mks: NDArray[bool],
+    mks: Optional[NDArray[bool]] = None,
+    poly: Optional[NDArray[DTypeLike]] = None,
     color: Optional[Tuple[int]] = (0, 0, 255),
     class_list: Optional[List[Union[int, str]]] = None,
     class_color: Optional[Dict[Union[int, str], Tuple[int]]] = None,
@@ -115,8 +99,9 @@ def masks(
     """Masks 시각화
 
     Args:
-        img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, C]``)
-        mks (``NDArray[bool]``): 입력 이미지 위에 병합할 ``N`` 개의 mask들 (``[N, H, W]``)
+        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
+        mks (``Optional[NDArray[bool]]``): 입력 image 위에 병합할 mask (``[H, W]`` or ``[N, H, W]``)
+        poly (``Optional[NDArray[DTypeLike]]``): 입력 image 위에 병합할 mask (``[N, 2]``)
         color (``Optional[Tuple[int]]``): Mask의 색
         class_list (``Optional[List[Union[int, str]]]``): ``mks`` 의 index에 따른 class
         class_color (``Optional[Dict[Union[int, str], Tuple[int]]]``): Class에 따른 색 (``color`` 무시)
@@ -144,8 +129,10 @@ def masks(
         >>> for c in cls:
         >>>     class_color[c] = [random.randint(0, 255) for _ in range(3)]
         >>> zz.vision.masks(img, mks, class_list=class_list, class_color=class_color)
+        >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
+        >>> zz.vision.masks(img, poly=poly)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284525631-53c2be9d-e7a6-45eb-bf5e-a08a6bb09e1c.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284878547-c36cd4ff-2b36-4b0f-a125-89ed8380a456.png
             :alt: Visualzation Result
             :align: center
             :width: 600px
@@ -155,32 +142,47 @@ def masks(
         img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
     elif shape[2] == 4:
         color = (*color, 255)
+        if class_list is not None and class_color is not None:
+            for k, v in class_color.items():
+                if len(v) == 3:
+                    class_color[k] = [*v, 255]
+    if not poly is None:
+        mks = poly2mask(poly, (shape[:2]))
+    shape = mks.shape
     overlay = img.copy()
     cumulative_mask = np.zeros(img.shape[:2], dtype=bool)
-    for idx, mask in enumerate(mks):
-        if class_list is not None and class_color is not None:
-            color = class_color[class_list[idx]]
-        overlapping = cumulative_mask & mask
-        non_overlapping = mask & ~cumulative_mask
-        cumulative_mask |= mask
-        if overlapping.any():
-            overlapping_color = overlay[overlapping].astype(np.float32)
-            mixed_color = ((overlapping_color + color) / 2).astype(np.uint8)
-            overlay[overlapping] = mixed_color
-        if non_overlapping.any():
-            overlay[non_overlapping] = color
+    if len(shape) == 2:
+        overlay[mks] = color
         if border:
-            edges = cv2.Canny(mask.astype(np.uint8) * 255, 100, 200)
+            edges = cv2.Canny(mks.astype(np.uint8) * 255, 100, 200)
             overlay[edges > 0] = color
+    elif len(shape) == 3:
+        for idx, mask in enumerate(mks):
+            if class_list is not None and class_color is not None:
+                color = class_color[class_list[idx]]
+            overlapping = cumulative_mask & mask
+            non_overlapping = mask & ~cumulative_mask
+            cumulative_mask |= mask
+            if overlapping.any():
+                overlapping_color = overlay[overlapping].astype(np.float32)
+                mixed_color = ((overlapping_color + color) / 2).astype(np.uint8)
+                overlay[overlapping] = mixed_color
+            if non_overlapping.any():
+                overlay[non_overlapping] = color
+            if border:
+                edges = cv2.Canny(mask.astype(np.uint8) * 255, 100, 200)
+                overlay[edges > 0] = color
+    else:
+        raise ValueError("The 'mks' must be of shape [H, W] or [N, H, W]")
     return cv2.addWeighted(img, 1 - alpha, overlay, alpha, 0)
 
 
 def _paste(img: NDArray[np.uint8], target: NDArray[np.uint8]) -> NDArray[np.uint8]:
-    """``target`` 이미지를 ``img`` 위에 투명도를 포함하여 병합
+    """``target`` image를 ``img`` 위에 투명도를 포함하여 병합
 
     Args:
-        img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, 4]``)
-        target (``NDArray[np.uint8]``): 타겟 이미지 (``[H, W, 4]``)
+        img (``NDArray[np.uint8]``): 입력 image (``[H, W, 4]``)
+        target (``NDArray[np.uint8]``): Target image (``[H, W, 4]``)
 
     Returns:
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
@@ -193,11 +195,11 @@ def _paste(img: NDArray[np.uint8], target: NDArray[np.uint8]) -> NDArray[np.uint
 
 
 def _make_text(txt: str, shape: Tuple[int], color: Tuple[int]) -> NDArray[np.uint8]:
-    """배경이 투명한 문자열 이미지 생성
+    """배경이 투명한 문자열 image 생성
 
     Args:
         txt (``str``): 입력 문자열
-        shape (``Tuple[int]``): 출력 이미지의 shape
+        shape (``Tuple[int]``): 출력 image의 shape
         color (``Tuple[int]``): 글씨의 색
 
     Returns:
@@ -245,9 +247,9 @@ def _text(
     """단일 text 시각화
 
     Args:
-        img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, C]``)
+        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
         box_xywh (``NDArray[DTypeLike]``): 문자열이 존재할 bbox (``[4, 2]``)
-        txt (``str``): 이미지에 추가할 문자열
+        txt (``str``): Image에 추가할 문자열
         color (``Tuple[int]``): 문자의 색
 
     Returns:
@@ -271,9 +273,9 @@ def text(
     """Text 시각화
 
     Args:
-        img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, C]``)
+        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
         box (``NDArray[DTypeLike]``): 문자열이 존재할 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
-        txt (``str``): 이미지에 추가할 문자열
+        txt (``str``): Image에 추가할 문자열
         color (``Optional[Tuple[int]]``): 문자의 색
         vis (``Optional[bool]``): 문자 영역의 시각화 여부
 
@@ -308,7 +310,7 @@ def text(
         box_xywh = box
     if multi:
         if not shape[0] == len(txt):
-            raise Exception("'box.shape[0]' and 'len(txt)' must be equal")
+            raise ValueError("'box.shape[0]' and 'len(txt)' must be equal")
         for b_xyxy, b_xywh, t in zip(box_xyxy, box_xywh, txt):
             img = _text(img, b_xywh, t, color)
             if vis:
@@ -325,14 +327,16 @@ def cutout(
     poly: NDArray[DTypeLike],
     alpha: Optional[int] = 255,
     crop: Optional[bool] = True,
+    background: Optional[int] = 0,
 ) -> NDArray[np.uint8]:
-    """이미지 내에서 지정한 좌표를 제외한 부분을 투명화
+    """Image 내에서 지정한 좌표를 제외한 부분을 투명화
 
     Args:
-        img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, C]``)
+        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
         poly (``NDArray[DTypeLike]``): 지정할 좌표 (``[N, 2]``)
         alpha (``Optional[int]``): 지정한 좌표 영역의 투명도
-        crop (``Optional[bool]``): 출력 이미지의 Crop 여부
+        crop (``Optional[bool]``): 출력 image의 Crop 여부
+        background (``Optional[int]``): 지정한 좌표 외 배경의 투명도
 
     Returns:
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
@@ -342,8 +346,9 @@ def cutout(
         >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
         >>> zz.vision.cutout(img, poly)
         >>> zz.vision.cutout(img, poly, 128, False)
+        >>> zz.vision.cutout(img, poly, background=128)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284564607-9df73033-f99e-4b54-a321-2a47a6c89a32.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284778462-8a1e3017-328e-4776-adeb-b2f24fd09c58.png
             :alt: Visualzation Result
             :align: center
             :width: 600px
@@ -353,7 +358,12 @@ def cutout(
     x0, x1 = poly[:, 0].min(), poly[:, 0].max()
     y0, y1 = poly[:, 1].min(), poly[:, 1].max()
     mask = poly2mask(poly, shape)
-    mask = (mask * alpha).astype(np.uint8)
+    if background == 0:
+        mask = (mask * alpha).astype(np.uint8)
+    else:
+        mask = mask.astype(np.uint8)
+        mask[mask == 0] = background
+        mask[mask == 1] = alpha
     img = Image.fromarray(img)
     mask = Image.fromarray(mask)
     img.putalpha(mask)
@@ -370,7 +380,7 @@ def paste(
     resize: Optional[bool] = False,
     vis: Optional[bool] = False,
 ) -> NDArray[np.uint8]:
-    """``target`` 이미지를 ``img`` 위에 투명도를 포함하여 병합
+    """``target`` image를 ``img`` 위에 투명도를 포함하여 병합
 
     Note:
         `PIL.Image.paste` 를 `numpy` 와 `cv2` 기반으로 구현
@@ -380,10 +390,10 @@ def paste(
         >>> img.paste(target, (0, 0), target)
 
     Args:
-        img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, C]``)
-        target (``NDArray[np.uint8]``): 타겟 이미지 (``[H, W, 4]``)
-        box (``List[int]``): 병합될 영역
-        resize (``Optional[bool]``): 타겟 이미지의 resize 여부
+        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
+        target (``NDArray[np.uint8]``): Target image (``[H, W, 4]``)
+        box (``List[int]``): 병합될 영역 (``xyxy`` 형식)
+        resize (``Optional[bool]``): Target image의 resize 여부
         vis (``Optional[bool]``): 지정한 영역 (``box``)의 시각화 여부
 
     Returns:

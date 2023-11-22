@@ -22,11 +22,11 @@ def img2gif(
     output_filename: Optional[str] = "tmp",
     duration: Optional[int] = 500,
 ) -> None:
-    """Directory 내 이미지들을 GIF로 변환
+    """Directory 내 image들을 GIF로 변환
 
     Args:
-        images_path (``str``): GIF로 변환할 이미지들이 존재하는 경로
-        output_filename (``Optional[str]``): 출력될 GIF 파일명
+        images_path (``str``): GIF로 변환할 image들이 존재하는 경로
+        output_filename (``Optional[str]``): 출력될 GIF file 이름
         duration: (``Optional[int]``): ms 단위의 사진 간 간격
 
     Returns:
@@ -60,7 +60,7 @@ def vid2gif(
 
     Args:
         video_path (``str``): GIF로 변환할 동영상이 존재하는 경로
-        output_filename (``Optional[str]``): 출력될 GIF 파일명
+        output_filename (``Optional[str]``): 출력될 GIF file 이름
         quality: (``Optional[int]``): 출력될 GIF의 품질
         fps: (``Optional[int]``): 출력될 GIF의 FPS (Frames Per Second)
 

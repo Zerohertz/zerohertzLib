@@ -3,6 +3,8 @@ from typing import Dict, List, Optional, Tuple, Union
 import seaborn as sns
 from matplotlib import pyplot as plt
 
+from .util import _save, color
+
 
 def plot(
     x: List[Union[int, float]],
@@ -26,7 +28,7 @@ def plot(
         xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
         ylim (``Optional[List[Union[int, float]]]``): Graph에 출력될 Y축 limit
         ncol (``Optional[int]``): Graph에 표시될 legend 열의 수
-        title (``Optional[str]``): Graph에 표시될 제목 및 파일명
+        title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
         ratio (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
 
@@ -41,7 +43,7 @@ def plot(
             :align: center
             :width: 300px
     """
-    colors = sns.color_palette("husl", n_colors=len(y))
+    colors = color(len(y))
     plt.figure(figsize=ratio)
     # list(plt.Line2D.lineStyles.keys())
     linestyle = ["-", "--", "-.", ":"]
@@ -68,9 +70,4 @@ def plot(
         plt.ylim(ylim)
     plt.title(title, fontsize=25)
     plt.legend(ncol=ncol)
-    plt.savefig(
-        f"{title.lower().replace(' ', '_')}.png",
-        dpi=dpi,
-        bbox_inches="tight",
-    )
-    plt.close("all")
+    _save(title, dpi)

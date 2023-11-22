@@ -9,7 +9,7 @@ def read_csv(
     """CSV (Comma-Separated Values) 혹은 TSV (Tab-Separated Values)를 작성하는 함수
 
     Args:
-        path (``str``): 입력될 CSV 혹은 TSV 경로 및 파일명
+        path (``str``): 입력될 CSV 혹은 TSV 경로 및 file 이름
         header (``Optional[bool]``): Header의 존재 유무
 
     Returns:
@@ -37,7 +37,7 @@ def read_csv(
     elif path.endswith(".tsv"):
         delimiter = "\t"
     else:
-        raise Exception("File is not CSV or TSV")
+        raise ValueError("File is not CSV or TSV")
     if header:
         r = raw[0]
         for key in r.strip().split(delimiter):
@@ -57,11 +57,11 @@ def write_csv(data: List[List[Any]], path: str, tsv: Optional[bool] = False) -> 
 
     Args:
         data (``List[List[Any]]``): 입력 데이터 (header 포함 무관)
-        path (``str``): 출력될 CSV 혹은 TSV 경로 및 파일명
+        path (``str``): 출력될 CSV 혹은 TSV 경로 및 file 이름
         tsv (``Optional[bool]``): TSV 작성 여부
 
     Returns:
-        ``str``: 파일의 절대 경로
+        ``str``: File의 절대 경로
 
     Examples:
         >>> zz.util.write_csv([["id", "종족", "점수"], ["5hi9", "프로토스", 1248], ["gor2", "테란", 2309], ["gk03", "저그", 291]], "zerohertzLib/star_craft")

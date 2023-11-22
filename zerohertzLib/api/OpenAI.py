@@ -14,7 +14,7 @@ class OpenAI(openai.OpenAI):
         :align: center
         :width: 300px
 
-    위와 같이 `OpenAI <https://platform.openai.com/account/api-keys>`_ 페이지에서 발급 후 API를 등록해야 사용할 수 있다.
+    위와 같이 `OpenAI <https://platform.openai.com/account/api-keys>`_ page에서 발급 후 API를 등록해야 사용할 수 있다.
 
     Args:
         api_key (``str``): 위에서 등록한 OpenAI의 API key

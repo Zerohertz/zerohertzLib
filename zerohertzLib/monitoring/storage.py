@@ -19,7 +19,7 @@ def _get_size(path: str) -> int:
 
 
 def storage(path: str, threshold: Optional[int] = 1) -> None:
-    """지정한 경로에 존재하는 파일에 따른 용량을 pie graph로 시각화
+    """지정한 경로에 존재하는 file에 따른 용량을 pie graph로 시각화
 
     Args:
         path (``str``): 용량을 시각화할 경로

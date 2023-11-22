@@ -5,6 +5,8 @@ import numpy as np
 import seaborn as sns
 from matplotlib import pyplot as plt
 
+from .util import _save, color
+
 
 def bar(
     data: Dict[str, Union[int, float]],
@@ -22,7 +24,7 @@ def bar(
         data (``Dict[str, Union[int, float]]``): 입력 데이터
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
-        title (``Optional[str]``): Graph에 표시될 제목 및 파일명
+        title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
         ratio (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         rot: (``Optional[int]``): X축의 눈금 회전 각도
@@ -39,7 +41,7 @@ def bar(
             :align: center
             :width: 300px
     """
-    colors = sns.color_palette("husl", n_colors=len(data))
+    colors = color(len(data))
     plt.figure(figsize=ratio)
     bars = plt.bar(
         data.keys(),
@@ -65,12 +67,7 @@ def bar(
                 ha="center",
                 va="bottom",
             )
-    plt.savefig(
-        f"{title.lower().replace(' ', '_')}.png",
-        dpi=dpi,
-        bbox_inches="tight",
-    )
-    plt.close("all")
+    _save(title, dpi)
 
 
 def barh(
@@ -89,7 +86,7 @@ def barh(
         data (``Dict[str, Union[int, float]]``): 입력 데이터
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
-        title (``Optional[str]``): Graph에 표시될 제목 및 파일명
+        title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
         ratio (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         rot: (``Optional[int]``): X축의 눈금 회전 각도
@@ -106,7 +103,7 @@ def barh(
             :align: center
             :width: 200px
     """
-    colors = sns.color_palette("husl", n_colors=len(data))
+    colors = color(len(data))
     plt.figure(figsize=ratio)
     bars = plt.barh(
         list(data.keys()),
@@ -134,12 +131,7 @@ def barh(
                 va="center",
                 rotation=270,
             )
-    plt.savefig(
-        f"{title.lower().replace(' ', '_')}.png",
-        dpi=dpi,
-        bbox_inches="tight",
-    )
-    plt.close("all")
+    _save(title, dpi)
 
 
 def hist(
@@ -158,7 +150,7 @@ def hist(
         data (``Dict[str, List[Union[int, float]]]``): 입력 데이터
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
-        title (``Optional[str]``): Graph에 표시될 제목 및 파일명
+        title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
         cnt (``Optional[int]``): Bin의 개수
         ovp (``Optional[bool]``): Class에 따른 histogram overlap 여부
         ratio (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
@@ -175,7 +167,7 @@ def hist(
             :align: center
             :width: 600px
     """
-    colors = sns.color_palette("husl", n_colors=len(data))
+    colors = color(len(data))
     m, M = sys.maxsize, -sys.maxsize
     for d in data.values():
         m = min(m, min(d))
@@ -199,9 +191,4 @@ def hist(
     plt.ylabel(ylab)
     plt.title(title, fontsize=25)
     plt.legend()
-    plt.savefig(
-        f"{title.lower().replace(' ', '_')}.png",
-        dpi=dpi,
-        bbox_inches="tight",
-    )
-    plt.close("all")
+    _save(title, dpi)

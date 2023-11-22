@@ -29,28 +29,29 @@ def test_img2gif():
     for i in range(5):
         img = np.random.randint(0, 256, (64, 64, 3), dtype=np.uint8)
         cv2.imwrite(f"{data}/{i}.png", img)
-    zz.vision.img2gif(data, "img")
-    assert "img.gif" in os.listdir()
+    zz.vision.img2gif(data, "IMG")
+    assert "IMG.gif" in os.listdir()
 
 
 def test_vid2gif():
-    zz.vision.vid2gif(f"{data}/test.mov", "vid", quality=20)
-    assert "vid.gif" in os.listdir()
+    zz.vision.vid2gif(f"{data}/test.mov", "VID", quality=20)
+    assert "VID.gif" in os.listdir()
 
 
 def test_before_after_org():
     before = cv2.imread(f"{data}/test.jpg")
     after = cv2.GaussianBlur(before, (0, 0), 25)
     after = cv2.cvtColor(after, cv2.COLOR_BGR2GRAY)
-    zz.vision.before_after(before, after, quality=10, output_filename="ba1")
-    assert "ba1.png" in os.listdir()
+    zz.vision.before_after(before, after, quality=10, output_filename="BA1")
+    assert "BA1.png" in os.listdir()
 
 
 def test_before_after_crop():
     before = cv2.imread(f"{data}/test.jpg")
     after = cv2.resize(before, (100, 100))
-    zz.vision.before_after(before, after, [20, 40, 30, 60], output_filename="ba2")
-    assert "ba2.png" in os.listdir()
+    after = cv2.cvtColor(after, cv2.COLOR_BGR2BGRA)
+    zz.vision.before_after(before, after, [20, 40, 30, 60], output_filename="BA2")
+    assert "BA2.png" in os.listdir()
 
 
 def test_grid_vertical():
@@ -58,8 +59,9 @@ def test_grid_vertical():
     test = cv2.resize(test, (200, 300))
     imgs = [(test + np.random.rand(*test.shape)).astype(np.uint8) for _ in range(8)]
     imgs[2] = cv2.cvtColor(imgs[2], cv2.COLOR_BGR2GRAY)
-    zz.vision.grid(*imgs, output_filename="grid_vertical")
-    assert "grid_vertical.png" in os.listdir()
+    imgs[3] = cv2.cvtColor(imgs[3], cv2.COLOR_BGR2BGRA)
+    zz.vision.grid(*imgs, output_filename="GRID_VERTICAL")
+    assert "GRID_VERTICAL.png" in os.listdir()
 
 
 def test_grid_horizontal():
@@ -67,11 +69,24 @@ def test_grid_horizontal():
     test = cv2.resize(test, (300, 200))
     imgs = [(test + np.random.rand(*test.shape)).astype(np.uint8) for _ in range(8)]
     imgs[2] = cv2.cvtColor(imgs[2], cv2.COLOR_BGR2GRAY)
-    zz.vision.grid(*imgs, output_filename="grid_horizontal")
-    assert "grid_horizontal.png" in os.listdir()
+    imgs[3] = cv2.cvtColor(imgs[3], cv2.COLOR_BGR2BGRA)
+    zz.vision.grid(*imgs, output_filename="GRID_HORIZONTAL")
+    assert "GRID_HORIZONTAL.png" in os.listdir()
 
 
-def test_bbox_bgr_xyxy():
+def test_vert():
+    test = cv2.imread(f"{data}/test.jpg")
+    imgs = [
+        cv2.resize(test, (random.randrange(300, 600), random.randrange(300, 600)))
+        for _ in range(5)
+    ]
+    imgs[2] = cv2.cvtColor(imgs[2], cv2.COLOR_BGR2GRAY)
+    imgs[3] = cv2.cvtColor(imgs[3], cv2.COLOR_BGR2BGRA)
+    zz.vision.vert(*imgs, output_filename="VERT")
+    assert "VERT.png" in os.listdir()
+
+
+def test_bbox_bgr_poly():
     img = cv2.imread(f"{data}/test.jpg")
     box = BOX_POLY
     BGR = zz.vision.bbox(img, box, thickness=10)
@@ -79,7 +94,7 @@ def test_bbox_bgr_xyxy():
     assert "BBOX_BGR_POLY.png" in os.listdir()
 
 
-def test_bbox_bgra_xyxy():
+def test_bbox_bgra_poly():
     img = cv2.imread(f"{data}/test.jpg")
     box = BOX_POLY
     img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
@@ -88,7 +103,7 @@ def test_bbox_bgra_xyxy():
     assert "BBOX_BGRA_POLY.png" in os.listdir()
 
 
-def test_bbox_gray_xyxy():
+def test_bbox_gray_poly():
     img = cv2.imread(f"{data}/test.jpg")
     box = BOX_POLY
     img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
@@ -97,7 +112,7 @@ def test_bbox_gray_xyxy():
     assert "BBOX_GRAY_POLY.png" in os.listdir()
 
 
-def test_bboxes_bgr_xyxy():
+def test_bboxes_bgr_poly():
     img = cv2.imread(f"{data}/test.jpg")
     boxes = BOXES_POLY
     BGR = zz.vision.bbox(img, boxes, thickness=10)
@@ -105,7 +120,7 @@ def test_bboxes_bgr_xyxy():
     assert "BBOXES_BGR_POLY.png" in os.listdir()
 
 
-def test_bboxes_bgra_xyxy():
+def test_bboxes_bgra_poly():
     img = cv2.imread(f"{data}/test.jpg")
     boxes = BOXES_POLY
     img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
@@ -114,7 +129,7 @@ def test_bboxes_bgra_xyxy():
     assert "BBOXES_BGRA_POLY.png" in os.listdir()
 
 
-def test_bboxes_gray_xyxy():
+def test_bboxes_gray_poly():
     img = cv2.imread(f"{data}/test.jpg")
     boxes = BOXES_POLY
     img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
@@ -131,7 +146,7 @@ def test_bbox_bgr_xyxwh():
     assert "BBOX_BGR_CWH.png" in os.listdir()
 
 
-def test_bbox_bgra_xywh():
+def test_bbox_bgra_cwh():
     img = cv2.imread(f"{data}/test.jpg")
     box = BOX_CWH
     img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
@@ -140,7 +155,7 @@ def test_bbox_bgra_xywh():
     assert "BBOX_BGRA_CWH.png" in os.listdir()
 
 
-def test_bbox_gray_xywh():
+def test_bbox_gray_cwh():
     img = cv2.imread(f"{data}/test.jpg")
     box = BOX_CWH
     img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
@@ -149,7 +164,7 @@ def test_bbox_gray_xywh():
     assert "BBOX_GRAY_CWH.png" in os.listdir()
 
 
-def test_bboxes_bgr_xywh():
+def test_bboxes_bgr_cwh():
     img = cv2.imread(f"{data}/test.jpg")
     boxes = BOXES_CWH
     BGR = zz.vision.bbox(img, boxes, thickness=10)
@@ -157,7 +172,7 @@ def test_bboxes_bgr_xywh():
     assert "BBOXES_BGR_CWH.png" in os.listdir()
 
 
-def test_bboxes_bgra_xywh():
+def test_bboxes_bgra_cwh():
     img = cv2.imread(f"{data}/test.jpg")
     boxes = BOXES_CWH
     img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
@@ -166,7 +181,7 @@ def test_bboxes_bgra_xywh():
     assert "BBOXES_BGRA_CWH.png" in os.listdir()
 
 
-def test_bboxes_gray_xywh():
+def test_bboxes_gray_cwh():
     img = cv2.imread(f"{data}/test.jpg")
     boxes = BOXES_CWH
     img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
@@ -203,7 +218,7 @@ def test_masks_bgra():
         cv2.circle(mask, (center_x, center_y), radius, (True), -1)
     mks = mks.astype(bool)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
-    BGRA = zz.vision.masks(img, mks, [random.randint(0, 255) for _ in range(3)])
+    BGRA = zz.vision.masks(img, mks, color=[random.randint(0, 255) for _ in range(3)])
     cv2.imwrite("MASK_BGRA.png", BGRA)
     assert "MASK_BGRA.png" in os.listdir()
 
@@ -232,7 +247,7 @@ def test_masks_gray_int():
     assert "MASK_GRAY_INT.png" in os.listdir()
 
 
-def test_masks_gray_str():
+def test_masks_bgra_str():
     img = cv2.imread(f"{data}/test.jpg")
     H, W, _ = img.shape
     cnt = 30
@@ -243,18 +258,18 @@ def test_masks_gray_str():
         radius = random.randint(30, 200)
         cv2.circle(mask, (center_x, center_y), radius, (True), -1)
     mks = mks.astype(bool)
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
     cls = ["a", "b", "c"]
     class_list = [cls[random.randint(0, 2)] for _ in range(cnt)]
     class_color = {}
     for c in cls:
         class_color[c] = [random.randint(0, 255) for _ in range(3)]
-    GRAY = zz.vision.masks(img, mks, class_list=class_list, class_color=class_color)
-    cv2.imwrite("MASK_GRAY_STR.png", GRAY)
-    assert "MASK_GRAY_STR.png" in os.listdir()
+    BGRA = zz.vision.masks(img, mks, class_list=class_list, class_color=class_color)
+    cv2.imwrite("MASK_BGRA_STR.png", BGRA)
+    assert "MASK_BGRA_STR.png" in os.listdir()
 
 
-def test_text_bgr_xyxy():
+def test_text_bgr_poly():
     img = cv2.imread(f"{data}/test.jpg")
     box = BOX_POLY
     BGR = zz.vision.text(img, box, "먼지야", vis=True)
@@ -262,7 +277,7 @@ def test_text_bgr_xyxy():
     assert "TEXT_BGR_POLY.png" in os.listdir()
 
 
-def test_text_bgra_xyxy():
+def test_text_bgra_poly():
     img = cv2.imread(f"{data}/test.jpg")
     img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
     boxes = BOXES_POLY
@@ -271,7 +286,7 @@ def test_text_bgra_xyxy():
     assert "TEXT_BGRA_POLY.png" in os.listdir()
 
 
-def test_text_gray_xyxy():
+def test_text_gray_poly():
     img = cv2.imread(f"{data}/test.jpg")
     img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
     box = BOX_POLY
@@ -280,7 +295,7 @@ def test_text_gray_xyxy():
     assert "TEXT_GRAY_POLY.png" in os.listdir()
 
 
-def test_text_bgr_xywh():
+def test_text_bgr_cwh():
     img = cv2.imread(f"{data}/test.jpg")
     boxes = BOXES_CWH
     BGR = zz.vision.text(img, boxes, ["먼지야", "먼지야", "먼지야"], vis=True)
@@ -288,7 +303,7 @@ def test_text_bgr_xywh():
     assert "TEXT_BGR_CWH.png" in os.listdir()
 
 
-def test_text_bgra_xywh():
+def test_text_bgra_cwh():
     img = cv2.imread(f"{data}/test.jpg")
     img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
     boxes = BOXES_CWH
@@ -297,7 +312,7 @@ def test_text_bgra_xywh():
     assert "TEXT_BGRA_CWH.png" in os.listdir()
 
 
-def test_text_gray_xywh():
+def test_text_gray_cwh():
     img = cv2.imread(f"{data}/test.jpg")
     img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
     box = BOX_CWH

@@ -16,11 +16,11 @@
     <meta property="og:title" content="v0.3" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/release/v0.3.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.3.3 Documents" />
-<meta property="og:description" content="v0.3.3: vision- bbox 및 text 함수에 대해 여러 데이터를 입력 받을 수 있도록 확장, Bbox 변환 함수 refactor ( cwh2xyxy, cwh2poly, xyxy2cwh, xyxy2poly, poly2cwh, poly2xyxy), 다각형 좌표를 numpy 배열로 변환하는 poly2mask 함수 개발, 이미지 내에서 지정한 좌..." />
+<meta property="og:site_name" content="Zerohertz's Library v0.3.4 Documents" />
+<meta property="og:description" content="v0.3.4: plot- seaborn package를 통해 색상을 간편하게 불러올 수 있는 color 함수 추가, 모든 graph들의 저장 방식을_save 함수로 획일화., util- MakeData 를 통한 data 구축 시 방법을 정의할 수 있는 method makeData 추가., vision- masks 함수가 단일 mask 및 poly 유형..." />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.3.3 Documents" />
-<meta name="description" content="v0.3.3: vision- bbox 및 text 함수에 대해 여러 데이터를 입력 받을 수 있도록 확장, Bbox 변환 함수 refactor ( cwh2xyxy, cwh2poly, xyxy2cwh, xyxy2poly, poly2cwh, poly2xyxy), 다각형 좌표를 numpy 배열로 변환하는 poly2mask 함수 개발, 이미지 내에서 지정한 좌..." />
+<meta property="og:image:alt" content="Zerohertz's Library v0.3.4 Documents" />
+<meta name="description" content="v0.3.4: plot- seaborn package를 통해 색상을 간편하게 불러올 수 있는 color 함수 추가, 모든 graph들의 저장 방식을_save 함수로 획일화., util- MakeData 를 통한 data 구축 시 방법을 정의할 수 있는 method makeData 추가., vision- masks 함수가 단일 mask 및 poly 유형..." />
     <link href="../_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -28,7 +28,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/release/v0.3.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>v0.3 - zerohertzLib v0.3.3 documentation</title>
+        <title>v0.3 - zerohertzLib v0.3.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -156,7 +156,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">zerohertzLib v0.3.3 documentation</div></a>
+      <a href="../index.html"><div class="brand">zerohertzLib v0.3.4 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
     <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.3.3 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.3.4 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -253,6 +253,60 @@
         <article role="main">
           <section id="v0-3">
 <h1>v0.3<a class="headerlink" href="#v0-3" title="Permalink to this heading">#</a></h1>
+<section id="v0-3-4">
+<h2>v0.3.4<a class="headerlink" href="#v0-3-4" title="Permalink to this heading">#</a></h2>
+<h3>[v0.3.4] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/105>#105</a>)</h3>
+<div class="tip admonition">
+<p class="admonition-title">Release Date</p>
+<p>2023/11/22</p>
+</div>
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/plot"><img src="https://img.shields.io/badge/feat/plot-968B14?style=flat-square&logo=github" alt="feat/plot"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/vision"><img src="https://img.shields.io/badge/feat/vision-D1F9CB?style=flat-square&logo=github" alt="feat/vision"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:style"><img src="https://img.shields.io/badge/style-03A17F?style=flat-square&logo=github" alt="style"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/util"><img src="https://img.shields.io/badge/feat/util-DEBEAA?style=flat-square&logo=github" alt="feat/util"/></a>
+</p>
+<h4>Features</h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">plot</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">seaborn</span></code> package를 통해 색상을 간편하게 불러올 수 있는 <code class="docutils literal notranslate"><span class="pre">color</span></code> 함수 추가</p></li>
+<li><p>모든 graph들의 저장 방식을 <code class="docutils literal notranslate"><span class="pre">_save</span></code> 함수로 획일화</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">util</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">MakeData</span></code>를 통한 data 구축 시 방법을 정의할 수 있는 method <code class="docutils literal notranslate"><span class="pre">makeData</span></code> 추가</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vision</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">masks</span></code> 함수가 단일 mask 및 poly 유형에도 시각화할 수 있게 확장</p></li>
+<li><p>입력된 이미지들을 가로로 나열하는 <code class="docutils literal notranslate"><span class="pre">vert</span></code> 함수 추가</p></li>
+<li><p>JSON 파일과 image를 함께 불러올 수 있는 <code class="docutils literal notranslate"><span class="pre">JsonImageLoader</span></code> class 추가</p></li>
+<li><p>지점들의 좌표 내 존재 여부 확인 함수 <code class="docutils literal notranslate"><span class="pre">isPtsInPoly</span></code> 추가</p></li>
+</ul>
+</li>
+</ul>
+<h4>Chore</h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vision</span></code> submodule의 <code class="docutils literal notranslate"><span class="pre">BGRA</span></code> 입력에 대한 test cases 추가</p></li>
+</ul>
+<h4>Style</h4>
+<ul class="simple">
+<li><p>단순 <code class="docutils literal notranslate"><span class="pre">Exception</span></code>으로 표기했던 예외 처리의 수정 (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/103">#103</a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MakeData</span></code>의 입력 및 내부 변수명 획일화</p></li>
+</ul>
+<h4>Docs</h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">zerohertzLib.vision</span></code> 내 오타 수정</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MakeData</span></code>의 예시 추가</p></li>
+<li><p>한글, 영어의 수정</p></li>
+</ul>
+</section>
 <section id="v0-3-3">
 <h2>v0.3.3<a class="headerlink" href="#v0-3-3" title="Permalink to this heading">#</a></h2>
 <h3>[v0.3.3] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/100>#100</a>)</h3>
@@ -274,14 +328,14 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">bbox</span></code> 및 <code class="docutils literal notranslate"><span class="pre">text</span></code> 함수에 대해 여러 데이터를 입력 받을 수 있도록 확장</p></li>
 <li><p>Bbox 변환 함수 refactor ( <code class="docutils literal notranslate"><span class="pre">cwh2xyxy</span></code>, <code class="docutils literal notranslate"><span class="pre">cwh2poly</span></code>, <code class="docutils literal notranslate"><span class="pre">xyxy2cwh</span></code>, <code class="docutils literal notranslate"><span class="pre">xyxy2poly</span></code>, <code class="docutils literal notranslate"><span class="pre">poly2cwh</span></code>, <code class="docutils literal notranslate"><span class="pre">poly2xyxy</span></code>)</p></li>
 <li><p>다각형 좌표를 <code class="docutils literal notranslate"><span class="pre">numpy</span></code> 배열로 변환하는 <code class="docutils literal notranslate"><span class="pre">poly2mask</span></code> 함수 개발</p></li>
-<li><p>이미지 내에서 지정한 좌표를 제외한 부분을 투명화하고 선택적으로 crop 할 수 있는 <code class="docutils literal notranslate"><span class="pre">cutout</span></code> 함수 개발</p></li>
-<li><p>Alpha channel이 존재하는 이미지를 원하는 이미지 위에 투명도를 포함하여 병합하는 함수 <code class="docutils literal notranslate"><span class="pre">paste</span></code> 추가</p></li>
+<li><p>Image 내에서 지정한 좌표를 제외한 부분을 투명화하고 선택적으로 crop 할 수 있는 <code class="docutils literal notranslate"><span class="pre">cutout</span></code> 함수 개발</p></li>
+<li><p>Alpha channel이 존재하는 image를 원하는 image 위에 투명도를 포함하여 병합하는 함수 <code class="docutils literal notranslate"><span class="pre">paste</span></code> 추가</p></li>
 </ul>
 </li>
 </ul>
 <h4>Chore</h4>
 <ul class="simple">
-<li><p>예제 이미지 변경 (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/99">#99</a>)</p></li>
+<li><p>예제 image 변경 (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/99">#99</a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">license</span></code> 및 <code class="docutils literal notranslate"><span class="pre">classifiers</span></code> 추가</p></li>
 </ul>
 <h4>Style</h4>
@@ -292,7 +346,7 @@
 <ul class="simple">
 <li><p>PyPI badge 수정</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">vision</span></code> 설명 란에 <code class="docutils literal notranslate"><span class="pre">cwh</span></code>, <code class="docutils literal notranslate"><span class="pre">xyxy</span></code>, <code class="docutils literal notranslate"><span class="pre">poly</span></code> 설명 추가</p></li>
-<li><p>문서 내 이미지의 폭 수정</p></li>
+<li><p>문서 내 image의 폭 수정</p></li>
 </ul>
 </section>
 <section id="v0-3-2">
@@ -444,6 +498,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">v0.3</a><ul>
+<li><a class="reference internal" href="#v0-3-4">v0.3.4</a></li>
 <li><a class="reference internal" href="#v0-3-3">v0.3.3</a></li>
 <li><a class="reference internal" href="#v0-3-2">v0.3.2</a></li>
 <li><a class="reference internal" href="#v0-3-1">v0.3.1</a></li>
@@ -461,7 +516,7 @@
   </div>
 </div><script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=563000a4"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=9db99069"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>

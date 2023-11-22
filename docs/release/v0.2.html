@@ -16,11 +16,11 @@
     <meta property="og:title" content="v0.2" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/release/v0.2.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.3.3 Documents" />
-<meta property="og:description" content="v0.2.6: Jenkin의 Deploy stage 구동 조건 수정, Release Notes의 원본 파일 ( sphinx/source) push 수정, PR label controller 수정 ( fix). api- Release Note 제작 함수의 일부 로직 수정., monitoring- CPU의 사용률을 시각화하는 함수 cpu() 개발 (res..." />
+<meta property="og:site_name" content="Zerohertz's Library v0.3.4 Documents" />
+<meta property="og:description" content="v0.2.6: Jenkin의 Deploy stage 구동 조건 수정, Release Notes의 원본 파일 ( sphinx/source) push 수정, PR label controller 수정 ( fix). api- Release Note 제작 함수의 일부 logic 수정., monitoring- CPU의 사용률을 시각화하는 함수 cpu() 개발 (..." />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.3.3 Documents" />
-<meta name="description" content="v0.2.6: Jenkin의 Deploy stage 구동 조건 수정, Release Notes의 원본 파일 ( sphinx/source) push 수정, PR label controller 수정 ( fix). api- Release Note 제작 함수의 일부 로직 수정., monitoring- CPU의 사용률을 시각화하는 함수 cpu() 개발 (res..." />
+<meta property="og:image:alt" content="Zerohertz's Library v0.3.4 Documents" />
+<meta name="description" content="v0.2.6: Jenkin의 Deploy stage 구동 조건 수정, Release Notes의 원본 파일 ( sphinx/source) push 수정, PR label controller 수정 ( fix). api- Release Note 제작 함수의 일부 logic 수정., monitoring- CPU의 사용률을 시각화하는 함수 cpu() 개발 (..." />
     <link href="../_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -28,7 +28,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/release/v0.2.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>v0.2 - zerohertzLib v0.3.3 documentation</title>
+        <title>v0.2 - zerohertzLib v0.3.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -156,7 +156,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">zerohertzLib v0.3.3 documentation</div></a>
+      <a href="../index.html"><div class="brand">zerohertzLib v0.3.4 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
     <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.3.3 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.3.4 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -291,7 +291,7 @@
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">api</span></code></p>
 <ul>
-<li><p>Release Note 제작 함수의 일부 로직 수정</p></li>
+<li><p>Release Note 제작 함수의 일부 logic 수정</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">monitoring</span></code></p>
@@ -303,7 +303,7 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">plot</span></code></p>
 <ul>
 <li><p>Line chart의 <code class="docutils literal notranslate"><span class="pre">xlim</span></code>, <code class="docutils literal notranslate"><span class="pre">ylim</span></code>, <code class="docutils literal notranslate"><span class="pre">ncol</span></code> 추가</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">marker</span></code>의 index를 넘는 케이스를 방지하기 위한 수정</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">marker</span></code>의 index를 넘는 case를 방지하기 위한 수정</p></li>
 </ul>
 </li>
 </ul>
@@ -386,7 +386,7 @@
 </p>
 <h4>Chore</h4>
 <ul class="simple">
-<li><p>Merge From Docs stage의 trigger 변경 (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/73">#73</a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Merge</span> <span class="pre">From</span> <span class="pre">Docs</span></code> stage의 trigger 변경 (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/73">#73</a>)</p></li>
 </ul>
 <h4>Docs</h4>
 <ul class="simple">
@@ -414,8 +414,8 @@
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">util</span></code> (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/69">#69</a>)</p>
 <ul>
-<li><p>json 형식 파일을 읽고 사용하기 위한 클래스 <code class="docutils literal notranslate"><span class="pre">Json</span></code>, <code class="docutils literal notranslate"><span class="pre">JsonDir</span></code> 개발</p></li>
-<li><p>json 파일 내 값에 따라 data를 구축하는 <code class="docutils literal notranslate"><span class="pre">MakeData</span></code> 객체 개발</p></li>
+<li><p>JSON 형식 파일을 읽고 사용하기 위한 class <code class="docutils literal notranslate"><span class="pre">Json</span></code>, <code class="docutils literal notranslate"><span class="pre">JsonDir</span></code> 개발</p></li>
+<li><p>JSON 파일 내 값에 따라 data를 구축하는 <code class="docutils literal notranslate"><span class="pre">MakeData</span></code> 객체 개발</p></li>
 <li><p>CSV, TSV JSON 파일을 작성하는 함수 <code class="docutils literal notranslate"><span class="pre">write_csv</span></code>, <code class="docutils literal notranslate"><span class="pre">write_json</span></code> 함수 개발</p></li>
 </ul>
 </li>
@@ -454,8 +454,8 @@
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">api</span></code></p>
 <ul>
-<li><p>GitHub API 활용을 위한 <code class="docutils literal notranslate"><span class="pre">GitHub</span></code> 객체 개발 (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/62">#62</a>)</p></li>
-<li><p>Release note의 문서화를 위한 메서드 개발</p></li>
+<li><p>GitHub API 활용을 위한 <code class="docutils literal notranslate"><span class="pre">GitHub</span></code> class 개발 (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/62">#62</a>)</p></li>
+<li><p>Release note의 문서화를 위한 method 개발</p></li>
 </ul>
 </li>
 </ul>
@@ -530,7 +530,7 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">api</span></code></p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">Discord</span></code> 객체화</p></li>
-<li><p>이미지 전송 메서드 개발 (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/50">#50</a>)</p></li>
+<li><p>Image 전송 method 개발 (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/50">#50</a>)</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">logging</span></code></p>
@@ -540,7 +540,7 @@
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">vision</span></code></p>
 <ul>
-<li><p>이미지 시각화 함수 <code class="docutils literal notranslate"><span class="pre">bbox</span></code>, <code class="docutils literal notranslate"><span class="pre">masks</span></code>, <code class="docutils literal notranslate"><span class="pre">text</span></code> 개발 (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/49">#49</a>)</p></li>
+<li><p>Image 시각화 함수 <code class="docutils literal notranslate"><span class="pre">bbox</span></code>, <code class="docutils literal notranslate"><span class="pre">masks</span></code>, <code class="docutils literal notranslate"><span class="pre">text</span></code> 개발 (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/49">#49</a>)</p></li>
 <li><p>Bbox에 대한 전환 함수 개발 (<code class="docutils literal notranslate"><span class="pre">xyxy2xywh</span></code>, <code class="docutils literal notranslate"><span class="pre">xywh2xyxy</span></code>)</p></li>
 </ul>
 </li>
@@ -658,7 +658,7 @@
   </div>
 </div><script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=563000a4"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=9db99069"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
