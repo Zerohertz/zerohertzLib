@@ -99,9 +99,9 @@ def masks(
     """Masks 시각화
 
     Args:
-        img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, C]``)
-        mks (``Optional[NDArray[bool]]``): 입력 이미지 위에 병합할 mask (``[H, W]`` or ``[N, H, W]``)
-        poly (``Optional[NDArray[DTypeLike]]``): 입력 이미지 위에 병합할 mask (``[N, 2]``)
+        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
+        mks (``Optional[NDArray[bool]]``): 입력 image 위에 병합할 mask (``[H, W]`` or ``[N, H, W]``)
+        poly (``Optional[NDArray[DTypeLike]]``): 입력 image 위에 병합할 mask (``[N, 2]``)
         color (``Optional[Tuple[int]]``): Mask의 색
         class_list (``Optional[List[Union[int, str]]]``): ``mks`` 의 index에 따른 class
         class_color (``Optional[Dict[Union[int, str], Tuple[int]]]``): Class에 따른 색 (``color`` 무시)
@@ -178,11 +178,11 @@ def masks(
 
 
 def _paste(img: NDArray[np.uint8], target: NDArray[np.uint8]) -> NDArray[np.uint8]:
-    """``target`` 이미지를 ``img`` 위에 투명도를 포함하여 병합
+    """``target`` image를 ``img`` 위에 투명도를 포함하여 병합
 
     Args:
-        img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, 4]``)
-        target (``NDArray[np.uint8]``): 타겟 이미지 (``[H, W, 4]``)
+        img (``NDArray[np.uint8]``): 입력 image (``[H, W, 4]``)
+        target (``NDArray[np.uint8]``): Target image (``[H, W, 4]``)
 
     Returns:
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
@@ -195,11 +195,11 @@ def _paste(img: NDArray[np.uint8], target: NDArray[np.uint8]) -> NDArray[np.uint
 
 
 def _make_text(txt: str, shape: Tuple[int], color: Tuple[int]) -> NDArray[np.uint8]:
-    """배경이 투명한 문자열 이미지 생성
+    """배경이 투명한 문자열 image 생성
 
     Args:
         txt (``str``): 입력 문자열
-        shape (``Tuple[int]``): 출력 이미지의 shape
+        shape (``Tuple[int]``): 출력 image의 shape
         color (``Tuple[int]``): 글씨의 색
 
     Returns:
@@ -247,9 +247,9 @@ def _text(
     """단일 text 시각화
 
     Args:
-        img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, C]``)
+        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
         box_xywh (``NDArray[DTypeLike]``): 문자열이 존재할 bbox (``[4, 2]``)
-        txt (``str``): 이미지에 추가할 문자열
+        txt (``str``): Image에 추가할 문자열
         color (``Tuple[int]``): 문자의 색
 
     Returns:
@@ -273,9 +273,9 @@ def text(
     """Text 시각화
 
     Args:
-        img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, C]``)
+        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
         box (``NDArray[DTypeLike]``): 문자열이 존재할 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
-        txt (``str``): 이미지에 추가할 문자열
+        txt (``str``): Image에 추가할 문자열
         color (``Optional[Tuple[int]]``): 문자의 색
         vis (``Optional[bool]``): 문자 영역의 시각화 여부
 
@@ -329,13 +329,13 @@ def cutout(
     crop: Optional[bool] = True,
     background: Optional[int] = 0,
 ) -> NDArray[np.uint8]:
-    """이미지 내에서 지정한 좌표를 제외한 부분을 투명화
+    """Image 내에서 지정한 좌표를 제외한 부분을 투명화
 
     Args:
-        img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, C]``)
+        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
         poly (``NDArray[DTypeLike]``): 지정할 좌표 (``[N, 2]``)
         alpha (``Optional[int]``): 지정한 좌표 영역의 투명도
-        crop (``Optional[bool]``): 출력 이미지의 Crop 여부
+        crop (``Optional[bool]``): 출력 image의 Crop 여부
         background (``Optional[int]``): 지정한 좌표 외 배경의 투명도
 
     Returns:
@@ -380,7 +380,7 @@ def paste(
     resize: Optional[bool] = False,
     vis: Optional[bool] = False,
 ) -> NDArray[np.uint8]:
-    """``target`` 이미지를 ``img`` 위에 투명도를 포함하여 병합
+    """``target`` image를 ``img`` 위에 투명도를 포함하여 병합
 
     Note:
         `PIL.Image.paste` 를 `numpy` 와 `cv2` 기반으로 구현
@@ -390,10 +390,10 @@ def paste(
         >>> img.paste(target, (0, 0), target)
 
     Args:
-        img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, C]``)
-        target (``NDArray[np.uint8]``): 타겟 이미지 (``[H, W, 4]``)
+        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
+        target (``NDArray[np.uint8]``): Target image (``[H, W, 4]``)
         box (``List[int]``): 병합될 영역 (``xyxy`` 형식)
-        resize (``Optional[bool]``): 타겟 이미지의 resize 여부
+        resize (``Optional[bool]``): Target image의 resize 여부
         vis (``Optional[bool]``): 지정한 영역 (``box``)의 시각화 여부
 
     Returns:

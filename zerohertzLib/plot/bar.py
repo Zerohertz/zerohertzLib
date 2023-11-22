@@ -24,7 +24,7 @@ def bar(
         data (``Dict[str, Union[int, float]]``): 입력 데이터
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
-        title (``Optional[str]``): Graph에 표시될 제목 및 파일명
+        title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
         ratio (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         rot: (``Optional[int]``): X축의 눈금 회전 각도
@@ -86,7 +86,7 @@ def barh(
         data (``Dict[str, Union[int, float]]``): 입력 데이터
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
-        title (``Optional[str]``): Graph에 표시될 제목 및 파일명
+        title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
         ratio (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         rot: (``Optional[int]``): X축의 눈금 회전 각도
@@ -150,7 +150,7 @@ def hist(
         data (``Dict[str, List[Union[int, float]]]``): 입력 데이터
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
-        title (``Optional[str]``): Graph에 표시될 제목 및 파일명
+        title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
         cnt (``Optional[int]``): Bin의 개수
         ovp (``Optional[bool]``): Class에 따른 histogram overlap 여부
         ratio (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이

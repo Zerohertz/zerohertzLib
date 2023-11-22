@@ -7,13 +7,13 @@ from numpy.typing import DTypeLike, NDArray
 
 
 def _cvtBGRA(img: NDArray[np.uint8]) -> NDArray[np.uint8]:
-    """cv2로 읽어온 이미지를 BGRA 채널로 전환
+    """cv2로 읽어온 image를 BGRA 채널로 전환
 
     Args:
-        img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, C]``)
+        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
 
     Returns:
-        ``NDArray[np.uint8]``: BGRA 이미지 (``[H, W, 4]``)
+        ``NDArray[np.uint8]``: BGRA image (``[H, W, 4]``)
     """
     shape = img.shape
     if len(shape) == 2:

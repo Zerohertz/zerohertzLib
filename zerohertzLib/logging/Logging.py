@@ -8,14 +8,14 @@ from zerohertzLib.api import Discord
 
 
 class Logger:
-    """이쁘게 Log를 찍어보는 Class ~!
+    """이쁘게 log를 찍어보는 class
 
     Note:
         더 예뻐지고 싶습니다...
 
     Args:
         logger_name (``Optional[str]``): Logger의 이름
-        file_name(``Optional[str]``): ``.log`` 파일의 이름 (미입력 시 미출력)
+        file_name(``Optional[str]``): ``.log`` file의 이름 (미입력 시 미출력)
         discord (``Optional[str]``): Discord webhook의 URL (``loggerLevel`` 적용)
         loggerLevel (``Optional[int]``): ``logging.getLogger`` 의 level
         consoleLevel (``Optional[int]``): ``logging.StreamHandler`` 의 level

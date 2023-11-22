@@ -28,7 +28,7 @@ def plot(
         xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
         ylim (``Optional[List[Union[int, float]]]``): Graph에 출력될 Y축 limit
         ncol (``Optional[int]``): Graph에 표시될 legend 열의 수
-        title (``Optional[str]``): Graph에 표시될 제목 및 파일명
+        title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
         ratio (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
 

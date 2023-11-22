@@ -9,25 +9,25 @@ import zerohertzLib as zz
 
 
 class JsonImageLoader:
-    """json 파일을 통해 이미지와 json 파일 내 정보를 불러오는 class
+    """JSON file을 통해 image와 JSON file 내 정보를 불러오는 class
 
     Args:
         dataPath (``str``): 목표 data가 존재하는 directory 경로
-        jsonPath (``str``): 목표 json 파일이 존재하는 directory 경로
-        jsonKey (``str``): ``dataPath`` 에서 data의 파일명을 나타내는 key 값
+        jsonPath (``str``): 목표 JSON file이 존재하는 directory 경로
+        jsonKey (``str``): ``dataPath`` 에서 data의 file 이름을 나타내는 key 값
 
     Attributes:
-        gt (``zerohertzLib.util.JsonDir``): json 파일들을 읽어 data 구축 시 활용
+        gt (``zerohertzLib.util.JsonDir``): JSON file들을 읽어 data 구축 시 활용
 
     Methods:
         __getitem__:
-            읽어온 json 파일들을 list와 같이 indexing 후 해당하는 이미지 return
+            읽어온 JSON file들을 list와 같이 indexing 후 해당하는 image return
 
             Args:
                 idx (``int``): 입력 index
 
             Returns:
-                ``Tuple[NDArray[np.uint8], zerohertzLib.util.Json]``: 이미지와 json 내 정보
+                ``Tuple[NDArray[np.uint8], zerohertzLib.util.Json]``: Image와 JSON 내 정보
 
     Examples:
         >>> jil = zz.vision.JsonImageLoader(dataPath, jsonPath, jsonKey)

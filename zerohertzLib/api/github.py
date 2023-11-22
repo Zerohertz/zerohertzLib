@@ -8,7 +8,7 @@ import requests
 
 
 class GitHub:
-    """GitHub API를 사용하기 위한 클래스
+    """GitHub API를 사용하기 위한 class
 
     Args:
         user (``Optional[str]``): GitHub API를 호출할 user
@@ -21,7 +21,7 @@ class GitHub:
             API 호출 수행
 
             Args:
-                lab (``Optional[str]``): 선택할 GitHub repository의 label (``issue=False`` 시 에러 발생)
+                lab (``Optional[str]``): 선택할 GitHub repository의 label (``issue=False`` 시 error 발생)
                 per_page (``Optional[int]``): 1회 호출 시 출력될 결과의 수
 
             Returns:

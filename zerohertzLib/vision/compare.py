@@ -20,18 +20,18 @@ def before_after(
     quality: Optional[int] = 100,
     output_filename: Optional[str] = "tmp",
 ) -> None:
-    """두 이미지를 비교하는 이미지 생성
+    """두 image를 비교하는 image 생성
 
     Args:
-        before (``NDArray[np.uint8]``): 원본 이미지
-        after (``NDArray[np.uint8]``): 영상 처리 혹은 모델 추론 후 이미지
+        before (``NDArray[np.uint8]``): 원본 image
+        after (``NDArray[np.uint8]``): 영상 처리 혹은 모델 추론 후 image
         area: (``Optional[List[Union[int, float]]]``): 비교할 좌표 (``[x0, y0, x1, y1]``)
         per (``Optional[bool]``): ``area`` 의 백분율 여부
-        quality (``Optional[int]``): 출력 이미지의 quality (단위: %)
-        output_filename: (``Optional[str]``): 저장될 파일의 이름
+        quality (``Optional[int]``): 출력 image의 quality (단위: %)
+        output_filename: (``Optional[str]``): 저장될 file의 이름
 
     Returns:
-        ``None``: 현재 directory에 바로 이미지 저장
+        ``None``: 현재 directory에 바로 image 저장
 
     Examples:
 
@@ -90,15 +90,15 @@ def grid(
     size: Optional[int] = 1000,
     output_filename: Optional[str] = "tmp",
 ) -> None:
-    """여러 이미지를 입력받아 한 이미지로 병합
+    """여러 image를 입력받아 한 정방형 image로 병합
 
     Args:
-        *imgs (``List[NDArray[np.uint8]]``): 입력 이미지
-        size: (``Optional[int]``): 출력 이미지의 크기
-        output_filename: (``Optional[str]``): 저장될 파일의 이름
+        *imgs (``List[NDArray[np.uint8]]``): 입력 image
+        size: (``Optional[int]``): 출력 image의 크기
+        output_filename: (``Optional[str]``): 저장될 file의 이름
 
     Returns:
-        ``None``: 현재 directory에 바로 이미지 저장
+        ``None``: 현재 directory에 바로 image 저장
 
     Examples:
         >>> tmp = cv2.imread("test.jpg")
@@ -151,15 +151,15 @@ def vert(
     height: int = 1000,
     output_filename: Optional[str] = "tmp",
 ):
-    """여러 이미지를 입력받아 한 이미지로 병합
+    """여러 image를 입력받아 한 가로 image로 병합
 
     Args:
-        *imgs (``List[NDArray[np.uint8]]``): 입력 이미지
-        height: (``Optional[int]``): 출력 이미지의 높이
-        output_filename: (``Optional[str]``): 저장될 파일의 이름
+        *imgs (``List[NDArray[np.uint8]]``): 입력 image
+        height: (``Optional[int]``): 출력 image의 높이
+        output_filename: (``Optional[str]``): 저장될 file의 이름
 
     Returns:
-        ``None``: 현재 directory에 바로 이미지 저장
+        ``None``: 현재 directory에 바로 image 저장
 
     Examples:
         >>> tmp = cv2.imread("test.jpg")

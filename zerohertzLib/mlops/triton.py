@@ -6,12 +6,12 @@ from tritonclient.utils import triton_to_np_dtype
 
 
 class TritonClientURL:
-    """외부에서 실행되는 Triton Inference Server의 호출을 위한 Class
+    """외부에서 실행되는 triton inference server의 호출을 위한 class
 
     Args:
-        URL (``str``): 호출할 Triton Inference Server의 URL
-        model_name(``str``): 호출할 Triton Inference Server 내 model의 이름
-        port (``Optional[int]``): Triton Inference Server의 GRPC 통신 port 번호
+        URL (``str``): 호출할 triton inference server의 URL
+        model_name(``str``): 호출할 triton inference server 내 model의 이름
+        port (``Optional[int]``): triton inference server의 GRPC 통신 port 번호
 
     Attributes:
         inputs (``List[Dict[str, Any]]``): 지정된 model의 입력
@@ -77,13 +77,13 @@ class TritonClientURL:
 
 
 class TritonClientK8s(TritonClientURL):
-    """Kubernetes에서 실행되는 Triton Inference Server의 호출을 위한 Class
+    """Kubernetes에서 실행되는 triton inference server의 호출을 위한 class
 
     Args:
-        svc_name (``str``): 호출할 Triton Inference Server의 Kubernetes Service의 이름
-        namespace (``str``): 호출할 Triton Inference Server의 Namespace
-        model_name(``str``): 호출할 Triton Inference Server 내 model의 이름
-        port (``Optional[int]``): Triton Inference Server의 GRPC 통신 port 번호
+        svc_name (``str``): 호출할 triton inference server의 Kubernetes service의 이름
+        namespace (``str``): 호출할 triton inference server의 namespace
+        model_name(``str``): 호출할 triton inference server 내 model의 이름
+        port (``Optional[int]``): triton inference server의 GRPC 통신 port 번호
 
     Attributes:
         inputs (``List[Dict[str, Any]]``): 지정된 model의 입력

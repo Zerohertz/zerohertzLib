@@ -6,11 +6,11 @@ def fft(sig: List[complex], inv: Optional[bool] = False) -> List[complex]:
     """FFT (Fast Fourier Transform)를 수행하기 위한 함수
 
     Args:
-        sig (``List[complex]``): 입력 신호 (복소수 리스트)
+        sig (``List[complex]``): 입력 신호 (복소수 list)
         inv (``Optional[bool]``): 변환 방향을 지정 (``False``: 정방향, ``True``: 역방향)
 
     Returns:
-        ``List[complex]``: 변환된 결과 (복소수 리스트)
+        ``List[complex]``: 변환된 결과 (복소수 list)
 
     Examples:
         >>> zz.algorithm.fft([1, 0, 0, 0])

@@ -6,7 +6,7 @@ import requests
 
 
 class Discord:
-    """Discord Webhook의 데이터 전송을 위한 클래스
+    """Discord Webhook의 데이터 전송을 위한 class
 
     Args:
         webhook_url (``str``): Discord Webhook의 URL
@@ -36,12 +36,12 @@ class Discord:
         t: Optional[int] = 1,
         codeblock: Optional[bool] = False,
     ) -> List[requests.models.Response]:
-        """Discord Webhook에 메세지 전송
+        """Discord Webhook에 message 전송
 
         Args:
             message (``str``): Discord Webhook의 입력
             t (``Optional[int]``): ``message`` 의 전송 간 간격 (``message`` 가 1500자 이내라면 0)
-            codeblock (``Optional[bool]``): 전송되는 메세지의 스타일
+            codeblock (``Optional[bool]``): 전송되는 message의 스타일
 
         Returns:
             ``List[requests.models.Response]``: Discord Webhook의 응답
@@ -63,10 +63,10 @@ class Discord:
         return responses
 
     def image(self, image_path: str) -> requests.models.Response:
-        """Discord Webhook에 이미지 전송
+        """Discord Webhook에 image 전송
 
         Args:
-            image_path (``str``): 전송할 이미지 경로
+            image_path (``str``): 전송할 image 경로
 
         Returns:
             ``requests.models.Response``: Discord Webhook의 응답

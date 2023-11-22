@@ -8,18 +8,18 @@ from .json import Json, JsonDir
 
 
 class MakeData:
-    """json 파일 내 값에 따라 data를 구축하는 함수
+    """JSON file 내 값에 따라 data를 구축하는 함수
 
     Args:
         startDataPath (``str``): 목표 data가 존재하는 directory 경로
-        startJsonPath (``str``): 목표 json 파일이 존재하는 directory 경로
-        jsonKey (``str``): ``dataPath`` 에서 data의 파일명을 나타내는 key 값
+        startJsonPath (``str``): 목표 JSON file이 존재하는 directory 경로
+        jsonKey (``str``): ``dataPath`` 에서 data의 file 이름을 나타내는 key 값
         targetPath (``str``): Data 구축 경로
-        endDataDir (``Optional[str]``): 구축될 data 파일들의 directory 이름
-        endJsonDir (``Optional[str]``): 구축될 json 파일들의 directory 이름
+        endDataDir (``Optional[str]``): 구축될 data file들의 directory 이름
+        endJsonDir (``Optional[str]``): 구축될 JSON file들의 directory 이름
 
     Attributes:
-        gt (``zerohertzLib.util.JsonDir``): json 파일들을 읽어 data 구축 시 활용
+        gt (``zerohertzLib.util.JsonDir``): JSON file들을 읽어 data 구축 시 활용
         endDataPath (``str``): ``{targetPath}/{endDataDir}``
         endJsonPath (``str``): ``{targetPath}/{endJsonDir}``
     """

@@ -6,8 +6,8 @@ def bfs(maps: List[List[int]], start: int) -> List[int]:
     """BFS를 수행하기 위한 함수
 
     Args:
-        maps (``List[List[int]]``): 입력 그래프
-        start (``int``): 그래프의 시작 지점
+        maps (``List[List[int]]``): 입력 graph
+        start (``int``): Graph의 시작 지점
 
     Returns:
         ``List[int]``: 방문 순서
@@ -35,8 +35,8 @@ def dfs(maps: List[List[int]], start: int) -> List[int]:
     """DFS를 수행하기 위한 함수
 
     Args:
-        maps (``List[List[int]]``): 입력 그래프
-        start (``int``): 그래프의 시작 지점
+        maps (``List[List[int]]``): 입력 graph
+        start (``int``): Graph의 시작 지점
 
     Returns:
         ``List[int]``: 방문 순서

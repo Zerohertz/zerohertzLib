@@ -7,32 +7,32 @@ from tqdm import tqdm
 
 
 class Json:
-    """json 형식 파일을 읽고 사용하기 위한 클래스
+    """JSON 형식 file을 읽고 사용하기 위한 class
 
-    객체 생성 시 ``path`` 를 입력하지 않을 시 현재 경로에 존재하는 json 파일을 읽고 ``path`` 를 경로로 입력하면 해당 경로에 존재하는 json 파일을 읽는다.
+    객체 생성 시 ``path`` 를 입력하지 않을 시 현재 경로에 존재하는 JSON file을 읽고 ``path`` 를 경로로 입력하면 해당 경로에 존재하는 JSON file을 읽는다.
 
     Args:
-        path (``Optional[str]``): json 파일의 경로
+        path (``Optional[str]``): JSON file의 경로
 
     Attributes:
-        name (``str``): json 파일명
-        keys (``List[str]``): 직렬화된 json의 key 값들
+        name (``str``): JSON file 이름
+        keys (``List[str]``): 직렬화된 JSON의 key 값들
 
     Methods:
         __getitem__:
-            읽어온 json 파일에 key 값 입력
+            읽어온 JSON file에 key 값 입력
 
             Args:
-                key (``str``): 읽어온 json 파일에서 불러올 key 값
+                key (``str``): 읽어온 JSON file에서 불러올 key 값
 
             Returns:
                 ``Any``: Key에 따른 value 값
 
         _getKey:
-            Key의 경로를 찾아주는 메서드
+            Key의 경로를 찾아주는 method
 
             Args:
-                key (``str``): 읽어온 json 파일에서 불러올 key 값 (깊이 무관)
+                key (``str``): 읽어온 JSON file에서 불러올 key 값 (깊이 무관)
 
             Returns:
                 ``str``: ``/`` 으로 깊이를 표시한 key 값
@@ -113,7 +113,7 @@ class Json:
         """``Json._getKey`` 로 생성된 key 값을 입력 받아 value return
 
         Args:
-            key (``str``): 읽어온 json 파일에서 불러올 key 값 (깊이 무관)
+            key (``str``): 읽어온 JSON file에서 불러올 key 값 (깊이 무관)
 
         Returns:
             ``Any``: Key에 따른 value
@@ -135,7 +135,7 @@ class Json:
         return self._getValue(self._getKey(key))
 
     def tree(self) -> None:
-        """json의 구조를 출력하는 메서드
+        """JSON의 구조를 출력하는 method
 
         Examples:
             >>> js.tree()
@@ -152,24 +152,24 @@ class Json:
 
 
 class JsonDir:
-    """입력된 경로에 존재하는 json 형식 파일들을 읽고 사용하기 위한 클래스
+    """입력된 경로에 존재하는 JSON 형식 file들을 읽고 사용하기 위한 class
 
-    객체 생성 시 ``path`` 를 입력하지 않을 시 현재 경로에 존재하는 json 파일들을 읽는다.
+    객체 생성 시 ``path`` 를 입력하지 않을 시 현재 경로에 존재하는 JSON file들을 읽는다.
 
     Args:
-        path (``Optional[str]``): json 파일의 경로
+        path (``Optional[str]``): JSON file의 경로
 
     Attributes:
-        name (``str``): 읽어온 json 파일명들
-        data (``Dict[str, zerohertzLib.util.Json]``): 파일명에 따른 `Json` 객체 배열
+        name (``str``): 읽어온 JSON file의 이름들
+        data (``Dict[str, zerohertzLib.util.Json]``): File 이름에 따른 `Json` 객체 배열
 
     Methods:
         __len__:
             Returns:
-                ``int``: 읽어온 json 파일들의 수
+                ``int``: 읽어온 JSON file들의 수
 
         __getitem__:
-            읽어온 json 파일들을 list와 같이 indexing
+            읽어온 JSON file들을 list와 같이 indexing
 
             Args:
                 idx (``int``): 입력 index
@@ -178,10 +178,10 @@ class JsonDir:
                 ``zerohertzLib.util.Json``: Index에 따른 ``Json`` instance
 
         _getKey:
-            Key의 경로를 찾아주는 메서드
+            Key의 경로를 찾아주는 method
 
             Args:
-                key (``str``): 읽어온 json 파일에서 불러올 key 값 (깊이 무관)
+                key (``str``): 읽어온 JSON file에서 불러올 key 값 (깊이 무관)
 
             Returns:
                 ``str``: ``/`` 으로 깊이를 표시한 key 값
@@ -219,7 +219,7 @@ class JsonDir:
         return self[0]._getKey(key)
 
     def tree(self) -> None:
-        """json의 구조를 출력하는 메서드
+        """JSON의 구조를 출력하는 method
 
         Examples:
             >>> jsd.tree()
@@ -234,10 +234,10 @@ class JsonDir:
         self[0].tree()
 
     def unique(self, key: str) -> Set[str]:
-        """읽어온 json 데이터들의 유일한 값을 return하는 메서드
+        """읽어온 JSON 데이터들의 유일한 값을 return하는 method
 
         Args:
-            key (``str``): 읽어온 json 파일에서 불러올 key 값
+            key (``str``): 읽어온 JSON file에서 불러올 key 값
 
         Returns:
             ``Set[str]``: Key에 따른 유일한 값들의 집합
@@ -257,14 +257,14 @@ class JsonDir:
 
 
 def write_json(data: Union[Dict[Any, Any], List[Dict[Any, Any]]], path: str) -> str:
-    """JSON (JavaScript Object Notation)를 작성하는 함수
+    """JSON (JavaScript Object Notation)을 작성하는 함수
 
     Args:
         data (``Dict[Any, Any]``): 입력 데이터 (header 포함 무관)
-        path (``str``): 출력될 json 파일의 경로 및 파일명
+        path (``str``): 출력될 JSON file의 경로 및 이름
 
     Returns:
-        ``str``: 파일의 절대 경로
+        ``str``: File의 절대 경로
 
     Examples:
         >>> zz.util.write_json([{"id": "4169", "전투력": 4209, "정보": ["아무", "거나"]}]*100, "zerohertzLib/star_craft")

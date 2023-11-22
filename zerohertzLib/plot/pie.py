@@ -19,7 +19,7 @@ def pie(
     Args:
         data (``Dict[str, Union[int, float]]``): 입력 데이터
         dim: (``Optional[str]``): 입력 ``data`` 의 단위
-        title (``Optional[str]``): Graph에 표시될 제목 및 파일명
+        title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
         ratio (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         int_label: (``Optional[bool]``): Label 내 수치의 소수점 표기 여부
