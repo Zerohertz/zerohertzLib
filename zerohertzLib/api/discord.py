@@ -52,7 +52,9 @@ class Discord:
         if codeblock:
             message = "```\n" + message + "\n```"
         data = {"content": message}
-        return requests.post(self.webhook_url, data=json.dumps(data), headers=headers)
+        return requests.post(
+            self.webhook_url, data=json.dumps(data), headers=headers, timeout=10
+        )
 
     def message(
         self,
@@ -104,5 +106,5 @@ class Discord:
             files = {
                 "file": (image_path, file),
             }
-            response = requests.post(self.webhook_url, files=files)
+            response = requests.post(self.webhook_url, files=files, timeout=10)
         return response

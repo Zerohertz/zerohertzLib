@@ -106,7 +106,9 @@ class GitHub:
                 "per_page": per_page,
                 "labels": lab,
             }
-        response = requests.get(self.url, headers=self.headers, params=params)
+        response = requests.get(
+            self.url, headers=self.headers, params=params, timeout=10
+        )
         if not response.status_code == 200:
             raise OSError(
                 f"GitHub API Response: {response.status_code}\n\t{response.json()}"
