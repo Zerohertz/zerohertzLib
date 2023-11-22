@@ -5,6 +5,24 @@ from matplotlib.path import Path
 from numpy.typing import DTypeLike, NDArray
 
 
+def _cvtBGRA(img: NDArray[np.uint8]) -> NDArray[np.uint8]:
+    """cv2로 읽어온 이미지를 BGRA 채널로 전환
+
+    Args:
+        img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, C]``)
+
+    Returns:
+        ``NDArray[np.uint8]``: BGRA 이미지 (``[H, W, 4]``)
+    """
+    shape = img.shape
+    if len(shape) == 2:
+        return cv2.cvtColor(img, cv2.COLOR_GRAY2BGRA)
+    elif shape[2] == 3:
+        return cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
+    else:
+        return img
+
+
 def _isBbox(shape: Tuple[int]) -> Tuple[bool]:
     """Bbox 여부 검증
 

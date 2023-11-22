@@ -6,25 +6,7 @@ from numpy.typing import DTypeLike, NDArray
 from PIL import Image, ImageDraw, ImageFont
 
 from .convert import cwh2poly, poly2cwh, poly2mask
-from .util import _isBbox
-
-
-def _cvtBGRA(img: NDArray[np.uint8]) -> NDArray[np.uint8]:
-    """cv2로 읽어온 이미지를 BGRA 채널로 전환
-
-    Args:
-        img (``NDArray[np.uint8]``): 입력 이미지 (``[H, W, C]``)
-
-    Returns:
-        ``NDArray[np.uint8]``: BGRA 이미지 (``[H, W, 4]``)
-    """
-    shape = img.shape
-    if len(shape) == 2:
-        return cv2.cvtColor(img, cv2.COLOR_GRAY2BGRA)
-    elif shape[2] == 3:
-        return cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
-    else:
-        return img
+from .util import _cvtBGRA, _isBbox
 
 
 def _bbox(
