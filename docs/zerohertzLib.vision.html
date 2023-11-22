@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.vision" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.vision.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.3.3 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.3.4 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.3.3 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.3.4 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.vision.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.vision - zerohertzLib v0.3.3 documentation</title>
+        <title>zerohertzLib.vision - zerohertzLib v0.3.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.3.3 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.3.4 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.3.3 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.3.4 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -253,13 +253,71 @@
 <h1>zerohertzLib.vision<a class="headerlink" href="#zerohertzlib-vision" title="Permalink to this heading">#</a></h1>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
+<p>Bbox의 types</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">cwh</span></code>: <code class="docutils literal notranslate"><span class="pre">[cx,</span> <span class="pre">cy,</span> <span class="pre">w,</span> <span class="pre">h]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4]</span></code>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">xyxy</span></code>: <code class="docutils literal notranslate"><span class="pre">[x0,</span> <span class="pre">y0,</span> <span class="pre">y1,</span> <span class="pre">y2]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4]</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">xyxy</span></code>: <code class="docutils literal notranslate"><span class="pre">[x0,</span> <span class="pre">y0,</span> <span class="pre">x1,</span> <span class="pre">y1]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4]</span></code>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">poly</span></code>: <code class="docutils literal notranslate"><span class="pre">[[x0,</span> <span class="pre">y0],</span> <span class="pre">[x1,</span> <span class="pre">y1],</span> <span class="pre">[x2,</span> <span class="pre">y2],</span> <span class="pre">[x3,</span> <span class="pre">y3]]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4,</span> <span class="pre">2]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4,</span> <span class="pre">2]</span></code>)</p></li>
 </ul>
 </div>
-<span class="target" id="module-zerohertzLib.vision"></span><dl class="py function">
+<span class="target" id="module-zerohertzLib.vision"></span><dl class="py class">
+<dt class="sig sig-object py" id="zerohertzLib.vision.JsonImageLoader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">JsonImageLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jsonPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jsonKey</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.JsonImageLoader" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>JSON file을 통해 image와 JSON file 내 정보를 불러오는 class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.vision.JsonImageLoader.params.dataPath"></span><strong>dataPath</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.JsonImageLoader.params.dataPath">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 목표 data가 존재하는 directory 경로</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.JsonImageLoader.params.jsonPath"></span><strong>jsonPath</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.JsonImageLoader.params.jsonPath">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 목표 JSON file이 존재하는 directory 경로</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.JsonImageLoader.params.jsonKey"></span><strong>jsonKey</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.JsonImageLoader.params.jsonKey">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – <code class="docutils literal notranslate"><span class="pre">dataPath</span></code> 에서 data의 file 이름을 나타내는 key 값</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.vision.JsonImageLoader.gt">
+<span class="sig-name descname"><span class="pre">gt</span></span><a class="headerlink" href="#zerohertzLib.vision.JsonImageLoader.gt" title="Permalink to this definition">#</a></dt>
+<dd><p>JSON file들을 읽어 data 구축 시 활용</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">zerohertzLib.util.JsonDir</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.vision.JsonImageLoader.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.JsonImageLoader.__getitem__" title="Permalink to this definition">#</a></dt>
+<dd><p>읽어온 JSON file들을 list와 같이 indexing 후 해당하는 image return</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – 입력 index</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Image와 JSON 내 정보</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Tuple[NDArray[np.uint8],</span> <span class="pre">zerohertzLib.util.Json]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jil</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">JsonImageLoader</span><span class="p">(</span><span class="n">dataPath</span><span class="p">,</span> <span class="n">jsonPath</span><span class="p">,</span> <span class="n">jsonKey</span><span class="p">)</span>
+<span class="go">100%|█████████████| 17248/17248 [00:04&lt;00:00, 3581.22it/s]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">img</span><span class="p">,</span> <span class="n">js</span> <span class="o">=</span> <span class="n">jil</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">img</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(600, 800, 3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">js</span><span class="o">.</span><span class="n">tree</span><span class="p">()</span>
+<span class="go">└─ info</span>
+<span class="go">    └─ name</span>
+<span class="go">    └─ date_created</span>
+<span class="go">...</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.vision.bbox">
 <span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">bbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">255)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.bbox" title="Permalink to this definition">#</a></dt>
 <dd><p>여러 Bbox 시각화</p>
@@ -297,20 +355,20 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.vision.before_after">
 <span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">before_after</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">before</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">after</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">area</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quality</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tmp'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.before_after" title="Permalink to this definition">#</a></dt>
-<dd><p>두 이미지를 비교하는 이미지 생성</p>
+<dd><p>두 image를 비교하는 image 생성</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.vision.before_after.params.before"></span><strong>before</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.before_after.params.before">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[np.uint8]</span></code>) – 원본 이미지</p></li>
-<li><p><span class="target" id="zerohertzLib.vision.before_after.params.after"></span><strong>after</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.before_after.params.after">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[np.uint8]</span></code>) – 영상 처리 혹은 모델 추론 후 이미지</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.before_after.params.before"></span><strong>before</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.before_after.params.before">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[np.uint8]</span></code>) – 원본 image</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.before_after.params.after"></span><strong>after</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.before_after.params.after">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[np.uint8]</span></code>) – 영상 처리 혹은 모델 추론 후 image</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.before_after.params.area"></span><strong>area</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.before_after.params.area">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[List[Union[int,</span> <span class="pre">float]]]</span></code>): 비교할 좌표 (<code class="docutils literal notranslate"><span class="pre">[x0,</span> <span class="pre">y0,</span> <span class="pre">x1,</span> <span class="pre">y1]</span></code>)</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.before_after.params.per"></span><strong>per</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.before_after.params.per">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – <code class="docutils literal notranslate"><span class="pre">area</span></code> 의 백분율 여부</p></li>
-<li><p><span class="target" id="zerohertzLib.vision.before_after.params.quality"></span><strong>quality</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.before_after.params.quality">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – 출력 이미지의 quality (단위: %)</p></li>
-<li><p><span class="target" id="zerohertzLib.vision.before_after.params.output_filename"></span><strong>output_filename</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.before_after.params.output_filename">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>): 저장될 파일의 이름</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.before_after.params.quality"></span><strong>quality</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.before_after.params.quality">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – 출력 image의 quality (단위: %)</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.before_after.params.output_filename"></span><strong>output_filename</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.before_after.params.output_filename">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>): 저장될 file의 이름</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>현재 directory에 바로 이미지 저장</p>
+<dd class="field-even"><p>현재 directory에 바로 image 저장</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
@@ -336,15 +394,16 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.vision.cutout">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">cutout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">255</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.cutout" title="Permalink to this definition">#</a></dt>
-<dd><p>이미지 내에서 지정한 좌표를 제외한 부분을 투명화</p>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">cutout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">255</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.cutout" title="Permalink to this definition">#</a></dt>
+<dd><p>Image 내에서 지정한 좌표를 제외한 부분을 투명화</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.vision.cutout.params.img"></span><strong>img</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.cutout.params.img">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[np.uint8]</span></code>) – 입력 이미지 (<code class="docutils literal notranslate"><span class="pre">[H,</span> <span class="pre">W,</span> <span class="pre">C]</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.cutout.params.img"></span><strong>img</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.cutout.params.img">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[np.uint8]</span></code>) – 입력 image (<code class="docutils literal notranslate"><span class="pre">[H,</span> <span class="pre">W,</span> <span class="pre">C]</span></code>)</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.cutout.params.poly"></span><strong>poly</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.cutout.params.poly">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – 지정할 좌표 (<code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">2]</span></code>)</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.cutout.params.alpha"></span><strong>alpha</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.cutout.params.alpha">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – 지정한 좌표 영역의 투명도</p></li>
-<li><p><span class="target" id="zerohertzLib.vision.cutout.params.crop"></span><strong>crop</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.cutout.params.crop">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 출력 이미지의 Crop 여부</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.cutout.params.crop"></span><strong>crop</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.cutout.params.crop">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 출력 image의 Crop 여부</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.cutout.params.background"></span><strong>background</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.cutout.params.background">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – 지정한 좌표 외 배경의 투명도</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -359,9 +418,10 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">poly</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">400</span><span class="p">],</span> <span class="p">[</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">],</span> <span class="p">[</span><span class="mi">800</span><span class="p">,</span> <span class="mi">900</span><span class="p">],</span> <span class="p">[</span><span class="mi">400</span><span class="p">,</span> <span class="mi">1100</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">800</span><span class="p">]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">cutout</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">poly</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">cutout</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">poly</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">cutout</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">poly</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284564607-9df73033-f99e-4b54-a321-2a47a6c89a32.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284564607-9df73033-f99e-4b54-a321-2a47a6c89a32.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284778462-8a1e3017-328e-4776-adeb-b2f24fd09c58.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284778462-8a1e3017-328e-4776-adeb-b2f24fd09c58.png" style="width: 600px;" /></a>
 </dd></dl>
 
 <dl class="py function">
@@ -426,17 +486,17 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.vision.grid">
 <span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">imgs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tmp'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.grid" title="Permalink to this definition">#</a></dt>
-<dd><p>여러 이미지를 입력받아 한 이미지로 병합</p>
+<dd><p>여러 image를 입력받아 한 정방형 image로 병합</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.vision.grid.params.*imgs"></span><strong>*imgs</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.grid.params.*imgs">¶</a> (<code class="docutils literal notranslate"><span class="pre">List[NDArray[np.uint8]]</span></code>) – 입력 이미지</p></li>
-<li><p><span class="target" id="zerohertzLib.vision.grid.params.size"></span><strong>size</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.grid.params.size">¶</a> – (<code class="docutils literal notranslate"><span class="pre">int</span></code>): 출력 이미지의 크기</p></li>
-<li><p><span class="target" id="zerohertzLib.vision.grid.params.output_filename"></span><strong>output_filename</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.grid.params.output_filename">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>): 저장될 파일의 이름</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.grid.params.*imgs"></span><strong>*imgs</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.grid.params.*imgs">¶</a> (<code class="docutils literal notranslate"><span class="pre">List[NDArray[np.uint8]]</span></code>) – 입력 image</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.grid.params.size"></span><strong>size</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.grid.params.size">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>): 출력 image의 크기</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.grid.params.output_filename"></span><strong>output_filename</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.grid.params.output_filename">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>): 저장될 file의 이름</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>현재 directory에 바로 이미지 저장</p>
+<dd class="field-even"><p>현재 directory에 바로 image 저장</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
@@ -455,12 +515,12 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.vision.img2gif">
 <span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">img2gif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tmp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.img2gif" title="Permalink to this definition">#</a></dt>
-<dd><p>Directory 내 이미지들을 GIF로 변환</p>
+<dd><p>Directory 내 image들을 GIF로 변환</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.vision.img2gif.params.images_path"></span><strong>images_path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.img2gif.params.images_path">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – GIF로 변환할 이미지들이 존재하는 경로</p></li>
-<li><p><span class="target" id="zerohertzLib.vision.img2gif.params.output_filename"></span><strong>output_filename</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.img2gif.params.output_filename">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 출력될 GIF 파일명</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.img2gif.params.images_path"></span><strong>images_path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.img2gif.params.images_path">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – GIF로 변환할 image들이 존재하는 경로</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.img2gif.params.output_filename"></span><strong>output_filename</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.img2gif.params.output_filename">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 출력될 GIF file 이름</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.img2gif.params.duration"></span><strong>duration</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.img2gif.params.duration">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>): ms 단위의 사진 간 간격</p></li>
 </ul>
 </dd>
@@ -479,14 +539,47 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="zerohertzLib.vision.isPtsInPoly">
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">isPtsInPoly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.isPtsInPoly" title="Permalink to this definition">#</a></dt>
+<dd><p>지점들의 좌표 내 존재 여부 확인 함수</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.vision.isPtsInPoly.params.poly"></span><strong>poly</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.isPtsInPoly.params.poly">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – 다각형 (<code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">2]</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.isPtsInPoly.params.pts"></span><strong>pts</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.isPtsInPoly.params.pts">¶</a> (<code class="docutils literal notranslate"><span class="pre">Union[List[Union[int,</span> <span class="pre">float]],</span> <span class="pre">NDArray[DTypeLike]]</span></code>) – point (<code class="docutils literal notranslate"><span class="pre">[2]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">2]</span></code>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>입력 <code class="docutils literal notranslate"><span class="pre">point</span></code> 의 다각형 <code class="docutils literal notranslate"><span class="pre">poly</span></code> 내부 존재 여부</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Union[bool,</span> <span class="pre">NDArray[DTypeLike]]</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">poly</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">isPtsInPoly</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">isPtsInPoly</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="p">[[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">]])</span>
+<span class="go">array([ True, False])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">isPtsInPoly</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">]))</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">isPtsInPoly</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">]]))</span>
+<span class="go">array([ True, False])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.vision.masks">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">masks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">255)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">border</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.masks" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">masks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">255)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">border</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.masks" title="Permalink to this definition">#</a></dt>
 <dd><p>Masks 시각화</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.vision.masks.params.img"></span><strong>img</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.masks.params.img">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[np.uint8]</span></code>) – 입력 이미지 (<code class="docutils literal notranslate"><span class="pre">[H,</span> <span class="pre">W,</span> <span class="pre">C]</span></code>)</p></li>
-<li><p><span class="target" id="zerohertzLib.vision.masks.params.mks"></span><strong>mks</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.masks.params.mks">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[bool]</span></code>) – 입력 이미지 위에 병합할 <code class="docutils literal notranslate"><span class="pre">N</span></code> 개의 mask들 (<code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">H,</span> <span class="pre">W]</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.masks.params.img"></span><strong>img</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.masks.params.img">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[np.uint8]</span></code>) – 입력 image (<code class="docutils literal notranslate"><span class="pre">[H,</span> <span class="pre">W,</span> <span class="pre">C]</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.masks.params.mks"></span><strong>mks</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.masks.params.mks">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[NDArray[bool]]</span></code>) – 입력 image 위에 병합할 mask (<code class="docutils literal notranslate"><span class="pre">[H,</span> <span class="pre">W]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">H,</span> <span class="pre">W]</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.masks.params.poly"></span><strong>poly</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.masks.params.poly">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[NDArray[DTypeLike]]</span></code>) – 입력 image 위에 병합할 mask (<code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">2]</span></code>)</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.masks.params.color"></span><strong>color</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.masks.params.color">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[Tuple[int]]</span></code>) – Mask의 색</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.masks.params.class_list"></span><strong>class_list</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.masks.params.class_list">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[List[Union[int,</span> <span class="pre">str]]]</span></code>) – <code class="docutils literal notranslate"><span class="pre">mks</span></code> 의 index에 따른 class</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.masks.params.class_color"></span><strong>class_color</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.masks.params.class_color">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[Dict[Union[int,</span> <span class="pre">str],</span> <span class="pre">Tuple[int]]]</span></code>) – Class에 따른 색 (<code class="docutils literal notranslate"><span class="pre">color</span></code> 무시)</p></li>
@@ -519,15 +612,17 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">cls</span><span class="p">:</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">class_color</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">masks</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">mks</span><span class="p">,</span> <span class="n">class_list</span><span class="o">=</span><span class="n">class_list</span><span class="p">,</span> <span class="n">class_color</span><span class="o">=</span><span class="n">class_color</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">poly</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">400</span><span class="p">],</span> <span class="p">[</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">],</span> <span class="p">[</span><span class="mi">800</span><span class="p">,</span> <span class="mi">900</span><span class="p">],</span> <span class="p">[</span><span class="mi">400</span><span class="p">,</span> <span class="mi">1100</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">800</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">masks</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">poly</span><span class="o">=</span><span class="n">poly</span><span class="p">)</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284525631-53c2be9d-e7a6-45eb-bf5e-a08a6bb09e1c.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284525631-53c2be9d-e7a6-45eb-bf5e-a08a6bb09e1c.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284878547-c36cd4ff-2b36-4b0f-a125-89ed8380a456.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284878547-c36cd4ff-2b36-4b0f-a125-89ed8380a456.png" style="width: 600px;" /></a>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.vision.paste">
 <span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">paste</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.paste" title="Permalink to this definition">#</a></dt>
-<dd><p><code class="docutils literal notranslate"><span class="pre">target</span></code> 이미지를 <code class="docutils literal notranslate"><span class="pre">img</span></code> 위에 투명도를 포함하여 병합</p>
+<dd><p><code class="docutils literal notranslate"><span class="pre">target</span></code> image를 <code class="docutils literal notranslate"><span class="pre">img</span></code> 위에 투명도를 포함하여 병합</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><cite>PIL.Image.paste</cite> 를 <cite>numpy</cite> 와 <cite>cv2</cite> 기반으로 구현</p>
@@ -540,10 +635,10 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.vision.paste.params.img"></span><strong>img</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.paste.params.img">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[np.uint8]</span></code>) – 입력 이미지 (<code class="docutils literal notranslate"><span class="pre">[H,</span> <span class="pre">W,</span> <span class="pre">C]</span></code>)</p></li>
-<li><p><span class="target" id="zerohertzLib.vision.paste.params.target"></span><strong>target</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.paste.params.target">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[np.uint8]</span></code>) – 타겟 이미지 (<code class="docutils literal notranslate"><span class="pre">[H,</span> <span class="pre">W,</span> <span class="pre">4]</span></code>)</p></li>
-<li><p><span class="target" id="zerohertzLib.vision.paste.params.box"></span><strong>box</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.paste.params.box">¶</a> (<code class="docutils literal notranslate"><span class="pre">List[int]</span></code>) – 병합될 영역</p></li>
-<li><p><span class="target" id="zerohertzLib.vision.paste.params.resize"></span><strong>resize</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.paste.params.resize">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 타겟 이미지의 resize 여부</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.paste.params.img"></span><strong>img</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.paste.params.img">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[np.uint8]</span></code>) – 입력 image (<code class="docutils literal notranslate"><span class="pre">[H,</span> <span class="pre">W,</span> <span class="pre">C]</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.paste.params.target"></span><strong>target</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.paste.params.target">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[np.uint8]</span></code>) – Target image (<code class="docutils literal notranslate"><span class="pre">[H,</span> <span class="pre">W,</span> <span class="pre">4]</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.paste.params.box"></span><strong>box</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.paste.params.box">¶</a> (<code class="docutils literal notranslate"><span class="pre">List[int]</span></code>) – 병합될 영역 (<code class="docutils literal notranslate"><span class="pre">xyxy</span></code> 형식)</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.paste.params.resize"></span><strong>resize</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.paste.params.resize">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – Target image의 resize 여부</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.paste.params.vis"></span><strong>vis</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.paste.params.vis">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 지정한 영역 (<code class="docutils literal notranslate"><span class="pre">box</span></code>)의 시각화 여부</p></li>
 </ul>
 </dd>
@@ -652,9 +747,9 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.vision.text.params.img"></span><strong>img</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.text.params.img">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[np.uint8]</span></code>) – 입력 이미지 (<code class="docutils literal notranslate"><span class="pre">[H,</span> <span class="pre">W,</span> <span class="pre">C]</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.text.params.img"></span><strong>img</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.text.params.img">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[np.uint8]</span></code>) – 입력 image (<code class="docutils literal notranslate"><span class="pre">[H,</span> <span class="pre">W,</span> <span class="pre">C]</span></code>)</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.text.params.box"></span><strong>box</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.text.params.box">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – 문자열이 존재할 bbox (<code class="docutils literal notranslate"><span class="pre">[4]</span></code>, <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4]</span></code>, <code class="docutils literal notranslate"><span class="pre">[4,</span> <span class="pre">2]</span></code>, <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4,</span> <span class="pre">2]</span></code>)</p></li>
-<li><p><span class="target" id="zerohertzLib.vision.text.params.txt"></span><strong>txt</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.text.params.txt">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 이미지에 추가할 문자열</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.text.params.txt"></span><strong>txt</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.text.params.txt">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Image에 추가할 문자열</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.text.params.color"></span><strong>color</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.text.params.color">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[Tuple[int]]</span></code>) – 문자의 색</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.text.params.vis"></span><strong>vis</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.text.params.vis">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 문자 영역의 시각화 여부</p></li>
 </ul>
@@ -682,6 +777,34 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="zerohertzLib.vision.vert">
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">vert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">imgs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tmp'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.vert" title="Permalink to this definition">#</a></dt>
+<dd><p>여러 image를 입력받아 한 가로 image로 병합</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.vision.vert.params.*imgs"></span><strong>*imgs</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.vert.params.*imgs">¶</a> (<code class="docutils literal notranslate"><span class="pre">List[NDArray[np.uint8]]</span></code>) – 입력 image</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.vert.params.height"></span><strong>height</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.vert.params.height">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>): 출력 image의 높이</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.vert.params.output_filename"></span><strong>output_filename</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.vert.params.output_filename">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>): 저장될 file의 이름</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>현재 directory에 바로 image 저장</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tmp</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;test.jpg&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imgs</span> <span class="o">=</span> <span class="p">[</span><span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">600</span><span class="p">),</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">600</span><span class="p">)))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">vert</span><span class="p">(</span><span class="o">*</span><span class="n">imgs</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284879452-d856fa8c-49a9-4a64-83b9-b27ae4f45007.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284879452-d856fa8c-49a9-4a64-83b9-b27ae4f45007.png" style="width: 600px;" /></a>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.vision.vid2gif">
 <span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">vid2gif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tmp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quality</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.vid2gif" title="Permalink to this definition">#</a></dt>
 <dd><p>동영상을 GIF로 변환</p>
@@ -689,7 +812,7 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><span class="target" id="zerohertzLib.vision.vid2gif.params.video_path"></span><strong>video_path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.vid2gif.params.video_path">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – GIF로 변환할 동영상이 존재하는 경로</p></li>
-<li><p><span class="target" id="zerohertzLib.vision.vid2gif.params.output_filename"></span><strong>output_filename</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.vid2gif.params.output_filename">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 출력될 GIF 파일명</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.vid2gif.params.output_filename"></span><strong>output_filename</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.vid2gif.params.output_filename">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 출력될 GIF file 이름</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.vid2gif.params.quality"></span><strong>quality</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.vid2gif.params.quality">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>): 출력될 GIF의 품질</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.vid2gif.params.fps"></span><strong>fps</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.vid2gif.params.fps">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>): 출력될 GIF의 FPS (Frames Per Second)</p></li>
 </ul>
@@ -828,6 +951,11 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">zerohertzLib.vision</a><ul>
+<li><a class="reference internal" href="#zerohertzLib.vision.JsonImageLoader"><code class="docutils literal notranslate"><span class="pre">JsonImageLoader</span></code></a><ul>
+<li><a class="reference internal" href="#zerohertzLib.vision.JsonImageLoader.gt"><code class="docutils literal notranslate"><span class="pre">JsonImageLoader.gt</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.vision.JsonImageLoader.__getitem__"><code class="docutils literal notranslate"><span class="pre">JsonImageLoader.__getitem__()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#zerohertzLib.vision.bbox"><code class="docutils literal notranslate"><span class="pre">bbox()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.before_after"><code class="docutils literal notranslate"><span class="pre">before_after()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.cutout"><code class="docutils literal notranslate"><span class="pre">cutout()</span></code></a></li>
@@ -835,12 +963,14 @@
 <li><a class="reference internal" href="#zerohertzLib.vision.cwh2xyxy"><code class="docutils literal notranslate"><span class="pre">cwh2xyxy()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.grid"><code class="docutils literal notranslate"><span class="pre">grid()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.img2gif"><code class="docutils literal notranslate"><span class="pre">img2gif()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.vision.isPtsInPoly"><code class="docutils literal notranslate"><span class="pre">isPtsInPoly()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.masks"><code class="docutils literal notranslate"><span class="pre">masks()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.paste"><code class="docutils literal notranslate"><span class="pre">paste()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.poly2cwh"><code class="docutils literal notranslate"><span class="pre">poly2cwh()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.poly2mask"><code class="docutils literal notranslate"><span class="pre">poly2mask()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.poly2xyxy"><code class="docutils literal notranslate"><span class="pre">poly2xyxy()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.text"><code class="docutils literal notranslate"><span class="pre">text()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.vision.vert"><code class="docutils literal notranslate"><span class="pre">vert()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.vid2gif"><code class="docutils literal notranslate"><span class="pre">vid2gif()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.xyxy2cwh"><code class="docutils literal notranslate"><span class="pre">xyxy2cwh()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.xyxy2poly"><code class="docutils literal notranslate"><span class="pre">xyxy2poly()</span></code></a></li>
@@ -857,7 +987,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=563000a4"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=9db99069"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

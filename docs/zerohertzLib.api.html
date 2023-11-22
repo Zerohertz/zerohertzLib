@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.api" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.api.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.3.3 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.3.4 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.3.3 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.3.4 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.api.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.api - zerohertzLib v0.3.3 documentation</title>
+        <title>zerohertzLib.api - zerohertzLib v0.3.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.3.3 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.3.4 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.3.3 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.3.4 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -255,7 +255,7 @@
 <dt class="sig sig-object py" id="zerohertzLib.api.Discord">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.api.</span></span><span class="sig-name descname"><span class="pre">Discord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">webhook_url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.Discord" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Discord Webhook의 데이터 전송을 위한 클래스</p>
+<p>Discord Webhook의 데이터 전송을 위한 class</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="target" id="zerohertzLib.api.Discord.params.webhook_url"></span><strong>webhook_url</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.params.webhook_url">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Discord Webhook의 URL</p>
@@ -268,10 +268,10 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.api.Discord.image">
 <span class="sig-name descname"><span class="pre">image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.Discord.image" title="Permalink to this definition">#</a></dt>
-<dd><p>Discord Webhook에 이미지 전송</p>
+<dd><p>Discord Webhook에 image 전송</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="target" id="zerohertzLib.api.Discord.image.params.image_path"></span><strong>image_path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.image.params.image_path">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 전송할 이미지 경로</p>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.api.Discord.image.params.image_path"></span><strong>image_path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.image.params.image_path">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 전송할 image 경로</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Discord Webhook의 응답</p>
@@ -291,13 +291,13 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.api.Discord.message">
 <span class="sig-name descname"><span class="pre">message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeblock</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.Discord.message" title="Permalink to this definition">#</a></dt>
-<dd><p>Discord Webhook에 메세지 전송</p>
+<dd><p>Discord Webhook에 message 전송</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><span class="target" id="zerohertzLib.api.Discord.message.params.message"></span><strong>message</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.message.params.message">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Discord Webhook의 입력</p></li>
 <li><p><span class="target" id="zerohertzLib.api.Discord.message.params.t"></span><strong>t</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.message.params.t">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – <code class="docutils literal notranslate"><span class="pre">message</span></code> 의 전송 간 간격 (<code class="docutils literal notranslate"><span class="pre">message</span></code> 가 1500자 이내라면 0)</p></li>
-<li><p><span class="target" id="zerohertzLib.api.Discord.message.params.codeblock"></span><strong>codeblock</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.message.params.codeblock">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 전송되는 메세지의 스타일</p></li>
+<li><p><span class="target" id="zerohertzLib.api.Discord.message.params.codeblock"></span><strong>codeblock</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.message.params.codeblock">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 전송되는 message의 스타일</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -321,7 +321,7 @@
 <dt class="sig sig-object py" id="zerohertzLib.api.GitHub">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.api.</span></span><span class="sig-name descname"><span class="pre">GitHub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Zerohertz'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'zerohertzLib'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">issue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.GitHub" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>GitHub API를 사용하기 위한 클래스</p>
+<p>GitHub API를 사용하기 위한 class</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -339,7 +339,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>lab</strong> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 선택할 GitHub repository의 label (<code class="docutils literal notranslate"><span class="pre">issue=False</span></code> 시 에러 발생)</p></li>
+<li><p><strong>lab</strong> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 선택할 GitHub repository의 label (<code class="docutils literal notranslate"><span class="pre">issue=False</span></code> 시 error 발생)</p></li>
 <li><p><strong>per_page</strong> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – 1회 호출 시 출력될 결과의 수</p></li>
 </ul>
 </dd>
@@ -397,7 +397,7 @@
 <p><a class="reference external" href="https://github.com/openai/openai-python">공식 OpenAI GitHub</a> 참고</p>
 </div>
 <a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280564436-27d62c06-f59a-4772-8cd6-48be49147a86.png"><img alt="OpenAI API Key" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280564436-27d62c06-f59a-4772-8cd6-48be49147a86.png" style="width: 300px;" /></a>
-<p>위와 같이 <a class="reference external" href="https://platform.openai.com/account/api-keys">OpenAI</a> 페이지에서 발급 후 API를 등록해야 사용할 수 있다.</p>
+<p>위와 같이 <a class="reference external" href="https://platform.openai.com/account/api-keys">OpenAI</a> page에서 발급 후 API를 등록해야 사용할 수 있다.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="target" id="zerohertzLib.api.OpenAI.params.api_key"></span><strong>api_key</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.OpenAI.params.api_key">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 위에서 등록한 OpenAI의 API key</p>
@@ -629,7 +629,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=563000a4"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=9db99069"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
