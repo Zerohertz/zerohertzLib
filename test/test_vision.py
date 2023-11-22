@@ -63,12 +63,21 @@ def test_grid_vertical():
 
 
 def test_grid_horizontal():
-    test = cv2.imread(f"{data}/test.jpg")
     test = cv2.resize(test, (300, 200))
     imgs = [(test + np.random.rand(*test.shape)).astype(np.uint8) for _ in range(8)]
     imgs[2] = cv2.cvtColor(imgs[2], cv2.COLOR_BGR2GRAY)
     zz.vision.grid(*imgs, output_filename="grid_horizontal")
     assert "grid_horizontal.png" in os.listdir()
+
+
+def test_vert():
+    test = cv2.imread(f"{data}/test.jpg")
+    imgs = [
+        cv2.resize(test, (random.randrange(300, 600), random.randrange(300, 600)))
+        for _ in range(5)
+    ]
+    zz.vision.vert(*imgs, output_filename="vert")
+    assert "vert.png" in os.listdir()
 
 
 def test_bbox_bgr_poly():

@@ -1,4 +1,4 @@
-from zerohertzLib.vision.compare import before_after, grid
+from zerohertzLib.vision.compare import before_after, grid, vert
 from zerohertzLib.vision.convert import (
     cwh2poly,
     cwh2xyxy,
@@ -32,4 +32,5 @@ __all__ = [
     "paste",
     "isPtsInPoly",
     "JsonImageLoader",
+    "vert",
 ]

@@ -88,14 +88,14 @@ def before_after(
 
 def grid(
     *imgs: List[NDArray[np.uint8]],
-    size: int = 1000,
+    size: Optional[int] = 1000,
     output_filename: Optional[str] = "tmp",
 ) -> None:
     """여러 이미지를 입력받아 한 이미지로 병합
 
     Args:
         *imgs (``List[NDArray[np.uint8]]``): 입력 이미지
-        size: (``int``): 출력 이미지의 크기
+        size: (``Optional[int]``): 출력 이미지의 크기
         output_filename: (``Optional[str]``): 저장될 파일의 이름
 
     Returns:
@@ -145,4 +145,51 @@ def grid(
             x0, y0, x1, y1 = x * length, y * length, (x + 1) * length, (y + 1) * length
         img = cv2.resize(img, (w, h))
         palette[y0:y1, x0:x1, :] = img
+    cv2.imwrite(f"{output_filename}.png", palette)
+
+
+def vert(
+    *imgs: List[NDArray[np.uint8]],
+    height: int = 1000,
+    output_filename: Optional[str] = "tmp",
+):
+    """여러 이미지를 입력받아 한 이미지로 병합
+
+    Args:
+        *imgs (``List[NDArray[np.uint8]]``): 입력 이미지
+        height: (``Optional[int]``): 출력 이미지의 높이
+        output_filename: (``Optional[str]``): 저장될 파일의 이름
+
+    Returns:
+        ``None``: 현재 directory에 바로 이미지 저장
+
+    Examples:
+        >>> tmp = cv2.imread("test.jpg")
+        >>> imgs = [cv2.resize(tmp, (random.randrange(300, 600), random.randrange(300, 600))) for _ in range(5)]
+        >>> zz.vision.vert(*imgs)
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284879452-d856fa8c-49a9-4a64-83b9-b27ae4f45007.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 600px
+    """
+    resized_imgs = []
+    width = 0
+    for img in imgs:
+        shape = img.shape
+        if len(shape) == 2:
+            img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+        if shape[0] != height:
+            w = int(height / shape[0] * shape[1])
+            img = cv2.resize(img, (w, height))
+        else:
+            w = shape[1]
+        width += w
+        resized_imgs.append(img)
+    palette = np.full((height, width, 3), 255, dtype=np.uint8)
+    width = 0
+    for img in resized_imgs:
+        h, w, _ = img.shape
+        palette[:h, width : width + w, :] = img
+        width += w
     cv2.imwrite(f"{output_filename}.png", palette)
