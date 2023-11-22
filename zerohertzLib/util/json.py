@@ -201,7 +201,7 @@ class JsonDir:
 
     def __init__(self, path: Optional[str] = "") -> None:
         if path.endswith(".json"):
-            raise Exception("Error: path = '*.json'")
+            raise ValueError("'path' ends with '*.json'")
         self.data = {}
         self.name = []
         for j in tqdm(glob(os.path.join(path, "*.json"))):

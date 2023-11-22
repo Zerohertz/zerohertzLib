@@ -32,7 +32,7 @@ def cwh2xyxy(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
     shape = box.shape
     multi, poly = _isBbox(shape)
     if poly:
-        raise Exception("The 'cwh' must be of shape [4], [N, 4]")
+        raise ValueError("The 'cwh' must be of shape [4], [N, 4]")
     if multi:
         boxes = np.zeros((shape[0], 4), dtype=box.dtype)
         for i, b in enumerate(box):
@@ -76,7 +76,7 @@ def cwh2poly(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
     shape = box.shape
     multi, poly = _isBbox(shape)
     if poly:
-        raise Exception("The 'cwh' must be of shape [4], [N, 4]")
+        raise ValueError("The 'cwh' must be of shape [4], [N, 4]")
     if multi:
         boxes = np.zeros((shape[0], 4, 2), dtype=box.dtype)
         for i, b in enumerate(box):
@@ -110,7 +110,7 @@ def xyxy2cwh(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
     shape = box.shape
     multi, poly = _isBbox(shape)
     if poly:
-        raise Exception("The 'xyxy' must be of shape [4], [N, 4]")
+        raise ValueError("The 'xyxy' must be of shape [4], [N, 4]")
     if multi:
         boxes = np.zeros((shape[0], 4), dtype=box.dtype)
         for i, b in enumerate(box):
@@ -153,7 +153,7 @@ def xyxy2poly(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
     shape = box.shape
     multi, poly = _isBbox(shape)
     if poly:
-        raise Exception("The 'xyxy' must be of shape [4], [N, 4]")
+        raise ValueError("The 'xyxy' must be of shape [4], [N, 4]")
     if multi:
         boxes = np.zeros((shape[0], 4, 2), dtype=box.dtype)
         for i, b in enumerate(box):
@@ -188,7 +188,7 @@ def poly2cwh(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
     shape = box.shape
     multi, poly = _isBbox(shape)
     if not poly:
-        raise Exception("The 'poly' must be of shape [4, 2], [N, 4, 2]")
+        raise ValueError("The 'poly' must be of shape [4, 2], [N, 4, 2]")
     if multi:
         boxes = np.zeros((shape[0], 4), dtype=box.dtype)
         for i, b in enumerate(box):
@@ -223,7 +223,7 @@ def poly2xyxy(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
     shape = box.shape
     multi, poly = _isBbox(shape)
     if not poly:
-        raise Exception("The 'poly' must be of shape [4, 2], [N, 4, 2]")
+        raise ValueError("The 'poly' must be of shape [4, 2], [N, 4, 2]")
     if multi:
         boxes = np.zeros((shape[0], 4), dtype=box.dtype)
         for i, b in enumerate(box):

@@ -28,13 +28,15 @@ def _isBbox(shape: Tuple[int]) -> Tuple[bool]:
             multi = False
             poly = True
         else:
-            raise Exception("The 'box' must be of shape [4], [N, 4], [4, 2], [N, 4, 2]")
+            raise ValueError(
+                "The 'box' must be of shape [4], [N, 4], [4, 2], [N, 4, 2]"
+            )
     elif len(shape) == 3 and shape[1] == 4 and shape[2] == 2:
         # N *[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]
         multi = True
         poly = True
     else:
-        raise Exception("The 'box' must be of shape [4], [N, 4], [4, 2], [N, 4, 2]")
+        raise ValueError("The 'box' must be of shape [4], [N, 4], [4, 2], [N, 4, 2]")
     return multi, poly
 
 
@@ -74,6 +76,6 @@ def isPtsInPoly(
         elif len(shape) == 2:
             return poly.contains_points(pts)
         else:
-            raise Exception("The 'pts' must be of shape [2], [N, 2]")
+            raise ValueError("The 'pts' must be of shape [2], [N, 2]")
     else:
-        raise Exception("The 'pts' must be 'list' or 'np.ndarray'")
+        raise TypeError("The 'pts' must be 'list' or 'np.ndarray'")

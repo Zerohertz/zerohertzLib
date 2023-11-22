@@ -191,7 +191,7 @@ def masks(
                 edges = cv2.Canny(mask.astype(np.uint8) * 255, 100, 200)
                 overlay[edges > 0] = color
     else:
-        raise Exception("The 'mks' must be of shape [H, W] or [N, H, W]")
+        raise ValueError("The 'mks' must be of shape [H, W] or [N, H, W]")
     return cv2.addWeighted(img, 1 - alpha, overlay, alpha, 0)
 
 
@@ -328,7 +328,7 @@ def text(
         box_xywh = box
     if multi:
         if not shape[0] == len(txt):
-            raise Exception("'box.shape[0]' and 'len(txt)' must be equal")
+            raise ValueError("'box.shape[0]' and 'len(txt)' must be equal")
         for b_xyxy, b_xywh, t in zip(box_xyxy, box_xywh, txt):
             img = _text(img, b_xywh, t, color)
             if vis:

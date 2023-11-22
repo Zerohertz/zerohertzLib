@@ -37,7 +37,7 @@ def read_csv(
     elif path.endswith(".tsv"):
         delimiter = "\t"
     else:
-        raise Exception("File is not CSV or TSV")
+        raise ValueError("File is not CSV or TSV")
     if header:
         r = raw[0]
         for key in r.strip().split(delimiter):

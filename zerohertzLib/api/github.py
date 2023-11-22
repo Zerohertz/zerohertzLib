@@ -72,7 +72,7 @@ class GitHub:
             }
         else:
             if not self.issue:
-                raise Exception(
+                raise ValueError(
                     "If you want to filter by label, use\n\t--->\tGitHub(issue=True)\t<---"
                 )
             params = {
@@ -84,7 +84,7 @@ class GitHub:
             }
         response = requests.get(self.url, headers=self.headers, params=params)
         if not response.status_code == 200:
-            raise Exception(
+            raise OSError(
                 f"GitHub API Response: {response.status_code}\n\t{response.json()}"
             )
         results = response.json()
@@ -202,7 +202,7 @@ class GitHub:
             version = self._parse_version(release["title"])
             if "\x08" in release["title"]:
                 error_title = release["title"].replace("\x08", "-> \\x08 <-")
-                raise Exception(
+                raise ValueError(
                     f"""\\x08 is in '{release["html_url"]}'\n\tError Title: {error_title}"""
                 )
             bodies_version[version].append(

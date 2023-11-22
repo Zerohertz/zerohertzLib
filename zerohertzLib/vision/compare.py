@@ -60,7 +60,7 @@ def before_after(
         if per:
             area = [0.0, 0.0, 100.0, 100.0]
         else:
-            raise Exception("'area' not provided while 'per' is False")
+            raise ValueError("'area' not provided while 'per' is False")
     before_shape = before.shape
     if per:
         x0, y0, x1, y1 = _rel2abs(*area, *before_shape[:2])
