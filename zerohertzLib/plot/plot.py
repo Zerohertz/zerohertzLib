@@ -3,6 +3,8 @@ from typing import Dict, List, Optional, Tuple, Union
 import seaborn as sns
 from matplotlib import pyplot as plt
 
+from .util import _save
+
 
 def plot(
     x: List[Union[int, float]],
@@ -68,9 +70,4 @@ def plot(
         plt.ylim(ylim)
     plt.title(title, fontsize=25)
     plt.legend(ncol=ncol)
-    plt.savefig(
-        f"{title.lower().replace(' ', '_')}.png",
-        dpi=dpi,
-        bbox_inches="tight",
-    )
-    plt.close("all")
+    _save(title, dpi)

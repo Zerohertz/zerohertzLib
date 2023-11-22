@@ -3,6 +3,8 @@ from typing import Dict, Optional, Tuple, Union
 import seaborn as sns
 from matplotlib import pyplot as plt
 
+from .util import _save
+
 
 def pie(
     data: Dict[str, Union[int, float]],
@@ -56,9 +58,4 @@ def pie(
     )
     plt.title(title, fontsize=25)
     plt.axis("equal")
-    plt.savefig(
-        f"{title.lower().replace(' ', '_')}.png",
-        dpi=dpi,
-        bbox_inches="tight",
-    )
-    plt.close("all")
+    _save(title, dpi)

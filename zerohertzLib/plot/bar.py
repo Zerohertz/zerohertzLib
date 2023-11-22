@@ -5,6 +5,8 @@ import numpy as np
 import seaborn as sns
 from matplotlib import pyplot as plt
 
+from .util import _save
+
 
 def bar(
     data: Dict[str, Union[int, float]],
@@ -65,12 +67,7 @@ def bar(
                 ha="center",
                 va="bottom",
             )
-    plt.savefig(
-        f"{title.lower().replace(' ', '_')}.png",
-        dpi=dpi,
-        bbox_inches="tight",
-    )
-    plt.close("all")
+    _save(title, dpi)
 
 
 def barh(
@@ -134,12 +131,7 @@ def barh(
                 va="center",
                 rotation=270,
             )
-    plt.savefig(
-        f"{title.lower().replace(' ', '_')}.png",
-        dpi=dpi,
-        bbox_inches="tight",
-    )
-    plt.close("all")
+    _save(title, dpi)
 
 
 def hist(
@@ -199,9 +191,4 @@ def hist(
     plt.ylabel(ylab)
     plt.title(title, fontsize=25)
     plt.legend()
-    plt.savefig(
-        f"{title.lower().replace(' ', '_')}.png",
-        dpi=dpi,
-        bbox_inches="tight",
-    )
-    plt.close("all")
+    _save(title, dpi)
