@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.vision" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.vision.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.3.4 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.4.0 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.3.4 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.4.0 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.vision.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.vision - zerohertzLib v0.3.4 documentation</title>
+        <title>zerohertzLib.vision - zerohertzLib v0.4.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.3.4 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.4.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.3.4 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.4.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -201,6 +201,7 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="release.html">Release Notes</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Release Notes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="release/v0.4.html">v0.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.3.html">v0.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.2.html">v0.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.1.html">v0.1</a></li>
@@ -249,8 +250,12 @@
           </label>
         </div>
         <article role="main">
-          <section id="zerohertzlib-vision">
-<h1>zerohertzLib.vision<a class="headerlink" href="#zerohertzlib-vision" title="Permalink to this heading">#</a></h1>
+          <section id="module-zerohertzLib.vision">
+<span id="zerohertzlib-vision"></span><h1>zerohertzLib.vision<a class="headerlink" href="#module-zerohertzLib.vision" title="Permalink to this heading">#</a></h1>
+<div class="hint admonition">
+<p class="admonition-title">Vision</p>
+<p>다양한 image들을 handling하고 시각화하는 함수 및 class들</p>
+</div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Bbox의 types</p>
@@ -260,23 +265,23 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">poly</span></code>: <code class="docutils literal notranslate"><span class="pre">[[x0,</span> <span class="pre">y0],</span> <span class="pre">[x1,</span> <span class="pre">y1],</span> <span class="pre">[x2,</span> <span class="pre">y2],</span> <span class="pre">[x3,</span> <span class="pre">y3]]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4,</span> <span class="pre">2]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4,</span> <span class="pre">2]</span></code>)</p></li>
 </ul>
 </div>
-<span class="target" id="module-zerohertzLib.vision"></span><dl class="py class">
+<dl class="py class">
 <dt class="sig sig-object py" id="zerohertzLib.vision.JsonImageLoader">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">JsonImageLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jsonPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jsonKey</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.JsonImageLoader" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">JsonImageLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.JsonImageLoader" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>JSON file을 통해 image와 JSON file 내 정보를 불러오는 class</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.vision.JsonImageLoader.params.dataPath"></span><strong>dataPath</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.JsonImageLoader.params.dataPath">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 목표 data가 존재하는 directory 경로</p></li>
-<li><p><span class="target" id="zerohertzLib.vision.JsonImageLoader.params.jsonPath"></span><strong>jsonPath</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.JsonImageLoader.params.jsonPath">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 목표 JSON file이 존재하는 directory 경로</p></li>
-<li><p><span class="target" id="zerohertzLib.vision.JsonImageLoader.params.jsonKey"></span><strong>jsonKey</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.JsonImageLoader.params.jsonKey">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – <code class="docutils literal notranslate"><span class="pre">dataPath</span></code> 에서 data의 file 이름을 나타내는 key 값</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.JsonImageLoader.params.data_path"></span><strong>data_path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.JsonImageLoader.params.data_path">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 목표 data가 존재하는 directory 경로</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.JsonImageLoader.params.json_path"></span><strong>json_path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.JsonImageLoader.params.json_path">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 목표 JSON file이 존재하는 directory 경로</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.JsonImageLoader.params.json_key"></span><strong>json_key</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.JsonImageLoader.params.json_key">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – <code class="docutils literal notranslate"><span class="pre">data_path</span></code> 에서 data의 file 이름을 나타내는 key 값</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="zerohertzLib.vision.JsonImageLoader.gt">
-<span class="sig-name descname"><span class="pre">gt</span></span><a class="headerlink" href="#zerohertzLib.vision.JsonImageLoader.gt" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="zerohertzLib.vision.JsonImageLoader.json">
+<span class="sig-name descname"><span class="pre">json</span></span><a class="headerlink" href="#zerohertzLib.vision.JsonImageLoader.json" title="Permalink to this definition">#</a></dt>
 <dd><p>JSON file들을 읽어 data 구축 시 활용</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -303,7 +308,7 @@
 </dd></dl>
 
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jil</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">JsonImageLoader</span><span class="p">(</span><span class="n">dataPath</span><span class="p">,</span> <span class="n">jsonPath</span><span class="p">,</span> <span class="n">jsonKey</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jil</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">JsonImageLoader</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="n">json_path</span><span class="p">,</span> <span class="n">json_key</span><span class="p">)</span>
 <span class="go">100%|█████████████| 17248/17248 [00:04&lt;00:00, 3581.22it/s]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">img</span><span class="p">,</span> <span class="n">js</span> <span class="o">=</span> <span class="n">jil</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">img</span><span class="o">.</span><span class="n">shape</span>
@@ -361,7 +366,7 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><span class="target" id="zerohertzLib.vision.before_after.params.before"></span><strong>before</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.before_after.params.before">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[np.uint8]</span></code>) – 원본 image</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.before_after.params.after"></span><strong>after</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.before_after.params.after">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[np.uint8]</span></code>) – 영상 처리 혹은 모델 추론 후 image</p></li>
-<li><p><span class="target" id="zerohertzLib.vision.before_after.params.area"></span><strong>area</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.before_after.params.area">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[List[Union[int,</span> <span class="pre">float]]]</span></code>): 비교할 좌표 (<code class="docutils literal notranslate"><span class="pre">[x0,</span> <span class="pre">y0,</span> <span class="pre">x1,</span> <span class="pre">y1]</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.before_after.params.area"></span><strong>area</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.before_after.params.area">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[List[Union[int,</span> <span class="pre">float]]]</span></code>): 비교할 좌표 (<code class="docutils literal notranslate"><span class="pre">[x_0,</span> <span class="pre">y_0,</span> <span class="pre">x_1,</span> <span class="pre">y_1]</span></code>)</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.before_after.params.per"></span><strong>per</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.before_after.params.per">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – <code class="docutils literal notranslate"><span class="pre">area</span></code> 의 백분율 여부</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.before_after.params.quality"></span><strong>quality</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.before_after.params.quality">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – 출력 image의 quality (단위: %)</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.before_after.params.output_filename"></span><strong>output_filename</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.before_after.params.output_filename">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>): 저장될 file의 이름</p></li>
@@ -467,7 +472,7 @@
 <dd class="field-odd"><p><span class="target" id="zerohertzLib.vision.cwh2xyxy.params.box"></span><strong>box</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.cwh2xyxy.params.box">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – <code class="docutils literal notranslate"><span class="pre">[cx,</span> <span class="pre">cy,</span> <span class="pre">w,</span> <span class="pre">h]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4]</span></code>)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">[x0,</span> <span class="pre">y0,</span> <span class="pre">y1,</span> <span class="pre">y2]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4]</span></code>)</p>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">[x0,</span> <span class="pre">y0,</span> <span class="pre">x1,</span> <span class="pre">y1]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4]</span></code>)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code></p>
@@ -539,14 +544,14 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="zerohertzLib.vision.isPtsInPoly">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">isPtsInPoly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.isPtsInPoly" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="zerohertzLib.vision.is_pts_in_poly">
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">is_pts_in_poly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.is_pts_in_poly" title="Permalink to this definition">#</a></dt>
 <dd><p>지점들의 좌표 내 존재 여부 확인 함수</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.vision.isPtsInPoly.params.poly"></span><strong>poly</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.isPtsInPoly.params.poly">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – 다각형 (<code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">2]</span></code>)</p></li>
-<li><p><span class="target" id="zerohertzLib.vision.isPtsInPoly.params.pts"></span><strong>pts</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.isPtsInPoly.params.pts">¶</a> (<code class="docutils literal notranslate"><span class="pre">Union[List[Union[int,</span> <span class="pre">float]],</span> <span class="pre">NDArray[DTypeLike]]</span></code>) – point (<code class="docutils literal notranslate"><span class="pre">[2]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">2]</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.is_pts_in_poly.params.poly"></span><strong>poly</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.is_pts_in_poly.params.poly">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – 다각형 (<code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">2]</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.is_pts_in_poly.params.pts"></span><strong>pts</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.is_pts_in_poly.params.pts">¶</a> (<code class="docutils literal notranslate"><span class="pre">Union[List[Union[int,</span> <span class="pre">float]],</span> <span class="pre">NDArray[DTypeLike]]</span></code>) – point (<code class="docutils literal notranslate"><span class="pre">[2]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">2]</span></code>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -558,13 +563,13 @@
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">poly</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">isPtsInPoly</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">is_pts_in_poly</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
 <span class="go">True</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">isPtsInPoly</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="p">[[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">is_pts_in_poly</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="p">[[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">]])</span>
 <span class="go">array([ True, False])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">isPtsInPoly</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">is_pts_in_poly</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">]))</span>
 <span class="go">True</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">isPtsInPoly</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">]]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">is_pts_in_poly</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">]]))</span>
 <span class="go">array([ True, False])</span>
 </pre></div>
 </div>
@@ -724,7 +729,7 @@
 <dd class="field-odd"><p><span class="target" id="zerohertzLib.vision.poly2xyxy.params.box"></span><strong>box</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.poly2xyxy.params.box">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – <code class="docutils literal notranslate"><span class="pre">[[x0,</span> <span class="pre">y0],</span> <span class="pre">[x1,</span> <span class="pre">y1],</span> <span class="pre">[x2,</span> <span class="pre">y2],</span> <span class="pre">[x3,</span> <span class="pre">y3]]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4,</span> <span class="pre">2]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4,</span> <span class="pre">2]</span></code>)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">[x0,</span> <span class="pre">y0,</span> <span class="pre">y1,</span> <span class="pre">y2]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4]</span></code>)</p>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">[x0,</span> <span class="pre">y0,</span> <span class="pre">x1,</span> <span class="pre">y1]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4]</span></code>)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code></p>
@@ -837,7 +842,7 @@
 <dd><p>Bbox 변환</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="target" id="zerohertzLib.vision.xyxy2cwh.params.box"></span><strong>box</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.xyxy2cwh.params.box">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – <code class="docutils literal notranslate"><span class="pre">[x0,</span> <span class="pre">y0,</span> <span class="pre">y1,</span> <span class="pre">y2]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4]</span></code>)</p>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.vision.xyxy2cwh.params.box"></span><strong>box</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.xyxy2cwh.params.box">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – <code class="docutils literal notranslate"><span class="pre">[x0,</span> <span class="pre">y0,</span> <span class="pre">x1,</span> <span class="pre">y1]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4]</span></code>)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">[cx,</span> <span class="pre">cy,</span> <span class="pre">w,</span> <span class="pre">h]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4]</span></code>)</p>
@@ -862,7 +867,7 @@
 <dd><p>Bbox 변환</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="target" id="zerohertzLib.vision.xyxy2poly.params.box"></span><strong>box</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.xyxy2poly.params.box">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – <code class="docutils literal notranslate"><span class="pre">[x0,</span> <span class="pre">y0,</span> <span class="pre">y1,</span> <span class="pre">y2]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4]</span></code>)</p>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.vision.xyxy2poly.params.box"></span><strong>box</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.xyxy2poly.params.box">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – <code class="docutils literal notranslate"><span class="pre">[x0,</span> <span class="pre">y0,</span> <span class="pre">x1,</span> <span class="pre">y1]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4]</span></code>)</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">[[x0,</span> <span class="pre">y0],</span> <span class="pre">[x1,</span> <span class="pre">y1],</span> <span class="pre">[x2,</span> <span class="pre">y2],</span> <span class="pre">[x3,</span> <span class="pre">y3]]</span></code> 로 구성된 bbox (<code class="docutils literal notranslate"><span class="pre">[4,</span> <span class="pre">2]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4,</span> <span class="pre">2]</span></code>)</p>
@@ -952,7 +957,7 @@
             <ul>
 <li><a class="reference internal" href="#">zerohertzLib.vision</a><ul>
 <li><a class="reference internal" href="#zerohertzLib.vision.JsonImageLoader"><code class="docutils literal notranslate"><span class="pre">JsonImageLoader</span></code></a><ul>
-<li><a class="reference internal" href="#zerohertzLib.vision.JsonImageLoader.gt"><code class="docutils literal notranslate"><span class="pre">JsonImageLoader.gt</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.vision.JsonImageLoader.json"><code class="docutils literal notranslate"><span class="pre">JsonImageLoader.json</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.JsonImageLoader.__getitem__"><code class="docutils literal notranslate"><span class="pre">JsonImageLoader.__getitem__()</span></code></a></li>
 </ul>
 </li>
@@ -963,7 +968,7 @@
 <li><a class="reference internal" href="#zerohertzLib.vision.cwh2xyxy"><code class="docutils literal notranslate"><span class="pre">cwh2xyxy()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.grid"><code class="docutils literal notranslate"><span class="pre">grid()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.img2gif"><code class="docutils literal notranslate"><span class="pre">img2gif()</span></code></a></li>
-<li><a class="reference internal" href="#zerohertzLib.vision.isPtsInPoly"><code class="docutils literal notranslate"><span class="pre">isPtsInPoly()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.vision.is_pts_in_poly"><code class="docutils literal notranslate"><span class="pre">is_pts_in_poly()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.masks"><code class="docutils literal notranslate"><span class="pre">masks()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.paste"><code class="docutils literal notranslate"><span class="pre">paste()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.poly2cwh"><code class="docutils literal notranslate"><span class="pre">poly2cwh()</span></code></a></li>
@@ -987,7 +992,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=9db99069"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=ef937b00"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
