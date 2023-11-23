@@ -22,14 +22,87 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+import math
 import os
-from typing import Tuple
+from glob import glob
+from typing import List, Optional, Tuple, Union
 
 import cv2
 import numpy as np
 from numpy.typing import NDArray
 
 from zerohertzLib.util import Json, JsonDir
+
+
+class ImageLoader:
+    """경로와 image의 수를 지정하여 경로 내 image를 return하는 class
+
+    Args:
+        path (``Optional[str]``): Image들이 존재하는 경로
+        cnt (``Optional[int]``): 호출 시 return 할 image의 수
+
+    Attributes:
+        image_paths (``List[str]``): 지정한 경로 내 image들의 경로
+
+    Methods:
+        __len__:
+            Returns:
+                ``int``: ``cnt`` 에 해당하는 image들의 수
+
+        __getitem__:
+            Args:
+                idx (``int``): 입력 index
+
+            Returns:
+                ``Union[NDArray[np.uint8], List[NDArray[np.uint8]]]``: ``cnt`` 에 따라 단일 image 또는 image들의 list
+
+    Examples:
+        >>> il = zz.vision.ImageLoader()
+        >>> len(il)
+        27
+        >>> type(il[0])
+        <class 'numpy.ndarray'>
+        >>> il = zz.vision.ImageLoader(cnt=4)
+        >>> len(il)
+        7
+        >>> type(il[0])
+        <class 'list'>
+        >>> len(il[0])
+        4
+        >>> type(il[0][0])
+        <class 'numpy.ndarray'>
+    """
+
+    def __init__(self, path: Optional[str] = "./", cnt: Optional[int] = 1) -> None:
+        ext = [
+            "jpg",
+            "JPG",
+            "jpeg",
+            "JPEG",
+            "png",
+            "PNG",
+            "tif",
+            "TIF",
+            "tiff",
+            "TIFF",
+        ]
+        self.cnt = cnt
+        self.image_paths = []
+        for ext_ in ext:
+            self.image_paths += glob(os.path.join(path, f"*.{ext_}"))
+
+    def __len__(self) -> int:
+        return math.ceil(len(self.image_paths) / self.cnt)
+
+    def __getitem__(
+        self, idx: int
+    ) -> Union[NDArray[np.uint8], List[NDArray[np.uint8]]]:
+        if self.cnt == 1:
+            return cv2.imread(self.image_paths[idx], cv2.IMREAD_UNCHANGED)
+        return [
+            cv2.imread(path, cv2.IMREAD_UNCHANGED)
+            for path in self.image_paths[self.cnt * idx : self.cnt * (idx + 1)]
+        ]
 
 
 class JsonImageLoader:
