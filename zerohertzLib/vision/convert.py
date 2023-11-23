@@ -285,3 +285,50 @@ def poly2mask(poly: NDArray[DTypeLike], shape: Tuple[int]) -> NDArray[bool]:
     grid = poly.contains_points(points)
     mask = grid.reshape(shape)
     return mask
+
+
+def poly2area(poly: NDArray[DTypeLike]) -> float:
+    """다각형의 면적을 산출하는 함수
+
+    Args:
+        poly (``NDArray[DTypeLike]``): 다각형 (``[N, 2]``)
+
+    Returns:
+        ``float``: 다각형의 면적
+
+    Examples:
+        >>> poly = np.array([[10, 10], [20, 10], [30, 40], [20, 60], [10, 20]])
+        >>> zz.vision.poly2area(poly)
+        550.0
+        >>> box = np.array([[100, 200], [1200, 200], [1200, 1000], [100, 1000]])
+        >>> zz.vision.poly2area(box)
+        880000.0
+    """
+    pts_x = poly[:, 0]
+    pts_y = poly[:, 1]
+    return 0.5 * np.abs(
+        np.dot(pts_x, np.roll(pts_y, 1)) - np.dot(pts_y, np.roll(pts_x, 1))
+    )
+
+
+def poly2ratio(poly: NDArray[DTypeLike]) -> float:
+    """다각형의 bbox 대비 다각형의 면적 비율을 산출하는 함수
+
+    Args:
+        poly (``NDArray[DTypeLike]``): 다각형 (``[N, 2]``)
+
+    Returns:
+        ``float``: 다각형의 bbox 대비 다각형의 비율
+
+    Examples:
+        >>> poly = np.array([[10, 10], [20, 10], [30, 40], [20, 60], [10, 20]])
+        >>> zz.vision.poly2ratio(poly)
+        0.55
+        >>> box = np.array([[100, 200], [1200, 200], [1200, 1000], [100, 1000]])
+        >>> zz.vision.poly2ratio(box)
+        1.0
+    """
+    poly_area = poly2area(poly)
+    _, _, height, width = poly2cwh(poly)
+    bbox_area = height * width
+    return poly_area / bbox_area

@@ -56,12 +56,13 @@ def barv(
         ``None``: 현재 directory에 바로 graph 저장
 
     Examples:
-        >>> zz.plot.bar({"테란": 27, "저그": 40, "프로토스": 30}, xlab="종족", ylab="인구 [명]", title="Star Craft")
+        >>> data = {"테란": 27, "저그": 40, "프로토스": 30}
+        >>> zz.plot.barv(data, xlab="종족", ylab="인구 [명]", title="Star Craft")
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280595386-1c930639-762a-47b7-9ae1-1babf789803c.png
             :alt: Visualzation Result
             :align: center
-            :width: 300px
+            :width: 500px
     """
     colors = color(len(data))
     plt.figure(figsize=ratio)
@@ -118,12 +119,13 @@ def barh(
         ``None``: 현재 directory에 바로 graph 저장
 
     Examples:
-        >>> zz.plot.barh({"테란": 27, "저그": 40, "프로토스": 30}, xlab="인구 [명]", ylab="종족", title="Star Craft")
+        >>> data = {"테란": 27, "저그": 40, "프로토스": 30}
+        >>> zz.plot.barh(data, xlab="인구 [명]", ylab="종족", title="Star Craft")
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280707484-361611aa-f1bd-4909-b2a2-fadc26aa1416.png
             :alt: Visualzation Result
             :align: center
-            :width: 200px
+            :width: 375px
     """
     colors = color(len(data))
     plt.figure(figsize=ratio)
@@ -182,7 +184,8 @@ def hist(
         ``None``: 현재 directory에 바로 graph 저장
 
     Examples:
-        >>> zz.plot.hist({"테란": list(np.random.rand(1000) * 10), "저그": list(np.random.rand(1000) * 10 + 1), "프로토스": list(np.random.rand(1000) * 10 + 2)}, xlab="성적 [점]", ylab="인원 [명]", title="Star Craft")
+        >>> data = {"테란": list(np.random.rand(1000) * 10), "저그": list(np.random.rand(1000) * 10 + 1), "프로토스": list(np.random.rand(1000) * 10 + 2)}
+        >>> zz.plot.hist(data, xlab="성적 [점]", ylab="인원 [명]", title="Star Craft")
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280599183-2508d4d4-7398-48ac-ad94-54296934c300.png
             :alt: Visualzation Result

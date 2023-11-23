@@ -43,6 +43,10 @@ class Json:
         keys (``List[str]``): 직렬화된 JSON의 key 값들
 
     Methods:
+        __len__:
+            Returns:
+                ``int``: 읽어온 JSON file의 길이
+
         __getitem__:
             읽어온 JSON file에 key 값 입력
 
@@ -95,6 +99,9 @@ class Json:
             self.data = json.load(file)
         self.keys = []
         self.map = []
+
+    def __len__(self) -> int:
+        return len(self.data)
 
     def __getitem__(self, key: str) -> Any:
         return self.data[key]

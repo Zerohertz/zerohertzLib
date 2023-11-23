@@ -60,7 +60,7 @@ def test_grid_vertical():
     imgs = [(test + np.random.rand(*test.shape)).astype(np.uint8) for _ in range(8)]
     imgs[2] = cv2.cvtColor(imgs[2], cv2.COLOR_BGR2GRAY)
     imgs[3] = cv2.cvtColor(imgs[3], cv2.COLOR_BGR2BGRA)
-    zz.vision.grid(*imgs, filename="GRID_VERTICAL")
+    zz.vision.grid(imgs, filename="GRID_VERTICAL")
     assert "GRID_VERTICAL.png" in os.listdir()
 
 
@@ -70,7 +70,7 @@ def test_grid_horizontal():
     imgs = [(test + np.random.rand(*test.shape)).astype(np.uint8) for _ in range(8)]
     imgs[2] = cv2.cvtColor(imgs[2], cv2.COLOR_BGR2GRAY)
     imgs[3] = cv2.cvtColor(imgs[3], cv2.COLOR_BGR2BGRA)
-    zz.vision.grid(*imgs, filename="GRID_HORIZONTAL")
+    zz.vision.grid(imgs, filename="GRID_HORIZONTAL")
     assert "GRID_HORIZONTAL.png" in os.listdir()
 
 
@@ -82,7 +82,7 @@ def test_vert():
     ]
     imgs[2] = cv2.cvtColor(imgs[2], cv2.COLOR_BGR2GRAY)
     imgs[3] = cv2.cvtColor(imgs[3], cv2.COLOR_BGR2BGRA)
-    zz.vision.vert(*imgs, filename="VERT")
+    zz.vision.vert(imgs, filename="VERT")
     assert "VERT.png" in os.listdir()
 
 

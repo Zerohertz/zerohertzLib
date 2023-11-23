@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.api" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.api.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.4.1 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.4.2 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.4.1 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.4.2 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.api.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.api - zerohertzLib v0.4.1 documentation</title>
+        <title>zerohertzLib.api - zerohertzLib v0.4.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.4.1 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.4.2 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.4.1 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.4.2 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -260,10 +260,10 @@
 <dt class="sig sig-object py" id="zerohertzLib.api.Discord">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.api.</span></span><span class="sig-name descname"><span class="pre">Discord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">webhook_url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.Discord" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Discord Webhook의 데이터 전송을 위한 class</p>
+<p>Discord webhook의 데이터 전송을 위한 class</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="target" id="zerohertzLib.api.Discord.params.webhook_url"></span><strong>webhook_url</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.params.webhook_url">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Discord Webhook의 URL</p>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.api.Discord.params.webhook_url"></span><strong>webhook_url</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.params.webhook_url">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Discord webhook의 URL</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -273,13 +273,13 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.api.Discord.image">
 <span class="sig-name descname"><span class="pre">image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.Discord.image" title="Permalink to this definition">#</a></dt>
-<dd><p>Discord Webhook에 image 전송</p>
+<dd><p>Discord webhook에 image 전송</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="target" id="zerohertzLib.api.Discord.image.params.image_path"></span><strong>image_path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.image.params.image_path">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 전송할 image 경로</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Discord Webhook의 응답</p>
+<dd class="field-even"><p>Discord webhook의 응답</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">requests.models.Response</span></code></p>
@@ -296,17 +296,17 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.api.Discord.message">
 <span class="sig-name descname"><span class="pre">message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeblock</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.Discord.message" title="Permalink to this definition">#</a></dt>
-<dd><p>Discord Webhook에 message 전송</p>
+<dd><p>Discord webhook에 message 전송</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.api.Discord.message.params.message"></span><strong>message</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.message.params.message">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Discord Webhook의 입력</p></li>
+<li><p><span class="target" id="zerohertzLib.api.Discord.message.params.message"></span><strong>message</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.message.params.message">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Discord webhook의 입력</p></li>
 <li><p><span class="target" id="zerohertzLib.api.Discord.message.params.gap"></span><strong>gap</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.message.params.gap">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – <code class="docutils literal notranslate"><span class="pre">message</span></code> 의 전송 간 간격 (<code class="docutils literal notranslate"><span class="pre">message</span></code> 가 1500자 이내라면 0)</p></li>
 <li><p><span class="target" id="zerohertzLib.api.Discord.message.params.codeblock"></span><strong>codeblock</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.message.params.codeblock">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 전송되는 message의 스타일</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Discord Webhook의 응답</p>
+<dd class="field-even"><p>Discord webhook의 응답</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[requests.models.Response]</span></code></p>
@@ -375,12 +375,6 @@
 <li><p><span class="target" id="zerohertzLib.api.GitHub.release_note.params.name"></span><strong>name</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.GitHub.release_note.params.name">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Release note file 및 directory의 이름</p></li>
 <li><p><span class="target" id="zerohertzLib.api.GitHub.release_note.params.sphinx_source_path"></span><strong>sphinx_source_path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.GitHub.release_note.params.sphinx_source_path">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Sphinx의 <code class="docutils literal notranslate"><span class="pre">source</span></code> 경로</p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Discord Webhook의 응답</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[requests.models.Response]</span></code></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -634,7 +628,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=4bebff19"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=7c137573"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
