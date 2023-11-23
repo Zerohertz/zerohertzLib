@@ -44,6 +44,10 @@ class JsonImageLoader:
         json (``zerohertzLib.util.JsonDir``): JSON file들을 읽어 data 구축 시 활용
 
     Methods:
+        __len__:
+            Returns:
+                ``int``: 읽어온 JSON file들의 수
+
         __getitem__:
             읽어온 JSON file들을 list와 같이 indexing 후 해당하는 image return
 
@@ -76,6 +80,9 @@ class JsonImageLoader:
         self.json_path = json_path
         self.json = JsonDir(json_path)
         self.json_key = self.json._get_key(json_key)
+
+    def __len__(self) -> int:
+        return len(self.json)
 
     def __getitem__(self, idx: int) -> Tuple[NDArray[np.uint8], Json]:
         data_name = self.json[idx].get(self.json_key)
