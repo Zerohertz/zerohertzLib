@@ -214,9 +214,6 @@ class GitHub:
             name (``Optional[str]``): Release note file 및 directory의 이름
             sphinx_source_path (``Optional[str]``): Sphinx의 ``source`` 경로
 
-        Returns:
-            ``List[requests.models.Response]``: Discord Webhook의 응답
-
         Examples:
             >>> gh = zz.api.GitHub("Zerohertz", "zerohertzLib", token="ghp_...")
             >>> gh.release_note(sphinx_source_path=os.path.join(sphinx, "source"))
