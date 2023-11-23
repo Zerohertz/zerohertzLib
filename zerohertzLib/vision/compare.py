@@ -30,6 +30,7 @@ import numpy as np
 from numpy.typing import NDArray
 
 from .util import _cvt_bgra
+from .visual import pad
 
 
 def _rel2abs(
@@ -147,7 +148,7 @@ def grid(
     cnt = math.ceil(math.sqrt(len(imgs)))
     length = size // cnt
     size = int(length * cnt)
-    palette = np.full((size, size, 4), 255, dtype=np.uint8)
+    palette = np.full((size, size, 4), 0, dtype=np.uint8)
     for idx, img in enumerate(imgs):
         d_y, d_x = divmod(idx, cnt)
         x_0, y_0, x_1, y_1 = (
@@ -157,35 +158,7 @@ def grid(
             (d_y + 1) * length,
         )
         img = _cvt_bgra(img)
-        img_height, img_width, _ = img.shape
-        if img_height > img_width:
-            tar_height, tar_width = length, int(length / img_height * img_width)
-            gap = (length - tar_width) // 2
-            x_0, y_0, x_1, y_1 = (
-                d_x * length + gap,
-                d_y * length,
-                d_x * length + gap + tar_width,
-                (d_y + 1) * length,
-            )
-        elif img_height > img_width:
-            tar_height, tar_width = int(length / img_width * img_height), length
-            gap = (length - tar_height) // 2
-            x_0, y_0, x_1, y_1 = (
-                d_x * length,
-                d_y * length + gap,
-                (d_x + 1) * length,
-                d_y * length + gap + tar_height,
-            )
-        else:
-            tar_height = tar_width = length
-            x_0, y_0, x_1, y_1 = (
-                d_x * length,
-                d_y * length,
-                (d_x + 1) * length,
-                (d_y + 1) * length,
-            )
-        img = cv2.resize(img, (tar_width, tar_height))
-        palette[y_0:y_1, x_0:x_1, :] = img
+        palette[y_0:y_1, x_0:x_1, :] = pad(img, (length, length), color)
     cv2.imwrite(f"{output_filename}.png", palette)
 
 
