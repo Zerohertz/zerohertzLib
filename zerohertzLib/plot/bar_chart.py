@@ -56,7 +56,7 @@ def barv(
         ``None``: 현재 directory에 바로 graph 저장
 
     Examples:
-        >>> zz.plot.bar({"테란": 27, "저그": 40, "프로토스": 30}, xlab="종족", ylab="인구 [명]", title="Star Craft")
+        >>> zz.plot.barv({"테란": 27, "저그": 40, "프로토스": 30}, xlab="종족", ylab="인구 [명]", title="Star Craft")
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280595386-1c930639-762a-47b7-9ae1-1babf789803c.png
             :alt: Visualzation Result
