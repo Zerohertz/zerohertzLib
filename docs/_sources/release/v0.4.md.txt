@@ -1,5 +1,35 @@
 # v0.4
 
+## v0.4.1
+
+<h3>[v0.4.1] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/111>#111</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2023/11/23
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/vision"><img src="https://img.shields.io/badge/feat/vision-D1F9CB?style=flat-square&logo=github" alt="feat/vision"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `vision`
+  + `paste`에 `poly` 입력 시 변환 후 좌표 return
+  + Padding을 수행하는 함수 `pad` 개발
+  + Padding을 활용하는 함수 (`paste`, `_make_text`, `grid`) 들에 대해 `pad`를 통한 refactoring
+  + Image를 저장하는 함수에 대해 파일의 이름을 나타내는 변수명 변경 (`output_filename` → `filename`)
+
+<h4>Docs</h4>
+
++ `vision` module에 대한 Examples의 typo 수정
++ 오타 수정
+
 ## v0.4.0
 
 <h3>[v0.4.0] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/109>#109</a>)</h3>

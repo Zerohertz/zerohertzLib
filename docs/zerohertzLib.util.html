@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.util" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.util.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.4.0 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.4.1 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.4.0 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.4.1 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.util.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.util - zerohertzLib v0.4.0 documentation</title>
+        <title>zerohertzLib.util - zerohertzLib v0.4.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.4.0 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.4.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.4.0 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.4.1 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -624,7 +624,7 @@
         <span class="k">return</span> <span class="p">(</span><span class="n">annotations</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;color&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;White&quot;</span><span class="p">,</span> <span class="s2">&quot;Black&quot;</span><span class="p">])</span> <span class="ow">and</span> <span class="p">(</span>
             <span class="n">json_instance</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;supercategory_name&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;CityCar&quot;</span>
         <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">makeData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_instance</span><span class="p">,</span> <span class="n">data_name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">make_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_instance</span><span class="p">,</span> <span class="n">data_name</span><span class="p">):</span>
         <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_data_path</span><span class="p">,</span> <span class="n">data_name</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ant</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">json_instance</span><span class="p">[</span><span class="s2">&quot;annotations&quot;</span><span class="p">]):</span>
             <span class="n">label</span> <span class="o">=</span> <span class="n">ant</span><span class="p">[</span><span class="s2">&quot;damage&quot;</span><span class="p">]</span>
@@ -652,7 +652,7 @@
 </div>
 <p>Make Data:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MakeDataCarAugment</span><span class="p">(</span><span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">MakeData</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">makeData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_instance</span><span class="p">,</span> <span class="n">data_name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">make_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_instance</span><span class="p">,</span> <span class="n">data_name</span><span class="p">):</span>
         <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span>
             <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">))</span>
         <span class="p">)</span>
@@ -931,7 +931,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=ef937b00"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=4bebff19"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
