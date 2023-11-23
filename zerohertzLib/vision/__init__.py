@@ -17,8 +17,10 @@ from zerohertzLib.vision.compare import before_after, grid, vert
 from zerohertzLib.vision.convert import (
     cwh2poly,
     cwh2xyxy,
+    poly2area,
     poly2cwh,
     poly2mask,
+    poly2ratio,
     poly2xyxy,
     xyxy2cwh,
     xyxy2poly,
@@ -49,4 +51,6 @@ __all__ = [
     "JsonImageLoader",
     "vert",
     "pad",
+    "poly2area",
+    "poly2ratio",
 ]
