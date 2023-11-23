@@ -16,11 +16,11 @@
     <meta property="og:title" content="v0.4" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/release/v0.4.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.4.1 Documents" />
-<meta property="og:description" content="v0.4.1: 4. Docs stage에 대해 docs- legacy 수정. zz.vision.pad 의 변수 format 수정. vision- paste 에 poly 입력 시 변환 후 좌표 return, Padding을 수행하는 함수 pad 개발, Padding을 활용하는 함수 ( paste,_make_text, grid) 들에 대해 pad 를 통한..." />
+<meta property="og:site_name" content="Zerohertz's Library v0.4.2 Documents" />
+<meta property="og:description" content="v0.4.2: util- Json 의__len__ method 추가., vision- 다각형의 면적 및 bbox 대비 비율을 계산하는 함수 poly2area, poly2ratio 개발, grid 와 vert 함수에 대해 입력 refactoring, JsonImageLoader 의__len__ method 추가, 지정한 경로 내 image들을 원하는 수..." />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.4.1 Documents" />
-<meta name="description" content="v0.4.1: 4. Docs stage에 대해 docs- legacy 수정. zz.vision.pad 의 변수 format 수정. vision- paste 에 poly 입력 시 변환 후 좌표 return, Padding을 수행하는 함수 pad 개발, Padding을 활용하는 함수 ( paste,_make_text, grid) 들에 대해 pad 를 통한..." />
+<meta property="og:image:alt" content="Zerohertz's Library v0.4.2 Documents" />
+<meta name="description" content="v0.4.2: util- Json 의__len__ method 추가., vision- 다각형의 면적 및 bbox 대비 비율을 계산하는 함수 poly2area, poly2ratio 개발, grid 와 vert 함수에 대해 입력 refactoring, JsonImageLoader 의__len__ method 추가, 지정한 경로 내 image들을 원하는 수..." />
     <link href="../_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -28,7 +28,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/release/v0.4.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>v0.4 - zerohertzLib v0.4.1 documentation</title>
+        <title>v0.4 - zerohertzLib v0.4.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -156,7 +156,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">zerohertzLib v0.4.1 documentation</div></a>
+      <a href="../index.html"><div class="brand">zerohertzLib v0.4.2 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
     <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.4.1 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.4.2 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -254,6 +254,41 @@
         <article role="main">
           <section id="v0-4">
 <h1>v0.4<a class="headerlink" href="#v0-4" title="Permalink to this heading">#</a></h1>
+<section id="v0-4-2">
+<h2>v0.4.2<a class="headerlink" href="#v0-4-2" title="Permalink to this heading">#</a></h2>
+<h3>[v0.4.2] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/115>#115</a>)</h3>
+<div class="tip admonition">
+<p class="admonition-title">Release Date</p>
+<p>2023/11/23</p>
+</div>
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/vision"><img src="https://img.shields.io/badge/feat/vision-D1F9CB?style=flat-square&logo=github" alt="feat/vision"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/util"><img src="https://img.shields.io/badge/feat/util-DEBEAA?style=flat-square&logo=github" alt="feat/util"/></a>
+</p>
+<h4>Features</h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">util</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Json</span></code>의 <code class="docutils literal notranslate"><span class="pre">__len__</span></code> method 추가</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vision</span></code></p>
+<ul>
+<li><p>다각형의 면적 및 bbox 대비 비율을 계산하는 함수 <code class="docutils literal notranslate"><span class="pre">poly2area</span></code>, <code class="docutils literal notranslate"><span class="pre">poly2ratio</span></code> 개발</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">grid</span></code>와 <code class="docutils literal notranslate"><span class="pre">vert</span></code> 함수에 대해 입력 refactoring</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">JsonImageLoader</span></code>의 <code class="docutils literal notranslate"><span class="pre">__len__</span></code> method 추가</p></li>
+<li><p>지정한 경로 내 image들을 원하는 수량만큼 읽어오는 <code class="docutils literal notranslate"><span class="pre">ImageLoader</span></code> class 추가</p></li>
+</ul>
+</li>
+</ul>
+<h4>Docs</h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">plot</span></code> module의 Examples 수정</p></li>
+<li><p>Sphinx 문서 내 typos 수정</p></li>
+</ul>
+</section>
 <section id="v0-4-1">
 <h2>v0.4.1<a class="headerlink" href="#v0-4-1" title="Permalink to this heading">#</a></h2>
 <h3>[v0.4.1] Docs Update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/113>#113</a>)</h3>
@@ -264,6 +299,7 @@
 <p align="center">
 <a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
 <a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
 <a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release/chore"><img src="https://img.shields.io/badge/release/chore-22FD7F?style=flat-square&logo=github" alt="release/chore"/></a>
 </p>
 <h4>Chore</h4>
@@ -395,6 +431,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">v0.4</a><ul>
+<li><a class="reference internal" href="#v0-4-2">v0.4.2</a></li>
 <li><a class="reference internal" href="#v0-4-1">v0.4.1</a></li>
 <li><a class="reference internal" href="#v0-4-0">v0.4.0</a></li>
 </ul>
@@ -410,7 +447,7 @@
   </div>
 </div><script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=4bebff19"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=7c137573"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
