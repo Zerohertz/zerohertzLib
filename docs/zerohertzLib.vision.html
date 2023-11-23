@@ -636,21 +636,21 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.vision.pad">
 <span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">pad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(255,</span> <span class="pre">255,</span> <span class="pre">255)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.pad" title="Permalink to this definition">#</a></dt>
-<dd><p>입력 image를 원하는 shape로 resize 및 pad
-:param _sphinx_paramlinks_zerohertzLib.vision.pad.img: 입력 image (<code class="docutils literal notranslate"><span class="pre">[H,</span> <span class="pre">W,</span> <span class="pre">C]</span></code>)
-:type _sphinx_paramlinks_zerohertzLib.vision.pad.img: <code class="docutils literal notranslate"><span class="pre">NDArray[np.uint8]</span></code>
-:param _sphinx_paramlinks_zerohertzLib.vision.pad.shape: 출력의 shape <code class="docutils literal notranslate"><span class="pre">(H,</span> <span class="pre">W)</span></code>
-:type _sphinx_paramlinks_zerohertzLib.vision.pad.shape: <code class="docutils literal notranslate"><span class="pre">Tuple[int]</span></code>
-:param _sphinx_paramlinks_zerohertzLib.vision.pad.color: Padding의 색
-:type _sphinx_paramlinks_zerohertzLib.vision.pad.color: <code class="docutils literal notranslate"><span class="pre">Optional[Tuple[int]]</span></code>
-:param _sphinx_paramlinks_zerohertzLib.vision.pad.poly: Padding에 따라 변형될 좌표 (<code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">2]</span></code>)
-:type _sphinx_paramlinks_zerohertzLib.vision.pad.poly: <code class="docutils literal notranslate"><span class="pre">Optional[NDArray[DTypeLike]]</span></code></p>
+<dd><p>입력 image를 원하는 shape로 resize 및 pad</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>출력 image (<code class="docutils literal notranslate"><span class="pre">[H,</span> <span class="pre">W,</span> <span class="pre">C]</span></code>) 및 <code class="docutils literal notranslate"><span class="pre">poly</span></code> 입력 시 padding에 따른 변형된 좌표값</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.vision.pad.params.img"></span><strong>img</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.pad.params.img">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[np.uint8]</span></code>) – 입력 image (<code class="docutils literal notranslate"><span class="pre">[H,</span> <span class="pre">W,</span> <span class="pre">C]</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.pad.params.shape"></span><strong>shape</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.pad.params.shape">¶</a> (<code class="docutils literal notranslate"><span class="pre">Tuple[int]</span></code>) – 출력의 shape <code class="docutils literal notranslate"><span class="pre">(H,</span> <span class="pre">W)</span></code></p></li>
+<li><p><span class="target" id="zerohertzLib.vision.pad.params.color"></span><strong>color</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.pad.params.color">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[Tuple[int]]</span></code>) – Padding의 색</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.pad.params.poly"></span><strong>poly</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.pad.params.poly">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[NDArray[DTypeLike]]</span></code>) – Padding에 따라 변형될 좌표 (<code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">2]</span></code>)</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Union[NDArray[np.uint8],</span> <span class="pre">Tuple[NDArray[np.uint8],</span> <span class="pre">NDArray[DTypeLike]]]</span></code></p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>출력 image (<code class="docutils literal notranslate"><span class="pre">[H,</span> <span class="pre">W,</span> <span class="pre">C]</span></code>) 및 <code class="docutils literal notranslate"><span class="pre">poly</span></code> 입력 시 padding에 따른 변형된 좌표값</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Union[NDArray[np.uint8],</span> <span class="pre">Tuple[NDArray[np.uint8],</span> <span class="pre">NDArray[DTypeLike]]]</span></code></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
