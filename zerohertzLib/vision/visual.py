@@ -77,15 +77,19 @@ def bbox(
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, C]``)
 
     Examples:
-        >>> img = cv2.imread("test.jpg")
+        Bbox:
+
         >>> box = np.array([[100, 200], [100, 1000], [1200, 1000], [1200, 200]])
         >>> box.shape
         (4, 2)
-        >>> zz.vision.bbox(img, box, thickness=10)
+        >>> res1 = zz.vision.bbox(img, box, thickness=10)
+
+        Bboxes:
+
         >>> boxes = np.array([[250, 200, 100, 100], [600, 600, 800, 200], [900, 300, 300, 400]])
         >>> boxes.shape
         (3, 4)
-        >>> zz.vision.bbox(img, boxes, (0, 255, 0), thickness=10)
+        >>> res2 = zz.vision.bbox(img, boxes, (0, 255, 0), thickness=10)
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284566751-ec443fc2-6b71-4ba3-a770-590fa873e944.png
             :alt: Visualzation Result
@@ -136,7 +140,8 @@ def masks(
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, C]``)
 
     Examples:
-        >>> img = cv2.imread("test.jpg")
+        Mask (without class):
+
         >>> H, W, _ = img.shape
         >>> cnt = 30
         >>> mks = np.zeros((cnt, H, W), np.uint8)
@@ -146,15 +151,21 @@ def masks(
         >>>     radius = random.randint(30, 200)
         >>>     cv2.circle(mask, (center_x, center_y), radius, (True), -1)
         >>> mks = mks.astype(bool)
-        >>> zz.vision.masks(img, mks)
+        >>> res1 = zz.vision.masks(img, mks)
+
+        Mask (with class):
+
         >>> cls = [i for i in range(cnt)]
         >>> class_list = [cls[random.randint(0, 2)] for _ in range(cnt)]
         >>> class_color = {}
         >>> for c in cls:
         >>>     class_color[c] = [random.randint(0, 255) for _ in range(3)]
-        >>> zz.vision.masks(img, mks, class_list=class_list, class_color=class_color)
+        >>> res2 = zz.vision.masks(img, mks, class_list=class_list, class_color=class_color)
+
+        Poly:
+
         >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
-        >>> zz.vision.masks(img, poly=poly)
+        >>> res3 = zz.vision.masks(img, poly=poly)
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284878547-c36cd4ff-2b36-4b0f-a125-89ed8380a456.png
             :alt: Visualzation Result
@@ -231,7 +242,7 @@ def pad(
     Args:
         img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
         shape (``Tuple[int]``): 출력의 shape ``(H, W)``
-        color (``Optional[Tuple[int]]``): Mask의 색
+        color (``Optional[Tuple[int]]``): Padding의 색
         poly (``Optional[NDArray[DTypeLike]]``): Padding에 따라 변형될 좌표 (``[N, 2]``)
 
     Returns:
@@ -241,24 +252,27 @@ def pad(
         GRAY:
 
         >>> img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
-        >>> zz.vision.visual.pad(cv2.resize(img, (500, 1000)), (1000, 1000), color=(0, 255, 0))
+        >>> res1 = cv2.resize(img, (500, 1000))
+        >>> res1 = zz.vision.pad(res1, (1000, 1000), color=(0, 255, 0))
 
         BGR:
 
-        >>> zz.vision.visual.pad(cv2.resize(img, (1000, 500)), (1000, 1000))
+        >>> res2 = cv2.resize(img, (1000, 500))
+        >>> res2 = zz.vision.pad(res2, (1000, 1000))
 
         BGRA:
 
         >>> img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
-        >>> zz.vision.visual.pad(cv2.resize(img, (500, 1000)), (1000, 1000), color=(0, 0, 255, 128))
+        >>> res3 = cv2.resize(img, (500, 1000))
+        >>> res3 = zz.vision.pad(res3, (1000, 1000), color=(0, 0, 255, 128))
 
         Poly:
 
         >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
-        >>> img = cv2.resize(img, (2000, 1000))
-        >>> img = zz.vision.bbox(img, poly, color=(255, 0, 0), thickness=20)
-        >>> img, poly = zz.vision.visual.pad(img, (1000, 1000), poly=poly)
-        >>> zz.vision.bbox(img, poly, color=(0, 0, 255))
+        >>> res4 = cv2.resize(img, (2000, 1000))
+        >>> res4 = zz.vision.bbox(res4, poly, color=(255, 0, 0), thickness=20)
+        >>> res4, poly = zz.vision.pad(res4, (1000, 1000), poly=poly)
+        >>> res4 = zz.vision.bbox(img, poly, color=(0, 0, 255))
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/285082573-3192363a-9b76-4474-a627-2d434db060fc.png
             :alt: Visualzation Result
@@ -369,14 +383,19 @@ def text(
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
 
     Examples:
+        Bbox:
+
         >>> box = np.array([[100, 200], [100, 1000], [1200, 1000], [1200, 200]])
         >>> box.shape
         (4, 2)
-        >>> img1 = zz.vision.text(img, box, "먼지야")
+        >>> res1 = zz.vision.text(img, box, "먼지야")
+
+        Bboxes:
+
         >>> boxes = np.array([[250, 200, 100, 100], [600, 600, 800, 200], [900, 300, 300, 400]])
         >>> boxes.shape
         (3, 4)
-        >>> img2 = zz.vision.text(img, boxes, ["먼지야", "먼지야", "먼지야"], vis=True)
+        >>> res2 = zz.vision.text(img, boxes, ["먼지야", "먼지야", "먼지야"], vis=True)
 
     .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284566305-fe9d1be6-b506-4140-bca9-db2a210f333c.png
             :alt: Visualzation Result
@@ -427,11 +446,10 @@ def cutout(
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
 
     Examples:
-        >>> img = cv2.imread("test.jpg")
         >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
-        >>> zz.vision.cutout(img, poly)
-        >>> zz.vision.cutout(img, poly, 128, False)
-        >>> zz.vision.cutout(img, poly, background=128)
+        >>> res1 = zz.vision.cutout(img, poly)
+        >>> res2 = zz.vision.cutout(img, poly, 128, False)
+        >>> res3 = zz.vision.cutout(img, poly, background=128)
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284778462-8a1e3017-328e-4776-adeb-b2f24fd09c58.png
             :alt: Visualzation Result
@@ -490,21 +508,21 @@ def paste(
 
         >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
         >>> target = zz.vision.cutout(img, poly, 200)
-        >>> img1 = zz.vision.paste(img, target, [200, 200, 1000, 800], False, True)
-        >>> img2 = zz.vision.paste(img, target, [200, 200, 1000, 800], True, True)
+        >>> res1 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=False, vis=True)
+        >>> res2 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, vis=True)
 
         With Poly:
 
         >>> poly -= zz.vision.poly2xyxy(poly)[:2]
         >>> target = zz.vision.bbox(target, poly, color=(255, 0, 0), thickness=20)
-        >>> img3, poly1 = zz.vision.paste(img, target, [200, 200, 1000, 800], False, poly=poly)
+        >>> res3, poly1 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=False, poly=poly)
         >>> poly1
         array([[300.        , 200.        ],
                [557.14285714, 200.        ],
                [900.        , 628.57142857],
                [557.14285714, 800.        ],
                [300.        , 542.85714286]])
-        >>> img4, poly2 = zz.vision.paste(img, target, [200, 200, 1000, 800], True, poly=poly)
+        >>> res4, poly2 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, poly=poly)
         >>> poly2
         array([[ 200.        ,  200.        ],
                [ 542.85714286,  200.        ],

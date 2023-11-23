@@ -92,7 +92,7 @@ def vid2gif(
         ``None``: 현재 directory에 바로 GIF 저장
 
     Examples:
-        >>> zz.vision.vid2gif("tmp.mp4")
+        >>> zz.vision.vid2gif("test.mp4")
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280735327-ba590c0b-6180-4dce-a256-ccf12d0ba64b.gif
             :alt: GIF Result

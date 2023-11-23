@@ -23,7 +23,7 @@ SOFTWARE.
 """
 
 import math
-from typing import List, Optional, Union
+from typing import List, Optional, Tuple, Union
 
 import cv2
 import numpy as np
@@ -68,7 +68,6 @@ def before_after(
 
         BGR, GRAY:
 
-        >>> before = cv2.imread("test.jpg")
         >>> after = cv2.GaussianBlur(before, (0, 0), 25)
         >>> after = cv2.cvtColor(after, cv2.COLOR_BGR2GRAY)
         >>> zz.vision.before_after(before, after, quality=10)
@@ -80,7 +79,6 @@ def before_after(
 
         BGR, Resize:
 
-        >>> before = cv2.imread("test.jpg")
         >>> after = cv2.resize(before, (100, 100))
         >>> zz.vision.before_after(before, after, [20, 40, 30, 60])
 
@@ -119,6 +117,7 @@ def before_after(
 def grid(
     *imgs: List[NDArray[np.uint8]],
     size: Optional[int] = 1000,
+    color: Optional[Tuple[int]] = (255, 255, 255),
     output_filename: Optional[str] = "tmp",
 ) -> None:
     """여러 image를 입력받아 한 정방형 image로 병합
@@ -126,21 +125,24 @@ def grid(
     Args:
         *imgs (``List[NDArray[np.uint8]]``): 입력 image
         size: (``Optional[int]``): 출력 image의 크기
+        color: (``Optional[Tuple[int]]``): Padding의 색
         output_filename: (``Optional[str]``): 저장될 file의 이름
 
     Returns:
         ``None``: 현재 directory에 바로 image 저장
 
     Examples:
-        >>> tmp = cv2.imread("test.jpg")
-        >>> imgs = [(tmp + np.random.rand(*tmp.shape)).astype(np.uint8) for _ in range(8)]
+        >>> imgs = [cv2.resize(img, (random.randrange(300, 1000), random.randrange(300, 1000))) for _ in range(8)]
         >>> imgs[2] = cv2.cvtColor(imgs[2], cv2.COLOR_BGR2GRAY)
+        >>> imgs[3] = cv2.cvtColor(imgs[3], cv2.COLOR_BGR2BGRA)
         >>> zz.vision.grid(*imgs)
+        >>> zz.vision.grid(*imgs, color=(0, 255, 0))
+        >>> zz.vision.grid(*imgs, color=(0, 0, 0, 0))
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284504218-9859abdb-7fd3-47d1-a9c8-569f8c95d5b7.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/285098735-3b259a4b-3b26-4d50-9cec-8ef8458bf5b5.png
             :alt: Visualzation Result
             :align: center
-            :width: 300px
+            :width: 600px
     """
     cnt = math.ceil(math.sqrt(len(imgs)))
     length = size // cnt
@@ -203,8 +205,7 @@ def vert(
         ``None``: 현재 directory에 바로 image 저장
 
     Examples:
-        >>> tmp = cv2.imread("test.jpg")
-        >>> imgs = [cv2.resize(tmp, (random.randrange(300, 600), random.randrange(300, 600))) for _ in range(5)]
+        >>> imgs = [cv2.resize(img, (random.randrange(300, 600), random.randrange(300, 600))) for _ in range(5)]
         >>> zz.vision.vert(*imgs)
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284879452-d856fa8c-49a9-4a64-83b9-b27ae4f45007.png
