@@ -495,7 +495,8 @@ def paste(
     box: List[int],
     resize: Optional[bool] = False,
     vis: Optional[bool] = False,
-) -> NDArray[np.uint8]:
+    poly: Optional[NDArray[DTypeLike]] = None,
+) -> Union[NDArray[np.uint8], Tuple[NDArray[np.uint8], NDArray[DTypeLike]]]:
     """``target`` image를 ``img`` 위에 투명도를 포함하여 병합
 
     Note:
@@ -511,18 +512,39 @@ def paste(
         box (``List[int]``): 병합될 영역 (``xyxy`` 형식)
         resize (``Optional[bool]``): Target image의 resize 여부
         vis (``Optional[bool]``): 지정한 영역 (``box``)의 시각화 여부
+        poly (``Optional[NDArray[DTypeLike]]``): 변형된 좌표 (``[N, 2]``)
 
     Returns:
-        ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
+        ``Union[NDArray[np.uint8], Tuple[NDArray[np.uint8], NDArray[DTypeLike]]]``: 시각화 결과 (``[H, W, 4]``) 및 ``poly`` 입력 시 변형된 좌표값
 
     Examples:
-        >>> img = cv2.imread("test.jpg")
+        Without Poly:
+
         >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
         >>> target = zz.vision.cutout(img, poly, 200)
-        >>> zz.vision.paste(img, target, [200, 200, 1000, 800], False, True)
-        >>> zz.vision.paste(img, target, [200, 200, 1000, 800], True, True)
+        >>> img1 = zz.vision.paste(img, target, [200, 200, 1000, 800], False, True)
+        >>> img2 = zz.vision.paste(img, target, [200, 200, 1000, 800], True, True)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284563666-2b7f33a9-5c1d-454e-afd8-9b4d3606b4e4.png
+        With Poly:
+
+        >>> poly -= zz.vision.poly2xyxy(poly)[:2]
+        >>> target = zz.vision.bbox(target, poly, color=(255, 0, 0), thickness=20)
+        >>> img3, poly1 = zz.vision.paste(img, target, [200, 200, 1000, 800], False, poly=poly)
+        >>> poly1
+        array([[300.        , 200.        ],
+               [557.14285714, 200.        ],
+               [900.        , 628.57142857],
+               [557.14285714, 800.        ],
+               [300.        , 542.85714286]])
+        >>> img4, poly2 = zz.vision.paste(img, target, [200, 200, 1000, 800], True, poly=poly)
+        >>> poly2
+        array([[ 200.        ,  200.        ],
+               [ 542.85714286,  200.        ],
+               [1000.        ,  628.57142857],
+               [ 542.85714286,  800.        ],
+               [ 200.        ,  542.85714286]])
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/285093777-7aab1951-1c5d-489e-b031-ac99fe0e2750.png
             :alt: Visualzation Result
             :align: center
             :width: 600px
@@ -536,38 +558,18 @@ def paste(
         target = cv2.resize(
             target, (box_width, box_height), interpolation=cv2.INTER_LINEAR
         )
+        if poly is not None:
+            poly = poly * (box_width / tar_width, box_height / tar_height) + (x_0, y_0)
     else:
-        if tar_width / tar_height > box_width / box_height:
-            target = cv2.resize(
-                target,
-                (box_width, int(tar_height * box_width / tar_width)),
-                interpolation=cv2.INTER_LINEAR,
-            )
-        elif tar_width / tar_height < box_width / box_height:
-            target = cv2.resize(
-                target,
-                (int(tar_width * box_height / tar_height), box_height),
-                interpolation=cv2.INTER_LINEAR,
-            )
+        if poly is None:
+            target = pad(target, (box_height, box_width), (0, 0, 0, 0))
         else:
-            target = cv2.resize(
-                target, (box_width, box_height), interpolation=cv2.INTER_LINEAR
-            )
-        tar_height, tar_width, _ = target.shape
-        top, bottom = (box_height - tar_height) // 2, (box_height - tar_height) // 2 + (
-            box_height - tar_height
-        ) % 2
-        left, right = (box_width - tar_width) // 2, (box_width - tar_width) // 2 + (
-            box_width - tar_width
-        ) % 2
-        target = np.pad(
-            target,
-            ((top, bottom), (left, right), (0, 0)),
-            mode="constant",
-            constant_values=((0, 0), (0, 0), (0, 0)),
-        )
+            target, poly = pad(target, (box_height, box_width), (0, 0, 0, 0), poly)
+            poly += (x_0, y_0)
     img[y_0:y_1, x_0:x_1, :] = _paste(img[y_0:y_1, x_0:x_1, :], target)
     if vis:
         box = np.array([[x_0, y_0], [x_0, y_1], [x_1, y_1], [x_1, y_0]])
         img = _bbox(img, box, (0, 0, 255, 255), 2)
-    return img
+    if poly is None:
+        return img
+    return img, poly
