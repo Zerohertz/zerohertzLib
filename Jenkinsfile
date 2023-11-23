@@ -202,8 +202,8 @@ spec:
                         setBuildStatus("Build...", "PENDING", "$STAGE_NAME")
                         if (env.CHANGE_BRANCH.startsWith("dev-")) {
                             sh "sed -i 's/^__version__ = .*/__version__ = \"'${env.CHANGE_BRANCH.replace('dev-', '')}'\"/' zerohertzLib/__init__.py"
-                        } else if (env.CHANGE_BRANCH.startsWith("docs-")) {
-                            echo "No action required for docs- branch"
+                        } else if (env.CHANGE_BRANCH.startsWith("chore-")) {
+                            echo "No action required for chore- branch"
                         } else {
                             error "Unsupported branch type: ${env.CHANGE_BRANCH}"
                         }
