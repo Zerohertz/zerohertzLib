@@ -51,12 +51,13 @@ def pie(
         ``None``: 현재 directory에 바로 graph 저장
 
     Examples:
-        >>> zz.plot.pie({"테란": 27, "저그": 40, "프로토스": 30}, dim="명", title="Star Craft")
+        >>> data = {"테란": 27, "저그": 40, "프로토스": 30}
+        >>> zz.plot.pie(data, dim="명", title="Star Craft")
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/282473748-bec83476-9ed6-4fe8-8f1a-2651344c1b7c.png
             :alt: Visualzation Result
             :align: center
-            :width: 300px
+            :width: 500px
     """
     colors = color(len(data))
     plt.figure(figsize=ratio)

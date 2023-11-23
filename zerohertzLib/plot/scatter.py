@@ -53,12 +53,13 @@ def scatter(
         ``None``: 현재 directory에 바로 graph 저장
 
     Examples:
-        >>> zz.plot.scatter({"테란": [list(np.random.rand(200) * 10), list(np.random.rand(200) * 10)], "저그": [list(np.random.rand(200) * 5 - 1), list(np.random.rand(200) * 5 + 1)], "프로토스": [list(np.random.rand(200) * 10 + 3), list(np.random.rand(200) * 10 - 2)]}, size=400, xlab="비용 [미네랄]", ylab="전투력 [점]", title="Star Craft")
+        >>> data = {"테란": [list(np.random.rand(200) * 10), list(np.random.rand(200) * 10)], "저그": [list(np.random.rand(200) * 5 - 1), list(np.random.rand(200) * 5 + 1)], "프로토스": [list(np.random.rand(200) * 10 + 3), list(np.random.rand(200) * 10 - 2)]}
+        >>> zz.plot.scatter(data, size=400, xlab="비용 [미네랄]", ylab="전투력 [점]", title="Star Craft")
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/282639459-efca04cc-3c4a-42c5-b07d-e64705a5f791.png
             :alt: Visualzation Result
             :align: center
-            :width: 300px
+            :width: 500px
     """
     colors = color(len(data))
     plt.figure(figsize=ratio)
