@@ -26,7 +26,7 @@ from zerohertzLib.vision.convert import (
 from zerohertzLib.vision.data import JsonImageLoader
 from zerohertzLib.vision.gif import img2gif, vid2gif
 from zerohertzLib.vision.util import is_pts_in_poly
-from zerohertzLib.vision.visual import bbox, cutout, masks, paste, text
+from zerohertzLib.vision.visual import bbox, cutout, masks, pad, paste, text
 
 __all__ = [
     "img2gif",
@@ -48,4 +48,5 @@ __all__ = [
     "is_pts_in_poly",
     "JsonImageLoader",
     "vert",
+    "pad",
 ]

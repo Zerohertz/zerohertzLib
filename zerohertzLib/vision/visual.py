@@ -221,6 +221,86 @@ def _paste(img: NDArray[np.uint8], target: NDArray[np.uint8]) -> NDArray[np.uint
     return img
 
 
+def pad(
+    img: NDArray[np.uint8],
+    shape: Tuple[int],
+    color: Optional[Tuple[int]] = (255, 255, 255),
+    poly: Optional[NDArray[DTypeLike]] = None,
+) -> Union[NDArray[np.uint8], Tuple[NDArray[np.uint8], NDArray[DTypeLike]]]:
+    """입력 image를 원하는 shape로 resize 및 pad
+    Args:
+        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
+        shape (``Tuple[int]``): 출력의 shape ``(H, W)``
+        color (``Optional[Tuple[int]]``): Mask의 색
+        poly (``Optional[NDArray[DTypeLike]]``): Padding에 따라 변형될 좌표 (``[N, 2]``)
+
+    Returns:
+        ``Union[NDArray[np.uint8], Tuple[NDArray[np.uint8], NDArray[DTypeLike]]]``: 출력 image (``[H, W, C]``) 및 ``poly`` 입력 시 padding에 따른 변형된 좌표값
+
+    Examples:
+        GRAY:
+
+        >>> img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
+        >>> zz.vision.visual.pad(cv2.resize(img, (500, 1000)), (1000, 1000), color=(0, 255, 0))
+
+        BGR:
+
+        >>> zz.vision.visual.pad(cv2.resize(img, (1000, 500)), (1000, 1000))
+
+        BGRA:
+
+        >>> img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
+        >>> zz.vision.visual.pad(cv2.resize(img, (500, 1000)), (1000, 1000), color=(0, 0, 255, 128))
+
+        Poly:
+
+        >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
+        >>> img = cv2.resize(img, (2000, 1000))
+        >>> img = zz.vision.bbox(img, poly, color=(255, 0, 0), thickness=20)
+        >>> img, poly = zz.vision.visual.pad(img, (1000, 1000), poly=poly)
+        >>> zz.vision.bbox(img, poly, color=(0, 0, 255))
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/285082573-3192363a-9b76-4474-a627-2d434db060fc.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 600px
+    """
+    if len(img.shape) == 2:
+        img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+    if img.shape[2] == 4 and len(color) == 3:
+        color = [*color, 255]
+    img_height, img_width = img.shape[:2]
+    tar_height, tar_width = shape
+    if img_width / img_height > tar_width / tar_height:
+        ratio = tar_width / img_width
+        resize_width, resize_height = tar_width, int(img_height * ratio)
+    elif img_width / img_height < tar_width / tar_height:
+        ratio = tar_height / img_height
+        resize_width, resize_height = int(img_width * ratio), tar_height
+    else:
+        ratio = 1
+        (
+            resize_width,
+            resize_height,
+        ) = (
+            tar_width,
+            tar_height,
+        )
+    img = cv2.resize(img, (resize_width, resize_height), interpolation=cv2.INTER_LINEAR)
+    top, bottom = (tar_height - resize_height) // 2, (
+        tar_height - resize_height
+    ) // 2 + (tar_height - resize_height) % 2
+    left, right = (tar_width - resize_width) // 2, (tar_width - resize_width) // 2 + (
+        tar_width - resize_width
+    ) % 2
+    img = cv2.copyMakeBorder(
+        img, top, bottom, left, right, cv2.BORDER_CONSTANT, value=color
+    )
+    if poly is None:
+        return img
+    return img, poly * ratio + (left, top)
+
+
 def _make_text(txt: str, shape: Tuple[int], color: Tuple[int]) -> NDArray[np.uint8]:
     """배경이 투명한 문자열 image 생성
 
