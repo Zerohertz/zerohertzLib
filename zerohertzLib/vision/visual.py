@@ -239,6 +239,7 @@ def pad(
     poly: Optional[NDArray[DTypeLike]] = None,
 ) -> Union[NDArray[np.uint8], Tuple[NDArray[np.uint8], NDArray[DTypeLike]]]:
     """입력 image를 원하는 shape로 resize 및 pad
+
     Args:
         img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
         shape (``Tuple[int]``): 출력의 shape ``(H, W)``
