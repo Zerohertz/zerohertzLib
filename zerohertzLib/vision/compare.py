@@ -116,7 +116,7 @@ def before_after(
 
 
 def grid(
-    *imgs: List[NDArray[np.uint8]],
+    imgs: List[NDArray[np.uint8]],
     size: Optional[int] = 1000,
     color: Optional[Tuple[int]] = (255, 255, 255),
     filename: Optional[str] = "tmp",
@@ -124,7 +124,7 @@ def grid(
     """여러 image를 입력받아 한 정방형 image로 병합
 
     Args:
-        *imgs (``List[NDArray[np.uint8]]``): 입력 image
+        imgs (``List[NDArray[np.uint8]]``): 입력 image
         size: (``Optional[int]``): 출력 image의 크기
         color: (``Optional[Tuple[int]]``): Padding의 색
         filename: (``Optional[str]``): 저장될 file의 이름
@@ -136,9 +136,9 @@ def grid(
         >>> imgs = [cv2.resize(img, (random.randrange(300, 1000), random.randrange(300, 1000))) for _ in range(8)]
         >>> imgs[2] = cv2.cvtColor(imgs[2], cv2.COLOR_BGR2GRAY)
         >>> imgs[3] = cv2.cvtColor(imgs[3], cv2.COLOR_BGR2BGRA)
-        >>> zz.vision.grid(*imgs)
-        >>> zz.vision.grid(*imgs, color=(0, 255, 0))
-        >>> zz.vision.grid(*imgs, color=(0, 0, 0, 0))
+        >>> zz.vision.grid(imgs)
+        >>> zz.vision.grid(imgs, color=(0, 255, 0))
+        >>> zz.vision.grid(imgs, color=(0, 0, 0, 0))
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/285098735-3b259a4b-3b26-4d50-9cec-8ef8458bf5b5.png
             :alt: Visualzation Result
@@ -163,14 +163,14 @@ def grid(
 
 
 def vert(
-    *imgs: List[NDArray[np.uint8]],
+    imgs: List[NDArray[np.uint8]],
     height: int = 1000,
     filename: Optional[str] = "tmp",
 ):
     """여러 image를 입력받아 한 가로 image로 병합
 
     Args:
-        *imgs (``List[NDArray[np.uint8]]``): 입력 image
+        imgs (``List[NDArray[np.uint8]]``): 입력 image
         height: (``Optional[int]``): 출력 image의 높이
         filename: (``Optional[str]``): 저장될 file의 이름
 
@@ -179,7 +179,7 @@ def vert(
 
     Examples:
         >>> imgs = [cv2.resize(img, (random.randrange(300, 600), random.randrange(300, 600))) for _ in range(5)]
-        >>> zz.vision.vert(*imgs)
+        >>> zz.vision.vert(imgs)
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284879452-d856fa8c-49a9-4a64-83b9-b27ae4f45007.png
             :alt: Visualzation Result
