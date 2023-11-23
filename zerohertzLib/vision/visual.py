@@ -324,38 +324,7 @@ def _make_text(txt: str, shape: Tuple[int], color: Tuple[int]) -> NDArray[np.uin
     y_0, y_1 = d_y, d_y + text_height
     draw.text((d_x, d_y), txt, font=font, fill=(*color, 255))
     palette = np.array(palette)[y_0:y_1, x_0:x_1, :]
-    pal_height, pal_width, _ = palette.shape
-    tar_height, tar_width = shape
-    if pal_width / pal_height > tar_width / tar_height:
-        palette = cv2.resize(
-            palette,
-            (tar_width, int(pal_height * tar_width / pal_width)),
-            interpolation=cv2.INTER_LINEAR,
-        )
-    elif pal_width / pal_height < tar_width / tar_height:
-        palette = cv2.resize(
-            palette,
-            (int(pal_width * tar_height / pal_height), tar_height),
-            interpolation=cv2.INTER_LINEAR,
-        )
-    else:
-        palette = cv2.resize(
-            palette, (tar_width, tar_height), interpolation=cv2.INTER_LINEAR
-        )
-    pal_height, pal_width, _ = palette.shape
-    top, bottom = (tar_height - pal_height) // 2, (tar_height - pal_height) // 2 + (
-        tar_height - pal_height
-    ) % 2
-    left, right = (tar_width - pal_width) // 2, (tar_width - pal_width) // 2 + (
-        tar_width - pal_width
-    ) % 2
-    palette = np.pad(
-        palette,
-        ((top, bottom), (left, right), (0, 0)),
-        mode="constant",
-        constant_values=((0, 0), (0, 0), (0, 0)),
-    )
-    return palette
+    return pad(palette, shape, (0, 0, 0, 0))
 
 
 def _text(
@@ -400,15 +369,14 @@ def text(
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
 
     Examples:
-        >>> img = cv2.imread("test.jpg")
         >>> box = np.array([[100, 200], [100, 1000], [1200, 1000], [1200, 200]])
         >>> box.shape
         (4, 2)
-        >>> zz.vision.text(img, box, "먼지야")
+        >>> img1 = zz.vision.text(img, box, "먼지야")
         >>> boxes = np.array([[250, 200, 100, 100], [600, 600, 800, 200], [900, 300, 300, 400]])
         >>> boxes.shape
         (3, 4)
-        >>> zz.vision.text(img, boxes, ["먼지야", "먼지야", "먼지야"], vis=True)
+        >>> img2 = zz.vision.text(img, boxes, ["먼지야", "먼지야", "먼지야"], vis=True)
 
     .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284566305-fe9d1be6-b506-4140-bca9-db2a210f333c.png
             :alt: Visualzation Result
