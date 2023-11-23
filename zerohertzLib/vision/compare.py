@@ -23,13 +23,14 @@ SOFTWARE.
 """
 
 import math
-from typing import List, Optional, Union
+from typing import List, Optional, Tuple, Union
 
 import cv2
 import numpy as np
 from numpy.typing import NDArray
 
 from .util import _cvt_bgra
+from .visual import pad
 
 
 def _rel2abs(
@@ -49,7 +50,7 @@ def before_after(
     area: Optional[List[Union[int, float]]] = None,
     per: Optional[bool] = True,
     quality: Optional[int] = 100,
-    output_filename: Optional[str] = "tmp",
+    filename: Optional[str] = "tmp",
 ) -> None:
     """두 image를 비교하는 image 생성
 
@@ -59,7 +60,7 @@ def before_after(
         area: (``Optional[List[Union[int, float]]]``): 비교할 좌표 (``[x_0, y_0, x_1, y_1]``)
         per (``Optional[bool]``): ``area`` 의 백분율 여부
         quality (``Optional[int]``): 출력 image의 quality (단위: %)
-        output_filename: (``Optional[str]``): 저장될 file의 이름
+        filename: (``Optional[str]``): 저장될 file의 이름
 
     Returns:
         ``None``: 현재 directory에 바로 image 저장
@@ -68,7 +69,6 @@ def before_after(
 
         BGR, GRAY:
 
-        >>> before = cv2.imread("test.jpg")
         >>> after = cv2.GaussianBlur(before, (0, 0), 25)
         >>> after = cv2.cvtColor(after, cv2.COLOR_BGR2GRAY)
         >>> zz.vision.before_after(before, after, quality=10)
@@ -80,7 +80,6 @@ def before_after(
 
         BGR, Resize:
 
-        >>> before = cv2.imread("test.jpg")
         >>> after = cv2.resize(before, (100, 100))
         >>> zz.vision.before_after(before, after, [20, 40, 30, 60])
 
@@ -113,39 +112,43 @@ def before_after(
     palette[:, :width, :] = before
     palette[:, width:, :] = after
     palette = cv2.resize(palette, (0, 0), fx=quality / 100, fy=quality / 100)
-    cv2.imwrite(f"{output_filename}.png", palette)
+    cv2.imwrite(f"{filename}.png", palette)
 
 
 def grid(
     *imgs: List[NDArray[np.uint8]],
     size: Optional[int] = 1000,
-    output_filename: Optional[str] = "tmp",
+    color: Optional[Tuple[int]] = (255, 255, 255),
+    filename: Optional[str] = "tmp",
 ) -> None:
     """여러 image를 입력받아 한 정방형 image로 병합
 
     Args:
         *imgs (``List[NDArray[np.uint8]]``): 입력 image
         size: (``Optional[int]``): 출력 image의 크기
-        output_filename: (``Optional[str]``): 저장될 file의 이름
+        color: (``Optional[Tuple[int]]``): Padding의 색
+        filename: (``Optional[str]``): 저장될 file의 이름
 
     Returns:
         ``None``: 현재 directory에 바로 image 저장
 
     Examples:
-        >>> tmp = cv2.imread("test.jpg")
-        >>> imgs = [(tmp + np.random.rand(*tmp.shape)).astype(np.uint8) for _ in range(8)]
+        >>> imgs = [cv2.resize(img, (random.randrange(300, 1000), random.randrange(300, 1000))) for _ in range(8)]
         >>> imgs[2] = cv2.cvtColor(imgs[2], cv2.COLOR_BGR2GRAY)
+        >>> imgs[3] = cv2.cvtColor(imgs[3], cv2.COLOR_BGR2BGRA)
         >>> zz.vision.grid(*imgs)
+        >>> zz.vision.grid(*imgs, color=(0, 255, 0))
+        >>> zz.vision.grid(*imgs, color=(0, 0, 0, 0))
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284504218-9859abdb-7fd3-47d1-a9c8-569f8c95d5b7.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/285098735-3b259a4b-3b26-4d50-9cec-8ef8458bf5b5.png
             :alt: Visualzation Result
             :align: center
-            :width: 300px
+            :width: 600px
     """
     cnt = math.ceil(math.sqrt(len(imgs)))
     length = size // cnt
     size = int(length * cnt)
-    palette = np.full((size, size, 4), 255, dtype=np.uint8)
+    palette = np.full((size, size, 4), 0, dtype=np.uint8)
     for idx, img in enumerate(imgs):
         d_y, d_x = divmod(idx, cnt)
         x_0, y_0, x_1, y_1 = (
@@ -155,56 +158,27 @@ def grid(
             (d_y + 1) * length,
         )
         img = _cvt_bgra(img)
-        img_height, img_width, _ = img.shape
-        if img_height > img_width:
-            tar_height, tar_width = length, int(length / img_height * img_width)
-            gap = (length - tar_width) // 2
-            x_0, y_0, x_1, y_1 = (
-                d_x * length + gap,
-                d_y * length,
-                d_x * length + gap + tar_width,
-                (d_y + 1) * length,
-            )
-        elif img_height > img_width:
-            tar_height, tar_width = int(length / img_width * img_height), length
-            gap = (length - tar_height) // 2
-            x_0, y_0, x_1, y_1 = (
-                d_x * length,
-                d_y * length + gap,
-                (d_x + 1) * length,
-                d_y * length + gap + tar_height,
-            )
-        else:
-            tar_height = tar_width = length
-            x_0, y_0, x_1, y_1 = (
-                d_x * length,
-                d_y * length,
-                (d_x + 1) * length,
-                (d_y + 1) * length,
-            )
-        img = cv2.resize(img, (tar_width, tar_height))
-        palette[y_0:y_1, x_0:x_1, :] = img
-    cv2.imwrite(f"{output_filename}.png", palette)
+        palette[y_0:y_1, x_0:x_1, :] = pad(img, (length, length), color)
+    cv2.imwrite(f"{filename}.png", palette)
 
 
 def vert(
     *imgs: List[NDArray[np.uint8]],
     height: int = 1000,
-    output_filename: Optional[str] = "tmp",
+    filename: Optional[str] = "tmp",
 ):
     """여러 image를 입력받아 한 가로 image로 병합
 
     Args:
         *imgs (``List[NDArray[np.uint8]]``): 입력 image
         height: (``Optional[int]``): 출력 image의 높이
-        output_filename: (``Optional[str]``): 저장될 file의 이름
+        filename: (``Optional[str]``): 저장될 file의 이름
 
     Returns:
         ``None``: 현재 directory에 바로 image 저장
 
     Examples:
-        >>> tmp = cv2.imread("test.jpg")
-        >>> imgs = [cv2.resize(tmp, (random.randrange(300, 600), random.randrange(300, 600))) for _ in range(5)]
+        >>> imgs = [cv2.resize(img, (random.randrange(300, 600), random.randrange(300, 600))) for _ in range(5)]
         >>> zz.vision.vert(*imgs)
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284879452-d856fa8c-49a9-4a64-83b9-b27ae4f45007.png
@@ -230,4 +204,4 @@ def vert(
         img_height, img_width, _ = img.shape
         palette[:img_height, width : width + img_width, :] = img
         width += img_width
-    cv2.imwrite(f"{output_filename}.png", palette)
+    cv2.imwrite(f"{filename}.png", palette)

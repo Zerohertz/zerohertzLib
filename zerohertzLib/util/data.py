@@ -101,7 +101,7 @@ class MakeData:
                         return (annotations[0]["color"] in ["White", "Black"]) and (
                             json_instance.get("supercategory_name") == "CityCar"
                         )
-                    def makeData(self, json_instance, data_name):
+                    def make_data(self, json_instance, data_name):
                         img = cv2.imread(os.path.join(self.start_data_path, data_name))
                         for i, ant in enumerate(json_instance["annotations"]):
                             label = ant["damage"]
@@ -131,7 +131,7 @@ class MakeData:
             .. code-block:: python
 
                 class MakeDataCarAugment(zz.util.MakeData):
-                    def makeData(self, json_instance, data_name):
+                    def make_data(self, json_instance, data_name):
                         img = cv2.imread(
                             random.choice(glob("*"))
                         )

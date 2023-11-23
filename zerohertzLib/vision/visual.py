@@ -77,15 +77,19 @@ def bbox(
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, C]``)
 
     Examples:
-        >>> img = cv2.imread("test.jpg")
+        Bbox:
+
         >>> box = np.array([[100, 200], [100, 1000], [1200, 1000], [1200, 200]])
         >>> box.shape
         (4, 2)
-        >>> zz.vision.bbox(img, box, thickness=10)
+        >>> res1 = zz.vision.bbox(img, box, thickness=10)
+
+        Bboxes:
+
         >>> boxes = np.array([[250, 200, 100, 100], [600, 600, 800, 200], [900, 300, 300, 400]])
         >>> boxes.shape
         (3, 4)
-        >>> zz.vision.bbox(img, boxes, (0, 255, 0), thickness=10)
+        >>> res2 = zz.vision.bbox(img, boxes, (0, 255, 0), thickness=10)
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284566751-ec443fc2-6b71-4ba3-a770-590fa873e944.png
             :alt: Visualzation Result
@@ -136,7 +140,8 @@ def masks(
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, C]``)
 
     Examples:
-        >>> img = cv2.imread("test.jpg")
+        Mask (without class):
+
         >>> H, W, _ = img.shape
         >>> cnt = 30
         >>> mks = np.zeros((cnt, H, W), np.uint8)
@@ -146,15 +151,21 @@ def masks(
         >>>     radius = random.randint(30, 200)
         >>>     cv2.circle(mask, (center_x, center_y), radius, (True), -1)
         >>> mks = mks.astype(bool)
-        >>> zz.vision.masks(img, mks)
+        >>> res1 = zz.vision.masks(img, mks)
+
+        Mask (with class):
+
         >>> cls = [i for i in range(cnt)]
         >>> class_list = [cls[random.randint(0, 2)] for _ in range(cnt)]
         >>> class_color = {}
         >>> for c in cls:
         >>>     class_color[c] = [random.randint(0, 255) for _ in range(3)]
-        >>> zz.vision.masks(img, mks, class_list=class_list, class_color=class_color)
+        >>> res2 = zz.vision.masks(img, mks, class_list=class_list, class_color=class_color)
+
+        Poly:
+
         >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
-        >>> zz.vision.masks(img, poly=poly)
+        >>> res3 = zz.vision.masks(img, poly=poly)
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284878547-c36cd4ff-2b36-4b0f-a125-89ed8380a456.png
             :alt: Visualzation Result
@@ -221,6 +232,89 @@ def _paste(img: NDArray[np.uint8], target: NDArray[np.uint8]) -> NDArray[np.uint
     return img
 
 
+def pad(
+    img: NDArray[np.uint8],
+    shape: Tuple[int],
+    color: Optional[Tuple[int]] = (255, 255, 255),
+    poly: Optional[NDArray[DTypeLike]] = None,
+) -> Union[NDArray[np.uint8], Tuple[NDArray[np.uint8], NDArray[DTypeLike]]]:
+    """입력 image를 원하는 shape로 resize 및 pad
+    Args:
+        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
+        shape (``Tuple[int]``): 출력의 shape ``(H, W)``
+        color (``Optional[Tuple[int]]``): Padding의 색
+        poly (``Optional[NDArray[DTypeLike]]``): Padding에 따라 변형될 좌표 (``[N, 2]``)
+
+    Returns:
+        ``Union[NDArray[np.uint8], Tuple[NDArray[np.uint8], NDArray[DTypeLike]]]``: 출력 image (``[H, W, C]``) 및 ``poly`` 입력 시 padding에 따른 변형된 좌표값
+
+    Examples:
+        GRAY:
+
+        >>> img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
+        >>> res1 = cv2.resize(img, (500, 1000))
+        >>> res1 = zz.vision.pad(res1, (1000, 1000), color=(0, 255, 0))
+
+        BGR:
+
+        >>> res2 = cv2.resize(img, (1000, 500))
+        >>> res2 = zz.vision.pad(res2, (1000, 1000))
+
+        BGRA:
+
+        >>> img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
+        >>> res3 = cv2.resize(img, (500, 1000))
+        >>> res3 = zz.vision.pad(res3, (1000, 1000), color=(0, 0, 255, 128))
+
+        Poly:
+
+        >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
+        >>> res4 = cv2.resize(img, (2000, 1000))
+        >>> res4 = zz.vision.bbox(res4, poly, color=(255, 0, 0), thickness=20)
+        >>> res4, poly = zz.vision.pad(res4, (1000, 1000), poly=poly)
+        >>> res4 = zz.vision.bbox(img, poly, color=(0, 0, 255))
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/285082573-3192363a-9b76-4474-a627-2d434db060fc.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 600px
+    """
+    if len(img.shape) == 2:
+        img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+    if img.shape[2] == 4 and len(color) == 3:
+        color = [*color, 255]
+    img_height, img_width = img.shape[:2]
+    tar_height, tar_width = shape
+    if img_width / img_height > tar_width / tar_height:
+        ratio = tar_width / img_width
+        resize_width, resize_height = tar_width, int(img_height * ratio)
+    elif img_width / img_height < tar_width / tar_height:
+        ratio = tar_height / img_height
+        resize_width, resize_height = int(img_width * ratio), tar_height
+    else:
+        ratio = 1
+        (
+            resize_width,
+            resize_height,
+        ) = (
+            tar_width,
+            tar_height,
+        )
+    img = cv2.resize(img, (resize_width, resize_height), interpolation=cv2.INTER_LINEAR)
+    top, bottom = (tar_height - resize_height) // 2, (
+        tar_height - resize_height
+    ) // 2 + (tar_height - resize_height) % 2
+    left, right = (tar_width - resize_width) // 2, (tar_width - resize_width) // 2 + (
+        tar_width - resize_width
+    ) % 2
+    img = cv2.copyMakeBorder(
+        img, top, bottom, left, right, cv2.BORDER_CONSTANT, value=color
+    )
+    if poly is None:
+        return img
+    return img, poly * ratio + (left, top)
+
+
 def _make_text(txt: str, shape: Tuple[int], color: Tuple[int]) -> NDArray[np.uint8]:
     """배경이 투명한 문자열 image 생성
 
@@ -244,38 +338,7 @@ def _make_text(txt: str, shape: Tuple[int], color: Tuple[int]) -> NDArray[np.uin
     y_0, y_1 = d_y, d_y + text_height
     draw.text((d_x, d_y), txt, font=font, fill=(*color, 255))
     palette = np.array(palette)[y_0:y_1, x_0:x_1, :]
-    pal_height, pal_width, _ = palette.shape
-    tar_height, tar_width = shape
-    if pal_width / pal_height > tar_width / tar_height:
-        palette = cv2.resize(
-            palette,
-            (tar_width, int(pal_height * tar_width / pal_width)),
-            interpolation=cv2.INTER_LINEAR,
-        )
-    elif pal_width / pal_height < tar_width / tar_height:
-        palette = cv2.resize(
-            palette,
-            (int(pal_width * tar_height / pal_height), tar_height),
-            interpolation=cv2.INTER_LINEAR,
-        )
-    else:
-        palette = cv2.resize(
-            palette, (tar_width, tar_height), interpolation=cv2.INTER_LINEAR
-        )
-    pal_height, pal_width, _ = palette.shape
-    top, bottom = (tar_height - pal_height) // 2, (tar_height - pal_height) // 2 + (
-        tar_height - pal_height
-    ) % 2
-    left, right = (tar_width - pal_width) // 2, (tar_width - pal_width) // 2 + (
-        tar_width - pal_width
-    ) % 2
-    palette = np.pad(
-        palette,
-        ((top, bottom), (left, right), (0, 0)),
-        mode="constant",
-        constant_values=((0, 0), (0, 0), (0, 0)),
-    )
-    return palette
+    return pad(palette, shape, (0, 0, 0, 0))
 
 
 def _text(
@@ -320,15 +383,19 @@ def text(
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
 
     Examples:
-        >>> img = cv2.imread("test.jpg")
+        Bbox:
+
         >>> box = np.array([[100, 200], [100, 1000], [1200, 1000], [1200, 200]])
         >>> box.shape
         (4, 2)
-        >>> zz.vision.text(img, box, "먼지야")
+        >>> res1 = zz.vision.text(img, box, "먼지야")
+
+        Bboxes:
+
         >>> boxes = np.array([[250, 200, 100, 100], [600, 600, 800, 200], [900, 300, 300, 400]])
         >>> boxes.shape
         (3, 4)
-        >>> zz.vision.text(img, boxes, ["먼지야", "먼지야", "먼지야"], vis=True)
+        >>> res2 = zz.vision.text(img, boxes, ["먼지야", "먼지야", "먼지야"], vis=True)
 
     .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284566305-fe9d1be6-b506-4140-bca9-db2a210f333c.png
             :alt: Visualzation Result
@@ -379,11 +446,10 @@ def cutout(
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
 
     Examples:
-        >>> img = cv2.imread("test.jpg")
         >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
-        >>> zz.vision.cutout(img, poly)
-        >>> zz.vision.cutout(img, poly, 128, False)
-        >>> zz.vision.cutout(img, poly, background=128)
+        >>> res1 = zz.vision.cutout(img, poly)
+        >>> res2 = zz.vision.cutout(img, poly, 128, False)
+        >>> res3 = zz.vision.cutout(img, poly, background=128)
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284778462-8a1e3017-328e-4776-adeb-b2f24fd09c58.png
             :alt: Visualzation Result
@@ -415,7 +481,8 @@ def paste(
     box: List[int],
     resize: Optional[bool] = False,
     vis: Optional[bool] = False,
-) -> NDArray[np.uint8]:
+    poly: Optional[NDArray[DTypeLike]] = None,
+) -> Union[NDArray[np.uint8], Tuple[NDArray[np.uint8], NDArray[DTypeLike]]]:
     """``target`` image를 ``img`` 위에 투명도를 포함하여 병합
 
     Note:
@@ -431,18 +498,39 @@ def paste(
         box (``List[int]``): 병합될 영역 (``xyxy`` 형식)
         resize (``Optional[bool]``): Target image의 resize 여부
         vis (``Optional[bool]``): 지정한 영역 (``box``)의 시각화 여부
+        poly (``Optional[NDArray[DTypeLike]]``): 변형된 좌표 (``[N, 2]``)
 
     Returns:
-        ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
+        ``Union[NDArray[np.uint8], Tuple[NDArray[np.uint8], NDArray[DTypeLike]]]``: 시각화 결과 (``[H, W, 4]``) 및 ``poly`` 입력 시 변형된 좌표값
 
     Examples:
-        >>> img = cv2.imread("test.jpg")
+        Without Poly:
+
         >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
         >>> target = zz.vision.cutout(img, poly, 200)
-        >>> zz.vision.paste(img, target, [200, 200, 1000, 800], False, True)
-        >>> zz.vision.paste(img, target, [200, 200, 1000, 800], True, True)
+        >>> res1 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=False, vis=True)
+        >>> res2 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, vis=True)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284563666-2b7f33a9-5c1d-454e-afd8-9b4d3606b4e4.png
+        With Poly:
+
+        >>> poly -= zz.vision.poly2xyxy(poly)[:2]
+        >>> target = zz.vision.bbox(target, poly, color=(255, 0, 0), thickness=20)
+        >>> res3, poly1 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=False, poly=poly)
+        >>> poly1
+        array([[300.        , 200.        ],
+               [557.14285714, 200.        ],
+               [900.        , 628.57142857],
+               [557.14285714, 800.        ],
+               [300.        , 542.85714286]])
+        >>> res4, poly2 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, poly=poly)
+        >>> poly2
+        array([[ 200.        ,  200.        ],
+               [ 542.85714286,  200.        ],
+               [1000.        ,  628.57142857],
+               [ 542.85714286,  800.        ],
+               [ 200.        ,  542.85714286]])
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/285093777-7aab1951-1c5d-489e-b031-ac99fe0e2750.png
             :alt: Visualzation Result
             :align: center
             :width: 600px
@@ -456,38 +544,18 @@ def paste(
         target = cv2.resize(
             target, (box_width, box_height), interpolation=cv2.INTER_LINEAR
         )
+        if poly is not None:
+            poly = poly * (box_width / tar_width, box_height / tar_height) + (x_0, y_0)
     else:
-        if tar_width / tar_height > box_width / box_height:
-            target = cv2.resize(
-                target,
-                (box_width, int(tar_height * box_width / tar_width)),
-                interpolation=cv2.INTER_LINEAR,
-            )
-        elif tar_width / tar_height < box_width / box_height:
-            target = cv2.resize(
-                target,
-                (int(tar_width * box_height / tar_height), box_height),
-                interpolation=cv2.INTER_LINEAR,
-            )
+        if poly is None:
+            target = pad(target, (box_height, box_width), (0, 0, 0, 0))
         else:
-            target = cv2.resize(
-                target, (box_width, box_height), interpolation=cv2.INTER_LINEAR
-            )
-        tar_height, tar_width, _ = target.shape
-        top, bottom = (box_height - tar_height) // 2, (box_height - tar_height) // 2 + (
-            box_height - tar_height
-        ) % 2
-        left, right = (box_width - tar_width) // 2, (box_width - tar_width) // 2 + (
-            box_width - tar_width
-        ) % 2
-        target = np.pad(
-            target,
-            ((top, bottom), (left, right), (0, 0)),
-            mode="constant",
-            constant_values=((0, 0), (0, 0), (0, 0)),
-        )
+            target, poly = pad(target, (box_height, box_width), (0, 0, 0, 0), poly)
+            poly += (x_0, y_0)
     img[y_0:y_1, x_0:x_1, :] = _paste(img[y_0:y_1, x_0:x_1, :], target)
     if vis:
         box = np.array([[x_0, y_0], [x_0, y_1], [x_1, y_1], [x_1, y_0]])
         img = _bbox(img, box, (0, 0, 255, 255), 2)
-    return img
+    if poly is None:
+        return img
+    return img, poly

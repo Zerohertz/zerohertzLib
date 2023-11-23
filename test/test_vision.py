@@ -42,7 +42,7 @@ def test_before_after_org():
     before = cv2.imread(f"{data}/test.jpg")
     after = cv2.GaussianBlur(before, (0, 0), 25)
     after = cv2.cvtColor(after, cv2.COLOR_BGR2GRAY)
-    zz.vision.before_after(before, after, quality=10, output_filename="BA1")
+    zz.vision.before_after(before, after, quality=10, filename="BA1")
     assert "BA1.png" in os.listdir()
 
 
@@ -50,7 +50,7 @@ def test_before_after_crop():
     before = cv2.imread(f"{data}/test.jpg")
     after = cv2.resize(before, (100, 100))
     after = cv2.cvtColor(after, cv2.COLOR_BGR2BGRA)
-    zz.vision.before_after(before, after, [20, 40, 30, 60], output_filename="BA2")
+    zz.vision.before_after(before, after, [20, 40, 30, 60], filename="BA2")
     assert "BA2.png" in os.listdir()
 
 
@@ -60,7 +60,7 @@ def test_grid_vertical():
     imgs = [(test + np.random.rand(*test.shape)).astype(np.uint8) for _ in range(8)]
     imgs[2] = cv2.cvtColor(imgs[2], cv2.COLOR_BGR2GRAY)
     imgs[3] = cv2.cvtColor(imgs[3], cv2.COLOR_BGR2BGRA)
-    zz.vision.grid(*imgs, output_filename="GRID_VERTICAL")
+    zz.vision.grid(*imgs, filename="GRID_VERTICAL")
     assert "GRID_VERTICAL.png" in os.listdir()
 
 
@@ -70,7 +70,7 @@ def test_grid_horizontal():
     imgs = [(test + np.random.rand(*test.shape)).astype(np.uint8) for _ in range(8)]
     imgs[2] = cv2.cvtColor(imgs[2], cv2.COLOR_BGR2GRAY)
     imgs[3] = cv2.cvtColor(imgs[3], cv2.COLOR_BGR2BGRA)
-    zz.vision.grid(*imgs, output_filename="GRID_HORIZONTAL")
+    zz.vision.grid(*imgs, filename="GRID_HORIZONTAL")
     assert "GRID_HORIZONTAL.png" in os.listdir()
 
 
@@ -82,7 +82,7 @@ def test_vert():
     ]
     imgs[2] = cv2.cvtColor(imgs[2], cv2.COLOR_BGR2GRAY)
     imgs[3] = cv2.cvtColor(imgs[3], cv2.COLOR_BGR2BGRA)
-    zz.vision.vert(*imgs, output_filename="VERT")
+    zz.vision.vert(*imgs, filename="VERT")
     assert "VERT.png" in os.listdir()
 
 

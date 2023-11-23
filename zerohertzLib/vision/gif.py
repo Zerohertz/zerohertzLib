@@ -30,10 +30,10 @@ from PIL import Image
 
 
 def _create_gif_from_frames(
-    frames: List[Image.Image], output_filename: str, duration: int
+    frames: List[Image.Image], filename: str, duration: int
 ) -> None:
     frames[0].save(
-        f"{output_filename}.gif",
+        f"{filename}.gif",
         save_all=True,
         append_images=frames[1:],
         loop=0,
@@ -43,14 +43,14 @@ def _create_gif_from_frames(
 
 def img2gif(
     images_path: str,
-    output_filename: Optional[str] = "tmp",
+    filename: Optional[str] = "tmp",
     duration: Optional[int] = 500,
 ) -> None:
     """Directory 내 image들을 GIF로 변환
 
     Args:
         images_path (``str``): GIF로 변환할 image들이 존재하는 경로
-        output_filename (``Optional[str]``): 출력될 GIF file 이름
+        filename (``Optional[str]``): 출력될 GIF file 이름
         duration: (``Optional[int]``): ms 단위의 사진 간 간격
 
     Returns:
@@ -71,12 +71,12 @@ def img2gif(
     images = [
         Image.open(os.path.join(images_path, image_file)) for image_file in image_files
     ]
-    _create_gif_from_frames(images, output_filename, duration)
+    _create_gif_from_frames(images, filename, duration)
 
 
 def vid2gif(
     video_path: str,
-    output_filename: Optional[str] = "tmp",
+    filename: Optional[str] = "tmp",
     quality: Optional[int] = 100,
     fps: Optional[int] = 15,
 ) -> None:
@@ -84,7 +84,7 @@ def vid2gif(
 
     Args:
         video_path (``str``): GIF로 변환할 동영상이 존재하는 경로
-        output_filename (``Optional[str]``): 출력될 GIF file 이름
+        filename (``Optional[str]``): 출력될 GIF file 이름
         quality: (``Optional[int]``): 출력될 GIF의 품질
         fps: (``Optional[int]``): 출력될 GIF의 FPS (Frames Per Second)
 
@@ -92,7 +92,7 @@ def vid2gif(
         ``None``: 현재 directory에 바로 GIF 저장
 
     Examples:
-        >>> zz.vision.vid2gif("tmp.mp4")
+        >>> zz.vision.vid2gif("test.mp4")
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280735327-ba590c0b-6180-4dce-a256-ccf12d0ba64b.gif
             :alt: GIF Result
@@ -118,4 +118,4 @@ def vid2gif(
         frame_count += 1
     cap.release()
     duration = 1000 // fps
-    _create_gif_from_frames(frames, output_filename, duration)
+    _create_gif_from_frames(frames, filename, duration)
