@@ -102,7 +102,7 @@ def bbox(
     shape = img.shape
     if len(shape) == 2:
         img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
-    elif shape[2] == 4:
+    elif shape[2] == 4 and len(color) == 3:
         color = (*color, 255)
     shape = box.shape
     multi, poly = _is_bbox(shape)
@@ -177,7 +177,7 @@ def masks(
     shape = img.shape
     if len(shape) == 2:
         img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
-    elif shape[2] == 4:
+    elif shape[2] == 4 and len(color) == 3:
         color = (*color, 255)
         if class_list is not None and class_color is not None:
             for key, value in class_color.items():
