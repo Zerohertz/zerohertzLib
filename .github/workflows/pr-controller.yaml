@@ -2,7 +2,7 @@ name: PR Controller
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, reopened]
 
 jobs:
   add-labels:
@@ -58,31 +58,31 @@ jobs:
                 if (file.filename.startsWith('Jenkins') || file.filename.startsWith('.github/workflows')) {
                   labelsToAdd.push('chore');
                 }
-                if (file.filename.startsWith('sphinx')) {
+                if (file.filename.startsWith('sphinx') && !file.filename.includes('release')) {
                   labelsToAdd.push('docs');
                 }
-                if (file.filename.startsWith('zerohertzLib/algorithm/')) {
+                if (file.filename.startsWith('zerohertzLib/algorithm/__init__') || body.includes('algorithm')) {
                   labelsToAdd.push('feat/algorithm');
                 }
-                if (file.filename.startsWith('zerohertzLib/api/')) {
+                if (file.filename.startsWith('zerohertzLib/api/__init__') || body.includes('api')) {
                   labelsToAdd.push('feat/api');
                 }
-                if (file.filename.startsWith('zerohertzLib/logging/')) {
+                if (file.filename.startsWith('zerohertzLib/logging/__init__') || body.includes('logging')) {
                   labelsToAdd.push('feat/logging');
                 }
-                if (file.filename.startsWith('zerohertzLib/mlops/')) {
+                if (file.filename.startsWith('zerohertzLib/mlops/__init__') || body.includes('mlops')) {
                   labelsToAdd.push('feat/mlops');
                 }
-                if (file.filename.startsWith('zerohertzLib/monitoring/')) {
+                if (file.filename.startsWith('zerohertzLib/monitoring/__init__') || body.includes('monitoring')) {
                   labelsToAdd.push('feat/monitoring');
                 }
-                if (file.filename.startsWith('zerohertzLib/plot/')) {
+                if (file.filename.startsWith('zerohertzLib/plot/__init__') || body.includes('plot')) {
                   labelsToAdd.push('feat/plot');
                 }
-                if (file.filename.startsWith('zerohertzLib/util/')) {
+                if (file.filename.startsWith('zerohertzLib/util/__init__') || body.includes('util')) {
                   labelsToAdd.push('feat/util');
                 }
-                if (file.filename.startsWith('zerohertzLib/vision/')) {
+                if (file.filename.startsWith('zerohertzLib/vision/__init__') || body.includes('vision')) {
                   labelsToAdd.push('feat/vision');
                 }
               });
@@ -101,7 +101,7 @@ jobs:
                 if (file.filename.startsWith('Jenkins') || file.filename.startsWith('.github/workflows')) {
                   labelsToAdd.push('chore');
                 }
-                if (file.filename.startsWith('sphinx')) {
+                if (file.filename.startsWith('sphinx') && !file.filename.includes('release')) {
                   labelsToAdd.push('docs');
                 }
               });

@@ -2,7 +2,7 @@ name: Issue Controller
 
 on:
   issues:
-    types: [opened, edited]
+    types: [opened]
 
 jobs:
   add-labels:
