@@ -353,6 +353,8 @@ def paste(
     resize: Optional[bool] = False,
     vis: Optional[bool] = False,
     poly: Optional[NDArray[DTypeLike]] = None,
+    alpha: Optional[int] = None,
+    gaussian: Optional[int] = None,
 ) -> Union[NDArray[np.uint8], Tuple[NDArray[np.uint8], NDArray[DTypeLike]]]:
     """``target`` image를 ``img`` 위에 투명도를 포함하여 병합
 
@@ -370,6 +372,8 @@ def paste(
         resize (``Optional[bool]``): Target image의 resize 여부
         vis (``Optional[bool]``): 지정한 영역 (``box``)의 시각화 여부
         poly (``Optional[NDArray[DTypeLike]]``): 변형된 좌표 (``[N, 2]``)
+        alpha (``Optional[int]``): ``target`` image의 투명도 변경
+        gaussian (``Optional[int]``): 자연스러운 병합을 위해 ``target`` 의 alpha channel에 적용될 Gaussian blur의 kernel size
 
     Returns:
         ``Union[NDArray[np.uint8], Tuple[NDArray[np.uint8], NDArray[DTypeLike]]]``: 시각화 결과 (``[H, W, 4]``) 및 ``poly`` 입력 시 변형된 좌표값
@@ -380,28 +384,35 @@ def paste(
         >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
         >>> target = zz.vision.cutout(img, poly, 200)
         >>> res1 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=False, vis=True)
-        >>> res2 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, vis=True)
+        >>> res2 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, vis=True, alpha=255)
 
         With Poly:
 
         >>> poly -= zz.vision.poly2xyxy(poly)[:2]
         >>> target = zz.vision.bbox(target, poly, color=(255, 0, 0), thickness=20)
-        >>> res3, poly1 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=False, poly=poly)
-        >>> poly1
+        >>> res3, poly3 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=False, poly=poly)
+        >>> poly3
         array([[300.        , 200.        ],
                [557.14285714, 200.        ],
                [900.        , 628.57142857],
                [557.14285714, 800.        ],
                [300.        , 542.85714286]])
-        >>> res4, poly2 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, poly=poly)
-        >>> poly2
+        >>> res3 = zz.vision.bbox(res3, poly3)
+        >>> res4, poly4 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, poly=poly)
+        >>> poly4
         array([[ 200.        ,  200.        ],
                [ 542.85714286,  200.        ],
                [1000.        ,  628.57142857],
                [ 542.85714286,  800.        ],
                [ 200.        ,  542.85714286]])
+        >>> res4 = zz.vision.bbox(res4, poly4)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/285093777-7aab1951-1c5d-489e-b031-ac99fe0e2750.png
+        Gaussian Blur:
+
+        >>> res5, poly5 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, poly=poly, gaussian=501)
+        >>> res5 = zz.vision.bbox(res5, poly5)
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/285364676-27ae4292-0553-4561-a275-ea56c046d147.png
             :alt: Visualzation Result
             :align: center
             :width: 600px
@@ -410,7 +421,25 @@ def paste(
     box_height, box_width = y_1 - y_0, x_1 - x_0
     img = img.copy()
     img = _cvt_bgra(img)
+    target = target.copy()
     tar_height, tar_width = target.shape[:2]
+    if alpha is not None:
+        target[:, :, 3][0 < target[:, :, 3]] = alpha
+    if gaussian is not None:
+        invisible = target[:, :, 3] == 0
+        pad_gaussian = gaussian * 3
+        target_alpha = cv2.copyMakeBorder(
+            target[:, :, 3],
+            pad_gaussian,
+            pad_gaussian,
+            pad_gaussian,
+            pad_gaussian,
+            cv2.BORDER_CONSTANT,
+        )
+        target[:, :, 3] = cv2.GaussianBlur(target_alpha, (gaussian, gaussian), 0)[
+            pad_gaussian:-pad_gaussian, pad_gaussian:-pad_gaussian
+        ]
+        target[:, :, 3][invisible] = 0
     if resize:
         target = cv2.resize(
             target, (box_width, box_height), interpolation=cv2.INTER_LINEAR
