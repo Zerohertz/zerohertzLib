@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import Tuple
+from typing import Any, List, Tuple, Union
 
 import numpy as np
 from matplotlib.path import Path
@@ -31,28 +31,37 @@ from numpy.typing import DTypeLike, NDArray
 from .util import _is_bbox
 
 
+def _list2np(box: List[Any]) -> NDArray[DTypeLike]:
+    if isinstance(box, list):
+        return np.array(box)
+    return box
+
+
 def _cwh2xyxy(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
     x_0, y_0 = box[:2] - box[2:] / 2
     x_1, y_1 = box[:2] + box[2:] / 2
     return np.array([x_0, y_0, x_1, y_1], dtype=box.dtype)
 
 
-def cwh2xyxy(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
+def cwh2xyxy(
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]]
+) -> NDArray[DTypeLike]:
     """Bbox 변환
 
     Args:
-        box (``NDArray[DTypeLike]``): ``[cx, cy, w, h]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
+        box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): ``[cx, cy, w, h]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
 
     Returns:
         ``NDArray[DTypeLike]``: ``[x0, y0, x1, y1]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
 
     Examples:
-        >>> zz.vision.cwh2xyxy(np.array([20, 30, 20, 20]))
+        >>> zz.vision.cwh2xyxy([20, 30, 20, 20])
         array([10, 20, 30, 40])
         >>> zz.vision.cwh2xyxy(np.array([[20, 30, 20, 20], [50, 75, 40, 50]]))
         array([[ 10,  20,  30,  40],
                [ 30,  50,  70, 100]])
     """
+    box = _list2np(box)
     shape = box.shape
     multi, poly = _is_bbox(shape)
     if poly:
@@ -71,17 +80,19 @@ def _cwh2poly(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
     return np.array([[x_0, y_0], [x_1, y_0], [x_1, y_1], [x_0, y_1]], dtype=box.dtype)
 
 
-def cwh2poly(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
+def cwh2poly(
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]]
+) -> NDArray[DTypeLike]:
     """Bbox 변환
 
     Args:
-        box (``NDArray[DTypeLike]``): ``[cx, cy, w, h]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
+        box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): ``[cx, cy, w, h]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
 
     Returns:
         ``NDArray[DTypeLike]``: ``[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]`` 로 구성된 bbox (``[4, 2]`` or ``[N, 4, 2]``)
 
     Examples:
-        >>> zz.vision.cwh2poly(np.array([20, 30, 20, 20]))
+        >>> zz.vision.cwh2poly([20, 30, 20, 20])
         array([[10, 20],
                [30, 20],
                [30, 40],
@@ -96,6 +107,7 @@ def cwh2poly(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
                 [ 70, 100],
                 [ 30, 100]]])
     """
+    box = _list2np(box)
     shape = box.shape
     multi, poly = _is_bbox(shape)
     if poly:
@@ -115,22 +127,25 @@ def _xyxy2cwh(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
     )
 
 
-def xyxy2cwh(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
+def xyxy2cwh(
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]]
+) -> NDArray[DTypeLike]:
     """Bbox 변환
 
     Args:
-        box (``NDArray[DTypeLike]``): ``[x0, y0, x1, y1]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
+        box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): ``[x0, y0, x1, y1]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
 
     Returns:
         ``NDArray[DTypeLike]``: ``[cx, cy, w, h]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
 
     Examples:
-        >>> zz.vision.xyxy2cwh(np.array([10, 20, 30, 40]))
+        >>> zz.vision.xyxy2cwh([10, 20, 30, 40])
         array([20, 30, 20, 20])
         >>> zz.vision.xyxy2cwh(np.array([[10, 20, 30, 40], [30, 50, 70, 100]]))
         array([[20, 30, 20, 20],
                [50, 75, 40, 50]])
     """
+    box = _list2np(box)
     shape = box.shape
     multi, poly = _is_bbox(shape)
     if poly:
@@ -148,17 +163,19 @@ def _xyxy2poly(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
     return np.array([[x_0, y_0], [x_1, y_0], [x_1, y_1], [x_0, y_1]], dtype=box.dtype)
 
 
-def xyxy2poly(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
+def xyxy2poly(
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]]
+) -> NDArray[DTypeLike]:
     """Bbox 변환
 
     Args:
-        box (``NDArray[DTypeLike]``): ``[x0, y0, x1, y1]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
+        box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): ``[x0, y0, x1, y1]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
 
     Returns:
         ``NDArray[DTypeLike]``: ``[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]`` 로 구성된 bbox (``[4, 2]`` or ``[N, 4, 2]``)
 
     Examples:
-        >>> zz.vision.xyxy2poly(np.array([10, 20, 30, 40]))
+        >>> zz.vision.xyxy2poly([10, 20, 30, 40])
         array([[10, 20],
                [30, 20],
                [30, 40],
@@ -173,6 +190,7 @@ def xyxy2poly(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
                 [ 70, 100],
                 [ 30, 100]]])
     """
+    box = _list2np(box)
     shape = box.shape
     multi, poly = _is_bbox(shape)
     if poly:
@@ -193,22 +211,25 @@ def _poly2cwh(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
     )
 
 
-def poly2cwh(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
+def poly2cwh(
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]]
+) -> NDArray[DTypeLike]:
     """Bbox 변환
 
     Args:
-        box (``NDArray[DTypeLike]``): ``[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]`` 로 구성된 bbox (``[4, 2]`` or ``[N, 4, 2]``)
+        box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): ``[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]`` 로 구성된 bbox (``[4, 2]`` or ``[N, 4, 2]``)
 
     Returns:
         ``NDArray[DTypeLike]``: ``[cx, cy, w, h]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
 
     Examples:
-        >>> zz.vision.poly2cwh(np.array([[10, 20], [30, 20], [30, 40], [10, 40]]))
+        >>> zz.vision.poly2cwh([[10, 20], [30, 20], [30, 40], [10, 40]])
         array([20, 30, 20, 20])
         >>> zz.vision.poly2cwh(np.array([[[10, 20], [30, 20], [30, 40], [10, 40]], [[30, 50], [70, 50], [70, 100], [30, 100]]]))
         array([[20, 30, 20, 20],
                [50, 75, 40, 50]])
     """
+    box = _list2np(box)
     shape = box.shape
     multi, poly = _is_bbox(shape)
     if not poly:
@@ -227,22 +248,25 @@ def _poly2xyxy(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
     return np.array([x_0, y_0, x_1, y_1], dtype=box.dtype)
 
 
-def poly2xyxy(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
+def poly2xyxy(
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]]
+) -> NDArray[DTypeLike]:
     """Bbox 변환
 
     Args:
-        box (``NDArray[DTypeLike]``): ``[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]`` 로 구성된 bbox (``[4, 2]`` or ``[N, 4, 2]``)
+        box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): ``[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]`` 로 구성된 bbox (``[4, 2]`` or ``[N, 4, 2]``)
 
     Returns:
         ``NDArray[DTypeLike]``: ``[x0, y0, x1, y1]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
 
     Examples:
-        >>> zz.vision.poly2xyxy(np.array([[10, 20], [30, 20], [30, 40], [10, 40]]))
+        >>> zz.vision.poly2xyxy([[10, 20], [30, 20], [30, 40], [10, 40]])
         array([10, 20, 30, 40])
         >>> zz.vision.poly2xyxy(np.array([[[10, 20], [30, 20], [30, 40], [10, 40]], [[30, 50], [70, 50], [70, 100], [30, 100]]]))
         array([[ 10,  20,  30,  40],
                [ 30,  50,  70, 100]])
     """
+    box = _list2np(box)
     shape = box.shape
     multi, poly = _is_bbox(shape)
     if not poly:
@@ -255,18 +279,20 @@ def poly2xyxy(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
     return _poly2xyxy(box)
 
 
-def poly2mask(poly: NDArray[DTypeLike], shape: Tuple[int]) -> NDArray[bool]:
+def poly2mask(
+    poly: Union[List[Union[int, float]], NDArray[DTypeLike]], shape: Tuple[int]
+) -> NDArray[bool]:
     """다각형 좌표를 입력받아 mask로 변환
 
     Args:
-        poly (``NDArray[DTypeLike]``): Mask의 꼭짓점 좌표 (``[N, 2]``)
+        poly (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): Mask의 꼭짓점 좌표 (``[N, 2]``)
         shape (``Tuple[int]``): 출력될 mask의 shape ``(H, W)``
 
     Returns:
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, C]``)
 
     Examples:
-        >>> poly = np.array([[10, 10], [20, 10], [30, 40], [20, 60], [10, 20]])
+        >>> poly = [[10, 10], [20, 10], [30, 40], [20, 60], [10, 20]]
         >>> mask = zz.vision.poly2mask(poly, (70, 100))
         >>> mask.shape
         (70, 100)
@@ -278,6 +304,7 @@ def poly2mask(poly: NDArray[DTypeLike], shape: Tuple[int]) -> NDArray[bool]:
             :align: center
             :width: 300px
     """
+    poly = _list2np(poly)
     poly = Path(poly)
     pts_x, pts_y = np.meshgrid(np.arange(shape[1]), np.arange(shape[0]))
     pts_x, pts_y = pts_x.flatten(), pts_y.flatten()
@@ -287,23 +314,24 @@ def poly2mask(poly: NDArray[DTypeLike], shape: Tuple[int]) -> NDArray[bool]:
     return mask
 
 
-def poly2area(poly: NDArray[DTypeLike]) -> float:
+def poly2area(poly: Union[List[Union[int, float]], NDArray[DTypeLike]]) -> float:
     """다각형의 면적을 산출하는 함수
 
     Args:
-        poly (``NDArray[DTypeLike]``): 다각형 (``[N, 2]``)
+        poly (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): 다각형 (``[N, 2]``)
 
     Returns:
         ``float``: 다각형의 면적
 
     Examples:
-        >>> poly = np.array([[10, 10], [20, 10], [30, 40], [20, 60], [10, 20]])
+        >>> poly = [[10, 10], [20, 10], [30, 40], [20, 60], [10, 20]]
         >>> zz.vision.poly2area(poly)
         550.0
         >>> box = np.array([[100, 200], [1200, 200], [1200, 1000], [100, 1000]])
         >>> zz.vision.poly2area(box)
         880000.0
     """
+    poly = _list2np(poly)
     pts_x = poly[:, 0]
     pts_y = poly[:, 1]
     return 0.5 * np.abs(
@@ -311,17 +339,17 @@ def poly2area(poly: NDArray[DTypeLike]) -> float:
     )
 
 
-def poly2ratio(poly: NDArray[DTypeLike]) -> float:
+def poly2ratio(poly: Union[List[Union[int, float]], NDArray[DTypeLike]]) -> float:
     """다각형의 bbox 대비 다각형의 면적 비율을 산출하는 함수
 
     Args:
-        poly (``NDArray[DTypeLike]``): 다각형 (``[N, 2]``)
+        poly (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): 다각형 (``[N, 2]``)
 
     Returns:
         ``float``: 다각형의 bbox 대비 다각형의 비율
 
     Examples:
-        >>> poly = np.array([[10, 10], [20, 10], [30, 40], [20, 60], [10, 20]])
+        >>> poly = [[10, 10], [20, 10], [30, 40], [20, 60], [10, 20]]
         >>> zz.vision.poly2ratio(poly)
         0.55
         >>> box = np.array([[100, 200], [1200, 200], [1200, 1000], [100, 1000]])

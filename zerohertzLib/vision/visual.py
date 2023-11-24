@@ -29,7 +29,8 @@ import numpy as np
 from numpy.typing import DTypeLike, NDArray
 from PIL import Image, ImageDraw, ImageFont
 
-from .convert import cwh2poly, poly2cwh, poly2mask
+from .convert import _list2np, cwh2poly, poly2cwh, poly2mask
+from .transform import pad
 from .util import _cvt_bgra, _is_bbox
 
 
@@ -61,7 +62,7 @@ def _bbox(
 
 def bbox(
     img: NDArray[np.uint8],
-    box: NDArray[DTypeLike],
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
     color: Optional[Tuple[int]] = (0, 0, 255),
     thickness: Optional[int] = 2,
 ) -> NDArray[np.uint8]:
@@ -69,7 +70,7 @@ def bbox(
 
     Args:
         img (``NDArray[np.uint8]``): Input image (``[H, W, C]``)
-        box (``NDArray[DTypeLike]``): 하나 혹은 여러 개의 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
+        box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): 하나 혹은 여러 개의 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
         color (``Optional[Tuple[int]]``): bbox의 색
         thickness (``Optional[int]``): bbox 선의 두께
 
@@ -96,11 +97,12 @@ def bbox(
             :align: center
             :width: 600px
     """
+    box = _list2np(box)
     img = img.copy()
     shape = img.shape
     if len(shape) == 2:
         img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
-    elif shape[2] == 4:
+    elif shape[2] == 4 and len(color) == 3:
         color = (*color, 255)
     shape = box.shape
     multi, poly = _is_bbox(shape)
@@ -175,7 +177,7 @@ def masks(
     shape = img.shape
     if len(shape) == 2:
         img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
-    elif shape[2] == 4:
+    elif shape[2] == 4 and len(color) == 3:
         color = (*color, 255)
         if class_list is not None and class_color is not None:
             for key, value in class_color.items():
@@ -232,90 +234,6 @@ def _paste(img: NDArray[np.uint8], target: NDArray[np.uint8]) -> NDArray[np.uint
     return img
 
 
-def pad(
-    img: NDArray[np.uint8],
-    shape: Tuple[int],
-    color: Optional[Tuple[int]] = (255, 255, 255),
-    poly: Optional[NDArray[DTypeLike]] = None,
-) -> Union[NDArray[np.uint8], Tuple[NDArray[np.uint8], NDArray[DTypeLike]]]:
-    """입력 image를 원하는 shape로 resize 및 pad
-
-    Args:
-        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
-        shape (``Tuple[int]``): 출력의 shape ``(H, W)``
-        color (``Optional[Tuple[int]]``): Padding의 색
-        poly (``Optional[NDArray[DTypeLike]]``): Padding에 따라 변형될 좌표 (``[N, 2]``)
-
-    Returns:
-        ``Union[NDArray[np.uint8], Tuple[NDArray[np.uint8], NDArray[DTypeLike]]]``: 출력 image (``[H, W, C]``) 및 ``poly`` 입력 시 padding에 따른 변형된 좌표값
-
-    Examples:
-        GRAY:
-
-        >>> img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
-        >>> res1 = cv2.resize(img, (500, 1000))
-        >>> res1 = zz.vision.pad(res1, (1000, 1000), color=(0, 255, 0))
-
-        BGR:
-
-        >>> res2 = cv2.resize(img, (1000, 500))
-        >>> res2 = zz.vision.pad(res2, (1000, 1000))
-
-        BGRA:
-
-        >>> img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
-        >>> res3 = cv2.resize(img, (500, 1000))
-        >>> res3 = zz.vision.pad(res3, (1000, 1000), color=(0, 0, 255, 128))
-
-        Poly:
-
-        >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
-        >>> res4 = cv2.resize(img, (2000, 1000))
-        >>> res4 = zz.vision.bbox(res4, poly, color=(255, 0, 0), thickness=20)
-        >>> res4, poly = zz.vision.pad(res4, (1000, 1000), poly=poly)
-        >>> res4 = zz.vision.bbox(img, poly, color=(0, 0, 255))
-
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/285082573-3192363a-9b76-4474-a627-2d434db060fc.png
-            :alt: Visualzation Result
-            :align: center
-            :width: 600px
-    """
-    if len(img.shape) == 2:
-        img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
-    if img.shape[2] == 4 and len(color) == 3:
-        color = [*color, 255]
-    img_height, img_width = img.shape[:2]
-    tar_height, tar_width = shape
-    if img_width / img_height > tar_width / tar_height:
-        ratio = tar_width / img_width
-        resize_width, resize_height = tar_width, int(img_height * ratio)
-    elif img_width / img_height < tar_width / tar_height:
-        ratio = tar_height / img_height
-        resize_width, resize_height = int(img_width * ratio), tar_height
-    else:
-        ratio = 1
-        (
-            resize_width,
-            resize_height,
-        ) = (
-            tar_width,
-            tar_height,
-        )
-    img = cv2.resize(img, (resize_width, resize_height), interpolation=cv2.INTER_LINEAR)
-    top, bottom = (tar_height - resize_height) // 2, (
-        tar_height - resize_height
-    ) // 2 + (tar_height - resize_height) % 2
-    left, right = (tar_width - resize_width) // 2, (tar_width - resize_width) // 2 + (
-        tar_width - resize_width
-    ) % 2
-    img = cv2.copyMakeBorder(
-        img, top, bottom, left, right, cv2.BORDER_CONSTANT, value=color
-    )
-    if poly is None:
-        return img
-    return img, poly * ratio + (left, top)
-
-
 def _make_text(txt: str, shape: Tuple[int], color: Tuple[int]) -> NDArray[np.uint8]:
     """배경이 투명한 문자열 image 생성
 
@@ -366,7 +284,7 @@ def _text(
 
 def text(
     img: NDArray[np.uint8],
-    box: NDArray[DTypeLike],
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
     txt: Union[str, List[str]],
     color: Optional[Tuple[int]] = (0, 0, 0),
     vis: Optional[bool] = False,
@@ -375,7 +293,7 @@ def text(
 
     Args:
         img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
-        box (``NDArray[DTypeLike]``): 문자열이 존재할 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
+        box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): 문자열이 존재할 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
         txt (``str``): Image에 추가할 문자열
         color (``Optional[Tuple[int]]``): 문자의 색
         vis (``Optional[bool]``): 문자 영역의 시각화 여부
@@ -403,6 +321,7 @@ def text(
             :align: center
             :width: 600px
     """
+    box = _list2np(box)
     img = img.copy()
     img = _cvt_bgra(img)
     shape = box.shape
@@ -427,62 +346,15 @@ def text(
     return img
 
 
-def cutout(
-    img: NDArray[np.uint8],
-    poly: NDArray[DTypeLike],
-    alpha: Optional[int] = 255,
-    crop: Optional[bool] = True,
-    background: Optional[int] = 0,
-) -> NDArray[np.uint8]:
-    """Image 내에서 지정한 좌표를 제외한 부분을 투명화
-
-    Args:
-        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
-        poly (``NDArray[DTypeLike]``): 지정할 좌표 (``[N, 2]``)
-        alpha (``Optional[int]``): 지정한 좌표 영역의 투명도
-        crop (``Optional[bool]``): 출력 image의 Crop 여부
-        background (``Optional[int]``): 지정한 좌표 외 배경의 투명도
-
-    Returns:
-        ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
-
-    Examples:
-        >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
-        >>> res1 = zz.vision.cutout(img, poly)
-        >>> res2 = zz.vision.cutout(img, poly, 128, False)
-        >>> res3 = zz.vision.cutout(img, poly, background=128)
-
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284778462-8a1e3017-328e-4776-adeb-b2f24fd09c58.png
-            :alt: Visualzation Result
-            :align: center
-            :width: 600px
-    """
-    shape = img.shape[:2]
-    poly = poly.astype(np.int32)
-    x_0, x_1 = poly[:, 0].min(), poly[:, 0].max()
-    y_0, y_1 = poly[:, 1].min(), poly[:, 1].max()
-    mask = poly2mask(poly, shape)
-    if background == 0:
-        mask = (mask * alpha).astype(np.uint8)
-    else:
-        mask = mask.astype(np.uint8)
-        mask[mask == 0] = background
-        mask[mask == 1] = alpha
-    img = Image.fromarray(img)
-    mask = Image.fromarray(mask)
-    img.putalpha(mask)
-    if crop:
-        return np.array(img)[y_0:y_1, x_0:x_1, :]
-    return np.array(img)
-
-
 def paste(
     img: NDArray[np.uint8],
     target: NDArray[np.uint8],
-    box: List[int],
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
     resize: Optional[bool] = False,
     vis: Optional[bool] = False,
     poly: Optional[NDArray[DTypeLike]] = None,
+    alpha: Optional[int] = None,
+    gaussian: Optional[int] = None,
 ) -> Union[NDArray[np.uint8], Tuple[NDArray[np.uint8], NDArray[DTypeLike]]]:
     """``target`` image를 ``img`` 위에 투명도를 포함하여 병합
 
@@ -496,10 +368,12 @@ def paste(
     Args:
         img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
         target (``NDArray[np.uint8]``): Target image (``[H, W, 4]``)
-        box (``List[int]``): 병합될 영역 (``xyxy`` 형식)
+        box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): 병합될 영역 (``xyxy`` 형식)
         resize (``Optional[bool]``): Target image의 resize 여부
         vis (``Optional[bool]``): 지정한 영역 (``box``)의 시각화 여부
         poly (``Optional[NDArray[DTypeLike]]``): 변형된 좌표 (``[N, 2]``)
+        alpha (``Optional[int]``): ``target`` image의 투명도 변경
+        gaussian (``Optional[int]``): 자연스러운 병합을 위해 ``target`` 의 alpha channel에 적용될 Gaussian blur의 kernel size
 
     Returns:
         ``Union[NDArray[np.uint8], Tuple[NDArray[np.uint8], NDArray[DTypeLike]]]``: 시각화 결과 (``[H, W, 4]``) 및 ``poly`` 입력 시 변형된 좌표값
@@ -510,37 +384,62 @@ def paste(
         >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
         >>> target = zz.vision.cutout(img, poly, 200)
         >>> res1 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=False, vis=True)
-        >>> res2 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, vis=True)
+        >>> res2 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, vis=True, alpha=255)
 
         With Poly:
 
         >>> poly -= zz.vision.poly2xyxy(poly)[:2]
         >>> target = zz.vision.bbox(target, poly, color=(255, 0, 0), thickness=20)
-        >>> res3, poly1 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=False, poly=poly)
-        >>> poly1
+        >>> res3, poly3 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=False, poly=poly)
+        >>> poly3
         array([[300.        , 200.        ],
                [557.14285714, 200.        ],
                [900.        , 628.57142857],
                [557.14285714, 800.        ],
                [300.        , 542.85714286]])
-        >>> res4, poly2 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, poly=poly)
-        >>> poly2
+        >>> res3 = zz.vision.bbox(res3, poly3)
+        >>> res4, poly4 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, poly=poly)
+        >>> poly4
         array([[ 200.        ,  200.        ],
                [ 542.85714286,  200.        ],
                [1000.        ,  628.57142857],
                [ 542.85714286,  800.        ],
                [ 200.        ,  542.85714286]])
+        >>> res4 = zz.vision.bbox(res4, poly4)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/285093777-7aab1951-1c5d-489e-b031-ac99fe0e2750.png
+        Gaussian Blur:
+
+        >>> res5, poly5 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, poly=poly, gaussian=501)
+        >>> res5 = zz.vision.bbox(res5, poly5)
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/285364676-27ae4292-0553-4561-a275-ea56c046d147.png
             :alt: Visualzation Result
             :align: center
             :width: 600px
     """
-    x_0, y_0, x_1, y_1 = box
+    x_0, y_0, x_1, y_1 = map(int, box)
     box_height, box_width = y_1 - y_0, x_1 - x_0
     img = img.copy()
     img = _cvt_bgra(img)
+    target = target.copy()
     tar_height, tar_width = target.shape[:2]
+    if alpha is not None:
+        target[:, :, 3][0 < target[:, :, 3]] = alpha
+    if gaussian is not None:
+        invisible = target[:, :, 3] == 0
+        pad_gaussian = gaussian * 3
+        target_alpha = cv2.copyMakeBorder(
+            target[:, :, 3],
+            pad_gaussian,
+            pad_gaussian,
+            pad_gaussian,
+            pad_gaussian,
+            cv2.BORDER_CONSTANT,
+        )
+        target[:, :, 3] = cv2.GaussianBlur(target_alpha, (gaussian, gaussian), 0)[
+            pad_gaussian:-pad_gaussian, pad_gaussian:-pad_gaussian
+        ]
+        target[:, :, 3][invisible] = 0
     if resize:
         target = cv2.resize(
             target, (box_width, box_height), interpolation=cv2.INTER_LINEAR
