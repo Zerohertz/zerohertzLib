@@ -27,7 +27,7 @@ from zerohertzLib.vision.convert import (
 )
 from zerohertzLib.vision.data import ImageLoader, JsonImageLoader
 from zerohertzLib.vision.gif import img2gif, vid2gif
-from zerohertzLib.vision.transform import cutout, pad
+from zerohertzLib.vision.transform import cutout, pad, transparent
 from zerohertzLib.vision.util import is_pts_in_poly
 from zerohertzLib.vision.visual import bbox, masks, paste, text
 
@@ -55,4 +55,5 @@ __all__ = [
     "poly2area",
     "poly2ratio",
     "ImageLoader",
+    "transparent",
 ]
