@@ -30,6 +30,7 @@ from numpy.typing import DTypeLike, NDArray
 from PIL import Image
 
 from .convert import _list2np, poly2mask
+from .util import _cvt_bgra
 
 
 def pad(
@@ -133,7 +134,7 @@ def cutout(
         background (``Optional[int]``): 지정한 좌표 외 배경의 투명도
 
     Returns:
-        ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
+        ``NDArray[np.uint8]``: 출력 image (``[H, W, 4]``)
 
     Examples:
         >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
@@ -164,3 +165,38 @@ def cutout(
     if crop:
         return np.array(img)[y_0:y_1, x_0:x_1, :]
     return np.array(img)
+
+
+def transparent(
+    img: NDArray[np.uint8],
+    threshold: Optional[int] = 128,
+    reverse: Optional[bool] = False,
+):
+    """입력 image에 대해 ``threshold`` 미만의 pixel들을 투명화
+
+    Args:
+        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
+        threshold (``Optional[int]``): Threshold
+        reverse (``Optional[bool]``): ``threshold`` 이상의 pixel 투명화 여부
+
+    Returns:
+        ``NDArray[np.uint8]``: 출력 image (``[H, W, 4]``)
+
+    Examples:
+        >>> res1 = zz.vision.transparent(img)
+        >>> res2 = zz.vision.transparent(img, reverse=True)
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/285412616-b996263a-86a7-4e45-b2a5-fb36b94da18a.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 600px
+    """
+    img = img.copy()
+    img = _cvt_bgra(img)
+    img_alpha = img[:, :, 3]
+    img_bin = threshold > cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
+    if reverse:
+        img_alpha[~img_bin] = 0
+    else:
+        img_alpha[img_bin] = 0
+    return img

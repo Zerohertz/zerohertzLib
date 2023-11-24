@@ -1,5 +1,32 @@
 # v0.4
 
+## v0.4.4
+
+<h3>[v0.4.4] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/119>#119</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2023/11/24
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/vision"><img src="https://img.shields.io/badge/feat/vision-D1F9CB?style=flat-square&logo=github" alt="feat/vision"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `vision`
+  + 입력 image에 대해 ``threshold`` 미만의 pixel들을 투명화하는 함수 `transparent` 개발
+
+<h4>Docs</h4>
+
++ 오타 수정
+
 ## v0.4.3
 
 <h3>[v0.4.3] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/117>#117</a>)</h3>
