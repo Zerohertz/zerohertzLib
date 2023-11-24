@@ -96,7 +96,7 @@ The `chore` branch is utilized when the build result is not different, but there
     + `labelsToAdd.push('release')`
     + `(file.filename.startsWith('Jenkins') || file.filename.startsWith('.github/workflows'))` → `labelsToAdd.push('chore')`
     + `(file.filename.startsWith('sphinx') && !file.filename.includes('release'))` → `labelsToAdd.push('docs')`
-    + `(file.filename.startsWith('zerohertzLib/{MODULE_NAME}/__init__') || body.includes('algorithm'))` → `labelsToAdd.push('feat/{MODULE_NAME}')`
+    + `(file.filename.startsWith('zerohertzLib/{MODULE_NAME}/__init__') || body.includes('{MODULE_NAME}'))` → `labelsToAdd.push('feat/{MODULE_NAME}')`
   + `baseBranch === 'master' && headBranch.startsWith('chore')`
     + `labelsToAdd.push('release/chore')`
     + `(file.filename.startsWith('Jenkins') || file.filename.startsWith('.github/workflows'))` → `labelsToAdd.push('chore')`
