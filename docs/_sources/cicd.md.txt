@@ -95,17 +95,12 @@ The `chore` branch is utilized when the build result is not different, but there
   + `baseBranch === 'master' && headBranch.startsWith('dev')`
     + `labelsToAdd.push('release')`
     + `(file.filename.startsWith('Jenkins') || file.filename.startsWith('.github/workflows'))` → `labelsToAdd.push('chore')`
-    + `file.filename.startsWith('sphinx')` → `labelsToAdd.push('docs')`
-    + `file.filename.startsWith('zerohertzLib/algorithm/'` → `labelsToAdd.push('feat/algorithm')`
-    + `file.filename.startsWith('zerohertzLib/api/'` → `labelsToAdd.push('feat/api')`
-    + `file.filename.startsWith('zerohertzLib/mlops/'` → `labelsToAdd.push('feat/mlops')`
-    + `file.filename.startsWith('zerohertzLib/plot/'` → `labelsToAdd.push('feat/plot')`
-    + `file.filename.startsWith('zerohertzLib/util/'` → `labelsToAdd.push('feat/util')`
-    + `file.filename.startsWith('zerohertzLib/vision/'` → `labelsToAdd.push('feat/vision')`
+    + `(file.filename.startsWith('sphinx') && !file.filename.includes('release'))` → `labelsToAdd.push('docs')`
+    + `(file.filename.startsWith('zerohertzLib/{MODULE_NAME}/__init__') || body.includes('algorithm'))` → `labelsToAdd.push('feat/{MODULE_NAME}')`
   + `baseBranch === 'master' && headBranch.startsWith('chore')`
     + `labelsToAdd.push('release/chore')`
-    + `file.filename.startsWith('Jenkins') || file.filename.startsWith('.github/workflows')` → `labelsToAdd.push('chore')`
-    + `file.filename.startsWith('sphinx') || file.filename.startsWith('.github/workflows')` → `labelsToAdd.push('docs')`
+    + `(file.filename.startsWith('Jenkins') || file.filename.startsWith('.github/workflows'))` → `labelsToAdd.push('chore')`
+    + `(file.filename.startsWith('sphinx') && !file.filename.includes('release'))` → `labelsToAdd.push('docs')`
   + `baseBranch.startsWith('dev') || baseBranch.startsWith('chore')) && headBranch === 'docs'`
     + `labelsToAdd.push('docs')`
 
