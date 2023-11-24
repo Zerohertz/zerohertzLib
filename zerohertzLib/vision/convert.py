@@ -36,13 +36,16 @@ def _list2np(box: List[Any]) -> NDArray[DTypeLike]:
         return np.array(box)
     return box
 
+
 def _cwh2xyxy(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
     x_0, y_0 = box[:2] - box[2:] / 2
     x_1, y_1 = box[:2] + box[2:] / 2
     return np.array([x_0, y_0, x_1, y_1], dtype=box.dtype)
 
 
-def cwh2xyxy(box: Union[List[Union[int, float]], NDArray[DTypeLike]]) -> NDArray[DTypeLike]:
+def cwh2xyxy(
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]]
+) -> NDArray[DTypeLike]:
     """Bbox 변환
 
     Args:
@@ -77,7 +80,9 @@ def _cwh2poly(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
     return np.array([[x_0, y_0], [x_1, y_0], [x_1, y_1], [x_0, y_1]], dtype=box.dtype)
 
 
-def cwh2poly(box: Union[List[Union[int, float]], NDArray[DTypeLike]]) -> NDArray[DTypeLike]:
+def cwh2poly(
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]]
+) -> NDArray[DTypeLike]:
     """Bbox 변환
 
     Args:
@@ -122,7 +127,9 @@ def _xyxy2cwh(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
     )
 
 
-def xyxy2cwh(box: Union[List[Union[int, float]], NDArray[DTypeLike]]) -> NDArray[DTypeLike]:
+def xyxy2cwh(
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]]
+) -> NDArray[DTypeLike]:
     """Bbox 변환
 
     Args:
@@ -156,7 +163,9 @@ def _xyxy2poly(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
     return np.array([[x_0, y_0], [x_1, y_0], [x_1, y_1], [x_0, y_1]], dtype=box.dtype)
 
 
-def xyxy2poly(box: Union[List[Union[int, float]], NDArray[DTypeLike]]) -> NDArray[DTypeLike]:
+def xyxy2poly(
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]]
+) -> NDArray[DTypeLike]:
     """Bbox 변환
 
     Args:
@@ -202,7 +211,9 @@ def _poly2cwh(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
     )
 
 
-def poly2cwh(box: Union[List[Union[int, float]], NDArray[DTypeLike]]) -> NDArray[DTypeLike]:
+def poly2cwh(
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]]
+) -> NDArray[DTypeLike]:
     """Bbox 변환
 
     Args:
@@ -237,7 +248,9 @@ def _poly2xyxy(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
     return np.array([x_0, y_0, x_1, y_1], dtype=box.dtype)
 
 
-def poly2xyxy(box: Union[List[Union[int, float]], NDArray[DTypeLike]]) -> NDArray[DTypeLike]:
+def poly2xyxy(
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]]
+) -> NDArray[DTypeLike]:
     """Bbox 변환
 
     Args:
@@ -266,7 +279,9 @@ def poly2xyxy(box: Union[List[Union[int, float]], NDArray[DTypeLike]]) -> NDArra
     return _poly2xyxy(box)
 
 
-def poly2mask(poly: Union[List[Union[int, float]], NDArray[DTypeLike]], shape: Tuple[int]) -> NDArray[bool]:
+def poly2mask(
+    poly: Union[List[Union[int, float]], NDArray[DTypeLike]], shape: Tuple[int]
+) -> NDArray[bool]:
     """다각형 좌표를 입력받아 mask로 변환
 
     Args:
