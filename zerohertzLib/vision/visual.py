@@ -29,7 +29,7 @@ import numpy as np
 from numpy.typing import DTypeLike, NDArray
 from PIL import Image, ImageDraw, ImageFont
 
-from .convert import cwh2poly, poly2cwh, poly2mask
+from .convert import _list2np, cwh2poly, poly2cwh, poly2mask
 from .util import _cvt_bgra, _is_bbox
 
 
@@ -61,7 +61,7 @@ def _bbox(
 
 def bbox(
     img: NDArray[np.uint8],
-    box: NDArray[DTypeLike],
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
     color: Optional[Tuple[int]] = (0, 0, 255),
     thickness: Optional[int] = 2,
 ) -> NDArray[np.uint8]:
@@ -69,7 +69,7 @@ def bbox(
 
     Args:
         img (``NDArray[np.uint8]``): Input image (``[H, W, C]``)
-        box (``NDArray[DTypeLike]``): 하나 혹은 여러 개의 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
+        box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): 하나 혹은 여러 개의 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
         color (``Optional[Tuple[int]]``): bbox의 색
         thickness (``Optional[int]``): bbox 선의 두께
 
@@ -96,6 +96,7 @@ def bbox(
             :align: center
             :width: 600px
     """
+    box = _list2np(box)
     img = img.copy()
     shape = img.shape
     if len(shape) == 2:
@@ -366,7 +367,7 @@ def _text(
 
 def text(
     img: NDArray[np.uint8],
-    box: NDArray[DTypeLike],
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
     txt: Union[str, List[str]],
     color: Optional[Tuple[int]] = (0, 0, 0),
     vis: Optional[bool] = False,
@@ -375,7 +376,7 @@ def text(
 
     Args:
         img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
-        box (``NDArray[DTypeLike]``): 문자열이 존재할 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
+        box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): 문자열이 존재할 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
         txt (``str``): Image에 추가할 문자열
         color (``Optional[Tuple[int]]``): 문자의 색
         vis (``Optional[bool]``): 문자 영역의 시각화 여부
@@ -403,6 +404,7 @@ def text(
             :align: center
             :width: 600px
     """
+    box = _list2np(box)
     img = img.copy()
     img = _cvt_bgra(img)
     shape = box.shape
@@ -429,7 +431,7 @@ def text(
 
 def cutout(
     img: NDArray[np.uint8],
-    poly: NDArray[DTypeLike],
+    poly: Union[List[Union[int, float]], NDArray[DTypeLike]],
     alpha: Optional[int] = 255,
     crop: Optional[bool] = True,
     background: Optional[int] = 0,
@@ -438,7 +440,7 @@ def cutout(
 
     Args:
         img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
-        poly (``NDArray[DTypeLike]``): 지정할 좌표 (``[N, 2]``)
+        poly (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): 지정할 좌표 (``[N, 2]``)
         alpha (``Optional[int]``): 지정한 좌표 영역의 투명도
         crop (``Optional[bool]``): 출력 image의 Crop 여부
         background (``Optional[int]``): 지정한 좌표 외 배경의 투명도
@@ -458,6 +460,7 @@ def cutout(
             :width: 600px
     """
     shape = img.shape[:2]
+    poly = _list2np(poly)
     poly = poly.astype(np.int32)
     x_0, x_1 = poly[:, 0].min(), poly[:, 0].max()
     y_0, y_1 = poly[:, 1].min(), poly[:, 1].max()
@@ -479,7 +482,7 @@ def cutout(
 def paste(
     img: NDArray[np.uint8],
     target: NDArray[np.uint8],
-    box: List[int],
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
     resize: Optional[bool] = False,
     vis: Optional[bool] = False,
     poly: Optional[NDArray[DTypeLike]] = None,
@@ -496,7 +499,7 @@ def paste(
     Args:
         img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
         target (``NDArray[np.uint8]``): Target image (``[H, W, 4]``)
-        box (``List[int]``): 병합될 영역 (``xyxy`` 형식)
+        box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): 병합될 영역 (``xyxy`` 형식)
         resize (``Optional[bool]``): Target image의 resize 여부
         vis (``Optional[bool]``): 지정한 영역 (``box``)의 시각화 여부
         poly (``Optional[NDArray[DTypeLike]]``): 변형된 좌표 (``[N, 2]``)
@@ -536,7 +539,7 @@ def paste(
             :align: center
             :width: 600px
     """
-    x_0, y_0, x_1, y_1 = box
+    x_0, y_0, x_1, y_1 = map(int, box)
     box_height, box_width = y_1 - y_0, x_1 - x_0
     img = img.copy()
     img = _cvt_bgra(img)
