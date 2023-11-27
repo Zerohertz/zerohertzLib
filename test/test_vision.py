@@ -138,7 +138,7 @@ def test_bboxes_gray_poly():
     assert "BBOXES_GRAY_POLY.png" in os.listdir()
 
 
-def test_bbox_bgr_xyxwh():
+def test_bbox_bgr_cwh():
     img = cv2.imread(f"{data}/test.jpg")
     box = BOX_CWH
     BGR = zz.vision.bbox(img, box, thickness=10)
