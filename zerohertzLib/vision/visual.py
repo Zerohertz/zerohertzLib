@@ -29,14 +29,14 @@ import numpy as np
 from numpy.typing import DTypeLike, NDArray
 from PIL import Image, ImageDraw, ImageFont
 
-from .convert import _list2np, cwh2poly, poly2cwh, poly2mask
+from .convert import _list2np, cwh2poly, cwh2xyxy, poly2cwh, poly2mask
 from .transform import pad
 from .util import _cvt_bgra, _is_bbox
 
 
 def _bbox(
     img: NDArray[np.uint8],
-    box_xyxy: NDArray[DTypeLike],
+    box_poly: NDArray[DTypeLike],
     color: Tuple[int],
     thickness: int,
 ) -> NDArray[np.uint8]:
@@ -44,7 +44,7 @@ def _bbox(
 
     Args:
         img (``NDArray[np.uint8]``): Input image (``[H, W, C]``)
-        box_xyxy (``NDArray[DTypeLike]``): 하나의 bbox (``[4, 2]``)
+        box_poly (``NDArray[DTypeLike]``): 하나의 bbox (``[4, 2]``)
         color (``Tuple[int]``): bbox의 색
         thickness (``int``): bbox 선의 두께
 
@@ -53,7 +53,7 @@ def _bbox(
     """
     return cv2.polylines(
         img,
-        [box_xyxy.astype(np.int32)],
+        [box_poly.astype(np.int32)],
         isClosed=True,
         color=color,
         thickness=thickness,
@@ -261,21 +261,20 @@ def _make_text(txt: str, shape: Tuple[int], color: Tuple[int]) -> NDArray[np.uin
 
 
 def _text(
-    img: NDArray[np.uint8], box_xywh: NDArray[DTypeLike], txt: str, color: Tuple[int]
+    img: NDArray[np.uint8], box_cwh: NDArray[DTypeLike], txt: str, color: Tuple[int]
 ) -> NDArray[np.uint8]:
     """단일 text 시각화
 
     Args:
         img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
-        box_xywh (``NDArray[DTypeLike]``): 문자열이 존재할 bbox (``[4, 2]``)
+        box_cwh (``NDArray[DTypeLike]``): 문자열이 존재할 bbox (``[4]``)
         txt (``str``): Image에 추가할 문자열
         color (``Tuple[int]``): 문자의 색
 
     Returns:
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
     """
-    x_0, y_0 = (box_xywh[:2] - box_xywh[2:] / 2).astype(np.int32)
-    x_1, y_1 = (box_xywh[:2] + box_xywh[2:] / 2).astype(np.int32)
+    x_0, y_0, x_1, y_1 = cwh2xyxy(box_cwh).astype(np.int32)
     width, height = x_1 - x_0, y_1 - y_0
     txt = _make_text(txt, (height, width), color)
     img[y_0:y_1, x_0:x_1, :] = _paste(img[y_0:y_1, x_0:x_1, :], txt)
@@ -327,22 +326,22 @@ def text(
     shape = box.shape
     multi, poly = _is_bbox(shape)
     if poly:
-        box_xyxy = box
-        box_xywh = poly2cwh(box)
+        box_poly = box
+        box_cwh = poly2cwh(box)
     else:
-        box_xyxy = cwh2poly(box)
-        box_xywh = box
+        box_poly = cwh2poly(box)
+        box_cwh = box
     if multi:
         if not shape[0] == len(txt):
             raise ValueError("'box.shape[0]' and 'len(txt)' must be equal")
-        for b_xyxy, b_xywh, txt_ in zip(box_xyxy, box_xywh, txt):
-            img = _text(img, b_xywh, txt_, color)
+        for b_poly, b_cwh, txt_ in zip(box_poly, box_cwh, txt):
+            img = _text(img, b_cwh, txt_, color)
             if vis:
-                img = _bbox(img, b_xyxy, (0, 0, 255, 255), 2)
+                img = _bbox(img, b_poly, (0, 0, 255, 255), 2)
     else:
-        img = _text(img, box_xywh, txt, color)
+        img = _text(img, box_cwh, txt, color)
         if vis:
-            img = _bbox(img, box_xyxy, (0, 0, 255, 255), 2)
+            img = _bbox(img, box_poly, (0, 0, 255, 255), 2)
     return img
 
 
