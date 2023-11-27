@@ -359,7 +359,7 @@ def paste(
     """``target`` image를 ``img`` 위에 투명도를 포함하여 병합
 
     Note:
-        `PIL.Image.paste` 를 `numpy` 와 `cv2` 기반으로 구현
+        ``PIL.Image.paste`` 를 ``numpy`` 와 ``cv2`` 기반으로 구현
 
         >>> img = Image.open("test.png").convert("RGBA")
         >>> target = Image.open("target.png").convert("RGBA")
