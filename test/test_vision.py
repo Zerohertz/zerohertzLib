@@ -340,3 +340,10 @@ def test_convert_poly():
     assert (BOXES_POLY == zz.vision.cwh2poly(BOXES_CWH)).all()
     assert (BOX_POLY == zz.vision.xyxy2poly(BOX_XYXY)).all()
     assert (BOXES_POLY == zz.vision.xyxy2poly(BOXES_XYXY)).all()
+
+
+def test_is_pts_in_poly():
+    assert zz.vision.is_pts_in_poly(BOX_POLY, [650, 600])
+    assert zz.vision.is_pts_in_poly(BOX_POLY, [[450, 400], [850, 800]]).all()
+    assert zz.vision.is_pts_in_poly(BOX_POLY, np.array([650, 600]))
+    assert zz.vision.is_pts_in_poly(BOX_POLY, np.array([[450, 400], [850, 800]])).all()
