@@ -74,7 +74,7 @@ class ImageLoader:
     """
 
     def __init__(self, path: Optional[str] = "./", cnt: Optional[int] = 1) -> None:
-        ext = [
+        ext = (
             "jpg",
             "JPG",
             "jpeg",
@@ -85,7 +85,7 @@ class ImageLoader:
             "TIF",
             "tiff",
             "TIFF",
-        ]
+        )
         self.cnt = cnt
         self.image_paths = []
         for ext_ in ext:

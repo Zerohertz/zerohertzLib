@@ -42,14 +42,14 @@ def _create_gif_from_frames(
 
 
 def img2gif(
-    images_path: str,
+    path: str,
     filename: Optional[str] = "tmp",
     duration: Optional[int] = 500,
 ) -> None:
     """Directory 내 image들을 GIF로 변환
 
     Args:
-        images_path (``str``): GIF로 변환할 image들이 존재하는 경로
+        path (``str``): GIF로 변환할 image들이 존재하는 경로
         filename (``Optional[str]``): 출력될 GIF file 이름
         duration: (``Optional[int]``): ms 단위의 사진 간 간격
 
@@ -64,18 +64,26 @@ def img2gif(
             :align: center
             :width: 200px
     """
-    image_files = [
-        f for f in os.listdir(images_path) if f.endswith((".png", ".jpg", ".jpeg"))
-    ]
+    ext = (
+        "jpg",
+        "JPG",
+        "jpeg",
+        "JPEG",
+        "png",
+        "PNG",
+        "tif",
+        "TIF",
+        "tiff",
+        "TIFF",
+    )
+    image_files = [f for f in os.listdir(path) if f.endswith(ext)]
     image_files.sort()
-    images = [
-        Image.open(os.path.join(images_path, image_file)) for image_file in image_files
-    ]
+    images = [Image.open(os.path.join(path, image_file)) for image_file in image_files]
     _create_gif_from_frames(images, filename, duration)
 
 
 def vid2gif(
-    video_path: str,
+    path: str,
     filename: Optional[str] = "tmp",
     quality: Optional[int] = 100,
     fps: Optional[int] = 15,
@@ -83,7 +91,7 @@ def vid2gif(
     """동영상을 GIF로 변환
 
     Args:
-        video_path (``str``): GIF로 변환할 동영상이 존재하는 경로
+        path (``str``): GIF로 변환할 동영상이 존재하는 경로
         filename (``Optional[str]``): 출력될 GIF file 이름
         quality: (``Optional[int]``): 출력될 GIF의 품질
         fps: (``Optional[int]``): 출력될 GIF의 FPS (Frames Per Second)
@@ -100,7 +108,7 @@ def vid2gif(
             :width: 300px
     """
     frames = []
-    cap = cv2.VideoCapture(video_path)
+    cap = cv2.VideoCapture(path)
     original_fps = round(cap.get(cv2.CAP_PROP_FPS))
     frame_count = 0
     while True:

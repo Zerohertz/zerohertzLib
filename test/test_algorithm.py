@@ -41,7 +41,7 @@ def test_bfs_2():
     ]
 
 
-def test_SoE():
+def test_soe():
     assert zz.algorithm.soe(10) == [2, 3, 5, 7]
 
 

@@ -1,5 +1,36 @@
 # v0.4
 
+## v0.4.5
+
+<h3>[v0.4.5] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/121>#121</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2023/11/27
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:style"><img src="https://img.shields.io/badge/style-03A17F?style=flat-square&logo=github" alt="style"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+
+
+<h4>Chore</h4>
+
++ `zz.vision.is_pts_in_poly`의 test code 추가
+
+<h4>Style</h4>
+
++ `vision` 내 `box`의 legacy 표현 수정
++ PyTest 내 legacy 표현 수정
++ `img2gif`와 `vid2gif`의 입력 변수명 수정
+
+<h4>Docs</h4>
+
++ `zz.vision.paste`의 설명 format 수정
+
 ## v0.4.4
 
 <h3>[v0.4.4] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/119>#119</a>)</h3>
