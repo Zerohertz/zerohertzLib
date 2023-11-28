@@ -16,11 +16,11 @@
     <meta property="og:title" content="v0.4" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/release/v0.4.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.4.5 Documents" />
-<meta property="og:description" content="v0.4.5: zz.vision.is_pts_in_poly 의 test code 추가. vision 내 box 의 legacy 표현 수정, PyTest 내 legacy 표현 수정, img2gif 와 vid2gif 의 입력 변수명 수정. zz.vision.paste 의 설명 format 수정. v0.4.4: vision- 입력 image에 대해 thre..." />
+<meta property="og:site_name" content="Zerohertz's Library v0.4.6 Documents" />
+<meta property="og:description" content="v0.4.6: algorithm- Binary search를 위한 bisect_right, bisect_left 함수 추가., api- OpenAI API 호출 시 prompt를 사용할 수 있도록 update, Slack Webhook 및 Bot을 사용할 수 있는 class SlackWebhook, SlackBot 추가., logging- Logger..." />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.4.5 Documents" />
-<meta name="description" content="v0.4.5: zz.vision.is_pts_in_poly 의 test code 추가. vision 내 box 의 legacy 표현 수정, PyTest 내 legacy 표현 수정, img2gif 와 vid2gif 의 입력 변수명 수정. zz.vision.paste 의 설명 format 수정. v0.4.4: vision- 입력 image에 대해 thre..." />
+<meta property="og:image:alt" content="Zerohertz's Library v0.4.6 Documents" />
+<meta name="description" content="v0.4.6: algorithm- Binary search를 위한 bisect_right, bisect_left 함수 추가., api- OpenAI API 호출 시 prompt를 사용할 수 있도록 update, Slack Webhook 및 Bot을 사용할 수 있는 class SlackWebhook, SlackBot 추가., logging- Logger..." />
     <link href="../_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -28,7 +28,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/release/v0.4.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>v0.4 - zerohertzLib v0.4.5 documentation</title>
+        <title>v0.4 - zerohertzLib v0.4.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -156,7 +156,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">zerohertzLib v0.4.5 documentation</div></a>
+      <a href="../index.html"><div class="brand">zerohertzLib v0.4.6 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
     <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.4.5 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.4.6 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -254,6 +254,57 @@
         <article role="main">
           <section id="v0-4">
 <h1>v0.4<a class="headerlink" href="#v0-4" title="Permalink to this heading">#</a></h1>
+<section id="v0-4-6">
+<h2>v0.4.6<a class="headerlink" href="#v0-4-6" title="Permalink to this heading">#</a></h2>
+<h3>[v0.4.6] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/123>#123</a>)</h3>
+<div class="tip admonition">
+<p class="admonition-title">Release Date</p>
+<p>2023/11/28</p>
+</div>
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/algorithm"><img src="https://img.shields.io/badge/feat/algorithm-0759DE?style=flat-square&logo=github" alt="feat/algorithm"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/api"><img src="https://img.shields.io/badge/feat/api-541B9A?style=flat-square&logo=github" alt="feat/api"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/logging"><img src="https://img.shields.io/badge/feat/logging-477A5E?style=flat-square&logo=github" alt="feat/logging"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/vision"><img src="https://img.shields.io/badge/feat/vision-D1F9CB?style=flat-square&logo=github" alt="feat/vision"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/util"><img src="https://img.shields.io/badge/feat/util-DEBEAA?style=flat-square&logo=github" alt="feat/util"/></a>
+</p>
+<h4>Features</h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">algorithm</span></code></p>
+<ul>
+<li><p>Binary search를 위한 <code class="docutils literal notranslate"><span class="pre">bisect_right</span></code>, <code class="docutils literal notranslate"><span class="pre">bisect_left</span></code> 함수 추가</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">api</span></code></p>
+<ul>
+<li><p>OpenAI API 호출 시 prompt를 사용할 수 있도록 update</p></li>
+<li><p>Slack Webhook 및 Bot을 사용할 수 있는 class <code class="docutils literal notranslate"><span class="pre">SlackWebhook</span></code>, <code class="docutils literal notranslate"><span class="pre">SlackBot</span></code> 추가</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">logging</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Logger</span></code> class가 Slack을 이용할 수 있도록 update</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">util</span></code></p>
+<ul>
+<li><p>지정한 경로 내 존재하는 file들의 확장자를 탐색하는 <code class="docutils literal notranslate"><span class="pre">find_ext</span></code> 함수 개발</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vision</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">text</span></code> 함수 사용 시 <code class="docutils literal notranslate"><span class="pre">font_size</span></code>를 지정할 수 있도록 update</p></li>
+<li><p>Label Studio로 annotation된 JSON data를 YOLO 및 LabelMe format으로 변환하는 함수 <code class="docutils literal notranslate"><span class="pre">labelstudio2yolo</span></code>, <code class="docutils literal notranslate"><span class="pre">labelstudio2labelme</span></code> 개발</p></li>
+</ul>
+</li>
+</ul>
+<h4>Docs</h4>
+<ul class="simple">
+<li><p>대소문자 표기법 수정</p></li>
+</ul>
+</section>
 <section id="v0-4-5">
 <h2>v0.4.5<a class="headerlink" href="#v0-4-5" title="Permalink to this heading">#</a></h2>
 <h3>[v0.4.5] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/121>#121</a>)</h3>
@@ -513,6 +564,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">v0.4</a><ul>
+<li><a class="reference internal" href="#v0-4-6">v0.4.6</a></li>
 <li><a class="reference internal" href="#v0-4-5">v0.4.5</a></li>
 <li><a class="reference internal" href="#v0-4-4">v0.4.4</a></li>
 <li><a class="reference internal" href="#v0-4-3">v0.4.3</a></li>
@@ -532,7 +584,7 @@
   </div>
 </div><script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b79ae5be"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=80626fd4"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
