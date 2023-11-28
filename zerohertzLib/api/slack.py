@@ -83,7 +83,7 @@ class SlackWebhook:
             <Response [200]>
         """
         if codeblock:
-            message = f"```\n{message}\n```"
+            message = f"```{message}```"
         self.data["text"] = message
         return requests.post(
             self.webhook_url, data=json.dumps(self.data), headers=self.headers
@@ -159,7 +159,7 @@ class SlackBot:
             <Response [200]>
         """
         if codeblock:
-            message = f"```\n{message}\n```"
+            message = f"```{message}```"
         data = self.data.copy()
         data["text"] = message
         return requests.post(
