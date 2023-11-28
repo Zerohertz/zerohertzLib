@@ -8,5 +8,6 @@
 from zerohertzLib.api.discord import Discord
 from zerohertzLib.api.github import GitHub
 from zerohertzLib.api.open_ai import OpenAI
+from zerohertzLib.api.slack import SlackBot, SlackWebhook
 
-__all__ = ["Discord", "GitHub", "OpenAI"]
+__all__ = ["Discord", "GitHub", "OpenAI", "SlackWebhook", "SlackBot"]
