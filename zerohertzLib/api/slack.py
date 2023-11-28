@@ -23,7 +23,6 @@ SOFTWARE.
 """
 
 import json
-import time
 from typing import Optional
 
 import requests
