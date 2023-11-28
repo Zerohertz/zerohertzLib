@@ -86,7 +86,10 @@ class SlackWebhook:
             message = f"```{message}```"
         self.data["text"] = message
         return requests.post(
-            self.webhook_url, data=json.dumps(self.data), headers=self.headers
+            self.webhook_url,
+            data=json.dumps(self.data),
+            headers=self.headers,
+            timeout=10,
         )
 
 
@@ -166,6 +169,7 @@ class SlackBot:
             "https://slack.com/api/chat.postMessage",
             headers=self.headers,
             json=data,
+            timeout=10,
         )
 
     def file(self, path: str) -> requests.models.Response:
@@ -190,5 +194,6 @@ class SlackBot:
                 headers=self.headers,
                 files={"file": file},
                 data={"channels": self.channel},
+                timeout=10,
             )
         return response
