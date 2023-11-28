@@ -226,8 +226,8 @@ def find_ext(path: Optional[str] = "") -> Dict[str, int]:
     """
     if not path.endswith("*"):
         path = os.path.join(path, "*")
-    files = glob(path)
+    file_paths = glob(path)
     exts = defaultdict(int)
-    for file in files:
-        exts[file.split(".")[-1]] += 1
+    for file_path in file_paths:
+        exts[file_path.split(".")[-1]] += 1
     return exts
