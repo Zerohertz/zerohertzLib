@@ -17,6 +17,8 @@ from zerohertzLib.vision.compare import before_after, grid, vert
 from zerohertzLib.vision.convert import (
     cwh2poly,
     cwh2xyxy,
+    labelstudio2labelme,
+    labelstudio2yolo,
     poly2area,
     poly2cwh,
     poly2mask,
@@ -56,4 +58,6 @@ __all__ = [
     "poly2ratio",
     "ImageLoader",
     "transparent",
+    "labelstudio2yolo",
+    "labelstudio2labelme",
 ]
