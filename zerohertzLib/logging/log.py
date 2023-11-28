@@ -28,7 +28,7 @@ from typing import List, Optional
 
 import requests
 
-from zerohertzLib.api import Discord
+from zerohertzLib.api import Discord, SlackBot, SlackWebhook
 
 
 class Logger:
@@ -40,7 +40,9 @@ class Logger:
     Args:
         logger_name (``Optional[str]``): Logger의 이름
         file_name(``Optional[str]``): ``.log`` file의 이름 (미입력 시 미출력)
-        discord (``Optional[str]``): Discord webhook의 URL (``logger_level`` 적용)
+        discord (``Optional[str]``): Discord Webhook의 URL (``logger_level`` 적용)
+        slack (``Optional[str]``): Slack Webhook의 URL 혹은 Bot의 token (``logger_level`` 적용)
+        channel (``Optional[str]``): Slack Webhook 또는 Bot이 전송할 channel
         logger_level (``Optional[int]``): ``logging.getLogger`` 의 level
         console_level (``Optional[int]``): ``logging.StreamHandler`` 의 level
         file_level (``Optional[int]``): ``logging.FileHandler`` 의 level
@@ -64,6 +66,8 @@ class Logger:
         logger_name: Optional[str] = None,
         file_name: Optional[str] = None,
         discord: Optional[str] = None,
+        slack: Optional[str] = None,
+        channel: Optional[str] = None,
         logger_level: Optional[int] = logging.DEBUG,
         console_level: Optional[int] = logging.DEBUG,
         file_level: Optional[int] = logging.DEBUG,
@@ -82,9 +86,19 @@ class Logger:
             file_handler.setLevel(file_level)
             file_handler.setFormatter(formatter)
             self.logger.addHandler(file_handler)
-        self.discord = discord
-        if self.discord is not None:
-            self._discord = Discord(discord)
+        if discord is not None and slack is not None:
+            raise ValueError("Slack and Discord cannot be used simultaneously")
+        self.sender = None
+        if slack is not None:
+            if channel is None:
+                raise ValueError("A 'channel' value is required to use Slack")
+            if "hooks.slack.com" in slack:
+                self.sender = SlackWebhook(slack, channel)
+            else:
+                self.sender = SlackBot(slack, channel)
+        if discord is not None:
+            self.sender = Discord(discord)
+        if slack is not None or discord is not None:
             self.log_stream = io.StringIO()
             stream_handler = logging.StreamHandler(self.log_stream)
             stream_handler.setLevel(logger_level)
@@ -93,31 +107,31 @@ class Logger:
 
     def debug(self, log: str) -> None:
         self.logger.debug(log)
-        if self.discord is not None:
-            self._send_discord_message()
+        if self.sender is not None:
+            self._send()
 
     def info(self, log: str) -> None:
         self.logger.info(log)
-        if self.discord is not None:
-            self._send_discord_message()
+        if self.sender is not None:
+            self._send()
 
     def warning(self, log: str) -> None:
         self.logger.warning(log)
-        if self.discord is not None:
-            self._send_discord_message()
+        if self.sender is not None:
+            self._send()
 
     def error(self, log: str) -> None:
         self.logger.error(log)
-        if self.discord is not None:
-            self._send_discord_message()
+        if self.sender is not None:
+            self._send()
 
     def critical(self, log: str) -> None:
         self.logger.critical(log)
-        if self.discord is not None:
-            self._send_discord_message()
+        if self.sender is not None:
+            self._send()
 
-    def _send_discord_message(self) -> List[requests.models.Response]:
-        response = self._discord.message(self.log_stream.getvalue(), codeblock=True)
+    def _send(self) -> List[requests.models.Response]:
+        response = self.sender.message(self.log_stream.getvalue(), codeblock=True)
         self.log_stream.seek(0)
         self.log_stream.truncate()
         return response

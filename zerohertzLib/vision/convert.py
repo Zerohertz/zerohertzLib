@@ -22,11 +22,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import Any, List, Tuple, Union
+import os
+from typing import Any, Dict, List, Tuple, Union
 
 import numpy as np
 from matplotlib.path import Path
 from numpy.typing import DTypeLike, NDArray
+
+from zerohertzLib.util import Json, write_json
 
 from .util import _is_bbox
 
@@ -360,3 +363,108 @@ def poly2ratio(poly: Union[List[Union[int, float]], NDArray[DTypeLike]]) -> floa
     _, _, height, width = poly2cwh(poly)
     bbox_area = height * width
     return poly_area / bbox_area
+
+
+def labelstudio2yolo(
+    label_studio_path: str, target_path: str, label: Dict[str, int]
+) -> None:
+    """Label Studio로 annotation한 JSON data를 YOLO format으로 변환하는 함수
+
+    Args:
+        label_studio_path (``str``): Label Studio annotation에 대한 JSON file 경로
+        target_path (``str``): YOLO format data가 저장될 경로
+        label (``Dict[str, int]``): Label Studio에서 사용한 label을 정수로 변환하는 dictionary
+
+    Returns:
+        ``None``: ``target_path`` 에 ``.txt`` file로 저장
+
+    Examples:
+        >>> zz.vision.labelstudio2yolo("cwh.json", "tmp", {"TRUE": 0, "FALSE": 1})
+        >>> zz.vision.labelstudio2yolo("poly.json", "tmp", {"TRUE": 0, "FALSE": 1})
+    """
+    label_studio = Json(label_studio_path)
+    os.makedirs(target_path, exist_ok=True)
+    for ls in label_studio:
+        img_file_name = "-".join(ls["data"]["image"].split("/")[-1].split("-")[1:])
+        txt_file_name = ".".join(img_file_name.split(".")[:-1]) + ".txt"
+        converted_ground_truth = []
+        if len(ls["annotations"]) > 1:
+            raise ValueError("The 'annotations' in the JSON file are plural")
+        for res in ls["annotations"][0]["result"]:
+            if res["type"] == "rectanglelabels":
+                box_cwh = np.array(
+                    [
+                        res["value"]["x"] / 100,
+                        res["value"]["y"] / 100,
+                        res["value"]["width"] / 100,
+                        res["value"]["height"] / 100,
+                    ]
+                )
+                if len(res["value"]["rectanglelabels"]) > 1:
+                    raise ValueError("The 'rectanglelabels' are plural")
+                lab = label[res["value"]["rectanglelabels"][0]]
+            elif res["type"] == "polygonlabels":
+                box_poly = np.array(res["value"]["points"]) / 100
+                box_cwh = poly2cwh(box_poly)
+                if len(res["value"]["polygonlabels"]) > 1:
+                    raise ValueError("The 'polygonlabels' are plural")
+                lab = label[res["value"]["polygonlabels"][0]]
+            converted_ground_truth.append(
+                f"{lab} " + " ".join(map(str, box_cwh)) + "\n"
+            )
+        with open(os.path.join(target_path, txt_file_name), "w", encoding="utf-8") as f:
+            f.writelines(converted_ground_truth)
+
+
+def labelstudio2labelme(label_studio_path: str, target_path: str) -> None:
+    """Label Studio로 annotation한 JSON data를 LabelMe format으로 변환하는 함수
+
+    Args:
+        label_studio_path (``str``): Label Studio annotation에 대한 JSON file 경로
+        target_path (``str``): LabelMe format data가 저장될 경로
+
+    Returns:
+        ``None``: ``target_path`` 에 ``.json`` file로 저장
+
+    Examples:
+        >>> zz.vision.labelstudio2labelme("cwh.json", "tmp")
+        >>> zz.vision.labelstudio2labelme("poly.json", "tmp")
+    """
+    label_studio = Json(label_studio_path)
+    os.makedirs(target_path, exist_ok=True)
+    for ls in label_studio:
+        img_file_name = "-".join(ls["data"]["image"].split("/")[-1].split("-")[1:])
+        json_file_name = ".".join(img_file_name.split(".")[:-1])
+        converted_ground_truth = []
+        if len(ls["annotations"]) > 1:
+            raise ValueError("The 'annotations' in the JSON file are plural")
+        for res in ls["annotations"][0]["result"]:
+            width, height = res["original_width"], res["original_height"]
+            if res["type"] == "rectanglelabels":
+                box_cwh = np.array(
+                    [
+                        res["value"]["x"] * width / 100,
+                        res["value"]["y"] * height / 100,
+                        res["value"]["width"] * width / 100,
+                        res["value"]["height"] * height / 100,
+                    ]
+                )
+                box_poly = cwh2poly(box_cwh)
+                if len(res["value"]["rectanglelabels"]) > 1:
+                    raise ValueError("The 'rectanglelabels' are plural")
+                lab = res["value"]["rectanglelabels"][0]
+            elif res["type"] == "polygonlabels":
+                box_poly = np.array(res["value"]["points"]) * (
+                    width / 100,
+                    height / 100,
+                )
+                if len(res["value"]["polygonlabels"]) > 1:
+                    raise ValueError("The 'polygonlabels' are plural")
+                lab = res["value"]["polygonlabels"][0]
+            converted_ground_truth.append(
+                {"label": lab, "points": box_poly.tolist(), "shape_type": "polygon"}
+            )
+        write_json(
+            {"shapes": converted_ground_truth},
+            os.path.join(target_path, json_file_name),
+        )

@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.logging" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.logging.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.4.5 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.4.6 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.4.5 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.4.6 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.logging.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.logging - zerohertzLib v0.4.5 documentation</title>
+        <title>zerohertzLib.logging - zerohertzLib v0.4.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.4.5 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.4.6 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.4.5 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.4.6 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -254,11 +254,11 @@
 <span id="zerohertzlib-logging"></span><h1>zerohertzLib.logging<a class="headerlink" href="#module-zerohertzLib.logging" title="Permalink to this heading">#</a></h1>
 <div class="hint admonition">
 <p class="admonition-title">Logging</p>
-<p>Discord webhook 또는 file에 쉽게 log를 작성할 수 있는 class</p>
+<p>Webhook 또는 file에 쉽게 log를 작성할 수 있는 class</p>
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="zerohertzLib.logging.Logger">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.logging.</span></span><span class="sig-name descname"><span class="pre">Logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discord</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">console_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.logging.Logger" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.logging.</span></span><span class="sig-name descname"><span class="pre">Logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discord</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">console_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.logging.Logger" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>이쁘게 log를 찍어보는 class</p>
 <div class="admonition note">
@@ -270,7 +270,9 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><span class="target" id="zerohertzLib.logging.Logger.params.logger_name"></span><strong>logger_name</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.Logger.params.logger_name">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Logger의 이름</p></li>
 <li><p><span class="target" id="zerohertzLib.logging.Logger.params.file_name"></span><strong>file_name</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.Logger.params.file_name">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – <code class="docutils literal notranslate"><span class="pre">.log</span></code> file의 이름 (미입력 시 미출력)</p></li>
-<li><p><span class="target" id="zerohertzLib.logging.Logger.params.discord"></span><strong>discord</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.Logger.params.discord">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Discord webhook의 URL (<code class="docutils literal notranslate"><span class="pre">logger_level</span></code> 적용)</p></li>
+<li><p><span class="target" id="zerohertzLib.logging.Logger.params.discord"></span><strong>discord</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.Logger.params.discord">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Discord Webhook의 URL (<code class="docutils literal notranslate"><span class="pre">logger_level</span></code> 적용)</p></li>
+<li><p><span class="target" id="zerohertzLib.logging.Logger.params.slack"></span><strong>slack</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.Logger.params.slack">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Slack Webhook의 URL 혹은 Bot의 token (<code class="docutils literal notranslate"><span class="pre">logger_level</span></code> 적용)</p></li>
+<li><p><span class="target" id="zerohertzLib.logging.Logger.params.channel"></span><strong>channel</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.Logger.params.channel">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Slack Webhook 또는 Bot이 전송할 channel</p></li>
 <li><p><span class="target" id="zerohertzLib.logging.Logger.params.logger_level"></span><strong>logger_level</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.Logger.params.logger_level">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – <code class="docutils literal notranslate"><span class="pre">logging.getLogger</span></code> 의 level</p></li>
 <li><p><span class="target" id="zerohertzLib.logging.Logger.params.console_level"></span><strong>console_level</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.Logger.params.console_level">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – <code class="docutils literal notranslate"><span class="pre">logging.StreamHandler</span></code> 의 level</p></li>
 <li><p><span class="target" id="zerohertzLib.logging.Logger.params.file_level"></span><strong>file_level</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.Logger.params.file_level">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – <code class="docutils literal notranslate"><span class="pre">logging.FileHandler</span></code> 의 level</p></li>
@@ -400,7 +402,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b79ae5be"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=80626fd4"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

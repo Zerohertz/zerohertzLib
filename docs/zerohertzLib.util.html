@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.util" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.util.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.4.5 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.4.6 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.4.5 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.4.6 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.util.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.util - zerohertzLib v0.4.5 documentation</title>
+        <title>zerohertzLib.util - zerohertzLib v0.4.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.4.5 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.4.6 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.4.5 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.4.6 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -733,6 +733,28 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="zerohertzLib.util.find_ext">
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.util.</span></span><span class="sig-name descname"><span class="pre">find_ext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.util.find_ext" title="Permalink to this definition">#</a></dt>
+<dd><p>경로 내 확장자의 수 탐색</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.util.find_ext.params.path"></span><strong>path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.util.find_ext.params.path">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 확장자를 찾을 경로</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>확장자에 따른 file의 수</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">int]</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_ext</span><span class="p">(</span><span class="s2">&quot;test/data/&quot;</span><span class="p">)</span>
+<span class="go">defaultdict(&lt;class &#39;int&#39;&gt;, {&#39;test/data/json&#39;: 1, &#39;json&#39;: 2, &#39;jpg&#39;: 1, &#39;mov&#39;: 1})</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.util.read_csv">
 <span class="sig-prename descclassname"><span class="pre">zerohertzLib.util.</span></span><span class="sig-name descname"><span class="pre">read_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.util.read_csv" title="Permalink to this definition">#</a></dt>
 <dd><p>CSV (Comma-Separated Values) 혹은 TSV (Tab-Separated Values)를 작성하는 함수</p>
@@ -929,6 +951,7 @@
 <li><a class="reference internal" href="#zerohertzLib.util.MakeData.make_data"><code class="docutils literal notranslate"><span class="pre">MakeData.make_data()</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#zerohertzLib.util.find_ext"><code class="docutils literal notranslate"><span class="pre">find_ext()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.util.read_csv"><code class="docutils literal notranslate"><span class="pre">read_csv()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.util.write_csv"><code class="docutils literal notranslate"><span class="pre">write_csv()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.util.write_json"><code class="docutils literal notranslate"><span class="pre">write_json()</span></code></a></li>
@@ -945,7 +968,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b79ae5be"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=80626fd4"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

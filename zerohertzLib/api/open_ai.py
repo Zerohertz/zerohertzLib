@@ -52,8 +52,9 @@ class OpenAI(openai.OpenAI):
 
             Args:
                 message (``str``): Model 호출 시 사용될 입력
-                model (``str``): 호출할 model 선택
-                stream (``str``): 응답의 실시간 출력 여부
+                prompt (``Optional[str]``): Model 호출 시 사용될 prompt
+                model (``Optional[str]``): 호출할 model 선택
+                stream (``Optional[bool]``): 응답의 실시간 출력 여부
 
             Returns:
                 ``str``: 호출된 model의 결과
@@ -65,8 +66,12 @@ class OpenAI(openai.OpenAI):
                               Model(id='gpt-4', created=1687882411, object='model', owned_by='openai'), ...
         >>> client.model
         ['gpt3', 'gpt4']
+        >>> client("zerohertzLib에 대해 설명해", model="gpt3")
+        'zerohertzLib는 오픈 소스 프로젝트로, ... 이 라이브러리는 MATLAB 언어로 작성되었으며 ...'
+        >>> client("zerohertzLib에 대해 설명해", "zerohertzLib은 python package야.", model="gpt3")
+        'zerohertzLib는 신호 처리 및 통신 시스템에 대한 Python 라이브러리입니다. 이 라이브러리는 ...'
         >>> client("Kubernetes에 대해 설명해", model="gpt3")
-        'Kubernetes는 컨테이너화된 애플리케이션을 자동화하고 관리하기 위한 오픈소스 플랫폼입니다. ...
+        'Kubernetes는 컨테이너화된 애플리케이션을 자동화하고 관리하기 위한 오픈소스 플랫폼입니다. ...'
         >>> client("Kubernetes에 대해 설명해", stream=True)
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284217669-043e3445-2e9a-4667-86af-e11f142ec931.gif
@@ -83,13 +88,21 @@ class OpenAI(openai.OpenAI):
     def __call__(
         self,
         message: str,
+        prompt: Optional[str] = None,
         model: Optional[str] = "gpt4",
         stream: Optional[bool] = False,
     ):
+        if prompt is None:
+            messages = [{"role": "user", "content": message}]
+        else:
+            messages = [
+                {"role": "system", "content": prompt},
+                {"role": "user", "content": message},
+            ]
         if stream:
             stream = self.chat.completions.create(
                 model=self.model_dict[model],
-                messages=[{"role": "user", "content": message}],
+                messages=messages,
                 stream=stream,
             )
             cts = ""
@@ -100,12 +113,7 @@ class OpenAI(openai.OpenAI):
             print()
         else:
             chat_completion = self.chat.completions.create(
-                messages=[
-                    {
-                        "role": "user",
-                        "content": message,
-                    }
-                ],
+                messages=messages,
                 model=self.model_dict[model],
             )
             cts = chat_completion.choices[0].message.content
