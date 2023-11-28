@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.algorithm" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.algorithm.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.4.5 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.4.6 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.4.5 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.4.6 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.algorithm.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.algorithm - zerohertzLib v0.4.5 documentation</title>
+        <title>zerohertzLib.algorithm - zerohertzLib v0.4.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.4.5 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.4.6 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.4.5 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.4.6 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -277,6 +277,64 @@
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">algorithm</span><span class="o">.</span><span class="n">bfs</span><span class="p">([[],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]],</span> <span class="mi">1</span><span class="p">)</span>
 <span class="go">[1, 2, 3, 4]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="zerohertzLib.algorithm.bisect_left">
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.algorithm.</span></span><span class="sig-name descname"><span class="pre">bisect_left</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sorted_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.algorithm.bisect_left" title="Permalink to this definition">#</a></dt>
+<dd><p>Binary Search (left)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.algorithm.bisect_left.params.sorted_list"></span><strong>sorted_list</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.algorithm.bisect_left.params.sorted_list">¶</a> (<code class="docutils literal notranslate"><span class="pre">List[Union[int,</span> <span class="pre">float]]</span></code>) – 정렬된 list</p></li>
+<li><p><span class="target" id="zerohertzLib.algorithm.bisect_left.params.value"></span><strong>value</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.algorithm.bisect_left.params.value">¶</a> (<code class="docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">float]</span></code>) – 찾고자하는 값</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">value</span></code> 값이 <code class="docutils literal notranslate"><span class="pre">sorted_list</span></code> 에 삽입될 때 index</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">algorithm</span><span class="o">.</span><span class="n">bisect_left</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="mf">2.7</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">algorithm</span><span class="o">.</span><span class="n">bisect_left</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">algorithm</span><span class="o">.</span><span class="n">bisect_left</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="mf">3.3</span><span class="p">)</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="zerohertzLib.algorithm.bisect_right">
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.algorithm.</span></span><span class="sig-name descname"><span class="pre">bisect_right</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sorted_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.algorithm.bisect_right" title="Permalink to this definition">#</a></dt>
+<dd><p>Binary Search (right)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.algorithm.bisect_right.params.sorted_list"></span><strong>sorted_list</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.algorithm.bisect_right.params.sorted_list">¶</a> (<code class="docutils literal notranslate"><span class="pre">List[Union[int,</span> <span class="pre">float]]</span></code>) – 정렬된 list</p></li>
+<li><p><span class="target" id="zerohertzLib.algorithm.bisect_right.params.value"></span><strong>value</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.algorithm.bisect_right.params.value">¶</a> (<code class="docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">float]</span></code>) – 찾고자하는 값</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">value</span></code> 값이 <code class="docutils literal notranslate"><span class="pre">sorted_list</span></code> 에 삽입될 때 index</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">algorithm</span><span class="o">.</span><span class="n">bisect_right</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="mf">2.7</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">algorithm</span><span class="o">.</span><span class="n">bisect_right</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">algorithm</span><span class="o">.</span><span class="n">bisect_right</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="mf">3.3</span><span class="p">)</span>
+<span class="go">2</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -417,6 +475,8 @@
             <ul>
 <li><a class="reference internal" href="#">zerohertzLib.algorithm</a><ul>
 <li><a class="reference internal" href="#zerohertzLib.algorithm.bfs"><code class="docutils literal notranslate"><span class="pre">bfs()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.algorithm.bisect_left"><code class="docutils literal notranslate"><span class="pre">bisect_left()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.algorithm.bisect_right"><code class="docutils literal notranslate"><span class="pre">bisect_right()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.algorithm.dfs"><code class="docutils literal notranslate"><span class="pre">dfs()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.algorithm.fft"><code class="docutils literal notranslate"><span class="pre">fft()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.algorithm.soe"><code class="docutils literal notranslate"><span class="pre">soe()</span></code></a></li>
@@ -433,7 +493,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b79ae5be"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=80626fd4"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

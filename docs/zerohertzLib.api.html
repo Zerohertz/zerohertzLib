@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.api" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.api.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.4.5 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.4.6 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.4.5 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.4.6 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.api.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.api - zerohertzLib v0.4.5 documentation</title>
+        <title>zerohertzLib.api - zerohertzLib v0.4.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.4.5 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.4.6 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.4.5 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.4.6 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -260,10 +260,10 @@
 <dt class="sig sig-object py" id="zerohertzLib.api.Discord">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.api.</span></span><span class="sig-name descname"><span class="pre">Discord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">webhook_url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.Discord" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Discord webhook의 데이터 전송을 위한 class</p>
+<p>Discord Webhook의 데이터 전송을 위한 class</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="target" id="zerohertzLib.api.Discord.params.webhook_url"></span><strong>webhook_url</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.params.webhook_url">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Discord webhook의 URL</p>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.api.Discord.params.webhook_url"></span><strong>webhook_url</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.params.webhook_url">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Discord Webhook의 URL</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -273,13 +273,13 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.api.Discord.image">
 <span class="sig-name descname"><span class="pre">image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.Discord.image" title="Permalink to this definition">#</a></dt>
-<dd><p>Discord webhook에 image 전송</p>
+<dd><p>Discord Webhook을 통해 image 전송</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="target" id="zerohertzLib.api.Discord.image.params.image_path"></span><strong>image_path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.image.params.image_path">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 전송할 image 경로</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Discord webhook의 응답</p>
+<dd class="field-even"><p>Discord Webhook의 응답</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">requests.models.Response</span></code></p>
@@ -296,17 +296,17 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.api.Discord.message">
 <span class="sig-name descname"><span class="pre">message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeblock</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.Discord.message" title="Permalink to this definition">#</a></dt>
-<dd><p>Discord webhook에 message 전송</p>
+<dd><p>Discord Webhook을 통해 message 전송</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.api.Discord.message.params.message"></span><strong>message</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.message.params.message">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Discord webhook의 입력</p></li>
+<li><p><span class="target" id="zerohertzLib.api.Discord.message.params.message"></span><strong>message</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.message.params.message">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Discord Webhook의 입력</p></li>
 <li><p><span class="target" id="zerohertzLib.api.Discord.message.params.gap"></span><strong>gap</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.message.params.gap">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – <code class="docutils literal notranslate"><span class="pre">message</span></code> 의 전송 간 간격 (<code class="docutils literal notranslate"><span class="pre">message</span></code> 가 1500자 이내라면 0)</p></li>
 <li><p><span class="target" id="zerohertzLib.api.Discord.message.params.codeblock"></span><strong>codeblock</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.Discord.message.params.codeblock">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 전송되는 message의 스타일</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Discord webhook의 응답</p>
+<dd class="field-even"><p>Discord Webhook의 응답</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[requests.models.Response]</span></code></p>
@@ -421,8 +421,9 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>message</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Model 호출 시 사용될 입력</p></li>
-<li><p><strong>model</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 호출할 model 선택</p></li>
-<li><p><strong>stream</strong> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 응답의 실시간 출력 여부</p></li>
+<li><p><strong>prompt</strong> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Model 호출 시 사용될 prompt</p></li>
+<li><p><strong>model</strong> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 호출할 model 선택</p></li>
+<li><p><strong>stream</strong> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 응답의 실시간 출력 여부</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -441,8 +442,12 @@
 <span class="go">                      Model(id=&#39;gpt-4&#39;, created=1687882411, object=&#39;model&#39;, owned_by=&#39;openai&#39;), ...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">model</span>
 <span class="go">[&#39;gpt3&#39;, &#39;gpt4&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;zerohertzLib에 대해 설명해&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt3&quot;</span><span class="p">)</span>
+<span class="go">&#39;zerohertzLib는 오픈 소스 프로젝트로, ... 이 라이브러리는 MATLAB 언어로 작성되었으며 ...&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;zerohertzLib에 대해 설명해&quot;</span><span class="p">,</span> <span class="s2">&quot;zerohertzLib은 python package야.&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt3&quot;</span><span class="p">)</span>
+<span class="go">&#39;zerohertzLib는 신호 처리 및 통신 시스템에 대한 Python 라이브러리입니다. 이 라이브러리는 ...&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;Kubernetes에 대해 설명해&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt3&quot;</span><span class="p">)</span>
-<span class="go">&#39;Kubernetes는 컨테이너화된 애플리케이션을 자동화하고 관리하기 위한 오픈소스 플랫폼입니다. ...</span>
+<span class="go">&#39;Kubernetes는 컨테이너화된 애플리케이션을 자동화하고 관리하기 위한 오픈소스 플랫폼입니다. ...&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;Kubernetes에 대해 설명해&quot;</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -521,6 +526,125 @@
 <dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.with_raw_response">
 <span class="sig-name descname"><span class="pre">with_raw_response</span></span><a class="headerlink" href="#zerohertzLib.api.OpenAI.with_raw_response" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="zerohertzLib.api.SlackBot">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.api.</span></span><span class="sig-name descname"><span class="pre">SlackBot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icon_emoji</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icon_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.SlackBot" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Slack Bot의 데이터 전송을 위한 class</p>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/286245553-83bc9a7f-a840-4983-bc54-8e27fc9d01b1.png"><img alt="Slack Bot Scopes" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/286245553-83bc9a7f-a840-4983-bc54-8e27fc9d01b1.png" style="width: 300px;" /></a>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.api.SlackBot.params.token"></span><strong>token</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.SlackBot.params.token">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Slack Bot의 token</p></li>
+<li><p><span class="target" id="zerohertzLib.api.SlackBot.params.channel"></span><strong>channel</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.SlackBot.params.channel">¶</a> (<code class="docutils literal notranslate"><span class="pre">channel</span></code>) – Slack Bot이 전송할 channel</p></li>
+<li><p><span class="target" id="zerohertzLib.api.SlackBot.params.name"></span><strong>name</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.SlackBot.params.name">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Slack Bot의 표시될 이름</p></li>
+<li><p><span class="target" id="zerohertzLib.api.SlackBot.params.icon_emoji"></span><strong>icon_emoji</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.SlackBot.params.icon_emoji">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Slack Bot의 표시될 사진 (emoji)</p></li>
+<li><p><span class="target" id="zerohertzLib.api.SlackBot.params.icon_url"></span><strong>icon_url</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.SlackBot.params.icon_url">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Slack Bot의 표시될 사진 (photo)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">slack</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">SlackBot</span><span class="p">(</span><span class="s2">&quot;xoxb-...&quot;</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">slack</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">SlackBot</span><span class="p">(</span><span class="s2">&quot;xoxb-...&quot;</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;TEST&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">slack</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">SlackBot</span><span class="p">(</span><span class="s2">&quot;xoxb-...&quot;</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="n">icon_emoji</span><span class="o">=</span><span class="s2">&quot;sparkles&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">slack</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">SlackBot</span><span class="p">(</span><span class="s2">&quot;xoxb-...&quot;</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;zerohertzLib&quot;</span><span class="p">,</span> <span class="n">icon_url</span><span class="o">=</span><span class="s2">&quot;https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284166558-0ba4b755-39cc-48ee-ba3b-5c02f54c4ca7.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/286248478-10f5e8f4-a48c-4bf3-b742-da5818f30fee.png"><img alt="Slack Bot Scopes" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/286248478-10f5e8f4-a48c-4bf3-b742-da5818f30fee.png" style="width: 300px;" /></a>
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.api.SlackBot.file">
+<span class="sig-name descname"><span class="pre">file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.SlackBot.file" title="Permalink to this definition">#</a></dt>
+<dd><p>Slack Bot을 통해 file 전송</p>
+<p class="rubric">Notes</p>
+<p><code class="docutils literal notranslate"><span class="pre">name</span></code> 과 <code class="docutils literal notranslate"><span class="pre">icon_*</span></code> 의 적용 불가</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.api.SlackBot.file.params.path"></span><strong>path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.SlackBot.file.params.path">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 전송할 file 경로</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Slack Bot의 응답</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">requests.models.Response</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">slack</span><span class="o">.</span><span class="n">file</span><span class="p">(</span><span class="s2">&quot;test.jpg&quot;</span><span class="p">)</span>
+<span class="go">&lt;Response [200]&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.api.SlackBot.message">
+<span class="sig-name descname"><span class="pre">message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeblock</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.SlackBot.message" title="Permalink to this definition">#</a></dt>
+<dd><p>Slack Bot을 통해 message 전송</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.api.SlackBot.message.params.message"></span><strong>message</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.SlackBot.message.params.message">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 전송할 message</p></li>
+<li><p><span class="target" id="zerohertzLib.api.SlackBot.message.params.codeblock"></span><strong>codeblock</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.SlackBot.message.params.codeblock">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 전송되는 message의 스타일</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Slack Bot의 응답</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">requests.models.Response</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">slack</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">)</span>
+<span class="go">&lt;Response [200]&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="zerohertzLib.api.SlackWebhook">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.api.</span></span><span class="sig-name descname"><span class="pre">SlackWebhook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">webhook_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icon_emoji</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icon_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.SlackWebhook" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Slack Webhook의 데이터 전송을 위한 class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.api.SlackWebhook.params.webhook_url"></span><strong>webhook_url</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.SlackWebhook.params.webhook_url">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Slack Webhook의 URL</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">slack</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">SlackWebhook</span><span class="p">(</span><span class="s2">&quot;https://hooks.slack.com/services/...&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">slack</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">SlackWebhook</span><span class="p">(</span><span class="s2">&quot;https://hooks.slack.com/services/...&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;TEST&quot;</span><span class="p">,</span> <span class="n">icon_emoji</span><span class="o">=</span><span class="s2">&quot;ghost&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/286251394-358e5662-06af-454b-8b1b-8b05e320bf5a.png"><img alt="Slack Webhook" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/286251394-358e5662-06af-454b-8b1b-8b05e320bf5a.png" style="width: 300px;" /></a>
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.api.SlackWebhook.message">
+<span class="sig-name descname"><span class="pre">message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeblock</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.SlackWebhook.message" title="Permalink to this definition">#</a></dt>
+<dd><p>Slack Webhook을 통해 message 전송</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.api.SlackWebhook.message.params.message"></span><strong>message</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.SlackWebhook.message.params.message">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 전송할 message</p></li>
+<li><p><span class="target" id="zerohertzLib.api.SlackWebhook.message.params.codeblock"></span><strong>codeblock</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.SlackWebhook.message.params.codeblock">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 전송되는 message의 스타일</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Slack Webhook의 응답</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">requests.models.Response</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">slack</span><span class="o">.</span><span class="n">message</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">)</span>
+<span class="go">&lt;Response [200]&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
 
 </dd></dl>
 
@@ -615,6 +739,15 @@
 <li><a class="reference internal" href="#zerohertzLib.api.OpenAI.with_raw_response"><code class="docutils literal notranslate"><span class="pre">OpenAI.with_raw_response</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#zerohertzLib.api.SlackBot"><code class="docutils literal notranslate"><span class="pre">SlackBot</span></code></a><ul>
+<li><a class="reference internal" href="#zerohertzLib.api.SlackBot.file"><code class="docutils literal notranslate"><span class="pre">SlackBot.file()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.SlackBot.message"><code class="docutils literal notranslate"><span class="pre">SlackBot.message()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#zerohertzLib.api.SlackWebhook"><code class="docutils literal notranslate"><span class="pre">SlackWebhook</span></code></a><ul>
+<li><a class="reference internal" href="#zerohertzLib.api.SlackWebhook.message"><code class="docutils literal notranslate"><span class="pre">SlackWebhook.message()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -628,7 +761,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b79ae5be"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=80626fd4"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
