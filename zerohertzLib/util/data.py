@@ -24,7 +24,9 @@ SOFTWARE.
 
 import os
 import shutil
-from typing import Optional
+from collections import defaultdict
+from glob import glob
+from typing import Dict, Optional
 
 from tqdm import tqdm
 
@@ -207,3 +209,25 @@ class MakeData:
             data_name = json_instance._get_value(self.json_key)
             if self.condition(json_instance):
                 self.make_data(json_instance, data_name)
+
+
+def find_ext(path: Optional[str] = "") -> Dict[str, int]:
+    """경로 내 확장자의 수 탐색
+
+    Args:
+        path (``Optional[str]``): 확장자를 찾을 경로
+
+    Returns:
+        ``Dict[str, int]``: 확장자에 따른 file의 수
+
+    Examples:
+        >>> zz.util.find_ext("test/data/")
+        defaultdict(<class 'int'>, {'test/data/json': 1, 'json': 2, 'jpg': 1, 'mov': 1})
+    """
+    if not path.endswith("*"):
+        path = os.path.join(path, "*")
+    files = glob(path)
+    exts = defaultdict(int)
+    for file in files:
+        exts[file.split(".")[-1]] += 1
+    return exts
