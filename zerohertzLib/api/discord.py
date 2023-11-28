@@ -30,10 +30,10 @@ import requests
 
 
 class Discord:
-    """Discord webhook의 데이터 전송을 위한 class
+    """Discord Webhook의 데이터 전송을 위한 class
 
     Args:
-        webhook_url (``str``): Discord webhook의 URL
+        webhook_url (``str``): Discord Webhook의 URL
 
     Examples:
         >>> discord = zz.api.Discord("https://discord.com/api/webhooks/...")
@@ -62,15 +62,15 @@ class Discord:
         gap: Optional[int] = 1,
         codeblock: Optional[bool] = False,
     ) -> List[requests.models.Response]:
-        """Discord webhook에 message 전송
+        """Discord Webhook을 통해 message 전송
 
         Args:
-            message (``str``): Discord webhook의 입력
+            message (``str``): Discord Webhook의 입력
             gap (``Optional[int]``): ``message`` 의 전송 간 간격 (``message`` 가 1500자 이내라면 0)
             codeblock (``Optional[bool]``): 전송되는 message의 스타일
 
         Returns:
-            ``List[requests.models.Response]``: Discord webhook의 응답
+            ``List[requests.models.Response]``: Discord Webhook의 응답
 
         Examples:
             >>> discord = zz.api.Discord("https://discord.com/api/webhooks/...")
@@ -89,13 +89,13 @@ class Discord:
         return responses
 
     def image(self, image_path: str) -> requests.models.Response:
-        """Discord webhook에 image 전송
+        """Discord Webhook을 통해 image 전송
 
         Args:
             image_path (``str``): 전송할 image 경로
 
         Returns:
-            ``requests.models.Response``: Discord webhook의 응답
+            ``requests.models.Response``: Discord Webhook의 응답
 
         Examples:
             >>> discord = zz.api.Discord("https://discord.com/api/webhooks/...")

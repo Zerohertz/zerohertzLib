@@ -40,7 +40,7 @@ class Logger:
     Args:
         logger_name (``Optional[str]``): Logger의 이름
         file_name(``Optional[str]``): ``.log`` file의 이름 (미입력 시 미출력)
-        discord (``Optional[str]``): Discord webhook의 URL (``logger_level`` 적용)
+        discord (``Optional[str]``): Discord Webhook의 URL (``logger_level`` 적용)
         logger_level (``Optional[int]``): ``logging.getLogger`` 의 level
         console_level (``Optional[int]``): ``logging.StreamHandler`` 의 level
         file_level (``Optional[int]``): ``logging.FileHandler`` 의 level
