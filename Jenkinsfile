@@ -321,6 +321,7 @@ spec:
                                     setBuildStatus("Deploy...", "PENDING", "$STAGE_NAME")
                                     def PACKAGE_VERSION = ""
                                     container("python") {
+                                        sh "apt install python3-opencv -y"
                                         sh "pip install ."
                                         PACKAGE_VERSION = sh(
                                             script: 'python -c "import zerohertzLib; print(zerohertzLib.__version__)"',
