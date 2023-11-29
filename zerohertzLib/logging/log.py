@@ -93,9 +93,11 @@ class Logger:
             if channel is None:
                 raise ValueError("A 'channel' value is required to use Slack")
             if "hooks.slack.com" in slack:
-                self.sender = SlackWebhook(slack, channel)
+                self.sender = SlackWebhook(
+                    slack, channel, name="Logger", icon_emoji="memo"
+                )
             else:
-                self.sender = SlackBot(slack, channel)
+                self.sender = SlackBot(slack, channel, name="Logger", icon_emoji="memo")
         if discord is not None:
             self.sender = Discord(discord)
         if slack is not None or discord is not None:
