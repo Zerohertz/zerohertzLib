@@ -166,21 +166,26 @@ spec:
                 }
             }
             steps {
-                script {
-                    try {
-                        def startTime = System.currentTimeMillis()
-                        setBuildStatus("Test...", "PENDING", "$STAGE_NAME")
-                        container("python") {
-                            sh "pip install pytest"
-                            sh "pytest"
+                withCredentials([string(credentialsId: "OpenAI_Token", variable: "OPENAI_TOKEN"),
+                                string(credentialsId: "Discord_Webhook_URL", variable: "DISCORD_WEBHOOK_URL"),
+                                string(credentialsId: "Slack_Webhook_URL", variable: "SLACK_WEBHOOK_URL"),
+                                string(credentialsId: "Slack_Bot_Token", variable: "SLACK_BOT_TOKEN")]) {
+                    script {
+                        try {
+                            def startTime = System.currentTimeMillis()
+                            setBuildStatus("Test...", "PENDING", "$STAGE_NAME")
+                            container("python") {
+                                sh "pip install pytest"
+                                sh "pytest"
+                            }
+                            def endTime = System.currentTimeMillis()
+                            def DURATION = (endTime - startTime) / 1000
+                            setBuildStatus("Successful in ${DURATION}s", "SUCCESS", "$STAGE_NAME")
+                        } catch (Exception e) {
+                            def STAGE_ERROR_MESSAGE = e.getMessage().split("\n")[0]
+                            setBuildStatus(STAGE_ERROR_MESSAGE, "FAILURE", "$STAGE_NAME")
+                            throw e
                         }
-                        def endTime = System.currentTimeMillis()
-                        def DURATION = (endTime - startTime) / 1000
-                        setBuildStatus("Successful in ${DURATION}s", "SUCCESS", "$STAGE_NAME")
-                    } catch (Exception e) {
-                        def STAGE_ERROR_MESSAGE = e.getMessage().split("\n")[0]
-                        setBuildStatus(STAGE_ERROR_MESSAGE, "FAILURE", "$STAGE_NAME")
-                        throw e
                     }
                 }
             }
@@ -316,6 +321,7 @@ spec:
                                     setBuildStatus("Deploy...", "PENDING", "$STAGE_NAME")
                                     def PACKAGE_VERSION = ""
                                     container("python") {
+                                        sh "pip install .'[all]'"
                                         PACKAGE_VERSION = sh(
                                             script: 'python -c "import zerohertzLib; print(zerohertzLib.__version__)"',
                                             returnStdout: true
