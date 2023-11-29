@@ -23,7 +23,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from zerohertzLib import algorithm, api, logging, mlops, monitoring, plot, util
+from zerohertzLib import algorithm, monitoring, plot, util
+
+try:
+    from zerohertzLib import api
+except ImportError:
+    pass
+
+try:
+    from zerohertzLib import logging
+except ImportError:
+    pass
+
+try:
+    from zerohertzLib import mlops
+except ImportError:
+    pass
 
 try:
     from zerohertzLib import vision
