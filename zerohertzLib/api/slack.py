@@ -82,6 +82,8 @@ class SlackWebhook:
             >>> slack.message("test")
             <Response [200]>
         """
+        if message == "":
+            return None
         if codeblock:
             message = f"```{message}```"
         self.data["text"] = message
@@ -161,6 +163,8 @@ class SlackBot:
             >>> slack.message("test")
             <Response [200]>
         """
+        if message == "":
+            return None
         if codeblock:
             message = f"```{message}```"
         data = self.data.copy()

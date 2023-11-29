@@ -138,7 +138,6 @@ spec:
                         setBuildStatus("Build...", "PENDING", "$STAGE_NAME")
                         container("python") {
                             sh "apt update"
-                            sh "apt install python3-opencv -y"
                             sh "python setup.py sdist bdist_wheel"
                         }
                         def endTime = System.currentTimeMillis()
@@ -175,6 +174,7 @@ spec:
                             def startTime = System.currentTimeMillis()
                             setBuildStatus("Test...", "PENDING", "$STAGE_NAME")
                             container("python") {
+                                sh "apt install python3-opencv -y"
                                 sh "pip install pytest"
                                 sh "pytest"
                             }
@@ -321,7 +321,7 @@ spec:
                                     setBuildStatus("Deploy...", "PENDING", "$STAGE_NAME")
                                     def PACKAGE_VERSION = ""
                                     container("python") {
-                                        sh "pip install .'[all]'"
+                                        sh "pip install ."
                                         PACKAGE_VERSION = sh(
                                             script: 'python -c "import zerohertzLib; print(zerohertzLib.__version__)"',
                                             returnStdout: true
