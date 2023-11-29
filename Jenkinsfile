@@ -321,7 +321,7 @@ spec:
                                     setBuildStatus("Deploy...", "PENDING", "$STAGE_NAME")
                                     def PACKAGE_VERSION = ""
                                     container("python") {
-                                        sh "pip install .'[all]'"
+                                        sh "pip install ."
                                         PACKAGE_VERSION = sh(
                                             script: 'python -c "import zerohertzLib; print(zerohertzLib.__version__)"',
                                             returnStdout: true
