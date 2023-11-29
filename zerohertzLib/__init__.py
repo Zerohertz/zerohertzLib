@@ -35,4 +35,4 @@ except ImportError as error:
     print("(but you can use other submodules except zerohertzLib.vision)")
     print("=" * 100)
 
-__version__ = "v0.4.6"
+__version__ = "v0.4.7"

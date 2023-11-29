@@ -1,5 +1,30 @@
 # v0.4
 
+## v0.4.7
+
+<h3>[v0.4.7] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/125>#125</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2023/11/29
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/plot"><img src="https://img.shields.io/badge/feat/plot-968B14?style=flat-square&logo=github" alt="feat/plot"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/vision"><img src="https://img.shields.io/badge/feat/vision-D1F9CB?style=flat-square&logo=github" alt="feat/vision"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `plot`
+  + 입력된 data에 대해 표를 생성하고 image로 변환하는 함수 `table` 개발
++ `vision`
+  + `labelstudio2labelme`의 format 오류 수정
+
 ## v0.4.6
 
 <h3>[v0.4.6] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/123>#123</a>)</h3>
