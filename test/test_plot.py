@@ -73,3 +73,16 @@ def test_scatter():
         title="Star Craft (scatter)",
     )
     assert "star_craft_(scatter).png" in os.listdir()
+
+
+def test_table():
+    data = [
+        ["123", 123, 123.4],
+        [123.4, "123", 123],
+        [123, 123.4, "123"],
+        ["123", 123, 123.4],
+    ]
+    col = ["테란", "저그", "프로토스"]
+    row = ["test1", "test2", "test3", "test4"]
+    zz.plot.table(data, col, row, title="Star Craft (table)", font_size=50)
+    assert "star_craft_(table).png" in os.listdir()

@@ -445,11 +445,11 @@ def labelstudio2labelme(label_studio_path: str, target_path: str) -> None:
                     [
                         res["value"]["x"] * width / 100,
                         res["value"]["y"] * height / 100,
-                        res["value"]["width"] * width / 100,
-                        res["value"]["height"] * height / 100,
+                        (res["value"]["x"] + res["value"]["width"]) * width / 100,
+                        (res["value"]["y"] + res["value"]["height"]) * height / 100,
                     ]
                 )
-                box_poly = cwh2poly(box_cwh)
+                box_poly = xyxy2poly(box_cwh)
                 if len(res["value"]["rectanglelabels"]) > 1:
                     raise ValueError("The 'rectanglelabels' are plural")
                 lab = res["value"]["rectanglelabels"][0]
