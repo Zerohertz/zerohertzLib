@@ -95,7 +95,7 @@ spec:
                         def startTime = System.currentTimeMillis()
                         setBuildStatus("Checking Lint...", "PENDING", "$STAGE_NAME")
                         container("python") {
-                            sh "pip install -r requirements.txt"
+                            sh "pip install .'[all]'"
                             sh "pip install black flake8 flake8-variables-names pylint"
                             sh "black --check ."
                             sh "flake8 zerohertzLib"
@@ -140,7 +140,6 @@ spec:
                             sh "apt update"
                             sh "apt install python3-opencv -y"
                             sh "python setup.py sdist bdist_wheel"
-                            sh "pip install dist/*.whl"
                         }
                         def endTime = System.currentTimeMillis()
                         def DURATION = (endTime - startTime) / 1000

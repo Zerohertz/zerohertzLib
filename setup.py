@@ -19,7 +19,7 @@ except FileNotFoundError:
 
 
 def get_requirements(
-    path: str = HERE / "requirements.txt",
+    path: str = HERE / "requirements/requirements.txt",
 ) -> Tuple[List[str], List[str]]:
     requirements = []
     with open(path) as f:
@@ -38,6 +38,8 @@ def get_package_version() -> str:
 
 
 requirements = get_requirements()
+requirements_api = get_requirements(HERE / "requirements/requirements-api.txt")
+requirements_mlops = get_requirements(HERE / "requirements/requirements-mlops.txt")
 version = get_package_version()
 
 
@@ -53,6 +55,11 @@ setup(
     url=URL,
     packages=find_packages(),
     install_requires=requirements,
+    extras_require={
+        "api": requirements_api,
+        "mlops": requirements_mlops,
+        "all": requirements_api + requirements_mlops,
+    },
     package_data={
         "zerohertzLib": ["plot/*.ttf"],
     },

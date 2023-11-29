@@ -47,6 +47,9 @@
 ```bash
 $ sudo apt install python3-opencv -y
 $ pip install zerohertzLib
+$ pip install zerohertzLib[api]
+$ pip install zerohertzLib[mlops]
+$ pip install zerohertzLib[all]
 ```
 
 ```python

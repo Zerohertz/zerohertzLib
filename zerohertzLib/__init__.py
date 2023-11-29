@@ -23,7 +23,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from zerohertzLib import algorithm, api, logging, mlops, monitoring, plot, util
+from zerohertzLib import algorithm, monitoring, plot, util
+
+try:
+    from zerohertzLib import api
+except ImportError:
+    pass
+
+try:
+    from zerohertzLib import logging
+except ImportError:
+    pass
+
+try:
+    from zerohertzLib import mlops
+except ImportError:
+    pass
 
 try:
     from zerohertzLib import vision
@@ -35,4 +50,4 @@ except ImportError as error:
     print("(but you can use other submodules except zerohertzLib.vision)")
     print("=" * 100)
 
-__version__ = "v0.4.7"
+__version__ = "v0.5.0"
