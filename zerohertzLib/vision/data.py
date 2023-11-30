@@ -245,7 +245,10 @@ class YoloLoader:
             self.txt_path, ".".join(data_file_name.split(".")[:-1]) + ".txt"
         )
         image = cv2.imread(data_path)
-        class_list, objects = self._convert(txt_path, image)
+        try:
+            class_list, objects = self._convert(txt_path, image)
+        except FileNotFoundError:
+            return
         if self.vis_path is not None:
             self._visualization(data_file_name, image, class_list, objects)
         return image, class_list, objects
