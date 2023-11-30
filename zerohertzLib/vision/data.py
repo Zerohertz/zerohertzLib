@@ -25,13 +25,14 @@ SOFTWARE.
 import math
 import os
 from glob import glob
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 import cv2
 import numpy as np
 from numpy.typing import DTypeLike, NDArray
+from tqdm import tqdm
 
-from zerohertzLib.util import Json, JsonDir, rmtree
+from zerohertzLib.util import Json, JsonDir, rmtree, write_json
 
 from .convert import poly2mask
 from .visual import bbox, masks
@@ -288,3 +289,145 @@ class YoloLoader:
             for idx, (cls, box) in enumerate(zip(class_list, objects)):
                 image = bbox(image, box, self.class_color[cls])
         cv2.imwrite(os.path.join(self.vis_path, file_name), image)
+
+
+class LabelStudio:
+    """Label Studio에 mount된 data를 불러오기 위한 JSON file 생성 class
+
+    Args:
+        data_path (``str``): Image가 존재하는 directory 경로
+        data_function (``Optional[Callable[[str], Dict[str, Any]]]``): Label Studio에서 사용할 수 있는 ``data`` 항목 추가 함수 (예시 참고)
+        ingress (``Optional[str]``): Label Studio의 URL
+
+    Methods:
+        __len__:
+            Returns:
+                ``int``: 읽어온 image file들의 수
+
+        __getitem__:
+            Index에 따른 image file 이름과 JSON file에 포함될 dictionary return
+
+            Args:
+                idx (``int``): 입력 index
+
+            Returns:
+                ``Tuple[str, Dict[str, Dict[str, str]]]``: Image file의 이름과 생성된 ``data`` dictionary
+    """
+
+    def __init__(
+        self,
+        data_path: str,
+        data_function: Optional[Callable[[str], Dict[str, Any]]] = None,
+        ingress: Optional[str] = "",
+    ) -> None:
+        self.data_path = data_path
+        self.data_paths = _get_image_paths(data_path)
+        self.data_function = data_function
+        self.ingress = ingress
+
+    def __len__(self) -> int:
+        return len(self.data_paths)
+
+    def __getitem__(self, idx: int) -> Tuple[str, Dict[str, Dict[str, str]]]:
+        file_name = self.data_paths[idx].split("/")[-1]
+        return file_name, {
+            "data": {"image": f"{self.ingress}/data/local-files/?d=image/{file_name}"}
+        }
+
+    def make(self) -> None:
+        """Label Studio에 mount된 data를 불러오기 위한 JSON file 생성
+
+        Returns:
+            ``None``: ``{data_path}.json`` 에 결과 저장
+
+        Examples:
+            Default:
+
+                >>> ls = LabelStudio(data_path)
+                >>> ls[0]
+                ('0000008316.jpg', {'data': {'image': '/data/local-files/?d=image/0000008316.jpg'}})
+                >>> ls[1]
+                ('0000006339.jpg', {'data': {'image': '/data/local-files/?d=image/0000006339.jpg'}})
+                >>> ls.make()
+                100%|█████████████| 15445/15445 [00:00<00:00, 65420.84it/s]
+
+                .. code-block:: json
+
+                    [
+                        {
+                            "data": {
+                                "image": "/data/local-files/?d=image/0000008316.jpg"
+                            }
+                        },
+                        {
+                            "data": {
+                                "...": "..."
+                            }
+                        },
+                    ]
+
+            With ``data_function``:
+
+                .. code-block:: python
+
+                    def data_function(file_name):
+                        return data_store[file_name]
+
+                >>> ls = LabelStudio(data_path, ingress="https://test.zerohertz.xyz")
+                >>> ls.make()
+                100%|█████████████| 15445/15445 [00:00<00:00, 65420.84it/s]
+
+                .. code-block:: json
+
+                    [
+                        {
+                            "data": {
+                                "image": "/data/local-files/?d=image/0000008316.jpg"
+                                "Label": "...",
+                                "patient_id": "...",
+                                "file_name": "...",
+                                "외래/입원": "...",
+                                "성별": "...",
+                                "나이(세)": "...",
+                                "나이(개월)": "...",
+                                "나이(세월)": "...",
+                                "나이대": "...",
+                                "...": "...",
+                            }
+                        },
+                        {
+                            "data": {
+                                "...": "..."
+                            }
+                        },
+                    ]
+
+            With Ingress:
+
+                >>> ls = LabelStudio(data_path, ingress="https://test.zerohertz.xyz")
+                >>> ls.make()
+                100%|█████████████| 15445/15445 [00:00<00:00, 65420.84it/s]
+
+                .. code-block:: json
+
+                    [
+                        {
+                            "data": {
+                                "image": "https://test.zerohertz.xyz/data/local-files/?d=image/0000008316.jpg"
+                            }
+                        },
+                        {
+                            "data": {
+                                "...": "..."
+                            }
+                        },
+                    ]
+        """
+        json_data = []
+        for file_name, data in tqdm(self):
+            if "aug" in file_name:
+                continue
+            if self.data_function is not None:
+                data["data"].update(self.data_function(file_name))
+            json_data.append(data)
+        write_json(json_data, self.data_path)
