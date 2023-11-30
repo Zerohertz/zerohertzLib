@@ -37,6 +37,25 @@ from .convert import poly2mask
 from .visual import bbox, masks
 
 
+def _get_image_paths(path):
+    ext = (
+        "jpg",
+        "JPG",
+        "jpeg",
+        "JPEG",
+        "png",
+        "PNG",
+        "tif",
+        "TIF",
+        "tiff",
+        "TIFF",
+    )
+    image_paths = []
+    for ext_ in ext:
+        image_paths += glob(os.path.join(path, f"*.{ext_}"))
+    return image_paths
+
+
 class ImageLoader:
     """경로와 image의 수를 지정하여 경로 내 image를 return하는 class
 
@@ -77,22 +96,8 @@ class ImageLoader:
     """
 
     def __init__(self, path: Optional[str] = "./", cnt: Optional[int] = 1) -> None:
-        ext = (
-            "jpg",
-            "JPG",
-            "jpeg",
-            "JPEG",
-            "png",
-            "PNG",
-            "tif",
-            "TIF",
-            "tiff",
-            "TIFF",
-        )
         self.cnt = cnt
-        self.image_paths = []
-        for ext_ in ext:
-            self.image_paths += glob(os.path.join(path, f"*.{ext_}"))
+        self.image_paths = _get_image_paths(path)
 
     def __len__(self) -> int:
         return math.ceil(len(self.image_paths) / self.cnt)
@@ -214,21 +219,7 @@ class YoloLoader:
         vis_path: Optional[str] = None,
         class_color: Optional[Dict[Union[int, str], Tuple[int]]] = None,
     ) -> None:
-        ext = (
-            "jpg",
-            "JPG",
-            "jpeg",
-            "JPEG",
-            "png",
-            "PNG",
-            "tif",
-            "TIF",
-            "tiff",
-            "TIFF",
-        )
-        self.data_paths = []
-        for ext_ in ext:
-            self.data_paths += glob(os.path.join(data_path, f"*.{ext_}"))
+        self.data_paths = _get_image_paths(data_path)
         self.txt_path = txt_path
         self.poly = poly
         self.abs = abs
