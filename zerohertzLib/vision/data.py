@@ -179,7 +179,7 @@ class YoloLoader:
         data_path (``str``): Image가 존재하는 directory 경로
         txt_path (``str``): YOLO format의 ``.txt`` 가 존재하는 directory 경로
         poly (``Optional[bool]``): ``.txt`` file의 format (``False``: detection, ``True``: segmentation)
-        abs (``Optional[bool]``): ``.txt`` file의 절대 좌표계 여부 (``False``: relative coordinates, ``True``: absolute coordinates)
+        absolute (``Optional[bool]``): ``.txt`` file의 절대 좌표계 여부 (``False``: relative coordinates, ``True``: absolute coordinates)
         vis_path (``Optional[str]``): 시각화 image들이 저장될 경로
         class_color (``Optional[Dict[Union[int, str], Tuple[int]]]``): 시각화 결과에 적용될 class에 따른 색상
 
@@ -201,7 +201,7 @@ class YoloLoader:
         >>> data_path = ".../images"
         >>> txt_path = ".../labels"
         >>> class_color = {0: (0, 255, 0), 1: (255, 0, 0), 2: (0, 0, 255)}
-        >>> yololoader = YoloLoader(data_path, txt_path, poly=True, abs=False, vis_path="tmp", class_color=class_color)
+        >>> yololoader = YoloLoader(data_path, txt_path, poly=True, absolute=False, vis_path="tmp", class_color=class_color)
         >>> image, class_list, objects = yololoader[0]
         >>> type(image)
         <class 'numpy.ndarray'>
@@ -216,14 +216,14 @@ class YoloLoader:
         data_path: str,
         txt_path: str,
         poly: Optional[bool] = True,
-        abs: Optional[bool] = False,
+        absolute: Optional[bool] = False,
         vis_path: Optional[str] = None,
         class_color: Optional[Dict[Union[int, str], Tuple[int]]] = None,
     ) -> None:
         self.data_paths = _get_image_paths(data_path)
         self.txt_path = txt_path
         self.poly = poly
-        self.abs = abs
+        self.absolute = absolute
         self.vis_path = vis_path
         if vis_path is not None:
             if class_color is None:
@@ -248,7 +248,7 @@ class YoloLoader:
         try:
             class_list, objects = self._convert(txt_path, image)
         except FileNotFoundError:
-            return
+            return None, None, None
         if self.vis_path is not None:
             self._visualization(data_file_name, image, class_list, objects)
         return image, class_list, objects
@@ -258,18 +258,18 @@ class YoloLoader:
     ) -> Tuple[List[int], List[NDArray[DTypeLike]]]:
         class_list = []
         objects = []
-        with open(txt_path, "r") as file:
+        with open(txt_path, "r", encoding="utf-8") as file:
             data_lines = file.readlines()
         for data_line in data_lines:
             data_str = data_line.strip().split(" ")
             class_list.append(int(data_str[0]))
             if self.poly:
                 obj = np.array(list(map(float, data_str[1:]))).reshape(-1, 2)
-                if not self.abs:
+                if not self.absolute:
                     obj *= image.shape[:2][::-1]
             else:
                 obj = np.array(list(map(float, data_str[1:])))
-                if not self.abs:
+                if not self.absolute:
                     obj *= image.shape[:2][::-1] * 2
             objects.append(obj)
         return class_list, objects

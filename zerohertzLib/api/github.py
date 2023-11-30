@@ -22,9 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import os
 import re
-import shutil
 from collections import defaultdict
 from typing import Any, Dict, List, Optional, Set
 
