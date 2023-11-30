@@ -33,8 +33,31 @@ from tqdm import tqdm
 from .json import Json, JsonDir
 
 
+def rmtree(path: str) -> None:
+    """지정한 경로의 file을 삭제하고 다시 생성하는 함수
+
+    Args:
+        path (``Optional[str]``): 삭제 후 생성할 경로
+
+    Returns:
+        ``None``
+
+    Examples:
+        >>> os.listdir("tmp")
+        ['test']
+        >>> zz.util.rmtree("tmp")
+        >>> os.listdir("tmp")
+        []
+    """
+    try:
+        shutil.rmtree(path)
+    except FileNotFoundError:
+        pass
+    os.makedirs(path, exist_ok=True)
+
+
 class MakeData:
-    """JSON file 내 값에 따라 data를 구축하는 함수
+    """JSON file 내 값에 따라 data를 구축하는 class
 
     Args:
         start_data_path (``str``): 목표 data가 존재하는 directory 경로
@@ -195,10 +218,7 @@ class MakeData:
             ====================================================================================================
             100%|█████████████| 403559/403559 [01:04<00:00, 6292.39it/s]
         """
-        try:
-            shutil.rmtree(self.target_path)
-        except FileNotFoundError:
-            pass
+        rmtree(self.target_path)
         print("=" * 100)
         print("DATA PATH:\t", self.end_data_path)
         print("JSON PATH:\t", self.end_json_path)

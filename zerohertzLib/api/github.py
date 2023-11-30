@@ -30,6 +30,8 @@ from typing import Any, Dict, List, Optional, Set
 
 import requests
 
+from zerohertzLib.util import rmtree
+
 
 class GitHub:
     """GitHub API를 사용하기 위한 class
@@ -241,11 +243,7 @@ class GitHub:
             )
         for data in bodies_version.values():
             data.sort(reverse=True)
-        try:
-            shutil.rmtree(f"{sphinx_source_path}/{name}")
-        except FileNotFoundError:
-            pass
-        os.mkdir(f"{sphinx_source_path}/{name}")
+        rmtree(f"{sphinx_source_path}/{name}")
         for version, data in bodies_version.items():
             ver = ".".join(version.split(".")[:-1])
             body = self._merge_release_note_version(version, data)
