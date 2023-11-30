@@ -297,8 +297,41 @@ class YoloLoader:
 class LabelStudio:
     """Label Studio에 mount된 data를 불러오기 위한 JSON file 생성 class
 
+    Note:
+        아래와 같이 환경 변수가 설정된 Label Studio image를 사용하고 ``/home/user`` 에 ``image`` directory가 mount 되어야 ``LabelStudio`` class로 생성된 JSON file을 적용할 수 있다.
+
+        .. code-block:: docker
+
+            FROM heartexlabs/label-studio
+
+            ENV LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED=true
+            ENV LABEL_STUDIO_LOCAL_FILES_DOCUMENT_ROOT=/home/user
+
+        .. code-block:: bash
+
+            docker run --name label-studio -p 8080:8080 -v ${PWD}/files:/home/user label-studio
+
+        ``Projects`` → ``{PROJECT_NAME}`` → ``Settings`` → ``Cloud Storage`` → ``Add Source Storage`` 클릭 후 아래와 같이 정보를 기재하고 ``Sync Storage`` 를 누른다.
+
+        + Storage Type: ``Local files``
+        + Absolute local path: ``/home/user/image``
+        + File Filter Regex: ``^.*\.(jpe?g|png|tiff?)$``
+        + Treat every bucket object as a source file: ``True``
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/286834432-462ad17b-d78f-4490-909b-a54debdf719a.png
+            :alt: Label Studio Setup
+            :align: center
+            :width: 400px
+
+        Sync 이후 ``LabelStudio`` class로 생성된 JSON file을 Label Studio에 import하면 아래와 같이 setup 할 수 있다.
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/286842007-1fb780eb-7275-4569-a662-a4545be2e348.png
+            :alt: Label Studio Setup
+            :align: center
+            :width: 400px
+
     Args:
-        data_path (``str``): Image가 존재하는 directory 경로
+        data_path (``str``): Image가 존재하는 directory 경로 (``${PWD}/files/image``)
         data_function (``Optional[Callable[[str], Dict[str, Any]]]``): Label Studio에서 사용할 수 있는 ``data`` 항목 추가 함수 (예시 참고)
         ingress (``Optional[str]``): Label Studio의 URL
 
