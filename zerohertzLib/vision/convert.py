@@ -292,7 +292,7 @@ def poly2mask(
         shape (``Tuple[int]``): 출력될 mask의 shape ``(H, W)``
 
     Returns:
-        ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, C]``)
+        ``NDArray[bool]``: 시각화 결과 (``[H, W, C]``)
 
     Examples:
         >>> poly = [[10, 10], [20, 10], [30, 40], [20, 60], [10, 20]]
