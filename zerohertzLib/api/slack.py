@@ -179,7 +179,7 @@ class SlackBot:
     def file(self, path: str) -> requests.models.Response:
         """Slack Bot을 통해 file 전송
 
-        Notes:
+        Note:
             ``name`` 과 ``icon_*`` 의 적용 불가
 
         Args:
