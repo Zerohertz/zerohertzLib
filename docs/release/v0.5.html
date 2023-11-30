@@ -16,11 +16,11 @@
     <meta property="og:title" content="v0.5" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/release/v0.5.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.5.2 Documents" />
-<meta property="og:description" content="v0.5.2: GitHub stage의 release 오류 해결 (resolves:#135). v0.5.1: api- Slack Webhook 및 Bot 사용 시 message method의 입력이&quot;&quot; 인 경우 전송 취소 (resolves:#132)., logging- Slack 이용 시 이름과 icon 설정..~ GitHub stage에서 impor..." />
+<meta property="og:site_name" content="Zerohertz's Library v0.5.3 Documents" />
+<meta property="og:description" content="v0.5.3: util- 지정한 경로의 file을 삭제하고 다시 생성하는 함수 rmtree 개발 및 기존 함수와 class에 적용, YOLO format의 dataset을 읽고 시각화하는 YoloLoader class 개발., vision- 지정한 경로 내 image file들의 경로를 불러오는 private 함수_get_image_paths 개발 및..." />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.5.2 Documents" />
-<meta name="description" content="v0.5.2: GitHub stage의 release 오류 해결 (resolves:#135). v0.5.1: api- Slack Webhook 및 Bot 사용 시 message method의 입력이&quot;&quot; 인 경우 전송 취소 (resolves:#132)., logging- Slack 이용 시 이름과 icon 설정..~ GitHub stage에서 impor..." />
+<meta property="og:image:alt" content="Zerohertz's Library v0.5.3 Documents" />
+<meta name="description" content="v0.5.3: util- 지정한 경로의 file을 삭제하고 다시 생성하는 함수 rmtree 개발 및 기존 함수와 class에 적용, YOLO format의 dataset을 읽고 시각화하는 YoloLoader class 개발., vision- 지정한 경로 내 image file들의 경로를 불러오는 private 함수_get_image_paths 개발 및..." />
     <link href="../_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -28,7 +28,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/release/v0.5.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>v0.5 - zerohertzLib v0.5.2 documentation</title>
+        <title>v0.5 - zerohertzLib v0.5.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -156,7 +156,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">zerohertzLib v0.5.2 documentation</div></a>
+      <a href="../index.html"><div class="brand">zerohertzLib v0.5.3 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
     <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.5.2 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.5.3 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -255,6 +255,39 @@
         <article role="main">
           <section id="v0-5">
 <h1>v0.5<a class="headerlink" href="#v0-5" title="Permalink to this heading">#</a></h1>
+<section id="v0-5-3">
+<h2>v0.5.3<a class="headerlink" href="#v0-5-3" title="Permalink to this heading">#</a></h2>
+<h3>[v0.5.3] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/138>#138</a>)</h3>
+<div class="tip admonition">
+<p class="admonition-title">Release Date</p>
+<p>2023/11/30</p>
+</div>
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/vision"><img src="https://img.shields.io/badge/feat/vision-D1F9CB?style=flat-square&logo=github" alt="feat/vision"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/util"><img src="https://img.shields.io/badge/feat/util-DEBEAA?style=flat-square&logo=github" alt="feat/util"/></a>
+</p>
+<h4>Features</h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">util</span></code></p>
+<ul>
+<li><p>지정한 경로의 file을 삭제하고 다시 생성하는 함수 <code class="docutils literal notranslate"><span class="pre">rmtree</span></code> 개발 및 기존 함수와 class에 적용</p></li>
+<li><p>YOLO format의 dataset을 읽고 시각화하는 <code class="docutils literal notranslate"><span class="pre">YoloLoader</span></code> class 개발</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vision</span></code></p>
+<ul>
+<li><p>지정한 경로 내 image file들의 경로를 불러오는 private 함수 <code class="docutils literal notranslate"><span class="pre">_get_image_paths</span></code> 개발 및 기존 함수와 class에 적용</p></li>
+<li><p>Label Studio에 mount된 data를 불러오기 위한 JSON file을 생성하는 <code class="docutils literal notranslate"><span class="pre">LabelStudio</span></code> class 개발</p></li>
+</ul>
+</li>
+</ul>
+<h4>Docs</h4>
+<ul class="simple">
+<li><p>Sphinx 문서 내 type hint typo 수정</p></li>
+</ul>
+</section>
 <section id="v0-5-2">
 <h2>v0.5.2<a class="headerlink" href="#v0-5-2" title="Permalink to this heading">#</a></h2>
 <h3>[v0.5.2] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/136>#136</a>)</h3>
@@ -300,7 +333,11 @@
 </ul>
 <h4>Chore</h4>
 <ul class="simple">
-<li><p>~<code class="docutils literal notranslate"><span class="pre">GitHub</span></code> stage에서 <code class="docutils literal notranslate"><span class="pre">import</span></code> 오류 수정~ → <a class="reference external" href="https://github.com/Zerohertz/zerohertzLib/pull/136">해결</a></p></li>
+<li><p><del><code class="docutils literal notranslate"><span class="pre">GitHub</span></code> stage에서 <code class="docutils literal notranslate"><span class="pre">import</span></code> 오류 수정</del></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">cv2</span></code> dependency로 인해 <code class="docutils literal notranslate"><span class="pre">GitHub</span></code> stage 실패 (<a href="https://github.com/Zerohertz/zerohertzLib/issues/135">#135</a>) → <a class="reference external" href="https://github.com/Zerohertz/zerohertzLib/pull/136">v0.5.2</a>에서 해결</p></li>
+</ul>
+</li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cv2</span></code>의 dependency 설치를 <code class="docutils literal notranslate"><span class="pre">2.</span> <span class="pre">Build</span></code> stage에서 <code class="docutils literal notranslate"><span class="pre">3.</span> <span class="pre">Test</span></code> stage로 변경</p></li>
 </ul>
 </section>
@@ -402,6 +439,7 @@ $<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </sp
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">v0.5</a><ul>
+<li><a class="reference internal" href="#v0-5-3">v0.5.3</a></li>
 <li><a class="reference internal" href="#v0-5-2">v0.5.2</a></li>
 <li><a class="reference internal" href="#v0-5-1">v0.5.1</a></li>
 <li><a class="reference internal" href="#v0-5-0">v0.5.0</a></li>
@@ -418,7 +456,7 @@ $<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </sp
   </div>
 </div><script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=0dc63f2a"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=a9bebb33"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>

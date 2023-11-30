@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.util" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.util.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.5.2 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.5.3 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.5.2 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.5.3 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.util.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.util - zerohertzLib v0.5.2 documentation</title>
+        <title>zerohertzLib.util - zerohertzLib v0.5.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.5.2 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.5.3 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.5.2 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.5.3 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -560,7 +560,7 @@
 <dt class="sig sig-object py" id="zerohertzLib.util.MakeData">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.util.</span></span><span class="sig-name descname"><span class="pre">MakeData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_data_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_json_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_data_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'data'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_json_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'json'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.util.MakeData" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>JSON file 내 값에 따라 data를 구축하는 함수</p>
+<p>JSON file 내 값에 따라 data를 구축하는 class</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -791,6 +791,28 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="zerohertzLib.util.rmtree">
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.util.</span></span><span class="sig-name descname"><span class="pre">rmtree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.util.rmtree" title="Permalink to this definition">#</a></dt>
+<dd><p>지정한 경로의 file을 삭제하고 다시 생성하는 함수</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.util.rmtree.params.path"></span><strong>path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.util.rmtree.params.path">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 삭제 후 생성할 경로</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">&quot;tmp&quot;</span><span class="p">)</span>
+<span class="go">[&#39;test&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="s2">&quot;tmp&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">&quot;tmp&quot;</span><span class="p">)</span>
+<span class="go">[]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.util.write_csv">
 <span class="sig-prename descclassname"><span class="pre">zerohertzLib.util.</span></span><span class="sig-name descname"><span class="pre">write_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tsv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.util.write_csv" title="Permalink to this definition">#</a></dt>
 <dd><p>CSV (Comma-Separated Values) 혹은 TSV (Tab-Separated Values)를 작성하는 함수</p>
@@ -954,6 +976,7 @@
 </li>
 <li><a class="reference internal" href="#zerohertzLib.util.find_ext"><code class="docutils literal notranslate"><span class="pre">find_ext()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.util.read_csv"><code class="docutils literal notranslate"><span class="pre">read_csv()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.util.rmtree"><code class="docutils literal notranslate"><span class="pre">rmtree()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.util.write_csv"><code class="docutils literal notranslate"><span class="pre">write_csv()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.util.write_json"><code class="docutils literal notranslate"><span class="pre">write_json()</span></code></a></li>
 </ul>
@@ -969,7 +992,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=0dc63f2a"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=a9bebb33"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

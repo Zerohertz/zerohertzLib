@@ -1,5 +1,36 @@
 # v0.5
 
+## v0.5.3
+
+<h3>[v0.5.3] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/138>#138</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2023/11/30
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/vision"><img src="https://img.shields.io/badge/feat/vision-D1F9CB?style=flat-square&logo=github" alt="feat/vision"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/util"><img src="https://img.shields.io/badge/feat/util-DEBEAA?style=flat-square&logo=github" alt="feat/util"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `util`
+  + 지정한 경로의 file을 삭제하고 다시 생성하는 함수 `rmtree` 개발 및 기존 함수와 class에 적용
+  + YOLO format의 dataset을 읽고 시각화하는 `YoloLoader` class 개발
++ `vision`
+  + 지정한 경로 내 image file들의 경로를 불러오는 private 함수 `_get_image_paths` 개발 및 기존 함수와 class에 적용
+  + Label Studio에 mount된 data를 불러오기 위한 JSON file을 생성하는 `LabelStudio` class 개발
+
+<h4>Docs</h4>
+
++ Sphinx 문서 내 type hint typo 수정
+
 ## v0.5.2
 
 <h3>[v0.5.2] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/136>#136</a>)</h3>
@@ -48,7 +79,8 @@
 
 <h4>Chore</h4>
 
-+ ~`GitHub` stage에서 `import` 오류 수정~ → [해결](https://github.com/Zerohertz/zerohertzLib/pull/136)
++ <del>`GitHub` stage에서 `import` 오류 수정</del>
+  + `cv2` dependency로 인해 `GitHub` stage 실패 (<a href="https://github.com/Zerohertz/zerohertzLib/issues/135">#135</a>) → [v0.5.2](https://github.com/Zerohertz/zerohertzLib/pull/136)에서 해결
 + `cv2`의 dependency 설치를 `2. Build` stage에서 `3. Test` stage로 변경
 
 ## v0.5.0
