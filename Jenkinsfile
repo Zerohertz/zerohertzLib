@@ -55,6 +55,7 @@ spec:
                     } else {
                         commitMessage = sh(script: "git log -1 --pretty=%B ${env.GIT_COMMIT}", returnStdout: true).trim()
                     }
+                    slackSend(color: "good", message: ":+1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> SUCCESS\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}")
                 }
             }
         }
@@ -73,6 +74,7 @@ spec:
                     setBuildStatus("Success", "SUCCESS", "3. Test")
                     setBuildStatus("Success", "SUCCESS", "4. Docs")
                     setBuildStatus("Success", "SUCCESS", "$STAGE_NAME")
+                    slackSend(color: "good", message: ":+1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> SUCCESS\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}")
                 }
             }
         }
@@ -104,9 +106,11 @@ spec:
                         def endTime = System.currentTimeMillis()
                         def DURATION = (endTime - startTime) / 1000
                         setBuildStatus("Successful in ${DURATION}s", "SUCCESS", "$STAGE_NAME")
+                        slackSend(color: "good", message: ":+1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> SUCCESS\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}")
                     } catch (Exception e) {
                         def STAGE_ERROR_MESSAGE = e.getMessage().split("\n")[0]
                         setBuildStatus(STAGE_ERROR_MESSAGE, "FAILURE", "$STAGE_NAME")
+                        slackSend(color: "danger", message: ":-1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> FAIL\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}")
                         throw e
                     }
                 }
@@ -143,9 +147,11 @@ spec:
                         def endTime = System.currentTimeMillis()
                         def DURATION = (endTime - startTime) / 1000
                         setBuildStatus("Successful in ${DURATION}s", "SUCCESS", "$STAGE_NAME")
+                        slackSend(color: "good", message: ":+1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> SUCCESS\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}")
                     } catch (Exception e) {
                         def STAGE_ERROR_MESSAGE = e.getMessage().split("\n")[0]
                         setBuildStatus(STAGE_ERROR_MESSAGE, "FAILURE", "$STAGE_NAME")
+                        slackSend(color: "danger", message: ":-1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> FAIL\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}")
                         throw e
                     }
                 }
@@ -181,9 +187,11 @@ spec:
                             def endTime = System.currentTimeMillis()
                             def DURATION = (endTime - startTime) / 1000
                             setBuildStatus("Successful in ${DURATION}s", "SUCCESS", "$STAGE_NAME")
+                            slackSend(color: "good", message: ":+1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> SUCCESS\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}")
                         } catch (Exception e) {
                             def STAGE_ERROR_MESSAGE = e.getMessage().split("\n")[0]
                             setBuildStatus(STAGE_ERROR_MESSAGE, "FAILURE", "$STAGE_NAME")
+                            slackSend(color: "danger", message: ":-1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> FAIL\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}")
                             throw e
                         }
                     }
@@ -271,9 +279,11 @@ spec:
                         def endTime = System.currentTimeMillis()
                         def DURATION = (endTime - startTime) / 1000
                         setBuildStatus("Successful in ${DURATION}s", "SUCCESS", "$STAGE_NAME")
+                        slackSend(color: "good", message: ":+1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> SUCCESS\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}")
                     } catch (Exception e) {
                         def STAGE_ERROR_MESSAGE = e.getMessage().split("\n")[0]
                         setBuildStatus(STAGE_ERROR_MESSAGE, "FAILURE", "$STAGE_NAME")
+                        slackSend(color: "danger", message: ":-1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> FAIL\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}")
                         throw e
                     }
                 }
@@ -307,9 +317,11 @@ spec:
                                     def endTime = System.currentTimeMillis()
                                     def DURATION = (endTime - startTime) / 1000
                                     setBuildStatus("Successful in ${DURATION}s", "SUCCESS", "$STAGE_NAME")
+                                    slackSend(color: "good", message: ":+1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> SUCCESS\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}")
                                 } catch (Exception e) {
                                     def STAGE_ERROR_MESSAGE = e.getMessage().split("\n")[0]
                                     setBuildStatus(STAGE_ERROR_MESSAGE, "FAILURE", "$STAGE_NAME")
+                                    slackSend(color: "danger", message: ":-1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> FAIL\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}")
                                     throw e
                                 }
                             }
@@ -340,9 +352,11 @@ spec:
                                     def endTime = System.currentTimeMillis()
                                     def DURATION = (endTime - startTime) / 1000
                                     setBuildStatus("Successful in ${DURATION}s", "SUCCESS", "$STAGE_NAME")
+                                    slackSend(color: "good", message: ":+1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> SUCCESS\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}")
                                 } catch (Exception e) {
                                     def STAGE_ERROR_MESSAGE = e.getMessage().split("\n")[0]
                                     setBuildStatus(STAGE_ERROR_MESSAGE, "FAILURE", "$STAGE_NAME")
+                                    slackSend(color: "danger", message: ":-1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> FAIL\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}")
                                     throw e
                                 }
                             }
