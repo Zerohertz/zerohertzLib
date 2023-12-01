@@ -29,7 +29,34 @@ import seaborn as sns
 from matplotlib import pyplot as plt
 
 
-def _save(title: str, dpi: int) -> None:
+def figure(figsize: Optional[Tuple[int]] = (15, 10)) -> None:
+    """Graph 생성을 위한 함수
+
+    Args:
+        figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
+
+    Returns:
+        ``None``: Graph window 생성
+
+    Examples:
+        >>> zz.plot.figure((20, 20))
+    """
+    plt.figure(figsize=figsize)
+
+
+def savefig(title: str, dpi: Optional[int] = 300) -> None:
+    """Graph 저장 함수
+
+    Args:
+        title (``str``): Graph file 이름
+        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+
+    Returns:
+        ``None``: ``{title}.png`` 에 graph 저장
+
+    Examples:
+        >>> zz.plot.savefig("Star Craft")
+    """
     title = title.lower().replace(" ", "_").replace("/", "-")
     plt.savefig(
         f"{title}.png",

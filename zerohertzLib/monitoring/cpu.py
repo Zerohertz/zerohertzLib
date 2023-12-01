@@ -72,7 +72,7 @@ def cpu(
             ylim=[0, 100],
             ncol=2,
             title=path,
-            ratio=(25, 10),
+            figsize=(25, 10),
             dpi=dpi,
         )
         time.sleep(tick)
