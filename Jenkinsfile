@@ -110,7 +110,7 @@ spec:
                     } catch (Exception e) {
                         def STAGE_ERROR_MESSAGE = e.getMessage().split("\n")[0]
                         setBuildStatus(STAGE_ERROR_MESSAGE, "FAILURE", "$STAGE_NAME")
-                        slackSend(color: "danger", message: ":-1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> FAIL\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}")
+                        slackSend(color: "danger", message: ":-1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> FAIL\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}\nError Message: ${STAGE_ERROR_MESSAGE}")
                         throw e
                     }
                 }
@@ -151,7 +151,7 @@ spec:
                     } catch (Exception e) {
                         def STAGE_ERROR_MESSAGE = e.getMessage().split("\n")[0]
                         setBuildStatus(STAGE_ERROR_MESSAGE, "FAILURE", "$STAGE_NAME")
-                        slackSend(color: "danger", message: ":-1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> FAIL\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}")
+                        slackSend(color: "danger", message: ":-1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> FAIL\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}\nError Message: ${STAGE_ERROR_MESSAGE}")
                         throw e
                     }
                 }
@@ -191,7 +191,7 @@ spec:
                         } catch (Exception e) {
                             def STAGE_ERROR_MESSAGE = e.getMessage().split("\n")[0]
                             setBuildStatus(STAGE_ERROR_MESSAGE, "FAILURE", "$STAGE_NAME")
-                            slackSend(color: "danger", message: ":-1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> FAIL\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}")
+                            slackSend(color: "danger", message: ":-1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> FAIL\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}\nError Message: ${STAGE_ERROR_MESSAGE}")
                             throw e
                         }
                     }
@@ -283,7 +283,7 @@ spec:
                     } catch (Exception e) {
                         def STAGE_ERROR_MESSAGE = e.getMessage().split("\n")[0]
                         setBuildStatus(STAGE_ERROR_MESSAGE, "FAILURE", "$STAGE_NAME")
-                        slackSend(color: "danger", message: ":-1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> FAIL\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}")
+                        slackSend(color: "danger", message: ":-1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> FAIL\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}\nError Message: ${STAGE_ERROR_MESSAGE}")
                         throw e
                     }
                 }
@@ -321,7 +321,7 @@ spec:
                                 } catch (Exception e) {
                                     def STAGE_ERROR_MESSAGE = e.getMessage().split("\n")[0]
                                     setBuildStatus(STAGE_ERROR_MESSAGE, "FAILURE", "$STAGE_NAME")
-                                    slackSend(color: "danger", message: ":-1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> FAIL\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}")
+                                    slackSend(color: "danger", message: ":-1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> FAIL\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}\nError Message: ${STAGE_ERROR_MESSAGE}")
                                     throw e
                                 }
                             }
@@ -356,7 +356,7 @@ spec:
                                 } catch (Exception e) {
                                     def STAGE_ERROR_MESSAGE = e.getMessage().split("\n")[0]
                                     setBuildStatus(STAGE_ERROR_MESSAGE, "FAILURE", "$STAGE_NAME")
-                                    slackSend(color: "danger", message: ":-1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> FAIL\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}")
+                                    slackSend(color: "danger", message: ":-1:  <${env.BUILD_URL}|[${env.JOB_NAME}: ${STAGE_NAME}]> FAIL\nBRANCH NAME: ${env.BRANCH_NAME}\nCHANGE TARGET: ${env.CHANGE_TARGET}\nCommit Message:  ${commitMessage}\nError Message: ${STAGE_ERROR_MESSAGE}")
                                     throw e
                                 }
                             }
