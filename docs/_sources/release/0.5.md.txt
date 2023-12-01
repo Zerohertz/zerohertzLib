@@ -1,0 +1,38 @@
+# 0.5
+
+## 0.5.4
+
+<h3>[0.5.4] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/146>#146</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2023/12/01
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/plot"><img src="https://img.shields.io/badge/feat/plot-968B14?style=flat-square&logo=github" alt="feat/plot"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:style"><img src="https://img.shields.io/badge/style-03A17F?style=flat-square&logo=github" alt="style"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `plot`
+  + Graph 생성을 위한 함수 `figure` 개발
+  + Graph 저장을 위한 함수 `savefig` 개발
+
+<h4>Chore</h4>
+
++ CI/CD pipeline 실패 시 오류 log Slack Bot을 통한 전달
+
+<p align="center>
+<img width="300" alt="jenkins-slack-notification-error" src="https://github.com/Zerohertz/zerohertzLib/assets/42334717/7cbc0a96-433c-400f-9458-1ca7c8c74987">
+</p>
+
+<h4>Style</h4>
+
++ Graph 생성 시 사용되는 변수 변경 `ratio` → `figsize`
+
