@@ -80,7 +80,7 @@ def gpu_usages(
             ylim=[0, 100],
             ncol=2,
             title=path,
-            ratio=(25, 10),
+            figsize=(25, 10),
             dpi=dpi,
         )
         time.sleep(tick)
@@ -149,7 +149,7 @@ def gpu_memory(
             ylim=[0, gpu_memory_max],
             ncol=2,
             title=path,
-            ratio=(25, 10),
+            figsize=(25, 10),
             dpi=dpi,
         )
         time.sleep(tick)

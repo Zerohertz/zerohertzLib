@@ -14,7 +14,7 @@ from zerohertzLib.plot.pie import pie
 from zerohertzLib.plot.plot import plot
 from zerohertzLib.plot.scatter import scatter
 from zerohertzLib.plot.table import table
-from zerohertzLib.plot.util import color
+from zerohertzLib.plot.util import color, figure, savefig
 
 plt.rcParams["font.size"] = 20
 font_manager.fontManager.addfont(
@@ -22,4 +22,15 @@ font_manager.fontManager.addfont(
 )
 plt.rcParams["font.family"] = "Noto Sans KR"
 
-__all__ = ["barv", "barh", "hist", "plot", "pie", "scatter", "color", "table"]
+__all__ = [
+    "barv",
+    "barh",
+    "hist",
+    "plot",
+    "pie",
+    "scatter",
+    "color",
+    "table",
+    "savefig",
+    "figure",
+]

@@ -27,7 +27,7 @@ from typing import Dict, List, Optional, Tuple, Union
 import numpy as np
 from matplotlib import pyplot as plt
 
-from .util import _save, color
+from .util import color, savefig
 
 
 def barv(
@@ -35,10 +35,11 @@ def barv(
     xlab: Optional[str] = "변수 [단위]",
     ylab: Optional[str] = "빈도 [단위]",
     title: Optional[str] = "tmp",
-    ratio: Optional[Tuple[int]] = (15, 10),
+    figsize: Optional[Tuple[int]] = (15, 10),
     dpi: Optional[int] = 300,
     rot: Optional[int] = 0,
     per: Optional[bool] = True,
+    save: Optional[bool] = True,
 ) -> None:
     """Dictionary로 입력받은 데이터를 가로 bar chart로 시각화
 
@@ -47,10 +48,11 @@ def barv(
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
-        ratio (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
+        figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         rot: (``Optional[int]``): X축의 눈금 회전 각도
         per: (``Optional[bool]``): 각 bar 상단에 percentage 표시 여부
+        save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
         ``None``: 현재 directory에 바로 graph 저장
@@ -65,7 +67,8 @@ def barv(
             :width: 500px
     """
     colors = color(len(data))
-    plt.figure(figsize=ratio)
+    if save:
+        plt.figure(figsize=figsize)
     bars = plt.bar(
         data.keys(),
         data.values(),
@@ -90,7 +93,8 @@ def barv(
                 ha="center",
                 va="bottom",
             )
-    _save(title, dpi)
+    if save:
+        savefig(title, dpi)
 
 
 def barh(
@@ -98,10 +102,11 @@ def barh(
     xlab: Optional[str] = "빈도 [단위]",
     ylab: Optional[str] = "변수 [단위]",
     title: Optional[str] = "tmp",
-    ratio: Optional[Tuple[int]] = (10, 15),
+    figsize: Optional[Tuple[int]] = (10, 15),
     dpi: Optional[int] = 300,
     rot: Optional[int] = 0,
     per: Optional[bool] = True,
+    save: Optional[bool] = True,
 ) -> None:
     """Dictionary로 입력받은 데이터를 세로 bar chart로 시각화
 
@@ -110,10 +115,11 @@ def barh(
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
-        ratio (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
+        figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         rot: (``Optional[int]``): X축의 눈금 회전 각도
         per: (``Optional[bool]``): 각 bar 상단에 percentage 표시 여부
+        save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
         ``None``: 현재 directory에 바로 graph 저장
@@ -128,7 +134,8 @@ def barh(
             :width: 375px
     """
     colors = color(len(data))
-    plt.figure(figsize=ratio)
+    if save:
+        plt.figure(figsize=figsize)
     bars = plt.barh(
         list(data.keys()),
         list(data.values()),
@@ -155,7 +162,8 @@ def barh(
                 va="center",
                 rotation=270,
             )
-    _save(title, dpi)
+    if save:
+        savefig(title, dpi)
 
 
 def hist(
@@ -165,8 +173,9 @@ def hist(
     title: Optional[str] = "tmp",
     cnt: Optional[int] = 30,
     ovp: Optional[bool] = True,
-    ratio: Optional[Tuple[int]] = (15, 10),
+    figsize: Optional[Tuple[int]] = (15, 10),
     dpi: Optional[int] = 300,
+    save: Optional[bool] = True,
 ) -> None:
     """Dictionary로 입력받은 데이터를 histogram으로 시각화
 
@@ -177,8 +186,9 @@ def hist(
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
         cnt (``Optional[int]``): Bin의 개수
         ovp (``Optional[bool]``): Class에 따른 histogram overlap 여부
-        ratio (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
+        figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
         ``None``: 현재 directory에 바로 graph 저장
@@ -196,7 +206,8 @@ def hist(
     tmp = np.array(list(data.values()))
     minimum, maximum = tmp.min(), tmp.max()
     bins = np.linspace(minimum, maximum, cnt)
-    plt.figure(figsize=ratio)
+    if save:
+        plt.figure(figsize=figsize)
     if ovp:
         for i, (key, value) in enumerate(data.items()):
             plt.hist(value, bins=bins, color=colors[i], label=key, alpha=0.7, zorder=2)
@@ -214,4 +225,5 @@ def hist(
     plt.ylabel(ylab)
     plt.title(title, fontsize=25)
     plt.legend()
-    _save(title, dpi)
+    if save:
+        savefig(title, dpi)

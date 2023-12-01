@@ -26,16 +26,17 @@ from typing import Dict, Optional, Tuple, Union
 
 from matplotlib import pyplot as plt
 
-from .util import _save, color
+from .util import color, savefig
 
 
 def pie(
     data: Dict[str, Union[int, float]],
     dim: Optional[str] = "",
     title: Optional[str] = "tmp",
-    ratio: Optional[Tuple[int]] = (15, 10),
+    figsize: Optional[Tuple[int]] = (15, 10),
     dpi: Optional[int] = 300,
     int_label: Optional[bool] = True,
+    save: Optional[bool] = True,
 ) -> None:
     """Dictionary로 입력받은 데이터를 pie chart로 시각화
 
@@ -43,9 +44,10 @@ def pie(
         data (``Dict[str, Union[int, float]]``): 입력 데이터
         dim: (``Optional[str]``): 입력 ``data`` 의 단위
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
-        ratio (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
+        figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         int_label: (``Optional[bool]``): Label 내 수치의 소수점 표기 여부
+        save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
         ``None``: 현재 directory에 바로 graph 저장
@@ -60,7 +62,8 @@ def pie(
             :width: 500px
     """
     colors = color(len(data))
-    plt.figure(figsize=ratio)
+    if save:
+        plt.figure(figsize=figsize)
     if int_label:
         if dim == "":
             labels = [f"{k} ({v:.0f})" for k, v in data.items()]
@@ -82,4 +85,5 @@ def pie(
     )
     plt.title(title, fontsize=25)
     plt.axis("equal")
-    _save(title, dpi)
+    if save:
+        savefig(title, dpi)

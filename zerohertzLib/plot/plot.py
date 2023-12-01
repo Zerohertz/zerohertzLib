@@ -26,7 +26,7 @@ from typing import Dict, List, Optional, Tuple, Union
 
 from matplotlib import pyplot as plt
 
-from .util import _save, color
+from .util import color, savefig
 
 
 def plot(
@@ -38,8 +38,9 @@ def plot(
     ylim: Optional[List[Union[int, float]]] = None,
     ncol: Optional[int] = 1,
     title: Optional[str] = "tmp",
-    ratio: Optional[Tuple[int]] = (15, 10),
+    figsize: Optional[Tuple[int]] = (15, 10),
     dpi: Optional[int] = 300,
+    save: Optional[bool] = True,
 ) -> None:
     """List와 Dictionary로 입력받은 데이터를 line chart로 시각화
 
@@ -52,8 +53,9 @@ def plot(
         ylim (``Optional[List[Union[int, float]]]``): Graph에 출력될 Y축 limit
         ncol (``Optional[int]``): Graph에 표시될 legend 열의 수
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
-        ratio (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
+        figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
         ``None``: 현재 directory에 바로 graph 저장
@@ -69,7 +71,8 @@ def plot(
             :width: 500px
     """
     colors = color(len(ydata))
-    plt.figure(figsize=ratio)
+    if save:
+        plt.figure(figsize=figsize)
     # list(plt.Line2D.lineStyles.keys())
     linestyle = ["-", "--", "-.", ":"]
     # import matplotlib.markers as mmarkers
@@ -95,4 +98,5 @@ def plot(
         plt.ylim(ylim)
     plt.title(title, fontsize=25)
     plt.legend(ncol=ncol)
-    _save(title, dpi)
+    if save:
+        savefig(title, dpi)
