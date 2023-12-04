@@ -27,6 +27,8 @@ from typing import Optional
 import numpy as np
 import pandas as pd
 
+from .util import _calculate_rsi
+
 
 def moving_average(
     data: pd.core.frame.DataFrame,
@@ -68,4 +70,46 @@ def moving_average(
     signals["positions"] = np.where(
         signals["positions"] < 0, -1, np.where(signals["positions"] > 0, 1, 0)
     )
+    return signals
+
+
+def rsi(
+    data: pd.core.frame.DataFrame,
+    lower_bound: Optional[int] = 30,
+    upper_bound: Optional[int] = 70,
+    window: Optional[int] = 14,
+    ohlc: Optional[str] = "Open",
+) -> pd.core.frame.DataFrame:
+    """RSI 기반 매수 및 매도 signal을 생성하는 함수
+
+    Args:
+        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+        lower_bound (``Optional[int]``): RSI 과매도 기준
+        upper_bound (``Optional[int]``): RSI 과매수 기준
+        window (``Optional[int]``): 이동 평균을 계산하기 위한 widnow 크기
+        ohlc (``Optional[str]``): 이동 평균을 계산할 때 사용할 ``data`` 의 column 이름
+
+    Returns:
+        pd.core.frame.DataFrame: 각 날짜에 대한 signal (``"signals"``) 및 position (``"positions"``) 정보
+
+    Examples:
+        >>> zz.quant.rsi(data)
+                          RSI  signals  positions
+        2022-12-05        NaN        0        NaN
+        ...               ...      ...        ...
+        2023-12-04  60.975610        0        0.0
+        [249 rows x 3 columns]
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287718048-7eb54932-66b2-4e2f-90c1-fc6920a106f5.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 400px
+    """
+    signals = pd.DataFrame(index=data.index)
+    signals["RSI"] = _calculate_rsi(data[ohlc], window)
+    signals["signals"] = 0
+    signals["signals"] = np.where(
+        signals["RSI"] > upper_bound, 1, np.where(signals["RSI"] < lower_bound, -1, 0)
+    )
+    signals["positions"] = signals["signals"].diff()
     return signals
