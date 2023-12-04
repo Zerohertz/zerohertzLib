@@ -139,7 +139,7 @@ def candle(
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287729767-fc7b51c2-13c3-496b-8bda-309a4059bd56.png
             :alt: Visualzation Result
             :align: center
-            :width: 500px
+            :width: 800px
     """
     marketcolors = mpf.make_marketcolors(
         up="red",

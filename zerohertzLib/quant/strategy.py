@@ -58,7 +58,7 @@ def moving_average(
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287730379-368fa075-70b5-4721-91ba-05e7fc579d99.png
             :alt: Visualzation Result
             :align: center
-            :width: 400px
+            :width: 600px
     """
     signals = pd.DataFrame(index=data.index)
     signals["signals"] = 0.0
@@ -108,7 +108,7 @@ def rsi(
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287730363-456bbf0e-62f9-45c8-8025-7fe22588d780.png
             :alt: Visualzation Result
             :align: center
-            :width: 400px
+            :width: 600px
     """
     signals = pd.DataFrame(index=data.index)
     signals["RSI"] = _rsi(data[ohlc], window)
@@ -147,7 +147,7 @@ def bollinger_bands(
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287743057-aec042ef-6c0b-41b7-a85e-7cc6046a06af.png
             :alt: Visualzation Result
             :align: center
-            :width: 400px
+            :width: 600px
     """
     signals = _bollinger_bands(data, window, num_std_dev)
     signals["signals"] = 0
