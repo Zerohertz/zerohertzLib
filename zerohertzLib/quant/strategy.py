@@ -27,7 +27,7 @@ from typing import Optional
 import numpy as np
 import pandas as pd
 
-from .util import _calculate_rsi
+from .util import _rsi
 
 
 def moving_average(
@@ -111,7 +111,7 @@ def rsi(
             :width: 400px
     """
     signals = pd.DataFrame(index=data.index)
-    signals["RSI"] = _calculate_rsi(data[ohlc], window)
+    signals["RSI"] = _rsi(data[ohlc], window)
     signals["signals"] = 0
     signals["signals"] = np.where(
         signals["RSI"] > upper_bound, 1, np.where(signals["RSI"] < lower_bound, -1, 0)

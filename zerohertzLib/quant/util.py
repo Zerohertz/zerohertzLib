@@ -26,7 +26,7 @@ SOFTWARE.
 import pandas as pd
 
 
-def _calculate_rsi(data: pd.core.frame.DataFrame, window: int) -> float:
+def _rsi(data: pd.core.frame.DataFrame, window: int) -> float:
     """RSI (Relative Strength Index)를 계산하는 함수
 
     Args:
