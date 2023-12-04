@@ -115,6 +115,9 @@ def experiments(
             },
         )
         results.append((exp_str, profit))
+        if profit == 0 and len(logs) == 0:
+            reports.append(f"{exp_str}:\t{profit:.2f}%")
+            continue
         reports.append(f"{exp_str}:\t{profit:.2f}%\t{logs[-1][0]:,.0f}")
     results.sort(key=lambda x: x[1])
     reports.append("=" * 50)
