@@ -327,8 +327,8 @@ class KoreaInvestment:
             "FID_PERIOD_DIV_CODE": time_frame,
             "FID_ORG_ADJ_PRC": 0 if adj_price else 1,
         }
-        resp = requests.get(url, headers=headers, params=params, timeout=10)
-        return resp.json()
+        response = requests.get(url, headers=headers, params=params, timeout=10)
+        return response.json()
 
     def _get_overesea_ohlcv(
         self,
@@ -372,8 +372,8 @@ class KoreaInvestment:
             "BYMD": end_day,
             "MODP": 1 if adj_price else 0,
         }
-        resp = requests.get(url, headers=headers, params=params, timeout=10)
-        return resp.json()
+        response = requests.get(url, headers=headers, params=params, timeout=10)
+        return response.json()
 
     def response2ohlcv(
         self, response: Dict[str, Dict]
