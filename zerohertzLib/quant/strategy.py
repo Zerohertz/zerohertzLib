@@ -36,7 +36,7 @@ def moving_average(
     long_window: Optional[int] = 50,
     ohlc: Optional[str] = "Open",
 ) -> pd.core.frame.DataFrame:
-    """주어진 ``data`` 의 단기 및 장기 이동 평균을 계산 후 trading signal과 postion을 결정하는 함수
+    """단기 및 장기 이동 평균 기반 매수 및 매도 signal을 생성하는 함수
 
     Args:
         data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
