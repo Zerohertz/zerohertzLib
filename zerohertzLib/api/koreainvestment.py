@@ -390,16 +390,16 @@ class KoreaInvestment:
             >>> samsung = broker.get_ohlcv("005930")
             >>> broker.response2ohlcv(samsung)
             ('삼성전자',  Open    High     Low      Close     Volume
-            2023-12-04  72800.0  72900.0  72400.0  72700.0   7917006.0
-            ...             ...      ...      ...      ...         ...
             2023-07-10  70000.0  70400.0  69200.0  69500.0  11713926.0
+            ...             ...      ...      ...      ...         ...
+            2023-12-04  72800.0  72900.0  72400.0  72700.0   7917006.0
             [100 rows x 5 columns])
             >>> apple = broker.get_ohlcv("AAPL", kor=False)
             >>> broker.response2ohlcv(apple)
             ('AAPL',    Open      High      Low       Close     Volume
-            2023-12-01  190.3300  191.5600  189.2300  191.2400  45704823.0
-            ...              ...       ...       ...       ...         ...
             2023-07-13  189.9927  190.6808  189.2746  190.0325  41342338.0
+            ...              ...       ...       ...       ...         ...
+            2023-12-01  190.3300  191.5600  189.2300  191.2400  45704823.0
             [100 rows x 5 columns])
         """
         date = []
@@ -431,7 +431,10 @@ class KoreaInvestment:
             data["Low"].append(float(data_[low_key]))
             data["Close"].append(float(data_[close_key]))
             data["Volume"].append(float(data_[volume_key]))
-        return name, pd.DataFrame(data, index=pd.to_datetime(date, format="%Y%m%d"))
+        return (
+            name,
+            pd.DataFrame(data, index=pd.to_datetime(date, format="%Y%m%d"))[::-1],
+        )
 
     def get_balance(self, kor: Optional[str] = True) -> Dict[str, Dict]:
         """주식 계좌 잔고 조회
