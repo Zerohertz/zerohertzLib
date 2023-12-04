@@ -161,7 +161,7 @@ def bollinger_bands(
     previous_signal = 0
     for i in range(len(signals)):
         current_signal = signals["signals"].iloc[i]
-        if not current_signal in (previous_signal, 0):
+        if current_signal not in (previous_signal, 0):
             signals.loc[signals.index[i], "positions"] = current_signal
         previous_signal = current_signal
     return signals
