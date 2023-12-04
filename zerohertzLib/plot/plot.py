@@ -128,14 +128,15 @@ def candle(
 
     Examples:
         >>> broker = zz.api.KoreaInvestment()
-        >>> samsung = broker.get_ohlcv("005930")
+        >>> samsung = broker.get_ohlcv("005930", "D", "20221205")
         >>> title, data = broker.response2ohlcv(samsung)
-        >>> zz.plot.candle(data, title)
+        >>> signals = zz.quant.moving_average(data)
+        >>> zz.plot.candle(data, title, signals=signals)
         >>> apple = broker.get_ohlcv("AAPL", kor=False)
         >>> title, data = broker.response2ohlcv(apple)
         >>> zz.plot.candle(data, title)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287610174-fc026c31-63f9-4615-9b28-55146a78f30b.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287717110-cc44d695-01a0-4c1d-ad83-5f244f7df027.png
             :alt: Visualzation Result
             :align: center
             :width: 500px
@@ -173,23 +174,35 @@ def candle(
         returnfig=True,
     )
     if signals is not None:
-        linestyle = ["-", "--", "-.", ":"]
-        marker = ["o", "v", "^", "s", "p", "*", "x"]
         new_axis = axlist[0].twinx()
-        colors = color(len(signals), palette="pastel")
-        for i, (key, value) in enumerate(signals.items()):
-            new_axis.plot(
-                axlist[0].get_lines()[0].get_xdata(),
-                value,
-                color=colors[i],
-                linestyle=linestyle[i % len(linestyle)],
-                linewidth=2,
-                marker=marker[i % len(marker)],
-                label=key,
-                alpha=0.5,
+        xdata = axlist[0].get_lines()[0].get_xdata()
+        # new_axis.plot(
+        #     xdata,
+        #     signals["positions"],
+        #     color="black",
+        #     linestyle=":",
+        #     linewidth=1,
+        #     alpha=0.8,
+        #     label="Position",
+        # )
+        buy_indices = []
+        sell_indices = []
+        for idx, pos in enumerate(signals["positions"]):
+            if pos == -1:
+                buy_indices.append(idx)
+            elif pos == 1:
+                sell_indices.append(idx)
+        for i in buy_indices:
+            new_axis.axvline(
+                x=xdata[i], color="blue", linestyle="--", linewidth=2, alpha=0.5
             )
-        new_axis.set_yticks([-1, 0, 1])
-        new_axis.set_yticklabels(["Buy", "", "Sell"])
-        plt.legend()
+        for i in sell_indices:
+            new_axis.axvline(
+                x=xdata[i], color="red", linestyle="--", linewidth=2, alpha=0.5
+            )
+        new_axis.set_yticks([])
+        # new_axis.set_yticks([-1, 0, 1])
+        # new_axis.set_yticklabels(["Buy", "", "Sell"])
+        # plt.legend()
     if save:
         savefig(title, dpi)
