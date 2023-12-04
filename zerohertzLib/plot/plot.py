@@ -136,7 +136,7 @@ def candle(
         >>> title, data = broker.response2ohlcv(apple)
         >>> zz.plot.candle(data, title)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287717110-cc44d695-01a0-4c1d-ad83-5f244f7df027.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287729767-fc7b51c2-13c3-496b-8bda-309a4059bd56.png
             :alt: Visualzation Result
             :align: center
             :width: 500px
@@ -163,6 +163,8 @@ def candle(
             "figure.titlesize": 35,
         },
     )
+    bands = _bollinger_bands(data)
+    bollinger = mpf.make_addplot(bands[["lower_band", "upper_band"]], type="line")
     _, axlist = mpf.plot(
         data,
         type="candle",
@@ -172,18 +174,17 @@ def candle(
         title=title,
         style=style,
         returnfig=True,
+        addplot=bollinger,
     )
     if signals is not None:
         new_axis = axlist[0].twinx()
         xdata = axlist[0].get_lines()[0].get_xdata()
         # new_axis.plot(
         #     xdata,
-        #     signals["positions"],
+        #     signals["signals"],
         #     color="black",
-        #     linestyle=":",
         #     linewidth=1,
         #     alpha=0.8,
-        #     label="Position",
         # )
         buy_indices = []
         sell_indices = []
@@ -206,3 +207,20 @@ def candle(
         # plt.legend()
     if save:
         savefig(title, dpi)
+
+
+def _bollinger_bands(data: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
+    """Bollinger band 계산 함수
+
+    Args:
+        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+
+    Returns:
+        ``pd.core.frame.DataFrame``: Bollinger band
+    """
+    bands = pd.DataFrame(index=data.index)
+    bands["middle_band"] = data.iloc[:, :4].mean(1).rolling(window=20).mean()
+    std_dev = data.iloc[:, :4].mean(1).rolling(window=20).std()
+    bands["upper_band"] = bands["middle_band"] + (std_dev * 2)
+    bands["lower_band"] = bands["middle_band"] - (std_dev * 2)
+    return bands

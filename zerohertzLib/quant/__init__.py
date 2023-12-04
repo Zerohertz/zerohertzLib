@@ -6,6 +6,6 @@
 """
 
 from zerohertzLib.quant.backtest import backtest, experiments
-from zerohertzLib.quant.strategy import moving_average, rsi
+from zerohertzLib.quant.strategy import bollinger_bands, moving_average, rsi
 
-__all__ = ["moving_average", "backtest", "experiments", "rsi"]
+__all__ = ["moving_average", "backtest", "experiments", "rsi", "bollinger_bands"]

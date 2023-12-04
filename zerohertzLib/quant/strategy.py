@@ -27,7 +27,7 @@ from typing import Optional
 import numpy as np
 import pandas as pd
 
-from .util import _rsi
+from .util import _bollinger_bands, _rsi
 
 
 def moving_average(
@@ -55,7 +55,7 @@ def moving_average(
         2023-12-04     -1.0  72226.666667  69790.000000          0
         [249 rows x 4 columns]
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287718088-60cf2068-e7ea-4440-9fdf-ea17b009b816.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287730379-368fa075-70b5-4721-91ba-05e7fc579d99.png
             :alt: Visualzation Result
             :align: center
             :width: 400px
@@ -95,7 +95,7 @@ def rsi(
         ohlc (``Optional[str]``): 이동 평균을 계산할 때 사용할 ``data`` 의 column 이름
 
     Returns:
-        pd.core.frame.DataFrame: 각 날짜에 대한 signal (``"signals"``) 및 position (``"positions"``) 정보
+        ``pd.core.frame.DataFrame``: 각 날짜에 대한 signal (``"signals"``) 및 position (``"positions"``) 정보
 
     Examples:
         >>> zz.quant.rsi(data)
@@ -105,7 +105,7 @@ def rsi(
         2023-12-04  60.975610        0        0.0
         [249 rows x 3 columns]
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287718048-7eb54932-66b2-4e2f-90c1-fc6920a106f5.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287730363-456bbf0e-62f9-45c8-8025-7fe22588d780.png
             :alt: Visualzation Result
             :align: center
             :width: 400px
@@ -117,4 +117,51 @@ def rsi(
         signals["RSI"] > upper_bound, 1, np.where(signals["RSI"] < lower_bound, -1, 0)
     )
     signals["positions"] = signals["signals"].diff()
+    return signals
+
+
+def bollinger_bands(
+    data: pd.core.frame.DataFrame,
+    window: Optional[int] = 20,
+    num_std_dev: Optional[int] = 2,
+    ohlc: Optional[str] = "Open",
+) -> pd.core.frame.DataFrame:
+    """Bollinger band 기반 매수 및 매도 signal을 생성하는 함수
+
+    Args:
+        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+        window (``Optional[int]``): 이동 평균을 계산하기 위한 widnow 크기
+        num_std_dev (``Optional[int]``): 표준편차의 배수
+        ohlc (``Optional[str]``): 이동 평균을 계산할 때 사용할 ``data`` 의 column 이름
+
+    Returns:
+        ``pd.core.frame.DataFrame``: 각 날짜에 대한 signal (``"signals"``) 및 position (``"positions"``) 정보
+
+    Examples:
+        >>> zz.quant.bollinger_bands(data)
+                    middle_band    upper_band    lower_band  signals  positions
+        2022-12-05          NaN           NaN           NaN        0          0
+        ...                 ...           ...           ...      ...        ...
+        2023-12-04      71822.5  73714.581839  69930.418161        0          0
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287743057-aec042ef-6c0b-41b7-a85e-7cc6046a06af.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 400px
+    """
+    signals = _bollinger_bands(data, window, num_std_dev)
+    signals["signals"] = 0
+    signals["signals"] = np.where(
+        data[ohlc] < signals["lower_band"], -1, signals["signals"]
+    )
+    signals["signals"] = np.where(
+        data[ohlc] > signals["upper_band"], 1, signals["signals"]
+    )
+    signals["positions"] = 0
+    previous_signal = 0
+    for i in range(len(signals)):
+        current_signal = signals["signals"].iloc[i]
+        if current_signal != previous_signal and current_signal != 0:
+            signals.loc[signals.index[i], "positions"] = current_signal
+        previous_signal = current_signal
     return signals
