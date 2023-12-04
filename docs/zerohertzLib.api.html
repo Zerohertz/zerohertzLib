@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.api" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.api.html" />
-<meta property="og:site_name" content="Zerohertz's Library 0.5.4 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library 0.5.5 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library 0.5.4 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library 0.5.5 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.api.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.api - zerohertzLib 0.5.4 documentation</title>
+        <title>zerohertzLib.api - zerohertzLib 0.5.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib 0.5.4 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib 0.5.5 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib 0.5.4 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib 0.5.5 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -197,6 +197,7 @@
 <li class="toctree-l2"><a class="reference internal" href="zerohertzLib.monitoring.html">zerohertzLib.monitoring</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zerohertzLib.plot.html">zerohertzLib.plot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zerohertzLib.util.html">zerohertzLib.util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zerohertzLib.quant.html">zerohertzLib.quant</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zerohertzLib.vision.html">zerohertzLib.vision</a></li>
 </ul>
 </li>
@@ -381,6 +382,204 @@
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gh</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">GitHub</span><span class="p">(</span><span class="s2">&quot;Zerohertz&quot;</span><span class="p">,</span> <span class="s2">&quot;zerohertzLib&quot;</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="s2">&quot;ghp_...&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">gh</span><span class="o">.</span><span class="n">release_note</span><span class="p">(</span><span class="n">sphinx_source_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sphinx</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="zerohertzLib.api.KoreaInvestment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.api.</span></span><span class="sig-name descname"><span class="pre">KoreaInvestment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.KoreaInvestment" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>한국투자증권 API를 호출하는 class</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference external" href="https://apiportal.koreainvestment.com/apiservice">공식 API 문서</a> 및 <a class="reference external" href="https://github.com/sharebook-kr/mojito">mojito</a> 참고</p>
+<p><code class="docutils literal notranslate"><span class="pre">secret.key</span></code> 는 아래와 같이 구성</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">zero</span><span class="o">...</span> <span class="p">(</span><span class="n">API</span> <span class="n">Key</span><span class="p">)</span>
+<span class="n">hertz</span><span class="o">...</span> <span class="p">(</span><span class="n">API</span> <span class="n">Secret</span><span class="p">)</span>
+<span class="mi">00000000</span><span class="o">-</span><span class="mi">00</span> <span class="p">(</span><span class="n">Account</span> <span class="n">Number</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.api.KoreaInvestment.params.path"></span><strong>path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.KoreaInvestment.params.path">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – <code class="docutils literal notranslate"><span class="pre">secret.key</span></code> 혹은 <code class="docutils literal notranslate"><span class="pre">token.dat</span></code> 이 포함된 경로</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.api.KoreaInvestment.api_key">
+<span class="sig-name descname"><span class="pre">api_key</span></span><a class="headerlink" href="#zerohertzLib.api.KoreaInvestment.api_key" title="Permalink to this definition">#</a></dt>
+<dd><p>API Key</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.api.KoreaInvestment.api_secret">
+<span class="sig-name descname"><span class="pre">api_secret</span></span><a class="headerlink" href="#zerohertzLib.api.KoreaInvestment.api_secret" title="Permalink to this definition">#</a></dt>
+<dd><p>API Secret</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.api.KoreaInvestment.acc_no">
+<span class="sig-name descname"><span class="pre">acc_no</span></span><a class="headerlink" href="#zerohertzLib.api.KoreaInvestment.acc_no" title="Permalink to this definition">#</a></dt>
+<dd><p>Account number</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">broker</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">KoreaInvestment</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.api.KoreaInvestment.get_balance">
+<span class="sig-name descname"><span class="pre">get_balance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.KoreaInvestment.get_balance" title="Permalink to this definition">#</a></dt>
+<dd><p>주식 계좌 잔고 조회</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.api.KoreaInvestment.get_balance.params.kor"></span><strong>kor</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.KoreaInvestment.get_balance.params.kor">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 국내 여부</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>계좌 내역</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">Dict]</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span> <span class="o">=</span> <span class="n">broker</span><span class="o">.</span><span class="n">get_balance</span><span class="p">()</span>
+<span class="go">{&#39;output1&#39;: [{&#39;pdno&#39;: &#39;...&#39;, ...}], &#39;output2&#39;: [{&#39;dnca_tot_amt&#39;: &#39;...&#39;, ...}]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span><span class="p">[</span><span class="s2">&quot;output1&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;pdno&quot;</span><span class="p">]</span>                <span class="c1"># 종목번호 (뒷 6자리)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span><span class="p">[</span><span class="s2">&quot;output1&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;prdt_name&quot;</span><span class="p">]</span>           <span class="c1"># 종목명</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span><span class="p">[</span><span class="s2">&quot;output1&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;hldg_qty&quot;</span><span class="p">]</span>            <span class="c1"># 보유수량</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span><span class="p">[</span><span class="s2">&quot;output1&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;pchs_avg_pric&quot;</span><span class="p">]</span>       <span class="c1"># 매입평균가격 (매입금액 / 보유수량)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span><span class="p">[</span><span class="s2">&quot;output1&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;pchs_amt&quot;</span><span class="p">]</span>            <span class="c1"># 매입금액</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span><span class="p">[</span><span class="s2">&quot;output1&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;prpr&quot;</span><span class="p">]</span>                <span class="c1"># 현재가</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span><span class="p">[</span><span class="s2">&quot;output1&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;evlu_amt&quot;</span><span class="p">]</span>            <span class="c1"># 평가금액</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span><span class="p">[</span><span class="s2">&quot;output1&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;evlu_pfls_amt&quot;</span><span class="p">]</span>       <span class="c1"># 평가손익금액 (평가금액 - 매입금액)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span><span class="p">[</span><span class="s2">&quot;output1&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;evlu_pfls_rt&quot;</span><span class="p">]</span>        <span class="c1"># 평가손익율</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span><span class="p">[</span><span class="s2">&quot;output1&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;evlu_erng_rt&quot;</span><span class="p">]</span>        <span class="c1"># 평가수익율</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span><span class="p">[</span><span class="s2">&quot;output2&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;dnca_tot_amt&quot;</span><span class="p">]</span>        <span class="c1"># 예수금총금액</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span><span class="p">[</span><span class="s2">&quot;output2&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;thdt_buy_amt&quot;</span><span class="p">]</span>        <span class="c1"># 금일매수금액</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span><span class="p">[</span><span class="s2">&quot;output2&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;tot_evlu_amt&quot;</span><span class="p">]</span>        <span class="c1"># 총평가금액 (유가증권 평가금액 합계금액 + D+2 예수금)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span><span class="p">[</span><span class="s2">&quot;output2&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;nass_amt&quot;</span><span class="p">]</span>            <span class="c1"># 순자산금액</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span><span class="p">[</span><span class="s2">&quot;output2&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;pchs_amt_smtl_amt&quot;</span><span class="p">]</span>   <span class="c1"># 매입금액합계금액</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span><span class="p">[</span><span class="s2">&quot;output2&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;evlu_amt_smtl_amt&quot;</span><span class="p">]</span>   <span class="c1"># 평가금액합계금액</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span><span class="p">[</span><span class="s2">&quot;output2&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;evlu_pfls_smtl_amt&quot;</span><span class="p">]</span>  <span class="c1"># 평가손익합계금액</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">broker</span><span class="o">.</span><span class="n">get_balance</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">{&#39;output1&#39;: [], &#39;output2&#39;: {&#39;frcr_pchs_amt1&#39;: &#39;...&#39;, ...}}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.api.KoreaInvestment.get_ohlcv">
+<span class="sig-name descname"><span class="pre">get_ohlcv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'D'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_day</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_day</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adj_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.KoreaInvestment.get_ohlcv" title="Permalink to this definition">#</a></dt>
+<dd><p>종목 code에 따른 기간별 OHLCV (Open, High, Low, Close, Volume)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.api.KoreaInvestment.get_ohlcv.params.symbol"></span><strong>symbol</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.KoreaInvestment.get_ohlcv.params.symbol">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 종목 code</p></li>
+<li><p><span class="target" id="zerohertzLib.api.KoreaInvestment.get_ohlcv.params.time_frame"></span><strong>time_frame</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.KoreaInvestment.get_ohlcv.params.time_frame">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 시간 window size (<code class="docutils literal notranslate"><span class="pre">&quot;D&quot;</span></code>: 일, <code class="docutils literal notranslate"><span class="pre">&quot;W&quot;</span></code>: 주, <code class="docutils literal notranslate"><span class="pre">&quot;M&quot;</span></code>: 월, <code class="docutils literal notranslate"><span class="pre">&quot;Y&quot;</span></code>: 년)</p></li>
+<li><p><span class="target" id="zerohertzLib.api.KoreaInvestment.get_ohlcv.params.start_day"></span><strong>start_day</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.KoreaInvestment.get_ohlcv.params.start_day">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 조회 시작 일자 (<code class="docutils literal notranslate"><span class="pre">YYYYMMDD</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.api.KoreaInvestment.get_ohlcv.params.end_day"></span><strong>end_day</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.KoreaInvestment.get_ohlcv.params.end_day">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 조회 종료 일자 (<code class="docutils literal notranslate"><span class="pre">YYYYMMDD</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.api.KoreaInvestment.get_ohlcv.params.adj_price"></span><strong>adj_price</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.KoreaInvestment.get_ohlcv.params.adj_price">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 수정 주가 반영 여부</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>OHLCV (Open, High, Low, Close, Volume)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">Dict]</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">broker</span><span class="o">.</span><span class="n">get_ohlcv</span><span class="p">(</span><span class="s2">&quot;005930&quot;</span><span class="p">)</span>
+<span class="go">{&#39;output1&#39;: {&#39;prdy_vrss&#39;: &#39;...&#39;, ...}, &#39;output2&#39;: [&#39;stck_bsop_date&#39;: &#39;...&#39;, ...]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">broker</span><span class="o">.</span><span class="n">get_ohlcv</span><span class="p">(</span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="n">kor</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">{&#39;output1&#39;: {&#39;rsym&#39;: &#39;...&#39;, ...}, &#39;output2&#39;: [&#39;xymd&#39;: &#39;...&#39;, ...]}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.api.KoreaInvestment.get_price">
+<span class="sig-name descname"><span class="pre">get_price</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.KoreaInvestment.get_price" title="Permalink to this definition">#</a></dt>
+<dd><p>주식 현재가 시세</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.api.KoreaInvestment.get_price.params.symbol"></span><strong>symbol</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.KoreaInvestment.get_price.params.symbol">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 종목 code</p></li>
+<li><p><span class="target" id="zerohertzLib.api.KoreaInvestment.get_price.params.kor"></span><strong>kor</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.KoreaInvestment.get_price.params.kor">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 국내 여부</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>주식 현재가 시세</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">Dict]</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">samsung</span> <span class="o">=</span> <span class="n">broker</span><span class="o">.</span><span class="n">get_price</span><span class="p">(</span><span class="s2">&quot;005930&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">samsung</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">][</span><span class="s2">&quot;stck_prpr&quot;</span><span class="p">]</span>   <span class="c1"># 주식 현재가</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">samsung</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">][</span><span class="s2">&quot;per&quot;</span><span class="p">]</span>         <span class="c1"># PER (Price-to-Earnings Ratio, 주가수익비율)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">samsung</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">][</span><span class="s2">&quot;pbr&quot;</span><span class="p">]</span>         <span class="c1"># PBR (Price-to-Book Ratio, 주가순자산비율)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">samsung</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">][</span><span class="s2">&quot;eps&quot;</span><span class="p">]</span>         <span class="c1"># EPS (Earnings Per Share, 주당순이익)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">samsung</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">][</span><span class="s2">&quot;bps&quot;</span><span class="p">]</span>         <span class="c1"># BPS (Book-value Per Share, 주당순자산가치)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">samsung</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">][</span><span class="s2">&quot;w52_hgpr&quot;</span><span class="p">]</span>    <span class="c1"># 52주일 최고가</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">samsung</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">][</span><span class="s2">&quot;w52_lwpr&quot;</span><span class="p">]</span>    <span class="c1"># 52주일 최저가</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">apple</span> <span class="o">=</span> <span class="n">broker</span><span class="o">.</span><span class="n">get_price</span><span class="p">(</span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="n">kor</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">apple</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">][</span><span class="s2">&quot;last&quot;</span><span class="p">]</span>          <span class="c1"># 현재가</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">apple</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">][</span><span class="s2">&quot;ordy&quot;</span><span class="p">]</span>          <span class="c1"># 매수가능여부</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.api.KoreaInvestment.response2ohlcv">
+<span class="sig-name descname"><span class="pre">response2ohlcv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.KoreaInvestment.response2ohlcv" title="Permalink to this definition">#</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">get_ohlcv</span></code> 에 의한 응답을 <code class="docutils literal notranslate"><span class="pre">pd.DataFrame</span></code> 으로 변환</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.api.KoreaInvestment.response2ohlcv.params.response"></span><strong>response</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.KoreaInvestment.response2ohlcv.params.response">¶</a> (<code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">Dict]</span></code>) – <code class="docutils literal notranslate"><span class="pre">get_ohlcv</span></code> 의 출력</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>종목의 이름과 OHLCV (Open, High, Low, Close, Volume)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Tuple[str,</span> <span class="pre">pd.core.frame.DataFrame]</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">samsung</span> <span class="o">=</span> <span class="n">broker</span><span class="o">.</span><span class="n">get_ohlcv</span><span class="p">(</span><span class="s2">&quot;005930&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">broker</span><span class="o">.</span><span class="n">response2ohlcv</span><span class="p">(</span><span class="n">samsung</span><span class="p">)</span>
+<span class="go">(&#39;삼성전자&#39;,  Open    High     Low      Close     Volume</span>
+<span class="go">2023-07-10  70000.0  70400.0  69200.0  69500.0  11713926.0</span>
+<span class="go">...             ...      ...      ...      ...         ...</span>
+<span class="go">2023-12-04  72800.0  72900.0  72400.0  72700.0   7917006.0</span>
+<span class="go">[100 rows x 5 columns])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">apple</span> <span class="o">=</span> <span class="n">broker</span><span class="o">.</span><span class="n">get_ohlcv</span><span class="p">(</span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="n">kor</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">broker</span><span class="o">.</span><span class="n">response2ohlcv</span><span class="p">(</span><span class="n">apple</span><span class="p">)</span>
+<span class="go">(&#39;AAPL&#39;,    Open      High      Low       Close     Volume</span>
+<span class="go">2023-07-13  189.9927  190.6808  189.2746  190.0325  41342338.0</span>
+<span class="go">...              ...       ...       ...       ...         ...</span>
+<span class="go">2023-12-01  190.3300  191.5600  189.2300  191.2400  45704823.0</span>
+<span class="go">[100 rows x 5 columns])</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -722,6 +921,16 @@
 <li><a class="reference internal" href="#zerohertzLib.api.GitHub.release_note"><code class="docutils literal notranslate"><span class="pre">GitHub.release_note()</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#zerohertzLib.api.KoreaInvestment"><code class="docutils literal notranslate"><span class="pre">KoreaInvestment</span></code></a><ul>
+<li><a class="reference internal" href="#zerohertzLib.api.KoreaInvestment.api_key"><code class="docutils literal notranslate"><span class="pre">KoreaInvestment.api_key</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.KoreaInvestment.api_secret"><code class="docutils literal notranslate"><span class="pre">KoreaInvestment.api_secret</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.KoreaInvestment.acc_no"><code class="docutils literal notranslate"><span class="pre">KoreaInvestment.acc_no</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.KoreaInvestment.get_balance"><code class="docutils literal notranslate"><span class="pre">KoreaInvestment.get_balance()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.KoreaInvestment.get_ohlcv"><code class="docutils literal notranslate"><span class="pre">KoreaInvestment.get_ohlcv()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.KoreaInvestment.get_price"><code class="docutils literal notranslate"><span class="pre">KoreaInvestment.get_price()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.KoreaInvestment.response2ohlcv"><code class="docutils literal notranslate"><span class="pre">KoreaInvestment.response2ohlcv()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#zerohertzLib.api.OpenAI"><code class="docutils literal notranslate"><span class="pre">OpenAI</span></code></a><ul>
 <li><a class="reference internal" href="#zerohertzLib.api.OpenAI.model"><code class="docutils literal notranslate"><span class="pre">OpenAI.model</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.api.OpenAI.__call__"><code class="docutils literal notranslate"><span class="pre">OpenAI.__call__()</span></code></a></li>
@@ -764,7 +973,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=c3dca1ed"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=67a425f4"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
