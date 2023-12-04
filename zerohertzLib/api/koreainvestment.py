@@ -47,6 +47,7 @@ import datetime
 import json
 import os
 import pickle
+import time
 from collections import defaultdict
 from typing import Dict, Optional, Tuple
 
@@ -328,7 +329,15 @@ class KoreaInvestment:
             "FID_ORG_ADJ_PRC": 0 if adj_price else 1,
         }
         response = requests.get(url, headers=headers, params=params, timeout=10)
-        return response.json()
+        data = response.json()
+        if not start_day == "19800104":
+            while start_day < data["output2"][-1]["stck_bsop_date"]:
+                params["FID_INPUT_DATE_2"] = data["output2"][-1]["stck_bsop_date"]
+                response = requests.get(url, headers=headers, params=params, timeout=10)
+                data_ = response.json()
+                data["output2"] += data_["output2"]
+                time.sleep(0.02)
+        return data
 
     def _get_overesea_ohlcv(
         self,
