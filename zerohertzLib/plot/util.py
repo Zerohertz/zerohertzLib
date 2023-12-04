@@ -67,7 +67,10 @@ def savefig(title: str, dpi: Optional[int] = 300) -> None:
 
 
 def color(
-    cnt: Optional[int] = 1, rand: Optional[bool] = False, uint8: Optional[bool] = False
+    cnt: Optional[int] = 1,
+    rand: Optional[bool] = False,
+    uint8: Optional[bool] = False,
+    palette: Optional[str] = "husl",
 ) -> Union[Tuple[float], List[int], List[Tuple[float]], List[List[int]]]:
     """색 추출 함수
 
@@ -75,6 +78,7 @@ def color(
         cnt (``Optional[int]``): 추출할 색의 수
         rand (``Optional[bool]``): Random 추출 여부
         uint8 (``Optional[bool]``): 출력 색상의 type
+        palette (``Optional[str]``): 추출할 색들의 palette
 
     Returns:
         ``Union[Tuple[float], List[Tuple[List]]]``: 단일 색 또는 list로 구성된 여러 색
@@ -97,18 +101,18 @@ def color(
         if uint8:
             return [
                 int(i * 255)
-                for i in random.choice(sns.color_palette("husl", n_colors=100))
+                for i in random.choice(sns.color_palette(palette, n_colors=100))
             ]
-        return random.choice(sns.color_palette("husl", n_colors=100))
+        return random.choice(sns.color_palette(palette, n_colors=100))
     if rand:
         if uint8:
             return [
                 [int(j * 255) for j in i]
-                for i in random.choices(sns.color_palette("husl", n_colors=100), k=cnt)
+                for i in random.choices(sns.color_palette(palette, n_colors=100), k=cnt)
             ]
-        return random.choices(sns.color_palette("husl", n_colors=100), k=cnt)
+        return random.choices(sns.color_palette(palette, n_colors=100), k=cnt)
     if uint8:
         return [
-            [int(j * 255) for j in i] for i in sns.color_palette("husl", n_colors=cnt)
+            [int(j * 255) for j in i] for i in sns.color_palette(palette, n_colors=cnt)
         ]
-    return sns.color_palette("husl", n_colors=cnt)
+    return sns.color_palette(palette, n_colors=cnt)
