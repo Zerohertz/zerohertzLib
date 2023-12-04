@@ -186,6 +186,7 @@ def candle(
                 linewidth=2,
                 marker=marker[i % len(marker)],
                 label=key,
+                alpha=0.5,
             )
         new_axis.set_yticks([-1, 0, 1])
         new_axis.set_yticklabels(["Buy", "", "Sell"])
