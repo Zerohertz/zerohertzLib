@@ -11,6 +11,7 @@
     zerohertzLib.monitoring
     zerohertzLib.plot
     zerohertzLib.util
+    zerohertzLib.quant
     zerohertzLib.vision
 ```
 

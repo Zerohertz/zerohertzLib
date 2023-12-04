@@ -79,6 +79,9 @@ jobs:
                 if (file.filename.startsWith('zerohertzLib/plot/__init__') || body.includes('plot')) {
                   labelsToAdd.push('feat/plot');
                 }
+                if (file.filename.startsWith('zerohertzLib/quant/__init__') || body.includes('quant')) {
+                  labelsToAdd.push('feat/quant');
+                }
                 if (file.filename.startsWith('zerohertzLib/util/__init__') || body.includes('util')) {
                   labelsToAdd.push('feat/util');
                 }
