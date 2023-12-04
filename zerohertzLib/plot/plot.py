@@ -22,8 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 
+import matplotlib as mpl
 import mplfinance as mpf
 import pandas as pd
 from matplotlib import pyplot as plt
@@ -110,7 +111,8 @@ def candle(
     figsize: Optional[Tuple[int]] = (18, 10),
     dpi: Optional[int] = 300,
     save: Optional[bool] = True,
-) -> None:
+    signals: Optional[Dict[str, Any]] = None,
+) -> Tuple[mpl.figure.Figure, List[mpl.axes._axes.Axes]]:
     """OHLCV (Open, High, Low, Close, Volume) data에 따른 candle chart
 
     Args:
@@ -119,6 +121,7 @@ def candle(
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         save (``Optional[bool]``): Graph 저장 여부
+        signals (``Optional[Dict[str, Any]]``): 추가적으로 plot할 data
 
     Returns:
         ``None``: 현재 directory에 바로 graph 저장
@@ -159,7 +162,7 @@ def candle(
             "figure.titlesize": 35,
         },
     )
-    mpf.plot(
+    _, axlist = mpf.plot(
         data,
         type="candle",
         mav=(5, 10, 20),
@@ -167,7 +170,25 @@ def candle(
         figsize=figsize,
         title=title,
         style=style,
+        returnfig=True,
     )
-    plt.axis("equal")
+    if signals is not None:
+        linestyle = ["-", "--", "-.", ":"]
+        marker = ["o", "v", "^", "s", "p", "*", "x"]
+        new_axis = axlist[0].twinx()
+        colors = color(len(signals), palette="pastel")
+        for i, (key, value) in enumerate(signals.items()):
+            new_axis.plot(
+                axlist[0].get_lines()[0].get_xdata(),
+                value,
+                color=colors[i],
+                linestyle=linestyle[i % len(linestyle)],
+                linewidth=2,
+                marker=marker[i % len(marker)],
+                label=key,
+            )
+        new_axis.set_yticks([-1, 0, 1])
+        new_axis.set_yticklabels(["Buy", "", "Sell"])
+        plt.legend()
     if save:
         savefig(title, dpi)
