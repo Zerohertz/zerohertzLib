@@ -61,8 +61,8 @@ def backtest(
                 logs.append((wallet, -price, 0))
                 stock = 0
     if stock > 0:
-        wallet += price * stock
-        logs.append((wallet, -price, 0))
+        wallet += data["Close"][-1] * stock
+        logs.append((wallet, -data["Close"][-1], 0))
     return wallet / 10_000_000 * 100 - 100, logs
 
 
