@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.plot" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.plot.html" />
-<meta property="og:site_name" content="Zerohertz's Library 0.5.4 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library 0.5.5 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library 0.5.4 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library 0.5.5 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.plot.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.plot - zerohertzLib 0.5.4 documentation</title>
+        <title>zerohertzLib.plot - zerohertzLib 0.5.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib 0.5.4 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib 0.5.5 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib 0.5.4 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib 0.5.5 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -197,6 +197,7 @@
 <li class="toctree-l2"><a class="reference internal" href="zerohertzLib.monitoring.html">zerohertzLib.monitoring</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">zerohertzLib.plot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zerohertzLib.util.html">zerohertzLib.util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zerohertzLib.quant.html">zerohertzLib.quant</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zerohertzLib.vision.html">zerohertzLib.vision</a></li>
 </ul>
 </li>
@@ -324,8 +325,44 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="zerohertzLib.plot.candle">
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.plot.</span></span><span class="sig-name descname"><span class="pre">candle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tmp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(18,</span> <span class="pre">10)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.plot.candle" title="Permalink to this definition">#</a></dt>
+<dd><p>OHLCV (Open, High, Low, Close, Volume) data에 따른 candle chart</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.plot.candle.params.data"></span><strong>data</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.candle.params.data">¶</a> (<code class="docutils literal notranslate"><span class="pre">pd.core.frame.DataFrame</span></code>) – OHLCV (Open, High, Low, Close, Volume) data</p></li>
+<li><p><span class="target" id="zerohertzLib.plot.candle.params.title"></span><strong>title</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.candle.params.title">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Graph에 표시될 제목 및 file 이름</p></li>
+<li><p><span class="target" id="zerohertzLib.plot.candle.params.figsize"></span><strong>figsize</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.candle.params.figsize">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[Tuple[int]]</span></code>) – Graph의 가로, 세로 길이</p></li>
+<li><p><span class="target" id="zerohertzLib.plot.candle.params.dpi"></span><strong>dpi</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.candle.params.dpi">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>): Graph 저장 시 DPI (Dots Per Inch)</p></li>
+<li><p><span class="target" id="zerohertzLib.plot.candle.params.save"></span><strong>save</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.candle.params.save">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – Graph 저장 여부</p></li>
+<li><p><span class="target" id="zerohertzLib.plot.candle.params.signals"></span><strong>signals</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.candle.params.signals">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[Dict[str,</span> <span class="pre">Any]]</span></code>) – 추가적으로 plot할 data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>현재 directory에 바로 graph 저장</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">broker</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">KoreaInvestment</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">samsung</span> <span class="o">=</span> <span class="n">broker</span><span class="o">.</span><span class="n">get_ohlcv</span><span class="p">(</span><span class="s2">&quot;005930&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;20221205&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">title</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">broker</span><span class="o">.</span><span class="n">response2ohlcv</span><span class="p">(</span><span class="n">samsung</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">signals</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">moving_average</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">candle</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">signals</span><span class="o">=</span><span class="n">signals</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">apple</span> <span class="o">=</span> <span class="n">broker</span><span class="o">.</span><span class="n">get_ohlcv</span><span class="p">(</span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="n">kor</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">title</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">broker</span><span class="o">.</span><span class="n">response2ohlcv</span><span class="p">(</span><span class="n">apple</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">candle</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287729767-fc7b51c2-13c3-496b-8bda-309a4059bd56.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287729767-fc7b51c2-13c3-496b-8bda-309a4059bd56.png" style="width: 800px;" /></a>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.plot.color">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.plot.</span></span><span class="sig-name descname"><span class="pre">color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rand</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uint8</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.plot.color" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.plot.</span></span><span class="sig-name descname"><span class="pre">color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cnt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rand</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uint8</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">palette</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'husl'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.plot.color" title="Permalink to this definition">#</a></dt>
 <dd><p>색 추출 함수</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -333,6 +370,7 @@
 <li><p><span class="target" id="zerohertzLib.plot.color.params.cnt"></span><strong>cnt</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.color.params.cnt">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – 추출할 색의 수</p></li>
 <li><p><span class="target" id="zerohertzLib.plot.color.params.rand"></span><strong>rand</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.color.params.rand">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – Random 추출 여부</p></li>
 <li><p><span class="target" id="zerohertzLib.plot.color.params.uint8"></span><strong>uint8</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.color.params.uint8">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 출력 색상의 type</p></li>
+<li><p><span class="target" id="zerohertzLib.plot.color.params.palette"></span><strong>palette</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.color.params.palette">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 추출할 색들의 palette</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -633,6 +671,7 @@
 <li><a class="reference internal" href="#">zerohertzLib.plot</a><ul>
 <li><a class="reference internal" href="#zerohertzLib.plot.barh"><code class="docutils literal notranslate"><span class="pre">barh()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.plot.barv"><code class="docutils literal notranslate"><span class="pre">barv()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.plot.candle"><code class="docutils literal notranslate"><span class="pre">candle()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.plot.color"><code class="docutils literal notranslate"><span class="pre">color()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.plot.figure"><code class="docutils literal notranslate"><span class="pre">figure()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.plot.hist"><code class="docutils literal notranslate"><span class="pre">hist()</span></code></a></li>
@@ -654,7 +693,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=c3dca1ed"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=67a425f4"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

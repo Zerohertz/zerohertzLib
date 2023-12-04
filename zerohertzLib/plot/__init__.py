@@ -11,7 +11,7 @@ from matplotlib import pyplot as plt
 
 from zerohertzLib.plot.bar_chart import barh, barv, hist
 from zerohertzLib.plot.pie import pie
-from zerohertzLib.plot.plot import plot
+from zerohertzLib.plot.plot import candle, plot
 from zerohertzLib.plot.scatter import scatter
 from zerohertzLib.plot.table import table
 from zerohertzLib.plot.util import color, figure, savefig
@@ -33,4 +33,5 @@ __all__ = [
     "table",
     "savefig",
     "figure",
+    "candle",
 ]

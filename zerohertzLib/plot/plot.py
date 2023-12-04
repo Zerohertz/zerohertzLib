@@ -22,8 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 
+import matplotlib as mpl
+import mplfinance as mpf
+import pandas as pd
 from matplotlib import pyplot as plt
 
 from .util import color, savefig
@@ -100,3 +103,124 @@ def plot(
     plt.legend(ncol=ncol)
     if save:
         savefig(title, dpi)
+
+
+def candle(
+    data: pd.core.frame.DataFrame,
+    title: Optional[str] = "tmp",
+    figsize: Optional[Tuple[int]] = (18, 10),
+    dpi: Optional[int] = 300,
+    save: Optional[bool] = True,
+    signals: Optional[Dict[str, Any]] = None,
+) -> Tuple[mpl.figure.Figure, List[mpl.axes._axes.Axes]]:
+    """OHLCV (Open, High, Low, Close, Volume) data에 따른 candle chart
+
+    Args:
+        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+        title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
+        figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
+        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        save (``Optional[bool]``): Graph 저장 여부
+        signals (``Optional[Dict[str, Any]]``): 추가적으로 plot할 data
+
+    Returns:
+        ``None``: 현재 directory에 바로 graph 저장
+
+    Examples:
+        >>> broker = zz.api.KoreaInvestment()
+        >>> samsung = broker.get_ohlcv("005930", "D", "20221205")
+        >>> title, data = broker.response2ohlcv(samsung)
+        >>> signals = zz.quant.moving_average(data)
+        >>> zz.plot.candle(data, title, signals=signals)
+        >>> apple = broker.get_ohlcv("AAPL", kor=False)
+        >>> title, data = broker.response2ohlcv(apple)
+        >>> zz.plot.candle(data, title)
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287729767-fc7b51c2-13c3-496b-8bda-309a4059bd56.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 800px
+    """
+    marketcolors = mpf.make_marketcolors(
+        up="red",
+        down="blue",
+        edge="black",
+        volume={"up": "red", "down": "blue"},
+        inherit=False,
+    )
+    marketcolors["vcedge"] = {"up": "#000000", "down": "#000000"}
+    style = mpf.make_mpf_style(
+        marketcolors=marketcolors,
+        mavcolors=color(3),
+        facecolor="white",
+        edgecolor="black",
+        figcolor="white",
+        gridcolor="gray",
+        gridstyle="-",
+        rc={
+            "font.size": plt.rcParams["font.size"],
+            "font.family": plt.rcParams["font.family"],
+            "figure.titlesize": 35,
+        },
+    )
+    bands = _bollinger_bands(data)
+    bollinger = mpf.make_addplot(bands[["lower_band", "upper_band"]], type="line")
+    _, axlist = mpf.plot(
+        data,
+        type="candle",
+        mav=(5, 10, 20),
+        volume=True,
+        figsize=figsize,
+        title=title,
+        style=style,
+        returnfig=True,
+        addplot=bollinger,
+    )
+    if signals is not None:
+        new_axis = axlist[0].twinx()
+        xdata = axlist[0].get_lines()[0].get_xdata()
+        # new_axis.plot(
+        #     xdata,
+        #     signals["signals"],
+        #     color="black",
+        #     linewidth=1,
+        #     alpha=0.8,
+        # )
+        buy_indices = []
+        sell_indices = []
+        for idx, pos in enumerate(signals["positions"]):
+            if pos == -1:
+                buy_indices.append(idx)
+            elif pos == 1:
+                sell_indices.append(idx)
+        for i in buy_indices:
+            new_axis.axvline(
+                x=xdata[i], color="blue", linestyle="--", linewidth=2, alpha=0.5
+            )
+        for i in sell_indices:
+            new_axis.axvline(
+                x=xdata[i], color="red", linestyle="--", linewidth=2, alpha=0.5
+            )
+        new_axis.set_yticks([])
+        # new_axis.set_yticks([-1, 0, 1])
+        # new_axis.set_yticklabels(["Buy", "", "Sell"])
+        # plt.legend()
+    if save:
+        savefig(title, dpi)
+
+
+def _bollinger_bands(data: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
+    """Bollinger band 계산 함수
+
+    Args:
+        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+
+    Returns:
+        ``pd.core.frame.DataFrame``: Bollinger band
+    """
+    bands = pd.DataFrame(index=data.index)
+    bands["middle_band"] = data.iloc[:, :4].mean(1).rolling(window=20).mean()
+    std_dev = data.iloc[:, :4].mean(1).rolling(window=20).std()
+    bands["upper_band"] = bands["middle_band"] + (std_dev * 2)
+    bands["lower_band"] = bands["middle_band"] - (std_dev * 2)
+    return bands
