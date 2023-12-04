@@ -54,6 +54,11 @@ def moving_average(
         ...             ...           ...           ...        ...
         2023-12-04     -1.0  72226.666667  69790.000000          0
         [249 rows x 4 columns]
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287718088-60cf2068-e7ea-4440-9fdf-ea17b009b816.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 400px
     """
     signals = pd.DataFrame(index=data.index)
     signals["signals"] = 0.0
