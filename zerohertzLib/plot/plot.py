@@ -24,6 +24,8 @@ SOFTWARE.
 
 from typing import Dict, List, Optional, Tuple, Union
 
+import mplfinance as mpf
+import pandas as pd
 from matplotlib import pyplot as plt
 
 from .util import color, savefig
@@ -98,5 +100,74 @@ def plot(
         plt.ylim(ylim)
     plt.title(title, fontsize=25)
     plt.legend(ncol=ncol)
+    if save:
+        savefig(title, dpi)
+
+
+def candle(
+    data: pd.core.frame.DataFrame,
+    title: Optional[str] = "tmp",
+    figsize: Optional[Tuple[int]] = (18, 10),
+    dpi: Optional[int] = 300,
+    save: Optional[bool] = True,
+) -> None:
+    """OHLCV (Open, High, Low, Close, Volume) data에 따른 candle chart
+
+    Args:
+        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+        title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
+        figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
+        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        save (``Optional[bool]``): Graph 저장 여부
+
+    Returns:
+        ``None``: 현재 directory에 바로 graph 저장
+
+    Examples:
+        >>> broker = zz.api.KoreaInvestment()
+        >>> samsung = broker.get_ohlcv("005930")
+        >>> title, data = broker.response2ohlcv(samsung)
+        >>> zz.plot.candle(data, title)
+        >>> apple = broker.get_ohlcv("AAPL", kor=False)
+        >>> title, data = broker.response2ohlcv(apple)
+        >>> zz.plot.candle(data, title)
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287610174-fc026c31-63f9-4615-9b28-55146a78f30b.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 500px
+    """
+    marketcolors = mpf.make_marketcolors(
+        up="red",
+        down="blue",
+        edge="black",
+        volume={"up": "red", "down": "blue"},
+        inherit=False,
+    )
+    marketcolors["vcedge"] = {"up": "#000000", "down": "#000000"}
+    style = mpf.make_mpf_style(
+        marketcolors=marketcolors,
+        mavcolors=color(3),
+        facecolor="white",
+        edgecolor="black",
+        figcolor="white",
+        gridcolor="gray",
+        gridstyle="-",
+        rc={
+            "font.size": plt.rcParams["font.size"],
+            "font.family": plt.rcParams["font.family"],
+            "figure.titlesize": 35,
+        },
+    )
+    mpf.plot(
+        data,
+        type="candle",
+        mav=(5, 10, 20),
+        volume=True,
+        figsize=figsize,
+        title=title,
+        style=style,
+    )
+    plt.axis("equal")
     if save:
         savefig(title, dpi)

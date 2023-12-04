@@ -4,6 +4,7 @@ psutil
 # plot
 matplotlib
 seaborn
+mplfinance
 
 # util
 tqdm
