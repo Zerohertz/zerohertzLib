@@ -155,7 +155,9 @@ class KoreaInvestment:
             "appkey": self.api_key,
             "appsecret": self.api_secret,
         }
-        response = requests.post(url, headers=headers, data=json.dumps(data)).json()
+        response = requests.post(
+            url, headers=headers, data=json.dumps(data), timeout=10
+        ).json()
         self.access_token = f"Bearer {response['access_token']}"
         now = datetime.datetime.now()
         response["timestamp"] = int(now.timestamp()) + response["expires_in"]
@@ -220,7 +222,7 @@ class KoreaInvestment:
             "tr_id": "FHKST01010100",
         }
         params = {"fid_cond_mrkt_div_code": "J", "fid_input_iscd": symbol}
-        response = requests.get(url, headers=headers, params=params)
+        response = requests.get(url, headers=headers, params=params, timeout=10)
         return response.json()
 
     def _get_oversea_price(self, symbol: str) -> Dict[str, Dict]:
@@ -244,7 +246,7 @@ class KoreaInvestment:
             "tr_id": "HHDFS00000300",
         }
         params = {"AUTH": "", "EXCD": "NAS", "SYMB": symbol}
-        response = requests.get(url, headers=headers, params=params)
+        response = requests.get(url, headers=headers, params=params, timeout=10)
         return response.json()
 
     def get_ohlcv(
@@ -325,7 +327,7 @@ class KoreaInvestment:
             "FID_PERIOD_DIV_CODE": time_frame,
             "FID_ORG_ADJ_PRC": 0 if adj_price else 1,
         }
-        resp = requests.get(url, headers=headers, params=params)
+        resp = requests.get(url, headers=headers, params=params, timeout=10)
         return resp.json()
 
     def _get_overesea_ohlcv(
@@ -370,7 +372,7 @@ class KoreaInvestment:
             "BYMD": end_day,
             "MODP": 1 if adj_price else 0,
         }
-        resp = requests.get(url, headers=headers, params=params)
+        resp = requests.get(url, headers=headers, params=params, timeout=10)
         return resp.json()
 
     def response2ohlcv(
@@ -515,7 +517,7 @@ class KoreaInvestment:
             "CTX_AREA_FK100": ctx_area_fk100,
             "CTX_AREA_NK100": ctx_area_nk100,
         }
-        res = requests.get(url, headers=headers, params=params)
+        res = requests.get(url, headers=headers, params=params, timeout=10)
         data = res.json()
         data["tr_cont"] = res.headers["tr_cont"]
         return data
@@ -551,7 +553,7 @@ class KoreaInvestment:
             "CTX_AREA_FK200": ctx_area_fk200,
             "CTX_AREA_NK200": ctx_area_nk200,
         }
-        res = requests.get(url, headers=headers, params=params)
+        res = requests.get(url, headers=headers, params=params, timeout=10)
         data = res.json()
         data["tr_cont"] = res.headers["tr_cont"]
         return data
