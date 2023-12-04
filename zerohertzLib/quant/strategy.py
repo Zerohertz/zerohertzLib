@@ -40,7 +40,7 @@ def moving_average(
 
     Args:
         data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
-        short_window (``Optional[int]``: 단기 이동 평균을 계산하기 위한 window 크기
+        short_window (``Optional[int]``): 단기 이동 평균을 계산하기 위한 window 크기
         long_window (``Optional[int]``): 장기 이동 평균을 계산하기 위한 widnow 크기
         ohlc (``Optional[str]``): 이동 평균을 계산할 때 사용할 ``data`` 의 column 이름
 
@@ -161,7 +161,7 @@ def bollinger_bands(
     previous_signal = 0
     for i in range(len(signals)):
         current_signal = signals["signals"].iloc[i]
-        if current_signal != previous_signal and current_signal != 0:
+        if not current_signal in (previous_signal, 0):
             signals.loc[signals.index[i], "positions"] = current_signal
         previous_signal = current_signal
     return signals
