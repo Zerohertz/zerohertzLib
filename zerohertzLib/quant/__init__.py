@@ -13,6 +13,7 @@
 """
 
 from zerohertzLib.quant.backtest import Experiments, backtest, experiments
+from zerohertzLib.quant.data import Quant
 from zerohertzLib.quant.strategies import bollinger_bands, momentum, moving_average, rsi
 
 __all__ = [
@@ -23,4 +24,5 @@ __all__ = [
     "bollinger_bands",
     "momentum",
     "Experiments",
+    "Quant",
 ]

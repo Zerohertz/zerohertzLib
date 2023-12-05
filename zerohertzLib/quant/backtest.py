@@ -245,10 +245,14 @@ class Experiments:
         self.title = title
         self.data = data
         self.ohlc = ohlc
-        self.exps_moving_average = [[10, 20, 30], [50, 60, 70], [100, 500, 1000]]
-        self.exps_rsi = [[10, 20, 30], [70, 80, 90], [7, 14, 21]]
-        self.exps_bollinger_bands = [[7, 10, 14, 20], [1.9, 2, 2.1]]
-        self.exps_momentum = [[5, 10, 15], [5, 10, 15], [25, 50, 75]]
+        self.exps_moving_average = [
+            [5, 10, 15, 20, 25],
+            [60, 65, 70, 75, 80],
+            [50, 100, 150, 200],
+        ]
+        self.exps_rsi = [[10, 20, 30, 40, 50], [70, 80, 90, 100, 120], [7, 14, 21, 30]]
+        self.exps_bollinger_bands = [[7, 10, 14, 21, 30], [1.9, 2, 2.1]]
+        self.exps_momentum = [[5, 10, 15], [5, 10, 15], [10, 25, 50, 75]]
 
     def _experiments(
         self,
