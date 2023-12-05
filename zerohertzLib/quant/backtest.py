@@ -94,6 +94,7 @@ def experiments(
         [Any], Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]
     ],
     exps: List[List[Any]],
+    ohlc: Optional[str] = "Open",
 ) -> str:
     """Full factorial design 기반의 backtest 수행 함수
 
@@ -102,6 +103,7 @@ def experiments(
         data (``Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]``): OHLCV (Open, High, Low, Close, Volume) data
         strategy (``Callable[[Any], Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]]``): Full factorial을 수행할 전략 함수
         exps (``List[List[Any]]``): 전략 함수에 입력될 변수들의 범위
+        ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
 
     Returns:
         ``str``: 실험의 결과
@@ -120,8 +122,8 @@ def experiments(
     results = []
     reports = []
     for exp in product(*exps):
-        signals = strategy(data, *exp)
-        profit = backtest(data, signals)
+        signals = strategy(data, *exp, ohlc=ohlc)
+        profit = backtest(data, signals, ohlc=ohlc)
         exp_str = "-".join(list(map(str, exp)))
         profit_total = sum(profit) / len(profit)
         if profit_total == 0:
@@ -160,6 +162,7 @@ class Experiments:
     Args:
         title(``Union[str, List[str]]``): 종목 이름
         data (``Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]``): OHLCV (Open, High, Low, Close, Volume) data
+        ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
 
     Returns:
         ``None``: ``print`` 로 backtest 결과 출력
@@ -204,22 +207,24 @@ class Experiments:
         self,
         title: Union[str, List[str]],
         data: Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]],
+        ohlc: Optional[str] = "Open",
     ) -> None:
         self.title = title
         self.data = data
+        self.ohlc = ohlc
 
     def moving_average(
         self, exps: List[List[Any]] = [[10, 15, 20], [40, 50, 60]]
     ) -> None:
-        experiments(self.title, self.data, moving_average, exps)
+        experiments(self.title, self.data, moving_average, exps, ohlc=self.ohlc)
 
     def rsi(self, exps: List[List[Any]] = [[20, 30, 40], [60, 70, 80]]) -> None:
-        experiments(self.title, self.data, rsi, exps)
+        experiments(self.title, self.data, rsi, exps, ohlc=self.ohlc)
 
     def bollinger_bands(
         self, exps: List[List[Any]] = [[7, 10, 14], [1.9, 2, 2.1]]
     ) -> None:
-        experiments(self.title, self.data, bollinger_bands, exps)
+        experiments(self.title, self.data, bollinger_bands, exps, ohlc=self.ohlc)
 
-    def momentum(self, exps: List[List[Any]] = [[7, 10, 14]]) -> None:
-        experiments(self.title, self.data, momentum, exps)
+    def momentum(self, exps: List[List[Any]] = [[10, 15, 20, 30, 35]]) -> None:
+        experiments(self.title, self.data, momentum, exps, ohlc=self.ohlc)
