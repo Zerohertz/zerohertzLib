@@ -50,12 +50,12 @@ def backtest(
     stock = 0
     logs = []
     for price, signal in zip(data["Close"], signals["positions"]):
-        if signal == -1:
+        if signal == 1:
             cnt = wallet // price
             stock += cnt
             wallet -= price * cnt
             logs.append((price * stock + wallet, price, stock))
-        else:
+        elif signal == -1:
             if stock > 0:
                 wallet += price * stock
                 logs.append((wallet, -price, 0))
@@ -109,10 +109,7 @@ def experiments(
         candle(
             data,
             f"{title}-{exp_str}",
-            signals={
-                "Signals": signals["signals"],
-                "Positions": signals["positions"],
-            },
+            signals=signals,
         )
         results.append((exp_str, profit))
         if profit == 0 and len(logs) == 0:

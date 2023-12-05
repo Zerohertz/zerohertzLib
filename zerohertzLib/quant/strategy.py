@@ -38,6 +38,9 @@ def moving_average(
 ) -> pd.core.frame.DataFrame:
     """단기 및 장기 이동 평균 기반 매수 및 매도 signal을 생성하는 함수
 
+    - 매수 신호 (``+1``): 단기 이동 평균이 장기 이동 평균보다 높을 때 생성 (상승 추세)
+    - 매도 신호 (``-1``): 단기 이동 평균이 장기 이동 평균보다 낮을 때 생성 (하락 추세)
+
     Args:
         data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         short_window (``Optional[int]``): 단기 이동 평균을 계산하기 위한 window 크기
@@ -49,11 +52,11 @@ def moving_average(
 
     Examples:
         >>> zz.quant.moving_average(data)
-                    signals    short_mavg     long_mavg  positions
-        2022-12-05      0.0  60900.000000  60900.000000          0
-        ...             ...           ...           ...        ...
-        2023-12-04     -1.0  72226.666667  69790.000000          0
-        [249 rows x 4 columns]
+                      short_mavg     long_mavg  signals  positions
+        2022-12-05  60900.000000  60900.000000      0.0          0
+        ...                  ...           ...      ...        ...
+        2023-12-05  72313.333333  69828.000000     -1.0          0
+        [250 rows x 4 columns]
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287730379-368fa075-70b5-4721-91ba-05e7fc579d99.png
             :alt: Visualzation Result
@@ -61,11 +64,11 @@ def moving_average(
             :width: 600px
     """
     signals = pd.DataFrame(index=data.index)
-    signals["signals"] = 0.0
     signals["short_mavg"] = (
         data[ohlc].rolling(window=short_window, min_periods=1).mean()
     )
     signals["long_mavg"] = data[ohlc].rolling(window=long_window, min_periods=1).mean()
+    signals["signals"] = 0.0
     signals["signals"][short_window:] = np.where(
         signals["short_mavg"][short_window:] > signals["long_mavg"][short_window:],
         -1.0,
@@ -87,6 +90,9 @@ def rsi(
 ) -> pd.core.frame.DataFrame:
     """RSI 기반 매수 및 매도 signal을 생성하는 함수
 
+    - 매수 신호 (``+1``): RSI 값이 ``lower_bound`` 보다 낮을 때 생성 (과매도 상태)
+    - 매도 신호 (``-1``): RSI 값이 ``upper_bound`` 보다 높을 때 생성 (과매수 상태)
+
     Args:
         data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         lower_bound (``Optional[int]``): RSI 과매도 기준
@@ -102,8 +108,8 @@ def rsi(
                           RSI  signals  positions
         2022-12-05        NaN        0        NaN
         ...               ...      ...        ...
-        2023-12-04  60.975610        0        0.0
-        [249 rows x 3 columns]
+        2023-12-05  54.320988        0        0.0
+        [250 rows x 3 columns]
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287730363-456bbf0e-62f9-45c8-8025-7fe22588d780.png
             :alt: Visualzation Result
@@ -114,7 +120,7 @@ def rsi(
     signals["RSI"] = _rsi(data[ohlc], window)
     signals["signals"] = 0
     signals["signals"] = np.where(
-        signals["RSI"] > upper_bound, 1, np.where(signals["RSI"] < lower_bound, -1, 0)
+        signals["RSI"] > upper_bound, -1, np.where(signals["RSI"] < lower_bound, 1, 0)
     )
     signals["positions"] = signals["signals"].diff()
     return signals
@@ -127,6 +133,9 @@ def bollinger_bands(
     ohlc: Optional[str] = "Open",
 ) -> pd.core.frame.DataFrame:
     """Bollinger band 기반 매수 및 매도 signal을 생성하는 함수
+
+    - 매수 신호 (``+1``): 주가가 하단 Bollinger band (``lower_band``) 아래로 감소할 때 생성 (과매도 상태)
+    - 매도 신호 (``-1``): 주가가 상단 Bollinger band (``upper_band``) 위로 상승할 때 생성 (과매수 상태)
 
     Args:
         data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
@@ -142,7 +151,8 @@ def bollinger_bands(
                     middle_band    upper_band    lower_band  signals  positions
         2022-12-05          NaN           NaN           NaN        0          0
         ...                 ...           ...           ...      ...        ...
-        2023-12-04      71822.5  73714.581839  69930.418161        0          0
+        2023-12-05     71896.25  73700.650688  70091.849312        0          0
+        [250 rows x 5 columns]
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287743057-aec042ef-6c0b-41b7-a85e-7cc6046a06af.png
             :alt: Visualzation Result
@@ -152,10 +162,10 @@ def bollinger_bands(
     signals = _bollinger_bands(data, window, num_std_dev)
     signals["signals"] = 0
     signals["signals"] = np.where(
-        data[ohlc] < signals["lower_band"], -1, signals["signals"]
+        data[ohlc] < signals["lower_band"], 1, signals["signals"]
     )
     signals["signals"] = np.where(
-        data[ohlc] > signals["upper_band"], 1, signals["signals"]
+        data[ohlc] > signals["upper_band"], -1, signals["signals"]
     )
     signals["positions"] = 0
     previous_signal = 0

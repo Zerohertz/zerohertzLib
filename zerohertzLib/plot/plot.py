@@ -189,9 +189,9 @@ def candle(
         buy_indices = []
         sell_indices = []
         for idx, pos in enumerate(signals["positions"]):
-            if pos == -1:
+            if pos == 1:
                 buy_indices.append(idx)
-            elif pos == 1:
+            elif pos == -1:
                 sell_indices.append(idx)
         for i in buy_indices:
             new_axis.axvline(
