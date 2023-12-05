@@ -32,9 +32,9 @@ from .util import _bollinger_bands, _rsi
 
 def moving_average(
     data: Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]],
-    short_window: Optional[int] = 15,
-    long_window: Optional[int] = 50,
-    ohlc: Optional[str] = "Open",
+    short_window: Optional[int] = 20,
+    long_window: Optional[int] = 60,
+    ohlc: Optional[str] = "",
 ) -> Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]:
     """단기 및 장기 이동 평균 기반 매수 및 매도 signal을 생성하는 함수
 
@@ -52,11 +52,11 @@ def moving_average(
 
     Examples:
         >>> zz.quant.moving_average(data)
-                      short_mavg     long_mavg  signals  positions
-        2022-12-05  60900.000000  60900.000000      0.0          0
-        ...                  ...           ...      ...        ...
-        2023-12-05  72313.333333  69828.000000     -1.0          0
-        [250 rows x 4 columns]
+                      short_mavg  long_mavg  signals  positions
+        2022-12-05  60575.000000   60575.00      0.0          0
+        ...                  ...        ...      ...        ...
+        2023-12-05  72341.666667   69839.50     -1.0          0
+        [248 rows x 4 columns]
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287730379-368fa075-70b5-4721-91ba-05e7fc579d99.png
             :alt: Visualzation Result
@@ -69,10 +69,20 @@ def moving_average(
             signals.append(moving_average(data_, short_window, long_window, ohlc))
         return signals
     signals = pd.DataFrame(index=data.index)
-    signals["short_mavg"] = (
-        data[ohlc].rolling(window=short_window, min_periods=1).mean()
-    )
-    signals["long_mavg"] = data[ohlc].rolling(window=long_window, min_periods=1).mean()
+    if ohlc == "":
+        signals["short_mavg"] = (
+            data.iloc[:, :4].mean(1).rolling(window=short_window, min_periods=1).mean()
+        )
+        signals["long_mavg"] = (
+            data.iloc[:, :4].mean(1).rolling(window=long_window, min_periods=1).mean()
+        )
+    else:
+        signals["short_mavg"] = (
+            data[ohlc].rolling(window=short_window, min_periods=1).mean()
+        )
+        signals["long_mavg"] = (
+            data[ohlc].rolling(window=long_window, min_periods=1).mean()
+        )
     signals["signals"] = 0.0
     signals["signals"][short_window:] = np.where(
         signals["short_mavg"][short_window:] > signals["long_mavg"][short_window:],
@@ -88,10 +98,10 @@ def moving_average(
 
 def rsi(
     data: Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]],
-    lower_bound: Optional[int] = 30,
-    upper_bound: Optional[int] = 70,
+    lower_bound: Optional[int] = 20,
+    upper_bound: Optional[int] = 80,
     window: Optional[int] = 14,
-    ohlc: Optional[str] = "Open",
+    ohlc: Optional[str] = "",
 ) -> Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]:
     """RSI 기반 매수 및 매도 signal을 생성하는 함수
 
@@ -113,8 +123,8 @@ def rsi(
                           RSI  signals  positions
         2022-12-05        NaN        0        NaN
         ...               ...      ...        ...
-        2023-12-05  54.320988        0        0.0
-        [250 rows x 3 columns]
+        2023-12-05  49.609375        0        0.0
+        [248 rows x 3 columns]
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287730363-456bbf0e-62f9-45c8-8025-7fe22588d780.png
             :alt: Visualzation Result
@@ -127,7 +137,10 @@ def rsi(
             signals.append(rsi(data_, lower_bound, upper_bound, window, ohlc))
         return signals
     signals = pd.DataFrame(index=data.index)
-    signals["RSI"] = _rsi(data[ohlc], window)
+    if ohlc == "":
+        signals["RSI"] = _rsi(data.iloc[:, :4].mean(1), window)
+    else:
+        signals["RSI"] = _rsi(data[ohlc], window)
     signals["signals"] = 0
     signals["signals"] = np.where(
         signals["RSI"] > upper_bound, -1, np.where(signals["RSI"] < lower_bound, 1, 0)
@@ -138,9 +151,9 @@ def rsi(
 
 def bollinger_bands(
     data: Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]],
-    window: Optional[int] = 20,
-    num_std_dev: Optional[float] = 2.1,
-    ohlc: Optional[str] = "Open",
+    window: Optional[int] = 14,
+    num_std_dev: Optional[float] = 2.0,
+    ohlc: Optional[str] = "",
 ) -> Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]:
     """Bollinger band 기반 매수 및 매도 signal을 생성하는 함수
 
@@ -161,8 +174,8 @@ def bollinger_bands(
                     middle_band    upper_band    lower_band  signals  positions
         2022-12-05          NaN           NaN           NaN        0          0
         ...                 ...           ...           ...      ...        ...
-        2023-12-05     71896.25  73700.650688  70091.849312        0          0
-        [250 rows x 5 columns]
+        2023-12-05     71883.75  73776.532218  69990.967782        0          0
+        [248 rows x 5 columns]
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287743057-aec042ef-6c0b-41b7-a85e-7cc6046a06af.png
             :alt: Visualzation Result
@@ -176,12 +189,20 @@ def bollinger_bands(
         return signals
     signals = _bollinger_bands(data, window, num_std_dev)
     signals["signals"] = 0
-    signals["signals"] = np.where(
-        data[ohlc] < signals["lower_band"], 1, signals["signals"]
-    )
-    signals["signals"] = np.where(
-        data[ohlc] > signals["upper_band"], -1, signals["signals"]
-    )
+    if ohlc == "":
+        signals["signals"] = np.where(
+            data.iloc[:, :4].mean(1) < signals["lower_band"], 1, signals["signals"]
+        )
+        signals["signals"] = np.where(
+            data.iloc[:, :4].mean(1) > signals["upper_band"], -1, signals["signals"]
+        )
+    else:
+        signals["signals"] = np.where(
+            data[ohlc] < signals["lower_band"], 1, signals["signals"]
+        )
+        signals["signals"] = np.where(
+            data[ohlc] > signals["upper_band"], -1, signals["signals"]
+        )
     signals["positions"] = 0
     previous_signal = 0
     for i in range(len(signals)):
@@ -194,28 +215,38 @@ def bollinger_bands(
 
 def momentum(
     data: Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]],
-    window: Optional[int] = 10,
-    ohlc: Optional[str] = "Open",
+    avg_window: Optional[int] = 10,
+    mnt_window: Optional[int] = 10,
+    ohlc: Optional[str] = "",
 ) -> Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]:
     """Momentum 기반 매수 및 매도 signal을 생성하는 함수
 
-    - 매수 신호 (``+1``): 주가 momentum이 양수일 때 생성 (상승 추세)
-    - 매도 신호 (``-1``): 주가 momentum이 음수일 때 생성 (하락 추세)
+    Note:
+        Momentum:
+            - Definition: ``data[ohlc].diff(window)`` 를 통해 ``window`` 일 전 가격 사이의 차이 계산
+            - Mean
+                - 양의 momentum: 가격 상승
+                - 음의 momentum: 가격 하락
+                - Momentum의 크기: 추세의 강도
+
+        - 매수 신호 (``+1``): 주가 momentum이 양수일 때 생성 (상승 추세)
+        - 매도 신호 (``-1``): 주가 momentum이 음수일 때 생성 (하락 추세)
 
     Args:
         data (``Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]``): OHLCV (Open, High, Low, Close, Volume) data
-        window (``Optional[int]``): 이동 평균을 계산하기 위한 widnow 크기
-        ohlc (``Optional[str]``): 이동 평균을 계산할 때 사용할 ``data`` 의 column 이름
+        avg_window (``Optional[int]``): 이동 평균을 계산하기 위한 widnow 크기
+        mnt_window (``Optional[int]``): Momentum을 계산하기 위한 widnow 크기
+        ohlc (``Optional[str]``): Momentum을 계산할 때 사용할 ``data`` 의 column 이름
 
     Returns:
         ``Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]``: 각 날짜에 대한 signal (``"signals"``) 및 position (``"positions"``) 정보
 
     Examples:
         >>> zz.quant.momentum(data)
-                    momentum  signals  positions
-        2022-12-05       NaN       -1          0
-        ...              ...      ...        ...
-        2023-12-05    -800.0       -1         -1
+                       momentum  signals  positions
+        2022-12-05          NaN       -1          0
+        ...                 ...      ...        ...
+        2023-12-05  1601.428571        1          0
         [248 rows x 3 columns]
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287743057-aec042ef-6c0b-41b7-a85e-7cc6046a06af.png
@@ -226,10 +257,17 @@ def momentum(
     if isinstance(data, list):
         signals = []
         for data_ in data:
-            signals.append(momentum(data_, window, ohlc))
+            signals.append(momentum(data_, avg_window, mnt_window, ohlc))
         return signals
     signals = pd.DataFrame(index=data.index)
-    signals["momentum"] = data[ohlc].diff(window)
+    if ohlc == "":
+        signals["momentum"] = (
+            data.iloc[:, :4].mean(1).rolling(window=avg_window).mean().diff(mnt_window)
+        )
+    else:
+        signals["momentum"] = (
+            data[ohlc].rolling(window=avg_window // 4).mean().diff(mnt_window)
+        )
     signals["signals"] = np.where(signals["momentum"] > 0, 1, -1)
     signals["positions"] = signals["signals"].diff()
     signals["positions"] = np.where(

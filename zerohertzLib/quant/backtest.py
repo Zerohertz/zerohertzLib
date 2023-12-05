@@ -22,8 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+from collections import defaultdict, deque
 from itertools import product
-from typing import Any, Callable, List, Optional, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 import pandas as pd
 
@@ -35,56 +36,72 @@ from .strategies import bollinger_bands, momentum, moving_average, rsi
 def backtest(
     data: Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]],
     signals: Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]],
-    ohlc: Optional[str] = "Open",
-) -> List[float]:
+    ohlc: Optional[str] = "",
+    threshold: Optional[int] = 1,
+) -> Dict[str, Union[float, List[float]]]:
     """전략에 의해 생성된 ``signals`` backtest
 
     Args:
         data (``Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]``): OHLCV (Open, High, Low, Close, Volume) data
         signals (``Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]``): ``"positions"`` column이 포함된 data
         ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
+        threshold (``Optional[int]``): 매수, 매도를 결정할 ``positions`` 경계값
 
     Returns:
-        ``List[float]``: 수익률 (단위: %)
+        ``Dict[str, Union[float, List[float]]]``: 수익률 (단위: %), 손실 거래 비율 (단위: %), 손실 거래 비율에 따른 수익률, 거래 내역
 
     Examples:
-        >>> zz.quant.backtest(data, signals)
-        (4.23899999999999, [(10000000.0, 61500.0, 162.0), (10048600.0, -61800.0, 0), ...])
+        >>> results = zz.quant.backtest(data, signals)
+        >>> results.keys()
+        dict_keys(['profit', 'loss', 'weighted_profit', 'transaction'])
     """
-    if isinstance(data, pd.core.frame.DataFrame) and isinstance(
-        signals, pd.core.frame.DataFrame
-    ):
-        data = [data]
-        signals = [signals]
-    if not (isinstance(data, list) and isinstance(signals, list)):
-        raise TypeError("The 'data' and 'signals' must be 'list'")
-    for data_, signals_ in zip(data, signals):
-        if not (
-            (data[0].index == data_.index).all()
-            and (data_.index == signals_.index).all()
-        ):
-            raise ValueError("The 'index' of 'data' and 'signals' must be same")
-    wallet = [10_000_000_000 // len(data) for _ in range(len(data))]
-    wallet[0] += 10_000_000_000 % len(data)
-    wallet_init = wallet.copy()
-    stock = [0 for _ in range(len(data))]
-    for idx in data[0].index:
-        for i, (data_, signals_) in enumerate(zip(data, signals)):
-            price = data_.loc[idx, ohlc]
-            position = signals_.loc[idx, "positions"]
-            if position == 1:
-                cnt = wallet[i] // price
-                stock[i] += cnt
-                wallet[i] -= price * cnt
-            elif position == -1:
-                if stock[i] > 0:
-                    wallet[i] += price * stock[i]
-                    stock[i] = 0
-    for i, data_ in enumerate(data):
-        if stock[i] > 0:
-            wallet[i] += data_[ohlc][-1] * stock[i]
-        wallet[i] = wallet[i] / wallet_init[i] * 100 - 100
-    return wallet
+    if isinstance(data, list):
+        results = defaultdict(list)
+        for data_, signals_ in zip(data, signals):
+            result = backtest(data_, signals_, ohlc, threshold)
+            for key, value in result.items():
+                results[key].append(value)
+        return results
+    wallet = 10_000_000_000
+    stock = deque()
+    transactions = []
+    for idx in data.index:
+        if ohlc == "":
+            price = data.loc[idx][:4].mean()
+        else:
+            price = data.loc[idx, ohlc]
+        position = signals.loc[idx, "positions"]
+        if position >= threshold:
+            cnt = wallet // price
+            stock.append((price, cnt))
+            wallet -= price * cnt
+        elif position <= -threshold:
+            while stock:
+                price_buy, cnt = stock.pop()
+                transactions.append((price - price_buy) / price * 100)
+                wallet += price * cnt
+    while stock:
+        price_buy, cnt = stock.pop()
+        if ohlc == "":
+            wallet += data.iloc[:, :4].mean(1)[-1] * cnt
+        else:
+            wallet += data[ohlc][-1] * cnt
+    wallet = wallet / 10_000_000_000 * 100 - 100
+    loss = []
+    if len(transactions) == 0:
+        loss = 0
+    else:
+        bad = 0
+        for transaction in transactions:
+            if transaction < 0:
+                bad += 1
+        loss = bad / len(transactions) * 100
+    return {
+        "profit": wallet,
+        "loss": loss,
+        "weighted_profit": wallet * (100 - loss),
+        "transaction": transactions,
+    }
 
 
 def experiments(
@@ -94,8 +111,10 @@ def experiments(
         [Any], Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]
     ],
     exps: List[List[Any]],
-    ohlc: Optional[str] = "Open",
-) -> str:
+    ohlc: Optional[str] = "",
+    vis: Optional[bool] = False,
+    dpi: Optional[int] = 100,
+) -> Tuple[str, List[Union[int, float]], pd.core.frame.DataFrame]:
     """Full factorial design 기반의 backtest 수행 함수
 
     Args:
@@ -104,56 +123,98 @@ def experiments(
         strategy (``Callable[[Any], Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]]``): Full factorial을 수행할 전략 함수
         exps (``List[List[Any]]``): 전략 함수에 입력될 변수들의 범위
         ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
+        vis (``Optional[bool]``): Candle chart 시각화 여부
+        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
-        ``str``: 실험의 결과
+        ``Tuple[str, List[Union[int, float]], pd.core.frame.DataFrame]``: Report와 손실 거래 비율에 따른 수익률 기반 최적 parameter와 ``signals``
 
     Examples:
-        >>> exps = [[10, 15, 20], [40, 50, 60]]
+        Single:
+
+        >>> exps = [[10, 20, 30], [50, 60, 70]]
         >>> zz.quant.experiments(title, data, zz.quant.moving_average, exps)
-        10-40:  8.85%                   13.92%  -10.43% 25.47%  4.92%   10.38%
+        10-50:  15.47%  20.00%
         ...
-        20-60:  15.98%                  33.33%  -3.62%  29.45%  4.45%   16.27%
+        30-70:  13.95%  0.00%
         ====================================================================================================
-        BEST:   20-50   16.75%          29.44%  -2.38%  38.63%  -0.76%  18.82%
-        WORST:  10-40   8.85%           13.92%  -10.43% 25.47%  4.92%   10.38%
+        BEST:   20-50   31.66%  25.00%
+        OPTIM:  20-60   30.96%  0.00%
+        WORST:  30-60   9.83%   25.00%
+        ====================================================================================================
+
+        Multi:
+
+        >>> zz.quant.experiments(title, data, zz.quant.moving_average, exps)
+        10-50:  10.97%  6.67%                   15.47%  -14.22% 31.66%
+        ...
+        30-70:  4.13%   16.67%                  13.95%  -9.61%  8.04%
+        ====================================================================================================
+        BEST:   20-50   24.10%  8.33%           31.66%  0.79%   39.84%
+        OPTIM:  20-50   24.10%  8.33%           31.66%  0.79%   39.84%
+        WORST:  30-60   -1.99%  41.67%          9.83%   -14.49% -1.32%
         ====================================================================================================
     """
     results = []
     reports = []
     for exp in product(*exps):
         signals = strategy(data, *exp, ohlc=ohlc)
-        profit = backtest(data, signals, ohlc=ohlc)
-        exp_str = "-".join(list(map(str, exp)))
-        profit_total = sum(profit) / len(profit)
+        backtest_results = backtest(data, signals, ohlc=ohlc)
+        name = "-".join(list(map(str, exp)))
+        if isinstance(data, list):
+            profit_total = sum(backtest_results["profit"]) / len(
+                backtest_results["profit"]
+            )
+            loss_total = sum(backtest_results["loss"]) / len(backtest_results["loss"])
+            weighted_profit_total = sum(backtest_results["weighted_profit"]) / len(
+                backtest_results["weighted_profit"]
+            )
+        else:
+            profit_total = backtest_results["profit"]
+            loss_total = backtest_results["loss"]
+            weighted_profit_total = backtest_results["weighted_profit"]
         if profit_total == 0:
-            reports.append(f"{exp_str}:\t{profit_total:.2f}%")
+            reports.append(f"{name}:\t{profit_total:.2f}%\t{loss_total:.2f}")
             continue
         profilt_all = ""
         if isinstance(data, list):
-            candle(
-                data[0],
-                f"{title[0]}-{exp_str}",
-                signals=signals[0],
+            for profit in backtest_results["profit"]:
+                profilt_all += f"\t{profit:.2f}%"
+        if vis:
+            if isinstance(data, list):
+                candle(data[0], f"{title[0]}-{name}", signals=signals[0], dpi=dpi)
+            else:
+                candle(data, f"{title}-{name}", signals=signals, dpi=dpi)
+        reports.append(
+            f"{name}:\t{profit_total:.2f}%\t{loss_total:.2f}%\t\t{profilt_all}"
+        )
+        results.append(
+            (
+                profit_total,
+                weighted_profit_total,
+                {
+                    "name": name,
+                    "profit_total": profit_total,
+                    "loss_total": loss_total,
+                    "profit_all": profilt_all,
+                    "exp": exp,
+                    "signals": signals,
+                },
             )
-            for profit_ in profit:
-                profilt_all += f"\t{profit_:.2f}%"
-        else:
-            candle(
-                data,
-                f"{title}-{exp_str}",
-                signals=signals,
-            )
-        reports.append(f"{exp_str}:\t{profit_total:.2f}%\t\t{profilt_all}")
-        results.append((exp_str, profit_total, profilt_all))
+        )
+    results.sort(key=lambda x: x[0])
+    best = f"BEST:\t{results[-1][2]['name']}\t{results[-1][2]['profit_total']:.2f}%\t{results[-1][2]['loss_total']:.2f}%\t{results[-1][2]['profit_all']}"
+    worst = f"WORST:\t{results[0][2]['name']}\t{results[0][2]['profit_total']:.2f}%\t{results[0][2]['loss_total']:.2f}%\t{results[0][2]['profit_all']}"
     results.sort(key=lambda x: x[1])
+    optim = f"OPTIM:\t{results[-1][2]['name']}\t{results[-1][2]['profit_total']:.2f}%\t{results[-1][2]['loss_total']:.2f}%\t{results[-1][2]['profit_all']}"
     reports.append("=" * 100)
-    reports.append(f"BEST:\t{results[-1][0]}\t{results[-1][1]:.2f}%\t{results[-1][2]}")
-    reports.append(f"WORST:\t{results[0][0]}\t{results[0][1]:.2f}%\t{results[0][2]}")
+    reports.append(best)
+    reports.append(optim)
+    reports.append(worst)
     reports.append("=" * 100)
     reports = "\n".join(reports)
     print(reports)
-    return reports
+    return reports, results[-1][2]["exp"], results[-1][2]["signals"]
 
 
 class Experiments:
@@ -164,67 +225,89 @@ class Experiments:
         data (``Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]``): OHLCV (Open, High, Low, Close, Volume) data
         ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
 
-    Returns:
-        ``None``: ``print`` 로 backtest 결과 출력
-
     Examples:
         >>> experiments = zz.quant.Experiments(title, data)
-        >>> experiments.moving_average()
-        10-40:  8.85%                   13.92%  -10.43% 25.47%  4.92%   10.38%
-        ...
-        20-60:  15.98%                  33.33%  -3.62%  29.45%  4.45%   16.27%
-        ====================================================================================================
-        BEST:   20-50   16.75%          29.44%  -2.38%  38.63%  -0.76%  18.82%
-        WORST:  10-40   8.85%           13.92%  -10.43% 25.47%  4.92%   10.38%
-        ====================================================================================================
-        >>> experiments.rsi()
-        20-60:  11.03%                  10.31%  -24.07% 64.53%  -9.26%  13.66%
-        ...
-        40-80:  13.10%                  13.63%  18.55%  24.13%  5.34%   3.86%
-        ====================================================================================================
-        BEST:   30-70   21.17%          15.95%  40.18%  32.86%  0.57%   16.27%
-        WORST:  20-80   7.38%           15.54%  -7.85%  35.18%  0.78%   -6.75%
-        ====================================================================================================
-        >>> experiments.bollinger_bands()
-        7-1.9:  44.57%                  31.24%  86.12%  48.79%  17.93%  38.75%
-        ...
-        14-2.1: 23.27%                  51.23%  32.36%  9.79%   12.30%  10.68%
-        ====================================================================================================
-        BEST:   7-1.9   44.57%          31.24%  86.12%  48.79%  17.93%  38.75%
-        WORST:  7-2.1   17.21%          20.25%  8.85%   16.72%  18.57%  21.68%
-        ====================================================================================================
-        >>> experiments.momentum()
-        7:      -9.92%                  13.41%  -24.07% -14.46% -20.00% -4.48%
-        ...
-        14:     -4.76%                  4.22%   -28.19% 19.19%  -23.29% 4.28%
-        ====================================================================================================
-        BEST:   14      -4.76%          4.22%   -28.19% 19.19%  -23.29% 4.28%
-        WORST:  7       -9.92%          13.41%  -24.07% -14.46% -20.00% -4.48%
-        ====================================================================================================
     """
 
     def __init__(
         self,
         title: Union[str, List[str]],
         data: Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]],
-        ohlc: Optional[str] = "Open",
+        ohlc: Optional[str] = "",
     ) -> None:
         self.title = title
         self.data = data
         self.ohlc = ohlc
+        self.exps_moving_average = [[10, 20, 30], [50, 60, 70]]
+        self.exps_rsi = [[10, 20, 30], [70, 80, 90], [7, 14, 21]]
+        self.exps_bollinger_bands = [[7, 10, 14, 20], [1.9, 2, 2.1]]
+        self.exps_momentum = [[5, 10, 15], [5, 10, 15]]
+
+    def _experiments(
+        self,
+        strategy: Callable[
+            [Any], Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]
+        ],
+        exps: List[List[Any]],
+    ):
+        return experiments(self.title, self.data, strategy, exps, ohlc=self.ohlc)
 
     def moving_average(
-        self, exps: List[List[Any]] = [[10, 15, 20], [40, 50, 60]]
-    ) -> None:
-        experiments(self.title, self.data, moving_average, exps, ohlc=self.ohlc)
+        self, exps: List[List[Any]] = None
+    ) -> Tuple[str, List[Union[int, float]], pd.core.frame.DataFrame]:
+        """Moving average 전략 실험
 
-    def rsi(self, exps: List[List[Any]] = [[20, 30, 40], [60, 70, 80]]) -> None:
-        experiments(self.title, self.data, rsi, exps, ohlc=self.ohlc)
+        Args:
+            exps (``List[List[Any]]``): 전략 함수에 입력될 변수들의 범위
+
+        Returns:
+            ``Tuple[str, List[Union[int, float]], pd.core.frame.DataFrame]``: Report와 손실 거래 비율에 따른 수익률 기반 최적 parameter와 ``signals``
+        """
+        if exps is None:
+            exps = self.exps_moving_average
+        return self._experiments(moving_average, exps)
+
+    def rsi(
+        self, exps: List[List[Any]] = None
+    ) -> Tuple[str, List[Union[int, float]], pd.core.frame.DataFrame]:
+        """RSI 전략 실험
+
+        Args:
+            exps (``List[List[Any]]``): 전략 함수에 입력될 변수들의 범위
+
+        Returns:
+            ``Tuple[str, List[Union[int, float]], pd.core.frame.DataFrame]``: Report와 손실 거래 비율에 따른 수익률 기반 최적 parameter와 ``signals``
+        """
+        if exps is None:
+            exps = self.exps_rsi
+        return self._experiments(rsi, exps)
 
     def bollinger_bands(
-        self, exps: List[List[Any]] = [[7, 10, 14], [1.9, 2, 2.1]]
-    ) -> None:
-        experiments(self.title, self.data, bollinger_bands, exps, ohlc=self.ohlc)
+        self, exps: List[List[Any]] = None
+    ) -> Tuple[str, List[Union[int, float]], pd.core.frame.DataFrame]:
+        """Bollinger bands 전략 실험
 
-    def momentum(self, exps: List[List[Any]] = [[10, 15, 20, 30, 35]]) -> None:
-        experiments(self.title, self.data, momentum, exps, ohlc=self.ohlc)
+        Args:
+            exps (``List[List[Any]]``): 전략 함수에 입력될 변수들의 범위
+
+        Returns:
+            ``Tuple[str, List[Union[int, float]], pd.core.frame.DataFrame]``: Report와 손실 거래 비율에 따른 수익률 기반 최적 parameter와 ``signals``
+        """
+        if exps is None:
+            exps = self.exps_bollinger_bands
+        return self._experiments(bollinger_bands, exps)
+
+    def momentum(
+        self, exps: List[List[Any]] = None
+    ) -> Tuple[str, List[Union[int, float]], pd.core.frame.DataFrame]:
+        """Momentum 전략 실험
+
+        Args:
+            exps (``List[List[Any]]``): 전략 함수에 입력될 변수들의 범위
+
+        Returns:
+            ``Tuple[str, List[Union[int, float]], pd.core.frame.DataFrame]``: Report와 손실 거래 비율에 따른 수익률 기반 최적 parameter와 ``signals``
+        """
+        if exps is None:
+            exps = self.exps_momentum
+        return self._experiments(momentum, exps)
