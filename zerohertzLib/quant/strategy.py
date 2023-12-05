@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import Optional
+from typing import List, Optional, Union
 
 import numpy as np
 import pandas as pd
@@ -31,24 +31,24 @@ from .util import _bollinger_bands, _rsi
 
 
 def moving_average(
-    data: pd.core.frame.DataFrame,
+    data: Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]],
     short_window: Optional[int] = 15,
     long_window: Optional[int] = 50,
     ohlc: Optional[str] = "Open",
-) -> pd.core.frame.DataFrame:
+) -> Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]:
     """단기 및 장기 이동 평균 기반 매수 및 매도 signal을 생성하는 함수
 
     - 매수 신호 (``+1``): 단기 이동 평균이 장기 이동 평균보다 높을 때 생성 (상승 추세)
     - 매도 신호 (``-1``): 단기 이동 평균이 장기 이동 평균보다 낮을 때 생성 (하락 추세)
 
     Args:
-        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+        data (``Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]``): OHLCV (Open, High, Low, Close, Volume) data
         short_window (``Optional[int]``): 단기 이동 평균을 계산하기 위한 window 크기
         long_window (``Optional[int]``): 장기 이동 평균을 계산하기 위한 widnow 크기
         ohlc (``Optional[str]``): 이동 평균을 계산할 때 사용할 ``data`` 의 column 이름
 
     Returns:
-        ``pd.core.frame.DataFrame``: 각 날짜에 대한 signal (``"signals"``) 및 position (``"positions"``) 정보
+        ``Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]``: 각 날짜에 대한 signal (``"signals"``) 및 position (``"positions"``) 정보
 
     Examples:
         >>> zz.quant.moving_average(data)
@@ -63,6 +63,11 @@ def moving_average(
             :align: center
             :width: 600px
     """
+    if isinstance(data, list):
+        signals = []
+        for data_ in data:
+            signals.append(moving_average(data_, short_window, long_window, ohlc))
+        return signals
     signals = pd.DataFrame(index=data.index)
     signals["short_mavg"] = (
         data[ohlc].rolling(window=short_window, min_periods=1).mean()
@@ -82,26 +87,26 @@ def moving_average(
 
 
 def rsi(
-    data: pd.core.frame.DataFrame,
+    data: Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]],
     lower_bound: Optional[int] = 30,
     upper_bound: Optional[int] = 70,
     window: Optional[int] = 14,
     ohlc: Optional[str] = "Open",
-) -> pd.core.frame.DataFrame:
+) -> Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]:
     """RSI 기반 매수 및 매도 signal을 생성하는 함수
 
     - 매수 신호 (``+1``): RSI 값이 ``lower_bound`` 보다 낮을 때 생성 (과매도 상태)
     - 매도 신호 (``-1``): RSI 값이 ``upper_bound`` 보다 높을 때 생성 (과매수 상태)
 
     Args:
-        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+        data (``Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]``): OHLCV (Open, High, Low, Close, Volume) data
         lower_bound (``Optional[int]``): RSI 과매도 기준
         upper_bound (``Optional[int]``): RSI 과매수 기준
         window (``Optional[int]``): 이동 평균을 계산하기 위한 widnow 크기
         ohlc (``Optional[str]``): 이동 평균을 계산할 때 사용할 ``data`` 의 column 이름
 
     Returns:
-        ``pd.core.frame.DataFrame``: 각 날짜에 대한 signal (``"signals"``) 및 position (``"positions"``) 정보
+        ``Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]``: 각 날짜에 대한 signal (``"signals"``) 및 position (``"positions"``) 정보
 
     Examples:
         >>> zz.quant.rsi(data)
@@ -116,6 +121,11 @@ def rsi(
             :align: center
             :width: 600px
     """
+    if isinstance(data, list):
+        signals = []
+        for data_ in data:
+            signals.append(rsi(data_, lower_bound, upper_bound, window, ohlc))
+        return signals
     signals = pd.DataFrame(index=data.index)
     signals["RSI"] = _rsi(data[ohlc], window)
     signals["signals"] = 0
@@ -127,24 +137,24 @@ def rsi(
 
 
 def bollinger_bands(
-    data: pd.core.frame.DataFrame,
+    data: Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]],
     window: Optional[int] = 20,
     num_std_dev: Optional[float] = 2.1,
     ohlc: Optional[str] = "Open",
-) -> pd.core.frame.DataFrame:
+) -> Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]:
     """Bollinger band 기반 매수 및 매도 signal을 생성하는 함수
 
     - 매수 신호 (``+1``): 주가가 하단 Bollinger band (``lower_band``) 아래로 감소할 때 생성 (과매도 상태)
     - 매도 신호 (``-1``): 주가가 상단 Bollinger band (``upper_band``) 위로 상승할 때 생성 (과매수 상태)
 
     Args:
-        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+        data (``Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]``): OHLCV (Open, High, Low, Close, Volume) data
         window (``Optional[int]``): 이동 평균을 계산하기 위한 widnow 크기
         num_std_dev (``Optional[float]``): 표준편차의 배수
         ohlc (``Optional[str]``): 이동 평균을 계산할 때 사용할 ``data`` 의 column 이름
 
     Returns:
-        ``pd.core.frame.DataFrame``: 각 날짜에 대한 signal (``"signals"``) 및 position (``"positions"``) 정보
+        ``Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]``: 각 날짜에 대한 signal (``"signals"``) 및 position (``"positions"``) 정보
 
     Examples:
         >>> zz.quant.bollinger_bands(data)
@@ -159,6 +169,11 @@ def bollinger_bands(
             :align: center
             :width: 600px
     """
+    if isinstance(data, list):
+        signals = []
+        for data_ in data:
+            signals.append(bollinger_bands(data_, window, num_std_dev, ohlc))
+        return signals
     signals = _bollinger_bands(data, window, num_std_dev)
     signals["signals"] = 0
     signals["signals"] = np.where(
@@ -178,22 +193,22 @@ def bollinger_bands(
 
 
 def momentum(
-    data: pd.core.frame.DataFrame,
+    data: Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]],
     window: Optional[int] = 10,
     ohlc: Optional[str] = "Open",
-) -> pd.core.frame.DataFrame:
+) -> Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]:
     """Momentum 기반 매수 및 매도 signal을 생성하는 함수
 
     - 매수 신호 (``+1``): 주가 momentum이 양수일 때 생성 (상승 추세)
     - 매도 신호 (``-1``): 주가 momentum이 음수일 때 생성 (하락 추세)
 
     Args:
-        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+        data (``Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]``): OHLCV (Open, High, Low, Close, Volume) data
         window (``Optional[int]``): 이동 평균을 계산하기 위한 widnow 크기
         ohlc (``Optional[str]``): 이동 평균을 계산할 때 사용할 ``data`` 의 column 이름
 
     Returns:
-        ``pd.core.frame.DataFrame``: 각 날짜에 대한 signal (``"signals"``) 및 position (``"positions"``) 정보
+        ``Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]``: 각 날짜에 대한 signal (``"signals"``) 및 position (``"positions"``) 정보
 
     Examples:
         >>> zz.quant.momentum(data)
@@ -208,6 +223,11 @@ def momentum(
             :align: center
             :width: 600px
     """
+    if isinstance(data, list):
+        signals = []
+        for data_ in data:
+            signals.append(momentum(data_, window, ohlc))
+        return signals
     signals = pd.DataFrame(index=data.index)
     signals["momentum"] = data[ohlc].diff(window)
     signals["signals"] = np.where(signals["momentum"] > 0, 1, -1)
