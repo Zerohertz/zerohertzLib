@@ -29,7 +29,7 @@ import pandas as pd
 
 from zerohertzLib.plot import candle
 
-from .strategy import bollinger_bands, momentum, moving_average, rsi
+from .strategies import bollinger_bands, momentum, moving_average, rsi
 
 
 def backtest(
