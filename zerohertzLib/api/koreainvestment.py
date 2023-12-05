@@ -335,7 +335,7 @@ class KoreaInvestment:
                 params["FID_INPUT_DATE_2"] = data["output2"][-1]["stck_bsop_date"]
                 response = requests.get(url, headers=headers, params=params, timeout=10)
                 data_ = response.json()
-                data["output2"] += data_["output2"]
+                data["output2"] += data_["output2"][1:]
                 time.sleep(0.02)
         return data
 
