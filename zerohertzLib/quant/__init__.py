@@ -11,7 +11,7 @@
         - ``-1``: 매도
 """
 
-from zerohertzLib.quant.backtest import backtest, experiments
+from zerohertzLib.quant.backtest import Experiments, backtest, experiments
 from zerohertzLib.quant.strategy import bollinger_bands, momentum, moving_average, rsi
 
 __all__ = [
@@ -21,4 +21,5 @@ __all__ = [
     "rsi",
     "bollinger_bands",
     "momentum",
+    "Experiments",
 ]
