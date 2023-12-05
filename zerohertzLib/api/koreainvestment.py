@@ -281,7 +281,9 @@ class KoreaInvestment:
             return self._get_korea_ohlcv(
                 symbol, time_frame, start_day, end_day, adj_price
             )
-        return self._get_overesea_ohlcv(symbol, time_frame, end_day, adj_price)
+        return self._get_overesea_ohlcv(
+            symbol, time_frame, start_day, end_day, adj_price
+        )
 
     def _get_korea_ohlcv(
         self,
@@ -343,6 +345,7 @@ class KoreaInvestment:
         self,
         symbol: str,
         time_frame: Optional[str] = "D",
+        start_day: Optional[str] = "",
         end_day: Optional[str] = "",
         adj_price: Optional[bool] = True,
     ) -> Dict[str, Dict]:
@@ -354,6 +357,7 @@ class KoreaInvestment:
         Args:
             symbol (``str``): 종목 code
             time_frame (``Optional[str]``): 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월)
+            start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
             end_day (``Optional[str]``): 조회 종료 일자 (``YYYYMMDD``)
             adj_price (``Optional[bool]``): 수정 주가 반영 여부
 
@@ -382,7 +386,15 @@ class KoreaInvestment:
             "MODP": 1 if adj_price else 0,
         }
         response = requests.get(url, headers=headers, params=params, timeout=10)
-        return response.json()
+        data = response.json()
+        if not start_day == "":
+            while start_day < data["output2"][-1]["xymd"]:
+                params["BYMD"] = data["output2"][-1]["xymd"]
+                response = requests.get(url, headers=headers, params=params, timeout=10)
+                data_ = response.json()
+                data["output2"] += data_["output2"][1:]
+                time.sleep(0.02)
+        return data
 
     def response2ohlcv(
         self, response: Dict[str, Dict]
