@@ -175,3 +175,44 @@ def bollinger_bands(
             signals.loc[signals.index[i], "positions"] = current_signal
         previous_signal = current_signal
     return signals
+
+
+def momentum(
+    data: pd.core.frame.DataFrame,
+    window: Optional[int] = 10,
+    ohlc: Optional[str] = "Open",
+) -> pd.core.frame.DataFrame:
+    """Momentum 기반 매수 및 매도 signal을 생성하는 함수
+
+    - 매수 신호 (``+1``): 주가 momentum이 양수일 때 생성 (상승 추세)
+    - 매도 신호 (``-1``): 주가 momentum이 음수일 때 생성 (하락 추세)
+
+    Args:
+        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+        window (``Optional[int]``): 이동 평균을 계산하기 위한 widnow 크기
+        ohlc (``Optional[str]``): 이동 평균을 계산할 때 사용할 ``data`` 의 column 이름
+
+    Returns:
+        ``pd.core.frame.DataFrame``: 각 날짜에 대한 signal (``"signals"``) 및 position (``"positions"``) 정보
+
+    Examples:
+        >>> zz.quant.momentum(data)
+                    momentum  signals  positions
+        2022-12-05       NaN       -1          0
+        ...              ...      ...        ...
+        2023-12-05    -800.0       -1         -1
+        [248 rows x 3 columns]
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287743057-aec042ef-6c0b-41b7-a85e-7cc6046a06af.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 600px
+    """
+    signals = pd.DataFrame(index=data.index)
+    signals["momentum"] = data[ohlc].diff(window)
+    signals["signals"] = np.where(signals["momentum"] > 0, 1, -1)
+    signals["positions"] = signals["signals"].diff()
+    signals["positions"] = np.where(
+        signals["positions"] > 0, 1, np.where(signals["positions"] < 0, -1, 0)
+    )
+    return signals
