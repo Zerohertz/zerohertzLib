@@ -267,6 +267,7 @@ class KoreaInvestment:
             start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
             end_day (``Optional[str]``): 조회 종료 일자 (``YYYYMMDD``)
             adj_price (``Optional[bool]``): 수정 주가 반영 여부
+            kor (``Optional[bool]``): 국내 여부
 
         Returns:
             ``Dict[str, Dict]``: OHLCV (Open, High, Low, Close, Volume)
@@ -281,7 +282,7 @@ class KoreaInvestment:
             return self._get_korea_ohlcv(
                 symbol, time_frame, start_day, end_day, adj_price
             )
-        return self._get_overesea_ohlcv(
+        return self._get_oversea_ohlcv(
             symbol, time_frame, start_day, end_day, adj_price
         )
 
@@ -341,7 +342,7 @@ class KoreaInvestment:
                 time.sleep(0.02)
         return data
 
-    def _get_overesea_ohlcv(
+    def _get_oversea_ohlcv(
         self,
         symbol: str,
         time_frame: Optional[str] = "D",
@@ -464,6 +465,7 @@ class KoreaInvestment:
         start_day: Optional[str] = "",
         end_day: Optional[str] = "",
         adj_price: Optional[bool] = True,
+        kor: Optional[bool] = True,
     ) -> Tuple[List[str], List[pd.core.frame.DataFrame]]:
         """여러 종목 code에 따른 기간별 OHLCV (Open, High, Low, Close, Volume)
 
@@ -473,6 +475,7 @@ class KoreaInvestment:
             start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
             end_day (``Optional[str]``): 조회 종료 일자 (``YYYYMMDD``)
             adj_price (``Optional[bool]``): 수정 주가 반영 여부
+            kor (``Optional[bool]``): 국내 여부
 
         Returns:
             ``Tuple[List[str], List[pd.core.frame.DataFrame]]``: Code들에 따른 종목의 이름과 OHLCV (Open, High, Low, Close, Volume)
@@ -494,12 +497,8 @@ class KoreaInvestment:
         title = []
         data = []
         for symbol in symbols:
-            response = self._get_korea_ohlcv(
-                symbol,
-                time_frame,
-                start_day,
-                end_day,
-                adj_price,
+            response = self.get_ohlcv(
+                symbol, time_frame, start_day, end_day, adj_price, kor
             )
             title_, data_ = self.response2ohlcv(response)
             title.append(title_)
