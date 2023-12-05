@@ -38,7 +38,7 @@ def backtest(
     signals: Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]],
     ohlc: Optional[str] = "",
     threshold: Optional[int] = 1,
-) -> Dict[str, Union[float, List[float]]]:
+) -> Dict[str, Any]:
     """전략에 의해 생성된 ``signals`` backtest
 
     Args:
@@ -48,7 +48,7 @@ def backtest(
         threshold (``Optional[int]``): 매수, 매도를 결정할 ``signals`` 경계값
 
     Returns:
-        ``Dict[str, Union[float, List[float]]]``: 수익률 (단위: %), 손실 거래 비율 (단위: %), 손실 거래 비율에 따른 수익률, 거래 내역
+        ``Dict[str, Any]``: 수익률 (단위: %), 손실 거래 비율 (단위: %), 손실 거래 비율에 따른 수익률, 거래 내역
 
     Examples:
         >>> results = zz.quant.backtest(data, signals)
@@ -64,7 +64,7 @@ def backtest(
         return results
     wallet = 10_000_000_000
     stock = deque()
-    transactions = []
+    transactions = defaultdict(list)
     for idx in data.index:
         if ohlc == "":
             price = data.loc[idx][:4].mean()
@@ -73,12 +73,15 @@ def backtest(
         position = signals.loc[idx, "signals"]
         if position >= threshold:
             cnt = wallet // price
-            stock.append((price, cnt))
-            wallet -= price * cnt
+            if cnt > 0:
+                stock.append((price, cnt))
+                transactions["price"].append(price)
+                wallet -= price * cnt
         elif position <= -threshold:
             while stock:
                 price_buy, cnt = stock.pop()
-                transactions.append((price - price_buy) / price * 100)
+                transactions["price"].append(-price)
+                transactions["profit"].append((price - price_buy) / price * 100)
                 wallet += price * cnt
     while stock:
         price_buy, cnt = stock.pop()
@@ -88,14 +91,14 @@ def backtest(
             wallet += data[ohlc][-1] * cnt
     wallet = wallet / 10_000_000_000 * 100 - 100
     loss = []
-    if len(transactions) == 0:
+    if len(transactions["profit"]) == 0:
         loss = 0
     else:
         bad = 0
-        for transaction in transactions:
+        for transaction in transactions["profit"]:
             if transaction < 0:
                 bad += 1
-        loss = bad / len(transactions) * 100
+        loss = bad / len(transactions["profit"]) * 100
     return {
         "profit": wallet,
         "loss": loss,
@@ -214,7 +217,11 @@ def experiments(
     reports.append("=" * 100)
     reports = "\n".join(reports)
     print(reports)
-    return reports, results[-1][2]["exp"], results[-1][2]["signals"]
+    return (
+        reports,
+        [result[2]["profit_total"] for result in results],
+        [result[2]["signals"] for result in results],
+    )
 
 
 class Experiments:
