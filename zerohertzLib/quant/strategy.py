@@ -129,7 +129,7 @@ def rsi(
 def bollinger_bands(
     data: pd.core.frame.DataFrame,
     window: Optional[int] = 20,
-    num_std_dev: Optional[int] = 2,
+    num_std_dev: Optional[float] = 2.1,
     ohlc: Optional[str] = "Open",
 ) -> pd.core.frame.DataFrame:
     """Bollinger band 기반 매수 및 매도 signal을 생성하는 함수
@@ -140,7 +140,7 @@ def bollinger_bands(
     Args:
         data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         window (``Optional[int]``): 이동 평균을 계산하기 위한 widnow 크기
-        num_std_dev (``Optional[int]``): 표준편차의 배수
+        num_std_dev (``Optional[float]``): 표준편차의 배수
         ohlc (``Optional[str]``): 이동 평균을 계산할 때 사용할 ``data`` 의 column 이름
 
     Returns:
