@@ -43,9 +43,9 @@ def backtest(
 
     Args:
         data (``Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]``): OHLCV (Open, High, Low, Close, Volume) data
-        signals (``Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]``): ``"positions"`` column이 포함된 data
+        signals (``Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]``): ``"signals"`` column이 포함된 data
         ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
-        threshold (``Optional[int]``): 매수, 매도를 결정할 ``positions`` 경계값
+        threshold (``Optional[int]``): 매수, 매도를 결정할 ``signals`` 경계값
 
     Returns:
         ``Dict[str, Union[float, List[float]]]``: 수익률 (단위: %), 손실 거래 비율 (단위: %), 손실 거래 비율에 따른 수익률, 거래 내역
@@ -70,7 +70,7 @@ def backtest(
             price = data.loc[idx][:4].mean()
         else:
             price = data.loc[idx, ohlc]
-        position = signals.loc[idx, "positions"]
+        position = signals.loc[idx, "signals"]
         if position >= threshold:
             cnt = wallet // price
             stock.append((price, cnt))
@@ -238,10 +238,10 @@ class Experiments:
         self.title = title
         self.data = data
         self.ohlc = ohlc
-        self.exps_moving_average = [[10, 20, 30], [50, 60, 70]]
+        self.exps_moving_average = [[10, 20, 30], [50, 60, 70], [100, 500, 1000]]
         self.exps_rsi = [[10, 20, 30], [70, 80, 90], [7, 14, 21]]
         self.exps_bollinger_bands = [[7, 10, 14, 20], [1.9, 2, 2.1]]
-        self.exps_momentum = [[5, 10, 15], [5, 10, 15]]
+        self.exps_momentum = [[5, 10, 15], [5, 10, 15], [25, 50, 75]]
 
     def _experiments(
         self,

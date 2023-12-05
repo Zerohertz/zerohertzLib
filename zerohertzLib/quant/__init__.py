@@ -6,7 +6,7 @@
 
 .. important::
 
-    ``signals["positions"]`` 부호의 의미
+    ``signals["signals"]`` 부호의 의미
 
     - ``+1``: 매수
     - ``-1``: 매도
