@@ -112,6 +112,7 @@ def candle(
     dpi: Optional[int] = 300,
     save: Optional[bool] = True,
     signals: Optional[Dict[str, Any]] = None,
+    threshold: Optional[int] = 1,
 ) -> Tuple[mpl.figure.Figure, List[mpl.axes._axes.Axes]]:
     """OHLCV (Open, High, Low, Close, Volume) data에 따른 candle chart
 
@@ -122,6 +123,7 @@ def candle(
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         save (``Optional[bool]``): Graph 저장 여부
         signals (``Optional[Dict[str, Any]]``): 추가적으로 plot할 data
+        threshold (``Optional[int]``): 매수, 매도를 결정할 ``signals`` 경계값
 
     Returns:
         ``None``: 현재 directory에 바로 graph 저장
@@ -189,9 +191,9 @@ def candle(
         buy_indices = []
         sell_indices = []
         for idx, pos in enumerate(signals["signals"]):
-            if pos == 1:
+            if pos >= threshold:
                 buy_indices.append(idx)
-            elif pos == -1:
+            elif pos <= -threshold:
                 sell_indices.append(idx)
         for i in buy_indices:
             new_axis.axvline(
@@ -204,16 +206,17 @@ def candle(
         new_axis.set_yticks([])
         new_axis = axlist[0].twinx()
         colors = color(len(signals.columns), palette="magma")
-        for idx, col in enumerate(signals.columns[:-1]):
-            new_axis.plot(
-                xdata,
-                signals[col],
-                color=colors[idx],
-                linewidth=3,
-                alpha=0.5,
-                label=col,
-            )
-        plt.legend()
+        if len(signals.columns) > 1:
+            for idx, col in enumerate(signals.columns[:-1]):
+                new_axis.plot(
+                    xdata,
+                    signals[col],
+                    color=colors[idx],
+                    linewidth=3,
+                    alpha=0.5,
+                    label=col,
+                )
+            plt.legend()
         new_axis.set_yticks([])
     if save:
         savefig(title, dpi)
