@@ -458,7 +458,7 @@ class QuantSlackBot(SlackBot):
                 path = savefig(strategy, dpi=100)
                 self.file(path)
             else:
-                self.message(f"'{strategy}' was not used: {count}", codeblock=True)
+                self.message(f"'{strategy}' was not used", codeblock=True)
 
     def _inference(self, symbols: List[str], mode: str) -> None:
         if self.mp_num == 0 or self.mp_num >= len(symbols):
@@ -626,6 +626,6 @@ class QuantSlackBotFDR(QuantSlackBot):
         self.krx = fdr.StockListing("KRX")
 
     def _get_data(self, symbol: str) -> Tuple[str, pd.core.frame.DataFrame]:
-        title = self.krx[self.krx["Code"] == symbol].iloc[0, 1]
+        title = self.krx[self.krx["Code"] == symbol].iloc[0, 2]
         data = fdr.DataReader(symbol, self.start_day)
         return title, data
