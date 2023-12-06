@@ -44,7 +44,7 @@ def plot(
     figsize: Optional[Tuple[int]] = (15, 10),
     dpi: Optional[int] = 300,
     save: Optional[bool] = True,
-) -> None:
+) -> str:
     """List와 Dictionary로 입력받은 데이터를 line chart로 시각화
 
     Args:
@@ -61,7 +61,7 @@ def plot(
         save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
-        ``None``: 현재 directory에 바로 graph 저장
+        ``str``: 저장된 graph의 절대 경로
 
     Examples:
         >>> xdata = [i for i in range(20)]
@@ -102,7 +102,8 @@ def plot(
     plt.title(title, fontsize=25)
     plt.legend(ncol=ncol)
     if save:
-        savefig(title, dpi)
+        return savefig(title, dpi)
+    return None
 
 
 def candle(
@@ -113,7 +114,7 @@ def candle(
     save: Optional[bool] = True,
     signals: Optional[Dict[str, Any]] = None,
     threshold: Optional[int] = 1,
-) -> Tuple[mpl.figure.Figure, List[mpl.axes._axes.Axes]]:
+) -> str:
     """OHLCV (Open, High, Low, Close, Volume) data에 따른 candle chart
 
     Args:
@@ -126,7 +127,7 @@ def candle(
         threshold (``Optional[int]``): 매수, 매도를 결정할 ``signals`` 경계값
 
     Returns:
-        ``None``: 현재 directory에 바로 graph 저장
+        ``str``: 저장된 graph의 절대 경로
 
     Examples:
         >>> broker = zz.api.KoreaInvestment()
@@ -219,7 +220,8 @@ def candle(
             plt.legend()
         new_axis.set_yticks([])
     if save:
-        savefig(title, dpi)
+        return savefig(title, dpi)
+    return None
 
 
 def _bollinger_bands(data: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:

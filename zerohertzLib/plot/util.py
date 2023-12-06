@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+import os
 import random
 from typing import List, Optional, Tuple, Union
 
@@ -44,7 +45,7 @@ def figure(figsize: Optional[Tuple[int]] = (15, 10)) -> None:
     plt.figure(figsize=figsize)
 
 
-def savefig(title: str, dpi: Optional[int] = 300) -> None:
+def savefig(title: str, dpi: Optional[int] = 300) -> str:
     """Graph 저장 함수
 
     Args:
@@ -52,7 +53,7 @@ def savefig(title: str, dpi: Optional[int] = 300) -> None:
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
-        ``None``: ``{title}.png`` 에 graph 저장
+        ``str``: 저장된 graph의 절대 경로
 
     Examples:
         >>> zz.plot.savefig("Star Craft")
@@ -64,6 +65,7 @@ def savefig(title: str, dpi: Optional[int] = 300) -> None:
         bbox_inches="tight",
     )
     plt.close("all")
+    return os.path.abspath(f"{title}.png")
 
 
 def color(

@@ -37,7 +37,7 @@ def pie(
     dpi: Optional[int] = 300,
     int_label: Optional[bool] = True,
     save: Optional[bool] = True,
-) -> None:
+) -> str:
     """Dictionary로 입력받은 데이터를 pie chart로 시각화
 
     Args:
@@ -50,7 +50,7 @@ def pie(
         save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
-        ``None``: 현재 directory에 바로 graph 저장
+        ``str``: 저장된 graph의 절대 경로
 
     Examples:
         >>> data = {"테란": 27, "저그": 40, "프로토스": 30}
@@ -86,4 +86,5 @@ def pie(
     plt.title(title, fontsize=25)
     plt.axis("equal")
     if save:
-        savefig(title, dpi)
+        return savefig(title, dpi)
+    return None

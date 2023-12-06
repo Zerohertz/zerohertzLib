@@ -235,7 +235,7 @@ def _paste(img: NDArray[np.uint8], target: NDArray[np.uint8]) -> NDArray[np.uint
 
 
 def _make_text(
-    txt: str, shape: Tuple[int], color: Tuple[int], font_size: int
+    txt: str, shape: Tuple[int], color: Tuple[int], fontsize: int
 ) -> NDArray[np.uint8]:
     """배경이 투명한 문자열 image 생성
 
@@ -243,7 +243,7 @@ def _make_text(
         txt (``str``): 입력 문자열
         shape (``Tuple[int]``): 출력 image의 shape
         color (``Tuple[int]``): 문자의 색
-        font_size (``int``): 문자의 크기
+        fontsize (``int``): 문자의 크기
 
     Returns:
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
@@ -252,7 +252,7 @@ def _make_text(
     palette = Image.new("RGBA", size, (255, 255, 255, 0))
     draw = ImageDraw.Draw(palette)
     font = ImageFont.truetype(
-        __file__.replace("vision/visual.py", "plot/NotoSansKR-Medium.ttf"), font_size
+        __file__.replace("vision/visual.py", "plot/NotoSansKR-Medium.ttf"), fontsize
     )
     text_width, text_height = draw.textsize(txt, font=font)
     d_x, d_y = (size[0] - text_width) // 2, (size[1] - text_height) // 2
@@ -270,7 +270,7 @@ def _text(
     box_cwh: NDArray[DTypeLike],
     txt: str,
     color: Tuple[int],
-    font_size: int,
+    fontsize: int,
 ) -> NDArray[np.uint8]:
     """단일 text 시각화
 
@@ -279,14 +279,14 @@ def _text(
         box_cwh (``NDArray[DTypeLike]``): 문자열이 존재할 bbox (``[4]``)
         txt (``str``): Image에 추가할 문자열
         color (``Tuple[int]``): 문자의 색
-        font_size (``int``): 문자의 크기
+        fontsize (``int``): 문자의 크기
 
     Returns:
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
     """
     x_0, y_0, x_1, y_1 = cwh2xyxy(box_cwh).astype(np.int32)
     width, height = x_1 - x_0, y_1 - y_0
-    txt = _make_text(txt, (height, width), color, font_size)
+    txt = _make_text(txt, (height, width), color, fontsize)
     img[y_0:y_1, x_0:x_1, :] = _paste(img[y_0:y_1, x_0:x_1, :], txt)
     return img
 
@@ -297,7 +297,7 @@ def text(
     txt: Union[str, List[str]],
     color: Optional[Tuple[int]] = (0, 0, 0),
     vis: Optional[bool] = False,
-    font_size: Optional[int] = 100,
+    fontsize: Optional[int] = 100,
 ) -> NDArray[np.uint8]:
     """Text 시각화
 
@@ -307,7 +307,7 @@ def text(
         txt (``str``): Image에 추가할 문자열
         color (``Optional[Tuple[int]]``): 문자의 색
         vis (``Optional[bool]``): 문자 영역의 시각화 여부
-        font_size (``Optional[int]``): 문자의 크기
+        fontsize (``Optional[int]``): 문자의 크기
 
     Returns:
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
@@ -347,11 +347,11 @@ def text(
         if not shape[0] == len(txt):
             raise ValueError("'box.shape[0]' and 'len(txt)' must be equal")
         for b_poly, b_cwh, txt_ in zip(box_poly, box_cwh, txt):
-            img = _text(img, b_cwh, txt_, color, font_size)
+            img = _text(img, b_cwh, txt_, color, fontsize)
             if vis:
                 img = _bbox(img, b_poly, (0, 0, 255, 255), 2)
     else:
-        img = _text(img, box_cwh, txt, color, font_size)
+        img = _text(img, box_cwh, txt, color, fontsize)
         if vis:
             img = _bbox(img, box_poly, (0, 0, 255, 255), 2)
     return img
