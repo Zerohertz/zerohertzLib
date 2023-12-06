@@ -24,7 +24,6 @@ SOFTWARE.
 
 from typing import Any, Dict, List, Optional, Tuple, Union
 
-import matplotlib as mpl
 import mplfinance as mpf
 import pandas as pd
 from matplotlib import pyplot as plt
