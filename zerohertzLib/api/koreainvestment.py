@@ -388,7 +388,7 @@ class KoreaInvestment:
         }
         response = requests.get(url, headers=headers, params=params, timeout=10)
         data = response.json()
-        if not start_day == "":
+        if start_day != "":
             while start_day < data["output2"][-1]["xymd"]:
                 params["BYMD"] = data["output2"][-1]["xymd"]
                 response = requests.get(url, headers=headers, params=params, timeout=10)
@@ -497,12 +497,15 @@ class KoreaInvestment:
         title = []
         data = []
         for symbol in symbols:
-            response = self.get_ohlcv(
-                symbol, time_frame, start_day, end_day, adj_price, kor
-            )
-            title_, data_ = self.response2ohlcv(response)
-            title.append(title_)
-            data.append(data_)
+            try:
+                response = self.get_ohlcv(
+                    symbol, time_frame, start_day, end_day, adj_price, kor
+                )
+                title_, data_ = self.response2ohlcv(response)
+                title.append(title_)
+                data.append(data_)
+            except KeyError:
+                print(f"'{symbol}' is not found")
         return title, data
 
     def get_balance(self, kor: Optional[str] = True) -> Dict[str, Dict]:
