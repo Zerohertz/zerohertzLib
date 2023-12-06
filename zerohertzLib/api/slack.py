@@ -105,7 +105,7 @@ class SlackBot:
 
     Args:
         token (``str``): Slack Bot의 token
-        channel (``channel``): Slack Bot이 전송할 channel
+        channel (``str``): Slack Bot이 전송할 channel
         name (``Optional[str]``): Slack Bot의 표시될 이름
         icon_emoji (``Optional[str]``): Slack Bot의 표시될 사진 (emoji)
         icon_url (``Optional[str]``): Slack Bot의 표시될 사진 (photo)
