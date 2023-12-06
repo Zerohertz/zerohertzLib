@@ -65,7 +65,7 @@ def moving_average(
         2023-12-05    72255.00   69838.50      1.0
         [248 rows x 3 columns]
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288058363-785abd88-31b8-4f48-9f89-cce11b5e7a0a.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288449614-5c3ab869-5a6b-4a1c-bb7e-8c93cdb434c8.png
             :alt: Visualzation Result
             :align: center
             :width: 600px
@@ -145,7 +145,7 @@ def rsi(
         2023-12-05  58.563536        0
         [248 rows x 2 columns]
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288058368-c1fa3400-4ee4-4182-8376-ad5a088e00ef.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288449622-ab75b83b-dc0c-4f69-a7b1-763c5287398e.png
             :alt: Visualzation Result
             :align: center
             :width: 600px
@@ -170,7 +170,7 @@ def rsi(
 def bollinger_bands(
     data: Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]],
     window: Optional[int] = 14,
-    num_std_dev: Optional[float] = 2.1,
+    num_std_dev: Optional[float] = 2,
     ohlc: Optional[str] = "",
 ) -> Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]:
     """Bollinger band 기반 매수 및 매도 signal을 생성하는 함수
@@ -204,7 +204,7 @@ def bollinger_bands(
         2023-12-05  72371.428571  73228.137390  71514.719753        0
         [248 rows x 4 columns]
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288058346-d9a07a39-d81a-4e0e-b354-ffc0f99d7531.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288449546-8eb91fb4-c5d1-4aab-ae5d-928a04f1c159.png
             :alt: Visualzation Result
             :align: center
             :width: 600px
@@ -272,7 +272,7 @@ def momentum(
         2023-12-05     190.0      0.0
         [248 rows x 2 columns]
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288058357-611e83c1-030b-4f5e-84fc-2b7a7416896c.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288449598-1eae1885-61cb-46c5-8af9-4936a1ca7b83.png
             :alt: Visualzation Result
             :align: center
             :width: 600px
