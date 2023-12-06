@@ -336,7 +336,18 @@ class QuantSlackBot(SlackBot):
         exps (``Dict[str, List[Dict[str, int]]]``): 각 전략에 따른 parameter 분포
 
     Examples:
-        >>> qsb = zz.quant.QuantSlackBot()
+        >>> qsb = zz.quant.QuantSlackBot(symbols, token, channel)
+        >>> qsb.index()
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288455654-53146aff-bf04-411e-a932-954e90c81d97.png
+            :alt: Slack Bot Result
+            :align: center
+            :width: 400px
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288455675-90300812-c23f-4222-a18f-0c621b03a633.png
+            :alt: Slack Bot Result
+            :align: center
+            :width: 400px
     """
 
     def __init__(
@@ -518,7 +529,7 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
         exps (``Dict[str, List[Dict[str, int]]]``): 각 전략에 따른 parameter 분포
 
     Examples:
-        >>> qsb = zz.quant.QuantSlackBotKI()
+        >>> qsb = zz.quant.QuantSlackBotKI(symbols, token, channel)
     """
 
     def __init__(
@@ -596,7 +607,7 @@ class QuantSlackBotFDR(QuantSlackBot):
         krx (``pd.core.frame.DataFrame``): KRX 상장 회사 목록
 
     Examples:
-        >>> qsb = zz.quant.QuantSlackBotFDR()
+        >>> qsb = zz.quant.QuantSlackBotFDR(symbols, token, channel)
     """
 
     def __init__(
