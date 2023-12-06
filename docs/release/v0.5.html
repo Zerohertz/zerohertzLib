@@ -16,11 +16,11 @@
     <meta property="og:title" content="v0.5" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/release/v0.5.html" />
-<meta property="og:site_name" content="Zerohertz's Library 0.5.5 Documents" />
-<meta property="og:description" content="v0.5.5: api- 한국투자증권 API를 호출하는 KoreaInvestment class 개발., plot- 주식 data 및 signal을 시각화하는 candle 함수 개발, color 함수에서 palette 를 지정할 수 있게 update., quant- 한국투자증권 API를 호출하는 KoreaInvestment class를 통해 수집한 dat..." />
+<meta property="og:site_name" content="Zerohertz's Library v0.5.6 Documents" />
+<meta property="og:description" content="v0.5.6: api- 해외 주식의 장기 호출 기능 update, 여러 종목 code를 입력받고 pd.core.frame.DataFrame 로 data를 제공하는 method get_ohlcvs 추가, candle 함수 사용 시 signal과 지표들을 함께 출력하고 threshold를 통해 매수, 매도 position을 시각화할 수 있도록 update..." />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library 0.5.5 Documents" />
-<meta name="description" content="v0.5.5: api- 한국투자증권 API를 호출하는 KoreaInvestment class 개발., plot- 주식 data 및 signal을 시각화하는 candle 함수 개발, color 함수에서 palette 를 지정할 수 있게 update., quant- 한국투자증권 API를 호출하는 KoreaInvestment class를 통해 수집한 dat..." />
+<meta property="og:image:alt" content="Zerohertz's Library v0.5.6 Documents" />
+<meta name="description" content="v0.5.6: api- 해외 주식의 장기 호출 기능 update, 여러 종목 code를 입력받고 pd.core.frame.DataFrame 로 data를 제공하는 method get_ohlcvs 추가, candle 함수 사용 시 signal과 지표들을 함께 출력하고 threshold를 통해 매수, 매도 position을 시각화할 수 있도록 update..." />
     <link href="../_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -28,7 +28,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/release/v0.5.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>v0.5 - zerohertzLib 0.5.5 documentation</title>
+        <title>v0.5 - zerohertzLib v0.5.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -156,7 +156,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">zerohertzLib 0.5.5 documentation</div></a>
+      <a href="../index.html"><div class="brand">zerohertzLib v0.5.6 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
     <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib 0.5.5 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.5.6 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -256,6 +256,57 @@
         <article role="main">
           <section id="v0-5">
 <h1>v0.5<a class="headerlink" href="#v0-5" title="Permalink to this heading">#</a></h1>
+<section id="v0-5-6">
+<h2>v0.5.6<a class="headerlink" href="#v0-5-6" title="Permalink to this heading">#</a></h2>
+<h3>[v0.5.6] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/152>#152</a>)</h3>
+<div class="tip admonition">
+<p class="admonition-title">Release Date</p>
+<p>2023/12/06</p>
+</div>
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/api"><img src="https://img.shields.io/badge/feat/api-541B9A?style=flat-square&logo=github" alt="feat/api"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/plot"><img src="https://img.shields.io/badge/feat/plot-968B14?style=flat-square&logo=github" alt="feat/plot"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:style"><img src="https://img.shields.io/badge/style-03A17F?style=flat-square&logo=github" alt="style"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/quant"><img src="https://img.shields.io/badge/feat/quant-ededed?style=flat-square&logo=github" alt="feat/quant"/></a>
+</p>
+<h4>Features</h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">api</span></code></p>
+<ul>
+<li><p>해외 주식의 장기 호출 기능 update</p></li>
+<li><p>여러 종목 code를 입력받고 <code class="docutils literal notranslate"><span class="pre">pd.core.frame.DataFrame</span></code>로 data를 제공하는 method <code class="docutils literal notranslate"><span class="pre">get_ohlcvs</span></code> 추가</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">candle</span></code> 함수 사용 시 signal과 지표들을 함께 출력하고 threshold를 통해 매수, 매도 position을 시각화할 수 있도록 update</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot</span></code></p>
+<ul>
+<li><p>Graph 저장 시 graph의 절대 경로를 return 하도록 update</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">quant</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">backtest</span></code>의 오류 수정 및 return type 변경 (수익률, 손실 거래 비율, 손실 거래 비율에 따른 수익률, 거래 내역)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">experiments</span></code> 함수 사용 시 여러 종목 입력 가능 및 return 변경 (수익률이 높은 전략 → 손실 거래 비율이 낮으면서 수익률이 높은 최적 전략)</p></li>
+<li><p>Full factorial design 기반의 backtest를 수행하는 class <code class="docutils literal notranslate"><span class="pre">Experiments</span></code> 추가</p></li>
+<li><p>한 가지 종목에 대해 full factorial design 기반의 backtest를 수행하고 최적의 전략을 융합하는 class <code class="docutils literal notranslate"><span class="pre">Quant</span></code> 추가</p></li>
+<li><p>한국투자증권의 국내 계좌 정보 조회 class <code class="docutils literal notranslate"><span class="pre">Balance</span></code> 추가</p></li>
+<li><p>상속을 통해 입력된 여러 종목에 대해 매수, 매도 signal을 판단하고 Slack으로 message와 graph를 전송하는 class <code class="docutils literal notranslate"><span class="pre">QuantSlackBot</span></code> 개발</p></li>
+<li><p>한국투자증권 API를 통한 Slack Bot class <code class="docutils literal notranslate"><span class="pre">QuantSlackBotKI</span></code> 개발</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FinanceDataReader</span></code> module을 통한 Slack Bot class <code class="docutils literal notranslate"><span class="pre">QuantSlackBotFDR</span></code> 개발</p></li>
+</ul>
+</li>
+</ul>
+<h4>Style</h4>
+<ul class="simple">
+<li><p>변수명 일관성 수정 (<code class="docutils literal notranslate"><span class="pre">font_size</span></code> → <code class="docutils literal notranslate"><span class="pre">fontsize</span></code>)</p></li>
+</ul>
+<h4>Docs</h4>
+<ul class="simple">
+<li><p>Typo 수정</p></li>
+</ul>
+</section>
 <section id="v0-5-5">
 <h2>v0.5.5<a class="headerlink" href="#v0-5-5" title="Permalink to this heading">#</a></h2>
 <h3>[v0.5.5] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/150>#150</a>)</h3>
@@ -541,6 +592,7 @@ $<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </sp
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">v0.5</a><ul>
+<li><a class="reference internal" href="#v0-5-6">v0.5.6</a></li>
 <li><a class="reference internal" href="#v0-5-5">v0.5.5</a></li>
 <li><a class="reference internal" href="#v0-5-4">v0.5.4</a></li>
 <li><a class="reference internal" href="#v0-5-3">v0.5.3</a></li>
@@ -560,7 +612,7 @@ $<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </sp
   </div>
 </div><script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=67a425f4"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=f1b7258d"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>

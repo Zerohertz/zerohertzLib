@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.api" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.api.html" />
-<meta property="og:site_name" content="Zerohertz's Library 0.5.5 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.5.6 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library 0.5.5 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.5.6 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.api.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.api - zerohertzLib 0.5.5 documentation</title>
+        <title>zerohertzLib.api - zerohertzLib v0.5.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib 0.5.5 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.5.6 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib 0.5.5 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.5.6 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -498,6 +498,7 @@
 <li><p><span class="target" id="zerohertzLib.api.KoreaInvestment.get_ohlcv.params.start_day"></span><strong>start_day</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.KoreaInvestment.get_ohlcv.params.start_day">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 조회 시작 일자 (<code class="docutils literal notranslate"><span class="pre">YYYYMMDD</span></code>)</p></li>
 <li><p><span class="target" id="zerohertzLib.api.KoreaInvestment.get_ohlcv.params.end_day"></span><strong>end_day</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.KoreaInvestment.get_ohlcv.params.end_day">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 조회 종료 일자 (<code class="docutils literal notranslate"><span class="pre">YYYYMMDD</span></code>)</p></li>
 <li><p><span class="target" id="zerohertzLib.api.KoreaInvestment.get_ohlcv.params.adj_price"></span><strong>adj_price</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.KoreaInvestment.get_ohlcv.params.adj_price">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 수정 주가 반영 여부</p></li>
+<li><p><span class="target" id="zerohertzLib.api.KoreaInvestment.get_ohlcv.params.kor"></span><strong>kor</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.KoreaInvestment.get_ohlcv.params.kor">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 국내 여부</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -512,6 +513,45 @@
 <span class="go">{&#39;output1&#39;: {&#39;prdy_vrss&#39;: &#39;...&#39;, ...}, &#39;output2&#39;: [&#39;stck_bsop_date&#39;: &#39;...&#39;, ...]}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">broker</span><span class="o">.</span><span class="n">get_ohlcv</span><span class="p">(</span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="n">kor</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="go">{&#39;output1&#39;: {&#39;rsym&#39;: &#39;...&#39;, ...}, &#39;output2&#39;: [&#39;xymd&#39;: &#39;...&#39;, ...]}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.api.KoreaInvestment.get_ohlcvs">
+<span class="sig-name descname"><span class="pre">get_ohlcvs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'D'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_day</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_day</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adj_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.api.KoreaInvestment.get_ohlcvs" title="Permalink to this definition">#</a></dt>
+<dd><p>여러 종목 code에 따른 기간별 OHLCV (Open, High, Low, Close, Volume)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.api.KoreaInvestment.get_ohlcvs.params.symbols"></span><strong>symbols</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.KoreaInvestment.get_ohlcvs.params.symbols">¶</a> (<code class="docutils literal notranslate"><span class="pre">List[str]</span></code>) – 종목 code들</p></li>
+<li><p><span class="target" id="zerohertzLib.api.KoreaInvestment.get_ohlcvs.params.time_frame"></span><strong>time_frame</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.KoreaInvestment.get_ohlcvs.params.time_frame">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 시간 window size (<code class="docutils literal notranslate"><span class="pre">&quot;D&quot;</span></code>: 일, <code class="docutils literal notranslate"><span class="pre">&quot;W&quot;</span></code>: 주, <code class="docutils literal notranslate"><span class="pre">&quot;M&quot;</span></code>: 월, <code class="docutils literal notranslate"><span class="pre">&quot;Y&quot;</span></code>: 년)</p></li>
+<li><p><span class="target" id="zerohertzLib.api.KoreaInvestment.get_ohlcvs.params.start_day"></span><strong>start_day</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.KoreaInvestment.get_ohlcvs.params.start_day">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 조회 시작 일자 (<code class="docutils literal notranslate"><span class="pre">YYYYMMDD</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.api.KoreaInvestment.get_ohlcvs.params.end_day"></span><strong>end_day</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.KoreaInvestment.get_ohlcvs.params.end_day">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 조회 종료 일자 (<code class="docutils literal notranslate"><span class="pre">YYYYMMDD</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.api.KoreaInvestment.get_ohlcvs.params.adj_price"></span><strong>adj_price</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.KoreaInvestment.get_ohlcvs.params.adj_price">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 수정 주가 반영 여부</p></li>
+<li><p><span class="target" id="zerohertzLib.api.KoreaInvestment.get_ohlcvs.params.kor"></span><strong>kor</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.KoreaInvestment.get_ohlcvs.params.kor">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 국내 여부</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Code들에 따른 종목의 이름과 OHLCV (Open, High, Low, Close, Volume)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Tuple[List[str],</span> <span class="pre">List[pd.core.frame.DataFrame]]</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">broker</span><span class="o">.</span><span class="n">get_ohlcvs</span><span class="p">([</span><span class="s2">&quot;005930&quot;</span><span class="p">,</span> <span class="s2">&quot;035420&quot;</span><span class="p">],</span> <span class="n">start_day</span><span class="o">=</span><span class="s2">&quot;20221205&quot;</span><span class="p">)</span>
+<span class="go">([&#39;삼성전자&#39;, &#39;NAVER&#39;],</span>
+<span class="go">[               Open     High      Low    Close      Volume</span>
+<span class="go">2022-12-05  60900.0  61100.0  60000.0  60300.0  13767787.0</span>
+<span class="go">...             ...      ...      ...      ...         ...</span>
+<span class="go">2023-12-05  72300.0  72400.0  71500.0  71500.0   4598639.0</span>
+<span class="go">[248 rows x 5 columns],</span>
+<span class="go">                Open      High       Low     Close     Volume</span>
+<span class="go">2022-12-05  187000.0  195000.0  186500.0  191500.0  1224361.0</span>
+<span class="go">...              ...       ...       ...       ...        ...</span>
+<span class="go">2023-12-05  210000.0  216500.0  209500.0  213500.0   454184.0</span>
+<span class="go">[248 rows x 5 columns]])</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -739,7 +779,7 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><span class="target" id="zerohertzLib.api.SlackBot.params.token"></span><strong>token</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.SlackBot.params.token">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Slack Bot의 token</p></li>
-<li><p><span class="target" id="zerohertzLib.api.SlackBot.params.channel"></span><strong>channel</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.SlackBot.params.channel">¶</a> (<code class="docutils literal notranslate"><span class="pre">channel</span></code>) – Slack Bot이 전송할 channel</p></li>
+<li><p><span class="target" id="zerohertzLib.api.SlackBot.params.channel"></span><strong>channel</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.SlackBot.params.channel">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Slack Bot이 전송할 channel</p></li>
 <li><p><span class="target" id="zerohertzLib.api.SlackBot.params.name"></span><strong>name</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.SlackBot.params.name">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Slack Bot의 표시될 이름</p></li>
 <li><p><span class="target" id="zerohertzLib.api.SlackBot.params.icon_emoji"></span><strong>icon_emoji</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.SlackBot.params.icon_emoji">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Slack Bot의 표시될 사진 (emoji)</p></li>
 <li><p><span class="target" id="zerohertzLib.api.SlackBot.params.icon_url"></span><strong>icon_url</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.api.SlackBot.params.icon_url">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Slack Bot의 표시될 사진 (photo)</p></li>
@@ -927,6 +967,7 @@
 <li><a class="reference internal" href="#zerohertzLib.api.KoreaInvestment.acc_no"><code class="docutils literal notranslate"><span class="pre">KoreaInvestment.acc_no</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.api.KoreaInvestment.get_balance"><code class="docutils literal notranslate"><span class="pre">KoreaInvestment.get_balance()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.api.KoreaInvestment.get_ohlcv"><code class="docutils literal notranslate"><span class="pre">KoreaInvestment.get_ohlcv()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.KoreaInvestment.get_ohlcvs"><code class="docutils literal notranslate"><span class="pre">KoreaInvestment.get_ohlcvs()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.api.KoreaInvestment.get_price"><code class="docutils literal notranslate"><span class="pre">KoreaInvestment.get_price()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.api.KoreaInvestment.response2ohlcv"><code class="docutils literal notranslate"><span class="pre">KoreaInvestment.response2ohlcv()</span></code></a></li>
 </ul>
@@ -973,7 +1014,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=67a425f4"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=f1b7258d"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
