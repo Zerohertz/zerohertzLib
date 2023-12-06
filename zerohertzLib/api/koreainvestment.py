@@ -49,7 +49,7 @@ import os
 import pickle
 import time
 from collections import defaultdict
-from typing import Dict, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
 import pandas as pd
 import requests
@@ -267,6 +267,7 @@ class KoreaInvestment:
             start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
             end_day (``Optional[str]``): 조회 종료 일자 (``YYYYMMDD``)
             adj_price (``Optional[bool]``): 수정 주가 반영 여부
+            kor (``Optional[bool]``): 국내 여부
 
         Returns:
             ``Dict[str, Dict]``: OHLCV (Open, High, Low, Close, Volume)
@@ -281,7 +282,9 @@ class KoreaInvestment:
             return self._get_korea_ohlcv(
                 symbol, time_frame, start_day, end_day, adj_price
             )
-        return self._get_overesea_ohlcv(symbol, time_frame, end_day, adj_price)
+        return self._get_oversea_ohlcv(
+            symbol, time_frame, start_day, end_day, adj_price
+        )
 
     def _get_korea_ohlcv(
         self,
@@ -335,14 +338,15 @@ class KoreaInvestment:
                 params["FID_INPUT_DATE_2"] = data["output2"][-1]["stck_bsop_date"]
                 response = requests.get(url, headers=headers, params=params, timeout=10)
                 data_ = response.json()
-                data["output2"] += data_["output2"]
+                data["output2"] += data_["output2"][1:]
                 time.sleep(0.02)
         return data
 
-    def _get_overesea_ohlcv(
+    def _get_oversea_ohlcv(
         self,
         symbol: str,
         time_frame: Optional[str] = "D",
+        start_day: Optional[str] = "",
         end_day: Optional[str] = "",
         adj_price: Optional[bool] = True,
     ) -> Dict[str, Dict]:
@@ -354,6 +358,7 @@ class KoreaInvestment:
         Args:
             symbol (``str``): 종목 code
             time_frame (``Optional[str]``): 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월)
+            start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
             end_day (``Optional[str]``): 조회 종료 일자 (``YYYYMMDD``)
             adj_price (``Optional[bool]``): 수정 주가 반영 여부
 
@@ -382,7 +387,15 @@ class KoreaInvestment:
             "MODP": 1 if adj_price else 0,
         }
         response = requests.get(url, headers=headers, params=params, timeout=10)
-        return response.json()
+        data = response.json()
+        if start_day != "":
+            while start_day < data["output2"][-1]["xymd"]:
+                params["BYMD"] = data["output2"][-1]["xymd"]
+                response = requests.get(url, headers=headers, params=params, timeout=10)
+                data_ = response.json()
+                data["output2"] += data_["output2"][1:]
+                time.sleep(0.02)
+        return data
 
     def response2ohlcv(
         self, response: Dict[str, Dict]
@@ -444,6 +457,56 @@ class KoreaInvestment:
             name,
             pd.DataFrame(data, index=pd.to_datetime(date, format="%Y%m%d"))[::-1],
         )
+
+    def get_ohlcvs(
+        self,
+        symbols: List[str],
+        time_frame: Optional[str] = "D",
+        start_day: Optional[str] = "",
+        end_day: Optional[str] = "",
+        adj_price: Optional[bool] = True,
+        kor: Optional[bool] = True,
+    ) -> Tuple[List[str], List[pd.core.frame.DataFrame]]:
+        """여러 종목 code에 따른 기간별 OHLCV (Open, High, Low, Close, Volume)
+
+        Args:
+            symbols (``List[str]``): 종목 code들
+            time_frame (``Optional[str]``): 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월, ``"Y"``: 년)
+            start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
+            end_day (``Optional[str]``): 조회 종료 일자 (``YYYYMMDD``)
+            adj_price (``Optional[bool]``): 수정 주가 반영 여부
+            kor (``Optional[bool]``): 국내 여부
+
+        Returns:
+            ``Tuple[List[str], List[pd.core.frame.DataFrame]]``: Code들에 따른 종목의 이름과 OHLCV (Open, High, Low, Close, Volume)
+
+        Examples:
+            >>> broker.get_ohlcvs(["005930", "035420"], start_day="20221205")
+            (['삼성전자', 'NAVER'],
+            [               Open     High      Low    Close      Volume
+            2022-12-05  60900.0  61100.0  60000.0  60300.0  13767787.0
+            ...             ...      ...      ...      ...         ...
+            2023-12-05  72300.0  72400.0  71500.0  71500.0   4598639.0
+            [248 rows x 5 columns],
+                            Open      High       Low     Close     Volume
+            2022-12-05  187000.0  195000.0  186500.0  191500.0  1224361.0
+            ...              ...       ...       ...       ...        ...
+            2023-12-05  210000.0  216500.0  209500.0  213500.0   454184.0
+            [248 rows x 5 columns]])
+        """
+        title = []
+        data = []
+        for symbol in symbols:
+            try:
+                response = self.get_ohlcv(
+                    symbol, time_frame, start_day, end_day, adj_price, kor
+                )
+                title_, data_ = self.response2ohlcv(response)
+                title.append(title_)
+                data.append(data_)
+            except KeyError:
+                print(f"'{symbol}' is not found")
+        return title, data
 
     def get_balance(self, kor: Optional[str] = True) -> Dict[str, Dict]:
         """주식 계좌 잔고 조회

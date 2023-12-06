@@ -84,5 +84,5 @@ def test_table():
     ]
     col = ["테란", "저그", "프로토스"]
     row = ["test1", "test2", "test3", "test4"]
-    zz.plot.table(data, col, row, title="Star Craft (table)", font_size=50)
+    zz.plot.table(data, col, row, title="Star Craft (table)", fontsize=50)
     assert "star_craft_(table).png" in os.listdir()

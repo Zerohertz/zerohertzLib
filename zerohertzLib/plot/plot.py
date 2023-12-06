@@ -24,7 +24,6 @@ SOFTWARE.
 
 from typing import Any, Dict, List, Optional, Tuple, Union
 
-import matplotlib as mpl
 import mplfinance as mpf
 import pandas as pd
 from matplotlib import pyplot as plt
@@ -44,7 +43,7 @@ def plot(
     figsize: Optional[Tuple[int]] = (15, 10),
     dpi: Optional[int] = 300,
     save: Optional[bool] = True,
-) -> None:
+) -> str:
     """List와 Dictionary로 입력받은 데이터를 line chart로 시각화
 
     Args:
@@ -61,7 +60,7 @@ def plot(
         save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
-        ``None``: 현재 directory에 바로 graph 저장
+        ``str``: 저장된 graph의 절대 경로
 
     Examples:
         >>> xdata = [i for i in range(20)]
@@ -102,7 +101,8 @@ def plot(
     plt.title(title, fontsize=25)
     plt.legend(ncol=ncol)
     if save:
-        savefig(title, dpi)
+        return savefig(title, dpi)
+    return None
 
 
 def candle(
@@ -112,7 +112,8 @@ def candle(
     dpi: Optional[int] = 300,
     save: Optional[bool] = True,
     signals: Optional[Dict[str, Any]] = None,
-) -> Tuple[mpl.figure.Figure, List[mpl.axes._axes.Axes]]:
+    threshold: Optional[int] = 1,
+) -> str:
     """OHLCV (Open, High, Low, Close, Volume) data에 따른 candle chart
 
     Args:
@@ -122,9 +123,10 @@ def candle(
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         save (``Optional[bool]``): Graph 저장 여부
         signals (``Optional[Dict[str, Any]]``): 추가적으로 plot할 data
+        threshold (``Optional[int]``): 매수, 매도를 결정할 ``signals`` 경계값
 
     Returns:
-        ``None``: 현재 directory에 바로 graph 저장
+        ``str``: 저장된 graph의 절대 경로
 
     Examples:
         >>> broker = zz.api.KoreaInvestment()
@@ -136,7 +138,7 @@ def candle(
         >>> title, data = broker.response2ohlcv(apple)
         >>> zz.plot.candle(data, title)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287729767-fc7b51c2-13c3-496b-8bda-309a4059bd56.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288058335-818715ff-b9d1-45d2-ab3d-328997558d5e.png
             :alt: Visualzation Result
             :align: center
             :width: 800px
@@ -179,34 +181,46 @@ def candle(
     if signals is not None:
         new_axis = axlist[0].twinx()
         xdata = axlist[0].get_lines()[0].get_xdata()
-        # new_axis.plot(
-        #     xdata,
-        #     signals["signals"],
-        #     color="black",
-        #     linewidth=1,
-        #     alpha=0.8,
-        # )
+        new_axis.plot(
+            xdata,
+            signals["signals"],
+            color="black",
+            linewidth=1,
+            alpha=0.5,
+        )
         buy_indices = []
         sell_indices = []
-        for idx, pos in enumerate(signals["positions"]):
-            if pos == -1:
+        for idx, pos in enumerate(signals["signals"]):
+            if pos >= threshold:
                 buy_indices.append(idx)
-            elif pos == 1:
+            elif pos <= -threshold:
                 sell_indices.append(idx)
         for i in buy_indices:
             new_axis.axvline(
-                x=xdata[i], color="blue", linestyle="--", linewidth=2, alpha=0.5
+                x=xdata[i], color="red", linestyle="--", linewidth=2, alpha=0.2
             )
         for i in sell_indices:
             new_axis.axvline(
-                x=xdata[i], color="red", linestyle="--", linewidth=2, alpha=0.5
+                x=xdata[i], color="blue", linestyle="--", linewidth=2, alpha=0.2
             )
         new_axis.set_yticks([])
-        # new_axis.set_yticks([-1, 0, 1])
-        # new_axis.set_yticklabels(["Buy", "", "Sell"])
-        # plt.legend()
+        new_axis = axlist[0].twinx()
+        colors = color(len(signals.columns), palette="magma")
+        if len(signals.columns) > 1:
+            for idx, col in enumerate(signals.columns[:-1]):
+                new_axis.plot(
+                    xdata,
+                    signals[col],
+                    color=colors[idx],
+                    linewidth=3,
+                    alpha=0.5,
+                    label=col,
+                )
+            plt.legend()
+        new_axis.set_yticks([])
     if save:
-        savefig(title, dpi)
+        return savefig(title, dpi)
+    return None
 
 
 def _bollinger_bands(data: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:

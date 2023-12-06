@@ -40,7 +40,7 @@ def barv(
     rot: Optional[int] = 0,
     per: Optional[bool] = True,
     save: Optional[bool] = True,
-) -> None:
+) -> str:
     """Dictionary로 입력받은 데이터를 가로 bar chart로 시각화
 
     Args:
@@ -55,7 +55,7 @@ def barv(
         save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
-        ``None``: 현재 directory에 바로 graph 저장
+        ``str``: 저장된 graph의 절대 경로
 
     Examples:
         >>> data = {"테란": 27, "저그": 40, "프로토스": 30}
@@ -94,7 +94,8 @@ def barv(
                 va="bottom",
             )
     if save:
-        savefig(title, dpi)
+        return savefig(title, dpi)
+    return None
 
 
 def barh(
@@ -107,7 +108,7 @@ def barh(
     rot: Optional[int] = 0,
     per: Optional[bool] = True,
     save: Optional[bool] = True,
-) -> None:
+) -> str:
     """Dictionary로 입력받은 데이터를 세로 bar chart로 시각화
 
     Args:
@@ -122,7 +123,7 @@ def barh(
         save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
-        ``None``: 현재 directory에 바로 graph 저장
+        ``str``: 저장된 graph의 절대 경로
 
     Examples:
         >>> data = {"테란": 27, "저그": 40, "프로토스": 30}
@@ -163,7 +164,8 @@ def barh(
                 rotation=270,
             )
     if save:
-        savefig(title, dpi)
+        return savefig(title, dpi)
+    return None
 
 
 def hist(
@@ -176,7 +178,7 @@ def hist(
     figsize: Optional[Tuple[int]] = (15, 10),
     dpi: Optional[int] = 300,
     save: Optional[bool] = True,
-) -> None:
+) -> str:
     """Dictionary로 입력받은 데이터를 histogram으로 시각화
 
     Args:
@@ -191,7 +193,7 @@ def hist(
         save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
-        ``None``: 현재 directory에 바로 graph 저장
+        ``str``: 저장된 graph의 절대 경로
 
     Examples:
         >>> data = {"테란": list(np.random.rand(1000) * 10), "저그": list(np.random.rand(1000) * 10 + 1), "프로토스": list(np.random.rand(1000) * 10 + 2)}
@@ -226,4 +228,5 @@ def hist(
     plt.title(title, fontsize=25)
     plt.legend()
     if save:
-        savefig(title, dpi)
+        return savefig(title, dpi)
+    return None

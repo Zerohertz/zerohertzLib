@@ -38,7 +38,7 @@ def scatter(
     figsize: Optional[Tuple[int]] = (15, 10),
     dpi: Optional[int] = 300,
     save: Optional[bool] = True,
-) -> None:
+) -> str:
     """Dictionary로 입력받은 데이터를 scatter plot으로 시각화
 
     Args:
@@ -52,7 +52,7 @@ def scatter(
         save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
-        ``None``: 현재 directory에 바로 graph 저장
+        ``str``: 저장된 graph의 절대 경로
 
     Examples:
         >>> data = {"테란": [list(np.random.rand(200) * 10), list(np.random.rand(200) * 10)], "저그": [list(np.random.rand(200) * 5 - 1), list(np.random.rand(200) * 5 + 1)], "프로토스": [list(np.random.rand(200) * 10 + 3), list(np.random.rand(200) * 10 - 2)]}
@@ -85,4 +85,5 @@ def scatter(
     plt.title(title, fontsize=25)
     plt.legend()
     if save:
-        savefig(title, dpi)
+        return savefig(title, dpi)
+    return None

@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.quant" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.quant.html" />
-<meta property="og:site_name" content="Zerohertz's Library 0.5.5 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.5.6 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library 0.5.5 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.5.6 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.quant.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.quant - zerohertzLib 0.5.5 documentation</title>
+        <title>zerohertzLib.quant - zerohertzLib v0.5.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib 0.5.5 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.5.6 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib 0.5.5 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.5.6 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -256,144 +256,763 @@
 <span id="zerohertzlib-quant"></span><h1>zerohertzLib.quant<a class="headerlink" href="#module-zerohertzLib.quant" title="Permalink to this heading">#</a></h1>
 <div class="hint admonition">
 <p class="admonition-title">Quant</p>
-<p><code class="docutils literal notranslate"><span class="pre">KoreaInvestment</span></code> 를 통해 수집한 data를 이용해 매수, 매도 signal을 포착하는 quant 함수들</p>
+<p><code class="docutils literal notranslate"><span class="pre">KoreaInvestment</span></code> 를 통해 수집한 data를 이용해 매수, 매도 signal을 포착하고 test하는 quant 함수 및 class들</p>
 </div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><code class="docutils literal notranslate"><span class="pre">signals[&quot;signals&quot;]</span></code> 부호의 의미</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">+1</span></code>: 매수</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-1</span></code>: 매도</p></li>
+</ul>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="zerohertzLib.quant.Balance">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">Balance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.Balance" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="zerohertzLib.api.html#zerohertzLib.api.KoreaInvestment" title="zerohertzLib.api.koreainvestment.KoreaInvestment"><code class="xref py py-class docutils literal notranslate"><span class="pre">KoreaInvestment</span></code></a></p>
+<p>한국투자증권의 국내 계좌 정보 조회 class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.quant.Balance.params.path"></span><strong>path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.Balance.params.path">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – <code class="docutils literal notranslate"><span class="pre">secret.key</span></code> 혹은 <code class="docutils literal notranslate"><span class="pre">token.dat</span></code> 이 포함된 경로</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.quant.Balance.balance">
+<span class="sig-name descname"><span class="pre">balance</span></span><a class="headerlink" href="#zerohertzLib.quant.Balance.balance" title="Permalink to this definition">#</a></dt>
+<dd><p>현재 보유 주식과 계좌의 금액 정보</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">Any]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.quant.Balance.__contains__">
+<span class="sig-name descname"><span class="pre">__contains__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.Balance.__contains__" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>item</strong> (<code class="docutils literal notranslate"><span class="pre">Any</span></code>) – 보유 여부를 판단할 종목명</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>입력 종목명의 보유 여부</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.quant.Balance.__len__">
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.Balance.__len__" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>보유 주식 종류의 수</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.quant.Balance.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.Balance.__getitem__" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – Index</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Index에 따른 주식의 매수 시점과 현재의 정보</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[Union[int,</span> <span class="pre">float,</span> <span class="pre">str]]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.quant.Balance.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.Balance.__call__" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>현재 보유 금액</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">Balance</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;LG전자&quot;</span> <span class="ow">in</span> <span class="n">balance</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;삼성전자&quot;</span> <span class="ow">in</span> <span class="n">balance</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">balance</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">[&#39;066570&#39;, 102200.0, 100200, 1, -1.95, -2000]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span><span class="p">()</span>
+<span class="go">1997997</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.quant.Balance.bought_symbols">
+<span class="sig-name descname"><span class="pre">bought_symbols</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.Balance.bought_symbols" title="Permalink to this definition">#</a></dt>
+<dd><p>보유 주식의 종목 code return</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>보유 주식의 종목 code들</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">List[str]</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span><span class="o">.</span><span class="n">bought_symbols</span><span class="p">():</span>
+<span class="go">[&#39;066570&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.quant.Balance.items">
+<span class="sig-name descname"><span class="pre">items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.Balance.items" title="Permalink to this definition">#</a></dt>
+<dd><p>보유 주식의 반복문 사용을 위한 method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>보유 종목 code와 그에 따른 정보들</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">ItemsView[str,</span> <span class="pre">List[Union[int,</span> <span class="pre">float,</span> <span class="pre">str]]]</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">balance</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.quant.Balance.table">
+<span class="sig-name descname"><span class="pre">table</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.Balance.table" title="Permalink to this definition">#</a></dt>
+<dd><p>현재 계좌의 상태를 image로 저장</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>저장된 image의 절대 경로</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span><span class="o">.</span><span class="n">table</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="zerohertzLib.quant.Experiments">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">Experiments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohlc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">report</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.Experiments" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Full factorial design 기반의 backtest 수행 class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.quant.Experiments.params.title"></span><strong>title</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.Experiments.params.title">¶</a> (<code class="docutils literal notranslate"><span class="pre">Union[str,</span> <span class="pre">List[str]]</span></code>) – 종목 이름</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.Experiments.params.data"></span><strong>data</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.Experiments.params.data">¶</a> (<code class="docutils literal notranslate"><span class="pre">Union[pd.core.frame.DataFrame,</span> <span class="pre">List[pd.core.frame.DataFrame]]</span></code>) – OHLCV (Open, High, Low, Close, Volume) data</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.Experiments.params.ohlc"></span><strong>ohlc</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.Experiments.params.ohlc">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 사용할 <code class="docutils literal notranslate"><span class="pre">data</span></code> 의 column 이름</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.Experiments.params.vis"></span><strong>vis</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.Experiments.params.vis">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – Candle chart 시각화 여부</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.Experiments.params.report"></span><strong>report</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.Experiments.params.report">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>): Experiment 결과 출력 여부</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">experiments</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">Experiments</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.quant.Experiments.bollinger_bands">
+<span class="sig-name descname"><span class="pre">bollinger_bands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.Experiments.bollinger_bands" title="Permalink to this definition">#</a></dt>
+<dd><p>Bollinger bands 전략 실험</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.quant.Experiments.bollinger_bands.params.exps"></span><strong>exps</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.Experiments.bollinger_bands.params.exps">¶</a> (<code class="docutils literal notranslate"><span class="pre">List[List[Any]]</span></code>) – 전략 함수에 입력될 변수들의 범위</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>손실 거래 비율에 따른 수익률, <code class="docutils literal notranslate"><span class="pre">signals</span></code>, parameter</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Tuple[List[float],</span> <span class="pre">pd.core.frame.DataFrame,</span> <span class="pre">List[str],</span> <span class="pre">List[Tuple[Union[int,</span> <span class="pre">float]]]]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.quant.Experiments.momentum">
+<span class="sig-name descname"><span class="pre">momentum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.Experiments.momentum" title="Permalink to this definition">#</a></dt>
+<dd><p>Momentum 전략 실험</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.quant.Experiments.momentum.params.exps"></span><strong>exps</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.Experiments.momentum.params.exps">¶</a> (<code class="docutils literal notranslate"><span class="pre">List[List[Any]]</span></code>) – 전략 함수에 입력될 변수들의 범위</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>손실 거래 비율에 따른 수익률, <code class="docutils literal notranslate"><span class="pre">signals</span></code>, parameter</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Tuple[List[float],</span> <span class="pre">pd.core.frame.DataFrame,</span> <span class="pre">List[str],</span> <span class="pre">List[Tuple[Union[int,</span> <span class="pre">float]]]]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.quant.Experiments.moving_average">
+<span class="sig-name descname"><span class="pre">moving_average</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.Experiments.moving_average" title="Permalink to this definition">#</a></dt>
+<dd><p>Moving average 전략 실험</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.quant.Experiments.moving_average.params.exps"></span><strong>exps</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.Experiments.moving_average.params.exps">¶</a> (<code class="docutils literal notranslate"><span class="pre">List[List[Any]]</span></code>) – 전략 함수에 입력될 변수들의 범위</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>손실 거래 비율에 따른 수익률, <code class="docutils literal notranslate"><span class="pre">signals</span></code>, parameter</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Tuple[List[float],</span> <span class="pre">pd.core.frame.DataFrame,</span> <span class="pre">List[str],</span> <span class="pre">List[Tuple[Union[int,</span> <span class="pre">float]]]]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.quant.Experiments.rsi">
+<span class="sig-name descname"><span class="pre">rsi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.Experiments.rsi" title="Permalink to this definition">#</a></dt>
+<dd><p>RSI 전략 실험</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.quant.Experiments.rsi.params.exps"></span><strong>exps</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.Experiments.rsi.params.exps">¶</a> (<code class="docutils literal notranslate"><span class="pre">List[List[Any]]</span></code>) – 전략 함수에 입력될 변수들의 범위</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>손실 거래 비율에 따른 수익률, <code class="docutils literal notranslate"><span class="pre">signals</span></code>, parameter</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Tuple[List[float],</span> <span class="pre">pd.core.frame.DataFrame,</span> <span class="pre">List[str],</span> <span class="pre">List[Tuple[Union[int,</span> <span class="pre">float]]]]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="zerohertzLib.quant.Quant">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">Quant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohlc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">methods</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.Quant" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zerohertzLib.quant.Experiments" title="zerohertzLib.quant.backtest.Experiments"><code class="xref py py-class docutils literal notranslate"><span class="pre">Experiments</span></code></a></p>
+<p>한 가지 종목에 대해 full factorial design 기반의 backtest를 수행하고 최적의 전략을 융합하는 class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.quant.Quant.params.title"></span><strong>title</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.Quant.params.title">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 종목 이름</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.Quant.params.data"></span><strong>data</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.Quant.params.data">¶</a> (<code class="docutils literal notranslate"><span class="pre">pd.core.frame.DataFrame</span></code>) – OHLCV (Open, High, Low, Close, Volume) data</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.Quant.params.ohlc"></span><strong>ohlc</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.Quant.params.ohlc">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 사용할 <code class="docutils literal notranslate"><span class="pre">data</span></code> 의 column 이름</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.Quant.params.top"></span><strong>top</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.Quant.params.top">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – Experiments 과정에서 사용할 각 전략별 수</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.Quant.params.methods"></span><strong>methods</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.Quant.params.methods">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[List[str]]</span></code>) – 사용할 전략들의 함수명</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.quant.Quant.backtest">
+<span class="sig-name descname"><span class="pre">backtest</span></span><a class="headerlink" href="#zerohertzLib.quant.Quant.backtest" title="Permalink to this definition">#</a></dt>
+<dd><p>융합된 전략의 backtest 결과</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[Tuple[Any]]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.quant.Quant.params">
+<span class="sig-name descname"><span class="pre">params</span></span><a class="headerlink" href="#zerohertzLib.quant.Quant.params" title="Permalink to this definition">#</a></dt>
+<dd><p>각 전략에 따른 paramter 문자역</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>Dict[str, List[str]]</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.quant.Quant.exps">
+<span class="sig-name descname"><span class="pre">exps</span></span><a class="headerlink" href="#zerohertzLib.quant.Quant.exps" title="Permalink to this definition">#</a></dt>
+<dd><p>각 전략에 따른 parameter 분포</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">List[Dict[str,</span> <span class="pre">int]]]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">Quant</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span><span class="o">.</span><span class="n">backtest</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">(5.692595336450012, 4, 33.33333333333333, defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;price&#39;: [2385.95, -2521.7725], &#39;profit&#39;: [5.385993383622044]}))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span><span class="o">.</span><span class="n">params</span>
+<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;moving_average&#39;: [&#39;5-75-50&#39;, &#39;5-80-50&#39;, &#39;5-65-50&#39;], ...})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span><span class="o">.</span><span class="n">exps</span>
+<span class="go">defaultdict(None, {&#39;moving_average&#39;: [defaultdict(&lt;class &#39;int&#39;&gt;, {&#39;5&#39;: 3}), defaultdict(&lt;class &#39;int&#39;&gt;, {&#39;75&#39;: 1, &#39;80&#39;: 1, &#39;65&#39;: 1}), ...], ...})</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.quant.Quant.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.Quant.run" title="Permalink to this definition">#</a></dt>
+<dd><p>입력된 날짜에 대해 분석 정보 return</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.quant.Quant.run.params.day"></span><strong>day</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.Quant.run.params.day">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 분석할 날짜</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>각 전략에 따른 분석 정보 및 결론</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">Any]</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="go">defaultdict(&lt;class &#39;float&#39;&gt;, {&#39;moving_average&#39;: 0.0, &#39;rsi&#39;: 0.0, &#39;bollinger_bands&#39;: 0.0, &#39;momentum&#39;: 0.0, &#39;total&#39;: 0.0, &#39;position&#39;: &#39;None&#39;})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;20231023&quot;</span><span class="p">)</span>
+<span class="go">defaultdict(&lt;class &#39;float&#39;&gt;, {&#39;moving_average&#39;: -100.0, &#39;rsi&#39;: 0.0, &#39;bollinger_bands&#39;: 66.66666666666666, &#39;momentum&#39;: 0.0, &#39;total&#39;: -8.333333333333332, &#39;position&#39;: &#39;None&#39;})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;2023-04-21&quot;</span><span class="p">)</span>
+<span class="go">defaultdict(&lt;class &#39;float&#39;&gt;, {&#39;moving_average&#39;: 100.0, &#39;rsi&#39;: 0.0, &#39;bollinger_bands&#39;: 0.0, &#39;momentum&#39;: 33.33333333333333, &#39;total&#39;: 33.33333333333333, &#39;position&#39;: &#39;Buy&#39;})</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="zerohertzLib.quant.QuantSlackBot">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">QuantSlackBot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_day</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icon_emoji</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mp_num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analysis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.QuantSlackBot" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="zerohertzLib.api.html#zerohertzLib.api.SlackBot" title="zerohertzLib.api.slack.SlackBot"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlackBot</span></code></a></p>
+<p>입력된 여러 종목에 대해 매수, 매도 signal을 판단하고 Slack으로 message와 graph를 전송하는 class</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>종목 code에 따른 종목명과 data를 불러오는 함수 <code class="docutils literal notranslate"><span class="pre">_get_data</span></code> 를 상속을 통해 정의해야 사용 가능</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">title</span><span class="p">,</span> <span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBot.params.symbols"></span><strong>symbols</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBot.params.symbols">¶</a> (<code class="docutils literal notranslate"><span class="pre">List[str]</span></code>) – 종목 code들</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBot.params.token"></span><strong>token</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBot.params.token">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Slack Bot의 token</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBot.params.channel"></span><strong>channel</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBot.params.channel">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Slack Bot이 전송할 channel</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBot.params.start_day"></span><strong>start_day</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBot.params.start_day">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 조회 시작 일자 (<code class="docutils literal notranslate"><span class="pre">YYYYMMDD</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBot.params.top"></span><strong>top</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBot.params.top">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – Experiments 과정에서 사용할 각 전략별 수</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBot.params.name"></span><strong>name</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBot.params.name">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Slack Bot의 표시될 이름</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBot.params.icon_emoji"></span><strong>icon_emoji</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBot.params.icon_emoji">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Slack Bot의 표시될 사진 (emoji)</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBot.params.mp_num"></span><strong>mp_num</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBot.params.mp_num">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – 병렬 처리에 사용될 process의 수 (<code class="docutils literal notranslate"><span class="pre">0</span></code>: 직렬 처리)</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBot.params.analysis"></span><strong>analysis</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBot.params.analysis">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 각 전략의 보고서 전송 여부</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.quant.QuantSlackBot.exps">
+<span class="sig-name descname"><span class="pre">exps</span></span><a class="headerlink" href="#zerohertzLib.quant.QuantSlackBot.exps" title="Permalink to this definition">#</a></dt>
+<dd><p>각 전략에 따른 parameter 분포</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">List[Dict[str,</span> <span class="pre">int]]]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">qsb</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">QuantSlackBot</span><span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">channel</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qsb</span><span class="o">.</span><span class="n">index</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288455654-53146aff-bf04-411e-a932-954e90c81d97.png"><img alt="Slack Bot Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288455654-53146aff-bf04-411e-a932-954e90c81d97.png" style="width: 400px;" /></a>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288455675-90300812-c23f-4222-a18f-0c621b03a633.png"><img alt="Slack Bot Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288455675-90300812-c23f-4222-a18f-0c621b03a633.png" style="width: 400px;" /></a>
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.quant.QuantSlackBot.buy">
+<span class="sig-name descname"><span class="pre">buy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.QuantSlackBot.buy" title="Permalink to this definition">#</a></dt>
+<dd><p>매수 signals 탐색</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.quant.QuantSlackBot.index">
+<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.QuantSlackBot.index" title="Permalink to this definition">#</a></dt>
+<dd><p>모든 signals 탐색</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="zerohertzLib.quant.QuantSlackBotFDR">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">QuantSlackBotFDR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_day</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icon_emoji</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mp_num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analysis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.QuantSlackBotFDR" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zerohertzLib.quant.QuantSlackBot" title="zerohertzLib.quant.quant.QuantSlackBot"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuantSlackBot</span></code></a></p>
+<p><a class="reference external" href="https://github.com/FinanceData/FinanceDataReader">FinanceDataReader</a> module 기반으로 입력된 여러 종목에 대해 매수, 매도 signal을 판단하고 Slack으로 message와 graph를 전송하는 class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBotFDR.params.symbols"></span><strong>symbols</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBotFDR.params.symbols">¶</a> (<code class="docutils literal notranslate"><span class="pre">List[str]</span></code>) – 종목 code들</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBotFDR.params.token"></span><strong>token</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBotFDR.params.token">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Slack Bot의 token</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBotFDR.params.channel"></span><strong>channel</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBotFDR.params.channel">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Slack Bot이 전송할 channel</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBotFDR.params.start_day"></span><strong>start_day</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBotFDR.params.start_day">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 조회 시작 일자 (<code class="docutils literal notranslate"><span class="pre">YYYYMMDD</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBotFDR.params.top"></span><strong>top</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBotFDR.params.top">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – Experiments 과정에서 사용할 각 전략별 수</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBotFDR.params.name"></span><strong>name</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBotFDR.params.name">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Slack Bot의 표시될 이름</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBotFDR.params.icon_emoji"></span><strong>icon_emoji</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBotFDR.params.icon_emoji">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Slack Bot의 표시될 사진 (emoji)</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBotFDR.params.mp_num"></span><strong>mp_num</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBotFDR.params.mp_num">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – 병렬 처리에 사용될 process의 수 (<code class="docutils literal notranslate"><span class="pre">0</span></code>: 직렬 처리)</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBotFDR.params.analysis"></span><strong>analysis</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBotFDR.params.analysis">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 각 전략의 보고서 전송 여부</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.quant.QuantSlackBotFDR.exps">
+<span class="sig-name descname"><span class="pre">exps</span></span><a class="headerlink" href="#zerohertzLib.quant.QuantSlackBotFDR.exps" title="Permalink to this definition">#</a></dt>
+<dd><p>각 전략에 따른 parameter 분포</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">List[Dict[str,</span> <span class="pre">int]]]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.quant.QuantSlackBotFDR.krx">
+<span class="sig-name descname"><span class="pre">krx</span></span><a class="headerlink" href="#zerohertzLib.quant.QuantSlackBotFDR.krx" title="Permalink to this definition">#</a></dt>
+<dd><p>KRX 상장 회사 목록</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">pd.core.frame.DataFrame</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">qsb</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">QuantSlackBotFDR</span><span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">channel</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="zerohertzLib.quant.QuantSlackBotKI">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">QuantSlackBotKI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_day</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icon_emoji</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mp_num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analysis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.QuantSlackBotKI" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zerohertzLib.quant.Balance" title="zerohertzLib.quant.quant.Balance"><code class="xref py py-class docutils literal notranslate"><span class="pre">Balance</span></code></a>, <a class="reference internal" href="#zerohertzLib.quant.QuantSlackBot" title="zerohertzLib.quant.quant.QuantSlackBot"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuantSlackBot</span></code></a></p>
+<p>한국투자증권 API를 기반으로 입력된 여러 종목에 대해 매수, 매도 signal을 판단하고 Slack으로 message와 graph를 전송하는 class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBotKI.params.symbols"></span><strong>symbols</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBotKI.params.symbols">¶</a> (<code class="docutils literal notranslate"><span class="pre">List[str]</span></code>) – 종목 code들</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBotKI.params.token"></span><strong>token</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBotKI.params.token">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Slack Bot의 token</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBotKI.params.channel"></span><strong>channel</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBotKI.params.channel">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Slack Bot이 전송할 channel</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBotKI.params.path"></span><strong>path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBotKI.params.path">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – <code class="docutils literal notranslate"><span class="pre">secret.key</span></code> 혹은 <code class="docutils literal notranslate"><span class="pre">token.dat</span></code> 이 포함된 경로</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBotKI.params.start_day"></span><strong>start_day</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBotKI.params.start_day">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 조회 시작 일자 (<code class="docutils literal notranslate"><span class="pre">YYYYMMDD</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBotKI.params.top"></span><strong>top</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBotKI.params.top">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – Experiments 과정에서 사용할 각 전략별 수</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBotKI.params.name"></span><strong>name</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBotKI.params.name">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Slack Bot의 표시될 이름</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBotKI.params.icon_emoji"></span><strong>icon_emoji</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBotKI.params.icon_emoji">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Slack Bot의 표시될 사진 (emoji)</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBotKI.params.mp_num"></span><strong>mp_num</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBotKI.params.mp_num">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – 병렬 처리에 사용될 process의 수 (<code class="docutils literal notranslate"><span class="pre">0</span></code>: 직렬 처리)</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.QuantSlackBotKI.params.analysis"></span><strong>analysis</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.QuantSlackBotKI.params.analysis">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 각 전략의 보고서 전송 여부</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.quant.QuantSlackBotKI.exps">
+<span class="sig-name descname"><span class="pre">exps</span></span><a class="headerlink" href="#zerohertzLib.quant.QuantSlackBotKI.exps" title="Permalink to this definition">#</a></dt>
+<dd><p>각 전략에 따른 parameter 분포</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">List[Dict[str,</span> <span class="pre">int]]]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">qsb</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">QuantSlackBotKI</span><span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">channel</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.quant.QuantSlackBotKI.sell">
+<span class="sig-name descname"><span class="pre">sell</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.QuantSlackBotKI.sell" title="Permalink to this definition">#</a></dt>
+<dd><p>매도 signals 탐색</p>
+<p>한국투자증권의 잔고와 주식 보유 상황을 image로 변환하여 slack으로 전송 및 보유 중인 주식에 대해 매도 signals 탐색</p>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.quant.backtest">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">backtest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signals</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.backtest" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">backtest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohlc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.backtest" title="Permalink to this definition">#</a></dt>
 <dd><p>전략에 의해 생성된 <code class="docutils literal notranslate"><span class="pre">signals</span></code> backtest</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.quant.backtest.params.data"></span><strong>data</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.backtest.params.data">¶</a> (<code class="docutils literal notranslate"><span class="pre">pd.core.frame.DataFrame</span></code>) – OHLCV (Open, High, Low, Close, Volume) data</p></li>
-<li><p><span class="target" id="zerohertzLib.quant.backtest.params.signals"></span><strong>signals</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.backtest.params.signals">¶</a> (<code class="docutils literal notranslate"><span class="pre">pd.core.frame.DataFrame</span></code>) – <code class="docutils literal notranslate"><span class="pre">&quot;positions&quot;</span></code> column이 포함된 data</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.backtest.params.data"></span><strong>data</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.backtest.params.data">¶</a> (<code class="docutils literal notranslate"><span class="pre">Union[pd.core.frame.DataFrame,</span> <span class="pre">List[pd.core.frame.DataFrame]]</span></code>) – OHLCV (Open, High, Low, Close, Volume) data</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.backtest.params.signals"></span><strong>signals</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.backtest.params.signals">¶</a> (<code class="docutils literal notranslate"><span class="pre">Union[pd.core.frame.DataFrame,</span> <span class="pre">List[pd.core.frame.DataFrame]]</span></code>) – <code class="docutils literal notranslate"><span class="pre">&quot;signals&quot;</span></code> column이 포함된 data</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.backtest.params.ohlc"></span><strong>ohlc</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.backtest.params.ohlc">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 사용할 <code class="docutils literal notranslate"><span class="pre">data</span></code> 의 column 이름</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.backtest.params.threshold"></span><strong>threshold</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.backtest.params.threshold">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – 매수, 매도를 결정할 <code class="docutils literal notranslate"><span class="pre">signals</span></code> 경계값</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>수익률 (단위: %)과 매수, 매도 log</p>
+<dd class="field-even"><p>수익률 (단위: %), 손실 거래 비율 (단위: %), 손실 거래 비율에 따른 수익률, 거래 내역</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Tuple[float,</span> <span class="pre">List[Tuple[float]]]</span></code></p>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">Any]</span></code></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">backtest</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">signals</span><span class="p">)</span>
-<span class="go">(4.23899999999999, [(10000000.0, 61500.0, 162.0), (10048600.0, -61800.0, 0), ...])</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">backtest</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">signals</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="go">dict_keys([&#39;profit&#39;, &#39;loss&#39;, &#39;weighted_profit&#39;, &#39;transaction&#39;])</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.quant.bollinger_bands">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">bollinger_bands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_std_dev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohlc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Open'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.bollinger_bands" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">bollinger_bands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">14</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_std_dev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohlc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.bollinger_bands" title="Permalink to this definition">#</a></dt>
 <dd><p>Bollinger band 기반 매수 및 매도 signal을 생성하는 함수</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Bollinger Band</p>
+<ul class="simple">
+<li><p>Definition: 1980년대에 John Bollinger에 의해 개발된 가격 변동성 및 추세 파악 기법</p></li>
+<li><dl class="simple">
+<dt>Mean</dt><dd><ul>
+<li><p>Middle Band: 기본적인 중간 가격 추세</p></li>
+<li><p>Upper Band: Middle band에서 일정 표준편차 위에 위치 (과도한 상승 추세나 고평가 상태)</p></li>
+<li><p>Lower Band: Middle band에서 일정 표준편차 아래에 위치 (과도한 하락 추세나 저평가 상태)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<ul class="simple">
+<li><p>매수 신호 (<code class="docutils literal notranslate"><span class="pre">+1</span></code>): 주가가 하단 Bollinger band (<code class="docutils literal notranslate"><span class="pre">lower_band</span></code>) 아래로 감소할 때 생성 (과매도 상태)</p></li>
+<li><p>매도 신호 (<code class="docutils literal notranslate"><span class="pre">-1</span></code>): 주가가 상단 Bollinger band (<code class="docutils literal notranslate"><span class="pre">upper_band</span></code>) 위로 상승할 때 생성 (과매수 상태)</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.quant.bollinger_bands.params.data"></span><strong>data</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.bollinger_bands.params.data">¶</a> (<code class="docutils literal notranslate"><span class="pre">pd.core.frame.DataFrame</span></code>) – OHLCV (Open, High, Low, Close, Volume) data</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.bollinger_bands.params.data"></span><strong>data</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.bollinger_bands.params.data">¶</a> (<code class="docutils literal notranslate"><span class="pre">Union[pd.core.frame.DataFrame,</span> <span class="pre">List[pd.core.frame.DataFrame]]</span></code>) – OHLCV (Open, High, Low, Close, Volume) data</p></li>
 <li><p><span class="target" id="zerohertzLib.quant.bollinger_bands.params.window"></span><strong>window</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.bollinger_bands.params.window">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – 이동 평균을 계산하기 위한 widnow 크기</p></li>
-<li><p><span class="target" id="zerohertzLib.quant.bollinger_bands.params.num_std_dev"></span><strong>num_std_dev</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.bollinger_bands.params.num_std_dev">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – 표준편차의 배수</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.bollinger_bands.params.num_std_dev"></span><strong>num_std_dev</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.bollinger_bands.params.num_std_dev">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[float]</span></code>) – 표준편차의 배수</p></li>
 <li><p><span class="target" id="zerohertzLib.quant.bollinger_bands.params.ohlc"></span><strong>ohlc</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.bollinger_bands.params.ohlc">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 이동 평균을 계산할 때 사용할 <code class="docutils literal notranslate"><span class="pre">data</span></code> 의 column 이름</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>각 날짜에 대한 signal (<code class="docutils literal notranslate"><span class="pre">&quot;signals&quot;</span></code>) 및 position (<code class="docutils literal notranslate"><span class="pre">&quot;positions&quot;</span></code>) 정보</p>
+<dd class="field-even"><p>각 날짜에 대한 signal (<code class="docutils literal notranslate"><span class="pre">&quot;signals&quot;</span></code>) 정보</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">pd.core.frame.DataFrame</span></code></p>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Union[pd.core.frame.DataFrame,</span> <span class="pre">List[pd.core.frame.DataFrame]]</span></code></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">bollinger_bands</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="go">            middle_band    upper_band    lower_band  signals  positions</span>
-<span class="go">2022-12-05          NaN           NaN           NaN        0          0</span>
-<span class="go">...                 ...           ...           ...      ...        ...</span>
-<span class="go">2023-12-04      71822.5  73714.581839  69930.418161        0          0</span>
+<span class="go">             middle_band    upper_band    lower_band  signals</span>
+<span class="go">2022-12-05           NaN           NaN           NaN        0</span>
+<span class="go">...                  ...           ...           ...      ...</span>
+<span class="go">2023-12-05  72371.428571  73228.137390  71514.719753        0</span>
+<span class="go">[248 rows x 4 columns]</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287743057-aec042ef-6c0b-41b7-a85e-7cc6046a06af.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287743057-aec042ef-6c0b-41b7-a85e-7cc6046a06af.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288449546-8eb91fb4-c5d1-4aab-ae5d-928a04f1c159.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288449546-8eb91fb4-c5d1-4aab-ae5d-928a04f1c159.png" style="width: 600px;" /></a>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.quant.experiments">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">experiments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exps</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.experiments" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">experiments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohlc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">report</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.experiments" title="Permalink to this definition">#</a></dt>
 <dd><p>Full factorial design 기반의 backtest 수행 함수</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.quant.experiments.params.title"></span><strong>title</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.experiments.params.title">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 종목 이름</p></li>
-<li><p><span class="target" id="zerohertzLib.quant.experiments.params.data"></span><strong>data</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.experiments.params.data">¶</a> (<code class="docutils literal notranslate"><span class="pre">pd.core.frame.DataFrame</span></code>) – OHLCV (Open, High, Low, Close, Volume) data</p></li>
-<li><p><span class="target" id="zerohertzLib.quant.experiments.params.strategy"></span><strong>strategy</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.experiments.params.strategy">¶</a> (<code class="docutils literal notranslate"><span class="pre">Callable[[Any],</span> <span class="pre">pd.core.frame.DataFrame]</span></code>) – Full factorial을 수행할 전략 함수</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.experiments.params.title"></span><strong>title</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.experiments.params.title">¶</a> (<code class="docutils literal notranslate"><span class="pre">Union[str,</span> <span class="pre">List[str]]</span></code>) – 종목 이름</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.experiments.params.data"></span><strong>data</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.experiments.params.data">¶</a> (<code class="docutils literal notranslate"><span class="pre">Union[pd.core.frame.DataFrame,</span> <span class="pre">List[pd.core.frame.DataFrame]]</span></code>) – OHLCV (Open, High, Low, Close, Volume) data</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.experiments.params.strategy"></span><strong>strategy</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.experiments.params.strategy">¶</a> (<code class="docutils literal notranslate"><span class="pre">Callable[[Any],</span> <span class="pre">Union[pd.core.frame.DataFrame,</span> <span class="pre">List[pd.core.frame.DataFrame]]]</span></code>) – Full factorial을 수행할 전략 함수</p></li>
 <li><p><span class="target" id="zerohertzLib.quant.experiments.params.exps"></span><strong>exps</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.experiments.params.exps">¶</a> (<code class="docutils literal notranslate"><span class="pre">List[List[Any]]</span></code>) – 전략 함수에 입력될 변수들의 범위</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.experiments.params.ohlc"></span><strong>ohlc</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.experiments.params.ohlc">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 사용할 <code class="docutils literal notranslate"><span class="pre">data</span></code> 의 column 이름</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.experiments.params.vis"></span><strong>vis</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.experiments.params.vis">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – Candle chart 시각화 여부</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.experiments.params.dpi"></span><strong>dpi</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.experiments.params.dpi">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>): Graph 저장 시 DPI (Dots Per Inch)</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.experiments.params.report"></span><strong>report</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.experiments.params.report">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>): Experiment 결과 출력 여부</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>실험의 결과</p>
+<dd class="field-even"><p>손실 거래 비율에 따른 수익률, <code class="docutils literal notranslate"><span class="pre">signals</span></code>, parameter</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Tuple[List[float],</span> <span class="pre">pd.core.frame.DataFrame,</span> <span class="pre">List[str],</span> <span class="pre">List[Tuple[Union[int,</span> <span class="pre">float]]]]</span></code></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">exps</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">],</span> <span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">experiments</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">moving_average</span><span class="p">,</span> <span class="n">exps</span><span class="p">)</span>
-<span class="go">5-40:   -1.68%  9,832,000</span>
-<span class="go">5-50:   0.41%   10,040,900</span>
-<span class="go">5-60:   -3.06%  9,693,700</span>
-<span class="go">10-40:  0.24%   10,023,700</span>
-<span class="go">10-50:  -0.72%  9,927,800</span>
-<span class="go">10-60:  2.81%   10,281,300</span>
-<span class="go">15-40:  2.67%   10,267,300</span>
-<span class="go">15-50:  4.24%   10,423,900</span>
-<span class="go">15-60:  -3.68%  9,632,400</span>
-<span class="go">==================================================</span>
-<span class="go">BEST:   15-50   4.24%</span>
-<span class="go">WORST:  15-60   -3.68%</span>
-<span class="go">==================================================</span>
+<p>Single:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">exps</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">70</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">experiments</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">moving_average</span><span class="p">,</span> <span class="n">exps</span><span class="p">,</span> <span class="n">report</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">10-50:  15.47%  20.00%</span>
+<span class="go">...</span>
+<span class="go">30-70:  13.95%  0.00%</span>
+<span class="go">====================================================================================================</span>
+<span class="go">OPTIM:  20-60   30.96%  0.00%</span>
+<span class="go">BEST:   20-50   31.66%  25.00%</span>
+<span class="go">WORST:  30-60   9.83%   25.00%</span>
+<span class="go">====================================================================================================</span>
 </pre></div>
 </div>
+<p>Multi:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">experiments</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">moving_average</span><span class="p">,</span> <span class="n">exps</span><span class="p">,</span> <span class="n">report</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">10-50:  10.97%  6.67%                   15.47%  -14.22% 31.66%</span>
+<span class="go">...</span>
+<span class="go">30-70:  4.13%   16.67%                  13.95%  -9.61%  8.04%</span>
+<span class="go">====================================================================================================</span>
+<span class="go">OPTIM:  20-50   24.10%  8.33%           31.66%  0.79%   39.84%</span>
+<span class="go">BEST:   20-50   24.10%  8.33%           31.66%  0.79%   39.84%</span>
+<span class="go">WORST:  30-60   -1.99%  41.67%          9.83%   -14.49% -1.32%</span>
+<span class="go">====================================================================================================</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="zerohertzLib.quant.momentum">
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">momentum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avg_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mnt_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">75</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohlc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.momentum" title="Permalink to this definition">#</a></dt>
+<dd><p>Momentum 기반 매수 및 매도 signal을 생성하는 함수</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Momentum</p>
+<ul class="simple">
+<li><p>Definition: <code class="docutils literal notranslate"><span class="pre">data[ohlc].diff(window)</span></code> 를 통해 <code class="docutils literal notranslate"><span class="pre">window</span></code> 일 전 가격 사이의 차이 계산</p></li>
+<li><dl class="simple">
+<dt>Mean</dt><dd><ul>
+<li><p>양의 momentum: 가격 상승</p></li>
+<li><p>음의 momentum: 가격 하락</p></li>
+<li><p>Momentum의 크기: 추세의 강도</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<ul class="simple">
+<li><p>매수 신호 (<code class="docutils literal notranslate"><span class="pre">+1</span></code>): 주가 momentum이 양수일 때 생성 (상승 추세)</p></li>
+<li><p>매도 신호 (<code class="docutils literal notranslate"><span class="pre">-1</span></code>): 주가 momentum이 음수일 때 생성 (하락 추세)</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.quant.momentum.params.data"></span><strong>data</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.momentum.params.data">¶</a> (<code class="docutils literal notranslate"><span class="pre">Union[pd.core.frame.DataFrame,</span> <span class="pre">List[pd.core.frame.DataFrame]]</span></code>) – OHLCV (Open, High, Low, Close, Volume) data</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.momentum.params.avg_window"></span><strong>avg_window</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.momentum.params.avg_window">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – 이동 평균을 계산하기 위한 widnow 크기</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.momentum.params.mnt_window"></span><strong>mnt_window</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.momentum.params.mnt_window">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – Momentum을 계산하기 위한 widnow 크기</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.momentum.params.gap"></span><strong>gap</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.momentum.params.gap">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – Momentum의 threshold를 산정하기 위한 평균 주가의 분모</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.momentum.params.ohlc"></span><strong>ohlc</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.momentum.params.ohlc">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Momentum을 계산할 때 사용할 <code class="docutils literal notranslate"><span class="pre">data</span></code> 의 column 이름</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>각 날짜에 대한 signal (<code class="docutils literal notranslate"><span class="pre">&quot;signals&quot;</span></code>) 정보</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Union[pd.core.frame.DataFrame,</span> <span class="pre">List[pd.core.frame.DataFrame]]</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">momentum</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="go">            momentum  signals</span>
+<span class="go">2022-12-05       NaN      0.0</span>
+<span class="go">...              ...      ...</span>
+<span class="go">2023-12-05     190.0      0.0</span>
+<span class="go">[248 rows x 2 columns]</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288449598-1eae1885-61cb-46c5-8af9-4936a1ca7b83.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288449598-1eae1885-61cb-46c5-8af9-4936a1ca7b83.png" style="width: 600px;" /></a>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.quant.moving_average">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">moving_average</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">long_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohlc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Open'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.moving_average" title="Permalink to this definition">#</a></dt>
-<dd><p>주어진 <code class="docutils literal notranslate"><span class="pre">data</span></code> 의 단기 및 장기 이동 평균을 계산 후 trading signal과 postion을 결정하는 함수</p>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">moving_average</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">long_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohlc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.moving_average" title="Permalink to this definition">#</a></dt>
+<dd><p>단기 및 장기 이동 평균 기반 매수 및 매도 signal을 생성하는 함수</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Moving Average</p>
+<ul class="simple">
+<li><p>Definition: 일정 기간 동안 평균화하여 추세 파악 및 noise 감소</p></li>
+</ul>
+</div>
+<ul class="simple">
+<li><p>매수 신호 (<code class="docutils literal notranslate"><span class="pre">+1</span></code>): 단기 이동 평균이 장기 이동 평균보다 높을 때 생성 (상승 추세)</p></li>
+<li><p>매도 신호 (<code class="docutils literal notranslate"><span class="pre">-1</span></code>): 단기 이동 평균이 장기 이동 평균보다 낮을 때 생성 (하락 추세)</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.quant.moving_average.params.data"></span><strong>data</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.moving_average.params.data">¶</a> (<code class="docutils literal notranslate"><span class="pre">pd.core.frame.DataFrame</span></code>) – OHLCV (Open, High, Low, Close, Volume) data</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.moving_average.params.data"></span><strong>data</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.moving_average.params.data">¶</a> (<code class="docutils literal notranslate"><span class="pre">Union[pd.core.frame.DataFrame,</span> <span class="pre">List[pd.core.frame.DataFrame]]</span></code>) – OHLCV (Open, High, Low, Close, Volume) data</p></li>
 <li><p><span class="target" id="zerohertzLib.quant.moving_average.params.short_window"></span><strong>short_window</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.moving_average.params.short_window">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – 단기 이동 평균을 계산하기 위한 window 크기</p></li>
 <li><p><span class="target" id="zerohertzLib.quant.moving_average.params.long_window"></span><strong>long_window</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.moving_average.params.long_window">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – 장기 이동 평균을 계산하기 위한 widnow 크기</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.moving_average.params.gap"></span><strong>gap</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.moving_average.params.gap">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – 이동 평균 간의 threshold를 산정하기 위한 평균 주가의 분모</p></li>
 <li><p><span class="target" id="zerohertzLib.quant.moving_average.params.ohlc"></span><strong>ohlc</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.moving_average.params.ohlc">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 이동 평균을 계산할 때 사용할 <code class="docutils literal notranslate"><span class="pre">data</span></code> 의 column 이름</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>각 날짜에 대한 signal (<code class="docutils literal notranslate"><span class="pre">&quot;signals&quot;</span></code>) 및 position (<code class="docutils literal notranslate"><span class="pre">&quot;positions&quot;</span></code>) 정보</p>
+<dd class="field-even"><p>각 날짜에 대한 signal (<code class="docutils literal notranslate"><span class="pre">&quot;signals&quot;</span></code>) 정보</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">pd.core.frame.DataFrame</span></code></p>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Union[pd.core.frame.DataFrame,</span> <span class="pre">List[pd.core.frame.DataFrame]]</span></code></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">moving_average</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="go">            signals    short_mavg     long_mavg  positions</span>
-<span class="go">2022-12-05      0.0  60900.000000  60900.000000          0</span>
-<span class="go">...             ...           ...           ...        ...</span>
-<span class="go">2023-12-04     -1.0  72226.666667  69790.000000          0</span>
-<span class="go">[249 rows x 4 columns]</span>
+<span class="go">            short_mavg  long_mavg  signals</span>
+<span class="go">2022-12-05    60575.00   60575.00      0.0</span>
+<span class="go">...                ...        ...      ...</span>
+<span class="go">2023-12-05    72255.00   69838.50      1.0</span>
+<span class="go">[248 rows x 3 columns]</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287730379-368fa075-70b5-4721-91ba-05e7fc579d99.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287730379-368fa075-70b5-4721-91ba-05e7fc579d99.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288449614-5c3ab869-5a6b-4a1c-bb7e-8c93cdb434c8.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288449614-5c3ab869-5a6b-4a1c-bb7e-8c93cdb434c8.png" style="width: 600px;" /></a>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.quant.rsi">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">rsi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lower_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">70</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">14</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohlc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Open'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.rsi" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">rsi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lower_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">21</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohlc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.rsi" title="Permalink to this definition">#</a></dt>
 <dd><p>RSI 기반 매수 및 매도 signal을 생성하는 함수</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>RSI (Relative Strength Index)</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Definition</dt><dd><ul>
+<li><p><span class="math notranslate nohighlight">\(RS = \frac{Average\ Gain}{Average\ Loss}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(RSI = 100 - \frac{100}{1+RS}\)</span></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Mean</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">-1</span></code> → <code class="docutils literal notranslate"><span class="pre">0</span></code>: 과매수 상태에서 중립 상태로 변화 (매도 position 청산)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code> → <code class="docutils literal notranslate"><span class="pre">-1</span></code>: 과매수 상태로의 진입 (새로운 매도 position)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+1</span></code> → <code class="docutils literal notranslate"><span class="pre">0</span></code>: 과매도 상태에서 중립 상태로 변화 (매수 position 청산)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code> → <code class="docutils literal notranslate"><span class="pre">+1</span></code>: 과매도 상태로의 진입 (새로운 매수 position)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<ul class="simple">
+<li><p>매수 신호 (<code class="docutils literal notranslate"><span class="pre">+1</span></code>): RSI 값이 <code class="docutils literal notranslate"><span class="pre">lower_bound</span></code> 보다 낮을 때 생성 (과매도 상태)</p></li>
+<li><p>매도 신호 (<code class="docutils literal notranslate"><span class="pre">-1</span></code>): RSI 값이 <code class="docutils literal notranslate"><span class="pre">upper_bound</span></code> 보다 높을 때 생성 (과매수 상태)</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.quant.rsi.params.data"></span><strong>data</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.rsi.params.data">¶</a> (<code class="docutils literal notranslate"><span class="pre">pd.core.frame.DataFrame</span></code>) – OHLCV (Open, High, Low, Close, Volume) data</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.rsi.params.data"></span><strong>data</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.rsi.params.data">¶</a> (<code class="docutils literal notranslate"><span class="pre">Union[pd.core.frame.DataFrame,</span> <span class="pre">List[pd.core.frame.DataFrame]]</span></code>) – OHLCV (Open, High, Low, Close, Volume) data</p></li>
 <li><p><span class="target" id="zerohertzLib.quant.rsi.params.lower_bound"></span><strong>lower_bound</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.rsi.params.lower_bound">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – RSI 과매도 기준</p></li>
 <li><p><span class="target" id="zerohertzLib.quant.rsi.params.upper_bound"></span><strong>upper_bound</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.rsi.params.upper_bound">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – RSI 과매수 기준</p></li>
 <li><p><span class="target" id="zerohertzLib.quant.rsi.params.window"></span><strong>window</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.rsi.params.window">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – 이동 평균을 계산하기 위한 widnow 크기</p></li>
@@ -401,22 +1020,22 @@
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>각 날짜에 대한 signal (<code class="docutils literal notranslate"><span class="pre">&quot;signals&quot;</span></code>) 및 position (<code class="docutils literal notranslate"><span class="pre">&quot;positions&quot;</span></code>) 정보</p>
+<dd class="field-even"><p>각 날짜에 대한 signal (<code class="docutils literal notranslate"><span class="pre">&quot;signals&quot;</span></code>) 정보</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">pd.core.frame.DataFrame</span></code></p>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Union[pd.core.frame.DataFrame,</span> <span class="pre">List[pd.core.frame.DataFrame]]</span></code></p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">rsi</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="go">                  RSI  signals  positions</span>
-<span class="go">2022-12-05        NaN        0        NaN</span>
-<span class="go">...               ...      ...        ...</span>
-<span class="go">2023-12-04  60.975610        0        0.0</span>
-<span class="go">[249 rows x 3 columns]</span>
+<span class="go">                  RSI  signals</span>
+<span class="go">2022-12-05        NaN        0</span>
+<span class="go">...               ...      ...</span>
+<span class="go">2023-12-05  58.563536        0</span>
+<span class="go">[248 rows x 2 columns]</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287730363-456bbf0e-62f9-45c8-8025-7fe22588d780.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/287730363-456bbf0e-62f9-45c8-8025-7fe22588d780.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288449622-ab75b83b-dc0c-4f69-a7b1-763c5287398e.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288449622-ab75b83b-dc0c-4f69-a7b1-763c5287398e.png" style="width: 600px;" /></a>
 </dd></dl>
 
 </section>
@@ -480,9 +1099,51 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">zerohertzLib.quant</a><ul>
+<li><a class="reference internal" href="#zerohertzLib.quant.Balance"><code class="docutils literal notranslate"><span class="pre">Balance</span></code></a><ul>
+<li><a class="reference internal" href="#zerohertzLib.quant.Balance.balance"><code class="docutils literal notranslate"><span class="pre">Balance.balance</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.quant.Balance.__contains__"><code class="docutils literal notranslate"><span class="pre">Balance.__contains__()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.quant.Balance.__len__"><code class="docutils literal notranslate"><span class="pre">Balance.__len__()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.quant.Balance.__getitem__"><code class="docutils literal notranslate"><span class="pre">Balance.__getitem__()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.quant.Balance.__call__"><code class="docutils literal notranslate"><span class="pre">Balance.__call__()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.quant.Balance.bought_symbols"><code class="docutils literal notranslate"><span class="pre">Balance.bought_symbols()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.quant.Balance.items"><code class="docutils literal notranslate"><span class="pre">Balance.items()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.quant.Balance.table"><code class="docutils literal notranslate"><span class="pre">Balance.table()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#zerohertzLib.quant.Experiments"><code class="docutils literal notranslate"><span class="pre">Experiments</span></code></a><ul>
+<li><a class="reference internal" href="#zerohertzLib.quant.Experiments.bollinger_bands"><code class="docutils literal notranslate"><span class="pre">Experiments.bollinger_bands()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.quant.Experiments.momentum"><code class="docutils literal notranslate"><span class="pre">Experiments.momentum()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.quant.Experiments.moving_average"><code class="docutils literal notranslate"><span class="pre">Experiments.moving_average()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.quant.Experiments.rsi"><code class="docutils literal notranslate"><span class="pre">Experiments.rsi()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#zerohertzLib.quant.Quant"><code class="docutils literal notranslate"><span class="pre">Quant</span></code></a><ul>
+<li><a class="reference internal" href="#zerohertzLib.quant.Quant.backtest"><code class="docutils literal notranslate"><span class="pre">Quant.backtest</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.quant.Quant.params"><code class="docutils literal notranslate"><span class="pre">Quant.params</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.quant.Quant.exps"><code class="docutils literal notranslate"><span class="pre">Quant.exps</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.quant.Quant.run"><code class="docutils literal notranslate"><span class="pre">Quant.run()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#zerohertzLib.quant.QuantSlackBot"><code class="docutils literal notranslate"><span class="pre">QuantSlackBot</span></code></a><ul>
+<li><a class="reference internal" href="#zerohertzLib.quant.QuantSlackBot.exps"><code class="docutils literal notranslate"><span class="pre">QuantSlackBot.exps</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.quant.QuantSlackBot.buy"><code class="docutils literal notranslate"><span class="pre">QuantSlackBot.buy()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.quant.QuantSlackBot.index"><code class="docutils literal notranslate"><span class="pre">QuantSlackBot.index()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#zerohertzLib.quant.QuantSlackBotFDR"><code class="docutils literal notranslate"><span class="pre">QuantSlackBotFDR</span></code></a><ul>
+<li><a class="reference internal" href="#zerohertzLib.quant.QuantSlackBotFDR.exps"><code class="docutils literal notranslate"><span class="pre">QuantSlackBotFDR.exps</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.quant.QuantSlackBotFDR.krx"><code class="docutils literal notranslate"><span class="pre">QuantSlackBotFDR.krx</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#zerohertzLib.quant.QuantSlackBotKI"><code class="docutils literal notranslate"><span class="pre">QuantSlackBotKI</span></code></a><ul>
+<li><a class="reference internal" href="#zerohertzLib.quant.QuantSlackBotKI.exps"><code class="docutils literal notranslate"><span class="pre">QuantSlackBotKI.exps</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.quant.QuantSlackBotKI.sell"><code class="docutils literal notranslate"><span class="pre">QuantSlackBotKI.sell()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#zerohertzLib.quant.backtest"><code class="docutils literal notranslate"><span class="pre">backtest()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.quant.bollinger_bands"><code class="docutils literal notranslate"><span class="pre">bollinger_bands()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.quant.experiments"><code class="docutils literal notranslate"><span class="pre">experiments()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.quant.momentum"><code class="docutils literal notranslate"><span class="pre">momentum()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.quant.moving_average"><code class="docutils literal notranslate"><span class="pre">moving_average()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.quant.rsi"><code class="docutils literal notranslate"><span class="pre">rsi()</span></code></a></li>
 </ul>
@@ -498,11 +1159,12 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=67a425f4"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=f1b7258d"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=f281be69"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     </body>
 </html>
