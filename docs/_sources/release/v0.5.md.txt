@@ -1,5 +1,41 @@
 # v0.5
 
+## v0.5.7
+
+<h3>[v0.5.7] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/154>#154</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2023/12/07
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/vision"><img src="https://img.shields.io/badge/feat/vision-D1F9CB?style=flat-square&logo=github" alt="feat/vision"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/quant"><img src="https://img.shields.io/badge/feat/quant-ededed?style=flat-square&logo=github" alt="feat/quant"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `vision`
+  + `labelstudio2labelme`와 `labelstudio2labelme`을 `LabelStudio` class에 포함하도록 update
+  + Label Studio로 annotation한 JSON data를 classification format으로 변환하는 method `classification` 추가
+
+<h4>Chore</h4>
+
++ `pip install zerohertzLib[quant]` 추가
+
+<h4>Docs</h4>
+
++ 의존성 figure 추가
+
+<p align="center">
+    <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288663024-10e5a977-387b-49fc-a67d-2350f7773c52.png" width="600"/>
+</p>
+
 ## v0.5.6
 
 <h3>[v0.5.6] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/152>#152</a>)</h3>
