@@ -549,7 +549,7 @@ class LabelStudio:
         write_json(json_data, self.data_path)
 
     def yolo(self, target_path: str, label: Optional[List[str]] = None) -> None:
-        """Label Studio로 annotation한 JSON data를 YOLO format으로 변환하는 함수
+        """Label Studio로 annotation한 JSON data를 YOLO format으로 변환
 
         Args:
             target_path (``str``): YOLO format data가 저장될 경로
@@ -598,7 +598,7 @@ class LabelStudio:
                 print(f"'{file_path}' is not found")
 
     def labelme(self, target_path: str, label: Optional[Dict[str, Any]] = None) -> None:
-        """Label Studio로 annotation한 JSON data를 LabelMe format으로 변환하는 함수
+        """Label Studio로 annotation한 JSON data를 LabelMe format으로 변환
 
         Args:
             target_path (``str``): LabelMe format data가 저장될 경로
@@ -656,7 +656,7 @@ class LabelStudio:
         shrink: Optional[bool] = True,
         aug: Optional[int] = 1,
     ) -> None:
-        """Label Studio로 annotation한 JSON data를 classification format으로 변환하는 함수
+        """Label Studio로 annotation한 JSON data를 classification format으로 변환
 
         Args:
             target_path (``str``): Classification format data가 저장될 경로
