@@ -25,6 +25,7 @@ SOFTWARE.
 import math
 import os
 import shutil
+import urllib.parse
 from glob import glob
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
@@ -35,7 +36,7 @@ from tqdm import tqdm
 
 from zerohertzLib.util import Json, JsonDir, rmtree, write_json
 
-from .convert import poly2cwh, poly2mask, xyxy2poly
+from .convert import poly2cwh, poly2mask, poly2xyxy, xyxy2poly
 from .visual import bbox, masks
 
 
@@ -381,6 +382,7 @@ class LabelStudio:
                 "data": {"image": f"data/local-files/?d=image/{file_name}"}
             }
         file_name = self.annotations[idx]["data"]["image"].split("/")[-1]
+        file_name = urllib.parse.unquote(file_name)
         if len(file_name) > 8 and "-" == file_name[8]:
             file_name = "-".join(file_name.split("-")[1:])
         file_path = os.path.join(self.data_path, file_name)
@@ -645,3 +647,73 @@ class LabelStudio:
                 )
             except FileNotFoundError:
                 print(f"'{file_path}' is not found")
+
+    def classification(
+        self,
+        target_path: str,
+        label: Optional[Dict[str, Any]] = None,
+        rand: Optional[int] = 0,
+        shrink: Optional[bool] = True,
+        aug: Optional[int] = 1,
+    ) -> None:
+        """Label Studio로 annotation한 JSON data를 classification format으로 변환하는 함수
+
+        Args:
+            target_path (``str``): Classification format data가 저장될 경로
+            label (``Optional[Dict[str, Any]]``): Label Studio에서 사용한 label을 변경하는 dictionary
+            rand (``Optional[int]``): Image crop 시 random 범위 추가
+            shrink (``Optional[bool]``): ``rand`` 에 의한 crop 시 image의 수축 여부
+            aug (``Optional[int]``): 한 annotation 당 저장할 image의 수
+
+        Returns:
+            ``None``: ``{target_path}/{label}/{img_file_name}_{idx}_{i}.{img_file_ext}`` 에 image 저장 (``idx``: annotation의 index, ``i``: ``rand`` 의 index)
+
+        Examples:
+            >>> ls = zz.vision.LabelStudio(data_path, json_path)
+            >>> ls.classification(target_path)
+            >>> label = {"label1": "lab1", "label2": "lab2"}
+            >>> ls.classification(target_path, label, rand=10, aug=10, shrink=False)
+        """
+        if label is None:
+            label = {}
+        for file_path, result in self:
+            img = cv2.imread(file_path)
+            if img is None:
+                print(f"'{file_path}' is not found")
+                continue
+            img_file = file_path.split("/")[-1].split(".")
+            img_file_name = ".".join(img_file[:-1])
+            img_file_ext = img_file[-1]
+            for idx, (lab, poly, wh) in enumerate(
+                zip(result["labels"], result["polys"], result["whs"])
+            ):
+                if self.type == "rectanglelabels":
+                    box_xyxy = poly * (wh * 2)
+                    box_xyxy[2:] += box_xyxy[:2]
+                elif self.type == "polygonlabels":
+                    box_poly = poly * wh
+                    box_xyxy = poly2xyxy(box_poly)
+                else:
+                    raise ValueError(f"Unknown annotation type: {self.type}")
+                os.makedirs(
+                    os.path.join(target_path, label.get(lab, lab)), exist_ok=True
+                )
+                for i in range(aug):
+                    bias = (2 * rand * (np.random.rand(4) - 0.5)).astype(np.int32)
+                    if not shrink:
+                        bias[:2] = -abs(bias[:2])
+                        bias[2:] = abs(bias[2:])
+                    x_0, y_0, x_1, y_1 = box_xyxy.astype(np.int32) + bias
+                    try:
+                        cv2.imwrite(
+                            os.path.join(
+                                target_path,
+                                label.get(lab, lab),
+                                f"{img_file_name}_{idx}_{i}.{img_file_ext}",
+                            ),
+                            img[y_0:y_1, x_0:x_1, :],
+                        )
+                    except cv2.error:
+                        print(
+                            f"Impossible crop ('x_0': {x_0}, 'y_0': {y_0}, 'x_1': {x_1}, 'y_1': {y_1})"
+                        )
