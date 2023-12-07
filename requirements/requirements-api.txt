@@ -1,7 +1,3 @@
 # api & logging & quant
 requests
 openai
-
-# quant
-plotly
-finance-datareader

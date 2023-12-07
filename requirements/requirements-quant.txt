@@ -1,0 +1,4 @@
+# quant
+plotly
+beautifulsoup4
+finance-datareader
