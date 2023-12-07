@@ -592,7 +592,7 @@ class QuantSlackBotFDR(QuantSlackBot):
     """`FinanceDataReader <https://github.com/FinanceData/FinanceDataReader>`_ module 기반으로 입력된 여러 종목에 대해 매수, 매도 signal을 판단하고 Slack으로 message와 graph를 전송하는 class
 
     Args:
-        symbols (``List[str]``): 종목 code들
+        symbols (``Union[int, List[str]]``): 종목 code들 혹은 시가 총액 순위
         token (``str``): Slack Bot의 token
         channel (``str``): Slack Bot이 전송할 channel
         start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
@@ -601,18 +601,20 @@ class QuantSlackBotFDR(QuantSlackBot):
         icon_emoji (``Optional[str]``): Slack Bot의 표시될 사진 (emoji)
         mp_num (``Optional[int]``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
         analysis (``Optional[bool]``): 각 전략의 보고서 전송 여부
+        kor (``Optional[bool]``): 국내 여부
 
     Attributes:
         exps (``Dict[str, List[Dict[str, int]]]``): 각 전략에 따른 parameter 분포
-        krx (``pd.core.frame.DataFrame``): KRX 상장 회사 목록
+        market (``pd.core.frame.DataFrame``): ``kor`` 에 따른 시장 목록
 
     Examples:
         >>> qsb = zz.quant.QuantSlackBotFDR(symbols, token, channel)
+        >>> qsb = zz.quant.QuantSlackBotFDR(10, token, channel)
     """
 
     def __init__(
         self,
-        symbols: List[str],
+        symbols: Union[int, List[str]],
         token: str,
         channel: str,
         start_day: Optional[str] = "",
@@ -621,6 +623,7 @@ class QuantSlackBotFDR(QuantSlackBot):
         icon_emoji: Optional[str] = None,
         mp_num: Optional[int] = 0,
         analysis: Optional[bool] = False,
+        kor: Optional[bool] = True,
     ) -> None:
         QuantSlackBot.__init__(
             self,
@@ -634,9 +637,21 @@ class QuantSlackBotFDR(QuantSlackBot):
             mp_num,
             analysis,
         )
-        self.krx = fdr.StockListing("KRX")
+        self.kor = kor
+        if kor:
+            self.market = fdr.StockListing("KRX")
+        else:
+            self.market = fdr.StockListing("NASDAQ")
+        if isinstance(symbols, int):
+            if kor:
+                self.symbols = list(self.market["Code"])[:symbols]
+            else:
+                self.symbols = list(self.market["Symbol"])[:symbols]
 
     def _get_data(self, symbol: str) -> Tuple[str, pd.core.frame.DataFrame]:
-        title = self.krx[self.krx["Code"] == symbol].iloc[0, 2]
+        if self.kor:
+            title = self.market[self.market["Code"] == symbol].iloc[0, 2]
+        else:
+            title = self.market[self.market["Symbol"] == symbol].iloc[0, 1]
         data = fdr.DataReader(symbol, self.start_day)
         return title, data
