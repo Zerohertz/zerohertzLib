@@ -161,6 +161,7 @@ class Balance(KoreaInvestment):
 
     Attributes:
         balance (``Dict[str, Any]``): 현재 보유 주식과 계좌의 금액 정보
+        kor (``Optional[bool]``): 국내 여부
 
     Methods:
         __contains__:
@@ -186,35 +187,65 @@ class Balance(KoreaInvestment):
                 ``int``: 현재 보유 금액
 
     Examples:
-        >>> balance = zz.quant.Balance()
-        >>> "LG전자" in balance
-        True
-        >>> "삼성전자" in balance
-        False
-        >>> len(balance)
-        1
-        >>> balance[0]
-        ['066570', 102200.0, 100200, 1, -1.95, -2000]
-        >>> balance()
-        1997997
+        ``kor=True``:
+            >>> balance = zz.quant.Balance()
+            >>> "LG전자" in balance
+            True
+            >>> "삼성전자" in balance
+            False
+            >>> len(balance)
+            1
+            >>> balance[0]
+            ['066570', 102200.0, 100200, 1, -1.95, -2000]
+            >>> balance()
+            1997997
+
+        ``kor=False``:
+            >>> balance = zz.quant.Balance(kor=False)
+            >>> "아마존닷컴" in balance
+            True
+            >>> "삼성전자" in balance
+            False
+            >>> len(balance)
+            1
+            >>> balance[0]
+            ['AMZN', 145.98, 146.5, 1, 0.36, 146.5]
+            >>> balance()
+            146.5
     """
 
-    def __init__(self, path: Optional[str] = "./") -> None:
+    def __init__(self, path: Optional[str] = "./", kor: Optional[bool] = True) -> None:
         super().__init__(path)
         self.balance = {"stock": defaultdict(list)}
+        self.kor = kor
         self.symbols = []
-        response = self.get_balance()
-        for stock in response["output1"]:
-            self.symbols.append(stock["prdt_name"])
-            self.balance["stock"][stock["prdt_name"]] = [
-                stock["pdno"],  # 종목번호
-                float(stock["pchs_avg_pric"]),  # 매입평균가격 (매입금액 / 보유수량)
-                int(stock["prpr"]),  # 현재가
-                int(stock["hldg_qty"]),  # 보유수량
-                float(stock["evlu_pfls_rt"]),  # 평가손익율
-                int(stock["evlu_pfls_amt"]),  # 평가손익금액 (평가금액 - 매입금액)
-            ]
-        self.balance["cash"] = int(response["output2"][0]["nass_amt"])  # 순자산금액
+        response = self.get_balance(kor)
+        if self.kor:
+            for stock in response["output1"]:
+                self.symbols.append(stock["prdt_name"])
+                self.balance["stock"][stock["prdt_name"]] = [
+                    stock["pdno"],  # 종목번호
+                    float(stock["pchs_avg_pric"]),  # 매입평균가격 (매입금액 / 보유수량)
+                    int(stock["prpr"]),  # 현재가
+                    int(stock["hldg_qty"]),  # 보유수량
+                    float(stock["evlu_pfls_rt"]),  # 평가손익율
+                    int(stock["evlu_pfls_amt"]),  # 평가손익금액 (평가금액 - 매입금액)
+                ]
+            self.balance["cash"] = int(response["output2"][0]["nass_amt"])  # 순자산금액
+        else:
+            for stock in response["output1"]:
+                self.symbols.append(stock["ovrs_item_name"])
+                self.balance["stock"][stock["ovrs_item_name"]] = [
+                    stock["ovrs_pdno"],  # 종목번호
+                    float(stock["pchs_avg_pric"]),  # 매입평균가격 (매입금액 / 보유수량)
+                    float(stock["now_pric2"]),  # 현재가
+                    int(stock["ovrs_cblc_qty"]),  # 해외잔고수량
+                    float(stock["evlu_pfls_rt"]),  # 평가손익율
+                    float(stock["frcr_evlu_pfls_amt"]),  # 외화평가손익금액
+                ]
+            self.balance["cash"] = float(
+                response["output2"]["tot_evlu_pfls_amt"]
+            )  # 총평가손익금액
 
     def __contains__(self, item: Any) -> bool:
         return item in self.balance["stock"]
@@ -229,7 +260,9 @@ class Balance(KoreaInvestment):
         return self.balance["cash"]
 
     def _cash2str(self, cash: str) -> str:
-        return f"{cash:,.0f}원"
+        if self.kor:
+            return f"{cash:,.0f}원"
+        return f"${cash:,.2f}"
 
     def items(self) -> ItemsView[str, List[Union[int, float, str]]]:
         """보유 주식의 반복문 사용을 위한 method
@@ -264,13 +297,22 @@ class Balance(KoreaInvestment):
         Examples:
             >>> balance.table()
         """
-        col = [
-            "Purchase Price [￦]",
-            "Current Price [￦]",
-            "Quantity",
-            "Profit and Loss (P&L) [%]",
-            "Profit and Loss (P&L) [￦]",
-        ]
+        if self.kor:
+            col = [
+                "Purchase Price [￦]",
+                "Current Price [￦]",
+                "Quantity",
+                "Profit and Loss (P&L) [%]",
+                "Profit and Loss (P&L) [￦]",
+            ]
+        else:
+            col = [
+                "Purchase Price [$]",
+                "Current Price [$]",
+                "Quantity",
+                "Profit and Loss (P&L) [%]",
+                "Profit and Loss (P&L) [$]",
+            ]
         row = []
         data = []
         purchase_total = 0
@@ -295,7 +337,7 @@ class Balance(KoreaInvestment):
                 self._cash2str(purchase_total),
                 self._cash2str(current_total),
                 "-",
-                f"{(current_total-purchase_total)/purchase_total:.2f}%",
+                f"{(current_total-purchase_total)/purchase_total*100:.2f}%",
                 f"{self._cash2str(current_total - purchase_total)}\n\n{self._cash2str(self())}",
             ]
         )
