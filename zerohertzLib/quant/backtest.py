@@ -266,8 +266,8 @@ class Experiments:
             [60, 65, 70, 75, 80],
             [50, 100, 150, 200],
         ]
-        self.exps_rsi = [[10, 20, 30, 40, 50], [70, 75, 80, 85, 90], [7, 14, 31]]
-        self.exps_bollinger_bands = [[10, 14, 21, 30], [1.9, 1.95, 2]]
+        self.exps_rsi = [[10, 20, 25, 30], [70, 75, 80, 85, 90], [14, 21, 31]]
+        self.exps_bollinger_bands = [[20, 30, 40], [1.9, 1.95, 2]]
         self.exps_momentum = [[5, 10, 15], [5, 10, 15], [10, 25, 50, 75]]
 
     def _experiments(
