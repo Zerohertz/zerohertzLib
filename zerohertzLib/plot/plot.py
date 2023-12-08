@@ -138,7 +138,7 @@ def candle(
         >>> title, data = broker.response2ohlcv(apple)
         >>> zz.plot.candle(data, title)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288058335-818715ff-b9d1-45d2-ab3d-328997558d5e.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289050270-de857e2a-1dfb-4d14-b4d6-3d4082792275.png
             :alt: Visualzation Result
             :align: center
             :width: 800px

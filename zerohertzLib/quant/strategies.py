@@ -65,7 +65,7 @@ def moving_average(
         2023-12-05    72255.00   69838.50      1.0
         [248 rows x 3 columns]
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288449614-5c3ab869-5a6b-4a1c-bb7e-8c93cdb434c8.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289050247-8407baa6-abb9-490a-abc6-37500a05ff22.png
             :alt: Visualzation Result
             :align: center
             :width: 600px
@@ -150,7 +150,7 @@ def rsi(
         2023-12-05  58.563536        0
         [248 rows x 2 columns]
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288449622-ab75b83b-dc0c-4f69-a7b1-763c5287398e.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289050264-6993d6ac-de6b-47f8-9657-897e5e66d2fd.png
             :alt: Visualzation Result
             :align: center
             :width: 600px
@@ -277,7 +277,7 @@ def momentum(
         2023-12-05     190.0      0.0
         [248 rows x 2 columns]
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288449598-1eae1885-61cb-46c5-8af9-4936a1ca7b83.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289050257-64e5b1d5-7518-4161-9d40-777f6201cd6b.png
             :alt: Visualzation Result
             :align: center
             :width: 600px
