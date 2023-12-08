@@ -30,7 +30,6 @@ import FinanceDataReader as fdr
 import pandas as pd
 import requests
 from matplotlib import pyplot as plt
-
 from zerohertzLib.api import KoreaInvestment, SlackBot
 from zerohertzLib.plot import barh, candle, figure, savefig, table
 
@@ -98,7 +97,7 @@ class Quant(Experiments):
                 "momentum",
             ]
         # 선정한 전략들의 parameter 최적화
-        cnt_total = 0
+        self.cnt_total = 0
         for method in methods:
             if hasattr(self, method):
                 self.signals[method] = 0
@@ -113,12 +112,12 @@ class Quant(Experiments):
                         for i, ex in enumerate(exp):
                             exps_cnt[i][str(ex)] += 1
                         self.cnt[method] += 1
-                        cnt_total += 1
+                        self.cnt_total += 1
                 self.exps[method] = exps_cnt
             else:
                 raise AttributeError(f"'Quant' object has no attribute '{method}'")
         # 전략 간 조합 최적화
-        if cnt_total >= 1:
+        if self.cnt_total >= 1:
             backtests = []
             for cnt in range(1, len(methods)):
                 for methods_in_use in combinations(methods, cnt):
