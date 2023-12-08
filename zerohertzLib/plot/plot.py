@@ -112,7 +112,7 @@ def candle(
     dpi: Optional[int] = 300,
     save: Optional[bool] = True,
     signals: Optional[Dict[str, Any]] = None,
-    threshold: Optional[int] = 1,
+    threshold: Optional[Union[int, Tuple[int]]] = 1,
 ) -> str:
     """OHLCV (Open, High, Low, Close, Volume) data에 따른 candle chart
 
@@ -123,7 +123,7 @@ def candle(
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         save (``Optional[bool]``): Graph 저장 여부
         signals (``Optional[Dict[str, Any]]``): 추가적으로 plot할 data
-        threshold (``Optional[int]``): 매수, 매도를 결정할 ``signals`` 경계값
+        threshold (``Optional[Union[int, Tuple[int]]]``): 매수, 매도를 결정할 ``signals`` 경계값
 
     Returns:
         ``str``: 저장된 graph의 절대 경로
@@ -138,11 +138,15 @@ def candle(
         >>> title, data = broker.response2ohlcv(apple)
         >>> zz.plot.candle(data, title)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288058335-818715ff-b9d1-45d2-ab3d-328997558d5e.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289050270-de857e2a-1dfb-4d14-b4d6-3d4082792275.png
             :alt: Visualzation Result
             :align: center
             :width: 800px
     """
+    if not isinstance(threshold, int):
+        threshold_sell, threshold_buy = threshold
+    else:
+        threshold_sell, threshold_buy = -threshold, threshold
     marketcolors = mpf.make_marketcolors(
         up="red",
         down="blue",
@@ -191,9 +195,9 @@ def candle(
         buy_indices = []
         sell_indices = []
         for idx, pos in enumerate(signals["signals"]):
-            if pos >= threshold:
+            if pos >= threshold_buy:
                 buy_indices.append(idx)
-            elif pos <= -threshold:
+            elif pos <= threshold_sell:
                 sell_indices.append(idx)
         for i in buy_indices:
             new_axis.axvline(

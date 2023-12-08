@@ -23,10 +23,12 @@ SOFTWARE.
 """
 import multiprocessing as mp
 from collections import defaultdict
+from itertools import combinations
 from typing import Any, Dict, ItemsView, List, Optional, Tuple, Union
 
 import FinanceDataReader as fdr
 import pandas as pd
+import requests
 from matplotlib import pyplot as plt
 
 from zerohertzLib.api import KoreaInvestment, SlackBot
@@ -46,18 +48,33 @@ class Quant(Experiments):
         methods (``Optional[List[str]]``): 사용할 전략들의 함수명
 
     Attributes:
-        backtest (``List[Tuple[Any]]``): 융합된 전략의 backtest 결과
-        params (`Dict[str, List[str]]`): 각 전략에 따른 paramter 문자역
+        signals (``pd.core.frame.DataFrame``): 융합된 전략의 signal
+        params (`Dict[str, List[str]]`): 각 전략에 따른 paramter 문자열
+        cnt (``Dict[str, int]``): 각 전략에 따른 수
         exps (``Dict[str, List[Dict[str, int]]]``): 각 전략에 따른 parameter 분포
+        profit (``float``): 융합된 전략의 backtest profit
+        threshold_buy (``int``): 융합된 전략의 매수 signal threshold
+        threshold_sell (``int``): 융합된 전략의 매도 signal threshold
+        methods (``Tuple[str]``): 융합된 전략명
 
     Examples:
         >>> qnt = zz.quant.Quant(title, data, top=3)
-        >>> qnt.backtest[0]
-        (5.692595336450012, 4, 33.33333333333333, defaultdict(<class 'list'>, {'price': [2385.95, -2521.7725], 'profit': [5.385993383622044]}))
+        >>> qnt.signals.columns
+        Index(['moving_average', 'rsi', 'bollinger_bands', 'momentum', 'signals'], dtype='object')
         >>> qnt.params
-        defaultdict(<class 'list'>, {'moving_average': ['5-75-50', '5-80-50', '5-65-50'], ...})
+        defaultdict(<class 'list'>, {'moving_average': ['10-80-150', '10-80-100', '10-80-200'], ...})
+        >>> qnt.cnt
+        defaultdict(<class 'int'>, {'moving_average': 3, 'rsi': 3, 'bollinger_bands': 3, 'momentum': 3})
         >>> qnt.exps
-        defaultdict(None, {'moving_average': [defaultdict(<class 'int'>, {'5': 3}), defaultdict(<class 'int'>, {'75': 1, '80': 1, '65': 1}), ...], ...})
+        defaultdict(None, {'moving_average': [defaultdict(<class 'int'>, {'10': 3}), defaultdict(<class 'int'>, {'80': 3}), ...]})
+        >>> qnt.profit
+        409.6687719932959
+        >>> qnt.threshold_buy
+        4
+        >>> qnt.threshold_sell
+        -6
+        >>> qnt.methods
+        ('rsi', 'bollinger_bands', 'momentum')
     """
 
     def __init__(
@@ -68,13 +85,11 @@ class Quant(Experiments):
         top: Optional[int] = 1,
         methods: Optional[List[str]] = None,
     ) -> None:
-        super().__init__(title, data, ohlc, False, False)
-        self.data = data
+        super().__init__(title, data, ohlc, False, True)
         self.signals = pd.DataFrame(index=data.index)
         self.params = defaultdict(list)
-        self.exps = defaultdict()
         self.cnt = defaultdict(int)
-        self.cnt_total = 0
+        self.exps = defaultdict()
         if methods is None:
             methods = [
                 "moving_average",
@@ -82,6 +97,8 @@ class Quant(Experiments):
                 "bollinger_bands",
                 "momentum",
             ]
+        # 선정한 전략들의 parameter 최적화
+        cnt_total = 0
         for method in methods:
             if hasattr(self, method):
                 self.signals[method] = 0
@@ -96,57 +113,86 @@ class Quant(Experiments):
                         for i, ex in enumerate(exp):
                             exps_cnt[i][str(ex)] += 1
                         self.cnt[method] += 1
-                        self.cnt_total += 1
+                        cnt_total += 1
                 self.exps[method] = exps_cnt
             else:
                 raise AttributeError(f"'Quant' object has no attribute '{method}'")
-        if self.cnt_total >= 1:
-            self.cnt["total"] = self.cnt_total
-            self.signals["signals"] = self.signals.sum(1)
-            self.backtest = []
-            for threshold in range(1, self.cnt_total + 1):
-                results = backtest(self.data, self.signals, threshold=threshold)
-                self.backtest.append(
-                    (
-                        results["profit"],
-                        threshold,
-                        threshold / self.cnt_total * 100,
-                        results["transaction"],
-                    )
-                )
-            self.backtest.sort(key=lambda x: x[0], reverse=True)
-            self.threshold_abs = self.backtest[0][1]
-            self.threshold_rel = self.backtest[0][2]
+        # 전략 간 조합 최적화
+        if cnt_total >= 1:
+            backtests = []
+            for cnt in range(1, len(methods)):
+                for methods_in_use in combinations(methods, cnt):
+                    miu_total = 0
+                    for miu in methods_in_use:
+                        miu_total += self.cnt[miu]
+                        if self.cnt[miu] < 1:
+                            miu_total = 0
+                            break
+                    if miu_total == 0:
+                        continue
+                    self.signals["signals"] = self.signals.loc[:, methods_in_use].sum(1)
+                    for threshold_sell in range(1, miu_total + 1):
+                        for threshold_buy in range(1, miu_total + 1):
+                            results = backtest(
+                                self.data,
+                                self.signals,
+                                threshold=(-threshold_sell, threshold_buy),
+                            )
+                            backtests.append(
+                                {
+                                    "profit": results["profit"],
+                                    "weighted_profit": results["weighted_profit"],
+                                    "threshold": (-threshold_sell, threshold_buy),
+                                    "methods": methods_in_use,
+                                    "total": miu_total,
+                                    "transaction": results["transaction"],
+                                }
+                            )
+            backtests.sort(key=lambda x: x["weighted_profit"], reverse=True)
+            # 최적 융합 전략
+            self.profit = backtests[0]["profit"]
+            self.threshold_sell, self.threshold_buy = backtests[0]["threshold"]
+            self.methods = backtests[0]["methods"]
+            self.signals["signals"] = self.signals.loc[:, backtests[0]["methods"]].sum(
+                1
+            )
+            self.cnt_total = backtests[0]["total"]
+            self.transaction = backtests[0]["transaction"]
 
-    def run(self, day: Optional[str] = -1) -> Dict[str, Any]:
+    def run(self, day: Optional[str] = -1) -> Dict[str, list]:
         """입력된 날짜에 대해 분석 정보 return
 
         Args:
             day (``Optional[str]``): 분석할 날짜
 
         Returns:
-            ``Dict[str, Any]``: 각 전략에 따른 분석 정보 및 결론
+            ``Dict[str, float]``: 각 전략에 따른 분석 정보 및 결론
 
         Examples:
             >>> qnt.run()
-            defaultdict(<class 'float'>, {'moving_average': 0.0, 'rsi': 0.0, 'bollinger_bands': 0.0, 'momentum': 0.0, 'total': 0.0, 'position': 'None'})
-            >>> qnt.run("20231023")
-            defaultdict(<class 'float'>, {'moving_average': -100.0, 'rsi': 0.0, 'bollinger_bands': 66.66666666666666, 'momentum': 0.0, 'total': -8.333333333333332, 'position': 'None'})
-            >>> qnt.run("2023-04-21")
-            defaultdict(<class 'float'>, {'moving_average': 100.0, 'rsi': 0.0, 'bollinger_bands': 0.0, 'momentum': 33.33333333333333, 'total': 33.33333333333333, 'position': 'Buy'})
+            defaultdict(<class 'list'>, {'rsi': [0, 0.0], 'bollinger_bands': [0, 0.0], 'momentum': [3.0, 100.0], 'total': [3.0, 33.33333333333333], 'position': 'None'})
+            >>> qnt.run("20180425")
+            defaultdict(<class 'list'>, {'rsi': [0, 0.0], 'bollinger_bands': [2, 66.66666666666666], 'momentum': [2.0, 66.66666666666666], 'total': [4.0, 44.44444444444444], 'position': 'Buy'})
+            >>> qnt.run("1998-10-23")
+            defaultdict(<class 'list'>, {'rsi': [0, 0.0], 'bollinger_bands': [0, 0.0], 'momentum': [0.0, 0.0], 'total': [0.0, 0.0], 'position': 'None'})
         """
         if self.cnt_total < 1:
             return {"position": "NULL"}
         if day != -1 and "-" not in day:
             day = day[:4] + "-" + day[4:6] + "-" + day[6:8]
-        possibility = defaultdict(float)
-        for key, value in self.cnt.items():
-            if key != "total" and value != 0:
-                possibility[key] = self.signals[key][day] / value * 100
-        possibility["total"] = self.signals["signals"][day] / self.cnt_total * 100
-        if self.threshold_rel <= possibility["total"]:
+        possibility = defaultdict(list)
+        for key in self.methods:
+            possibility[key] = [
+                self.signals[key][day],
+                self.signals[key][day] / self.cnt[key] * 100,
+            ]
+        possibility["total"] = [
+            self.signals["signals"][day],
+            self.signals["signals"][day] / self.cnt_total * 100,
+        ]
+        if self.threshold_buy <= possibility["total"][0]:
             possibility["position"] = "Buy"
-        elif self.threshold_rel <= -possibility["total"]:
+        elif self.threshold_sell >= -possibility["total"][0]:
             possibility["position"] = "Sell"
         else:
             possibility["position"] = "None"
@@ -161,6 +207,7 @@ class Balance(KoreaInvestment):
 
     Attributes:
         balance (``Dict[str, Any]``): 현재 보유 주식과 계좌의 금액 정보
+        kor (``Optional[bool]``): 국내 여부
 
     Methods:
         __contains__:
@@ -186,35 +233,65 @@ class Balance(KoreaInvestment):
                 ``int``: 현재 보유 금액
 
     Examples:
-        >>> balance = zz.quant.Balance()
-        >>> "LG전자" in balance
-        True
-        >>> "삼성전자" in balance
-        False
-        >>> len(balance)
-        1
-        >>> balance[0]
-        ['066570', 102200.0, 100200, 1, -1.95, -2000]
-        >>> balance()
-        1997997
+        ``kor=True``:
+            >>> balance = zz.quant.Balance()
+            >>> "LG전자" in balance
+            True
+            >>> "삼성전자" in balance
+            False
+            >>> len(balance)
+            1
+            >>> balance[0]
+            ['066570', 102200.0, 100200, 1, -1.95, -2000]
+            >>> balance()
+            1997997
+
+        ``kor=False``:
+            >>> balance = zz.quant.Balance(kor=False)
+            >>> "아마존닷컴" in balance
+            True
+            >>> "삼성전자" in balance
+            False
+            >>> len(balance)
+            1
+            >>> balance[0]
+            ['AMZN', 145.98, 146.5, 1, 0.36, 146.5]
+            >>> balance()
+            146.5
     """
 
-    def __init__(self, path: Optional[str] = "./") -> None:
+    def __init__(self, path: Optional[str] = "./", kor: Optional[bool] = True) -> None:
         super().__init__(path)
         self.balance = {"stock": defaultdict(list)}
+        self.kor = kor
         self.symbols = []
-        response = self.get_balance()
-        for stock in response["output1"]:
-            self.symbols.append(stock["prdt_name"])
-            self.balance["stock"][stock["prdt_name"]] = [
-                stock["pdno"],  # 종목번호
-                float(stock["pchs_avg_pric"]),  # 매입평균가격 (매입금액 / 보유수량)
-                int(stock["prpr"]),  # 현재가
-                int(stock["hldg_qty"]),  # 보유수량
-                float(stock["evlu_pfls_rt"]),  # 평가손익율
-                int(stock["evlu_pfls_amt"]),  # 평가손익금액 (평가금액 - 매입금액)
-            ]
-        self.balance["cash"] = int(response["output2"][0]["nass_amt"])  # 순자산금액
+        response = self.get_balance(kor)
+        if self.kor:
+            for stock in response["output1"]:
+                self.symbols.append(stock["prdt_name"])
+                self.balance["stock"][stock["prdt_name"]] = [
+                    stock["pdno"],  # 종목번호
+                    float(stock["pchs_avg_pric"]),  # 매입평균가격 (매입금액 / 보유수량)
+                    int(stock["prpr"]),  # 현재가
+                    int(stock["hldg_qty"]),  # 보유수량
+                    float(stock["evlu_pfls_rt"]),  # 평가손익율
+                    int(stock["evlu_pfls_amt"]),  # 평가손익금액 (평가금액 - 매입금액)
+                ]
+            self.balance["cash"] = int(response["output2"][0]["nass_amt"])  # 순자산금액
+        else:
+            for stock in response["output1"]:
+                self.symbols.append(stock["ovrs_item_name"])
+                self.balance["stock"][stock["ovrs_item_name"]] = [
+                    stock["ovrs_pdno"],  # 종목번호
+                    float(stock["pchs_avg_pric"]),  # 매입평균가격 (매입금액 / 보유수량)
+                    float(stock["now_pric2"]),  # 현재가
+                    int(stock["ovrs_cblc_qty"]),  # 해외잔고수량
+                    float(stock["evlu_pfls_rt"]),  # 평가손익율
+                    float(stock["frcr_evlu_pfls_amt"]),  # 외화평가손익금액
+                ]
+            self.balance["cash"] = float(
+                response["output2"]["tot_evlu_pfls_amt"]
+            )  # 총평가손익금액
 
     def __contains__(self, item: Any) -> bool:
         return item in self.balance["stock"]
@@ -229,7 +306,9 @@ class Balance(KoreaInvestment):
         return self.balance["cash"]
 
     def _cash2str(self, cash: str) -> str:
-        return f"{cash:,.0f}원"
+        if self.kor:
+            return f"{cash:,.0f}원"
+        return f"${cash:,.2f}"
 
     def items(self) -> ItemsView[str, List[Union[int, float, str]]]:
         """보유 주식의 반복문 사용을 위한 method
@@ -264,13 +343,22 @@ class Balance(KoreaInvestment):
         Examples:
             >>> balance.table()
         """
-        col = [
-            "Purchase Price [￦]",
-            "Current Price [￦]",
-            "Quantity",
-            "Profit and Loss (P&L) [%]",
-            "Profit and Loss (P&L) [￦]",
-        ]
+        if self.kor:
+            col = [
+                "Purchase Price [￦]",
+                "Current Price [￦]",
+                "Quantity",
+                "Profit and Loss (P&L) [%]",
+                "Profit and Loss (P&L) [￦]",
+            ]
+        else:
+            col = [
+                "Purchase Price [$]",
+                "Current Price [$]",
+                "Quantity",
+                "Profit and Loss (P&L) [%]",
+                "Profit and Loss (P&L) [$]",
+            ]
         row = []
         data = []
         purchase_total = 0
@@ -295,7 +383,7 @@ class Balance(KoreaInvestment):
                 self._cash2str(purchase_total),
                 self._cash2str(current_total),
                 "-",
-                f"{(current_total-purchase_total)/purchase_total:.2f}%",
+                f"{(current_total-purchase_total)/purchase_total*100:.2f}%",
                 f"{self._cash2str(current_total - purchase_total)}\n\n{self._cash2str(self())}",
             ]
         )
@@ -323,14 +411,15 @@ class QuantSlackBot(SlackBot):
 
     Args:
         symbols (``List[str]``): 종목 code들
-        token (``str``): Slack Bot의 token
-        channel (``str``): Slack Bot이 전송할 channel
+        token (``Optional[str]``): Slack Bot의 token
+        channel (``Optional[str]``): Slack Bot이 전송할 channel
         start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
         top (``Optional[int]``): Experiments 과정에서 사용할 각 전략별 수
         name (``Optional[str]``): Slack Bot의 표시될 이름
         icon_emoji (``Optional[str]``): Slack Bot의 표시될 사진 (emoji)
         mp_num (``Optional[int]``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
         analysis (``Optional[bool]``): 각 전략의 보고서 전송 여부
+        kor (``Optional[bool]``): 국내 여부
 
     Attributes:
         exps (``Dict[str, List[Dict[str, int]]]``): 각 전략에 따른 parameter 분포
@@ -339,12 +428,7 @@ class QuantSlackBot(SlackBot):
         >>> qsb = zz.quant.QuantSlackBot(symbols, token, channel)
         >>> qsb.index()
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288455654-53146aff-bf04-411e-a932-954e90c81d97.png
-            :alt: Slack Bot Result
-            :align: center
-            :width: 400px
-
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288455675-90300812-c23f-4222-a18f-0c621b03a633.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289048168-9c339478-4d61-4ac6-9ecd-e0b9433af264.png
             :alt: Slack Bot Result
             :align: center
             :width: 400px
@@ -353,15 +437,21 @@ class QuantSlackBot(SlackBot):
     def __init__(
         self,
         symbols: List[str],
-        token: str,
-        channel: str,
+        token: Optional[str] = None,
+        channel: Optional[str] = None,
         start_day: Optional[str] = "",
         top: Optional[int] = 1,
         name: Optional[str] = None,
         icon_emoji: Optional[str] = None,
         mp_num: Optional[int] = 0,
         analysis: Optional[bool] = False,
+        kor: Optional[bool] = True,
     ) -> None:
+        if token is None or channel is None:
+            self.slack = False
+            token = ""
+        else:
+            self.slack = True
         SlackBot.__init__(self, token, channel, name, icon_emoji)
         self.symbols = symbols
         self.start_day = start_day
@@ -371,11 +461,30 @@ class QuantSlackBot(SlackBot):
         else:
             self.mp_num = mp_num
         self.analysis = analysis
+        self.kor = kor
+
+    def message(
+        self,
+        message: str,
+        codeblock: Optional[bool] = False,
+    ) -> requests.models.Response:
+        """``token`` 혹은 ``channel`` 이 입력되지 않을 시 전송 불가"""
+        if self.slack:
+            return super().message(message, codeblock)
+        return None
+
+    def file(self, path: str) -> requests.models.Response:
+        """``token`` 혹은 ``channel`` 이 입력되지 않을 시 전송 불가"""
+        if self.slack:
+            return super().file(path)
+        return None
 
     def _cash2str(self, cash: str) -> str:
-        return f"{cash:,.0f}원"
+        if self.kor:
+            return f"{cash:,.0f}원"
+        return f"${cash:,.2f}"
 
-    def _report(self, name: str, quant: Quant, today: Dict[str, Any]):
+    def _report(self, name: str, quant: Quant, today: Dict[str, float]):
         report = ""
         if today["position"] == "Buy":
             report += f"> :chart_with_upwards_trend: [Buy Signal] *{name}*\n"
@@ -383,23 +492,24 @@ class QuantSlackBot(SlackBot):
             report += f"> :chart_with_downwards_trend: [Sell Signal] *{name}*\n"
         else:
             report += f"> :egg: [None Signal] *{name}*\n"
-        for key, value in today.items():
-            if key != "position":
-                if key == "total":
-                    report += f":heavy_dollar_sign: {key.replace('_', ' ').upper()}:\t{value:.2f}%\t({quant.cnt[key]})\n"
-                else:
-                    report += f":heavy_dollar_sign: {key.replace('_', ' ').upper()}:\t{value:.2f}%\t(`{'`, `'.join(quant.params[key])}`)\n"
-        report += f":heavy_dollar_sign: THRESHOLD: `{quant.threshold_abs}`, `{quant.threshold_rel:.1f}%`\n"
-        report += f"*Backtest*\n:white_check_mark: Total Profit:\t{quant.backtest[0][0]:.2f}%\n"
+        report += f"\t:heavy_dollar_sign: SIGNAL's INFO: {today['total'][1]:.2f}% (`{today['total'][0]}/{quant.cnt_total}`)\n"
+        for key in quant.methods:
+            report += f"\t:hammer: {key.replace('_', ' ').upper()}:\t{today[key][1]:.2f}%\t(`{today[key][0]}/{quant.cnt[key]}`)\t"
+            report += f"`{'`, `'.join(quant.params[key])}`\n"
+        report += "\t:memo: THRESHOLD:\n"
+        report += f"\t\t:arrow_double_up: BUY: `{quant.threshold_buy}`\n\t\t:arrow_double_down: SELL: `{quant.threshold_sell}`\n"
+        report += (
+            f"*Backtest*\n\t:money_with_wings: Total Profit:\t{quant.profit:.2f}%\n"
+        )
+        report += f"\t:chart_with_upwards_trend: Total Buy:\t{self._cash2str(quant.transaction['buy'])}\n"
+        report += f"\t:chart_with_downwards_trend: Total Sell:\t{self._cash2str(quant.transaction['sell'])}\n"
         transaction_price = [
-            self._cash2str(price) for price in quant.backtest[0][3]["price"]
+            self._cash2str(price) for price in quant.transaction["price"]
         ]
-        transaction_profit = [
-            f"{price:.2f}%" for price in quant.backtest[0][3]["profit"]
-        ]
+        transaction_profit = [f"{price:.2f}%" for price in quant.transaction["profit"]]
         transaction_price = "```" + " -> ".join(transaction_price) + "```"
         transaction_profit = "```" + " -> ".join(transaction_profit) + "```"
-        report += f":white_check_mark: Transactions:\n{transaction_price}\n{transaction_profit}"
+        report += f"\t:bank: Transactions:\n{transaction_price}\n{transaction_profit}"
         return report
 
     def _get_data(self, symbol: str) -> Tuple[str, pd.core.frame.DataFrame]:
@@ -429,9 +539,11 @@ class QuantSlackBot(SlackBot):
             path = candle(
                 quant.data[-500:],
                 quant.title,
-                signals=quant.signals.iloc[-500:, :].loc[:, ["signals"]],
+                signals=quant.signals.iloc[-500:, :].loc[
+                    :, [*quant.methods, "signals"]
+                ],
                 dpi=100,
-                threshold=quant.threshold_abs,
+                threshold=(quant.threshold_sell, quant.threshold_buy),
             )
             return self._report(title, quant, today), path, quant.exps
         return None, None, quant.exps
@@ -514,9 +626,9 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
     """한국투자증권 API를 기반으로 입력된 여러 종목에 대해 매수, 매도 signal을 판단하고 Slack으로 message와 graph를 전송하는 class
 
     Args:
-        symbols (``List[str]``): 종목 code들
-        token (``str``): Slack Bot의 token
-        channel (``str``): Slack Bot이 전송할 channel
+        symbols (``Optional[List[str]]``): 종목 code들
+        token (``Optional[str]``): Slack Bot의 token
+        channel (``Optional[str]``): Slack Bot이 전송할 channel
         path (``Optional[str]``): ``secret.key`` 혹은 ``token.dat`` 이 포함된 경로
         start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
         top (``Optional[int]``): Experiments 과정에서 사용할 각 전략별 수
@@ -524,6 +636,7 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
         icon_emoji (``Optional[str]``): Slack Bot의 표시될 사진 (emoji)
         mp_num (``Optional[int]``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
         analysis (``Optional[bool]``): 각 전략의 보고서 전송 여부
+        kor (``Optional[bool]``): 국내 여부
 
     Attributes:
         exps (``Dict[str, List[Dict[str, int]]]``): 각 전략에 따른 parameter 분포
@@ -534,9 +647,9 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
 
     def __init__(
         self,
-        symbols: List[str],
-        token: str,
-        channel: str,
+        symbols: Optional[List[str]] = None,
+        token: Optional[str] = None,
+        channel: Optional[str] = None,
         path: Optional[str] = "./",
         start_day: Optional[str] = "",
         top: Optional[int] = 1,
@@ -544,8 +657,11 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
         icon_emoji: Optional[str] = None,
         mp_num: Optional[int] = 0,
         analysis: Optional[bool] = False,
+        kor: Optional[bool] = True,
     ) -> None:
-        Balance.__init__(self, path)
+        Balance.__init__(self, path, kor)
+        if symbols is None:
+            symbols = []
         QuantSlackBot.__init__(
             self,
             symbols,
@@ -557,6 +673,7 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
             icon_emoji,
             mp_num,
             analysis,
+            kor,
         )
         symbols_bought = self.bought_symbols()
         for symbol in symbols_bought:
@@ -566,7 +683,7 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
         self.symbols_bought = symbols_bought
 
     def _get_data(self, symbol: str) -> Tuple[str, pd.core.frame.DataFrame]:
-        response = self.get_ohlcv(symbol, start_day=self.start_day)
+        response = self.get_ohlcv(symbol, start_day=self.start_day, kor=self.kor)
         title, data = self.response2ohlcv(response)
         return title, data
 
@@ -592,35 +709,38 @@ class QuantSlackBotFDR(QuantSlackBot):
     """`FinanceDataReader <https://github.com/FinanceData/FinanceDataReader>`_ module 기반으로 입력된 여러 종목에 대해 매수, 매도 signal을 판단하고 Slack으로 message와 graph를 전송하는 class
 
     Args:
-        symbols (``List[str]``): 종목 code들
-        token (``str``): Slack Bot의 token
-        channel (``str``): Slack Bot이 전송할 channel
+        symbols (``Union[int, List[str]]``): 종목 code들 혹은 시가 총액 순위
+        token: Optional[str] = None,
+        channel: Optional[str] = None,
         start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
         top (``Optional[int]``): Experiments 과정에서 사용할 각 전략별 수
         name (``Optional[str]``): Slack Bot의 표시될 이름
         icon_emoji (``Optional[str]``): Slack Bot의 표시될 사진 (emoji)
         mp_num (``Optional[int]``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
         analysis (``Optional[bool]``): 각 전략의 보고서 전송 여부
+        kor (``Optional[bool]``): 국내 여부
 
     Attributes:
         exps (``Dict[str, List[Dict[str, int]]]``): 각 전략에 따른 parameter 분포
-        krx (``pd.core.frame.DataFrame``): KRX 상장 회사 목록
+        market (``pd.core.frame.DataFrame``): ``kor`` 에 따른 시장 목록
 
     Examples:
         >>> qsb = zz.quant.QuantSlackBotFDR(symbols, token, channel)
+        >>> qsb = zz.quant.QuantSlackBotFDR(10, token, channel)
     """
 
     def __init__(
         self,
-        symbols: List[str],
-        token: str,
-        channel: str,
+        symbols: Union[int, List[str]],
+        token: Optional[str] = None,
+        channel: Optional[str] = None,
         start_day: Optional[str] = "",
         top: Optional[int] = 1,
         name: Optional[str] = None,
         icon_emoji: Optional[str] = None,
         mp_num: Optional[int] = 0,
         analysis: Optional[bool] = False,
+        kor: Optional[bool] = True,
     ) -> None:
         QuantSlackBot.__init__(
             self,
@@ -633,10 +753,23 @@ class QuantSlackBotFDR(QuantSlackBot):
             icon_emoji,
             mp_num,
             analysis,
+            kor,
         )
-        self.krx = fdr.StockListing("KRX")
+        if kor:
+            self.market = fdr.StockListing("KRX")
+            self.market = self.market.sort_values("Marcap", ascending=False)
+        else:
+            self.market = fdr.StockListing("NASDAQ")
+        if isinstance(symbols, int):
+            if kor:
+                self.symbols = list(self.market["Code"])[:symbols]
+            else:
+                self.symbols = list(self.market["Symbol"])[:symbols]
 
     def _get_data(self, symbol: str) -> Tuple[str, pd.core.frame.DataFrame]:
-        title = self.krx[self.krx["Code"] == symbol].iloc[0, 2]
+        if self.kor:
+            title = self.market[self.market["Code"] == symbol].iloc[0, 2]
+        else:
+            title = self.market[self.market["Symbol"] == symbol].iloc[0, 1]
         data = fdr.DataReader(symbol, self.start_day)
         return title, data

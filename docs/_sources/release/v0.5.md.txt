@@ -1,5 +1,35 @@
 # v0.5
 
+## v0.5.8
+
+<h3>[v0.5.8] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/156>#156</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2023/12/08
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/api"><img src="https://img.shields.io/badge/feat/api-541B9A?style=flat-square&logo=github" alt="feat/api"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/plot"><img src="https://img.shields.io/badge/feat/plot-968B14?style=flat-square&logo=github" alt="feat/plot"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/quant"><img src="https://img.shields.io/badge/feat/quant-ededed?style=flat-square&logo=github" alt="feat/quant"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `api`
+  + `KoreaInvestment._get_korea_ohlcv` 및 `KoreaInvestment._get_oversea_ohlcv`의 API 반복 호출 error 수정
++ `plot`
+  + Candle chart의 `threshold`를 매수, 매도에 나눠 plot 할 수 있도록 update
++ `quant`
+  + `SlackBot`와 `Balance`의 국외 주식 지원 update
+  + `backtest` 방법론 refactoring
+  + `Quant` class의 전략 최적화 시 매수, 매도의 `threshold`를 별도로 산정하도록 변경
+
 ## v0.5.7
 
 <h3>[v0.5.7] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/154>#154</a>)</h3>
