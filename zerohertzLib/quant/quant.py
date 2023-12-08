@@ -496,7 +496,7 @@ class QuantSlackBot(SlackBot):
         for key in quant.methods:
             report += f"\t:hammer: {key.replace('_', ' ').upper()}:\t{today[key][1]:.2f}%\t(`{today[key][0]}/{quant.cnt[key]}`)\t"
             report += f"`{'`, `'.join(quant.params[key])}`\n"
-        report += f"\t:memo: THRESHOLD:\n"
+        report += "\t:memo: THRESHOLD:\n"
         report += f"\t\t:arrow_double_up: BUY: `{quant.threshold_buy}`\n\t\t:arrow_double_down: SELL: `{quant.threshold_sell}`\n"
         report += (
             f"*Backtest*\n\t:money_with_wings: Total Profit:\t{quant.profit:.2f}%\n"
