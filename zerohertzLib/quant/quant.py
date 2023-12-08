@@ -483,7 +483,7 @@ class QuantSlackBot(SlackBot):
             return f"{cash:,.0f}원"
         return f"${cash:,.2f}"
 
-    def _report(self, name: str, quant: Quant, today: Dict[str, float]):
+    def _report(self, name: str, quant: Quant, today: Dict[str, list]):
         report = ""
         if today["position"] == "Buy":
             report += f"> :chart_with_upwards_trend: [Buy Signal] *{name}*\n"
@@ -491,9 +491,9 @@ class QuantSlackBot(SlackBot):
             report += f"> :chart_with_downwards_trend: [Sell Signal] *{name}*\n"
         else:
             report += f"> :egg: [None Signal] *{name}*\n"
-        report += f"\t:heavy_dollar_sign: SIGNAL's INFO: {today['total'][1]:.2f}% (`{today['total'][0]}/{quant.cnt_total}`)\n"
+        report += f"\t:heavy_dollar_sign: SIGNAL's INFO: {today['total'][1]:.2f}% (`{int(today['total'][0])}/{int(quant.cnt_total)}`)\n"
         for key in quant.methods:
-            report += f"\t:hammer: {key.replace('_', ' ').upper()}:\t{today[key][1]:.2f}%\t(`{today[key][0]}/{quant.cnt[key]}`)\t"
+            report += f"\t:hammer: {key.replace('_', ' ').upper()}:\t{today[key][1]:.2f}%\t(`{int(today[key][0])}/{int(quant.cnt[key])}`)\t"
             report += f"`{'`, `'.join(quant.params[key])}`\n"
         report += "\t:memo: THRESHOLD:\n"
         report += f"\t\t:arrow_double_up: BUY: `{quant.threshold_buy}`\n\t\t:arrow_double_down: SELL: `{quant.threshold_sell}`\n"
