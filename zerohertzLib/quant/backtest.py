@@ -37,15 +37,17 @@ def backtest(
     data: Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]],
     signals: Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]],
     ohlc: Optional[str] = "",
-    threshold: Optional[int] = 1,
+    threshold: Optional[Union[int, Tuple[int]]] = 1,
+    signal_key: Optional[str] = "signals",
 ) -> Dict[str, Any]:
     """전략에 의해 생성된 ``signals`` backtest
 
     Args:
         data (``Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]``): OHLCV (Open, High, Low, Close, Volume) data
-        signals (``Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]``): ``"signals"`` column이 포함된 data
+        signals (``Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]``): ``"signals"`` column이 포함된 data (다른 이름으로 지정했을 시 ``signal_key`` 사용)
         ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
-        threshold (``Optional[int]``): 매수, 매도를 결정할 ``signals`` 경계값
+        threshold (``Optional[Union[int, Tuple[int]]]``): 매수, 매도를 결정할 ``signals`` 경계값
+        signal_key (``Optional[str]``): ``"signals"`` 의 key 값
 
     Returns:
         ``Dict[str, Any]``: 수익률 (단위: %), 손실 거래 비율 (단위: %), 손실 거래 비율에 따른 수익률, 거래 내역
@@ -62,13 +64,17 @@ def backtest(
             for key, value in result.items():
                 results[key].append(value)
         return results
+    if not isinstance(threshold, int):
+        threshold_sell, threshold_buy = threshold
+    else:
+        threshold_sell, threshold_buy = -threshold, threshold
     wallet_buy = 0
     wallet_sell = 0
     stock = deque()
     transactions = defaultdict(list)
     for idx in data.index:
-        position = signals.loc[idx, "signals"]
-        if position >= threshold:
+        position = signals.loc[idx, signal_key]
+        if position >= threshold_buy:
             if ohlc == "":
                 price = data.loc[idx][:4].mean()
             else:
@@ -76,26 +82,23 @@ def backtest(
             stock.append(price)
             transactions["price"].append(price)
             wallet_buy += price
-        elif position <= -threshold:
+        elif position <= threshold_sell:
             if ohlc == "":
                 price = data.loc[idx][:4].mean()
             else:
                 price = data.loc[idx, ohlc]
             while stock:
-                price_buy = stock.pop()
+                price_buy = stock.popleft()
                 transactions["price"].append(-price)
                 transactions["profit"].append((price - price_buy) / price * 100)
                 wallet_sell += price
     while stock:
         price_buy = stock.pop()
-        if ohlc == "":
-            price = data.iloc[:, :4].mean(1)[-1]
-        else:
-            price = data[ohlc][-1]
-        transactions["price"].append(price)
-        transactions["profit"].append((price - price_buy) / price * 100)
-        wallet_sell += price
-    if wallet_buy == 0:
+        transactions["price"].pop()
+        wallet_buy -= price_buy
+    transactions["buy"] = wallet_buy
+    transactions["sell"] = wallet_sell
+    if wallet_buy == 0 or len(transactions["profit"]) == 0:
         return {
             "profit": -100,
             "loss": 100,
@@ -149,7 +152,7 @@ def experiments(
     Examples:
         Single:
 
-        >>> exps = [[10, 20, 30], [50, 60, 70]]
+        >>> exps = [[10, 20, 25, 30], [70, 75, 80, 85, 90], [14, 21, 31]]
         >>> zz.quant.experiments(title, data, zz.quant.moving_average, exps, report=True)
         10-50:  15.47%  20.00%
         ...
@@ -274,7 +277,7 @@ class Experiments:
             [50, 100, 150, 200],
         ]
         self.exps_rsi = [[10, 20, 25, 30], [70, 75, 80, 85, 90], [14, 21, 31]]
-        self.exps_bollinger_bands = [[20, 30, 40], [1.9, 1.95, 2]]
+        self.exps_bollinger_bands = [[20, 30, 40], [1.9, 1.95, 2, 2.05, 2.1]]
         self.exps_momentum = [[5, 10, 15], [5, 10, 15], [10, 25, 50, 75]]
 
     def _experiments(
