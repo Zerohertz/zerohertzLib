@@ -682,6 +682,7 @@ class QuantSlackBotFDR(QuantSlackBot):
         self.kor = kor
         if kor:
             self.market = fdr.StockListing("KRX")
+            self.market = self.market.sort_values("Marcap", ascending=False)
         else:
             self.market = fdr.StockListing("NASDAQ")
         if isinstance(symbols, int):
