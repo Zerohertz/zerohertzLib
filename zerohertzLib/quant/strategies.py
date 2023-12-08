@@ -92,13 +92,18 @@ def moving_average(
         )
     gap = data.iloc[:, :4].mean().mean() / gap
     signals["signals"] = 0.0
+    prev = 0
     for i in range(len(signals)):
         short = signals["short_mavg"].iloc[i]
         long = signals["long_mavg"].iloc[i]
         if short > long + gap:
-            signals.loc[signals.index[i], "signals"] = 1
+            if prev == -1:
+                signals.loc[signals.index[i], "signals"] = 1
+            prev = 1
         elif short + gap < long:
-            signals.loc[signals.index[i], "signals"] = -1
+            if prev == 1:
+                signals.loc[signals.index[i], "signals"] = -1
+            prev = -1
     return signals
 
 

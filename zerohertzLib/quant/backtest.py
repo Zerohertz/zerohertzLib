@@ -62,46 +62,53 @@ def backtest(
             for key, value in result.items():
                 results[key].append(value)
         return results
-    wallet = 10_000_000_000
+    wallet_buy = 0
+    wallet_sell = 0
     stock = deque()
     transactions = defaultdict(list)
     for idx in data.index:
-        if ohlc == "":
-            price = data.loc[idx][:4].mean()
-        else:
-            price = data.loc[idx, ohlc]
         position = signals.loc[idx, "signals"]
         if position >= threshold:
-            cnt = wallet // price
-            if cnt > 0:
-                stock.append((price, cnt))
-                transactions["price"].append(price)
-                wallet -= price * cnt
+            if ohlc == "":
+                price = data.loc[idx][:4].mean()
+            else:
+                price = data.loc[idx, ohlc]
+            stock.append(price)
+            transactions["price"].append(price)
+            wallet_buy += price
         elif position <= -threshold:
+            if ohlc == "":
+                price = data.loc[idx][:4].mean()
+            else:
+                price = data.loc[idx, ohlc]
             while stock:
-                price_buy, cnt = stock.pop()
+                price_buy = stock.pop()
                 transactions["price"].append(-price)
                 transactions["profit"].append((price - price_buy) / price * 100)
-                wallet += price * cnt
+                wallet_sell += price
     while stock:
-        price_buy, cnt = stock.pop()
+        price_buy = stock.pop()
         if ohlc == "":
             price = data.iloc[:, :4].mean(1)[-1]
         else:
             price = data[ohlc][-1]
-        wallet += price * cnt
         transactions["price"].append(price)
         transactions["profit"].append((price - price_buy) / price * 100)
-    wallet = wallet / 10_000_000_000 * 100 - 100
+        wallet_sell += price
+    if wallet_buy == 0:
+        return {
+            "profit": -100,
+            "loss": 100,
+            "weighted_profit": -100,
+            "transaction": transactions,
+        }
+    wallet = (wallet_sell - wallet_buy) / wallet_buy * 100
     loss = []
-    if len(transactions["profit"]) == 0:
-        loss = 0
-    else:
-        bad = 0
-        for transaction in transactions["profit"]:
-            if transaction < 0:
-                bad += 1
-        loss = bad / len(transactions["profit"]) * 100
+    bad = 0
+    for transaction in transactions["profit"]:
+        if transaction < 0:
+            bad += 1
+    loss = bad / len(transactions["profit"]) * 100
     return {
         "profit": wallet,
         "loss": loss,
