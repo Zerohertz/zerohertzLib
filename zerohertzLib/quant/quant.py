@@ -30,7 +30,6 @@ import FinanceDataReader as fdr
 import pandas as pd
 import requests
 from matplotlib import pyplot as plt
-
 from zerohertzLib.api import KoreaInvestment, SlackBot
 from zerohertzLib.plot import barh, candle, figure, savefig, table
 
@@ -98,7 +97,7 @@ class Quant(Experiments):
                 "momentum",
             ]
         # 선정한 전략들의 parameter 최적화
-        cnt_total = 0
+        self.cnt_total = 0
         for method in methods:
             if hasattr(self, method):
                 self.signals[method] = 0
@@ -113,12 +112,12 @@ class Quant(Experiments):
                         for i, ex in enumerate(exp):
                             exps_cnt[i][str(ex)] += 1
                         self.cnt[method] += 1
-                        cnt_total += 1
+                        self.cnt_total += 1
                 self.exps[method] = exps_cnt
             else:
                 raise AttributeError(f"'Quant' object has no attribute '{method}'")
         # 전략 간 조합 최적화
-        if cnt_total >= 1:
+        if self.cnt_total >= 1:
             backtests = []
             for cnt in range(1, len(methods)):
                 for methods_in_use in combinations(methods, cnt):
@@ -484,7 +483,7 @@ class QuantSlackBot(SlackBot):
             return f"{cash:,.0f}원"
         return f"${cash:,.2f}"
 
-    def _report(self, name: str, quant: Quant, today: Dict[str, float]):
+    def _report(self, name: str, quant: Quant, today: Dict[str, list]):
         report = ""
         if today["position"] == "Buy":
             report += f"> :chart_with_upwards_trend: [Buy Signal] *{name}*\n"
@@ -492,9 +491,9 @@ class QuantSlackBot(SlackBot):
             report += f"> :chart_with_downwards_trend: [Sell Signal] *{name}*\n"
         else:
             report += f"> :egg: [None Signal] *{name}*\n"
-        report += f"\t:heavy_dollar_sign: SIGNAL's INFO: {today['total'][1]:.2f}% (`{today['total'][0]}/{quant.cnt_total}`)\n"
+        report += f"\t:heavy_dollar_sign: SIGNAL's INFO: {today['total'][1]:.2f}% (`{int(today['total'][0])}/{int(quant.cnt_total)}`)\n"
         for key in quant.methods:
-            report += f"\t:hammer: {key.replace('_', ' ').upper()}:\t{today[key][1]:.2f}%\t(`{today[key][0]}/{quant.cnt[key]}`)\t"
+            report += f"\t:hammer: {key.replace('_', ' ').upper()}:\t{today[key][1]:.2f}%\t(`{int(today[key][0])}/{int(quant.cnt[key])}`)\t"
             report += f"`{'`, `'.join(quant.params[key])}`\n"
         report += "\t:memo: THRESHOLD:\n"
         report += f"\t\t:arrow_double_up: BUY: `{quant.threshold_buy}`\n\t\t:arrow_double_down: SELL: `{quant.threshold_sell}`\n"
