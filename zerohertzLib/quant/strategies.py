@@ -137,7 +137,7 @@ def rsi(
         lower_bound (``Optional[int]``): RSI 과매도 기준
         upper_bound (``Optional[int]``): RSI 과매수 기준
         window (``Optional[int]``): 이동 평균을 계산하기 위한 widnow 크기
-        ohlc (``Optional[str]``): 이동 평균을 계산할 때 사용할 ``data`` 의 column 이름
+        ohlc (``Optional[str]``): RSI를 계산할 때 사용할 ``data`` 의 column 이름
 
     Returns:
         ``Union[pd.core.frame.DataFrame, List[pd.core.frame.DataFrame]]``: 각 날짜에 대한 signal (``"signals"``) 정보

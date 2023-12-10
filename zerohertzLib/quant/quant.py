@@ -414,6 +414,7 @@ class QuantSlackBot(SlackBot):
         token (``Optional[str]``): Slack Bot의 token
         channel (``Optional[str]``): Slack Bot이 전송할 channel
         start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
+        ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
         top (``Optional[int]``): Experiments 과정에서 사용할 각 전략별 수
         name (``Optional[str]``): Slack Bot의 표시될 이름
         icon_emoji (``Optional[str]``): Slack Bot의 표시될 사진 (emoji)
@@ -440,6 +441,7 @@ class QuantSlackBot(SlackBot):
         token: Optional[str] = None,
         channel: Optional[str] = None,
         start_day: Optional[str] = "",
+        ohlc: Optional[str] = "",
         top: Optional[int] = 1,
         name: Optional[str] = None,
         icon_emoji: Optional[str] = None,
@@ -455,6 +457,7 @@ class QuantSlackBot(SlackBot):
         SlackBot.__init__(self, token, channel, name, icon_emoji)
         self.symbols = symbols
         self.start_day = start_day
+        self.ohlc = ohlc
         self.top = top
         if mp_num > mp.cpu_count():
             self.mp_num = mp.cpu_count()
@@ -526,7 +529,7 @@ class QuantSlackBot(SlackBot):
             self.message(f"'{symbol}' is not found")
             return None, None, None
         try:
-            quant = Quant(title, data, top=self.top)
+            quant = Quant(title, data, ohlc=self.ohlc, top=self.top)
             today = quant.run()
         except IndexError:
             self.message(f"{title}: {data.index[0]} ({len(data)})")
@@ -631,6 +634,7 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
         channel (``Optional[str]``): Slack Bot이 전송할 channel
         path (``Optional[str]``): ``secret.key`` 혹은 ``token.dat`` 이 포함된 경로
         start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
+        ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
         top (``Optional[int]``): Experiments 과정에서 사용할 각 전략별 수
         name (``Optional[str]``): Slack Bot의 표시될 이름
         icon_emoji (``Optional[str]``): Slack Bot의 표시될 사진 (emoji)
@@ -652,6 +656,7 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
         channel: Optional[str] = None,
         path: Optional[str] = "./",
         start_day: Optional[str] = "",
+        ohlc: Optional[str] = "",
         top: Optional[int] = 1,
         name: Optional[str] = None,
         icon_emoji: Optional[str] = None,
@@ -668,6 +673,7 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
             token,
             channel,
             start_day,
+            ohlc,
             top,
             name,
             icon_emoji,
@@ -713,6 +719,7 @@ class QuantSlackBotFDR(QuantSlackBot):
         token: Optional[str] = None,
         channel: Optional[str] = None,
         start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
+        ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
         top (``Optional[int]``): Experiments 과정에서 사용할 각 전략별 수
         name (``Optional[str]``): Slack Bot의 표시될 이름
         icon_emoji (``Optional[str]``): Slack Bot의 표시될 사진 (emoji)
@@ -735,6 +742,7 @@ class QuantSlackBotFDR(QuantSlackBot):
         token: Optional[str] = None,
         channel: Optional[str] = None,
         start_day: Optional[str] = "",
+        ohlc: Optional[str] = "",
         top: Optional[int] = 1,
         name: Optional[str] = None,
         icon_emoji: Optional[str] = None,
@@ -748,6 +756,7 @@ class QuantSlackBotFDR(QuantSlackBot):
             token,
             channel,
             start_day,
+            ohlc,
             top,
             name,
             icon_emoji,
