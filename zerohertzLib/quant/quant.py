@@ -30,6 +30,7 @@ import FinanceDataReader as fdr
 import pandas as pd
 import requests
 from matplotlib import pyplot as plt
+
 from zerohertzLib.api import KoreaInvestment, SlackBot
 from zerohertzLib.plot import barh, candle, figure, savefig, table
 
@@ -755,19 +756,20 @@ class QuantSlackBotFDR(QuantSlackBot):
             kor,
         )
         if kor:
-            self.market = fdr.StockListing("KRX")
-            self.market = self.market.sort_values("Marcap", ascending=False)
+            self.market = fdr.StockListing("KRX-DESC")
         else:
             self.market = fdr.StockListing("NASDAQ")
         if isinstance(symbols, int):
             if kor:
-                self.symbols = list(self.market["Code"])[:symbols]
+                krx = fdr.StockListing("KRX")
+                krx = krx.sort_values("Marcap", ascending=False)
+                self.symbols = list(krx["Code"])[:symbols]
             else:
                 self.symbols = list(self.market["Symbol"])[:symbols]
 
     def _get_data(self, symbol: str) -> Tuple[str, pd.core.frame.DataFrame]:
         if self.kor:
-            title = self.market[self.market["Code"] == symbol].iloc[0, 2]
+            title = self.market[self.market["Code"] == symbol].iloc[0, 1]
         else:
             title = self.market[self.market["Symbol"] == symbol].iloc[0, 1]
         data = fdr.DataReader(symbol, self.start_day)
