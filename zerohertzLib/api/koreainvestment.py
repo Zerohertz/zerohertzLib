@@ -339,7 +339,8 @@ class KoreaInvestment:
                 response = requests.get(url, headers=headers, params=params, timeout=10)
                 data_ = response.json()
                 if (
-                    data["output2"][-1]["stck_bsop_date"]
+                    "stck_bsop_date" not in data_["output2"][-1].keys()
+                    or data["output2"][-1]["stck_bsop_date"]
                     == data_["output2"][-1]["stck_bsop_date"]
                 ):
                     break
@@ -398,7 +399,10 @@ class KoreaInvestment:
                 params["BYMD"] = data["output2"][-1]["xymd"]
                 response = requests.get(url, headers=headers, params=params, timeout=10)
                 data_ = response.json()
-                if data["output2"][-1]["xymd"] == data_["output2"][-1]["xymd"]:
+                if (
+                    "xymd" not in data_["output2"][-1].keys()
+                    or data["output2"][-1]["xymd"] == data_["output2"][-1]["xymd"]
+                ):
                     break
                 data["output2"] += data_["output2"][1:]
                 time.sleep(0.02)
