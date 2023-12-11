@@ -96,7 +96,7 @@ def backtest(
             # -10%의 손실 혹은 +20% 이익이 발생하면 판매
             # -10%와 0% 사이의 주가 변동 발생 시 추가 구매
             # 구매 이후 1년 이상의 매도 signal이 없을 시 판매
-            price_buy = sum([price_buy for price_buy, _ in stock]) / len(stock)
+            price_buy = sum(price_buy for (price_buy, _) in stock) / len(stock)
             profit = (price - price_buy) / price_buy * 100
             if profit <= -10 or profit >= 20:
                 signals.loc[idx, "backtest"] = -2
