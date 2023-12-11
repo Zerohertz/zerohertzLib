@@ -527,8 +527,9 @@ class QuantSlackBot(SlackBot):
         symbol, mode = args
         try:
             title, data = self._get_data(symbol)
-        except KeyError:
+        except KeyError as error:
             self.message(f"'{symbol}' is not found")
+            self.message(str(error), True)
             return None, None, None
         try:
             quant = Quant(title, data, ohlc=self.ohlc, top=self.top)
