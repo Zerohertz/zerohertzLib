@@ -116,6 +116,13 @@ def candle(
 ) -> str:
     """OHLCV (Open, High, Low, Close, Volume) data에 따른 candle chart
 
+    Note:
+        - 적색: 매수
+        - 청색: 매도
+        - 실선 (``-``): Backtest 시 signal이 존재하는 매수, 매도
+        - 파선 (``--``): Backtest 시 사용하지 않은 signal의 매수, 매도
+        - 일점쇄선 (``-.``): Backtest logic에 의한 매수, 매도
+
     Args:
         data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
@@ -130,15 +137,13 @@ def candle(
 
     Examples:
         >>> broker = zz.api.KoreaInvestment()
-        >>> samsung = broker.get_ohlcv("005930", "D", "20221205")
-        >>> title, data = broker.response2ohlcv(samsung)
-        >>> signals = zz.quant.moving_average(data)
-        >>> zz.plot.candle(data, title, signals=signals)
-        >>> apple = broker.get_ohlcv("AAPL", kor=False)
-        >>> title, data = broker.response2ohlcv(apple)
+        >>> lg_es = broker.get_ohlcv("373220", "D", "20221205")
+        >>> title, data = broker.response2ohlcv(lg_es)
         >>> zz.plot.candle(data, title)
+        >>> qnt = zz.quant.Quant(title, data)
+        >>> zz.plot.candle(qnt.data, qnt.title, signals=qnt.signals.loc[:, [*qnt.methods, "signals", "backtest"]], threshold=(qnt.threshold_sell, qnt.threshold_buy))
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289050270-de857e2a-1dfb-4d14-b4d6-3d4082792275.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289559324-21ef8a3e-125b-4548-b25d-870a59d15bba.png
             :alt: Visualzation Result
             :align: center
             :width: 800px
@@ -192,31 +197,63 @@ def candle(
             linewidth=1,
             alpha=0.5,
         )
-        buy_indices = []
-        sell_indices = []
-        for idx, pos in enumerate(signals["signals"]):
-            if pos >= threshold_buy:
-                buy_indices.append(idx)
+        buy_idx_signal = []
+        sell_idx_signal = []
+        buy_idx_backtest = []
+        sell_idx_backtest = []
+        buy_idx_logic = []
+        sell_idx_logic = []
+        if "backtest" not in signals.columns:
+            signals["backtest"] = 0
+        for idx, (pos, pos_backtest) in enumerate(
+            zip(signals["signals"], signals["backtest"])
+        ):
+            if pos_backtest == 1:
+                buy_idx_backtest.append(idx)
+            elif pos_backtest == -1:
+                sell_idx_backtest.append(idx)
+            elif pos_backtest == 2:
+                buy_idx_logic.append(idx)
+            elif pos_backtest == -2:
+                sell_idx_logic.append(idx)
+            elif pos >= threshold_buy:
+                buy_idx_signal.append(idx)
             elif pos <= threshold_sell:
-                sell_indices.append(idx)
-        for i in buy_indices:
+                sell_idx_signal.append(idx)
+        for i in buy_idx_signal:
             new_axis.axvline(
-                x=xdata[i], color="red", linestyle="--", linewidth=2, alpha=0.2
+                x=xdata[i], color="red", linestyle="--", linewidth=2, alpha=0.3
             )
-        for i in sell_indices:
+        for i in sell_idx_signal:
             new_axis.axvline(
-                x=xdata[i], color="blue", linestyle="--", linewidth=2, alpha=0.2
+                x=xdata[i], color="blue", linestyle="--", linewidth=2, alpha=0.3
+            )
+        for i in buy_idx_backtest:
+            new_axis.axvline(
+                x=xdata[i], color="red", linestyle="-", linewidth=2, alpha=0.3
+            )
+        for i in sell_idx_backtest:
+            new_axis.axvline(
+                x=xdata[i], color="blue", linestyle="-", linewidth=2, alpha=0.3
+            )
+        for i in buy_idx_logic:
+            new_axis.axvline(
+                x=xdata[i], color=(1, 0.2, 0), linestyle="-.", linewidth=2, alpha=0.3
+            )
+        for i in sell_idx_logic:
+            new_axis.axvline(
+                x=xdata[i], color=(0, 0.2, 1), linestyle="-.", linewidth=2, alpha=0.3
             )
         new_axis.set_yticks([])
         new_axis = axlist[0].twinx()
         colors = color(len(signals.columns), palette="magma")
         if len(signals.columns) > 1:
-            for idx, col in enumerate(signals.columns[:-1]):
+            for idx, col in enumerate(signals.columns[:-2]):
                 new_axis.plot(
                     xdata,
                     signals[col],
                     color=colors[idx],
-                    linewidth=3,
+                    linewidth=2,
                     alpha=0.5,
                     label=col,
                 )
