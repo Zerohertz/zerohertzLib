@@ -146,6 +146,7 @@ class Quant(Experiments):
                                     "methods": methods_in_use,
                                     "total": miu_total,
                                     "transaction": results["transaction"],
+                                    "backtest": self.signals["backtest"],
                                 }
                             )
             backtests.sort(key=lambda x: x["weighted_profit"], reverse=True)
@@ -156,6 +157,7 @@ class Quant(Experiments):
             self.signals["signals"] = self.signals.loc[:, backtests[0]["methods"]].sum(
                 1
             )
+            self.signals["backtest"] = backtests[0]["backtest"]
             self.cnt_total = backtests[0]["total"]
             self.transaction = backtests[0]["transaction"]
 
@@ -543,7 +545,7 @@ class QuantSlackBot(SlackBot):
                 quant.data[-500:],
                 quant.title,
                 signals=quant.signals.iloc[-500:, :].loc[
-                    :, [*quant.methods, "signals"]
+                    :, [*quant.methods, "signals", "backtest"]
                 ],
                 dpi=100,
                 threshold=(quant.threshold_sell, quant.threshold_buy),

@@ -72,29 +72,56 @@ def backtest(
     wallet_sell = 0
     stock = deque()
     transactions = defaultdict(list)
+    signals["backtest"] = 0
     for idx in data.index:
         position = signals.loc[idx, signal_key]
+        if ohlc == "":
+            price = data.loc[idx][:4].mean()
+        else:
+            price = data.loc[idx, ohlc]
         if position >= threshold_buy:
-            if ohlc == "":
-                price = data.loc[idx][:4].mean()
-            else:
-                price = data.loc[idx, ohlc]
-            stock.append(price)
+            signals.loc[idx, "backtest"] = 1
+            stock.append((price, idx))
             transactions["price"].append(price)
             wallet_buy += price
         elif position <= threshold_sell:
-            if ohlc == "":
-                price = data.loc[idx][:4].mean()
-            else:
-                price = data.loc[idx, ohlc]
             while stock:
-                price_buy = stock.popleft()
+                signals.loc[idx, "backtest"] = -1
+                price_buy, _ = stock.popleft()
                 transactions["price"].append(-price)
                 transactions["profit"].append((price - price_buy) / price * 100)
                 wallet_sell += price
+        elif stock:
+            # Rule
+            # -10%의 손실 혹은 +20% 이익이 발생하면 판매
+            # -10%와 0% 사이의 주가 변동 발생 시 추가 구매
+            # 구매 이후 1년 이상의 매도 signal이 없을 시 판매
+            price_buy = sum([price_buy for price_buy, _ in stock]) / len(stock)
+            profit = (price - price_buy) / price_buy * 100
+            if profit <= -10 or profit >= 20:
+                signals.loc[idx, "backtest"] = -2
+                while stock:
+                    price_buy, _ = stock.popleft()
+                    transactions["price"].append(-price)
+                    transactions["profit"].append((price - price_buy) / price * 100)
+                    wallet_sell += price
+            elif profit <= 0:
+                signals.loc[idx, "backtest"] = 2
+                stock.append((price, idx))
+                transactions["price"].append(price)
+                wallet_buy += price
+            while stock:
+                price_buy, day = stock[0]
+                if (day - idx).days > 365:
+                    signals.loc[idx, "backtest"] = -2
+                    stock.popleft()
+                    transactions["price"].append(-price)
+                    transactions["profit"].append((price - price_buy) / price * 100)
+                    wallet_sell += price
+                else:
+                    break
     while stock:
-        price_buy = stock.pop()
-        transactions["price"].pop()
+        price_buy, _ = stock.pop()
         wallet_buy -= price_buy
     transactions["buy"] = wallet_buy
     transactions["sell"] = wallet_sell
