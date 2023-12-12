@@ -618,7 +618,7 @@ class QuantSlackBot(SlackBot):
         if self.analysis:
             self.exps = defaultdict(list)
         response = self.message(f"> :moneybag: Check {mode} Signals")
-        self.message(", ".join(self.symbols), True, response.json()["ts"])
+        self.message(", ".join(symbols), True, response.json()["ts"])
         if self.mp_num == 0 or self.mp_num >= len(symbols):
             for symbol in symbols:
                 message, image, exps = self._run([symbol, mode])
