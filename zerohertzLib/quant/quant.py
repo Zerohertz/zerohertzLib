@@ -513,7 +513,7 @@ class QuantSlackBot(SlackBot):
         ] += f"\t\t:arrow_double_up: BUY: `{quant.threshold_buy}`\n\t\t:arrow_double_down: SELL: `{quant.threshold_sell}`\n"
         reports[
             1
-        ] += f"*Backtest*\n\t:money_with_wings: Total Profit:\t{quant.profit:.2f}%\n"
+        ] += f"*Backtest* ({self.start_day} ~)\n\t:money_with_wings: Total Profit:\t{quant.profit:.2f}%\n"
         reports[
             1
         ] += f"\t:chart_with_upwards_trend: Total Buy:\t{_cash2str(quant.transaction['buy'], self.kor)}\n"
@@ -523,7 +523,9 @@ class QuantSlackBot(SlackBot):
         transaction_price = [
             _cash2str(price, self.kor) for price in quant.transaction["price"]
         ]
-        transaction_profit = [f"{price:.2f}%" for price in quant.transaction["profit"]]
+        transaction_profit = [
+            f"{profit:.2f}%" for profit in quant.transaction["profit"]
+        ]
         reports[2] = " -> ".join(transaction_price)
         reports[3] = " -> ".join(transaction_profit)
         return reports
