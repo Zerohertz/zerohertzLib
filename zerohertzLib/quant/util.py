@@ -75,7 +75,7 @@ def _bollinger_bands(
 def _seconds_to_hms(seconds: int) -> str:
     hours = seconds // 3600
     minutes = (seconds % 3600) // 60
-    seconds = seconds % 60
+    seconds = int(seconds % 60)
     if hours == 0:
         if minutes == 0:
             return f"{seconds}S"
