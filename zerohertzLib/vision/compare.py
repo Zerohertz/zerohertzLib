@@ -50,7 +50,7 @@ def before_after(
     area: Optional[List[Union[int, float]]] = None,
     per: Optional[bool] = True,
     quality: Optional[int] = 100,
-    filename: Optional[str] = "tmp",
+    file_name: Optional[str] = "tmp",
 ) -> None:
     """두 image를 비교하는 image 생성
 
@@ -60,7 +60,7 @@ def before_after(
         area: (``Optional[List[Union[int, float]]]``): 비교할 좌표 (``[x_0, y_0, x_1, y_1]``)
         per (``Optional[bool]``): ``area`` 의 백분율 여부
         quality (``Optional[int]``): 출력 image의 quality (단위: %)
-        filename: (``Optional[str]``): 저장될 file의 이름
+        file_name: (``Optional[str]``): 저장될 file의 이름
 
     Returns:
         ``None``: 현재 directory에 바로 image 저장
@@ -112,14 +112,14 @@ def before_after(
     palette[:, :width, :] = before
     palette[:, width:, :] = after
     palette = cv2.resize(palette, (0, 0), fx=quality / 100, fy=quality / 100)
-    cv2.imwrite(f"{filename}.png", palette)
+    cv2.imwrite(f"{file_name}.png", palette)
 
 
 def grid(
     imgs: List[NDArray[np.uint8]],
     size: Optional[int] = 1000,
     color: Optional[Tuple[int]] = (255, 255, 255),
-    filename: Optional[str] = "tmp",
+    file_name: Optional[str] = "tmp",
 ) -> None:
     """여러 image를 입력받아 한 정방형 image로 병합
 
@@ -127,7 +127,7 @@ def grid(
         imgs (``List[NDArray[np.uint8]]``): 입력 image
         size: (``Optional[int]``): 출력 image의 크기
         color: (``Optional[Tuple[int]]``): Padding의 색
-        filename: (``Optional[str]``): 저장될 file의 이름
+        file_name: (``Optional[str]``): 저장될 file의 이름
 
     Returns:
         ``None``: 현재 directory에 바로 image 저장
@@ -159,20 +159,20 @@ def grid(
         )
         img = _cvt_bgra(img)
         palette[y_0:y_1, x_0:x_1, :] = pad(img, (length, length), color)
-    cv2.imwrite(f"{filename}.png", palette)
+    cv2.imwrite(f"{file_name}.png", palette)
 
 
 def vert(
     imgs: List[NDArray[np.uint8]],
     height: int = 1000,
-    filename: Optional[str] = "tmp",
+    file_name: Optional[str] = "tmp",
 ):
     """여러 image를 입력받아 한 가로 image로 병합
 
     Args:
         imgs (``List[NDArray[np.uint8]]``): 입력 image
         height: (``Optional[int]``): 출력 image의 높이
-        filename: (``Optional[str]``): 저장될 file의 이름
+        file_name: (``Optional[str]``): 저장될 file의 이름
 
     Returns:
         ``None``: 현재 directory에 바로 image 저장
@@ -204,4 +204,4 @@ def vert(
         img_height, img_width, _ = img.shape
         palette[:img_height, width : width + img_width, :] = img
         width += img_width
-    cv2.imwrite(f"{filename}.png", palette)
+    cv2.imwrite(f"{file_name}.png", palette)
