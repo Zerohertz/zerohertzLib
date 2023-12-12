@@ -72,7 +72,7 @@ def plot(
             :align: center
             :width: 500px
     """
-    colors = color(len(ydata))
+    colors = color(len(ydata) + 1)
     if save:
         plt.figure(figsize=figsize)
     # list(plt.Line2D.lineStyles.keys())
