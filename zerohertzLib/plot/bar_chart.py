@@ -21,7 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
-
+import sys
 from typing import Dict, List, Optional, Tuple, Union
 
 import numpy as np
@@ -205,9 +205,14 @@ def hist(
             :width: 600px
     """
     colors = color(len(data))
-    tmp = np.array(list(data.values()))
-    minimum, maximum = tmp.min(), tmp.max()
-    bins = np.linspace(minimum, maximum, cnt)
+    if len(data) == 1:
+        colors = [colors]
+    minimum, maximum = sys.maxsize, -sys.maxsize
+    for ydata in data.values():
+        minimum = min(min(ydata), minimum)
+        maximum = max(max(ydata), maximum)
+    gap = max(0.01, (maximum - minimum) / cnt)
+    bins = np.linspace(minimum - gap, maximum + gap, cnt)
     if save:
         plt.figure(figsize=figsize)
     if ovp:
