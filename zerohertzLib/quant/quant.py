@@ -489,14 +489,16 @@ class QuantSlackBot(SlackBot):
             return super().file(path, thread_ts)
         return None
 
-    def _report(self, name: str, quant: Quant, today: Dict[str, list]) -> List[str]:
+    def _report(self, quant: Quant, today: Dict[str, list]) -> List[str]:
         reports = ["" for _ in range(4)]
         if today["position"] == "Buy":
-            reports[0] += f"> :chart_with_upwards_trend: [Buy Signal] *{name}*\n"
+            reports[0] += f"> :chart_with_upwards_trend: [Buy Signal] *{quant.title}*\n"
         elif today["position"] == "Sell":
-            reports[0] += f"> :chart_with_downwards_trend: [Sell Signal] *{name}*\n"
+            reports[
+                0
+            ] += f"> :chart_with_downwards_trend: [Sell Signal] *{quant.title}*\n"
         else:
-            reports[0] += f"> :egg: [None Signal] *{name}*\n"
+            reports[0] += f"> :egg: [None Signal] *{quant.title}*\n"
         reports[
             0
         ] += f"\t:heavy_dollar_sign: SIGNAL's INFO: {today['total'][1]:.2f}% (`{int(today['total'][0])}/{int(quant.cnt_total)}`)\n"
@@ -555,15 +557,15 @@ class QuantSlackBot(SlackBot):
             positions = ["Buy", "Sell", "None"]
         if today["position"] in positions:
             path = candle(
-                data[-500:],
-                title,
+                quant.data[-500:],
+                quant.title,
                 signals=quant.signals.iloc[-500:, :].loc[
                     :, [*quant.methods, "signals", "backtest"]
                 ],
                 dpi=100,
                 threshold=(quant.threshold_sell, quant.threshold_buy),
             )
-            return self._report(title, quant, today), path, quant.exps
+            return self._report(quant, today), path, quant.exps
         return None, None, quant.exps
 
     def _send(self, messages: List[str], image: str) -> None:
