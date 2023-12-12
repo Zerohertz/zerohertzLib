@@ -70,3 +70,14 @@ def _bollinger_bands(
     bands["upper_band"] = bands["middle_band"] + (std_dev * num_std_dev)
     bands["lower_band"] = bands["middle_band"] - (std_dev * num_std_dev)
     return bands
+
+
+def _seconds_to_hms(seconds: int) -> str:
+    hours = seconds // 3600
+    minutes = (seconds % 3600) // 60
+    seconds = seconds % 60
+    if hours == 0:
+        if minutes == 0:
+            return f"{seconds}S"
+        return f"{minutes}M {seconds}S"
+    return f"{hours}H {minutes}M {seconds}S"

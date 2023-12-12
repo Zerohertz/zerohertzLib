@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 import multiprocessing as mp
+import time
 from collections import defaultdict
 from itertools import combinations
 from typing import Any, Dict, ItemsView, List, Optional, Tuple, Union
@@ -35,6 +36,7 @@ from zerohertzLib.api import KoreaInvestment, SlackBot
 from zerohertzLib.plot import barh, candle, figure, savefig, table
 
 from .backtest import Experiments, backtest
+from .util import _seconds_to_hms
 
 
 class Quant(Experiments):
@@ -607,6 +609,7 @@ class QuantSlackBot(SlackBot):
 
     def buy(self) -> None:
         """매수 signals 탐색"""
+        start = time.time()
         if self.analysis:
             self.exps = defaultdict(list)
         self.message("> Check Buy Signals")
@@ -614,10 +617,12 @@ class QuantSlackBot(SlackBot):
         self._inference(self.symbols, "Buy")
         if self.analysis:
             self._analysis_send()
-        self.message("Done!")
+        end = time.time()
+        self.message(f"Done! (`{_seconds_to_hms(end - start)}`)")
 
     def index(self) -> None:
         """모든 signals 탐색"""
+        start = time.time()
         if self.analysis:
             self.exps = defaultdict(list)
         self.message("> Check Index Signals")
@@ -626,6 +631,8 @@ class QuantSlackBot(SlackBot):
         if self.analysis:
             self._analysis_send()
         self.message("Done!")
+        end = time.time()
+        self.message(f"Done! (`{_seconds_to_hms(end - start)}`)")
 
 
 class QuantSlackBotKI(Balance, QuantSlackBot):
@@ -701,6 +708,7 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
 
         한국투자증권의 잔고와 주식 보유 상황을 image로 변환하여 slack으로 전송 및 보유 중인 주식에 대해 매도 signals 탐색
         """
+        start = time.time()
         if self.analysis:
             self.exps = defaultdict(list)
         self.message("> Balance")
@@ -711,7 +719,8 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
         self._inference(self.symbols_bought, "Sell")
         if self.analysis:
             self._analysis_send()
-        self.message("Done!")
+        end = time.time()
+        self.message(f"Done! (`{_seconds_to_hms(end - start)}`)")
 
 
 class QuantSlackBotFDR(QuantSlackBot):
