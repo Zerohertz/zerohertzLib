@@ -101,6 +101,7 @@ class ImageLoader:
     def __init__(self, path: Optional[str] = "./", cnt: Optional[int] = 1) -> None:
         self.cnt = cnt
         self.image_paths = _get_image_paths(path)
+        self.image_paths.sort()
 
     def __len__(self) -> int:
         return math.ceil(len(self.image_paths) / self.cnt)
