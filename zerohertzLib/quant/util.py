@@ -72,6 +72,17 @@ def _bollinger_bands(
     return bands
 
 
+def _cash2str(
+    cash: str,
+    kor: bool,
+) -> str:
+    if kor:
+        return f"{cash:,.0f}원"
+    if cash[0] == "-":
+        return f"-${cash[1:]}"
+    return f"${cash:,.2f}"
+
+
 def _seconds_to_hms(seconds: int) -> str:
     hours = seconds // 3600
     minutes = (seconds % 3600) // 60

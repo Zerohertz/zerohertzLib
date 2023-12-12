@@ -36,7 +36,7 @@ from zerohertzLib.api import KoreaInvestment, SlackBot
 from zerohertzLib.plot import barh, candle, figure, savefig, table
 
 from .backtest import Experiments, backtest
-from .util import _seconds_to_hms
+from .util import _cash2str, _seconds_to_hms
 
 
 class Quant(Experiments):
@@ -311,11 +311,6 @@ class Balance(KoreaInvestment):
     def __call__(self) -> int:
         return self.balance["cash"]
 
-    def _cash2str(self, cash: str) -> str:
-        if self.kor:
-            return f"{cash:,.0f}원"
-        return f"${cash:,.2f}"
-
     def items(self) -> ItemsView[str, List[Union[int, float, str]]]:
         """보유 주식의 반복문 사용을 위한 method
 
@@ -374,11 +369,11 @@ class Balance(KoreaInvestment):
             row.append(name)
             data.append(
                 [
-                    self._cash2str(purchase),
-                    self._cash2str(current),
+                    _cash2str(purchase, self.kor),
+                    _cash2str(current, self.kor),
                     quantity,
                     f"{pal}%",
-                    self._cash2str(pal_price),
+                    _cash2str(pal_price, self.kor),
                 ]
             )
             purchase_total += purchase * quantity
@@ -386,11 +381,11 @@ class Balance(KoreaInvestment):
         row.append("TOTAL")
         data.append(
             [
-                self._cash2str(purchase_total),
-                self._cash2str(current_total),
+                _cash2str(purchase_total, self.kor),
+                _cash2str(current_total, self.kor),
                 "-",
                 f"{(current_total-purchase_total)/purchase_total*100:.2f}%",
-                f"{self._cash2str(current_total - purchase_total)}\n\n{self._cash2str(self())}",
+                f"{_cash2str(current_total - purchase_total, self.kor)}\n\n{_cash2str(self(), self.kor)}",
             ]
         )
         return table(
@@ -491,11 +486,6 @@ class QuantSlackBot(SlackBot):
             return super().file(path)
         return None
 
-    def _cash2str(self, cash: str) -> str:
-        if self.kor:
-            return f"{cash:,.0f}원"
-        return f"${cash:,.2f}"
-
     def _report(self, name: str, quant: Quant, today: Dict[str, list]):
         report = ""
         if today["position"] == "Buy":
@@ -513,10 +503,10 @@ class QuantSlackBot(SlackBot):
         report += (
             f"*Backtest*\n\t:money_with_wings: Total Profit:\t{quant.profit:.2f}%\n"
         )
-        report += f"\t:chart_with_upwards_trend: Total Buy:\t{self._cash2str(quant.transaction['buy'])}\n"
-        report += f"\t:chart_with_downwards_trend: Total Sell:\t{self._cash2str(quant.transaction['sell'])}\n"
+        report += f"\t:chart_with_upwards_trend: Total Buy:\t{_cash2str(quant.transaction['buy'], self.kor)}\n"
+        report += f"\t:chart_with_downwards_trend: Total Sell:\t{_cash2str(quant.transaction['sell'], self.kor)}\n"
         transaction_price = [
-            self._cash2str(price) for price in quant.transaction["price"]
+            _cash2str(price, self.kor) for price in quant.transaction["price"]
         ]
         transaction_profit = [f"{price:.2f}%" for price in quant.transaction["profit"]]
         transaction_price = "```" + " -> ".join(transaction_price) + "```"
