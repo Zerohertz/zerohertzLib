@@ -58,6 +58,7 @@ class Quant(Experiments):
         threshold_buy (``int``): 융합된 전략의 매수 signal threshold
         threshold_sell (``int``): 융합된 전략의 매도 signal threshold
         methods (``Tuple[str]``): 융합된 전략명
+        report: (``Optional[bool]``): Experiment 결과 출력 여부
 
     Examples:
         >>> qnt = zz.quant.Quant(title, data, top=3)
@@ -86,8 +87,9 @@ class Quant(Experiments):
         ohlc: Optional[str] = "",
         top: Optional[int] = 1,
         methods: Optional[List[str]] = None,
+        report: Optional[bool] = False,
     ) -> None:
-        super().__init__(title, data, ohlc, False, True)
+        super().__init__(title, data, ohlc, False, report)
         self.signals = pd.DataFrame(index=data.index)
         self.params = defaultdict(list)
         self.cnt = defaultdict(int)
@@ -425,6 +427,7 @@ class QuantSlackBot(SlackBot):
         mp_num (``Optional[int]``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
         analysis (``Optional[bool]``): 각 전략의 보고서 전송 여부
         kor (``Optional[bool]``): 국내 여부
+        report: (``Optional[bool]``): Experiment 결과 출력 여부
 
     Attributes:
         exps (``Dict[str, List[Dict[str, int]]]``): 각 전략에 따른 parameter 분포
@@ -452,6 +455,7 @@ class QuantSlackBot(SlackBot):
         mp_num: Optional[int] = 0,
         analysis: Optional[bool] = False,
         kor: Optional[bool] = True,
+        report: Optional[bool] = False,
     ) -> None:
         if token is None or channel is None:
             self.slack = False
@@ -469,6 +473,7 @@ class QuantSlackBot(SlackBot):
             self.mp_num = mp_num
         self.analysis = analysis
         self.kor = kor
+        self.report = report
 
     def message(
         self,
@@ -534,7 +539,7 @@ class QuantSlackBot(SlackBot):
             self.message(str(error), True)
             return None, None, None
         try:
-            quant = Quant(title, data, ohlc=self.ohlc, top=self.top)
+            quant = Quant(title, data, ohlc=self.ohlc, top=self.top, report=self.report)
             today = quant.run()
         except IndexError:
             self.message(f"{title}: {data.index[0]} ({len(data)})")
@@ -651,6 +656,7 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
         mp_num (``Optional[int]``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
         analysis (``Optional[bool]``): 각 전략의 보고서 전송 여부
         kor (``Optional[bool]``): 국내 여부
+        report: (``Optional[bool]``): Experiment 결과 출력 여부
 
     Attributes:
         exps (``Dict[str, List[Dict[str, int]]]``): 각 전략에 따른 parameter 분포
@@ -673,6 +679,7 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
         mp_num: Optional[int] = 0,
         analysis: Optional[bool] = False,
         kor: Optional[bool] = True,
+        report: Optional[bool] = False,
     ) -> None:
         Balance.__init__(self, path, kor)
         if symbols is None:
@@ -690,6 +697,7 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
             mp_num,
             analysis,
             kor,
+            report,
         )
         symbols_bought = self.bought_symbols()
         for symbol in symbols_bought:
@@ -738,6 +746,7 @@ class QuantSlackBotFDR(QuantSlackBot):
         mp_num (``Optional[int]``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
         analysis (``Optional[bool]``): 각 전략의 보고서 전송 여부
         kor (``Optional[bool]``): 국내 여부
+        report: (``Optional[bool]``): Experiment 결과 출력 여부
 
     Attributes:
         exps (``Dict[str, List[Dict[str, int]]]``): 각 전략에 따른 parameter 분포
@@ -761,6 +770,7 @@ class QuantSlackBotFDR(QuantSlackBot):
         mp_num: Optional[int] = 0,
         analysis: Optional[bool] = False,
         kor: Optional[bool] = True,
+        report: Optional[bool] = False,
     ) -> None:
         QuantSlackBot.__init__(
             self,
@@ -775,6 +785,7 @@ class QuantSlackBotFDR(QuantSlackBot):
             mp_num,
             analysis,
             kor,
+            report,
         )
         if kor:
             self.market = fdr.StockListing("KRX-DESC")
