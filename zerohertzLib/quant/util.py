@@ -78,17 +78,17 @@ def _cash2str(
 ) -> str:
     if kor:
         return f"{cash:,.0f}원"
-    if cash[0] == "-":
-        return f"-${cash[1:]}"
+    if cash < 0:
+        return f"-${abs(cash):,.2f}"
     return f"${cash:,.2f}"
 
 
 def _seconds_to_hms(seconds: int) -> str:
-    hours = seconds // 3600
-    minutes = (seconds % 3600) // 60
+    hours = int(seconds // 3600)
+    minutes = int((seconds % 3600) // 60)
     seconds = int(seconds % 60)
     if hours == 0:
         if minutes == 0:
-            return f"{seconds}S"
-        return f"{minutes}M {seconds}S"
-    return f"{hours}H {minutes}M {seconds}S"
+            return f"{seconds}s"
+        return f"{minutes}m {seconds}s"
+    return f"{hours}h {minutes}m {seconds}s"
