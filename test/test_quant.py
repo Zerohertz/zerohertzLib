@@ -42,7 +42,7 @@ def test_experiments():
 
 def test_quant():
     qnt = zz.quant.Quant("Test", DATA, top=3, report=True)
-    qnt.run()
+    qnt()
 
 
 def test_quant_slack_bot_fdr_kor():
