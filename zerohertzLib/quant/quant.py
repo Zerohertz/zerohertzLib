@@ -412,17 +412,17 @@ class QuantSlackBot(SlackBot):
 
     Args:
         symbols (``List[str]``): 종목 code들
-        token (``Optional[str]``): Slack Bot의 token
-        channel (``Optional[str]``): Slack Bot이 전송할 channel
         start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
         ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
         top (``Optional[int]``): Experiments 과정에서 사용할 각 전략별 수
+        report: (``Optional[bool]``): Experiment 결과 출력 여부
+        token (``Optional[str]``): Slack Bot의 token
+        channel (``Optional[str]``): Slack Bot이 전송할 channel
         name (``Optional[str]``): Slack Bot의 표시될 이름
         icon_emoji (``Optional[str]``): Slack Bot의 표시될 사진 (emoji)
         mp_num (``Optional[int]``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
         analysis (``Optional[bool]``): 각 전략의 보고서 전송 여부
         kor (``Optional[bool]``): 국내 여부
-        report: (``Optional[bool]``): Experiment 결과 출력 여부
 
     Attributes:
         exps (``Dict[str, List[Dict[str, int]]]``): 각 전략에 따른 parameter 분포
@@ -440,17 +440,17 @@ class QuantSlackBot(SlackBot):
     def __init__(
         self,
         symbols: List[str],
-        token: Optional[str] = None,
-        channel: Optional[str] = None,
         start_day: Optional[str] = "",
         ohlc: Optional[str] = "",
         top: Optional[int] = 1,
+        report: Optional[bool] = False,
+        token: Optional[str] = None,
+        channel: Optional[str] = None,
         name: Optional[str] = None,
         icon_emoji: Optional[str] = None,
         mp_num: Optional[int] = 0,
         analysis: Optional[bool] = False,
         kor: Optional[bool] = True,
-        report: Optional[bool] = False,
     ) -> None:
         if token is None or channel is None:
             self.slack = False
@@ -652,41 +652,41 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
 
     Args:
         symbols (``Optional[List[str]]``): 종목 code들
-        token (``Optional[str]``): Slack Bot의 token
-        channel (``Optional[str]``): Slack Bot이 전송할 channel
-        path (``Optional[str]``): ``secret.key`` 혹은 ``token.dat`` 이 포함된 경로
         start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
         ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
         top (``Optional[int]``): Experiments 과정에서 사용할 각 전략별 수
+        report: (``Optional[bool]``): Experiment 결과 출력 여부
+        token (``Optional[str]``): Slack Bot의 token
+        channel (``Optional[str]``): Slack Bot이 전송할 channel
         name (``Optional[str]``): Slack Bot의 표시될 이름
         icon_emoji (``Optional[str]``): Slack Bot의 표시될 사진 (emoji)
         mp_num (``Optional[int]``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
         analysis (``Optional[bool]``): 각 전략의 보고서 전송 여부
         kor (``Optional[bool]``): 국내 여부
-        report: (``Optional[bool]``): Experiment 결과 출력 여부
+        path (``Optional[str]``): ``secret.key`` 혹은 ``token.dat`` 이 포함된 경로
 
     Attributes:
         exps (``Dict[str, List[Dict[str, int]]]``): 각 전략에 따른 parameter 분포
 
     Examples:
-        >>> qsb = zz.quant.QuantSlackBotKI(symbols, token, channel)
+        >>> qsb = zz.quant.QuantSlackBotKI(symbols, token=token, channel=channel)
     """
 
     def __init__(
         self,
         symbols: Optional[List[str]] = None,
-        token: Optional[str] = None,
-        channel: Optional[str] = None,
-        path: Optional[str] = "./",
         start_day: Optional[str] = "",
         ohlc: Optional[str] = "",
         top: Optional[int] = 1,
+        report: Optional[bool] = False,
+        token: Optional[str] = None,
+        channel: Optional[str] = None,
         name: Optional[str] = None,
         icon_emoji: Optional[str] = None,
         mp_num: Optional[int] = 0,
         analysis: Optional[bool] = False,
         kor: Optional[bool] = True,
-        report: Optional[bool] = False,
+        path: Optional[str] = "./",
     ) -> None:
         Balance.__init__(self, path, kor)
         if symbols is None:
@@ -694,17 +694,17 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
         QuantSlackBot.__init__(
             self,
             symbols,
-            token,
-            channel,
             start_day,
             ohlc,
             top,
+            report,
+            token,
+            channel,
             name,
             icon_emoji,
             mp_num,
             analysis,
             kor,
-            report,
         )
         symbols_bought = self.bought_symbols()
         for symbol in symbols_bought:
@@ -734,56 +734,56 @@ class QuantSlackBotFDR(QuantSlackBot):
 
     Args:
         symbols (``Union[int, List[str]]``): 종목 code들 혹은 시가 총액 순위
-        token: Optional[str] = None,
-        channel: Optional[str] = None,
         start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
         ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
         top (``Optional[int]``): Experiments 과정에서 사용할 각 전략별 수
+        report: (``Optional[bool]``): Experiment 결과 출력 여부
+        token (``Optional[str]``): Slack Bot의 token
+        channel (``Optional[str]``): Slack Bot이 전송할 channel
         name (``Optional[str]``): Slack Bot의 표시될 이름
         icon_emoji (``Optional[str]``): Slack Bot의 표시될 사진 (emoji)
         mp_num (``Optional[int]``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
         analysis (``Optional[bool]``): 각 전략의 보고서 전송 여부
         kor (``Optional[bool]``): 국내 여부
-        report: (``Optional[bool]``): Experiment 결과 출력 여부
 
     Attributes:
         exps (``Dict[str, List[Dict[str, int]]]``): 각 전략에 따른 parameter 분포
         market (``pd.core.frame.DataFrame``): ``kor`` 에 따른 시장 목록
 
     Examples:
-        >>> qsb = zz.quant.QuantSlackBotFDR(symbols, token, channel)
-        >>> qsb = zz.quant.QuantSlackBotFDR(10, token, channel)
+        >>> qsb = zz.quant.QuantSlackBotFDR(symbols, token=token, channel=channel)
+        >>> qsb = zz.quant.QuantSlackBotFDR(10, token=token, channel=channel)
     """
 
     def __init__(
         self,
         symbols: Union[int, List[str]],
-        token: Optional[str] = None,
-        channel: Optional[str] = None,
         start_day: Optional[str] = "",
         ohlc: Optional[str] = "",
         top: Optional[int] = 1,
+        report: Optional[bool] = False,
+        token: Optional[str] = None,
+        channel: Optional[str] = None,
         name: Optional[str] = None,
         icon_emoji: Optional[str] = None,
         mp_num: Optional[int] = 0,
         analysis: Optional[bool] = False,
         kor: Optional[bool] = True,
-        report: Optional[bool] = False,
     ) -> None:
         QuantSlackBot.__init__(
             self,
             symbols,
-            token,
-            channel,
             start_day,
             ohlc,
             top,
+            report,
+            token,
+            channel,
             name,
             icon_emoji,
             mp_num,
             analysis,
             kor,
-            report,
         )
         if kor:
             self.market = fdr.StockListing("KRX-DESC")

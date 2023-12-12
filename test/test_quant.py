@@ -12,14 +12,14 @@ START_DAY = START_DAY.strftime("%Y%m%d")
 def test_quant_slack_bot_fdr_kor():
     qnt = zz.quant.QuantSlackBotFDR(
         1,
-        token=SLACK_BOT_TOKEN,
-        channel="test",
         start_day=START_DAY,
         ohlc="Close",
         top=4,
+        token=SLACK_BOT_TOKEN,
+        channel="test",
         name="Stock Test",
         icon_emoji="rocket",
-        analysis=False,
+        analysis=True,
     )
     qnt.index()
 
@@ -27,13 +27,12 @@ def test_quant_slack_bot_fdr_kor():
 def test_quant_slack_bot_fdr_ovs():
     qnt = zz.quant.QuantSlackBotFDR(
         1,
-        token=SLACK_BOT_TOKEN,
-        channel="test",
         start_day=START_DAY,
         top=2,
+        token=SLACK_BOT_TOKEN,
+        channel="test",
         name="Stock Test",
         icon_emoji="rocket",
-        analysis=False,
         kor=False,
     )
     qnt.buy()
