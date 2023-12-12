@@ -213,8 +213,8 @@ def hist(
         colors = [colors]
     minimum, maximum = sys.maxsize, -sys.maxsize
     for ydata in data.values():
-        minimum = min(min(ydata), minimum)
-        maximum = max(max(ydata), maximum)
+        minimum = min(*ydata, minimum)
+        maximum = max(*ydata, maximum)
     gap = max(0.01, (maximum - minimum) / cnt)
     bins = np.linspace(minimum - gap, maximum + gap, cnt)
     if save:
