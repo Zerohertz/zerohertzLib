@@ -63,7 +63,9 @@ def scatter(
             :align: center
             :width: 500px
     """
-    colors = color(len(data) + 1)
+    colors = color(len(data))
+    if len(data) == 1:
+        colors = [colors]
     if save:
         figure(figsize=figsize)
     # import matplotlib.markers as mmarkers

@@ -67,6 +67,8 @@ def barv(
             :width: 500px
     """
     colors = color(len(data))
+    if len(data) == 1:
+        colors = [colors]
     if save:
         plt.figure(figsize=figsize)
     bars = plt.bar(
@@ -135,6 +137,8 @@ def barh(
             :width: 375px
     """
     colors = color(len(data))
+    if len(data) == 1:
+        colors = [colors]
     if save:
         plt.figure(figsize=figsize)
     bars = plt.barh(
