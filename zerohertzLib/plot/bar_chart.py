@@ -226,7 +226,8 @@ def hist(
     plt.xlabel(xlab)
     plt.ylabel(ylab)
     plt.title(title, fontsize=25)
-    plt.legend()
+    if len(data) > 1:
+        plt.legend()
     if save:
         return savefig(title, dpi)
     return None

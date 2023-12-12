@@ -99,7 +99,8 @@ def plot(
     if ylim is not None:
         plt.ylim(ylim)
     plt.title(title, fontsize=25)
-    plt.legend(ncol=ncol)
+    if len(ydata) > 1:
+        plt.legend(ncol=ncol)
     if save:
         return savefig(title, dpi)
     return None
