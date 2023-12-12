@@ -70,3 +70,25 @@ def _bollinger_bands(
     bands["upper_band"] = bands["middle_band"] + (std_dev * num_std_dev)
     bands["lower_band"] = bands["middle_band"] - (std_dev * num_std_dev)
     return bands
+
+
+def _cash2str(
+    cash: str,
+    kor: bool,
+) -> str:
+    if kor:
+        return f"{cash:,.0f}원"
+    if cash < 0:
+        return f"-${abs(cash):,.2f}"
+    return f"${cash:,.2f}"
+
+
+def _seconds_to_hms(seconds: int) -> str:
+    hours = int(seconds // 3600)
+    minutes = int((seconds % 3600) // 60)
+    seconds = int(seconds % 60)
+    if hours == 0:
+        if minutes == 0:
+            return f"{seconds}s"
+        return f"{minutes}m {seconds}s"
+    return f"{hours}h {minutes}m {seconds}s"

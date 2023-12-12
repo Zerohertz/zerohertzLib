@@ -32,8 +32,8 @@ def _get_size(path: str) -> int:
     if os.path.isfile(path):
         return os.path.getsize(path)
     total = 0
-    for filename in os.listdir(path):
-        filepath = os.path.join(path, filename)
+    for file_name in os.listdir(path):
+        filepath = os.path.join(path, file_name)
         if os.path.isfile(filepath):
             total += os.path.getsize(filepath)
         elif os.path.isdir(filepath):
@@ -60,9 +60,9 @@ def storage(path: str, threshold: Optional[int] = 1) -> None:
             :width: 600px
     """
     sizes = {}
-    for filename in os.listdir(path):
-        filepath = os.path.join(path, filename)
-        sizes[filename] = _get_size(filepath) / (1024**3)
+    for file_name in os.listdir(path):
+        filepath = os.path.join(path, file_name)
+        sizes[file_name] = _get_size(filepath) / (1024**3)
     total_size = sum(sizes.values())
     etc = 0
     pops = []

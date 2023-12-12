@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 import multiprocessing as mp
+import time
 from collections import defaultdict
 from itertools import combinations
 from typing import Any, Dict, ItemsView, List, Optional, Tuple, Union
@@ -35,6 +36,7 @@ from zerohertzLib.api import KoreaInvestment, SlackBot
 from zerohertzLib.plot import barh, candle, figure, savefig, table
 
 from .backtest import Experiments, backtest
+from .util import _cash2str, _seconds_to_hms
 
 
 class Quant(Experiments):
@@ -56,6 +58,7 @@ class Quant(Experiments):
         threshold_buy (``int``): 융합된 전략의 매수 signal threshold
         threshold_sell (``int``): 융합된 전략의 매도 signal threshold
         methods (``Tuple[str]``): 융합된 전략명
+        report: (``Optional[bool]``): Experiment 결과 출력 여부
 
     Examples:
         >>> qnt = zz.quant.Quant(title, data, top=3)
@@ -84,8 +87,9 @@ class Quant(Experiments):
         ohlc: Optional[str] = "",
         top: Optional[int] = 1,
         methods: Optional[List[str]] = None,
+        report: Optional[bool] = False,
     ) -> None:
-        super().__init__(title, data, ohlc, False, True)
+        super().__init__(title, data, ohlc, False, report)
         self.signals = pd.DataFrame(index=data.index)
         self.params = defaultdict(list)
         self.cnt = defaultdict(int)
@@ -307,11 +311,6 @@ class Balance(KoreaInvestment):
     def __call__(self) -> int:
         return self.balance["cash"]
 
-    def _cash2str(self, cash: str) -> str:
-        if self.kor:
-            return f"{cash:,.0f}원"
-        return f"${cash:,.2f}"
-
     def items(self) -> ItemsView[str, List[Union[int, float, str]]]:
         """보유 주식의 반복문 사용을 위한 method
 
@@ -370,11 +369,11 @@ class Balance(KoreaInvestment):
             row.append(name)
             data.append(
                 [
-                    self._cash2str(purchase),
-                    self._cash2str(current),
+                    _cash2str(purchase, self.kor),
+                    _cash2str(current, self.kor),
                     quantity,
                     f"{pal}%",
-                    self._cash2str(pal_price),
+                    _cash2str(pal_price, self.kor),
                 ]
             )
             purchase_total += purchase * quantity
@@ -382,11 +381,11 @@ class Balance(KoreaInvestment):
         row.append("TOTAL")
         data.append(
             [
-                self._cash2str(purchase_total),
-                self._cash2str(current_total),
+                _cash2str(purchase_total, self.kor),
+                _cash2str(current_total, self.kor),
                 "-",
                 f"{(current_total-purchase_total)/purchase_total*100:.2f}%",
-                f"{self._cash2str(current_total - purchase_total)}\n\n{self._cash2str(self())}",
+                f"{_cash2str(current_total - purchase_total, self.kor)}\n\n{_cash2str(self(), self.kor)}",
             ]
         )
         return table(
@@ -423,6 +422,7 @@ class QuantSlackBot(SlackBot):
         mp_num (``Optional[int]``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
         analysis (``Optional[bool]``): 각 전략의 보고서 전송 여부
         kor (``Optional[bool]``): 국내 여부
+        report: (``Optional[bool]``): Experiment 결과 출력 여부
 
     Attributes:
         exps (``Dict[str, List[Dict[str, int]]]``): 각 전략에 따른 parameter 분포
@@ -431,10 +431,10 @@ class QuantSlackBot(SlackBot):
         >>> qsb = zz.quant.QuantSlackBot(symbols, token, channel)
         >>> qsb.index()
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289048168-9c339478-4d61-4ac6-9ecd-e0b9433af264.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289755618-04bdd7f9-929c-4566-855d-6781abec4197.png
             :alt: Slack Bot Result
             :align: center
-            :width: 400px
+            :width: 600px
     """
 
     def __init__(
@@ -450,6 +450,7 @@ class QuantSlackBot(SlackBot):
         mp_num: Optional[int] = 0,
         analysis: Optional[bool] = False,
         kor: Optional[bool] = True,
+        report: Optional[bool] = False,
     ) -> None:
         if token is None or channel is None:
             self.slack = False
@@ -467,55 +468,65 @@ class QuantSlackBot(SlackBot):
             self.mp_num = mp_num
         self.analysis = analysis
         self.kor = kor
+        self.report = report
 
     def message(
         self,
         message: str,
         codeblock: Optional[bool] = False,
+        thread_ts: Optional[str] = None,
     ) -> requests.models.Response:
         """``token`` 혹은 ``channel`` 이 입력되지 않을 시 전송 불가"""
         if self.slack:
-            return super().message(message, codeblock)
+            return super().message(message, codeblock, thread_ts)
         return None
 
-    def file(self, path: str) -> requests.models.Response:
+    def file(
+        self, path: str, thread_ts: Optional[str] = None
+    ) -> requests.models.Response:
         """``token`` 혹은 ``channel`` 이 입력되지 않을 시 전송 불가"""
         if self.slack:
-            return super().file(path)
+            return super().file(path, thread_ts)
         return None
 
-    def _cash2str(self, cash: str) -> str:
-        if self.kor:
-            return f"{cash:,.0f}원"
-        return f"${cash:,.2f}"
-
-    def _report(self, name: str, quant: Quant, today: Dict[str, list]):
-        report = ""
+    def _report(self, quant: Quant, today: Dict[str, list]) -> List[str]:
+        reports = ["" for _ in range(4)]
         if today["position"] == "Buy":
-            report += f"> :chart_with_upwards_trend: [Buy Signal] *{name}*\n"
+            reports[0] += f"> :chart_with_upwards_trend: [Buy Signal] *{quant.title}*\n"
         elif today["position"] == "Sell":
-            report += f"> :chart_with_downwards_trend: [Sell Signal] *{name}*\n"
+            reports[
+                0
+            ] += f"> :chart_with_downwards_trend: [Sell Signal] *{quant.title}*\n"
         else:
-            report += f"> :egg: [None Signal] *{name}*\n"
-        report += f"\t:heavy_dollar_sign: SIGNAL's INFO: {today['total'][1]:.2f}% (`{int(today['total'][0])}/{int(quant.cnt_total)}`)\n"
+            reports[0] += f"> :egg: [None Signal] *{quant.title}*\n"
+        reports[
+            0
+        ] += f"\t:heavy_dollar_sign: SIGNAL's INFO: {today['total'][1]:.2f}% (`{int(today['total'][0])}/{int(quant.cnt_total)}`)\n"
         for key in quant.methods:
-            report += f"\t:hammer: {key.replace('_', ' ').upper()}:\t{today[key][1]:.2f}%\t(`{int(today[key][0])}/{int(quant.cnt[key])}`)\t"
-            report += f"`{'`, `'.join(quant.params[key])}`\n"
-        report += "\t:memo: THRESHOLD:\n"
-        report += f"\t\t:arrow_double_up: BUY: `{quant.threshold_buy}`\n\t\t:arrow_double_down: SELL: `{quant.threshold_sell}`\n"
-        report += (
-            f"*Backtest*\n\t:money_with_wings: Total Profit:\t{quant.profit:.2f}%\n"
-        )
-        report += f"\t:chart_with_upwards_trend: Total Buy:\t{self._cash2str(quant.transaction['buy'])}\n"
-        report += f"\t:chart_with_downwards_trend: Total Sell:\t{self._cash2str(quant.transaction['sell'])}\n"
+            reports[
+                0
+            ] += f"\t:hammer: {key.replace('_', ' ').upper()}:\t{today[key][1]:.2f}%\t(`{int(today[key][0])}/{int(quant.cnt[key])}`)\t"
+            reports[0] += f"`{'`, `'.join(quant.params[key])}`\n"
+        reports[0] += "\t:memo: THRESHOLD:\n"
+        reports[
+            0
+        ] += f"\t\t:arrow_double_up: BUY: `{quant.threshold_buy}`\n\t\t:arrow_double_down: SELL: `{quant.threshold_sell}`\n"
+        reports[
+            1
+        ] += f"*Backtest*\n\t:money_with_wings: Total Profit:\t{quant.profit:.2f}%\n"
+        reports[
+            1
+        ] += f"\t:chart_with_upwards_trend: Total Buy:\t{_cash2str(quant.transaction['buy'], self.kor)}\n"
+        reports[
+            1
+        ] += f"\t:chart_with_downwards_trend: Total Sell:\t{_cash2str(quant.transaction['sell'], self.kor)}\n"
         transaction_price = [
-            self._cash2str(price) for price in quant.transaction["price"]
+            _cash2str(price, self.kor) for price in quant.transaction["price"]
         ]
         transaction_profit = [f"{price:.2f}%" for price in quant.transaction["profit"]]
-        transaction_price = "```" + " -> ".join(transaction_price) + "```"
-        transaction_profit = "```" + " -> ".join(transaction_profit) + "```"
-        report += f"\t:bank: Transactions:\n{transaction_price}\n{transaction_profit}"
-        return report
+        reports[2] = " -> ".join(transaction_price)
+        reports[3] = " -> ".join(transaction_profit)
+        return reports
 
     def _get_data(self, symbol: str) -> Tuple[str, pd.core.frame.DataFrame]:
         title = data = None
@@ -527,14 +538,18 @@ class QuantSlackBot(SlackBot):
         symbol, mode = args
         try:
             title, data = self._get_data(symbol)
-        except KeyError:
-            self.message(f"'{symbol}' is not found")
+            if len(data) < 20:
+                return None, None, None
+        except KeyError as error:
+            self.message(f":x: '{symbol}' was not found")
+            self.message(str(error), True)
             return None, None, None
         try:
-            quant = Quant(title, data, ohlc=self.ohlc, top=self.top)
+            quant = Quant(title, data, ohlc=self.ohlc, top=self.top, report=self.report)
             today = quant.run()
-        except IndexError:
-            self.message(f"{title}: {data.index[0]} ({len(data)})")
+        except IndexError as error:
+            self.message(f":x: {title}: {data.index[0]} ({len(data)})")
+            self.message(str(error), True)
             return None, None, None
         if mode == "Buy":
             positions = ["Buy"]
@@ -550,14 +565,18 @@ class QuantSlackBot(SlackBot):
                 dpi=100,
                 threshold=(quant.threshold_sell, quant.threshold_buy),
             )
-            return self._report(title, quant, today), path, quant.exps
+            return self._report(quant, today), path, quant.exps
         return None, None, quant.exps
 
-    def _send(self, message: str, image: str) -> None:
-        if message is None or image is None:
+    def _send(self, messages: List[str], image: str) -> None:
+        if messages is None or image is None:
             return
-        self.message(message)
-        self.file(image)
+        response = self.message(messages[0])
+        thread_ts = response.json()["ts"]
+        self.file(image, thread_ts)
+        response = self.message(messages[1], thread_ts=thread_ts)
+        response = self.message(messages[2], True, thread_ts)
+        response = self.message(messages[3], True, thread_ts)
 
     def _analysis_update(self, exps: Dict[str, List[Dict[str, int]]]) -> None:
         """
@@ -572,6 +591,8 @@ class QuantSlackBot(SlackBot):
                     self.exps[strategy][idx][param] += cnt
 
     def _analysis_send(self) -> None:
+        response = self.message("> :memo: Prameter Analysis")
+        thread_ts = response.json()["ts"]
         for strategy, counts in self.exps.items():
             figure((18, 8))
             stg = True
@@ -584,11 +605,19 @@ class QuantSlackBot(SlackBot):
                     print(f"'{strategy}' was not used: {count}")
             if stg:
                 path = savefig(strategy, dpi=100)
-                self.file(path)
+                self.file(path, thread_ts)
             else:
-                self.message(f"'{strategy}' was not used", codeblock=True)
+                self.message(
+                    f":no_bell: '{strategy}' was not used", thread_ts=thread_ts
+                )
 
     def _inference(self, symbols: List[str], mode: str) -> None:
+        start = time.time()
+        if self.analysis:
+            self.exps = defaultdict(list)
+        response = self.message(f"> :moneybag: Check {mode} Signals")
+        thread_ts = response.json()["ts"]
+        self.message(", ".join(self.symbols), True, thread_ts)
         if self.mp_num == 0 or self.mp_num >= len(symbols):
             for symbol in symbols:
                 message, image, exps = self._run([symbol, mode])
@@ -603,28 +632,18 @@ class QuantSlackBot(SlackBot):
                 self._send(message, image)
                 if self.analysis and exps is not None:
                     self._analysis_update(exps)
+        if self.analysis:
+            self._analysis_send()
+        end = time.time()
+        self.message(f"> :tada: Done! (`{_seconds_to_hms(end - start)}`)")
 
     def buy(self) -> None:
         """매수 signals 탐색"""
-        if self.analysis:
-            self.exps = defaultdict(list)
-        self.message("> Check Buy Signals")
-        self.message(", ".join(self.symbols), codeblock=True)
         self._inference(self.symbols, "Buy")
-        if self.analysis:
-            self._analysis_send()
-        self.message("Done!")
 
     def index(self) -> None:
         """모든 signals 탐색"""
-        if self.analysis:
-            self.exps = defaultdict(list)
-        self.message("> Check Index Signals")
-        self.message(", ".join(self.symbols), codeblock=True)
-        self._inference(self.symbols, "Index")
-        if self.analysis:
-            self._analysis_send()
-        self.message("Done!")
+        self._inference(self.symbols, "All")
 
 
 class QuantSlackBotKI(Balance, QuantSlackBot):
@@ -643,6 +662,7 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
         mp_num (``Optional[int]``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
         analysis (``Optional[bool]``): 각 전략의 보고서 전송 여부
         kor (``Optional[bool]``): 국내 여부
+        report: (``Optional[bool]``): Experiment 결과 출력 여부
 
     Attributes:
         exps (``Dict[str, List[Dict[str, int]]]``): 각 전략에 따른 parameter 분포
@@ -665,6 +685,7 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
         mp_num: Optional[int] = 0,
         analysis: Optional[bool] = False,
         kor: Optional[bool] = True,
+        report: Optional[bool] = False,
     ) -> None:
         Balance.__init__(self, path, kor)
         if symbols is None:
@@ -682,6 +703,7 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
             mp_num,
             analysis,
             kor,
+            report,
         )
         symbols_bought = self.bought_symbols()
         for symbol in symbols_bought:
@@ -700,17 +722,10 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
 
         한국투자증권의 잔고와 주식 보유 상황을 image로 변환하여 slack으로 전송 및 보유 중인 주식에 대해 매도 signals 탐색
         """
-        if self.analysis:
-            self.exps = defaultdict(list)
-        self.message("> Balance")
+        response = self.message("> :bank: Balance")
         path = self.table()
-        self.file(path)
-        self.message("> Check Sell Signals")
-        self.message(", ".join(self.symbols_bought), codeblock=True)
+        self.file(path, response.json()["ts"])
         self._inference(self.symbols_bought, "Sell")
-        if self.analysis:
-            self._analysis_send()
-        self.message("Done!")
 
 
 class QuantSlackBotFDR(QuantSlackBot):
@@ -728,6 +743,7 @@ class QuantSlackBotFDR(QuantSlackBot):
         mp_num (``Optional[int]``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
         analysis (``Optional[bool]``): 각 전략의 보고서 전송 여부
         kor (``Optional[bool]``): 국내 여부
+        report: (``Optional[bool]``): Experiment 결과 출력 여부
 
     Attributes:
         exps (``Dict[str, List[Dict[str, int]]]``): 각 전략에 따른 parameter 분포
@@ -751,6 +767,7 @@ class QuantSlackBotFDR(QuantSlackBot):
         mp_num: Optional[int] = 0,
         analysis: Optional[bool] = False,
         kor: Optional[bool] = True,
+        report: Optional[bool] = False,
     ) -> None:
         QuantSlackBot.__init__(
             self,
@@ -765,6 +782,7 @@ class QuantSlackBotFDR(QuantSlackBot):
             mp_num,
             analysis,
             kor,
+            report,
         )
         if kor:
             self.market = fdr.StockListing("KRX-DESC")

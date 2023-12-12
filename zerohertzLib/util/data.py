@@ -136,19 +136,19 @@ class MakeData:
                                 tmp = zz.vision.cutout(img, poly)
                                 h, w, _ = tmp.shape
                                 if 100 <= h <= 300 and 100 <= w <= 300:
-                                    fileName = ".".join(data_name.split(".")[:-1]) + f"_{i}"
+                                    file_name = ".".join(data_name.split(".")[:-1]) + f"_{i}"
                                     xm, ym = poly[:, 0].min(), poly[:, 1].min()
                                     poly -= (xm, ym)
                                     cv2.imwrite(
                                         os.path.join(
                                             self.end_data_path,
-                                            f"{fileName}.png",
+                                            f"{file_name}.png",
                                         ),
                                         tmp,
                                     )
                                     zz.util.write_json(
-                                        {"name": f"{fileName}.png", "poly": poly.tolist()},
-                                        os.path.join(self.end_json_path, fileName),
+                                        {"name": f"{file_name}.png", "poly": poly.tolist()},
+                                        os.path.join(self.end_json_path, file_name),
                                     )
 
             Make Data:
@@ -168,11 +168,11 @@ class MakeData:
                         x, y = random.randrange(100, W - w - 100), random.randrange(100, H - h - 100)
                         box = [x, y, x + w, y + h]
                         img = zz.vision.paste(img, target, box, False, False)
-                        fileName = ".".join(data_name.split(".")[:-1])
+                        file_name = ".".join(data_name.split(".")[:-1])
                         cv2.imwrite(
                             os.path.join(
                                 self.end_data_path,
-                                f"{fileName}.png",
+                                f"{file_name}.png",
                             ),
                             img,
                         )

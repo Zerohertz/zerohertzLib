@@ -149,18 +149,26 @@ class SlackBot:
         self,
         message: str,
         codeblock: Optional[bool] = False,
+        thread_ts: Optional[str] = None,
     ) -> requests.models.Response:
         """Slack Bot을 통해 message 전송
 
         Args:
             message (``str``): 전송할 message
             codeblock (``Optional[bool]``): 전송되는 message의 스타일
+            thread_ts (``Optional[str]``): 댓글을 전송할 thread의 timestamp
 
         Returns:
             ``requests.models.Response``: Slack Bot의 응답
 
         Examples:
-            >>> slack.message("test")
+            >>> response = slack.message("test")
+            >>> response
+            <Response [200]>
+            >>> slack.message("test", True, response.json()["ts"])
+            <Response [200]>
+            >>> response = slack.file("test.jpg")
+            >>> slack.message("test", thread_ts=list(response.json()["file"]["shares"]["private"].values())[0][0]["ts"])
             <Response [200]>
         """
         if message == "":
@@ -169,6 +177,8 @@ class SlackBot:
             message = f"```{message}```"
         data = self.data.copy()
         data["text"] = message
+        if thread_ts is not None:
+            data["thread_ts"] = thread_ts
         return requests.post(
             "https://slack.com/api/chat.postMessage",
             headers=self.headers,
@@ -176,7 +186,9 @@ class SlackBot:
             timeout=10,
         )
 
-    def file(self, path: str) -> requests.models.Response:
+    def file(
+        self, path: str, thread_ts: Optional[str] = None
+    ) -> requests.models.Response:
         """Slack Bot을 통해 file 전송
 
         Note:
@@ -184,12 +196,14 @@ class SlackBot:
 
         Args:
             path (``str``): 전송할 file 경로
+            thread_ts (``Optional[str]``): 댓글을 전송할 thread의 timestamp
 
         Returns:
             ``requests.models.Response``: Slack Bot의 응답
 
         Examples:
-            >>> slack.file("test.jpg")
+            >>> response = slack.file("test.jpg")
+            >>> response
             <Response [200]>
         """
         with open(path, "rb") as file:
@@ -197,7 +211,7 @@ class SlackBot:
                 "https://slack.com/api/files.upload",
                 headers=self.headers,
                 files={"file": file},
-                data={"channels": self.channel},
+                data={"channels": self.channel, "thread_ts": thread_ts},
                 timeout=10,
             )
         return response
