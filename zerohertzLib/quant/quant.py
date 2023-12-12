@@ -515,6 +515,7 @@ class QuantSlackBot(SlackBot):
         return None
 
     def _report(self, quant: Quant, today: Dict[str, Any]) -> List[str]:
+        logic = {-2: "손절", -1: "매도", 0: "중립", 1: "매수", 2: "추가 매수"}
         reports = ["" for _ in range(3)]
         if today["position"] == "Buy":
             reports[0] += f"> :chart_with_upwards_trend: [Buy Signal] *{quant.title}*\n"
@@ -526,7 +527,7 @@ class QuantSlackBot(SlackBot):
             reports[0] += f"> :egg: [None Signal] *{quant.title}*\n"
         reports[
             0
-        ] += f"\t:heavy_dollar_sign: Signal Info: {today['total'][1]:.2f}% (`{int(today['total'][0])}/{int(quant.total_cnt)}`)\n"
+        ] += f"\t:technologist: Signal Info: {today['total'][1]:.2f}% (`{int(today['total'][0])}/{int(quant.total_cnt)}`) → {logic[today['logic']]}\n"
         reports[2] += "> :information_desk_person: *Parameter Info*"
         for key in quant.methods:
             reports[
@@ -538,7 +539,7 @@ class QuantSlackBot(SlackBot):
         reports[0] += "\t:memo: THRESHOLD:\n"
         reports[
             0
-        ] += f"\t\t:arrow_double_up: BUY: `{quant.threshold_buy}`\n\t\t:arrow_double_down: SELL: `{quant.threshold_sell}`\n"
+        ] += f"\t\t:arrow_double_up: BUY: `{quant.threshold_buy}`\n\t\t:arrow_double_down: SELL: `{quant.threshold_sell}`"
         reports[
             1
         ] += f"> :computer: *Backtest* ({self.start_day[:4]}/{self.start_day[4:6]}/{self.start_day[6:]} ~)\n\t:money_with_wings: Total Profit:\t{quant.profit:.2f}%\n"
