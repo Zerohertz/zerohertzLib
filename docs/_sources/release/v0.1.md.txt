@@ -162,7 +162,7 @@
 + `plot`
   + Horizontal bar chart 추가
 + `vision`
-  + GIF 변환을 위한 `img2gif`, `vid2gif` 함수 추가 (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/22">#22</a> )
+  + GIF 변환을 위한 `img2gif`, `vid2gif` 함수 추가 (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/22">#22</a>)
 
 <h4>Chore</h4>
 

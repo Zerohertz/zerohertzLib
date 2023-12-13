@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.vision" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.vision.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.6.4 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.6.5 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.6.4 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.6.5 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.vision.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.vision - zerohertzLib v0.6.4 documentation</title>
+        <title>zerohertzLib.vision - zerohertzLib v0.6.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.6.4 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.6.5 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.6.4 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.6.5 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -513,8 +513,10 @@
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ls</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">LabelStudio</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="n">json_path</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ls</span><span class="o">.</span><span class="n">classification</span><span class="p">(</span><span class="n">target_path</span><span class="p">)</span>
+<span class="go">100%|█████████████| 476/476 [00:00&lt;00:00, 78794.25it/s]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">label</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;label1&quot;</span><span class="p">:</span> <span class="s2">&quot;lab1&quot;</span><span class="p">,</span> <span class="s2">&quot;label2&quot;</span><span class="p">:</span> <span class="s2">&quot;lab2&quot;</span><span class="p">}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ls</span><span class="o">.</span><span class="n">classification</span><span class="p">(</span><span class="n">target_path</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">rand</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">aug</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">100%|█████████████| 476/476 [00:00&lt;00:00, 78794.25it/s]</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -539,10 +541,10 @@
 <ul class="simple">
 <li><p>Storage Type: <code class="docutils literal notranslate"><span class="pre">Local</span> <span class="pre">files</span></code></p></li>
 <li><p>Absolute local path: <code class="docutils literal notranslate"><span class="pre">/home/user/image</span></code> (<code class="docutils literal notranslate"><span class="pre">data_path</span></code>: <code class="docutils literal notranslate"><span class="pre">${PWD}/files/image</span></code>)</p></li>
-<li><p>File Filter Regex: <code class="docutils literal notranslate"><span class="pre">^.*\.(jpe?g|png|tiff?)$</span></code></p></li>
+<li><p>File Filter Regex: <code class="docutils literal notranslate"><span class="pre">^.*\.(jpe?g|JPE?G|png|PNG|tiff?|TIFF?)$</span></code></p></li>
 <li><p>Treat every bucket object as a source file: <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
 </ul>
-<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/286834432-462ad17b-d78f-4490-909b-a54debdf719a.png"><img alt="Label Studio Setup" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/286834432-462ad17b-d78f-4490-909b-a54debdf719a.png" style="width: 400px;" /></a>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290148098-8a837511-152e-4044-b085-90f992a76891.png"><img alt="Label Studio Setup" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290148098-8a837511-152e-4044-b085-90f992a76891.png" style="width: 400px;" /></a>
 <p>Sync 이후 <code class="docutils literal notranslate"><span class="pre">LabelStudio</span></code> class로 생성된 JSON file을 Label Studio에 import하면 아래와 같이 setup 할 수 있다.</p>
 <a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/286842007-1fb780eb-7275-4569-a662-a4545be2e348.png"><img alt="Label Studio Setup" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/286842007-1fb780eb-7275-4569-a662-a4545be2e348.png" style="width: 400px;" /></a>
 </div>
@@ -639,8 +641,10 @@
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ls</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">LabelStudio</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="n">json_path</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ls</span><span class="o">.</span><span class="n">labelme</span><span class="p">(</span><span class="n">target_path</span><span class="p">)</span>
+<span class="go">100%|█████████████| 476/476 [00:00&lt;00:00, 78794.25it/s]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">label</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;label1&quot;</span><span class="p">:</span> <span class="s2">&quot;lab1&quot;</span><span class="p">,</span> <span class="s2">&quot;label2&quot;</span><span class="p">:</span> <span class="s2">&quot;lab2&quot;</span><span class="p">}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ls</span><span class="o">.</span><span class="n">labelme</span><span class="p">(</span><span class="n">target_path</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+<span class="go">100%|█████████████| 476/476 [00:00&lt;00:00, 78794.25it/s]</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -666,8 +670,10 @@
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ls</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">LabelStudio</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="n">json_path</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ls</span><span class="o">.</span><span class="n">yolo</span><span class="p">(</span><span class="n">target_path</span><span class="p">)</span>
+<span class="go">100%|█████████████| 476/476 [00:00&lt;00:00, 78794.25it/s]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">label</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;label1&quot;</span><span class="p">,</span> <span class="s2">&quot;label2&quot;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ls</span><span class="o">.</span><span class="n">yolo</span><span class="p">(</span><span class="n">target_path</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+<span class="go">100%|█████████████| 476/476 [00:00&lt;00:00, 78794.25it/s]</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -676,14 +682,14 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="zerohertzLib.vision.YoloLoader">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">YoloLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txt_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">absolute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vis_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.YoloLoader" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">YoloLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'images'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txt_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'labels'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">absolute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vis_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.YoloLoader" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>YOLO format의 dataset을 읽고 시각화하는 class</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.vision.YoloLoader.params.data_path"></span><strong>data_path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.YoloLoader.params.data_path">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Image가 존재하는 directory 경로</p></li>
-<li><p><span class="target" id="zerohertzLib.vision.YoloLoader.params.txt_path"></span><strong>txt_path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.YoloLoader.params.txt_path">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – YOLO format의 <code class="docutils literal notranslate"><span class="pre">.txt</span></code> 가 존재하는 directory 경로</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.YoloLoader.params.data_path"></span><strong>data_path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.YoloLoader.params.data_path">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Image가 존재하는 directory 경로</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.YoloLoader.params.txt_path"></span><strong>txt_path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.YoloLoader.params.txt_path">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – YOLO format의 <code class="docutils literal notranslate"><span class="pre">.txt</span></code> 가 존재하는 directory 경로</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.YoloLoader.params.poly"></span><strong>poly</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.YoloLoader.params.poly">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – <code class="docutils literal notranslate"><span class="pre">.txt</span></code> file의 format (<code class="docutils literal notranslate"><span class="pre">False</span></code>: detection, <code class="docutils literal notranslate"><span class="pre">True</span></code>: segmentation)</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.YoloLoader.params.absolute"></span><strong>absolute</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.YoloLoader.params.absolute">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – <code class="docutils literal notranslate"><span class="pre">.txt</span></code> file의 절대 좌표계 여부 (<code class="docutils literal notranslate"><span class="pre">False</span></code>: relative coordinates, <code class="docutils literal notranslate"><span class="pre">True</span></code>: absolute coordinates)</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.YoloLoader.params.vis_path"></span><strong>vis_path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.YoloLoader.params.vis_path">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 시각화 image들이 저장될 경로</p></li>
@@ -725,8 +731,8 @@
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_path</span> <span class="o">=</span> <span class="s2">&quot;.../images&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">txt_path</span> <span class="o">=</span> <span class="s2">&quot;.../labels&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">class_color</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">1</span><span class="p">:</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)}</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">yololoader</span> <span class="o">=</span> <span class="n">YoloLoader</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="n">txt_path</span><span class="p">,</span> <span class="n">poly</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">absolute</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">vis_path</span><span class="o">=</span><span class="s2">&quot;tmp&quot;</span><span class="p">,</span> <span class="n">class_color</span><span class="o">=</span><span class="n">class_color</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">image</span><span class="p">,</span> <span class="n">class_list</span><span class="p">,</span> <span class="n">objects</span> <span class="o">=</span> <span class="n">yololoader</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">yolo</span> <span class="o">=</span> <span class="n">YoloLoader</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="n">txt_path</span><span class="p">,</span> <span class="n">poly</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">absolute</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">vis_path</span><span class="o">=</span><span class="s2">&quot;tmp&quot;</span><span class="p">,</span> <span class="n">class_color</span><span class="o">=</span><span class="n">class_color</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image</span><span class="p">,</span> <span class="n">class_list</span><span class="p">,</span> <span class="n">objects</span> <span class="o">=</span> <span class="n">yolo</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 <span class="go">&lt;class &#39;numpy.ndarray&#39;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">class_list</span>
@@ -735,6 +741,33 @@
 <span class="go">2</span>
 </pre></div>
 </div>
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.vision.YoloLoader.labelstudio">
+<span class="sig-name descname"><span class="pre">labelstudio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'image'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mp_num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.YoloLoader.labelstudio" title="Permalink to this definition">#</a></dt>
+<dd><p>YOLO format의 data를 Label Studio에서 확인 및 수정할 수 있게 변환</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.vision.YoloLoader.labelstudio.params.directory"></span><strong>directory</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.YoloLoader.labelstudio.params.directory">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Label Studio 내 <code class="docutils literal notranslate"><span class="pre">/home/user/{directory}</span></code> 의 이름</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.YoloLoader.labelstudio.params.labels"></span><strong>labels</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.YoloLoader.labelstudio.params.labels">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[List[str]]</span></code>) – YOLO format의 <code class="docutils literal notranslate"><span class="pre">.txt</span></code> 상에서 index에 따른 label의 이름</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.YoloLoader.labelstudio.params.mp_num"></span><strong>mp_num</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.YoloLoader.labelstudio.params.mp_num">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – 병렬 처리에 사용될 process의 수 (<code class="docutils literal notranslate"><span class="pre">0</span></code>: 직렬 처리)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">{path}.json</span></code> 으로 결과 저장</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+<dl>
+<dt>Examples</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">yolo</span><span class="o">.</span><span class="n">labelstudio</span><span class="p">(</span><span class="s2">&quot;images&quot;</span><span class="p">,</span> <span class="n">mp_num</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;t1&quot;</span><span class="p">,</span> <span class="s2">&quot;t2&quot;</span><span class="p">,</span> <span class="s2">&quot;t3&quot;</span><span class="p">,</span> <span class="s2">&quot;t4&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py function">
@@ -1564,6 +1597,7 @@
 <li><a class="reference internal" href="#zerohertzLib.vision.YoloLoader"><code class="docutils literal notranslate"><span class="pre">YoloLoader</span></code></a><ul>
 <li><a class="reference internal" href="#zerohertzLib.vision.YoloLoader.__len__"><code class="docutils literal notranslate"><span class="pre">YoloLoader.__len__()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.YoloLoader.__getitem__"><code class="docutils literal notranslate"><span class="pre">YoloLoader.__getitem__()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.vision.YoloLoader.labelstudio"><code class="docutils literal notranslate"><span class="pre">YoloLoader.labelstudio()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#zerohertzLib.vision.bbox"><code class="docutils literal notranslate"><span class="pre">bbox()</span></code></a></li>
@@ -1601,7 +1635,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=f048f515"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=5430710c"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
