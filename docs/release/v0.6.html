@@ -16,11 +16,11 @@
     <meta property="og:title" content="v0.6" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/release/v0.6.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.6.4 Documents" />
-<meta property="og:description" content="v0.6.4: plot- 단일 data로 plot 시 colors 의 예외 수정, 단일 data로 plot 시 plt.legend 비활성화, hist 사용 시 xlim 이 너무 작은 예외 수정., quant- Quant- class의 호출 방식 변경 ( run() →__call__()), 매도에 대한 치명적 오류 수정., QuantSlackBot- R..." />
+<meta property="og:site_name" content="Zerohertz's Library v0.6.5 Documents" />
+<meta property="og:description" content="v0.6.5: api- SlackBot 의 message 및 file method를 통한 전송 실패 시 print 및 message 를 통한 오류 log 추가., quant- QuantSlackBot- Private 함수의 변수 refactoring, Strategy의 indent 추가.., vision- 입력 image를 base64 기반으로 enc..." />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.6.4 Documents" />
-<meta name="description" content="v0.6.4: plot- 단일 data로 plot 시 colors 의 예외 수정, 단일 data로 plot 시 plt.legend 비활성화, hist 사용 시 xlim 이 너무 작은 예외 수정., quant- Quant- class의 호출 방식 변경 ( run() →__call__()), 매도에 대한 치명적 오류 수정., QuantSlackBot- R..." />
+<meta property="og:image:alt" content="Zerohertz's Library v0.6.5 Documents" />
+<meta name="description" content="v0.6.5: api- SlackBot 의 message 및 file method를 통한 전송 실패 시 print 및 message 를 통한 오류 log 추가., quant- QuantSlackBot- Private 함수의 변수 refactoring, Strategy의 indent 추가.., vision- 입력 image를 base64 기반으로 enc..." />
     <link href="../_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -28,7 +28,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/release/v0.6.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>v0.6 - zerohertzLib v0.6.4 documentation</title>
+        <title>v0.6 - zerohertzLib v0.6.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -156,7 +156,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">zerohertzLib v0.6.4 documentation</div></a>
+      <a href="../index.html"><div class="brand">zerohertzLib v0.6.5 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
     <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.6.4 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.6.5 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -257,6 +257,51 @@
         <article role="main">
           <section id="v0-6">
 <h1>v0.6<a class="headerlink" href="#v0-6" title="Permalink to this heading">#</a></h1>
+<section id="v0-6-5">
+<h2>v0.6.5<a class="headerlink" href="#v0-6-5" title="Permalink to this heading">#</a></h2>
+<h3>[v0.6.5] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/173>#173</a>)</h3>
+<div class="tip admonition">
+<p class="admonition-title">Release Date</p>
+<p>2023/12/13</p>
+</div>
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/api"><img src="https://img.shields.io/badge/feat/api-541B9A?style=flat-square&logo=github" alt="feat/api"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/vision"><img src="https://img.shields.io/badge/feat/vision-D1F9CB?style=flat-square&logo=github" alt="feat/vision"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/quant"><img src="https://img.shields.io/badge/feat/quant-ededed?style=flat-square&logo=github" alt="feat/quant"/></a>
+</p>
+<h4>Features</h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">api</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">SlackBot</span></code>의 <code class="docutils literal notranslate"><span class="pre">message</span></code> 및 <code class="docutils literal notranslate"><span class="pre">file</span></code> method를 통한 전송 실패 시 <code class="docutils literal notranslate"><span class="pre">print</span></code> 및 <code class="docutils literal notranslate"><span class="pre">message</span></code>를 통한 오류 log 추가</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">quant</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">QuantSlackBot</span></code></p>
+<ul>
+<li><p>Private 함수의 변수 refactoring</p></li>
+<li><p>Strategy의 indent 추가</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vision</span></code></p>
+<ul>
+<li><p>입력 image를 base64 기반으로 encoding 및 decoding하는 함수 <code class="docutils literal notranslate"><span class="pre">encode</span></code>, <code class="docutils literal notranslate"><span class="pre">decode</span></code> 개발</p></li>
+<li><p>YOLO format의 data를 Label Studio format으로 전환하는 <code class="docutils literal notranslate"><span class="pre">YoloLoader</span></code> class의 method <code class="docutils literal notranslate"><span class="pre">labelstudio</span></code>추가</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LabelStudio</span></code> class의 method 내 반복문에 <code class="docutils literal notranslate"><span class="pre">tqdm</span></code> 추가</p></li>
+</ul>
+</li>
+</ul>
+<h4>Docs</h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">LabelStudio</span></code> 내 image 확장자에 대한 정규 표현식 수정</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Balacne.table()</span></code>의 결과 image 추가</p></li>
+</ul>
+</section>
 <section id="v0-6-4">
 <h2>v0.6.4<a class="headerlink" href="#v0-6-4" title="Permalink to this heading">#</a></h2>
 <h3>[v0.6.4] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/170>#170</a>)</h3>
@@ -491,6 +536,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">v0.6</a><ul>
+<li><a class="reference internal" href="#v0-6-5">v0.6.5</a></li>
 <li><a class="reference internal" href="#v0-6-4">v0.6.4</a></li>
 <li><a class="reference internal" href="#v0-6-3">v0.6.3</a></li>
 <li><a class="reference internal" href="#v0-6-2">v0.6.2</a></li>
@@ -509,7 +555,7 @@
   </div>
 </div><script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=f048f515"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=5430710c"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
