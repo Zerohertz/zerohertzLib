@@ -23,6 +23,7 @@ SOFTWARE.
 """
 
 import math
+import multiprocessing as mp
 import os
 import shutil
 import urllib.parse
@@ -179,8 +180,8 @@ class YoloLoader:
     """YOLO format의 dataset을 읽고 시각화하는 class
 
     Args:
-        data_path (``str``): Image가 존재하는 directory 경로
-        txt_path (``str``): YOLO format의 ``.txt`` 가 존재하는 directory 경로
+        data_path (``Optional[str]``): Image가 존재하는 directory 경로
+        txt_path (``Optional[str]``): YOLO format의 ``.txt`` 가 존재하는 directory 경로
         poly (``Optional[bool]``): ``.txt`` file의 format (``False``: detection, ``True``: segmentation)
         absolute (``Optional[bool]``): ``.txt`` file의 절대 좌표계 여부 (``False``: relative coordinates, ``True``: absolute coordinates)
         vis_path (``Optional[str]``): 시각화 image들이 저장될 경로
@@ -204,8 +205,8 @@ class YoloLoader:
         >>> data_path = ".../images"
         >>> txt_path = ".../labels"
         >>> class_color = {0: (0, 255, 0), 1: (255, 0, 0), 2: (0, 0, 255)}
-        >>> yololoader = YoloLoader(data_path, txt_path, poly=True, absolute=False, vis_path="tmp", class_color=class_color)
-        >>> image, class_list, objects = yololoader[0]
+        >>> yolo = YoloLoader(data_path, txt_path, poly=True, absolute=False, vis_path="tmp", class_color=class_color)
+        >>> image, class_list, objects = yolo[0]
         >>> type(image)
         <class 'numpy.ndarray'>
         >>> class_list
@@ -216,14 +217,15 @@ class YoloLoader:
 
     def __init__(
         self,
-        data_path: str,
-        txt_path: str,
+        data_path: Optional[str] = "images",
+        txt_path: Optional[str] = "labels",
         poly: Optional[bool] = True,
         absolute: Optional[bool] = False,
         vis_path: Optional[str] = None,
         class_color: Optional[Dict[Union[int, str], Tuple[int]]] = None,
     ) -> None:
-        self.data_paths = _get_image_paths(data_path)
+        self.data_path = data_path
+        self.data_paths = _get_image_paths(self.data_path)
         self.txt_path = txt_path
         self.poly = poly
         self.absolute = absolute
@@ -247,17 +249,18 @@ class YoloLoader:
         txt_path = os.path.join(
             self.txt_path, ".".join(data_file_name.split(".")[:-1]) + ".txt"
         )
-        image = cv2.imread(data_path)
+        img = cv2.imread(data_path)
         try:
-            class_list, objects = self._convert(txt_path, image)
+            class_list, objects = self._convert(txt_path, img)
         except FileNotFoundError:
+            print(f"'{data_file_name}' is not found")
             return None, None, None
         if self.vis_path is not None:
-            self._visualization(data_file_name, image, class_list, objects)
-        return image, class_list, objects
+            self._visualization(data_file_name, img, class_list, objects)
+        return img, class_list, objects
 
     def _convert(
-        self, txt_path: str, image: NDArray[np.uint8]
+        self, txt_path: str, img: NDArray[np.uint8]
     ) -> Tuple[List[int], List[NDArray[DTypeLike]]]:
         class_list = []
         objects = []
@@ -269,32 +272,116 @@ class YoloLoader:
             if self.poly:
                 obj = np.array(list(map(float, data_str[1:]))).reshape(-1, 2)
                 if not self.absolute:
-                    obj *= image.shape[:2][::-1]
+                    obj *= img.shape[:2][::-1]
             else:
                 obj = np.array(list(map(float, data_str[1:])))
                 if not self.absolute:
-                    obj *= image.shape[:2][::-1] * 2
+                    obj *= img.shape[:2][::-1] * 2
             objects.append(obj)
         return class_list, objects
 
     def _visualization(
         self,
         file_name: str,
-        image: NDArray[np.uint8],
+        img: NDArray[np.uint8],
         class_list: List[int],
         objects: List[NDArray[DTypeLike]],
     ) -> None:
-        mks = np.zeros((len(objects), *image.shape[:2]), bool)
+        mks = np.zeros((len(objects), *img.shape[:2]), bool)
         if self.poly:
             for idx, poly in enumerate(objects):
-                mks[idx] = poly2mask(poly, image.shape[:2])
-            image = masks(
-                image, mks, class_list=class_list, class_color=self.class_color
-            )
+                mks[idx] = poly2mask(poly, img.shape[:2])
+            img = masks(img, mks, class_list=class_list, class_color=self.class_color)
         else:
             for idx, (cls, box) in enumerate(zip(class_list, objects)):
-                image = bbox(image, box, self.class_color[cls])
-        cv2.imwrite(os.path.join(self.vis_path, file_name), image)
+                img = bbox(img, box, self.class_color[cls])
+        cv2.imwrite(os.path.join(self.vis_path, file_name), img)
+
+    def _value(self, img, obj, labels, cls):
+        original_height, original_width = img.shape[:2]
+        obj *= 100
+        if self.poly:
+            obj /= (original_width, original_height)
+            return {
+                "original_width": original_width,
+                "original_height": original_height,
+                "image_rotation": 0,
+                "value": {
+                    "points": obj.tolist(),
+                    "closed": True,
+                    "polygonlabels": [labels[cls]],
+                },
+                "from_name": "label",
+                "to_name": "image",
+                "type": "polygonlabels",
+                "origin": "manual",
+            }
+        obj[:2] -= obj[2:] / 2
+        obj /= (original_width, original_height) * 2
+        return {
+            "original_width": original_width,
+            "original_height": original_height,
+            "image_rotation": 0,
+            "value": {
+                "x": obj[0],
+                "y": obj[1],
+                "width": obj[2],
+                "height": obj[3],
+                "rectanglelabels": [labels[cls]],
+            },
+            "from_name": "label",
+            "to_name": "image",
+            "type": "rectanglelabels",
+            "origin": "manual",
+        }
+
+    def _annotation(self, args) -> Dict[str, Any]:
+        idx, directory, labels = args
+        img, class_list, objects = self[idx]
+        data_path = self.data_paths[idx]
+        data_file_name = data_path.split("/")[-1]
+        annotation = {
+            "data": {"image": f"data/local-files/?d={directory}/{data_file_name}"}
+        }
+        result_data = []
+        for cls, obj in zip(class_list, objects):
+            result_data.append(self._value(img, obj, labels, cls))
+        annotation["annotations"] = [{"result": result_data}]
+        return annotation
+
+    def labelstudio(
+        self,
+        directory: Optional[str] = "image",
+        labels: Optional[List[str]] = None,
+        mp_num: Optional[int] = 0,
+    ) -> None:
+        """
+        YOLO format의 data를 Label Studio에서 확인 및 수정할 수 있게 변환
+
+        Args:
+            directory (``Optional[str]``): Label Studio 내 ``/home/user/{directory}`` 의 이름
+            labels (``Optional[List[str]]``): YOLO format의 ``.txt`` 상에서 index에 따른 label의 이름
+            mp_num (``Optional[int]``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
+
+        Returns:
+            ``None``: ``{path}.json`` 으로 결과 저장
+
+        Examples
+            >>> yolo.labelstudio("images", mp_num=10, labels=["t1", "t2", "t3", "t4"])
+        """
+        if labels is None:
+            labels = [str(i) for i in range(100)]
+        json_data = []
+        if mp_num == 0:
+            for idx in range(len(self)):
+                json_data.append(self._annotation([idx, directory, labels]))
+        else:
+            args = [[idx, directory, labels] for idx in range(len(self))]
+            with mp.Pool(processes=mp_num) as pool:
+                annotations = pool.map(self._annotation, args)
+            for annotation in annotations:
+                json_data.append(annotation)
+        write_json(json_data, self.data_path)
 
 
 class LabelStudio:
@@ -461,10 +548,10 @@ class LabelStudio:
 
             + Storage Type: ``Local files``
             + Absolute local path: ``/home/user/image`` (``data_path``: ``${PWD}/files/image``)
-            + File Filter Regex: ``^.*\.(jpe?g|png|tiff?)$``
+            + File Filter Regex: ``^.*\.(jpe?g|JPE?G|png|PNG|tiff?|TIFF?)$``
             + Treat every bucket object as a source file: ``True``
 
-            .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/286834432-462ad17b-d78f-4490-909b-a54debdf719a.png
+            .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290148098-8a837511-152e-4044-b085-90f992a76891.png
                 :alt: Label Studio Setup
                 :align: center
                 :width: 400px
@@ -562,14 +649,16 @@ class LabelStudio:
         Examples:
             >>> ls = zz.vision.LabelStudio(data_path, json_path)
             >>> ls.yolo(target_path)
+            100%|█████████████| 476/476 [00:00<00:00, 78794.25it/s]
             >>> label = ["label1", "label2"]
             >>> ls.yolo(target_path, label)
+            100%|█████████████| 476/476 [00:00<00:00, 78794.25it/s]
         """
         if label is None:
             label = []
         os.makedirs(os.path.join(target_path, "images"), exist_ok=True)
         os.makedirs(os.path.join(target_path, "labels"), exist_ok=True)
-        for file_path, result in self:
+        for file_path, result in tqdm(self):
             img_file_name = file_path.split("/")[-1]
             txt_file_name = ".".join(img_file_name.split(".")[:-1]) + ".txt"
             converted_gt = []
@@ -611,14 +700,16 @@ class LabelStudio:
         Examples:
             >>> ls = zz.vision.LabelStudio(data_path, json_path)
             >>> ls.labelme(target_path)
+            100%|█████████████| 476/476 [00:00<00:00, 78794.25it/s]
             >>> label = {"label1": "lab1", "label2": "lab2"}
             >>> ls.labelme(target_path, label)
+            100%|█████████████| 476/476 [00:00<00:00, 78794.25it/s]
         """
         if label is None:
             label = {}
         os.makedirs(os.path.join(target_path, "images"), exist_ok=True)
         os.makedirs(os.path.join(target_path, "labels"), exist_ok=True)
-        for file_path, result in self:
+        for file_path, result in tqdm(self):
             img_file_name = file_path.split("/")[-1]
             json_file_name = ".".join(img_file_name.split(".")[:-1])
             converted_gt = []
@@ -672,12 +763,14 @@ class LabelStudio:
         Examples:
             >>> ls = zz.vision.LabelStudio(data_path, json_path)
             >>> ls.classification(target_path)
+            100%|█████████████| 476/476 [00:00<00:00, 78794.25it/s]
             >>> label = {"label1": "lab1", "label2": "lab2"}
             >>> ls.classification(target_path, label, rand=10, aug=10, shrink=False)
+            100%|█████████████| 476/476 [00:00<00:00, 78794.25it/s]
         """
         if label is None:
             label = {}
-        for file_path, result in self:
+        for file_path, result in tqdm(self):
             img = cv2.imread(file_path)
             if img is None:
                 print(f"'{file_path}' is not found")
