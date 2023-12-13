@@ -23,6 +23,7 @@ SOFTWARE.
 """
 import multiprocessing as mp
 import time
+import traceback
 from collections import defaultdict
 from itertools import combinations
 from typing import Any, Dict, ItemsView, List, Optional, Tuple, Union
@@ -564,15 +565,17 @@ class QuantSlackBot(SlackBot):
             if len(data) < 20:
                 return None, None, None
         except KeyError as error:
-            self.message(f":x: '{symbol}' was not found")
-            self.message(str(error), True)
+            response = self.message(f":x: '{symbol}' was not found")
+            self.message(str(error), True, response.json()["ts"])
+            self.message(traceback.format_exc(), True, response.json()["ts"])
             return None, None, None
         try:
             quant = Quant(title, data, ohlc=self.ohlc, top=self.top, report=self.report)
             today = quant()
         except IndexError as error:
             self.message(f":x: {title}: {data.index[0]} ({len(data)})")
-            self.message(str(error), True)
+            self.message(str(error), True, response.json()["ts"])
+            self.message(traceback.format_exc(), True, response.json()["ts"])
             return None, None, None
         if mode == "Buy":
             positions = ["Buy"]
@@ -784,6 +787,7 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
         response = self.message("> :bank: Balance")
         self.file(path, response.json()["ts"])
         self._inference(self.symbols_bought, "Sell")
+        return None
 
 
 class QuantSlackBotFDR(QuantSlackBot):
