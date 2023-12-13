@@ -73,6 +73,8 @@ def plot(
             :width: 500px
     """
     colors = color(len(ydata))
+    if len(ydata) == 1:
+        colors = [colors]
     if save:
         plt.figure(figsize=figsize)
     # list(plt.Line2D.lineStyles.keys())
@@ -99,7 +101,8 @@ def plot(
     if ylim is not None:
         plt.ylim(ylim)
     plt.title(title, fontsize=25)
-    plt.legend(ncol=ncol)
+    if len(ydata) > 1:
+        plt.legend(ncol=ncol)
     if save:
         return savefig(title, dpi)
     return None
@@ -141,12 +144,12 @@ def candle(
         >>> title, data = broker.response2ohlcv(lg_es)
         >>> zz.plot.candle(data, title)
         >>> qnt = zz.quant.Quant(title, data)
-        >>> zz.plot.candle(qnt.data, qnt.title, signals=qnt.signals.loc[:, [*qnt.methods, "signals", "backtest"]], threshold=(qnt.threshold_sell, qnt.threshold_buy))
+        >>> zz.plot.candle(qnt.data, qnt.title, signals=qnt.signals.loc[:, [*qnt.methods, "signals", "logic"]], threshold=(qnt.threshold_sell, qnt.threshold_buy))
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289559324-21ef8a3e-125b-4548-b25d-870a59d15bba.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289921835-70b6baae-1075-47dc-9592-aa9d7f75c851.png
             :alt: Visualzation Result
             :align: center
-            :width: 800px
+            :width: 600px
     """
     if not isinstance(threshold, int):
         threshold_sell, threshold_buy = threshold
@@ -203,10 +206,10 @@ def candle(
         sell_idx_backtest = []
         buy_idx_logic = []
         sell_idx_logic = []
-        if "backtest" not in signals.columns:
-            signals["backtest"] = 0
+        if "logic" not in signals.columns:
+            signals["logic"] = 0
         for idx, (pos, pos_backtest) in enumerate(
-            zip(signals["signals"], signals["backtest"])
+            zip(signals["signals"], signals["logic"])
         ):
             if pos_backtest == 1:
                 buy_idx_backtest.append(idx)

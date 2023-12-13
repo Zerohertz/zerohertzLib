@@ -2,3 +2,4 @@
 plotly
 beautifulsoup4
 finance-datareader
+prettytable

@@ -64,6 +64,8 @@ def scatter(
             :width: 500px
     """
     colors = color(len(data))
+    if len(data) == 1:
+        colors = [colors]
     if save:
         figure(figsize=figsize)
     # import matplotlib.markers as mmarkers
@@ -83,7 +85,8 @@ def scatter(
     plt.xlabel(xlab)
     plt.ylabel(ylab)
     plt.title(title, fontsize=25)
-    plt.legend()
+    if len(data) > 1:
+        plt.legend()
     if save:
         return savefig(title, dpi)
     return None
