@@ -22,8 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+import base64
 from typing import Any, List, Tuple, Union
 
+import cv2
 import numpy as np
 from matplotlib.path import Path
 from numpy.typing import DTypeLike, NDArray
@@ -360,3 +362,37 @@ def poly2ratio(poly: Union[List[Union[int, float]], NDArray[DTypeLike]]) -> floa
     _, _, height, width = poly2cwh(poly)
     bbox_area = height * width
     return poly_area / bbox_area
+
+
+def encode(img: NDArray[np.uint8], ext: str = "png") -> str:
+    """Base64 encoding
+
+    Args:
+        img (``NDArray[np.uint8]``): ``cv2.imread``로 읽어온 image
+        ext (``str``): 출력 파일의 확장자
+
+    Returns:
+        ``str``: Base64 encoding된 문자열
+
+    >>> zz.vision.encode(img)
+    'iVBORw0KGg...'
+    """
+    _, buffer = cv2.imencode(f".{ext}", img)
+    return base64.b64encode(buffer).decode("utf-8")
+
+
+def decode(img: str) -> NDArray[np.uint8]:
+    """Base64 decoding
+
+    Args:
+        img (``str``): ``zz.vision.encode``로 encoding된 문자열
+
+    Returns:
+        ``NDArray[np.uint8]``: Base64 decoding image
+
+    >>> zz.vision.decode(img).shape
+    (802, 802, 3)
+    """
+    img_bytes = base64.b64decode(img)
+    buffer = np.frombuffer(img_bytes, dtype=np.uint8)
+    return cv2.imdecode(buffer, cv2.IMREAD_UNCHANGED)
