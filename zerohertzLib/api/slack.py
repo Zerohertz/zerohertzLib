@@ -179,12 +179,26 @@ class SlackBot:
         data["text"] = message
         if thread_ts is not None:
             data["thread_ts"] = thread_ts
-        return requests.post(
+        response = requests.post(
             "https://slack.com/api/chat.postMessage",
             headers=self.headers,
             json=data,
             timeout=10,
         )
+        if not response.json()["ok"]:
+            error = response.json()["error"]
+            print(
+                "[zerohertzLib.api.SlackBot] Failed: " + error.replace("_", " ").upper()
+            )
+            if error in ["not_authed", "invalid_auth", "channel_not_found"]:
+                return response
+            response_metadata = "\n".join(
+                response.json()["response_metadata"]["messages"]
+            )
+            self.message(
+                f"[`zerohertzLib.api.SlackBot`] Failed: `{error}`\n```>>> message({message}, {codeblock}, {thread_ts})\n{response_metadata}```"
+            )
+        return response
 
     def file(
         self, path: str, thread_ts: Optional[str] = None
@@ -213,5 +227,15 @@ class SlackBot:
                 files={"file": file},
                 data={"channels": self.channel, "thread_ts": thread_ts},
                 timeout=10,
+            )
+        if not response.json()["ok"]:
+            error = response.json()["error"]
+            print(
+                "[zerohertzLib.api.SlackBot] Failed: " + error.replace("_", " ").upper()
+            )
+            if error in ["not_authed", "invalid_auth", "channel_not_found"]:
+                return response
+            self.message(
+                f"[`zerohertzLib.api.SlackBot`] Failed: `{error}`\n```>>> file({path}, {thread_ts})```"
             )
         return response
