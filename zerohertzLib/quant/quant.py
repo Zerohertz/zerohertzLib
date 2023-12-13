@@ -220,10 +220,16 @@ class Quant(Experiments):
             self.signals["signals"][day],
             self.signals["signals"][day] / self.total_cnt * 100,
         ]
-        if self.threshold_buy <= possibility["total"][0] or 0 < possibility["logic"]:
+        if 0 < possibility["logic"]:
             possibility["position"] = "Buy"
-        elif self.threshold_sell >= possibility["total"][0] or 0 > possibility["logic"]:
+        elif 0 > possibility["logic"]:
             possibility["position"] = "Sell"
+        elif self.threshold_buy <= possibility["total"][0]:
+            possibility["position"] = "Buy"
+            possibility["logic"] = 1
+        elif self.threshold_sell >= possibility["total"][0]:
+            possibility["position"] = "Sell"
+            possibility["logic"] = -1
         else:
             possibility["position"] = "None"
         return possibility
