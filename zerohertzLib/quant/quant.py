@@ -369,6 +369,8 @@ class Balance(KoreaInvestment):
         Examples:
             >>> balance.table()
         """
+        if self() == 0:
+            return None
         if self.kor:
             col = [
                 "Purchase Price [￦]",
@@ -775,8 +777,11 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
 
         한국투자증권의 잔고와 주식 보유 상황을 image로 변환하여 slack으로 전송 및 보유 중인 주식에 대해 매도 signals 탐색
         """
-        response = self.message("> :bank: Balance")
         path = self.table()
+        if path is None:
+            self.message("Balance: NULL", True)
+            return None
+        response = self.message("> :bank: Balance")
         self.file(path, response.json()["ts"])
         self._inference(self.symbols_bought, "Sell")
 
