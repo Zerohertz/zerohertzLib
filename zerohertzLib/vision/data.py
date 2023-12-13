@@ -649,14 +649,16 @@ class LabelStudio:
         Examples:
             >>> ls = zz.vision.LabelStudio(data_path, json_path)
             >>> ls.yolo(target_path)
+            100%|█████████████| 476/476 [00:00<00:00, 78794.25it/s]
             >>> label = ["label1", "label2"]
             >>> ls.yolo(target_path, label)
+            100%|█████████████| 476/476 [00:00<00:00, 78794.25it/s]
         """
         if label is None:
             label = []
         os.makedirs(os.path.join(target_path, "images"), exist_ok=True)
         os.makedirs(os.path.join(target_path, "labels"), exist_ok=True)
-        for file_path, result in self:
+        for file_path, result in tqdm(self):
             img_file_name = file_path.split("/")[-1]
             txt_file_name = ".".join(img_file_name.split(".")[:-1]) + ".txt"
             converted_gt = []
@@ -698,14 +700,16 @@ class LabelStudio:
         Examples:
             >>> ls = zz.vision.LabelStudio(data_path, json_path)
             >>> ls.labelme(target_path)
+            100%|█████████████| 476/476 [00:00<00:00, 78794.25it/s]
             >>> label = {"label1": "lab1", "label2": "lab2"}
             >>> ls.labelme(target_path, label)
+            100%|█████████████| 476/476 [00:00<00:00, 78794.25it/s]
         """
         if label is None:
             label = {}
         os.makedirs(os.path.join(target_path, "images"), exist_ok=True)
         os.makedirs(os.path.join(target_path, "labels"), exist_ok=True)
-        for file_path, result in self:
+        for file_path, result in tqdm(self):
             img_file_name = file_path.split("/")[-1]
             json_file_name = ".".join(img_file_name.split(".")[:-1])
             converted_gt = []
@@ -759,12 +763,14 @@ class LabelStudio:
         Examples:
             >>> ls = zz.vision.LabelStudio(data_path, json_path)
             >>> ls.classification(target_path)
+            100%|█████████████| 476/476 [00:00<00:00, 78794.25it/s]
             >>> label = {"label1": "lab1", "label2": "lab2"}
             >>> ls.classification(target_path, label, rand=10, aug=10, shrink=False)
+            100%|█████████████| 476/476 [00:00<00:00, 78794.25it/s]
         """
         if label is None:
             label = {}
-        for file_path, result in self:
+        for file_path, result in tqdm(self):
             img = cv2.imread(file_path)
             if img is None:
                 print(f"'{file_path}' is not found")
