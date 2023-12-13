@@ -538,57 +538,102 @@ class QuantSlackBot(SlackBot):
             return super().file(path, thread_ts)
         return None
 
-    def _report(self, symbol: str, quant: Quant, today: Dict[str, Any]) -> List[str]:
-        logic = {-2: "손절", -1: "매도", 0: "중립", 1: "매수", 2: "추가 매수"}
-        reports = ["" for _ in range(3)]
-        if today["position"] == "Buy":
-            reports[0] += "> :chart_with_upwards_trend: [Buy Signal]"
-        elif today["position"] == "Sell":
-            reports[0] += "> :chart_with_downwards_trend: [Sell Signal]"
+    def _plot(self, quant: Quant) -> Tuple[str]:
+        candle_path = candle(
+            quant.data[-500:],
+            quant.title,
+            signals=quant.signals.iloc[-500:, :].loc[
+                :, [*quant.methods, "signals", "logic"]
+            ],
+            dpi=100,
+            threshold=(quant.threshold_sell, quant.threshold_buy),
+        )
+        figure((10, 18))
+        plt.subplot(3, 1, 1)
+        if self.kor:
+            dim = "₩"
         else:
-            reports[0] += "> :egg: [None Signal]"
-        reports[0] += f" *{quant.title}* (`{symbol}`)\n"
-        reports[
-            0
+            dim = "$"
+        hist(
+            {"Buy": quant.transaction["buy"], "Sell": quant.transaction["sell"]},
+            xlab=f"매수/매도가 [{dim}]",
+            ylab="",
+            title="",
+            save=False,
+        )
+        plt.subplot(3, 1, 2)
+        hist(
+            {"Profit": quant.transaction["profit"]},
+            xlab="이율 [%]",
+            ylab="",
+            title="",
+            save=False,
+        )
+        plt.subplot(3, 1, 3)
+        hist(
+            {"Period": quant.transaction["period"]},
+            xlab="거래 기간 [일]",
+            ylab="",
+            title="",
+            save=False,
+        )
+        hist_path = savefig(f"{quant.title}_backtest", 100)
+        return candle_path, hist_path
+
+    def _report(
+        self, symbol: str, quant: Quant, today: Dict[str, Any]
+    ) -> Dict[str, str]:
+        logic = {-2: "손절", -1: "매도", 0: "중립", 1: "매수", 2: "추가 매수"}
+        report = defaultdict(str)
+        if today["position"] == "Buy":
+            report["main"] += "> :chart_with_upwards_trend: [Buy Signal]"
+        elif today["position"] == "Sell":
+            report["main"] += "> :chart_with_downwards_trend: [Sell Signal]"
+        else:
+            report["main"] += "> :egg: [None Signal]"
+        report["main"] += f" *{quant.title}* (`{symbol}`)\n"
+        report[
+            "main"
         ] += f"\t:technologist: Signal Info: {today['total'][1]:.2f}% (`{int(today['total'][0])}/{int(quant.total_cnt)}`) → {logic[today['logic']]}\n"
-        reports[2] += "> :information_desk_person: *Parameter Info*"
+        report["param"] += "> :information_desk_person: *Parameter Info*"
         for key in quant.methods:
-            reports[
-                0
+            report[
+                "main"
             ] += f"\t:hammer: {key.replace('_', ' ').upper()}: {today[key][1]:.2f}% (`{int(today[key][0])}/{int(quant.method_cnt[key])}`)\n"
-            reports[
-                2
+            report[
+                "param"
             ] += f"\n\t:hammer: {key.replace('_', ' ').upper()}: `{'`, `'.join(quant.exps_str[key])}`"
-        reports[0] += "\t:memo: THRESHOLD:\n"
-        reports[
-            0
+        report["main"] += "\t:memo: THRESHOLD:\n"
+        report[
+            "main"
         ] += f"\t\t:arrow_double_up: BUY: `{quant.threshold_buy}`\n\t\t:arrow_double_down: SELL: `{quant.threshold_sell}`"
-        reports[
-            1
+        report[
+            "backtest"
         ] += f"> :computer: *Backtest* ({self.start_day[:4]}/{self.start_day[4:6]}/{self.start_day[6:]} ~)\n\t:money_with_wings: Total Profit:\t{quant.profit:.2f}%\n"
-        reports[
-            1
+        report[
+            "backtest"
         ] += f"\t:chart_with_upwards_trend: Total Buy:\t{_cash2str(quant.buy, self.kor)}\n"
-        reports[
-            1
+        report[
+            "backtest"
         ] += f"\t:chart_with_downwards_trend: Total Sell:\t{_cash2str(quant.sell, self.kor)}\n"
-        return reports
+        report["candle"], report["hist"] = self._plot(quant)
+        return report
 
     def _get_data(self, symbol: str) -> Tuple[str, pd.core.frame.DataFrame]:
         title = data = None
         return title, data
 
-    def _run(self, args: List[Union[str, str]]) -> Tuple[List[str], List[str], Quant]:
+    def _run(self, args: List[str]) -> Tuple[Dict[str, str], Quant]:
         symbol, mode = args
         try:
             title, data = self._get_data(symbol)
             if len(data) < 20:
-                return None, None, None
+                return None, None
         except KeyError as error:
             response = self.message(f":x: '`{symbol}`' was not found")
             self.message(str(error), True, response.json()["ts"])
             self.message(traceback.format_exc(), True, response.json()["ts"])
-            return None, None, None
+            return None, None
         try:
             quant = Quant(title, data, ohlc=self.ohlc, top=self.top, report=self.report)
             today = quant()
@@ -596,63 +641,24 @@ class QuantSlackBot(SlackBot):
             self.message(f":x: '`{symbol}`' ({title}): {data.index[0]} ({len(data)})")
             self.message(str(error), True, response.json()["ts"])
             self.message(traceback.format_exc(), True, response.json()["ts"])
-            return None, None, None
+            return None, None
         if mode == "Buy":
             positions = ["Buy"]
         elif mode != "NULL":
             positions = ["Buy", "Sell", "None"]
         if today["position"] in positions:
-            path_candle = candle(
-                quant.data[-500:],
-                quant.title,
-                signals=quant.signals.iloc[-500:, :].loc[
-                    :, [*quant.methods, "signals", "logic"]
-                ],
-                dpi=100,
-                threshold=(quant.threshold_sell, quant.threshold_buy),
-            )
-            figure((10, 18))
-            plt.subplot(3, 1, 1)
-            if self.kor:
-                dim = "₩"
-            else:
-                dim = "$"
-            hist(
-                {"Buy": quant.transaction["buy"], "Sell": quant.transaction["sell"]},
-                xlab=f"매수/매도가 [{dim}]",
-                ylab="",
-                title="",
-                save=False,
-            )
-            plt.subplot(3, 1, 2)
-            hist(
-                {"Profit": quant.transaction["profit"]},
-                xlab="이율 [%]",
-                ylab="",
-                title="",
-                save=False,
-            )
-            plt.subplot(3, 1, 3)
-            hist(
-                {"Period": quant.transaction["period"]},
-                xlab="거래 기간 [일]",
-                ylab="",
-                title="",
-                save=False,
-            )
-            path_hist = savefig(f"{quant.title}_backtest", 100)
-            return self._report(symbol, quant, today), [path_candle, path_hist], quant
-        return None, None, quant
+            return self._report(symbol, quant, today), quant
+        return None, quant
 
-    def _send(self, messages: List[str], image: List[str]) -> None:
-        if messages is None or image is None:
+    def _send(self, report: Dict[str, str]) -> None:
+        if report is None:
             return
-        response = self.message(messages[0])
+        response = self.message(report["main"])
         thread_ts = response.json()["ts"]
-        self.file(image[0], thread_ts)
-        response = self.message(messages[1], thread_ts=thread_ts)
-        self.file(image[1], thread_ts)
-        response = self.message(messages[2], thread_ts=thread_ts)
+        self.file(report["candle"], thread_ts)
+        response = self.message(report["backtest"], thread_ts=thread_ts)
+        self.file(report["hist"], thread_ts)
+        response = self.message(report["param"], thread_ts=thread_ts)
 
     def _analysis_update(
         self, methods: Tuple[str], exps: Dict[str, List[Dict[str, int]]]
@@ -698,16 +704,16 @@ class QuantSlackBot(SlackBot):
         self.message(", ".join(symbols), True, response.json()["ts"])
         if self.mp_num == 0 or self.mp_num >= len(symbols):
             for symbol in symbols:
-                message, image, quant = self._run([symbol, mode])
-                self._send(message, image)
+                report, quant = self._run([symbol, mode])
+                self._send(report)
                 if self.analysis and quant is not None:
                     self._analysis_update(quant.methods, quant.exps_cnt)
         else:
             args = [[symbol, mode] for symbol in symbols]
             with mp.Pool(processes=self.mp_num) as pool:
                 results = pool.map(self._run, args)
-            for message, image, quant in results:
-                self._send(message, image)
+            for report, quant in results:
+                self._send(report)
                 if self.analysis and quant is not None:
                     self._analysis_update(quant.methods, quant.exps_cnt)
         if self.analysis:
