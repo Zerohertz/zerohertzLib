@@ -222,9 +222,7 @@ class Quant(Experiments):
         ]
         if self.threshold_buy <= possibility["total"][0] or 0 < possibility["logic"]:
             possibility["position"] = "Buy"
-        elif (
-            self.threshold_sell >= -possibility["total"][0] or 0 > possibility["logic"]
-        ):
+        elif self.threshold_sell >= possibility["total"][0] or 0 > possibility["logic"]:
             possibility["position"] = "Sell"
         else:
             possibility["position"] = "None"
