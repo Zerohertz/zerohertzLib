@@ -139,10 +139,6 @@ def candle(
         ``str``: 저장된 graph의 절대 경로
 
     Examples:
-        >>> broker = zz.api.KoreaInvestment()
-        >>> lg_es = broker.get_ohlcv("373220", "D", "20221205")
-        >>> title, data = broker.response2ohlcv(lg_es)
-        >>> zz.plot.candle(data, title)
         >>> qnt = zz.quant.Quant(title, data)
         >>> zz.plot.candle(qnt.data, qnt.title, signals=qnt.signals.loc[:, [*qnt.methods, "signals", "logic"]], threshold=(qnt.threshold_sell, qnt.threshold_buy))
 
