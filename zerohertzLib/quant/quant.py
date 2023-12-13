@@ -373,6 +373,11 @@ class Balance(KoreaInvestment):
 
         Examples:
             >>> balance.table()
+
+            .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290175594-7a372038-fe24-4527-a2e3-3c5efe445017.png
+                :alt: Balance Table Result
+                :align: center
+                :width: 400px
         """
         if self() == 0:
             return None
@@ -463,7 +468,7 @@ class QuantSlackBot(SlackBot):
         >>> qsb = zz.quant.QuantSlackBot(symbols, token, channel)
         >>> qsb.index()
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290046393-c92c4c2d-6821-4acc-8102-3e4e5d8e2f37.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290177638-802e3118-439f-4cb8-972b-ded26734c50d.png
             :alt: Slack Bot Result
             :align: center
             :width: 800px
@@ -599,7 +604,7 @@ class QuantSlackBot(SlackBot):
         for key in quant.methods:
             report[
                 "main"
-            ] += f"\t:hammer: {key.replace('_', ' ').upper()}: {today[key][1]:.2f}% (`{int(today[key][0])}/{int(quant.method_cnt[key])}`)\n"
+            ] += f"\t\t:hammer: {key.replace('_', ' ').upper()}: {today[key][1]:.2f}% (`{int(today[key][0])}/{int(quant.method_cnt[key])}`)\n"
             report[
                 "param"
             ] += f"\n\t:hammer: {key.replace('_', ' ').upper()}: `{'`, `'.join(quant.exps_str[key])}`"
