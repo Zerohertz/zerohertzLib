@@ -542,11 +542,11 @@ class QuantSlackBot(SlackBot):
         logic = {-2: "손절", -1: "매도", 0: "중립", 1: "매수", 2: "추가 매수"}
         reports = ["" for _ in range(3)]
         if today["position"] == "Buy":
-            reports[0] += f"> :chart_with_upwards_trend: [Buy Signal]"
+            reports[0] += "> :chart_with_upwards_trend: [Buy Signal]"
         elif today["position"] == "Sell":
-            reports[0] += f"> :chart_with_downwards_trend: [Sell Signal]"
+            reports[0] += "> :chart_with_downwards_trend: [Sell Signal]"
         else:
-            reports[0] += f"> :egg: [None Signal]"
+            reports[0] += "> :egg: [None Signal]"
         reports[0] += f" *{quant.title}* (`{symbol}`)\n"
         reports[
             0
