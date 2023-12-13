@@ -504,7 +504,16 @@ class QuantSlackBot(SlackBot):
         codeblock: Optional[bool] = False,
         thread_ts: Optional[str] = None,
     ) -> requests.models.Response:
-        """``token`` 혹은 ``channel`` 이 입력되지 않을 시 전송 불가"""
+        """``token`` 혹은 ``channel`` 이 입력되지 않을 시 전송 불가
+
+        Args:
+            message (``str``): 전송할 message
+            codeblock (``Optional[bool]``): 전송되는 message의 스타일
+            thread_ts (``Optional[str]``): 댓글을 전송할 thread의 timestamp
+
+        Returns:
+            ``requests.models.Response``: Slack Bot의 응답
+        """
         if self.slack:
             return super().message(message, codeblock, thread_ts)
         return None
@@ -512,22 +521,29 @@ class QuantSlackBot(SlackBot):
     def file(
         self, path: str, thread_ts: Optional[str] = None
     ) -> requests.models.Response:
-        """``token`` 혹은 ``channel`` 이 입력되지 않을 시 전송 불가"""
+        """``token`` 혹은 ``channel`` 이 입력되지 않을 시 전송 불가
+
+        Args:
+            path (``str``): 전송할 file 경로
+            thread_ts (``Optional[str]``): 댓글을 전송할 thread의 timestamp
+
+        Returns:
+            ``requests.models.Response``: Slack Bot의 응답
+        """
         if self.slack:
             return super().file(path, thread_ts)
         return None
 
-    def _report(self, quant: Quant, today: Dict[str, Any]) -> List[str]:
+    def _report(self, symbol: str, quant: Quant, today: Dict[str, Any]) -> List[str]:
         logic = {-2: "손절", -1: "매도", 0: "중립", 1: "매수", 2: "추가 매수"}
         reports = ["" for _ in range(3)]
         if today["position"] == "Buy":
-            reports[0] += f"> :chart_with_upwards_trend: [Buy Signal] *{quant.title}*\n"
+            reports[0] += f"> :chart_with_upwards_trend: [Buy Signal]"
         elif today["position"] == "Sell":
-            reports[
-                0
-            ] += f"> :chart_with_downwards_trend: [Sell Signal] *{quant.title}*\n"
+            reports[0] += f"> :chart_with_downwards_trend: [Sell Signal]"
         else:
-            reports[0] += f"> :egg: [None Signal] *{quant.title}*\n"
+            reports[0] += f"> :egg: [None Signal]"
+        reports[0] += f" *{quant.title}* (`{symbol}`)\n"
         reports[
             0
         ] += f"\t:technologist: Signal Info: {today['total'][1]:.2f}% (`{int(today['total'][0])}/{int(quant.total_cnt)}`) → {logic[today['logic']]}\n"
@@ -565,7 +581,7 @@ class QuantSlackBot(SlackBot):
             if len(data) < 20:
                 return None, None, None
         except KeyError as error:
-            response = self.message(f":x: '{symbol}' was not found")
+            response = self.message(f":x: '`{symbol}`' was not found")
             self.message(str(error), True, response.json()["ts"])
             self.message(traceback.format_exc(), True, response.json()["ts"])
             return None, None, None
@@ -573,7 +589,7 @@ class QuantSlackBot(SlackBot):
             quant = Quant(title, data, ohlc=self.ohlc, top=self.top, report=self.report)
             today = quant()
         except IndexError as error:
-            self.message(f":x: {title}: {data.index[0]} ({len(data)})")
+            self.message(f":x: '`{symbol}`' ({title}): {data.index[0]} ({len(data)})")
             self.message(str(error), True, response.json()["ts"])
             self.message(traceback.format_exc(), True, response.json()["ts"])
             return None, None, None
@@ -621,7 +637,7 @@ class QuantSlackBot(SlackBot):
                 save=False,
             )
             path_hist = savefig(f"{quant.title}_backtest", 100)
-            return self._report(quant, today), [path_candle, path_hist], quant
+            return self._report(symbol, quant, today), [path_candle, path_hist], quant
         return None, None, quant
 
     def _send(self, messages: List[str], image: List[str]) -> None:
