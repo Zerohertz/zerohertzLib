@@ -35,7 +35,7 @@ import requests
 from matplotlib import pyplot as plt
 
 from zerohertzLib.api import KoreaInvestment, SlackBot
-from zerohertzLib.plot import barh, barv, candle, figure, hist, savefig, table
+from zerohertzLib.plot import barh, barv, candle, figure, hist, pie, savefig, table
 
 from .backtest import Experiments, backtest
 from .util import _cash2str, _seconds_to_hms
@@ -434,6 +434,32 @@ class Balance(KoreaInvestment):
             figsize=(16, int(1.2 * len(row))),
             dpi=100,
         )
+
+    def pie(self) -> str:
+        """현재 보유 종목을 pie chart로 시각화
+
+        Returns:
+            ``str``: 저장된 graph의 절대 경로
+
+        Examples:
+            >>> balance.pie()
+
+            .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290370768-2c2e569a-3872-4f82-8745-5208a6220de3.png
+                :alt: Balance Pie Result
+                :align: center
+                :width: 500px
+        """
+        if self() == 0:
+            return None
+        if self.kor:
+            dim = "￦"
+        else:
+            dim = "$"
+        data = defaultdict(float)
+        for name, value in self.items():
+            _, purchase, _, quantity, _, _ = value
+            data[f"{name}"] = purchase * quantity
+        return pie(data, dim, title="Portfolio", dpi=100, int_label=self.kor)
 
 
 class QuantSlackBot(SlackBot):
