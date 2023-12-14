@@ -69,11 +69,15 @@ def pie(
     if int_label:
         if dim == "":
             labels = [f"{k} ({v:.0f})" for k, v in data.items()]
+        elif dim in ["￦", "$"]:
+            labels = [f"{k} ({v:,.0f} {dim})" for k, v in data.items()]
         else:
             labels = [f"{k} ({v:.0f} {dim})" for k, v in data.items()]
     else:
         if dim == "":
             labels = [f"{k} ({v:.2f})" for k, v in data.items()]
+        elif dim in ["￦", "$"]:
+            labels = [f"{k} ({v:,.2f} {dim})" for k, v in data.items()]
         else:
             labels = [f"{k} ({v:.2f} {dim})" for k, v in data.items()]
     plt.pie(

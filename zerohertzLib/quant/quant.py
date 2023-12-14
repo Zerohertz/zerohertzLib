@@ -21,6 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
+import json
 import multiprocessing as mp
 import time
 import traceback
@@ -34,7 +35,7 @@ import requests
 from matplotlib import pyplot as plt
 
 from zerohertzLib.api import KoreaInvestment, SlackBot
-from zerohertzLib.plot import barh, barv, candle, figure, hist, savefig, table
+from zerohertzLib.plot import barh, barv, candle, figure, hist, pie, savefig, table
 
 from .backtest import Experiments, backtest
 from .util import _cash2str, _seconds_to_hms
@@ -328,6 +329,13 @@ class Balance(KoreaInvestment):
             self.balance["cash"] = float(
                 response["output2"]["tot_evlu_pfls_amt"]
             )  # 총평가손익금액
+        self.balance["stock"] = dict(
+            sorted(
+                self.balance["stock"].items(),
+                key=lambda item: item[1][1] * item[1][3],
+                reverse=True,
+            )
+        )
 
     def __contains__(self, item: Any) -> bool:
         return item in self.balance["stock"]
@@ -374,7 +382,7 @@ class Balance(KoreaInvestment):
         Examples:
             >>> balance.table()
 
-            .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290175594-7a372038-fe24-4527-a2e3-3c5efe445017.png
+            .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290379778-48f7ce85-ad3e-41fd-8045-0f4640e7532e.png
                 :alt: Balance Table Result
                 :align: center
                 :width: 400px
@@ -433,6 +441,32 @@ class Balance(KoreaInvestment):
             figsize=(16, int(1.2 * len(row))),
             dpi=100,
         )
+
+    def pie(self) -> str:
+        """현재 보유 종목을 pie chart로 시각화
+
+        Returns:
+            ``str``: 저장된 graph의 절대 경로
+
+        Examples:
+            >>> balance.pie()
+
+            .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290379806-254b2b6b-02b1-4691-891a-356e2d0bafb1.png
+                :alt: Balance Pie Result
+                :align: center
+                :width: 500px
+        """
+        if self() == 0:
+            return None
+        if self.kor:
+            dim = "￦"
+        else:
+            dim = "$"
+        data = defaultdict(float)
+        for name, value in self.items():
+            _, purchase, _, quantity, _, _ = value
+            data[f"{name}"] = purchase * quantity
+        return pie(data, dim, title="Portfolio", dpi=100, int_label=self.kor)
 
 
 class QuantSlackBot(SlackBot):
@@ -525,7 +559,9 @@ class QuantSlackBot(SlackBot):
         """
         if self.slack:
             return super().message(message, codeblock, thread_ts)
-        return None
+        response = requests.Response()
+        response._content = json.dumps({"ts": None}).encode("utf-8")
+        return response
 
     def file(
         self, path: str, thread_ts: Optional[str] = None
@@ -541,7 +577,9 @@ class QuantSlackBot(SlackBot):
         """
         if self.slack:
             return super().file(path, thread_ts)
-        return None
+        response = requests.Response()
+        response._content = json.dumps({"ts": None}).encode("utf-8")
+        return response
 
     def _plot(self, quant: Quant) -> Tuple[str]:
         candle_path = candle(
@@ -811,12 +849,13 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
 
         한국투자증권의 잔고와 주식 보유 상황을 image로 변환하여 slack으로 전송 및 보유 중인 주식에 대해 매도 signals 탐색
         """
-        path = self.table()
-        if path is None:
+        path_balance, path_portfolio = self.table(), self.pie()
+        if path_balance is None:
             self.message("Balance: NULL", True)
             return None
         response = self.message("> :bank: Balance")
-        self.file(path, response.json()["ts"])
+        self.file(path_balance, response.json()["ts"])
+        self.file(path_portfolio, response.json()["ts"])
         self._inference(self.symbols_bought, "Sell")
         return None
 

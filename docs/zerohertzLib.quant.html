@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.quant" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.quant.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.6.5 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.6.6 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.6.5 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.6.6 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.quant.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.quant - zerohertzLib v0.6.5 documentation</title>
+        <title>zerohertzLib.quant - zerohertzLib v0.6.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.6.5 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.6.6 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.6.5 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.6.6 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -427,6 +427,25 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.quant.Balance.pie">
+<span class="sig-name descname"><span class="pre">pie</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.Balance.pie" title="Permalink to this definition">#</a></dt>
+<dd><p>현재 보유 종목을 pie chart로 시각화</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>저장된 graph의 절대 경로</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span><span class="o">.</span><span class="n">pie</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290379806-254b2b6b-02b1-4691-891a-356e2d0bafb1.png"><img alt="Balance Pie Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290379806-254b2b6b-02b1-4691-891a-356e2d0bafb1.png" style="width: 500px;" /></a>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.quant.Balance.table">
 <span class="sig-name descname"><span class="pre">table</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.Balance.table" title="Permalink to this definition">#</a></dt>
 <dd><p>현재 계좌의 상태를 image로 저장</p>
@@ -442,7 +461,7 @@
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">balance</span><span class="o">.</span><span class="n">table</span><span class="p">()</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290175594-7a372038-fe24-4527-a2e3-3c5efe445017.png"><img alt="Balance Table Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290175594-7a372038-fe24-4527-a2e3-3c5efe445017.png" style="width: 400px;" /></a>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290379778-48f7ce85-ad3e-41fd-8045-0f4640e7532e.png"><img alt="Balance Table Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290379778-48f7ce85-ad3e-41fd-8045-0f4640e7532e.png" style="width: 400px;" /></a>
 </dd></dl>
 
 </dd></dl>
@@ -1308,6 +1327,7 @@
 <li><a class="reference internal" href="#zerohertzLib.quant.Balance.__call__"><code class="docutils literal notranslate"><span class="pre">Balance.__call__()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.quant.Balance.bought_symbols"><code class="docutils literal notranslate"><span class="pre">Balance.bought_symbols()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.quant.Balance.items"><code class="docutils literal notranslate"><span class="pre">Balance.items()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.quant.Balance.pie"><code class="docutils literal notranslate"><span class="pre">Balance.pie()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.quant.Balance.table"><code class="docutils literal notranslate"><span class="pre">Balance.table()</span></code></a></li>
 </ul>
 </li>
@@ -1371,7 +1391,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=5430710c"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=63c8fb66"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
