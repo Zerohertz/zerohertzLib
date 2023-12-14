@@ -1,5 +1,39 @@
 # v0.6
 
+## v0.6.6
+
+<h3>[v0.6.6] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/176>#176</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2023/12/14
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/plot"><img src="https://img.shields.io/badge/feat/plot-968B14?style=flat-square&logo=github" alt="feat/plot"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:style"><img src="https://img.shields.io/badge/style-03A17F?style=flat-square&logo=github" alt="style"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/quant"><img src="https://img.shields.io/badge/feat/quant-ededed?style=flat-square&logo=github" alt="feat/quant"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `plot`
+  + `pie`의 단위 (`dim`)가 통화일 시 `000,000,000` format으로 시각화
++ `quant`
+  + `token` 없이 `QuantSlackBot` 사용 시 발생하는 error 수정
+  + `Balance`
+    + 현재 보유하고 있는 종목의 portfolio를 시각화하는 method `pie` 추가
+    + 보유 종목의 순서를 매수 총액을 기준으로 정렬
+  + `QuantSlackBotKI`의 `sell` method 사용 시 portfolio를 함께 전송하도록 update
+
+<h4>Style</h4>
+
++ 누락된 type hint 추가
+
 ## v0.6.5
 
 <h3>[v0.6.5] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/173>#173</a>)</h3>

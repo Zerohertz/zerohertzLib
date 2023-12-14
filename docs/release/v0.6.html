@@ -16,11 +16,11 @@
     <meta property="og:title" content="v0.6" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/release/v0.6.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.6.5 Documents" />
-<meta property="og:description" content="v0.6.5: api- SlackBot 의 message 및 file method를 통한 전송 실패 시 print 및 message 를 통한 오류 log 추가., quant- QuantSlackBot- Private 함수의 변수 refactoring, Strategy의 indent 추가.., vision- 입력 image를 base64 기반으로 enc..." />
+<meta property="og:site_name" content="Zerohertz's Library v0.6.6 Documents" />
+<meta property="og:description" content="v0.6.6: plot- pie 의 단위 ( dim)가 통화일 시 000,000,000 format으로 시각화., quant- token 없이 QuantSlackBot 사용 시 발생하는 error 수정, Balance- 현재 보유하고 있는 종목의 portfolio를 시각화하는 method pie 추가, 보유 종목의 순서를 매수 총액을 기준으로 정렬.,..." />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.6.5 Documents" />
-<meta name="description" content="v0.6.5: api- SlackBot 의 message 및 file method를 통한 전송 실패 시 print 및 message 를 통한 오류 log 추가., quant- QuantSlackBot- Private 함수의 변수 refactoring, Strategy의 indent 추가.., vision- 입력 image를 base64 기반으로 enc..." />
+<meta property="og:image:alt" content="Zerohertz's Library v0.6.6 Documents" />
+<meta name="description" content="v0.6.6: plot- pie 의 단위 ( dim)가 통화일 시 000,000,000 format으로 시각화., quant- token 없이 QuantSlackBot 사용 시 발생하는 error 수정, Balance- 현재 보유하고 있는 종목의 portfolio를 시각화하는 method pie 추가, 보유 종목의 순서를 매수 총액을 기준으로 정렬.,..." />
     <link href="../_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -28,7 +28,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/release/v0.6.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>v0.6 - zerohertzLib v0.6.5 documentation</title>
+        <title>v0.6 - zerohertzLib v0.6.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -156,7 +156,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">zerohertzLib v0.6.5 documentation</div></a>
+      <a href="../index.html"><div class="brand">zerohertzLib v0.6.6 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
     <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.6.5 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.6.6 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -257,6 +257,45 @@
         <article role="main">
           <section id="v0-6">
 <h1>v0.6<a class="headerlink" href="#v0-6" title="Permalink to this heading">#</a></h1>
+<section id="v0-6-6">
+<h2>v0.6.6<a class="headerlink" href="#v0-6-6" title="Permalink to this heading">#</a></h2>
+<h3>[v0.6.6] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/176>#176</a>)</h3>
+<div class="tip admonition">
+<p class="admonition-title">Release Date</p>
+<p>2023/12/14</p>
+</div>
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/plot"><img src="https://img.shields.io/badge/feat/plot-968B14?style=flat-square&logo=github" alt="feat/plot"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:style"><img src="https://img.shields.io/badge/style-03A17F?style=flat-square&logo=github" alt="style"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/quant"><img src="https://img.shields.io/badge/feat/quant-ededed?style=flat-square&logo=github" alt="feat/quant"/></a>
+</p>
+<h4>Features</h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">plot</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">pie</span></code>의 단위 (<code class="docutils literal notranslate"><span class="pre">dim</span></code>)가 통화일 시 <code class="docutils literal notranslate"><span class="pre">000,000,000</span></code> format으로 시각화</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">quant</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">token</span></code> 없이 <code class="docutils literal notranslate"><span class="pre">QuantSlackBot</span></code> 사용 시 발생하는 error 수정</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Balance</span></code></p>
+<ul>
+<li><p>현재 보유하고 있는 종목의 portfolio를 시각화하는 method <code class="docutils literal notranslate"><span class="pre">pie</span></code> 추가</p></li>
+<li><p>보유 종목의 순서를 매수 총액을 기준으로 정렬</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">QuantSlackBotKI</span></code>의 <code class="docutils literal notranslate"><span class="pre">sell</span></code> method 사용 시 portfolio를 함께 전송하도록 update</p></li>
+</ul>
+</li>
+</ul>
+<h4>Style</h4>
+<ul class="simple">
+<li><p>누락된 type hint 추가</p></li>
+</ul>
+</section>
 <section id="v0-6-5">
 <h2>v0.6.5<a class="headerlink" href="#v0-6-5" title="Permalink to this heading">#</a></h2>
 <h3>[v0.6.5] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/173>#173</a>)</h3>
@@ -536,6 +575,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">v0.6</a><ul>
+<li><a class="reference internal" href="#v0-6-6">v0.6.6</a></li>
 <li><a class="reference internal" href="#v0-6-5">v0.6.5</a></li>
 <li><a class="reference internal" href="#v0-6-4">v0.6.4</a></li>
 <li><a class="reference internal" href="#v0-6-3">v0.6.3</a></li>
@@ -555,7 +595,7 @@
   </div>
 </div><script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=5430710c"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=63c8fb66"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
