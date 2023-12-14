@@ -41,7 +41,7 @@ from .convert import poly2cwh, poly2mask, poly2xyxy, xyxy2poly
 from .visual import bbox, masks
 
 
-def _get_image_paths(path):
+def _get_image_paths(path: str) -> List[str]:
     ext = (
         "jpg",
         "JPG",
