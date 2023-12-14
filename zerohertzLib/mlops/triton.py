@@ -46,7 +46,7 @@ class TritonClientURL:
             Model 호출 수행
 
             Args:
-                *args (``List[NDArray[DTypeLike]]``): Model 호출 시 사용될 입력 (``self.inputs``)
+                *args (``NDArray[DTypeLike]``): Model 호출 시 사용될 입력 (``self.inputs``)
 
             Returns:
                 ``Dict[str, NDArray[DTypeLike]]``: 호출된 model의 결과
@@ -73,7 +73,7 @@ class TritonClientURL:
         self.inputs = self.info["config"]["input"]
         self.outputs = self.info["config"]["output"]
 
-    def __call__(self, *args) -> Dict[str, NDArray[DTypeLike]]:
+    def __call__(self, *args: NDArray[DTypeLike]) -> Dict[str, NDArray[DTypeLike]]:
         assert len(self.inputs) == len(args)
         triton_inputs = []
         for input_info, arg in zip(self.inputs, args):
@@ -91,7 +91,8 @@ class TritonClientURL:
         return triton_results
 
     def _set_input(self, input_info: Dict[str, List[int]], value: NDArray[DTypeLike]):
-        assert len(input_info["dims"]) == len(value.shape)
+        if "dims" in input_info.keys():
+            assert len(input_info["dims"]) == len(value.shape)
         value = value.astype(triton_to_np_dtype(input_info["data_type"][5:]))
         return grpcclient.InferInput(
             input_info["name"],
@@ -118,7 +119,7 @@ class TritonClientK8s(TritonClientURL):
             Model 호출 수행
 
             Args:
-                *args (``List[NDArray[DTypeLike]]``): Model 호출 시 사용될 입력 (``self.inputs``)
+                *args (``NDArray[DTypeLike]``): Model 호출 시 사용될 입력 (``self.inputs``)
 
             Returns:
                 ``Dict[str, NDArray[DTypeLike]]``: 호출된 model의 결과
