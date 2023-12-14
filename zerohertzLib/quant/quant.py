@@ -21,6 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
+import json
 import multiprocessing as mp
 import time
 import traceback
@@ -525,7 +526,9 @@ class QuantSlackBot(SlackBot):
         """
         if self.slack:
             return super().message(message, codeblock, thread_ts)
-        return None
+        response = requests.Response()
+        response._content = json.dumps({"ts": None}).encode("utf-8")
+        return response
 
     def file(
         self, path: str, thread_ts: Optional[str] = None
@@ -541,7 +544,9 @@ class QuantSlackBot(SlackBot):
         """
         if self.slack:
             return super().file(path, thread_ts)
-        return None
+        response = requests.Response()
+        response._content = json.dumps({"ts": None}).encode("utf-8")
+        return response
 
     def _plot(self, quant: Quant) -> Tuple[str]:
         candle_path = candle(
