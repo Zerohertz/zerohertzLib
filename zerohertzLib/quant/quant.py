@@ -842,12 +842,13 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
 
         한국투자증권의 잔고와 주식 보유 상황을 image로 변환하여 slack으로 전송 및 보유 중인 주식에 대해 매도 signals 탐색
         """
-        path = self.table()
-        if path is None:
+        path_balance, path_portfolio = self.table(), self.pie()
+        if path_balance is None:
             self.message("Balance: NULL", True)
             return None
         response = self.message("> :bank: Balance")
-        self.file(path, response.json()["ts"])
+        self.file(path_balance, response.json()["ts"])
+        self.file(path_portfolio, response.json()["ts"])
         self._inference(self.symbols_bought, "Sell")
         return None
 
