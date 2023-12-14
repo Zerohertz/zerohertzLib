@@ -329,6 +329,13 @@ class Balance(KoreaInvestment):
             self.balance["cash"] = float(
                 response["output2"]["tot_evlu_pfls_amt"]
             )  # 총평가손익금액
+        self.balance["stock"] = dict(
+            sorted(
+                self.balance["stock"].items(),
+                key=lambda item: item[1][1] * item[1][3],
+                reverse=True,
+            )
+        )
 
     def __contains__(self, item: Any) -> bool:
         return item in self.balance["stock"]
@@ -375,7 +382,7 @@ class Balance(KoreaInvestment):
         Examples:
             >>> balance.table()
 
-            .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290175594-7a372038-fe24-4527-a2e3-3c5efe445017.png
+            .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290379778-48f7ce85-ad3e-41fd-8045-0f4640e7532e.png
                 :alt: Balance Table Result
                 :align: center
                 :width: 400px
@@ -444,7 +451,7 @@ class Balance(KoreaInvestment):
         Examples:
             >>> balance.pie()
 
-            .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290370768-2c2e569a-3872-4f82-8745-5208a6220de3.png
+            .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290379806-254b2b6b-02b1-4691-891a-356e2d0bafb1.png
                 :alt: Balance Pie Result
                 :align: center
                 :width: 500px
