@@ -34,8 +34,9 @@ from zerohertzLib.plot import plot
 def cpu(
     tick: Optional[int] = 1,
     threshold: Optional[int] = 10,
-    path: Optional[str] = "cpu",
+    path: Optional[str] = "CPU",
     dpi: Optional[int] = 100,
+    per: Optional[bool] = True,
 ) -> None:
     """시간에 따른 CPU의 사용량을 각 코어에 따라 line chart로 시각화
 
@@ -44,14 +45,16 @@ def cpu(
         threshold: (``Optional[int]``): 시각화할 총 시간
         path (``str``): Graph를 저장할 경로
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        per: (``Optional[bool]``): CPU 개별 사용량 시각화 여부
 
     Returns:
         ``None``: 지정한 경로에 바로 graph 저장
 
     Examples:
         >>> zz.monitoring.cpu(threshold=15)
+        >>> zz.monitoring.cpu(per=False)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284103719-cdbbb87c-ee2a-4ce7-87cf-df648d10b317.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290403278-2069d327-c905-4b60-8fdb-bf2804199cbd.png
             :alt: Visualzation Result
             :align: center
             :width: 600px
@@ -61,9 +64,13 @@ def cpu(
     data = defaultdict(list)
     while True:
         time_list.append(tmp)
-        cpu_usages = psutil.cpu_percent(interval=1, percpu=True)
-        for core, cpu_usage in enumerate(cpu_usages):
-            data[f"Core {core+1}"].append(cpu_usage)
+        if per:
+            cpu_usages = psutil.cpu_percent(percpu=per)
+            for core, cpu_usage in enumerate(cpu_usages):
+                data[f"Core {core+1}"].append(cpu_usage)
+        else:
+            cpu_usage = psutil.cpu_percent(percpu=per)
+            data["CPU"].append(cpu_usage)
         plot(
             time_list,
             data,
