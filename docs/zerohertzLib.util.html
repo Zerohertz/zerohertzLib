@@ -625,16 +625,16 @@
 </dl>
 <p>아래와 같이 상속을 통해 조건을 설정할 수 있다.</p>
 <p class="rubric">Examples</p>
-<p>Condition:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MakeDataCar</span><span class="p">(</span><span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">MakeData</span><span class="p">):</span>
+<dl>
+<dt>Condition:</dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MakeDataCar</span><span class="p">(</span><span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">MakeData</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">condition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_instance</span><span class="p">):</span>
         <span class="n">key</span> <span class="o">=</span> <span class="n">json_instance</span><span class="o">.</span><span class="n">_get_key</span><span class="p">(</span><span class="s2">&quot;supercategory_name&quot;</span><span class="p">)</span>
         <span class="n">category</span> <span class="o">=</span> <span class="n">json_instance</span><span class="o">.</span><span class="n">_get_value</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;CityCar&quot;</span> <span class="ow">or</span> <span class="n">category</span> <span class="o">==</span> <span class="s2">&quot;Mid-size car&quot;</span>
 </pre></div>
 </div>
-<p>Condition &amp; Make Data:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MakeDataCarDamage</span><span class="p">(</span><span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">MakeData</span><span class="p">):</span>
+</dd>
+<dt>Condition &amp; Make Data:</dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MakeDataCarDamage</span><span class="p">(</span><span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">MakeData</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">condition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_instance</span><span class="p">):</span>
         <span class="n">annotations</span> <span class="o">=</span> <span class="n">json_instance</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;annotations&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">annotations</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;color&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;White&quot;</span><span class="p">,</span> <span class="s2">&quot;Black&quot;</span><span class="p">])</span> <span class="ow">and</span> <span class="p">(</span>
@@ -666,8 +666,8 @@
                     <span class="p">)</span>
 </pre></div>
 </div>
-<p>Make Data:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MakeDataCarAugment</span><span class="p">(</span><span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">MakeData</span><span class="p">):</span>
+</dd>
+<dt>Make Data:</dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MakeDataCarAugment</span><span class="p">(</span><span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">MakeData</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">make_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_instance</span><span class="p">,</span> <span class="n">data_name</span><span class="p">):</span>
         <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span>
             <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">))</span>
@@ -690,6 +690,8 @@
         <span class="p">)</span>
 </pre></div>
 </div>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">

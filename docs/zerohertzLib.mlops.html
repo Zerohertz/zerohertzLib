@@ -314,16 +314,16 @@
 </dd></dl>
 
 <p class="rubric">Examples</p>
-<p>Kubernetes:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; kubectl get svc -n yolo
+<dl>
+<dt>Kubernetes:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; kubectl get svc -n yolo
 NAME                          TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
 fastapi-svc                   ClusterIP   10.106.72.126   &lt;none&gt;        80/TCP     90s
 triton-inference-server-svc   ClusterIP   10.96.28.172    &lt;none&gt;        8001/TCP   90s
 &gt;&gt;&gt; docker exec -it ${API_CONTAINER} bash
 </pre></div>
 </div>
-<p>Python:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">mlops</span><span class="o">.</span><span class="n">TritonClientK8s</span><span class="p">(</span><span class="s2">&quot;triton-inference-server-svc&quot;</span><span class="p">,</span> <span class="s2">&quot;yolo&quot;</span><span class="p">,</span> <span class="s2">&quot;YOLO&quot;</span><span class="p">)</span>
+</dd>
+<dt>Python:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">mlops</span><span class="o">.</span><span class="n">TritonClientK8s</span><span class="p">(</span><span class="s2">&quot;triton-inference-server-svc&quot;</span><span class="p">,</span> <span class="s2">&quot;yolo&quot;</span><span class="p">,</span> <span class="s2">&quot;YOLO&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="o">.</span><span class="n">inputs</span>
 <span class="go">[{&#39;name&#39;: &#39;images&#39;, &#39;data_type&#39;: &#39;TYPE_FP32&#39;, &#39;dims&#39;: [&#39;1&#39;, &#39;3&#39;, &#39;640&#39;, &#39;640&#39;]}]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="o">.</span><span class="n">outputs</span>
@@ -333,6 +333,8 @@ triton-inference-server-svc   ClusterIP   10.96.28.172    &lt;none&gt;        80
 <span class="go">2.21481919e-03, 1.17585063e-03, 1.36753917e-03]]], dtype=float32)}</span>
 </pre></div>
 </div>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py class">
