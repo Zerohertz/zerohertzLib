@@ -25,6 +25,7 @@ SOFTWARE.
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 import mplfinance as mpf
+import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 
@@ -38,6 +39,7 @@ def plot(
     ylab: Optional[str] = "y축 [단위]",
     xlim: Optional[List[Union[int, float]]] = None,
     ylim: Optional[List[Union[int, float]]] = None,
+    stacked: Optional[bool] = False,
     ncol: Optional[int] = 1,
     title: Optional[str] = "tmp",
     figsize: Optional[Tuple[int]] = (15, 10),
@@ -53,6 +55,7 @@ def plot(
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
         xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
         ylim (``Optional[List[Union[int, float]]]``): Graph에 출력될 Y축 limit
+        stacked (``Optional[bool]``): Stacked plot 여부
         ncol (``Optional[int]``): Graph에 표시될 legend 열의 수
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
@@ -63,26 +66,46 @@ def plot(
         ``str``: 저장된 graph의 절대 경로
 
     Examples:
-        >>> xdata = [i for i in range(20)]
-        >>> ydata = {"테란": list(np.random.rand(20) * 10), "저그": list(np.random.rand(20) * 10 + 1), "프로토스": list(np.random.rand(20) * 10 + 2)}
-        >>> zz.plot.plot(xdata, ydata, xlab="시간 [초]", ylab="성적 [점]", title="Star Craft")
+        ``stacked=False``:
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280603766-22a0f42c-91b0-4f34-aa73-29de6fdbd4e9.png
-            :alt: Visualzation Result
-            :align: center
-            :width: 500px
+            >>> xdata = [i for i in range(20)]
+            >>> ydata = {"테란": list(np.random.rand(20) * 10), "저그": list(np.random.rand(20) * 10 + 1), "프로토스": list(np.random.rand(20) * 10 + 2)}
+            >>> zz.plot.plot(xdata, ydata, xlab="시간 [초]", ylab="성적 [점]", title="Star Craft")
+
+            .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280603766-22a0f42c-91b0-4f34-aa73-29de6fdbd4e9.png
+                :alt: Visualzation Result
+                :align: center
+                :width: 500px
+
+        ``stacked=True``:
+            >>> ydata["Total"] = [sum(data) + 10 for data in zip(ydata["테란"], ydata["프로토스"], ydata["저그"])]
+            >>> zz.plot.plot(xdata, ydata, xlab="시간 [초]", ylab="성적 [점]", stacked=True, title="Star Craft")
+
+            .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290732177-9a9b9584-5207-4575-a759-160890ac8a13.png
+                :alt: Visualzation Result
+                :align: center
+                :width: 500px
     """
     colors = color(len(ydata))
     if len(ydata) == 1:
         colors = [colors]
     if save:
         plt.figure(figsize=figsize)
-    # list(plt.Line2D.lineStyles.keys())
-    linestyle = ["-", "--", "-.", ":"]
     # import matplotlib.markers as mmarkers
     # markers = list(mmarkers.MarkerStyle.markers.keys())
     marker = ["o", "v", "^", "s", "p", "*", "x"]
+    if stacked:
+        bias = np.zeros(len(xdata))
+        linestyle = ["-"]
+    else:
+        # list(plt.Line2D.lineStyles.keys())
+        linestyle = ["-", "--", "-.", ":"]
     for i, (key, value) in enumerate(ydata.items()):
+        if stacked:
+            if key == "Total":
+                colors[i] = (0.5, 0.5, 0.5)
+            else:
+                value = np.array(value) + bias
         plt.plot(
             xdata,
             value,
@@ -93,6 +116,9 @@ def plot(
             markersize=12,
             label=key,
         )
+        if stacked:
+            plt.fill_between(xdata, value, bias, color=colors[i], alpha=0.5)
+            bias = value
     plt.grid(zorder=0)
     plt.xlabel(xlab)
     plt.ylabel(ylab)

@@ -81,7 +81,8 @@ def barv(
     plt.xlabel(xlab)
     plt.ylabel(ylab)
     plt.xticks(rotation=rot)
-    plt.ylim([0, 1.1 * max(list(data.values()))])
+    if min(data.values()) > 0:
+        plt.ylim([0, 1.1 * max(list(data.values()))])
     plt.title(title, fontsize=25)
     if per:
         total = sum(list(data.values()))
@@ -151,7 +152,8 @@ def barh(
     plt.xlabel(xlab)
     plt.ylabel(ylab)
     plt.yticks(rotation=rot)
-    plt.xlim([0, 1.1 * max(list(data.values()))])
+    if min(data.values()) > 0:
+        plt.xlim([0, 1.1 * max(list(data.values()))])
     plt.title(title, fontsize=25)
     if per:
         maximum = max(list(data.values()))
