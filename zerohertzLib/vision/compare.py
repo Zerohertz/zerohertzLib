@@ -66,27 +66,24 @@ def before_after(
         ``None``: 현재 directory에 바로 image 저장
 
     Examples:
-
         BGR, GRAY:
+            >>> after = cv2.GaussianBlur(before, (0, 0), 25)
+            >>> after = cv2.cvtColor(after, cv2.COLOR_BGR2GRAY)
+            >>> zz.vision.before_after(before, after, quality=10)
 
-        >>> after = cv2.GaussianBlur(before, (0, 0), 25)
-        >>> after = cv2.cvtColor(after, cv2.COLOR_BGR2GRAY)
-        >>> zz.vision.before_after(before, after, quality=10)
-
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284503831-44cbe7a2-c1a2-4d44-91bf-7f35c2f80d2e.png
-            :alt: Visualzation Result
-            :align: center
-            :width: 300px
+            .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284503831-44cbe7a2-c1a2-4d44-91bf-7f35c2f80d2e.png
+                :alt: Visualzation Result
+                :align: center
+                :width: 300px
 
         BGR, Resize:
+            >>> after = cv2.resize(before, (100, 100))
+            >>> zz.vision.before_after(before, after, [20, 40, 30, 60])
 
-        >>> after = cv2.resize(before, (100, 100))
-        >>> zz.vision.before_after(before, after, [20, 40, 30, 60])
-
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284503976-789c6f8d-1b98-4941-b528-523b2973e4b4.png
-            :alt: Visualzation Result
-            :align: center
-            :width: 300px
+            .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284503976-789c6f8d-1b98-4941-b528-523b2973e4b4.png
+                :alt: Visualzation Result
+                :align: center
+                :width: 300px
     """
     before_shape = before.shape
     if area is None:

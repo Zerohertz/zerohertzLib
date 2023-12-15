@@ -67,7 +67,6 @@ def plot(
 
     Examples:
         ``stacked=False``:
-
             >>> xdata = [i for i in range(20)]
             >>> ydata = {"테란": list(np.random.rand(20) * 10), "저그": list(np.random.rand(20) * 10 + 1), "프로토스": list(np.random.rand(20) * 10 + 2)}
             >>> zz.plot.plot(xdata, ydata, xlab="시간 [초]", ylab="성적 [점]", title="Star Craft")

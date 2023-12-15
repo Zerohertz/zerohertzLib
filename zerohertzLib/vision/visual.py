@@ -79,18 +79,16 @@ def bbox(
 
     Examples:
         Bbox:
-
-        >>> box = np.array([[100, 200], [100, 1000], [1200, 1000], [1200, 200]])
-        >>> box.shape
-        (4, 2)
-        >>> res1 = zz.vision.bbox(img, box, thickness=10)
+            >>> box = np.array([[100, 200], [100, 1000], [1200, 1000], [1200, 200]])
+            >>> box.shape
+            (4, 2)
+            >>> res1 = zz.vision.bbox(img, box, thickness=10)
 
         Bboxes:
-
-        >>> boxes = np.array([[250, 200, 100, 100], [600, 600, 800, 200], [900, 300, 300, 400]])
-        >>> boxes.shape
-        (3, 4)
-        >>> res2 = zz.vision.bbox(img, boxes, (0, 255, 0), thickness=10)
+            >>> boxes = np.array([[250, 200, 100, 100], [600, 600, 800, 200], [900, 300, 300, 400]])
+            >>> boxes.shape
+            (3, 4)
+            >>> res2 = zz.vision.bbox(img, boxes, (0, 255, 0), thickness=10)
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284566751-ec443fc2-6b71-4ba3-a770-590fa873e944.png
             :alt: Visualzation Result
@@ -143,31 +141,28 @@ def masks(
 
     Examples:
         Mask (without class):
-
-        >>> H, W, _ = img.shape
-        >>> cnt = 30
-        >>> mks = np.zeros((cnt, H, W), np.uint8)
-        >>> for mask in mks:
-        >>>     center_x = random.randint(0, W)
-        >>>     center_y = random.randint(0, H)
-        >>>     radius = random.randint(30, 200)
-        >>>     cv2.circle(mask, (center_x, center_y), radius, (True), -1)
-        >>> mks = mks.astype(bool)
-        >>> res1 = zz.vision.masks(img, mks)
+            >>> H, W, _ = img.shape
+            >>> cnt = 30
+            >>> mks = np.zeros((cnt, H, W), np.uint8)
+            >>> for mask in mks:
+            >>>     center_x = random.randint(0, W)
+            >>>     center_y = random.randint(0, H)
+            >>>     radius = random.randint(30, 200)
+            >>>     cv2.circle(mask, (center_x, center_y), radius, (True), -1)
+            >>> mks = mks.astype(bool)
+            >>> res1 = zz.vision.masks(img, mks)
 
         Mask (with class):
-
-        >>> cls = [i for i in range(cnt)]
-        >>> class_list = [cls[random.randint(0, 2)] for _ in range(cnt)]
-        >>> class_color = {}
-        >>> for c in cls:
-        >>>     class_color[c] = [random.randint(0, 255) for _ in range(3)]
-        >>> res2 = zz.vision.masks(img, mks, class_list=class_list, class_color=class_color)
+            >>> cls = [i for i in range(cnt)]
+            >>> class_list = [cls[random.randint(0, 2)] for _ in range(cnt)]
+            >>> class_color = {}
+            >>> for c in cls:
+            >>>     class_color[c] = [random.randint(0, 255) for _ in range(3)]
+            >>> res2 = zz.vision.masks(img, mks, class_list=class_list, class_color=class_color)
 
         Poly:
-
-        >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
-        >>> res3 = zz.vision.masks(img, poly=poly)
+            >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
+            >>> res3 = zz.vision.masks(img, poly=poly)
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284878547-c36cd4ff-2b36-4b0f-a125-89ed8380a456.png
             :alt: Visualzation Result
@@ -314,18 +309,16 @@ def text(
 
     Examples:
         Bbox:
-
-        >>> box = np.array([[100, 200], [100, 1000], [1200, 1000], [1200, 200]])
-        >>> box.shape
-        (4, 2)
-        >>> res1 = zz.vision.text(img, box, "먼지야")
+            >>> box = np.array([[100, 200], [100, 1000], [1200, 1000], [1200, 200]])
+            >>> box.shape
+            (4, 2)
+            >>> res1 = zz.vision.text(img, box, "먼지야")
 
         Bboxes:
-
-        >>> boxes = np.array([[250, 200, 100, 100], [600, 600, 800, 200], [900, 300, 300, 400]])
-        >>> boxes.shape
-        (3, 4)
-        >>> res2 = zz.vision.text(img, boxes, ["먼지야", "먼지야", "먼지야"], vis=True)
+            >>> boxes = np.array([[250, 200, 100, 100], [600, 600, 800, 200], [900, 300, 300, 400]])
+            >>> boxes.shape
+            (3, 4)
+            >>> res2 = zz.vision.text(img, boxes, ["먼지야", "먼지야", "먼지야"], vis=True)
 
     .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284566305-fe9d1be6-b506-4140-bca9-db2a210f333c.png
             :alt: Visualzation Result
@@ -391,37 +384,34 @@ def paste(
 
     Examples:
         Without Poly:
-
-        >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
-        >>> target = zz.vision.cutout(img, poly, 200)
-        >>> res1 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=False, vis=True)
-        >>> res2 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, vis=True, alpha=255)
+            >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
+            >>> target = zz.vision.cutout(img, poly, 200)
+            >>> res1 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=False, vis=True)
+            >>> res2 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, vis=True, alpha=255)
 
         With Poly:
-
-        >>> poly -= zz.vision.poly2xyxy(poly)[:2]
-        >>> target = zz.vision.bbox(target, poly, color=(255, 0, 0), thickness=20)
-        >>> res3, poly3 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=False, poly=poly)
-        >>> poly3
-        array([[300.        , 200.        ],
-               [557.14285714, 200.        ],
-               [900.        , 628.57142857],
-               [557.14285714, 800.        ],
-               [300.        , 542.85714286]])
-        >>> res3 = zz.vision.bbox(res3, poly3)
-        >>> res4, poly4 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, poly=poly)
-        >>> poly4
-        array([[ 200.        ,  200.        ],
-               [ 542.85714286,  200.        ],
-               [1000.        ,  628.57142857],
-               [ 542.85714286,  800.        ],
-               [ 200.        ,  542.85714286]])
-        >>> res4 = zz.vision.bbox(res4, poly4)
+            >>> poly -= zz.vision.poly2xyxy(poly)[:2]
+            >>> target = zz.vision.bbox(target, poly, color=(255, 0, 0), thickness=20)
+            >>> res3, poly3 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=False, poly=poly)
+            >>> poly3
+            array([[300.        , 200.        ],
+                   [557.14285714, 200.        ],
+                   [900.        , 628.57142857],
+                   [557.14285714, 800.        ],
+                   [300.        , 542.85714286]])
+            >>> res3 = zz.vision.bbox(res3, poly3)
+            >>> res4, poly4 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, poly=poly)
+            >>> poly4
+            array([[ 200.        ,  200.        ],
+                   [ 542.85714286,  200.        ],
+                   [1000.        ,  628.57142857],
+                   [ 542.85714286,  800.        ],
+                   [ 200.        ,  542.85714286]])
+            >>> res4 = zz.vision.bbox(res4, poly4)
 
         Gaussian Blur:
-
-        >>> res5, poly5 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, poly=poly, gaussian=501)
-        >>> res5 = zz.vision.bbox(res5, poly5)
+            >>> res5, poly5 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, poly=poly, gaussian=501)
+            >>> res5 = zz.vision.bbox(res5, poly5)
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/285364676-27ae4292-0553-4561-a275-ea56c046d147.png
             :alt: Visualzation Result
