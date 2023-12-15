@@ -52,29 +52,25 @@ def pad(
 
     Examples:
         GRAY:
-
-        >>> img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
-        >>> res1 = cv2.resize(img, (500, 1000))
-        >>> res1 = zz.vision.pad(res1, (1000, 1000), color=(0, 255, 0))
+            >>> img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
+            >>> res1 = cv2.resize(img, (500, 1000))
+            >>> res1 = zz.vision.pad(res1, (1000, 1000), color=(0, 255, 0))
 
         BGR:
-
-        >>> res2 = cv2.resize(img, (1000, 500))
-        >>> res2 = zz.vision.pad(res2, (1000, 1000))
+            >>> res2 = cv2.resize(img, (1000, 500))
+            >>> res2 = zz.vision.pad(res2, (1000, 1000))
 
         BGRA:
-
-        >>> img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
-        >>> res3 = cv2.resize(img, (500, 1000))
-        >>> res3 = zz.vision.pad(res3, (1000, 1000), color=(0, 0, 255, 128))
+            >>> img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
+            >>> res3 = cv2.resize(img, (500, 1000))
+            >>> res3 = zz.vision.pad(res3, (1000, 1000), color=(0, 0, 255, 128))
 
         Poly:
-
-        >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
-        >>> res4 = cv2.resize(img, (2000, 1000))
-        >>> res4 = zz.vision.bbox(res4, poly, color=(255, 0, 0), thickness=20)
-        >>> res4, poly = zz.vision.pad(res4, (1000, 1000), poly=poly)
-        >>> res4 = zz.vision.bbox(img, poly, color=(0, 0, 255))
+            >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
+            >>> res4 = cv2.resize(img, (2000, 1000))
+            >>> res4 = zz.vision.bbox(res4, poly, color=(255, 0, 0), thickness=20)
+            >>> res4, poly = zz.vision.pad(res4, (1000, 1000), poly=poly)
+            >>> res4 = zz.vision.bbox(img, poly, color=(0, 0, 255))
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/285082573-3192363a-9b76-4474-a627-2d434db060fc.png
             :alt: Visualzation Result

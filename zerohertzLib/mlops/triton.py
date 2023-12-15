@@ -126,23 +126,21 @@ class TritonClientK8s(TritonClientURL):
 
     Examples:
         Kubernetes:
-
-        >>> kubectl get svc -n yolo
-        NAME                          TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
-        fastapi-svc                   ClusterIP   10.106.72.126   <none>        80/TCP     90s
-        triton-inference-server-svc   ClusterIP   10.96.28.172    <none>        8001/TCP   90s
-        >>> docker exec -it ${API_CONTAINER} bash
+            >>> kubectl get svc -n yolo
+            NAME                          TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+            fastapi-svc                   ClusterIP   10.106.72.126   <none>        80/TCP     90s
+            triton-inference-server-svc   ClusterIP   10.96.28.172    <none>        8001/TCP   90s
+            >>> docker exec -it ${API_CONTAINER} bash
 
         Python:
-
-        >>> tc = zz.mlops.TritonClientK8s("triton-inference-server-svc", "yolo", "YOLO")
-        >>> tc.inputs
-        [{'name': 'images', 'data_type': 'TYPE_FP32', 'dims': ['1', '3', '640', '640']}]
-        >>> tc.outputs
-        [{'name': 'output0', 'data_type': 'TYPE_FP32', 'dims': ['1', '25200', '85']}]
-        >>> tc(np.zeros((1, 3, 640, 640)))
-        {'output0': array([[[3.90108061e+00, 3.51982164e+00, 7.49971962e+00, ...,
-        2.21481919e-03, 1.17585063e-03, 1.36753917e-03]]], dtype=float32)}
+            >>> tc = zz.mlops.TritonClientK8s("triton-inference-server-svc", "yolo", "YOLO")
+            >>> tc.inputs
+            [{'name': 'images', 'data_type': 'TYPE_FP32', 'dims': ['1', '3', '640', '640']}]
+            >>> tc.outputs
+            [{'name': 'output0', 'data_type': 'TYPE_FP32', 'dims': ['1', '25200', '85']}]
+            >>> tc(np.zeros((1, 3, 640, 640)))
+            {'output0': array([[[3.90108061e+00, 3.51982164e+00, 7.49971962e+00, ...,
+            2.21481919e-03, 1.17585063e-03, 1.36753917e-03]]], dtype=float32)}
     """
 
     def __init__(

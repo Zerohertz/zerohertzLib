@@ -107,75 +107,72 @@ class MakeData:
 
         Examples:
             Condition:
+                .. code-block:: python
 
-            .. code-block:: python
-
-                class MakeDataCar(zz.util.MakeData):
-                    def condition(self, json_instance):
-                        key = json_instance._get_key("supercategory_name")
-                        category = json_instance._get_value(key)
-                        return category == "CityCar" or category == "Mid-size car"
+                    class MakeDataCar(zz.util.MakeData):
+                        def condition(self, json_instance):
+                            key = json_instance._get_key("supercategory_name")
+                            category = json_instance._get_value(key)
+                            return category == "CityCar" or category == "Mid-size car"
 
             Condition & Make Data:
+                .. code-block:: python
 
-            .. code-block:: python
-
-                class MakeDataCarDamage(zz.util.MakeData):
-                    def condition(self, json_instance):
-                        annotations = json_instance.get("annotations")
-                        return (annotations[0]["color"] in ["White", "Black"]) and (
-                            json_instance.get("supercategory_name") == "CityCar"
-                        )
-                    def make_data(self, json_instance, data_name):
-                        img = cv2.imread(os.path.join(self.start_data_path, data_name))
-                        for i, ant in enumerate(json_instance["annotations"]):
-                            label = ant["damage"]
-                            if not label is None:
-                                poly = ant["segmentation"]
-                                poly = np.array(poly[0][0])
-                                tmp = zz.vision.cutout(img, poly)
-                                h, w, _ = tmp.shape
-                                if 100 <= h <= 300 and 100 <= w <= 300:
-                                    file_name = ".".join(data_name.split(".")[:-1]) + f"_{i}"
-                                    xm, ym = poly[:, 0].min(), poly[:, 1].min()
-                                    poly -= (xm, ym)
-                                    cv2.imwrite(
-                                        os.path.join(
-                                            self.end_data_path,
-                                            f"{file_name}.png",
-                                        ),
-                                        tmp,
-                                    )
-                                    zz.util.write_json(
-                                        {"name": f"{file_name}.png", "poly": poly.tolist()},
-                                        os.path.join(self.end_json_path, file_name),
-                                    )
+                    class MakeDataCarDamage(zz.util.MakeData):
+                        def condition(self, json_instance):
+                            annotations = json_instance.get("annotations")
+                            return (annotations[0]["color"] in ["White", "Black"]) and (
+                                json_instance.get("supercategory_name") == "CityCar"
+                            )
+                        def make_data(self, json_instance, data_name):
+                            img = cv2.imread(os.path.join(self.start_data_path, data_name))
+                            for i, ant in enumerate(json_instance["annotations"]):
+                                label = ant["damage"]
+                                if not label is None:
+                                    poly = ant["segmentation"]
+                                    poly = np.array(poly[0][0])
+                                    tmp = zz.vision.cutout(img, poly)
+                                    h, w, _ = tmp.shape
+                                    if 100 <= h <= 300 and 100 <= w <= 300:
+                                        file_name = ".".join(data_name.split(".")[:-1]) + f"_{i}"
+                                        xm, ym = poly[:, 0].min(), poly[:, 1].min()
+                                        poly -= (xm, ym)
+                                        cv2.imwrite(
+                                            os.path.join(
+                                                self.end_data_path,
+                                                f"{file_name}.png",
+                                            ),
+                                            tmp,
+                                        )
+                                        zz.util.write_json(
+                                            {"name": f"{file_name}.png", "poly": poly.tolist()},
+                                            os.path.join(self.end_json_path, file_name),
+                                        )
 
             Make Data:
+                .. code-block:: python
 
-            .. code-block:: python
-
-                class MakeDataCarAugment(zz.util.MakeData):
-                    def make_data(self, json_instance, data_name):
-                        img = cv2.imread(
-                            random.choice(glob("*"))
-                        )
-                        target = cv2.imread(
-                            os.path.join(self.start_data_path, data_name), cv2.IMREAD_UNCHANGED
-                        )
-                        H, W, _ = img.shape
-                        h, w, _ = target.shape
-                        x, y = random.randrange(100, W - w - 100), random.randrange(100, H - h - 100)
-                        box = [x, y, x + w, y + h]
-                        img = zz.vision.paste(img, target, box, False, False)
-                        file_name = ".".join(data_name.split(".")[:-1])
-                        cv2.imwrite(
-                            os.path.join(
-                                self.end_data_path,
-                                f"{file_name}.png",
-                            ),
-                            img,
-                        )
+                    class MakeDataCarAugment(zz.util.MakeData):
+                        def make_data(self, json_instance, data_name):
+                            img = cv2.imread(
+                                random.choice(glob("*"))
+                            )
+                            target = cv2.imread(
+                                os.path.join(self.start_data_path, data_name), cv2.IMREAD_UNCHANGED
+                            )
+                            H, W, _ = img.shape
+                            h, w, _ = target.shape
+                            x, y = random.randrange(100, W - w - 100), random.randrange(100, H - h - 100)
+                            box = [x, y, x + w, y + h]
+                            img = zz.vision.paste(img, target, box, False, False)
+                            file_name = ".".join(data_name.split(".")[:-1])
+                            cv2.imwrite(
+                                os.path.join(
+                                    self.end_data_path,
+                                    f"{file_name}.png",
+                                ),
+                                img,
+                            )
         """
         return True
 

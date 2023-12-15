@@ -405,7 +405,6 @@ class LabelStudio:
 
     Examples:
         Without ``json_path``:
-
             >>> ls = zz.vision.LabelStudio(data_path)
             >>> ls[0]
             ('0000007864.png', {'data': {'image': 'data/local-files/?d=image/0000007864.png'}})
@@ -413,9 +412,7 @@ class LabelStudio:
             ('0000008658.png', {'data': {'image': 'data/local-files/?d=image/0000008658.png'}})
 
         With ``json_path``:
-
             Bbox:
-
                 >>> ls = zz.vision.LabelStudio(data_path, json_path)
                 >>> ls[0]
                 >>> ls[0]
@@ -428,7 +425,6 @@ class LabelStudio:
                 'rectanglelabels'
 
             Poly:
-
                 >>> ls = zz.vision.LabelStudio(data_path, json_path)
                 >>> ls[0]
                 ('/PATH/TO/IMAGE', {'labels': ['label1', ...], 'polys': [array([[0.4531892 , 0.32880674], ..., [0.46119428, 0.32580483]]), ...], 'whs': [(3024, 4032), ...]})
@@ -571,7 +567,6 @@ class LabelStudio:
 
         Examples:
             Default:
-
                 >>> ls = zz.vision.LabelStudio(data_path)
                 >>> ls.json()
                 100%|█████████████| 476/476 [00:00<00:00, 259993.32it/s
@@ -592,7 +587,6 @@ class LabelStudio:
                     ]
 
             With ``data_function``:
-
                 .. code-block:: python
 
                     def data_function(file_name):
