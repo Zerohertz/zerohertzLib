@@ -32,9 +32,9 @@ from .util import _bollinger_bands, _rsi
 
 def moving_average(
     data: pd.core.frame.DataFrame,
-    short_window: Optional[int] = 10,
-    long_window: Optional[int] = 50,
-    gap: Optional[int] = 500,
+    short_window: Optional[int] = 20,
+    long_window: Optional[int] = 80,
+    gap: Optional[int] = 10,
     ohlc: Optional[str] = "",
 ) -> pd.core.frame.DataFrame:
     """단기 및 장기 이동 평균 기반 매수 및 매도 signal을 생성하는 함수
@@ -85,7 +85,8 @@ def moving_average(
         signals["long_mavg"] = (
             data[ohlc].rolling(window=long_window, min_periods=1).mean()
         )
-    gap = data.iloc[:, :4].mean().mean() / gap
+    if gap != 0:
+        gap = data.iloc[:, :4].mean().mean() / gap
     signals["signals"] = 0.0
     prev = 0
     for i in range(len(signals)):
@@ -104,9 +105,9 @@ def moving_average(
 
 def rsi(
     data: pd.core.frame.DataFrame,
-    lower_bound: Optional[int] = 20,
-    upper_bound: Optional[int] = 80,
-    window: Optional[int] = 21,
+    lower_bound: Optional[int] = 10,
+    upper_bound: Optional[int] = 70,
+    window: Optional[int] = 30,
     ohlc: Optional[str] = "",
 ) -> pd.core.frame.DataFrame:
     r"""RSI 기반 매수 및 매도 signal을 생성하는 함수
@@ -164,8 +165,8 @@ def rsi(
 
 def bollinger_bands(
     data: pd.core.frame.DataFrame,
-    window: Optional[int] = 14,
-    num_std_dev: Optional[float] = 2,
+    window: Optional[int] = 60,
+    num_std_dev: Optional[float] = 2.15,
     ohlc: Optional[str] = "",
 ) -> pd.core.frame.DataFrame:
     """Bollinger band 기반 매수 및 매도 signal을 생성하는 함수
@@ -227,7 +228,7 @@ def momentum(
     data: pd.core.frame.DataFrame,
     avg_window: Optional[int] = 5,
     mnt_window: Optional[int] = 5,
-    gap: Optional[int] = 75,
+    gap: Optional[int] = 5,
     ohlc: Optional[str] = "",
 ) -> pd.core.frame.DataFrame:
     """Momentum 기반 매수 및 매도 signal을 생성하는 함수
