@@ -49,7 +49,7 @@ class Quant(Experiments):
         data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
         top (``Optional[int]``): Experiment 과정에서 사용할 각 전략별 수
-        methods (``Optional[List[str]]``): 사용할 전략들의 함수명
+        methods (``Optional[Dict[str, List[List[Any]]]]``): 사용할 전략들의 함수명 및 parameters
         report: (``Optional[bool]``): Experiment 결과 출력 여부
 
     Attributes:
@@ -116,7 +116,7 @@ class Quant(Experiments):
         data: pd.core.frame.DataFrame,
         ohlc: Optional[str] = "",
         top: Optional[int] = 1,
-        methods: Optional[List[str]] = None,
+        methods: Optional[Dict[str, List[List[Any]]]] = None,
         report: Optional[bool] = False,
     ) -> None:
         super().__init__(title, data, ohlc, False, report)
@@ -126,18 +126,18 @@ class Quant(Experiments):
         self.exps_cnt = defaultdict()
         self.exps_str = defaultdict(list)
         if methods is None:
-            methods = [
-                "moving_average",
-                "rsi",
-                "bollinger_bands",
-                "momentum",
-            ]
+            methods = {
+                "moving_average": self.exps_moving_average,
+                "rsi": self.exps_rsi,
+                "bollinger_bands": self.exps_bollinger_bands,
+                "momentum": self.exps_momentum,
+            }
         # 선정한 전략들의 parameter 최적화
         is_profit = 0
-        for method in methods:
+        for method, exps in methods.items():
             if hasattr(self, method):
                 self.signals[method] = 0
-                results = getattr(self, method)()
+                results = getattr(self, method)(exps)
                 profits, signals, exps_str, exps_tup = (
                     results["profits"],
                     results["signals"],
@@ -241,10 +241,10 @@ class Balance(KoreaInvestment):
 
     Args:
         path (``Optional[str]``): ``secret.key`` 혹은 ``token.dat`` 이 포함된 경로
+        kor (``Optional[bool]``): 국내 여부
 
     Attributes:
         balance (``Dict[str, Any]``): 현재 보유 주식과 계좌의 금액 정보
-        kor (``Optional[bool]``): 국내 여부
 
     Methods:
         __contains__:
@@ -486,6 +486,7 @@ class QuantSlackBot(SlackBot):
         start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
         ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
         top (``Optional[int]``): Experiment 과정에서 사용할 각 전략별 수
+        methods (``Optional[Dict[str, List[List[Any]]]]``): 사용할 전략들의 함수명 및 parameters
         report: (``Optional[bool]``): Experiment 결과 출력 여부
         token (``Optional[str]``): Slack Bot의 token
         channel (``Optional[str]``): Slack Bot이 전송할 channel
@@ -514,6 +515,7 @@ class QuantSlackBot(SlackBot):
         start_day: Optional[str] = "",
         ohlc: Optional[str] = "",
         top: Optional[int] = 1,
+        methods: Optional[Dict[str, List[List[Any]]]] = None,
         report: Optional[bool] = False,
         token: Optional[str] = None,
         channel: Optional[str] = None,
@@ -533,6 +535,7 @@ class QuantSlackBot(SlackBot):
         self.start_day = start_day
         self.ohlc = ohlc
         self.top = top
+        self.methods = methods
         if mp_num > mp.cpu_count():
             self.mp_num = mp.cpu_count()
         else:
@@ -678,21 +681,30 @@ class QuantSlackBot(SlackBot):
             self.message(traceback.format_exc(), True, response.json()["ts"])
             return None, None
         try:
-            quant = Quant(title, data, ohlc=self.ohlc, top=self.top, report=self.report)
+            quant = Quant(
+                title,
+                data,
+                ohlc=self.ohlc,
+                top=self.top,
+                methods=self.methods,
+                report=self.report,
+            )
             today = quant()
         except IndexError as error:
             self.message(f":x: '`{symbol}`' ({title}): {data.index[0]} ({len(data)})")
             self.message(str(error), True, response.json()["ts"])
             self.message(traceback.format_exc(), True, response.json()["ts"])
             return None, None
+        if today["position"] == "NULL":
+            return None, None
+        elif not self.slack:
+            return None, quant
         if mode == "Buy":
             positions = ["Buy"]
         else:
             positions = ["Buy", "Sell", "None"]
         if today["position"] in positions:
             return self._report(symbol, quant, today), quant
-        elif today["position"] == "NULL":
-            return None, None
         return None, quant
 
     def _send(self, report: Dict[str, str]) -> None:
@@ -709,20 +721,20 @@ class QuantSlackBot(SlackBot):
         self, methods: Tuple[str], exps: Dict[str, List[Dict[str, int]]]
     ) -> None:
         for method in methods:
-            self.methods[method.replace("_", " ").upper()] += 1
+            self.methods_cnt[method.replace("_", " ").upper()] += 1
         for strategy, counts in exps.items():
-            if strategy not in self.exps.keys():
-                self.exps[strategy] = [defaultdict(int) for _ in range(len(counts))]
+            if strategy not in self.exps_cnt.keys():
+                self.exps_cnt[strategy] = [defaultdict(int) for _ in range(len(counts))]
             for idx, count in enumerate(counts):
                 for param, cnt in count.items():
-                    self.exps[strategy][idx][param] += cnt
+                    self.exps_cnt[strategy][idx][param] += cnt
 
     def _analysis_send(self) -> None:
         response = self.message("> :memo: Parameter Analysis")
         thread_ts = response.json()["ts"]
-        path = barv(self.methods, "전략", "", "Strategy")
+        path = barv(self.methods_cnt, "전략", "", "Strategy")
         self.file(path, thread_ts)
-        for strategy, counts in self.exps.items():
+        for strategy, counts in self.exps_cnt.items():
             figure((18, 8))
             stg = True
             for idx, count in enumerate(counts):
@@ -743,8 +755,8 @@ class QuantSlackBot(SlackBot):
     def _inference(self, symbols: List[str], mode: str) -> None:
         start = time.time()
         if self.analysis:
-            self.methods = defaultdict(int)
-            self.exps = defaultdict(list)
+            self.methods_cnt = defaultdict(int)
+            self.exps_cnt = defaultdict(list)
         response = self.message(f"> :moneybag: Check {mode} Signals")
         self.message(", ".join(symbols), True, response.json()["ts"])
         if self.mp_num == 0 or self.mp_num >= len(symbols):
@@ -783,6 +795,7 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
         start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
         ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
         top (``Optional[int]``): Experiment 과정에서 사용할 각 전략별 수
+        methods (``Optional[Dict[str, List[List[Any]]]]``): 사용할 전략들의 함수명 및 parameters
         report: (``Optional[bool]``): Experiment 결과 출력 여부
         token (``Optional[str]``): Slack Bot의 token
         channel (``Optional[str]``): Slack Bot이 전송할 channel
@@ -806,6 +819,7 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
         start_day: Optional[str] = "",
         ohlc: Optional[str] = "",
         top: Optional[int] = 1,
+        methods: Optional[Dict[str, List[List[Any]]]] = None,
         report: Optional[bool] = False,
         token: Optional[str] = None,
         channel: Optional[str] = None,
@@ -825,6 +839,7 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
             start_day,
             ohlc,
             top,
+            methods,
             report,
             token,
             channel,
@@ -870,6 +885,7 @@ class QuantSlackBotFDR(QuantSlackBot):
         start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
         ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
         top (``Optional[int]``): Experiment 과정에서 사용할 각 전략별 수
+        methods (``Optional[Dict[str, List[List[Any]]]]``): 사용할 전략들의 함수명 및 parameters
         report: (``Optional[bool]``): Experiment 결과 출력 여부
         token (``Optional[str]``): Slack Bot의 token
         channel (``Optional[str]``): Slack Bot이 전송할 channel
@@ -894,6 +910,7 @@ class QuantSlackBotFDR(QuantSlackBot):
         start_day: Optional[str] = "",
         ohlc: Optional[str] = "",
         top: Optional[int] = 1,
+        methods: Optional[Dict[str, List[List[Any]]]] = None,
         report: Optional[bool] = False,
         token: Optional[str] = None,
         channel: Optional[str] = None,
@@ -909,6 +926,7 @@ class QuantSlackBotFDR(QuantSlackBot):
             start_day,
             ohlc,
             top,
+            methods,
             report,
             token,
             channel,

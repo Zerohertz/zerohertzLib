@@ -301,13 +301,13 @@ class Experiments:
         self.vis = vis
         self.report = report
         self.exps_moving_average = [
-            [5, 10, 15, 20, 25],
-            [60, 65, 70, 75, 80],
-            [50, 100, 150, 200],
+            [20, 25, 30],
+            [60, 70, 80, 90],
+            [10, 15, 20],
         ]
-        self.exps_rsi = [[10, 20, 25, 30], [70, 75, 80, 85, 90], [14, 21, 31]]
-        self.exps_bollinger_bands = [[20, 30, 40], [1.9, 1.95, 2, 2.05, 2.1]]
-        self.exps_momentum = [[5, 10, 15], [5, 10, 15], [10, 25, 50, 75]]
+        self.exps_rsi = [[10, 15, 20], [65, 70, 75], [25, 30, 35]]
+        self.exps_bollinger_bands = [[30, 40, 50, 60], [1.9, 2, 2.05, 2.1, 2.15]]
+        self.exps_momentum = [[5, 10, 15], [5, 10, 15], [0, 5, 10, 15]]
 
     def _experiments(
         self,
