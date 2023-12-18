@@ -305,27 +305,29 @@ class Balance(KoreaInvestment):
         response = self.get_balance(kor)
         if self.kor:
             for stock in response["output1"]:
-                self.symbols.append(stock["prdt_name"])
-                self.balance["stock"][stock["prdt_name"]] = [
-                    stock["pdno"],  # 종목번호
-                    float(stock["pchs_avg_pric"]),  # 매입평균가격 (매입금액 / 보유수량)
-                    int(stock["prpr"]),  # 현재가
-                    int(stock["hldg_qty"]),  # 보유수량
-                    float(stock["evlu_pfls_rt"]),  # 평가손익율
-                    int(stock["evlu_pfls_amt"]),  # 평가손익금액 (평가금액 - 매입금액)
-                ]
+                if int(stock["hldg_qty"]) > 0:
+                    self.symbols.append(stock["prdt_name"])
+                    self.balance["stock"][stock["prdt_name"]] = [
+                        stock["pdno"],  # 종목번호
+                        float(stock["pchs_avg_pric"]),  # 매입평균가격 (매입금액 / 보유수량)
+                        int(stock["prpr"]),  # 현재가
+                        int(stock["hldg_qty"]),  # 보유수량
+                        float(stock["evlu_pfls_rt"]),  # 평가손익율
+                        int(stock["evlu_pfls_amt"]),  # 평가손익금액 (평가금액 - 매입금액)
+                    ]
             self.balance["cash"] = int(response["output2"][0]["nass_amt"])  # 순자산금액
         else:
             for stock in response["output1"]:
-                self.symbols.append(stock["ovrs_item_name"])
-                self.balance["stock"][stock["ovrs_item_name"]] = [
-                    stock["ovrs_pdno"],  # 종목번호
-                    float(stock["pchs_avg_pric"]),  # 매입평균가격 (매입금액 / 보유수량)
-                    float(stock["now_pric2"]),  # 현재가
-                    int(stock["ovrs_cblc_qty"]),  # 해외잔고수량
-                    float(stock["evlu_pfls_rt"]),  # 평가손익율
-                    float(stock["frcr_evlu_pfls_amt"]),  # 외화평가손익금액
-                ]
+                if int(stock["ovrs_cblc_qty"]) > 0:
+                    self.symbols.append(stock["ovrs_item_name"])
+                    self.balance["stock"][stock["ovrs_item_name"]] = [
+                        stock["ovrs_pdno"],  # 종목번호
+                        float(stock["pchs_avg_pric"]),  # 매입평균가격 (매입금액 / 보유수량)
+                        float(stock["now_pric2"]),  # 현재가
+                        int(stock["ovrs_cblc_qty"]),  # 해외잔고수량
+                        float(stock["evlu_pfls_rt"]),  # 평가손익율
+                        float(stock["frcr_evlu_pfls_amt"]),  # 외화평가손익금액
+                    ]
             self.balance["cash"] = float(
                 response["output2"]["tot_evlu_pfls_amt"]
             )  # 총평가손익금액
