@@ -699,7 +699,7 @@ class QuantSlackBot(SlackBot):
             return None, None
         if today["position"] == "NULL":
             return None, None
-        elif not self.slack:
+        if not self.slack:
             return None, quant
         if mode == "Buy":
             positions = ["Buy"]
