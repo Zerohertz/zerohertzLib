@@ -687,10 +687,12 @@ class QuantSlackBot(SlackBot):
             return None, None
         if mode == "Buy":
             positions = ["Buy"]
-        elif mode != "NULL":
+        else:
             positions = ["Buy", "Sell", "None"]
         if today["position"] in positions:
             return self._report(symbol, quant, today), quant
+        elif today["position"] == "NULL":
+            return None, None
         return None, quant
 
     def _send(self, report: Dict[str, str]) -> None:
