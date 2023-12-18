@@ -42,6 +42,7 @@ def plot(
     stacked: Optional[bool] = False,
     ncol: Optional[int] = 1,
     title: Optional[str] = "tmp",
+    markersize: Optional[int] = 12,
     figsize: Optional[Tuple[int]] = (15, 10),
     dpi: Optional[int] = 300,
     save: Optional[bool] = True,
@@ -58,6 +59,7 @@ def plot(
         stacked (``Optional[bool]``): Stacked plot 여부
         ncol (``Optional[int]``): Graph에 표시될 legend 열의 수
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
+        markersize (``Optional[int]``): Graph에 표시될 marker의 size
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         save (``Optional[bool]``): Graph 저장 여부
@@ -112,7 +114,7 @@ def plot(
             linestyle=linestyle[i % len(linestyle)],
             linewidth=2,
             marker=marker[i % len(marker)],
-            markersize=12,
+            markersize=markersize,
             label=key,
         )
         if stacked:
