@@ -172,7 +172,7 @@ def candle(
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289921835-70b6baae-1075-47dc-9592-aa9d7f75c851.png
             :alt: Visualzation Result
             :align: center
-            :width: 600px
+            :width: 500px
     """
     if not isinstance(threshold, int):
         threshold_sell, threshold_buy = threshold

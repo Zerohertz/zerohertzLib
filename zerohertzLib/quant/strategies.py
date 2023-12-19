@@ -68,7 +68,7 @@ def moving_average(
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289050247-8407baa6-abb9-490a-abc6-37500a05ff22.png
             :alt: Visualzation Result
             :align: center
-            :width: 600px
+            :width: 500px
     """
     signals = pd.DataFrame(index=data.index)
     if ohlc == "":
@@ -149,7 +149,7 @@ def rsi(
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289050264-6993d6ac-de6b-47f8-9657-897e5e66d2fd.png
             :alt: Visualzation Result
             :align: center
-            :width: 600px
+            :width: 500px
     """
     signals = pd.DataFrame(index=data.index)
     if ohlc == "":
@@ -203,7 +203,7 @@ def bollinger_bands(
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288449546-8eb91fb4-c5d1-4aab-ae5d-928a04f1c159.png
             :alt: Visualzation Result
             :align: center
-            :width: 600px
+            :width: 500px
     """
     signals = _bollinger_bands(data, window, num_std_dev)
     signals["signals"] = 0
@@ -266,7 +266,7 @@ def momentum(
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289050257-64e5b1d5-7518-4161-9d40-777f6201cd6b.png
             :alt: Visualzation Result
             :align: center
-            :width: 600px
+            :width: 500px
     """
     signals = pd.DataFrame(index=data.index)
     if ohlc == "":
