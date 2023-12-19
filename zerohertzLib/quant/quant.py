@@ -722,10 +722,15 @@ class QuantSlackBot(SlackBot):
         response = self.message(report["param"], thread_ts=thread_ts)
 
     def _analysis_update(
-        self, methods: Tuple[str], exps: Dict[str, List[Dict[str, int]]]
+        self,
+        methods: Tuple[str],
+        methods_cnt: Dict[str, int],
+        exps: Dict[str, List[Dict[str, int]]],
     ) -> None:
         for method in methods:
-            self.methods_cnt[method.replace("_", " ").upper()] += 1
+            self.miu_cnt[method.replace("_", " ").upper()] += 1
+        for method, cnt in methods_cnt.items():
+            self.methods_cnt[method.replace("_", " ").upper()] += cnt
         for strategy, counts in exps.items():
             if strategy not in self.exps_cnt.keys():
                 self.exps_cnt[strategy] = [defaultdict(int) for _ in range(len(counts))]
@@ -736,7 +741,12 @@ class QuantSlackBot(SlackBot):
     def _analysis_send(self) -> None:
         response = self.message("> :memo: Parameter Analysis")
         thread_ts = response.json()["ts"]
-        path = barv(self.methods_cnt, "전략", "", "Strategy")
+        figure((15, 20))
+        plt.subplot(2, 1, 1)
+        barv(self.miu_cnt, "", "", "Methods in Use", save=False)
+        plt.subplot(2, 1, 2)
+        barv(self.methods_cnt, "", "", "Available Methods", save=False)
+        path = savefig("Methods")
         self.file(path, thread_ts)
         for strategy, counts in self.exps_cnt.items():
             figure((18, 8))
@@ -759,6 +769,7 @@ class QuantSlackBot(SlackBot):
     def _inference(self, symbols: List[str], mode: str) -> None:
         start = time.time()
         if self.analysis:
+            self.miu_cnt = defaultdict(int)
             self.methods_cnt = defaultdict(int)
             self.exps_cnt = defaultdict(list)
         response = self.message(f"> :moneybag: Check {mode} Signals")
@@ -768,7 +779,9 @@ class QuantSlackBot(SlackBot):
                 report, quant = self._run([symbol, mode])
                 self._send(report)
                 if self.analysis and quant is not None:
-                    self._analysis_update(quant.methods, quant.exps_cnt)
+                    self._analysis_update(
+                        quant.methods, quant.methods_cnt, quant.exps_cnt
+                    )
         else:
             args = [[symbol, mode] for symbol in symbols]
             with mp.Pool(processes=self.mp_num) as pool:
@@ -776,7 +789,9 @@ class QuantSlackBot(SlackBot):
             for report, quant in results:
                 self._send(report)
                 if self.analysis and quant is not None:
-                    self._analysis_update(quant.methods, quant.exps_cnt)
+                    self._analysis_update(
+                        quant.methods, quant.methods_cnt, quant.exps_cnt
+                    )
         if self.analysis:
             self._analysis_send()
         end = time.time()
