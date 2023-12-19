@@ -731,7 +731,8 @@ class QuantSlackBot(SlackBot):
         for method in methods:
             self.miu_cnt[method.replace("_", " ").upper()] += 1
         for method, cnt in methods_cnt.items():
-            self.methods_cnt[method.replace("_", " ").upper()] += cnt
+            if cnt > 0:
+                self.methods_cnt[method.replace("_", " ").upper()] += cnt
         for strategy, counts in exps.items():
             if strategy not in self.exps_cnt.keys():
                 self.exps_cnt[strategy] = [defaultdict(int) for _ in range(len(counts))]
@@ -756,15 +757,16 @@ class QuantSlackBot(SlackBot):
                 try:
                     plt.subplot(1, len(counts), idx + 1)
                     barh(count, "", "", "", save=False)
-                except ValueError:
+                except IndexError:
                     stg = False
-                    print(f"'{strategy}' was not used: {count}")
+                    break
             if stg:
                 path = savefig(strategy, dpi=100)
                 self.file(path, thread_ts)
             else:
+                print(f"'{strategy}' was not available: {count}")
                 self.message(
-                    f":no_bell: '{strategy}' was not used", thread_ts=thread_ts
+                    f":no_bell: '{strategy}' was not available", thread_ts=thread_ts
                 )
 
     def _inference(self, symbols: List[str], mode: str) -> None:
