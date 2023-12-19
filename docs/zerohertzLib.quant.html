@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.quant" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.quant.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.6.9 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.7.0 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.6.9 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.7.0 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.quant.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.quant - zerohertzLib v0.6.9 documentation</title>
+        <title>zerohertzLib.quant - zerohertzLib v0.7.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.6.9 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.7.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.6.9 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.7.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -202,6 +202,7 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="release.html">Release Notes</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Release Notes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="release/v0.7.html">v0.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.6.html">v0.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.5.html">v0.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.4.html">v0.4</a></li>
@@ -496,6 +497,23 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.quant.Experiments.macd">
+<span class="sig-name descname"><span class="pre">macd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.Experiments.macd" title="Permalink to this definition">#</a></dt>
+<dd><p>MACD 전략 실험</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.quant.Experiments.macd.params.exps"></span><strong>exps</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.Experiments.macd.params.exps">¶</a> (<code class="docutils literal notranslate"><span class="pre">List[List[Any]]</span></code>) – 전략 함수에 입력될 변수들의 범위</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>손실 거래 비율에 따른 수익률, <code class="docutils literal notranslate"><span class="pre">signals</span></code>, parameters</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">List[Any]]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.quant.Experiments.momentum">
 <span class="sig-name descname"><span class="pre">momentum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.Experiments.momentum" title="Permalink to this definition">#</a></dt>
 <dd><p>Momentum 전략 실험</p>
@@ -665,8 +683,8 @@
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="zerohertzLib.quant.Quant.method_cnt">
-<span class="sig-name descname"><span class="pre">method_cnt</span></span><a class="headerlink" href="#zerohertzLib.quant.Quant.method_cnt" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="zerohertzLib.quant.Quant.methods_cnt">
+<span class="sig-name descname"><span class="pre">methods_cnt</span></span><a class="headerlink" href="#zerohertzLib.quant.Quant.methods_cnt" title="Permalink to this definition">#</a></dt>
 <dd><p>각 전략에 따른 이익이 존재하는 수</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -717,35 +735,35 @@
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">Quant</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">columns</span>
-<span class="go">Index([&#39;moving_average&#39;, &#39;rsi&#39;, &#39;bollinger_bands&#39;, &#39;momentum&#39;, &#39;signals&#39;, &#39;logic&#39;], dtype=&#39;object&#39;)</span>
+<span class="go">Index([&#39;moving_average&#39;, &#39;rsi&#39;, &#39;bollinger_bands&#39;, &#39;momentum&#39;, &#39;macd&#39;, &#39;signals&#39;, &#39;logic&#39;], dtype=&#39;object&#39;)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span><span class="o">.</span><span class="n">methods</span>
-<span class="go">(&#39;moving_average&#39;,)</span>
+<span class="go">(&#39;moving_average&#39;, &#39;bollinger_bands&#39;, &#39;macd&#39;)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span><span class="o">.</span><span class="n">profit</span>
-<span class="go">22.04593267882188</span>
+<span class="go">23.749412256412935</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span><span class="o">.</span><span class="n">buy</span>
-<span class="go">1140800.0</span>
+<span class="go">3828200.0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span><span class="o">.</span><span class="n">sell</span>
-<span class="go">1392300.0</span>
+<span class="go">4737375.0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span><span class="o">.</span><span class="n">transaction</span>
-<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;buy&#39;: [89900.0, ...], &#39;sell&#39;: [107100.0, ...], &#39;profit&#39;: [16.059757236227824, ...], &#39;period&#39;: [79, ...]})</span>
+<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;buy&#39;: [92850.0, ...], &#39;sell&#39;: [105275.0, ...], &#39;profit&#39;: [11.802422227499406, ...], &#39;period&#39;: [205, ...]})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span><span class="o">.</span><span class="n">threshold_buy</span>
 <span class="go">1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span><span class="o">.</span><span class="n">threshold_sell</span>
-<span class="go">-1</span>
+<span class="go">-4</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span><span class="o">.</span><span class="n">total_cnt</span>
-<span class="go">3</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span><span class="o">.</span><span class="n">method_cnt</span>
-<span class="go">defaultdict(&lt;class &#39;int&#39;&gt;, {&#39;moving_average&#39;: 3, &#39;rsi&#39;: 3, &#39;bollinger_bands&#39;: 3, &#39;momentum&#39;: 3})</span>
+<span class="go">9</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span><span class="o">.</span><span class="n">methods_cnt</span>
+<span class="go">defaultdict(&lt;class &#39;int&#39;&gt;, {&#39;moving_average&#39;: 3, &#39;rsi&#39;: 3, &#39;bollinger_bands&#39;: 3, &#39;momentum&#39;: 1, &#39;macd&#39;: 3})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span><span class="o">.</span><span class="n">exps_cnt</span>
-<span class="go">defaultdict(None, {&#39;moving_average&#39;: [defaultdict(&lt;class &#39;int&#39;&gt;, {&#39;15&#39;: 3}), ...], ...})</span>
+<span class="go">defaultdict(None, {&#39;moving_average&#39;: [defaultdict(&lt;class &#39;int&#39;&gt;, {&#39;20&#39;: 3}), ...], ...})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span><span class="o">.</span><span class="n">exps_str</span>
-<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;moving_average&#39;: [&#39;15-75-100&#39;, &#39;15-80-100&#39;, &#39;15-80-150&#39;], ...})</span>
+<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;moving_average&#39;: [&#39;20-70-1.0&#39;, &#39;20-60-1.0&#39;, &#39;20-70-0.0&#39;], ...})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span><span class="p">()</span>
-<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;moving_average&#39;: [0.0, 0.0], &#39;logic&#39;: 0, &#39;total&#39;: [0.0, 0.0], &#39;position&#39;: &#39;None&#39;})</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span><span class="p">(</span><span class="s2">&quot;20221208&quot;</span><span class="p">)</span>
-<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;moving_average&#39;: [0.0, 0.0], &#39;logic&#39;: 2, &#39;total&#39;: [0.0, 0.0], &#39;position&#39;: &#39;Buy&#39;})</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span><span class="p">(</span><span class="s2">&quot;2023-11-22&quot;</span><span class="p">)</span>
-<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;moving_average&#39;: [2.0, 66.66666666666666], &#39;logic&#39;: 0, &#39;total&#39;: [2.0, 66.66666666666666], &#39;position&#39;: &#39;Buy&#39;})</span>
+<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;moving_average&#39;: [0, 0.0], &#39;bollinger_bands&#39;: [0, 0.0], &#39;macd&#39;: [0, 0.0], &#39;logic&#39;: 0, &#39;total&#39;: [0, 0.0], &#39;position&#39;: &#39;None&#39;})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span><span class="p">(</span><span class="s2">&quot;20231211&quot;</span><span class="p">)</span>
+<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;moving_average&#39;: [0, 0.0], &#39;bollinger_bands&#39;: [3, 100.0], &#39;macd&#39;: [0, 0.0], &#39;logic&#39;: 1, &#39;total&#39;: [3, 33.33333333333333], &#39;position&#39;: &#39;Buy&#39;})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span><span class="p">(</span><span class="s2">&quot;2023-12-08&quot;</span><span class="p">)</span>
+<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;moving_average&#39;: [0, 0.0], &#39;bollinger_bands&#39;: [3, 100.0], &#39;macd&#39;: [0, 0.0], &#39;logic&#39;: 1, &#39;total&#39;: [3, 33.33333333333333], &#39;position&#39;: &#39;Buy&#39;})</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -990,7 +1008,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.quant.bollinger_bands">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">bollinger_bands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_std_dev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohlc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.bollinger_bands" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">bollinger_bands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_std_dev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohlc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.bollinger_bands" title="Permalink to this definition">#</a></dt>
 <dd><p>Bollinger band 기반 매수 및 매도 signal을 생성하는 함수</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1030,14 +1048,15 @@
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">bollinger_bands</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="go">             middle_band    upper_band    lower_band  signals</span>
-<span class="go">2022-12-05           NaN           NaN           NaN        0</span>
-<span class="go">...                  ...           ...           ...      ...</span>
-<span class="go">2023-12-05  72371.428571  73228.137390  71514.719753        0</span>
-<span class="go">[248 rows x 4 columns]</span>
+<span class="go">              middle_band     upper_band    lower_band  signals</span>
+<span class="go">Date</span>
+<span class="go">2022-01-03            NaN            NaN           NaN        0</span>
+<span class="go">...                   ...            ...           ...      ...</span>
+<span class="go">2023-12-19  102771.666667  111527.577705  94015.755629        0</span>
+<span class="go">[485 rows x 4 columns]</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288449546-8eb91fb4-c5d1-4aab-ae5d-928a04f1c159.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288449546-8eb91fb4-c5d1-4aab-ae5d-928a04f1c159.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657567-c6144db8-0762-4dad-b7bd-13f55a3610bd.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657567-c6144db8-0762-4dad-b7bd-13f55a3610bd.png" style="width: 500px;" /></a>
 </dd></dl>
 
 <dl class="py function">
@@ -1095,8 +1114,66 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="zerohertzLib.quant.macd">
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">macd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_fast</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_signal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohlc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.macd" title="Permalink to this definition">#</a></dt>
+<dd><p>MACD 기반 매수 및 매도 signal을 생성하는 함수</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>MACD (Moving Average Convergence Divergence)</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Definition: 빠른 EMA (<code class="docutils literal notranslate"><span class="pre">n_fast</span></code>)와 느린 EMA (<code class="docutils literal notranslate"><span class="pre">n_slow</span></code>)의 차이</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">n_slow</span> <span class="pre">=</span> <span class="pre">n_fast</span> <span class="pre">*</span> <span class="pre">2</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Mean</dt><dd><ul>
+<li><p>EMA (Exponential Moving Average): 최근 가격에 더 많은 가중치를 두어 계산하는 이동 평균</p></li>
+<li><p>Signal line: MACD의 추세를 평활화하여 추세의 방향과 강도를 파악</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<ul class="simple">
+<li><p>매수 신호 (<code class="docutils literal notranslate"><span class="pre">+1</span></code>): MACD가 signal line 위로 상승할 때 생성 (상승 추세)</p></li>
+<li><p>매도 신호 (<code class="docutils literal notranslate"><span class="pre">-1</span></code>): MACD가 signal line 아래로 하락할 때 생성 (하락 추세)</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.quant.macd.params.data"></span><strong>data</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.macd.params.data">¶</a> (<code class="docutils literal notranslate"><span class="pre">pd.core.frame.DataFrame</span></code>) – OHLCV (Open, High, Low, Close, Volume) data</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.macd.params.n_fast"></span><strong>n_fast</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.macd.params.n_fast">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – 빠른 EMA 계산을 위한 기간</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.macd.params.n_signal"></span><strong>n_signal</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.macd.params.n_signal">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – MACD signal line 계산을 위한 기간</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.macd.params.ohlc"></span><strong>ohlc</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.macd.params.ohlc">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Momentum을 계산할 때 사용할 <code class="docutils literal notranslate"><span class="pre">data</span></code> 의 column 이름</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>각 날짜에 대한 signal (<code class="docutils literal notranslate"><span class="pre">&quot;signals&quot;</span></code>) 정보</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">pd.core.frame.DataFrame</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">macd</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="go">                   MACD  signals</span>
+<span class="go">Date</span>
+<span class="go">2022-01-03     0.000000        0</span>
+<span class="go">...                 ...      ...</span>
+<span class="go">2023-12-19 -1950.006134        0</span>
+<span class="go">[485 rows x 2 columns]</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657572-5821c232-b6bb-4de0-aee7-0921da672bce.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657572-5821c232-b6bb-4de0-aee7-0921da672bce.png" style="width: 500px;" /></a>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.quant.momentum">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">momentum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avg_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mnt_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohlc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.momentum" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">momentum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohlc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.momentum" title="Permalink to this definition">#</a></dt>
 <dd><p>Momentum 기반 매수 및 매도 signal을 생성하는 함수</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1122,9 +1199,7 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><span class="target" id="zerohertzLib.quant.momentum.params.data"></span><strong>data</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.momentum.params.data">¶</a> (<code class="docutils literal notranslate"><span class="pre">pd.core.frame.DataFrame</span></code>) – OHLCV (Open, High, Low, Close, Volume) data</p></li>
-<li><p><span class="target" id="zerohertzLib.quant.momentum.params.avg_window"></span><strong>avg_window</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.momentum.params.avg_window">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – 이동 평균을 계산하기 위한 widnow 크기</p></li>
-<li><p><span class="target" id="zerohertzLib.quant.momentum.params.mnt_window"></span><strong>mnt_window</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.momentum.params.mnt_window">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – Momentum을 계산하기 위한 widnow 크기</p></li>
-<li><p><span class="target" id="zerohertzLib.quant.momentum.params.gap"></span><strong>gap</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.momentum.params.gap">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – Momentum의 threshold를 산정하기 위한 평균 주가의 분모</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.momentum.params.window"></span><strong>window</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.momentum.params.window">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – Momentum을 계산하기 위한 widnow 크기</p></li>
 <li><p><span class="target" id="zerohertzLib.quant.momentum.params.ohlc"></span><strong>ohlc</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.momentum.params.ohlc">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Momentum을 계산할 때 사용할 <code class="docutils literal notranslate"><span class="pre">data</span></code> 의 column 이름</p></li>
 </ul>
 </dd>
@@ -1138,18 +1213,19 @@
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">momentum</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="go">            momentum  signals</span>
-<span class="go">2022-12-05       NaN      0.0</span>
+<span class="go">Date</span>
+<span class="go">2022-01-03       NaN        0</span>
 <span class="go">...              ...      ...</span>
-<span class="go">2023-12-05     190.0      0.0</span>
-<span class="go">[248 rows x 2 columns]</span>
+<span class="go">2023-12-19     550.0        0</span>
+<span class="go">[485 rows x 2 columns]</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289050257-64e5b1d5-7518-4161-9d40-777f6201cd6b.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289050257-64e5b1d5-7518-4161-9d40-777f6201cd6b.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657579-3d299fee-020e-4f0f-afdd-74843f9838a9.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657579-3d299fee-020e-4f0f-afdd-74843f9838a9.png" style="width: 500px;" /></a>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.quant.moving_average">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">moving_average</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">long_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohlc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.moving_average" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">moving_average</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">long_window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohlc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.moving_average" title="Permalink to this definition">#</a></dt>
 <dd><p>단기 및 장기 이동 평균 기반 매수 및 매도 signal을 생성하는 함수</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1168,7 +1244,7 @@
 <li><p><span class="target" id="zerohertzLib.quant.moving_average.params.data"></span><strong>data</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.moving_average.params.data">¶</a> (<code class="docutils literal notranslate"><span class="pre">pd.core.frame.DataFrame</span></code>) – OHLCV (Open, High, Low, Close, Volume) data</p></li>
 <li><p><span class="target" id="zerohertzLib.quant.moving_average.params.short_window"></span><strong>short_window</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.moving_average.params.short_window">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – 단기 이동 평균을 계산하기 위한 window 크기</p></li>
 <li><p><span class="target" id="zerohertzLib.quant.moving_average.params.long_window"></span><strong>long_window</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.moving_average.params.long_window">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – 장기 이동 평균을 계산하기 위한 widnow 크기</p></li>
-<li><p><span class="target" id="zerohertzLib.quant.moving_average.params.gap"></span><strong>gap</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.moving_average.params.gap">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – 이동 평균 간의 threshold를 산정하기 위한 평균 주가의 분모</p></li>
+<li><p><span class="target" id="zerohertzLib.quant.moving_average.params.threshold"></span><strong>threshold</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.moving_average.params.threshold">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[float]</span></code>) – 신호를 발생 시킬 임계값</p></li>
 <li><p><span class="target" id="zerohertzLib.quant.moving_average.params.ohlc"></span><strong>ohlc</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.quant.moving_average.params.ohlc">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 이동 평균을 계산할 때 사용할 <code class="docutils literal notranslate"><span class="pre">data</span></code> 의 column 이름</p></li>
 </ul>
 </dd>
@@ -1181,19 +1257,20 @@
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">moving_average</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="go">            short_mavg  long_mavg  signals</span>
-<span class="go">2022-12-05    60575.00   60575.00      0.0</span>
-<span class="go">...                ...        ...      ...</span>
-<span class="go">2023-12-05    72255.00   69838.50      1.0</span>
-<span class="go">[248 rows x 3 columns]</span>
+<span class="go">            short_mavg    long_mavg  signals</span>
+<span class="go">Date</span>
+<span class="go">2022-01-03  139375.000  139375.0000        0</span>
+<span class="go">...                ...          ...      ...</span>
+<span class="go">2023-12-19  102450.000  102337.1875        0</span>
+<span class="go">[485 rows x 3 columns]</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289050247-8407baa6-abb9-490a-abc6-37500a05ff22.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289050247-8407baa6-abb9-490a-abc6-37500a05ff22.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657583-2fc7bf03-18f4-4f64-aa68-4baa70321acb.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657583-2fc7bf03-18f4-4f64-aa68-4baa70321acb.png" style="width: 500px;" /></a>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.quant.rsi">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">rsi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lower_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">70</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohlc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.rsi" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.quant.</span></span><span class="sig-name descname"><span class="pre">rsi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lower_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper_bound</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohlc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.quant.rsi" title="Permalink to this definition">#</a></dt>
 <dd><p>RSI 기반 매수 및 매도 signal을 생성하는 함수</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1243,13 +1320,14 @@
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">rsi</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="go">                  RSI  signals</span>
-<span class="go">2022-12-05        NaN        0</span>
+<span class="go">Date</span>
+<span class="go">2022-01-03        NaN        0</span>
 <span class="go">...               ...      ...</span>
-<span class="go">2023-12-05  58.563536        0</span>
-<span class="go">[248 rows x 2 columns]</span>
+<span class="go">2023-12-19  35.671343        0</span>
+<span class="go">[485 rows x 2 columns]</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289050264-6993d6ac-de6b-47f8-9657-897e5e66d2fd.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289050264-6993d6ac-de6b-47f8-9657-897e5e66d2fd.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657592-b3dfe58e-c593-4d8c-bf93-b1a8dff25cde.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657592-b3dfe58e-c593-4d8c-bf93-b1a8dff25cde.png" style="width: 500px;" /></a>
 </dd></dl>
 
 </section>
@@ -1327,6 +1405,7 @@
 </li>
 <li><a class="reference internal" href="#zerohertzLib.quant.Experiments"><code class="docutils literal notranslate"><span class="pre">Experiments</span></code></a><ul>
 <li><a class="reference internal" href="#zerohertzLib.quant.Experiments.bollinger_bands"><code class="docutils literal notranslate"><span class="pre">Experiments.bollinger_bands()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.quant.Experiments.macd"><code class="docutils literal notranslate"><span class="pre">Experiments.macd()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.quant.Experiments.momentum"><code class="docutils literal notranslate"><span class="pre">Experiments.momentum()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.quant.Experiments.moving_average"><code class="docutils literal notranslate"><span class="pre">Experiments.moving_average()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.quant.Experiments.rsi"><code class="docutils literal notranslate"><span class="pre">Experiments.rsi()</span></code></a></li>
@@ -1342,7 +1421,7 @@
 <li><a class="reference internal" href="#zerohertzLib.quant.Quant.threshold_buy"><code class="docutils literal notranslate"><span class="pre">Quant.threshold_buy</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.quant.Quant.threshold_sell"><code class="docutils literal notranslate"><span class="pre">Quant.threshold_sell</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.quant.Quant.total_cnt"><code class="docutils literal notranslate"><span class="pre">Quant.total_cnt</span></code></a></li>
-<li><a class="reference internal" href="#zerohertzLib.quant.Quant.method_cnt"><code class="docutils literal notranslate"><span class="pre">Quant.method_cnt</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.quant.Quant.methods_cnt"><code class="docutils literal notranslate"><span class="pre">Quant.methods_cnt</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.quant.Quant.exps_cnt"><code class="docutils literal notranslate"><span class="pre">Quant.exps_cnt</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.quant.Quant.exps_str"><code class="docutils literal notranslate"><span class="pre">Quant.exps_str</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.quant.Quant.__getitem__"><code class="docutils literal notranslate"><span class="pre">Quant.__getitem__()</span></code></a></li>
@@ -1369,6 +1448,7 @@
 <li><a class="reference internal" href="#zerohertzLib.quant.backtest"><code class="docutils literal notranslate"><span class="pre">backtest()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.quant.bollinger_bands"><code class="docutils literal notranslate"><span class="pre">bollinger_bands()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.quant.experiments"><code class="docutils literal notranslate"><span class="pre">experiments()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.quant.macd"><code class="docutils literal notranslate"><span class="pre">macd()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.quant.momentum"><code class="docutils literal notranslate"><span class="pre">momentum()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.quant.moving_average"><code class="docutils literal notranslate"><span class="pre">moving_average()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.quant.rsi"><code class="docutils literal notranslate"><span class="pre">rsi()</span></code></a></li>
@@ -1385,7 +1465,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=8bd258a4"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=7deca5eb"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

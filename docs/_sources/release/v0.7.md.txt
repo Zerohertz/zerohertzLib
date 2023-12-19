@@ -1,0 +1,52 @@
+# v0.7
+
+## v0.7.0
+
+<h3>[v0.7.0] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/187>#187</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2023/12/19
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/api"><img src="https://img.shields.io/badge/feat/api-541B9A?style=flat-square&logo=github" alt="feat/api"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/monitoring"><img src="https://img.shields.io/badge/feat/monitoring-31395C?style=flat-square&logo=github" alt="feat/monitoring"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/plot"><img src="https://img.shields.io/badge/feat/plot-968B14?style=flat-square&logo=github" alt="feat/plot"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/vision"><img src="https://img.shields.io/badge/feat/vision-D1F9CB?style=flat-square&logo=github" alt="feat/vision"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:style"><img src="https://img.shields.io/badge/style-03A17F?style=flat-square&logo=github" alt="style"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/quant"><img src="https://img.shields.io/badge/feat/quant-ededed?style=flat-square&logo=github" alt="feat/quant"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `api`
+  + `KoreaInvestment` class에 주식 계좌 잔고의 국내 실현손익 조회 함수 `get_conclusion` 추가
++ `monitoring`
+  + `storage` 함수의 저장된 graph의 절대 경로 return update
++ `plot`
+  + 함수 `barv`와 `barh`에 대해 stacked plot 활성화
++ `quant`
+  + 함수 `moving_average`, `momentum`의 반복문 제거 및 `pandas`를 통한 속도 개선
+  + `Quant` class의 전략 조합 backtest 과정에서 모든 전략을 사용하지 않았던 오류 수정
+  + `QuantSlackBot` class에서 사용한 전략과 유효한 전략들의 수를 시각화 후 Slack으로 전송
+  + `macd` 전략 개발
++ `vision`
+  + `ImageLoader` class의 `__getitem__` method 사용 시 image의 경로도 함께 return하도록 update
+
+<h4>Chore</h4>
+
++ `plot` submodule의 PyTest code 수정
+
+<h4>Style</h4>
+
++ `Quant` class 내 모호한 변수명 수정
+
+<h4>Docs</h4>
+
++ 문서 내 image 크기 조정
+

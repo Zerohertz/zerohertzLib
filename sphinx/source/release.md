@@ -4,6 +4,7 @@
 .. toctree::
 	:maxdepth: 1
 
+	release/v0.7
 	release/v0.6
 	release/v0.5
 	release/v0.4
