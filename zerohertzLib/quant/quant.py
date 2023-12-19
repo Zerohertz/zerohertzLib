@@ -759,12 +759,12 @@ class QuantSlackBot(SlackBot):
                     barh(count, "", "", "", save=False)
                 except IndexError:
                     stg = False
+                    print(f"'{strategy}' was not available: {count}")
                     break
             if stg:
                 path = savefig(strategy, dpi=100)
                 self.file(path, thread_ts)
             else:
-                print(f"'{strategy}' was not available: {count}")
                 self.message(
                     f":no_bell: '{strategy}' was not available", thread_ts=thread_ts
                 )
