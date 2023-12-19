@@ -62,7 +62,7 @@ class Quant(Experiments):
         threshold_buy (``int``): 융합된 전략의 매수 signal threshold
         threshold_sell (``int``): 융합된 전략의 매도 signal threshold
         total_cnt (``int``): 융합된 전략의 수
-        method_cnt (``Dict[str, int]``): 각 전략에 따른 이익이 존재하는 수
+        methods_cnt (``Dict[str, int]``): 각 전략에 따른 이익이 존재하는 수
         exps_cnt (``Dict[str, List[Dict[str, int]]]``): 각 전략과 parameter에 따른 이익이 존재하는 수
         exps_str (``Dict[str, List[str]]``): 각 전략에 따른 이익이 존재하는 paramter 문자열
 
@@ -96,7 +96,7 @@ class Quant(Experiments):
         -1
         >>> qnt.total_cnt
         3
-        >>> qnt.method_cnt
+        >>> qnt.methods_cnt
         defaultdict(<class 'int'>, {'moving_average': 3, 'rsi': 3, 'bollinger_bands': 3, 'momentum': 3})
         >>> qnt.exps_cnt
         defaultdict(None, {'moving_average': [defaultdict(<class 'int'>, {'15': 3}), ...], ...})
@@ -122,7 +122,7 @@ class Quant(Experiments):
         super().__init__(title, data, ohlc, False, report)
         self.signals = pd.DataFrame(index=data.index)
         self.total_cnt = 0
-        self.method_cnt = defaultdict(int)
+        self.methods_cnt = defaultdict(int)
         self.exps_cnt = defaultdict()
         self.exps_str = defaultdict(list)
         if methods is None:
@@ -153,7 +153,7 @@ class Quant(Experiments):
                         self.exps_str[method].append(exp_str)
                         for i, ex in enumerate(exp_tup):
                             exps_cnt[i][str(ex)] += 1
-                        self.method_cnt[method] += 1
+                        self.methods_cnt[method] += 1
                         is_profit += 1
                 self.exps_cnt[method] = exps_cnt
             else:
@@ -165,8 +165,8 @@ class Quant(Experiments):
                 for methods_in_use in combinations(methods.keys(), cnt):
                     miu_total = 0
                     for miu in methods_in_use:
-                        miu_total += self.method_cnt[miu]
-                        if self.method_cnt[miu] < 1:
+                        miu_total += self.methods_cnt[miu]
+                        if self.methods_cnt[miu] < 1:
                             miu_total = 0
                             break
                     if miu_total == 0:
@@ -214,7 +214,7 @@ class Quant(Experiments):
         for key in self.methods:
             possibility[key] = [
                 self.signals[key][day],
-                self.signals[key][day] / self.method_cnt[key] * 100,
+                self.signals[key][day] / self.methods_cnt[key] * 100,
             ]
         possibility["logic"] = self.signals["logic"][day]
         possibility["total"] = [
@@ -647,7 +647,7 @@ class QuantSlackBot(SlackBot):
         for key in quant.methods:
             report[
                 "main"
-            ] += f"\t\t:hammer: {key.replace('_', ' ').upper()}: {today[key][1]:.2f}% (`{int(today[key][0])}/{int(quant.method_cnt[key])}`)\n"
+            ] += f"\t\t:hammer: {key.replace('_', ' ').upper()}: {today[key][1]:.2f}% (`{int(today[key][0])}/{int(quant.methods_cnt[key])}`)\n"
             report[
                 "param"
             ] += f"\n\t:hammer: {key.replace('_', ' ').upper()}: `{'`, `'.join(quant.exps_str[key])}`"
