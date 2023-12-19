@@ -166,13 +166,14 @@ def candle(
         ``str``: 저장된 graph의 절대 경로
 
     Examples:
-        >>> qnt = zz.quant.Quant(title, data)
-        >>> zz.plot.candle(qnt.data, qnt.title, signals=qnt.signals.loc[:, [*qnt.methods, "signals", "logic"]], threshold=(qnt.threshold_sell, qnt.threshold_buy))
+        >>> zz.plot.candle(data, title)
+        >>> signals = zz.quant.macd(data)
+        >>> zz.plot.candle(data, "MACD", signals=signals)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289921835-70b6baae-1075-47dc-9592-aa9d7f75c851.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657597-1d957685-2a5a-4aed-9992-eaecdd12a5ae.png
             :alt: Visualzation Result
             :align: center
-            :width: 500px
+            :width: 600px
     """
     if not isinstance(threshold, int):
         threshold_sell, threshold_buy = threshold

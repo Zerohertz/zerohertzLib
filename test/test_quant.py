@@ -32,12 +32,18 @@ def test_momentum_backtest():
     zz.quant.backtest(DATA, signals)
 
 
+def test_macd_backtest():
+    signals = zz.quant.macd(DATA)
+    zz.quant.backtest(DATA, signals)
+
+
 def test_experiments():
     experiments = zz.quant.Experiments("Test", DATA)
     experiments.moving_average()
     experiments.rsi()
     experiments.bollinger_bands()
     experiments.momentum()
+    experiments.macd()
 
 
 def test_quant():

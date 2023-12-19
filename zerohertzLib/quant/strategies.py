@@ -32,9 +32,9 @@ from .util import _bollinger_bands, _rsi
 
 def moving_average(
     data: pd.core.frame.DataFrame,
-    short_window: Optional[int] = 20,
+    short_window: Optional[int] = 40,
     long_window: Optional[int] = 80,
-    threshold: Optional[float] = 1.0,
+    threshold: Optional[float] = 0.0,
     ohlc: Optional[str] = "",
 ) -> pd.core.frame.DataFrame:
     """단기 및 장기 이동 평균 기반 매수 및 매도 signal을 생성하는 함수
@@ -59,13 +59,14 @@ def moving_average(
 
     Examples:
         >>> zz.quant.moving_average(data)
-                    short_mavg  long_mavg  signals
-        2022-12-05    60575.00   60575.00      0.0
-        ...                ...        ...      ...
-        2023-12-05    72255.00   69838.50      1.0
-        [248 rows x 3 columns]
+                    short_mavg    long_mavg  signals
+        Date
+        2022-01-03  139375.000  139375.0000        0
+        ...                ...          ...      ...
+        2023-12-19  102450.000  102337.1875        0
+        [485 rows x 3 columns]
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289050247-8407baa6-abb9-490a-abc6-37500a05ff22.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657583-2fc7bf03-18f4-4f64-aa68-4baa70321acb.png
             :alt: Visualzation Result
             :align: center
             :width: 500px
@@ -88,12 +89,10 @@ def moving_average(
     feature = signals["short_mavg"] - signals["long_mavg"]
     threshold = feature.abs().mean() * threshold
     signals["signals"] = 0
-    condition_positive = feature > threshold
-    condition_negative = feature < -threshold
-    signals.loc[condition_positive, "signals"] = 1
-    signals.loc[condition_negative, "signals"] = -1
-    buy_signals = (signals["signals"] == 1) & (signals["signals"].shift(1) == 0)
-    sell_signals = (signals["signals"] == -1) & (signals["signals"].shift(1) == 0)
+    signals.loc[feature > threshold, "signals"] = 1
+    signals.loc[feature < -threshold, "signals"] = -1
+    buy_signals = (signals["signals"] == 1) & (signals["signals"].shift(1) < 1)
+    sell_signals = (signals["signals"] == -1) & (signals["signals"].shift(1) > -1)
     signals["signals"] = 0
     signals.loc[buy_signals, "signals"] = 1
     signals.loc[sell_signals, "signals"] = -1
@@ -103,7 +102,7 @@ def moving_average(
 def rsi(
     data: pd.core.frame.DataFrame,
     lower_bound: Optional[int] = 10,
-    upper_bound: Optional[int] = 70,
+    upper_bound: Optional[int] = 80,
     window: Optional[int] = 30,
     ohlc: Optional[str] = "",
 ) -> pd.core.frame.DataFrame:
@@ -138,12 +137,13 @@ def rsi(
     Examples:
         >>> zz.quant.rsi(data)
                           RSI  signals
-        2022-12-05        NaN        0
+        Date
+        2022-01-03        NaN        0
         ...               ...      ...
-        2023-12-05  58.563536        0
-        [248 rows x 2 columns]
+        2023-12-19  35.671343        0
+        [485 rows x 2 columns]
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289050264-6993d6ac-de6b-47f8-9657-897e5e66d2fd.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657592-b3dfe58e-c593-4d8c-bf93-b1a8dff25cde.png
             :alt: Visualzation Result
             :align: center
             :width: 500px
@@ -163,7 +163,7 @@ def rsi(
 def bollinger_bands(
     data: pd.core.frame.DataFrame,
     window: Optional[int] = 60,
-    num_std_dev: Optional[float] = 2.15,
+    num_std_dev: Optional[float] = 2.5,
     ohlc: Optional[str] = "",
 ) -> pd.core.frame.DataFrame:
     """Bollinger band 기반 매수 및 매도 signal을 생성하는 함수
@@ -191,13 +191,14 @@ def bollinger_bands(
 
     Examples:
         >>> zz.quant.bollinger_bands(data)
-                     middle_band    upper_band    lower_band  signals
-        2022-12-05           NaN           NaN           NaN        0
-        ...                  ...           ...           ...      ...
-        2023-12-05  72371.428571  73228.137390  71514.719753        0
-        [248 rows x 4 columns]
+                      middle_band     upper_band    lower_band  signals
+        Date
+        2022-01-03            NaN            NaN           NaN        0
+        ...                   ...            ...           ...      ...
+        2023-12-19  102771.666667  111527.577705  94015.755629        0
+        [485 rows x 4 columns]
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/288449546-8eb91fb4-c5d1-4aab-ae5d-928a04f1c159.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657567-c6144db8-0762-4dad-b7bd-13f55a3610bd.png
             :alt: Visualzation Result
             :align: center
             :width: 500px
@@ -251,12 +252,13 @@ def momentum(
     Examples:
         >>> zz.quant.momentum(data)
                     momentum  signals
-        2022-12-05       NaN      0.0
+        Date
+        2022-01-03       NaN        0
         ...              ...      ...
-        2023-12-05     190.0      0.0
-        [248 rows x 2 columns]
+        2023-12-19     550.0        0
+        [485 rows x 2 columns]
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289050257-64e5b1d5-7518-4161-9d40-777f6201cd6b.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657579-3d299fee-020e-4f0f-afdd-74843f9838a9.png
             :alt: Visualzation Result
             :align: center
             :width: 500px
@@ -268,6 +270,72 @@ def momentum(
         signals["momentum"] = data[ohlc].diff(window)
     buy_signals = (signals["momentum"] > 0) & (signals["momentum"].shift(1) < 0)
     sell_signals = (signals["momentum"] < 0) & (signals["momentum"].shift(1) > 0)
+    signals["signals"] = 0
+    signals.loc[buy_signals, "signals"] = 1
+    signals.loc[sell_signals, "signals"] = -1
+    return signals
+
+
+def macd(
+    data,
+    n_fast: Optional[int] = 12,
+    n_signal: Optional[int] = 9,
+    ohlc: Optional[str] = "",
+) -> pd.core.frame.DataFrame:
+    """MACD 기반 매수 및 매도 signal을 생성하는 함수
+
+    Note:
+        MACD (Moving Average Convergence Divergence)
+
+        - Definition: 빠른 EMA (``n_fast``)와 느린 EMA (``n_slow``)의 차이
+            - ``n_slow = n_fast * 2``
+        - Mean
+            - EMA (Exponential Moving Average): 최근 가격에 더 많은 가중치를 두어 계산하는 이동 평균
+            - Signal line: MACD의 추세를 평활화하여 추세의 방향과 강도를 파악
+
+    - 매수 신호 (``+1``): MACD가 signal line 위로 상승할 때 생성 (상승 추세)
+    - 매도 신호 (``-1``): MACD가 signal line 아래로 하락할 때 생성 (하락 추세)
+
+    Args:
+        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+        n_fast (``Optional[int]``): 빠른 EMA 계산을 위한 기간
+        n_signal (``Optional[int]``): MACD signal line 계산을 위한 기간
+        ohlc (``Optional[str]``): Momentum을 계산할 때 사용할 ``data`` 의 column 이름
+
+    Returns:
+        ``pd.core.frame.DataFrame``: 각 날짜에 대한 signal (``"signals"``) 정보
+
+    Examples:
+        >>> zz.quant.macd(data)
+                           MACD  signals
+        Date
+        2022-01-03     0.000000        0
+        ...                 ...      ...
+        2023-12-19 -1950.006134        0
+        [485 rows x 2 columns]
+
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657572-5821c232-b6bb-4de0-aee7-0921da672bce.png
+            :alt: Visualzation Result
+            :align: center
+            :width: 500px
+    """
+    n_slow = n_fast * 2
+    if ohlc == "":
+        signals = pd.DataFrame(index=data.index)
+        data_ = data.iloc[:, :4].mean(1)
+    else:
+        data_ = data[ohlc]
+    ema_fast = data_.ewm(span=n_fast, adjust=False).mean()
+    ema_slow = data_.ewm(span=n_slow, adjust=False).mean()
+    signals["MACD"] = 0
+    signals["MACD"] = ema_fast - ema_slow
+    signal = signals["MACD"].ewm(span=n_signal, adjust=False).mean()
+    macd_diff = signals["MACD"] - signal
+    signals["signals"] = 0
+    signals.loc[macd_diff > 0, "signals"] = 1
+    signals.loc[macd_diff < 0, "signals"] = -1
+    buy_signals = (signals["signals"] > 0) & (signals["signals"].shift(1) < 0)
+    sell_signals = (signals["signals"] < 0) & (signals["signals"].shift(1) > 0)
     signals["signals"] = 0
     signals.loc[buy_signals, "signals"] = 1
     signals.loc[sell_signals, "signals"] = -1

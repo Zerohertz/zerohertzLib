@@ -20,7 +20,13 @@ from zerohertzLib.quant.quant import (
     QuantSlackBotFDR,
     QuantSlackBotKI,
 )
-from zerohertzLib.quant.strategies import bollinger_bands, momentum, moving_average, rsi
+from zerohertzLib.quant.strategies import (
+    bollinger_bands,
+    macd,
+    momentum,
+    moving_average,
+    rsi,
+)
 
 __all__ = [
     "moving_average",
@@ -35,4 +41,5 @@ __all__ = [
     "QuantSlackBotKI",
     "Balance",
     "QuantSlackBotFDR",
+    "macd",
 ]

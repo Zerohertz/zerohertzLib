@@ -131,6 +131,7 @@ class Quant(Experiments):
                 "rsi": self.exps_rsi,
                 "bollinger_bands": self.exps_bollinger_bands,
                 "momentum": self.exps_momentum,
+                "macd": self.exps_macd,
             }
         # 선정한 전략들의 parameter 최적화
         is_profit = 0
