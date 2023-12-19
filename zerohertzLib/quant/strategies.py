@@ -277,7 +277,7 @@ def momentum(
 
 
 def macd(
-    data,
+    data: pd.core.frame.DataFrame,
     n_fast: Optional[int] = 12,
     n_signal: Optional[int] = 9,
     ohlc: Optional[str] = "",
