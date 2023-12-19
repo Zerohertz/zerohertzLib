@@ -320,8 +320,8 @@ def macd(
             :width: 500px
     """
     n_slow = n_fast * 2
+    signals = pd.DataFrame(index=data.index)
     if ohlc == "":
-        signals = pd.DataFrame(index=data.index)
         data_ = data.iloc[:, :4].mean(1)
     else:
         data_ = data[ohlc]
