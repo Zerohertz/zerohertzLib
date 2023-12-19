@@ -218,7 +218,7 @@ def experiments(
         if profit_total == 0:
             continue
         if vis:
-            candle(data, f"{title}-{exp_str}", signals=signals, dpi=dpi)
+            candle(data[-500:], f"{title}-{exp_str}", signals=signals, dpi=dpi)
         results.append(
             (
                 profit_total,
@@ -307,7 +307,7 @@ class Experiments:
         ]
         self.exps_rsi = [[10, 15, 20], [65, 70, 75], [25, 30, 35]]
         self.exps_bollinger_bands = [[30, 40, 50, 60], [1.9, 2, 2.05, 2.1, 2.15]]
-        self.exps_momentum = [[5, 10, 15], [5, 10, 15], [0, 5, 10, 15]]
+        self.exps_momentum = [[5, 10, 15]]
 
     def _experiments(
         self,

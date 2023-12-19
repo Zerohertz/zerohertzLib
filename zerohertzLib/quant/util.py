@@ -28,7 +28,7 @@ from typing import Optional
 import pandas as pd
 
 
-def _rsi(data: pd.core.frame.DataFrame, window: int) -> float:
+def _rsi(data: pd.core.frame.DataFrame, window: int) -> pd.core.frame.DataFrame:
     """RSI (Relative Strength Index)를 계산하는 함수
 
     Args:
@@ -36,7 +36,7 @@ def _rsi(data: pd.core.frame.DataFrame, window: int) -> float:
         window (``int``): Window의 크기
 
     Returns:
-        ``float``: RSI 값
+        ``pd.core.frame.DataFrame``: RSI 값
     """
     delta = data.diff()
     up, down = delta.copy(), delta.copy()

@@ -161,8 +161,8 @@ class Quant(Experiments):
         # 전략 간 조합 최적화
         if is_profit >= 1:
             backtests = []
-            for cnt in range(1, len(methods)):
-                for methods_in_use in combinations(methods, cnt):
+            for cnt in range(1, len(methods) + 1):
+                for methods_in_use in combinations(methods.keys(), cnt):
                     miu_total = 0
                     for miu in methods_in_use:
                         miu_total += self.method_cnt[miu]
@@ -678,7 +678,7 @@ class QuantSlackBot(SlackBot):
             if len(data) < 20:
                 return None, None
         except KeyError as error:
-            response = self.message(f":x: '`{symbol}`' was not found")
+            response = self.message(f":x: `{symbol}` was not found")
             self.message(str(error), True, response.json()["ts"])
             self.message(traceback.format_exc(), True, response.json()["ts"])
             return None, None
@@ -693,7 +693,9 @@ class QuantSlackBot(SlackBot):
             )
             today = quant()
         except IndexError as error:
-            self.message(f":x: '`{symbol}`' ({title}): {data.index[0]} ({len(data)})")
+            response = self.message(
+                f":x: `{symbol}` ({title}): {data.index[0]} ({len(data)})"
+            )
             self.message(str(error), True, response.json()["ts"])
             self.message(traceback.format_exc(), True, response.json()["ts"])
             return None, None

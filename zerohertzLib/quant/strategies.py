@@ -34,7 +34,7 @@ def moving_average(
     data: pd.core.frame.DataFrame,
     short_window: Optional[int] = 20,
     long_window: Optional[int] = 80,
-    gap: Optional[int] = 10,
+    threshold: Optional[float] = 1.0,
     ohlc: Optional[str] = "",
 ) -> pd.core.frame.DataFrame:
     """단기 및 장기 이동 평균 기반 매수 및 매도 signal을 생성하는 함수
@@ -51,7 +51,7 @@ def moving_average(
         data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         short_window (``Optional[int]``): 단기 이동 평균을 계산하기 위한 window 크기
         long_window (``Optional[int]``): 장기 이동 평균을 계산하기 위한 widnow 크기
-        gap (``Optional[int]``): 이동 평균 간의 threshold를 산정하기 위한 평균 주가의 분모
+        threshold (``Optional[float]``): 신호를 발생 시킬 임계값
         ohlc (``Optional[str]``): 이동 평균을 계산할 때 사용할 ``data`` 의 column 이름
 
     Returns:
@@ -85,21 +85,18 @@ def moving_average(
         signals["long_mavg"] = (
             data[ohlc].rolling(window=long_window, min_periods=1).mean()
         )
-    if gap != 0:
-        gap = data.iloc[:, :4].mean().mean() / gap
-    signals["signals"] = 0.0
-    prev = 0
-    for i in range(len(signals)):
-        short = signals["short_mavg"].iloc[i]
-        long = signals["long_mavg"].iloc[i]
-        if short > long + gap:
-            if prev == -1:
-                signals.loc[signals.index[i], "signals"] = 1
-            prev = 1
-        elif short + gap < long:
-            if prev == 1:
-                signals.loc[signals.index[i], "signals"] = -1
-            prev = -1
+    feature = signals["short_mavg"] - signals["long_mavg"]
+    threshold = feature.abs().mean() * threshold
+    signals["signals"] = 0
+    condition_positive = feature > threshold
+    condition_negative = feature < -threshold
+    signals.loc[condition_positive, "signals"] = 1
+    signals.loc[condition_negative, "signals"] = -1
+    buy_signals = (signals["signals"] == 1) & (signals["signals"].shift(1) == 0)
+    sell_signals = (signals["signals"] == -1) & (signals["signals"].shift(1) == 0)
+    signals["signals"] = 0
+    signals.loc[buy_signals, "signals"] = 1
+    signals.loc[sell_signals, "signals"] = -1
     return signals
 
 
@@ -226,9 +223,7 @@ def bollinger_bands(
 
 def momentum(
     data: pd.core.frame.DataFrame,
-    avg_window: Optional[int] = 5,
-    mnt_window: Optional[int] = 5,
-    gap: Optional[int] = 5,
+    window: Optional[int] = 5,
     ohlc: Optional[str] = "",
 ) -> pd.core.frame.DataFrame:
     """Momentum 기반 매수 및 매도 signal을 생성하는 함수
@@ -247,9 +242,7 @@ def momentum(
 
     Args:
         data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
-        avg_window (``Optional[int]``): 이동 평균을 계산하기 위한 widnow 크기
-        mnt_window (``Optional[int]``): Momentum을 계산하기 위한 widnow 크기
-        gap (``Optional[int]``): Momentum의 threshold를 산정하기 위한 평균 주가의 분모
+        window (``Optional[int]``): Momentum을 계산하기 위한 widnow 크기
         ohlc (``Optional[str]``): Momentum을 계산할 때 사용할 ``data`` 의 column 이름
 
     Returns:
@@ -270,20 +263,12 @@ def momentum(
     """
     signals = pd.DataFrame(index=data.index)
     if ohlc == "":
-        signals["momentum"] = (
-            data.iloc[:, :4].mean(1).rolling(window=avg_window).mean().diff(mnt_window)
-        )
+        signals["momentum"] = data.iloc[:, :4].mean(1).diff(window)
     else:
-        signals["momentum"] = (
-            data[ohlc].rolling(window=avg_window).mean().diff(mnt_window)
-        )
-    if gap != 0:
-        gap = data.iloc[:, :4].mean().mean() / gap
-    signals["signals"] = 0.0
-    for i in range(len(signals)):
-        mnt = signals["momentum"].iloc[i]
-        if mnt > gap:
-            signals.loc[signals.index[i], "signals"] = 1
-        elif mnt < -gap:
-            signals.loc[signals.index[i], "signals"] = -1
+        signals["momentum"] = data[ohlc].diff(window)
+    buy_signals = (signals["momentum"] > 0) & (signals["momentum"].shift(1) < 0)
+    sell_signals = (signals["momentum"] < 0) & (signals["momentum"].shift(1) > 0)
+    signals["signals"] = 0
+    signals.loc[buy_signals, "signals"] = 1
+    signals.loc[sell_signals, "signals"] = -1
     return signals
