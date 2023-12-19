@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.plot" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.plot.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.6.9 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.7.0 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.6.9 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.7.0 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.plot.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.plot - zerohertzLib v0.6.9 documentation</title>
+        <title>zerohertzLib.plot - zerohertzLib v0.7.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.6.9 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.7.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.6.9 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.7.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -202,6 +202,7 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="release.html">Release Notes</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Release Notes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="release/v0.7.html">v0.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.6.html">v0.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.5.html">v0.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.4.html">v0.4</a></li>
@@ -266,7 +267,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.plot.barh.params.data"></span><strong>data</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.barh.params.data">¶</a> (<code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">Union[int,</span> <span class="pre">float]]</span></code>) – 입력 데이터</p></li>
+<li><p><span class="target" id="zerohertzLib.plot.barh.params.data"></span><strong>data</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.barh.params.data">¶</a> (<code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">Any]</span></code>) – 입력 데이터</p></li>
 <li><p><span class="target" id="zerohertzLib.plot.barh.params.xlab"></span><strong>xlab</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.barh.params.xlab">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Graph에 출력될 X축 label</p></li>
 <li><p><span class="target" id="zerohertzLib.plot.barh.params.ylab"></span><strong>ylab</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.barh.params.ylab">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Graph에 출력될 Y축 label</p></li>
 <li><p><span class="target" id="zerohertzLib.plot.barh.params.title"></span><strong>title</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.barh.params.title">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Graph에 표시될 제목 및 file 이름</p></li>
@@ -287,9 +288,11 @@
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;테란&quot;</span><span class="p">:</span> <span class="mi">27</span><span class="p">,</span> <span class="s2">&quot;저그&quot;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span> <span class="s2">&quot;프로토스&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">xlab</span><span class="o">=</span><span class="s2">&quot;인구 [명]&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s2">&quot;종족&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Star Craft&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;yticks&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;테란&quot;</span><span class="p">,</span> <span class="s2">&quot;저그&quot;</span><span class="p">,</span> <span class="s2">&quot;프로토스&quot;</span><span class="p">],</span> <span class="s2">&quot;Type A&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="s2">&quot;Type B&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;Type C&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span> <span class="s2">&quot;Type D&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">xlab</span><span class="o">=</span><span class="s2">&quot;시간 [초]&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s2">&quot;종족&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Star Craft&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280707484-361611aa-f1bd-4909-b2a2-fadc26aa1416.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280707484-361611aa-f1bd-4909-b2a2-fadc26aa1416.png" style="width: 375px;" /></a>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291453365-e5cd1d87-8938-4f9f-8d81-ce8051ef6a68.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291453365-e5cd1d87-8938-4f9f-8d81-ce8051ef6a68.png" style="width: 450px;" /></a>
 </dd></dl>
 
 <dl class="py function">
@@ -299,7 +302,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.plot.barv.params.data"></span><strong>data</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.barv.params.data">¶</a> (<code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">Union[int,</span> <span class="pre">float]]</span></code>) – 입력 데이터</p></li>
+<li><p><span class="target" id="zerohertzLib.plot.barv.params.data"></span><strong>data</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.barv.params.data">¶</a> (<code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">Any]</span></code>) – 입력 데이터</p></li>
 <li><p><span class="target" id="zerohertzLib.plot.barv.params.xlab"></span><strong>xlab</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.barv.params.xlab">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Graph에 출력될 X축 label</p></li>
 <li><p><span class="target" id="zerohertzLib.plot.barv.params.ylab"></span><strong>ylab</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.barv.params.ylab">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Graph에 출력될 Y축 label</p></li>
 <li><p><span class="target" id="zerohertzLib.plot.barv.params.title"></span><strong>title</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.plot.barv.params.title">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Graph에 표시될 제목 및 file 이름</p></li>
@@ -320,9 +323,11 @@
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;테란&quot;</span><span class="p">:</span> <span class="mi">27</span><span class="p">,</span> <span class="s2">&quot;저그&quot;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span> <span class="s2">&quot;프로토스&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barv</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">xlab</span><span class="o">=</span><span class="s2">&quot;종족&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s2">&quot;인구 [명]&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Star Craft&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;xticks&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;테란&quot;</span><span class="p">,</span> <span class="s2">&quot;저그&quot;</span><span class="p">,</span> <span class="s2">&quot;프로토스&quot;</span><span class="p">],</span> <span class="s2">&quot;Type A&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="s2">&quot;Type B&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;Type C&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span> <span class="s2">&quot;Type D&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barv</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">xlab</span><span class="o">=</span><span class="s2">&quot;종족&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s2">&quot;시간 [초]&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Star Craft&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280595386-1c930639-762a-47b7-9ae1-1babf789803c.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280595386-1c930639-762a-47b7-9ae1-1babf789803c.png" style="width: 500px;" /></a>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291453369-55c38b80-9edd-4d6a-ae01-ff834676d541.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291453369-55c38b80-9edd-4d6a-ae01-ff834676d541.png" style="width: 600px;" /></a>
 </dd></dl>
 
 <dl class="py function">
@@ -359,11 +364,12 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">qnt</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">Quant</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">candle</span><span class="p">(</span><span class="n">qnt</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">qnt</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="n">signals</span><span class="o">=</span><span class="n">qnt</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="o">*</span><span class="n">qnt</span><span class="o">.</span><span class="n">methods</span><span class="p">,</span> <span class="s2">&quot;signals&quot;</span><span class="p">,</span> <span class="s2">&quot;logic&quot;</span><span class="p">]],</span> <span class="n">threshold</span><span class="o">=</span><span class="p">(</span><span class="n">qnt</span><span class="o">.</span><span class="n">threshold_sell</span><span class="p">,</span> <span class="n">qnt</span><span class="o">.</span><span class="n">threshold_buy</span><span class="p">))</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">candle</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">signals</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">quant</span><span class="o">.</span><span class="n">macd</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">candle</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;MACD&quot;</span><span class="p">,</span> <span class="n">signals</span><span class="o">=</span><span class="n">signals</span><span class="p">)</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289921835-70b6baae-1075-47dc-9592-aa9d7f75c851.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/289921835-70b6baae-1075-47dc-9592-aa9d7f75c851.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657597-1d957685-2a5a-4aed-9992-eaecdd12a5ae.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657597-1d957685-2a5a-4aed-9992-eaecdd12a5ae.png" style="width: 600px;" /></a>
 </dd></dl>
 
 <dl class="py function">
@@ -710,7 +716,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=8bd258a4"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=7deca5eb"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
