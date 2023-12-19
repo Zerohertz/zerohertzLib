@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 import sys
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 import numpy as np
 from matplotlib import pyplot as plt
@@ -31,7 +31,7 @@ from .util import color, savefig
 
 
 def barv(
-    data: Dict[str, Union[int, float]],
+    data: Dict[str, Any],
     xlab: Optional[str] = "변수 [단위]",
     ylab: Optional[str] = "빈도 [단위]",
     title: Optional[str] = "tmp",
@@ -44,7 +44,7 @@ def barv(
     """Dictionary로 입력받은 데이터를 가로 bar chart로 시각화
 
     Args:
-        data (``Dict[str, Union[int, float]]``): 입력 데이터
+        data (``Dict[str, Any]``): 입력 데이터
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
@@ -60,49 +60,79 @@ def barv(
     Examples:
         >>> data = {"테란": 27, "저그": 40, "프로토스": 30}
         >>> zz.plot.barv(data, xlab="종족", ylab="인구 [명]", title="Star Craft")
+        >>> data = {"xticks": ["테란", "저그", "프로토스"], "Type A": [4, 5, 6], "Type B": [4, 3, 2], "Type C": [8, 5, 12], "Type D": [6, 3, 2]}
+        >>> zz.plot.barv(data, xlab="종족", ylab="시간 [초]", title="Star Craft")
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280595386-1c930639-762a-47b7-9ae1-1babf789803c.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291453369-55c38b80-9edd-4d6a-ae01-ff834676d541.png
             :alt: Visualzation Result
             :align: center
-            :width: 500px
+            :width: 600px
     """
     colors = color(len(data))
     if len(data) == 1:
         colors = [colors]
     if save:
         plt.figure(figsize=figsize)
-    bars = plt.bar(
-        data.keys(),
-        data.values(),
-        color=colors,
-        zorder=2,
-    )
+    if isinstance(list(data.values())[-1], list):
+        data = data.copy()
+        try:
+            xticks = data.pop("xticks")
+        except KeyError:
+            xticks = list(range(len(list(data.values())[-1])))
+        bottom = np.array([0 for _ in range(len(list(data.values())[-1]))])
+        for i, (key, value) in enumerate(data.items()):
+            bars = plt.bar(
+                xticks, value, color=colors[i], zorder=2, label=key, bottom=bottom
+            )
+            bottom += np.array(value)
+        plt.legend()
+        plt.ylim([0, 1.1 * bottom.max()])
+        if per:
+            maximum = bottom.max()
+            total = bottom.sum()
+            for bar_, bot in zip(bars, bottom):
+                percentage = (bot / total) * 100
+                plt.text(
+                    bar_.get_x() + bar_.get_width() / 2,
+                    bot + maximum * 0.01,
+                    f"{percentage:.1f}%",
+                    ha="center",
+                    va="bottom",
+                )
+    else:
+        bars = plt.bar(
+            data.keys(),
+            data.values(),
+            color=colors,
+            zorder=2,
+        )
+        if min(data.values()) > 0:
+            plt.ylim([0, 1.1 * max(list(data.values()))])
+        if per:
+            maximum = max(list(data.values()))
+            total = sum(list(data.values()))
+            for bar_ in bars:
+                height = bar_.get_height()
+                percentage = (height / total) * 100
+                plt.text(
+                    bar_.get_x() + bar_.get_width() / 2,
+                    height + maximum * 0.01,
+                    f"{percentage:.1f}%",
+                    ha="center",
+                    va="bottom",
+                )
     plt.grid(zorder=0)
     plt.xlabel(xlab)
     plt.ylabel(ylab)
     plt.xticks(rotation=rot)
-    if min(data.values()) > 0:
-        plt.ylim([0, 1.1 * max(list(data.values()))])
     plt.title(title, fontsize=25)
-    if per:
-        total = sum(list(data.values()))
-        for bar_ in bars:
-            height = bar_.get_height()
-            percentage = (height / total) * 100
-            plt.text(
-                bar_.get_x() + bar_.get_width() / 2,
-                height,
-                f"{percentage:.1f}%",
-                ha="center",
-                va="bottom",
-            )
     if save:
         return savefig(title, dpi)
     return None
 
 
 def barh(
-    data: Dict[str, Union[int, float]],
+    data: Dict[str, Any],
     xlab: Optional[str] = "빈도 [단위]",
     ylab: Optional[str] = "변수 [단위]",
     title: Optional[str] = "tmp",
@@ -115,7 +145,7 @@ def barh(
     """Dictionary로 입력받은 데이터를 세로 bar chart로 시각화
 
     Args:
-        data (``Dict[str, Union[int, float]]``): 입력 데이터
+        data (``Dict[str, Any]``): 입력 데이터
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
@@ -131,44 +161,74 @@ def barh(
     Examples:
         >>> data = {"테란": 27, "저그": 40, "프로토스": 30}
         >>> zz.plot.barh(data, xlab="인구 [명]", ylab="종족", title="Star Craft")
+        >>> data = {"yticks": ["테란", "저그", "프로토스"], "Type A": [4, 5, 6], "Type B": [4, 3, 2], "Type C": [8, 5, 12], "Type D": [6, 3, 2]}
+        >>> zz.plot.barh(data, xlab="시간 [초]", ylab="종족", title="Star Craft")
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280707484-361611aa-f1bd-4909-b2a2-fadc26aa1416.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291453365-e5cd1d87-8938-4f9f-8d81-ce8051ef6a68.png
             :alt: Visualzation Result
             :align: center
-            :width: 375px
+            :width: 450px
     """
     colors = color(len(data))
     if len(data) == 1:
         colors = [colors]
     if save:
         plt.figure(figsize=figsize)
-    bars = plt.barh(
-        list(data.keys()),
-        list(data.values()),
-        color=colors,
-        zorder=2,
-    )
+    if isinstance(list(data.values())[-1], list):
+        data = data.copy()
+        try:
+            yticks = data.pop("yticks")
+        except KeyError:
+            yticks = list(range(len(list(data.values())[-1])))
+        left = np.array([0 for _ in range(len(list(data.values())[-1]))])
+        for i, (key, value) in enumerate(data.items()):
+            bars = plt.barh(
+                yticks, value, color=colors[i], zorder=2, label=key, left=left
+            )
+            left += np.array(value)
+        plt.legend()
+        plt.xlim([0, 1.1 * left.max()])
+        if per:
+            maximum = left.max()
+            total = left.sum()
+            for bar_, left_ in zip(bars, left):
+                percentage = (left_ / total) * 100
+                plt.text(
+                    left_ + maximum * 0.01,
+                    bar_.get_y() + bar_.get_height() / 2,
+                    f"{percentage:.1f}%",
+                    ha="left",
+                    va="center",
+                    rotation=270,
+                )
+    else:
+        bars = plt.barh(
+            list(data.keys()),
+            list(data.values()),
+            color=colors,
+            zorder=2,
+        )
+        if min(data.values()) > 0:
+            plt.xlim([0, 1.1 * max(list(data.values()))])
+        if per:
+            maximum = max(list(data.values()))
+            total = sum(list(data.values()))
+            for bar_ in bars:
+                width = bar_.get_width()
+                percentage = (width / total) * 100
+                plt.text(
+                    width + maximum * 0.01,
+                    bar_.get_y() + bar_.get_height() / 2,
+                    f"{percentage:.1f}%",
+                    ha="left",
+                    va="center",
+                    rotation=270,
+                )
     plt.grid(zorder=0)
     plt.xlabel(xlab)
     plt.ylabel(ylab)
     plt.yticks(rotation=rot)
-    if min(data.values()) > 0:
-        plt.xlim([0, 1.1 * max(list(data.values()))])
     plt.title(title, fontsize=25)
-    if per:
-        maximum = max(list(data.values()))
-        total = sum(list(data.values()))
-        for bar_ in bars:
-            width = bar_.get_width()
-            percentage = (width / total) * 100
-            plt.text(
-                width + maximum * 0.01,
-                bar_.get_y() + bar_.get_height() / 2,
-                f"{percentage:.1f}%",
-                ha="left",
-                va="center",
-                rotation=270,
-            )
     if save:
         return savefig(title, dpi)
     return None

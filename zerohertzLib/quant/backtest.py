@@ -31,7 +31,7 @@ from prettytable import PrettyTable
 
 from zerohertzLib.plot import candle
 
-from .strategies import bollinger_bands, momentum, moving_average, rsi
+from .strategies import bollinger_bands, macd, momentum, moving_average, rsi
 
 
 def backtest(
@@ -218,7 +218,7 @@ def experiments(
         if profit_total == 0:
             continue
         if vis:
-            candle(data, f"{title}-{exp_str}", signals=signals, dpi=dpi)
+            candle(data[-500:], f"{title}-{exp_str}", signals=signals, dpi=dpi)
         results.append(
             (
                 profit_total,
@@ -300,14 +300,11 @@ class Experiments:
         self.ohlc = ohlc
         self.vis = vis
         self.report = report
-        self.exps_moving_average = [
-            [20, 25, 30],
-            [60, 70, 80, 90],
-            [10, 15, 20],
-        ]
-        self.exps_rsi = [[10, 15, 20], [65, 70, 75], [25, 30, 35]]
-        self.exps_bollinger_bands = [[30, 40, 50, 60], [1.9, 2, 2.05, 2.1, 2.15]]
-        self.exps_momentum = [[5, 10, 15], [5, 10, 15], [0, 5, 10, 15]]
+        self.exps_moving_average = [[20, 30, 40], [60, 70, 80], [0.0, 0.5, 1.0]]
+        self.exps_rsi = [[10, 15, 20], [60, 70, 80], [15, 30]]
+        self.exps_bollinger_bands = [[10, 30, 60], [1.9, 2, 2.25, 2.5]]
+        self.exps_momentum = [[5, 10, 15, 30]]
+        self.exps_macd = [[6, 12, 24, 36], [5, 9, 18]]
 
     def _experiments(
         self,
@@ -375,3 +372,16 @@ class Experiments:
         if exps is None:
             exps = self.exps_momentum
         return self._experiments(momentum, exps)
+
+    def macd(self, exps: List[List[Any]] = None) -> Dict[str, List[Any]]:
+        """MACD 전략 실험
+
+        Args:
+            exps (``List[List[Any]]``): 전략 함수에 입력될 변수들의 범위
+
+        Returns:
+            ``Dict[str, List[Any]]``: 손실 거래 비율에 따른 수익률, ``signals``, parameters
+        """
+        if exps is None:
+            exps = self.exps_macd
+        return self._experiments(macd, exps)

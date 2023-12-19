@@ -62,7 +62,7 @@ class Quant(Experiments):
         threshold_buy (``int``): 융합된 전략의 매수 signal threshold
         threshold_sell (``int``): 융합된 전략의 매도 signal threshold
         total_cnt (``int``): 융합된 전략의 수
-        method_cnt (``Dict[str, int]``): 각 전략에 따른 이익이 존재하는 수
+        methods_cnt (``Dict[str, int]``): 각 전략에 따른 이익이 존재하는 수
         exps_cnt (``Dict[str, List[Dict[str, int]]]``): 각 전략과 parameter에 따른 이익이 존재하는 수
         exps_str (``Dict[str, List[str]]``): 각 전략에 따른 이익이 존재하는 paramter 문자열
 
@@ -79,35 +79,35 @@ class Quant(Experiments):
     Examples:
         >>> qnt = zz.quant.Quant(title, data, top=3)
         >>> qnt.signals.columns
-        Index(['moving_average', 'rsi', 'bollinger_bands', 'momentum', 'signals', 'logic'], dtype='object')
+        Index(['moving_average', 'rsi', 'bollinger_bands', 'momentum', 'macd', 'signals', 'logic'], dtype='object')
         >>> qnt.methods
-        ('moving_average',)
+        ('moving_average', 'bollinger_bands', 'macd')
         >>> qnt.profit
-        22.04593267882188
+        23.749412256412935
         >>> qnt.buy
-        1140800.0
+        3828200.0
         >>> qnt.sell
-        1392300.0
+        4737375.0
         >>> qnt.transaction
-        defaultdict(<class 'list'>, {'buy': [89900.0, ...], 'sell': [107100.0, ...], 'profit': [16.059757236227824, ...], 'period': [79, ...]})
+        defaultdict(<class 'list'>, {'buy': [92850.0, ...], 'sell': [105275.0, ...], 'profit': [11.802422227499406, ...], 'period': [205, ...]})
         >>> qnt.threshold_buy
         1
         >>> qnt.threshold_sell
-        -1
+        -4
         >>> qnt.total_cnt
-        3
-        >>> qnt.method_cnt
-        defaultdict(<class 'int'>, {'moving_average': 3, 'rsi': 3, 'bollinger_bands': 3, 'momentum': 3})
+        9
+        >>> qnt.methods_cnt
+        defaultdict(<class 'int'>, {'moving_average': 3, 'rsi': 3, 'bollinger_bands': 3, 'momentum': 1, 'macd': 3})
         >>> qnt.exps_cnt
-        defaultdict(None, {'moving_average': [defaultdict(<class 'int'>, {'15': 3}), ...], ...})
+        defaultdict(None, {'moving_average': [defaultdict(<class 'int'>, {'20': 3}), ...], ...})
         >>> qnt.exps_str
-        defaultdict(<class 'list'>, {'moving_average': ['15-75-100', '15-80-100', '15-80-150'], ...})
+        defaultdict(<class 'list'>, {'moving_average': ['20-70-1.0', '20-60-1.0', '20-70-0.0'], ...})
         >>> qnt()
-        defaultdict(<class 'list'>, {'moving_average': [0.0, 0.0], 'logic': 0, 'total': [0.0, 0.0], 'position': 'None'})
-        >>> qnt("20221208")
-        defaultdict(<class 'list'>, {'moving_average': [0.0, 0.0], 'logic': 2, 'total': [0.0, 0.0], 'position': 'Buy'})
-        >>> qnt("2023-11-22")
-        defaultdict(<class 'list'>, {'moving_average': [2.0, 66.66666666666666], 'logic': 0, 'total': [2.0, 66.66666666666666], 'position': 'Buy'})
+        defaultdict(<class 'list'>, {'moving_average': [0, 0.0], 'bollinger_bands': [0, 0.0], 'macd': [0, 0.0], 'logic': 0, 'total': [0, 0.0], 'position': 'None'})
+        >>> qnt("20231211")
+        defaultdict(<class 'list'>, {'moving_average': [0, 0.0], 'bollinger_bands': [3, 100.0], 'macd': [0, 0.0], 'logic': 1, 'total': [3, 33.33333333333333], 'position': 'Buy'})
+        >>> qnt("2023-12-08")
+        defaultdict(<class 'list'>, {'moving_average': [0, 0.0], 'bollinger_bands': [3, 100.0], 'macd': [0, 0.0], 'logic': 1, 'total': [3, 33.33333333333333], 'position': 'Buy'})
     """
 
     def __init__(
@@ -122,7 +122,7 @@ class Quant(Experiments):
         super().__init__(title, data, ohlc, False, report)
         self.signals = pd.DataFrame(index=data.index)
         self.total_cnt = 0
-        self.method_cnt = defaultdict(int)
+        self.methods_cnt = defaultdict(int)
         self.exps_cnt = defaultdict()
         self.exps_str = defaultdict(list)
         if methods is None:
@@ -131,6 +131,7 @@ class Quant(Experiments):
                 "rsi": self.exps_rsi,
                 "bollinger_bands": self.exps_bollinger_bands,
                 "momentum": self.exps_momentum,
+                "macd": self.exps_macd,
             }
         # 선정한 전략들의 parameter 최적화
         is_profit = 0
@@ -153,7 +154,7 @@ class Quant(Experiments):
                         self.exps_str[method].append(exp_str)
                         for i, ex in enumerate(exp_tup):
                             exps_cnt[i][str(ex)] += 1
-                        self.method_cnt[method] += 1
+                        self.methods_cnt[method] += 1
                         is_profit += 1
                 self.exps_cnt[method] = exps_cnt
             else:
@@ -161,12 +162,12 @@ class Quant(Experiments):
         # 전략 간 조합 최적화
         if is_profit >= 1:
             backtests = []
-            for cnt in range(1, len(methods)):
-                for methods_in_use in combinations(methods, cnt):
+            for cnt in range(1, len(methods) + 1):
+                for methods_in_use in combinations(methods.keys(), cnt):
                     miu_total = 0
                     for miu in methods_in_use:
-                        miu_total += self.method_cnt[miu]
-                        if self.method_cnt[miu] < 1:
+                        miu_total += self.methods_cnt[miu]
+                        if self.methods_cnt[miu] < 1:
                             miu_total = 0
                             break
                     if miu_total == 0:
@@ -214,7 +215,7 @@ class Quant(Experiments):
         for key in self.methods:
             possibility[key] = [
                 self.signals[key][day],
-                self.signals[key][day] / self.method_cnt[key] * 100,
+                self.signals[key][day] / self.methods_cnt[key] * 100,
             ]
         possibility["logic"] = self.signals["logic"][day]
         possibility["total"] = [
@@ -647,7 +648,7 @@ class QuantSlackBot(SlackBot):
         for key in quant.methods:
             report[
                 "main"
-            ] += f"\t\t:hammer: {key.replace('_', ' ').upper()}: {today[key][1]:.2f}% (`{int(today[key][0])}/{int(quant.method_cnt[key])}`)\n"
+            ] += f"\t\t:hammer: {key.replace('_', ' ').upper()}: {today[key][1]:.2f}% (`{int(today[key][0])}/{int(quant.methods_cnt[key])}`)\n"
             report[
                 "param"
             ] += f"\n\t:hammer: {key.replace('_', ' ').upper()}: `{'`, `'.join(quant.exps_str[key])}`"
@@ -678,7 +679,7 @@ class QuantSlackBot(SlackBot):
             if len(data) < 20:
                 return None, None
         except KeyError as error:
-            response = self.message(f":x: '`{symbol}`' was not found")
+            response = self.message(f":x: `{symbol}` was not found")
             self.message(str(error), True, response.json()["ts"])
             self.message(traceback.format_exc(), True, response.json()["ts"])
             return None, None
@@ -693,7 +694,9 @@ class QuantSlackBot(SlackBot):
             )
             today = quant()
         except IndexError as error:
-            self.message(f":x: '`{symbol}`' ({title}): {data.index[0]} ({len(data)})")
+            response = self.message(
+                f":x: `{symbol}` ({title}): {data.index[0]} ({len(data)})"
+            )
             self.message(str(error), True, response.json()["ts"])
             self.message(traceback.format_exc(), True, response.json()["ts"])
             return None, None
@@ -720,10 +723,16 @@ class QuantSlackBot(SlackBot):
         response = self.message(report["param"], thread_ts=thread_ts)
 
     def _analysis_update(
-        self, methods: Tuple[str], exps: Dict[str, List[Dict[str, int]]]
+        self,
+        methods: Tuple[str],
+        methods_cnt: Dict[str, int],
+        exps: Dict[str, List[Dict[str, int]]],
     ) -> None:
         for method in methods:
-            self.methods_cnt[method.replace("_", " ").upper()] += 1
+            self.miu_cnt[method.replace("_", " ").upper()] += 1
+        for method, cnt in methods_cnt.items():
+            if cnt > 0:
+                self.methods_cnt[method.replace("_", " ").upper()] += cnt
         for strategy, counts in exps.items():
             if strategy not in self.exps_cnt.keys():
                 self.exps_cnt[strategy] = [defaultdict(int) for _ in range(len(counts))]
@@ -734,7 +743,12 @@ class QuantSlackBot(SlackBot):
     def _analysis_send(self) -> None:
         response = self.message("> :memo: Parameter Analysis")
         thread_ts = response.json()["ts"]
-        path = barv(self.methods_cnt, "전략", "", "Strategy")
+        figure((15, 20))
+        plt.subplot(2, 1, 1)
+        barv(self.miu_cnt, "", "", "Methods in Use", save=False)
+        plt.subplot(2, 1, 2)
+        barv(self.methods_cnt, "", "", "Available Methods", save=False)
+        path = savefig("Methods")
         self.file(path, thread_ts)
         for strategy, counts in self.exps_cnt.items():
             figure((18, 8))
@@ -743,20 +757,22 @@ class QuantSlackBot(SlackBot):
                 try:
                     plt.subplot(1, len(counts), idx + 1)
                     barh(count, "", "", "", save=False)
-                except ValueError:
+                except IndexError:
                     stg = False
-                    print(f"'{strategy}' was not used: {count}")
+                    print(f"'{strategy}' was not available: {count}")
+                    break
             if stg:
                 path = savefig(strategy, dpi=100)
                 self.file(path, thread_ts)
             else:
                 self.message(
-                    f":no_bell: '{strategy}' was not used", thread_ts=thread_ts
+                    f":no_bell: '{strategy}' was not available", thread_ts=thread_ts
                 )
 
     def _inference(self, symbols: List[str], mode: str) -> None:
         start = time.time()
         if self.analysis:
+            self.miu_cnt = defaultdict(int)
             self.methods_cnt = defaultdict(int)
             self.exps_cnt = defaultdict(list)
         response = self.message(f"> :moneybag: Check {mode} Signals")
@@ -766,7 +782,9 @@ class QuantSlackBot(SlackBot):
                 report, quant = self._run([symbol, mode])
                 self._send(report)
                 if self.analysis and quant is not None:
-                    self._analysis_update(quant.methods, quant.exps_cnt)
+                    self._analysis_update(
+                        quant.methods, quant.methods_cnt, quant.exps_cnt
+                    )
         else:
             args = [[symbol, mode] for symbol in symbols]
             with mp.Pool(processes=self.mp_num) as pool:
@@ -774,7 +792,9 @@ class QuantSlackBot(SlackBot):
             for report, quant in results:
                 self._send(report)
                 if self.analysis and quant is not None:
-                    self._analysis_update(quant.methods, quant.exps_cnt)
+                    self._analysis_update(
+                        quant.methods, quant.methods_cnt, quant.exps_cnt
+                    )
         if self.analysis:
             self._analysis_send()
         end = time.time()

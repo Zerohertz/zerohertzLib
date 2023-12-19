@@ -80,23 +80,27 @@ class ImageLoader:
                 idx (``int``): 입력 index
 
             Returns:
-                ``Union[NDArray[np.uint8], List[NDArray[np.uint8]]]``: ``cnt`` 에 따라 단일 image 또는 image들의 list
+                ``Union[Tuple[str, NDArray[np.uint8]], Tuple[List[str], List[NDArray[np.uint8]]]``: ``cnt`` 에 따른 file 경로 및 image 값
 
     Examples:
         >>> il = zz.vision.ImageLoader()
         >>> len(il)
-        27
-        >>> type(il[0])
-        <class 'numpy.ndarray'>
+        510
+        >>> il[0][0]
+        './1.2.410.200001.1.9999.1.20220513101953581.1.1.jpg'
+        >>> il[0][1].shape
+        (480, 640, 3)
         >>> il = zz.vision.ImageLoader(cnt=4)
         >>> len(il)
-        7
-        >>> type(il[0])
-        <class 'list'>
-        >>> len(il[0])
+        128
+        >>> il[0][0]
+        ['./1.2.410.200001.1.9999.1.20220513101953581.1.1.jpg', '...', '...', '...']
+        >>> il[0][1][0].shape
+        (480, 640, 3)
+        >>> len(il[0][0])
         4
-        >>> type(il[0][0])
-        <class 'numpy.ndarray'>
+        >>> len(il[0][1])
+        4
     """
 
     def __init__(self, path: Optional[str] = "./", cnt: Optional[int] = 1) -> None:
@@ -109,10 +113,14 @@ class ImageLoader:
 
     def __getitem__(
         self, idx: int
-    ) -> Union[NDArray[np.uint8], List[NDArray[np.uint8]]]:
+    ) -> Union[
+        Tuple[str, NDArray[np.uint8]], Tuple[List[str], List[NDArray[np.uint8]]]
+    ]:
         if self.cnt == 1:
-            return cv2.imread(self.image_paths[idx], cv2.IMREAD_UNCHANGED)
-        return [
+            return self.image_paths[idx], cv2.imread(
+                self.image_paths[idx], cv2.IMREAD_UNCHANGED
+            )
+        return self.image_paths[self.cnt * idx : self.cnt * (idx + 1)], [
             cv2.imread(path, cv2.IMREAD_UNCHANGED)
             for path in self.image_paths[self.cnt * idx : self.cnt * (idx + 1)]
         ]

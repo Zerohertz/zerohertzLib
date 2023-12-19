@@ -6,27 +6,61 @@ import zerohertzLib as zz
 
 
 def test_barv():
-    zz.plot.barv(
+    path = zz.plot.barv(
         {"테란": 27, "저그": 40, "프로토스": 30},
         xlab="종족",
         ylab="인구 [명]",
-        title="Star Craft (bar)",
+        title="Star Craft (barv)",
     )
-    assert "star_craft_(bar).png" in os.listdir()
+    assert path.split("/")[-1] in os.listdir()
+
+
+def test_barv_stacked():
+    data = {
+        "xticks": ["테란", "저그", "프로토스"],
+        "Type A": [4, 5, 6],
+        "Type B": [4, 3, 2],
+        "Type C": [8, 5, 12],
+        "Type D": [6, 3, 2],
+    }
+    path = zz.plot.barv(
+        data,
+        xlab="종족",
+        ylab="시간 [초]",
+        title="Star Craft (barv, stacked)",
+    )
+    assert path.split("/")[-1] in os.listdir()
 
 
 def test_barh():
-    zz.plot.barh(
+    path = zz.plot.barh(
         {"테란": 27, "저그": 40, "프로토스": 30},
         xlab="인구 [명]",
         ylab="종족",
         title="Star Craft (barh)",
     )
-    assert "star_craft_(barh).png" in os.listdir()
+    assert path.split("/")[-1] in os.listdir()
+
+
+def test_barh_stacked():
+    data = {
+        "yticks": ["테란", "저그", "프로토스"],
+        "Type A": [4, 5, 6],
+        "Type B": [4, 3, 2],
+        "Type C": [8, 5, 12],
+        "Type D": [6, 3, 2],
+    }
+    path = zz.plot.barh(
+        data,
+        xlab="시간 [초]",
+        ylab="종족",
+        title="Star Craft (barh, stacked)",
+    )
+    assert path.split("/")[-1] in os.listdir()
 
 
 def test_hist():
-    zz.plot.hist(
+    path = zz.plot.hist(
         {
             "테란": list(np.random.rand(1000) * 10),
             "저그": list(np.random.rand(1000) * 10 + 1),
@@ -36,11 +70,11 @@ def test_hist():
         ylab="인원 [명]",
         title="Star Craft (hist)",
     )
-    assert "star_craft_(hist).png" in os.listdir()
+    assert path.split("/")[-1] in os.listdir()
 
 
 def test_plot():
-    zz.plot.plot(
+    path = zz.plot.plot(
         [i for i in range(20)],
         {
             "테란": list(np.random.rand(20) * 10),
@@ -51,11 +85,39 @@ def test_plot():
         ylab="성적 [점]",
         title="Star Craft (plot)",
     )
-    assert "star_craft_(plot).png" in os.listdir()
+    assert path.split("/")[-1] in os.listdir()
+
+
+def test_plot_stacked():
+    xdata = [i for i in range(20)]
+    ydata = {
+        "테란": list(np.random.rand(20) * 10),
+        "저그": list(np.random.rand(20) * 10 + 1),
+        "프로토스": list(np.random.rand(20) * 10 + 2),
+    }
+    ydata["Total"] = [
+        sum(data) + 10 for data in zip(ydata["테란"], ydata["프로토스"], ydata["저그"])
+    ]
+    path = zz.plot.plot(
+        xdata,
+        ydata,
+        xlab="시간 [초]",
+        ylab="성적 [점]",
+        stacked=True,
+        title="Star Craft (plot, stacked)",
+    )
+    assert path.split("/")[-1] in os.listdir()
+
+
+def test_pie():
+    path = zz.plot.pie(
+        {"테란": 27, "저그": 40, "프로토스": 30}, dim="명", title="Star Craft (pie)"
+    )
+    assert path.split("/")[-1] in os.listdir()
 
 
 def test_scatter():
-    zz.plot.scatter(
+    path = zz.plot.scatter(
         {
             "테란": [list(np.random.rand(200) * 10), list(np.random.rand(200) * 10)],
             "저그": [
@@ -72,7 +134,7 @@ def test_scatter():
         ylab="전투력 [점]",
         title="Star Craft (scatter)",
     )
-    assert "star_craft_(scatter).png" in os.listdir()
+    assert path.split("/")[-1] in os.listdir()
 
 
 def test_table():
@@ -84,5 +146,5 @@ def test_table():
     ]
     col = ["테란", "저그", "프로토스"]
     row = ["test1", "test2", "test3", "test4"]
-    zz.plot.table(data, col, row, title="Star Craft (table)", fontsize=50)
-    assert "star_craft_(table).png" in os.listdir()
+    path = zz.plot.table(data, col, row, title="Star Craft (table)", fontsize=50)
+    assert path.split("/")[-1] in os.listdir()

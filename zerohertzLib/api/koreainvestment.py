@@ -603,9 +603,9 @@ class KoreaInvestment:
             "CTX_AREA_FK100": ctx_area_fk100,
             "CTX_AREA_NK100": ctx_area_nk100,
         }
-        res = requests.get(url, headers=headers, params=params, timeout=10)
-        data = res.json()
-        data["tr_cont"] = res.headers["tr_cont"]
+        response = requests.get(url, headers=headers, params=params, timeout=10)
+        data = response.json()
+        data["tr_cont"] = response.headers["tr_cont"]
         return data
 
     def _get_oversea_balance(
@@ -639,7 +639,68 @@ class KoreaInvestment:
             "CTX_AREA_FK200": ctx_area_fk200,
             "CTX_AREA_NK200": ctx_area_nk200,
         }
-        res = requests.get(url, headers=headers, params=params, timeout=10)
-        data = res.json()
-        data["tr_cont"] = res.headers["tr_cont"]
+        response = requests.get(url, headers=headers, params=params, timeout=10)
+        data = response.json()
+        data["tr_cont"] = response.headers["tr_cont"]
+        return data
+
+    def get_conclusion(self):
+        """주식 계좌 잔고의 국내 실현손익 조회
+
+        Returns:
+            ``Dict[str, Dict]``: 잔고 실현손익 조회 결과
+
+        Examples:
+            >>> conclusion = broker.get_conclusion()
+        """
+        output = {}
+        data = self._get_conclusion()
+        output["output1"] = data["output1"]
+        output["output2"] = data["output2"]
+        while data["tr_cont"] == "M":
+            fk100 = data["ctx_area_fk100"]
+            nk100 = data["ctx_area_nk100"]
+            data = self._get_conclusion(fk100, nk100)
+            output["output1"].extend(data["output1"])
+            output["output2"].extend(data["output2"])
+        return output
+
+    def _get_conclusion(
+        self, ctx_area_fk100: Optional[str] = "", ctx_area_nk100: Optional[str] = ""
+    ) -> Dict[str, Dict]:
+        """주식 잔고 조회 실현손익 [v1_국내주식-041]
+
+        Args:
+            ctx_area_fk100 (``Optional[str]``): 연속조회검색조건100
+            ctx_areak_nk100 (``Optional[str]``): 연속조회키100
+
+        Returns:
+            ``Dict[str, Dict]``: 잔고 실현손익 조회 결과
+        """
+        path = "uapi/domestic-stock/v1/trading/inquire-balance-rlz-pl"
+        url = f"{self.base_url}/{path}"
+        headers = {
+            "content-type": "application/json",
+            "authorization": self.access_token,
+            "appKey": self.api_key,
+            "appSecret": self.api_secret,
+            "tr_id": "TTTC8494R",
+        }
+        params = {
+            "CANO": self.acc_no_prefix,
+            "ACNT_PRDT_CD": self.acc_no_postfix,
+            "AFHR_FLPR_YN": "N",
+            "OFL_YN": "N",
+            "INQR_DVSN": "01",
+            "UNPR_DVSN": "01",
+            "FUND_STTL_ICLD_YN": "N",
+            "FNCG_AMT_AUTO_RDPT_YN": "N",
+            "PRCS_DVSN": "01",
+            "COST_ICLD_YN": "",
+            "CTX_AREA_FK100": ctx_area_fk100,
+            "CTX_AREA_NK100": ctx_area_nk100,
+        }
+        response = requests.get(url, headers=headers, params=params, timeout=10)
+        data = response.json()
+        data["tr_cont"] = response.headers["tr_cont"]
         return data
