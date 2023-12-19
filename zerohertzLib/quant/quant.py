@@ -79,35 +79,35 @@ class Quant(Experiments):
     Examples:
         >>> qnt = zz.quant.Quant(title, data, top=3)
         >>> qnt.signals.columns
-        Index(['moving_average', 'rsi', 'bollinger_bands', 'momentum', 'signals', 'logic'], dtype='object')
+        Index(['moving_average', 'rsi', 'bollinger_bands', 'momentum', 'macd', 'signals', 'logic'], dtype='object')
         >>> qnt.methods
-        ('moving_average',)
+        ('moving_average', 'bollinger_bands', 'macd')
         >>> qnt.profit
-        22.04593267882188
+        23.749412256412935
         >>> qnt.buy
-        1140800.0
+        3828200.0
         >>> qnt.sell
-        1392300.0
+        4737375.0
         >>> qnt.transaction
-        defaultdict(<class 'list'>, {'buy': [89900.0, ...], 'sell': [107100.0, ...], 'profit': [16.059757236227824, ...], 'period': [79, ...]})
+        defaultdict(<class 'list'>, {'buy': [92850.0, ...], 'sell': [105275.0, ...], 'profit': [11.802422227499406, ...], 'period': [205, ...]})
         >>> qnt.threshold_buy
         1
         >>> qnt.threshold_sell
-        -1
+        -4
         >>> qnt.total_cnt
-        3
+        9
         >>> qnt.methods_cnt
-        defaultdict(<class 'int'>, {'moving_average': 3, 'rsi': 3, 'bollinger_bands': 3, 'momentum': 3})
+        defaultdict(<class 'int'>, {'moving_average': 3, 'rsi': 3, 'bollinger_bands': 3, 'momentum': 1, 'macd': 3})
         >>> qnt.exps_cnt
-        defaultdict(None, {'moving_average': [defaultdict(<class 'int'>, {'15': 3}), ...], ...})
+        defaultdict(None, {'moving_average': [defaultdict(<class 'int'>, {'20': 3}), ...], ...})
         >>> qnt.exps_str
-        defaultdict(<class 'list'>, {'moving_average': ['15-75-100', '15-80-100', '15-80-150'], ...})
+        defaultdict(<class 'list'>, {'moving_average': ['20-70-1.0', '20-60-1.0', '20-70-0.0'], ...})
         >>> qnt()
-        defaultdict(<class 'list'>, {'moving_average': [0.0, 0.0], 'logic': 0, 'total': [0.0, 0.0], 'position': 'None'})
-        >>> qnt("20221208")
-        defaultdict(<class 'list'>, {'moving_average': [0.0, 0.0], 'logic': 2, 'total': [0.0, 0.0], 'position': 'Buy'})
-        >>> qnt("2023-11-22")
-        defaultdict(<class 'list'>, {'moving_average': [2.0, 66.66666666666666], 'logic': 0, 'total': [2.0, 66.66666666666666], 'position': 'Buy'})
+        defaultdict(<class 'list'>, {'moving_average': [0, 0.0], 'bollinger_bands': [0, 0.0], 'macd': [0, 0.0], 'logic': 0, 'total': [0, 0.0], 'position': 'None'})
+        >>> qnt("20231211")
+        defaultdict(<class 'list'>, {'moving_average': [0, 0.0], 'bollinger_bands': [3, 100.0], 'macd': [0, 0.0], 'logic': 1, 'total': [3, 33.33333333333333], 'position': 'Buy'})
+        >>> qnt("2023-12-08")
+        defaultdict(<class 'list'>, {'moving_average': [0, 0.0], 'bollinger_bands': [3, 100.0], 'macd': [0, 0.0], 'logic': 1, 'total': [3, 33.33333333333333], 'position': 'Buy'})
     """
 
     def __init__(
