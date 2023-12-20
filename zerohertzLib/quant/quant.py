@@ -190,7 +190,7 @@ class Quant(Experiments):
                                     "transaction": results["transaction"],
                                     "buy": results["buy"],
                                     "sell": results["sell"],
-                                    "logic": self.signals["logic"],
+                                    "logic": self.signals["logic"].copy(),
                                 }
                             )
             backtests.sort(key=lambda x: x["weighted_profit"], reverse=True)
