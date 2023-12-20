@@ -52,7 +52,7 @@ def _backtest_sell(
 ) -> None:
     price_buy, day = stock.popleft()
     transactions["sell"].append(price[idx])
-    transactions["profit"].append((price[idx] - price_buy) / price[idx] * 100)
+    transactions["profit"].append((price[idx] - price_buy) / price_buy * 100)
     transactions["period"].append((idx - day).days)
 
 
@@ -151,7 +151,7 @@ def backtest(
             "buy": 0,
             "sell": 0,
         }
-    wallet = (wallet_sell - wallet_buy) / wallet_buy * 100
+    profit = (wallet_sell - wallet_buy) / wallet_buy * 100
     loss = []
     bad = 0
     for transaction in transactions["profit"]:
@@ -159,9 +159,9 @@ def backtest(
             bad += 1
     loss = bad / len(transactions["profit"]) * 100
     return {
-        "profit": wallet,
+        "profit": profit,
         "loss": loss,
-        "weighted_profit": wallet * (100 - loss),
+        "weighted_profit": profit * (100 - loss),
         "transaction": transactions,
         "buy": wallet_buy,
         "sell": wallet_sell,
