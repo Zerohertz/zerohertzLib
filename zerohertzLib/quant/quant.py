@@ -38,7 +38,7 @@ from zerohertzLib.api import KoreaInvestment, SlackBot
 from zerohertzLib.plot import barh, barv, candle, figure, hist, pie, savefig, table
 
 from .backtest import Experiments, backtest
-from .util import _cash2str, _seconds_to_hms
+from .util import _cash2str, _method2str, _seconds_to_hms
 
 
 class Quant(Experiments):
@@ -648,10 +648,12 @@ class QuantSlackBot(SlackBot):
         for key in quant.methods:
             report[
                 "main"
-            ] += f"\t\t:hammer: {key.replace('_', ' ').upper()}: {today[key][1]:.2f}% (`{int(today[key][0])}/{int(quant.methods_cnt[key])}`)\n"
+            ] += f"\t\t:hammer: {_method2str(key)}: {today[key][1]:.2f}% (`{int(today[key][0])}/{int(quant.methods_cnt[key])}`)\n"
             report[
                 "param"
-            ] += f"\n\t:hammer: {key.replace('_', ' ').upper()}: `{'`, `'.join(quant.exps_str[key])}`"
+            ] += (
+                f"\n\t:hammer: {_method2str(key)}: `{'`, `'.join(quant.exps_str[key])}`"
+            )
         report["main"] += "\t:memo: THRESHOLD:\n"
         report[
             "main"
@@ -734,11 +736,11 @@ class QuantSlackBot(SlackBot):
         )
         self.quant_cnt += 1
         for method in methods:
-            self.miu_cnt[method.replace("_", " ").upper()] += 1
+            self.miu_cnt[_method2str(method)] += 1
         self.total_cnt.append(total_cnt)
         for method, cnt in methods_cnt.items():
             if cnt > 0:
-                self.methods_cnt[method.replace("_", " ").upper()].append(cnt)
+                self.methods_cnt[_method2str(method)].append(cnt)
         for method, cnt in exps_cnt.items():
             if method not in self.exps_cnt.keys():
                 self.exps_cnt[method] = [defaultdict(int) for _ in range(len(cnt))]

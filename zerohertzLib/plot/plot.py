@@ -282,7 +282,7 @@ def candle(
                     color=colors[idx],
                     linewidth=2,
                     alpha=0.5,
-                    label=col,
+                    label=_method2str(col),
                 )
             plt.legend()
         new_axis.set_yticks([])
@@ -306,3 +306,14 @@ def _bollinger_bands(data: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
     bands["upper_band"] = bands["middle_band"] + (std_dev * 2)
     bands["lower_band"] = bands["middle_band"] - (std_dev * 2)
     return bands
+
+
+def _method2str(method: str):
+    if "_" in method:
+        methods = method.split("_")
+        for idx, method in enumerate(methods):
+            methods[idx] = method[0].upper() + method[1:]
+        return " ".join(methods)
+    if "momentum" == method:
+        return "Momentum"
+    return method.upper()
