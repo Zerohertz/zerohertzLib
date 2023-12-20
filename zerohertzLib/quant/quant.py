@@ -789,23 +789,23 @@ class QuantSlackBot(SlackBot):
         )
         path = savefig("Methods", 100)
         self.file(path, thread_ts)
-        for strategy, counts in self.exps_cnt.items():
+        for method, cnt in self.exps_cnt.items():
             figure((18, 8))
             stg = True
-            for idx, count in enumerate(counts):
+            for idx, count in enumerate(cnt):
                 try:
-                    plt.subplot(1, len(counts), idx + 1)
+                    plt.subplot(1, len(cnt), idx + 1)
                     barh(count, "", "", "", save=False)
                 except IndexError:
                     stg = False
-                    print(f"'{strategy}' was not available: {count}")
+                    print(f"'{method}' was not available: {count}")
                     break
             if stg:
-                path = savefig(strategy, dpi=100)
+                path = savefig(method, dpi=100)
                 self.file(path, thread_ts)
             else:
                 self.message(
-                    f":no_bell: '{strategy}' was not available", thread_ts=thread_ts
+                    f":no_bell: '{method}' was not available", thread_ts=thread_ts
                 )
 
     def _inference(self, symbols: List[str], mode: str) -> None:

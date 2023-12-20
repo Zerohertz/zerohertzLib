@@ -31,7 +31,7 @@ from prettytable import PrettyTable
 
 from zerohertzLib.plot import candle
 
-from .strategies import bollinger_bands, macd, momentum, moving_average, rsi
+from .methods import bollinger_bands, macd, momentum, moving_average, rsi
 
 
 def _backtest_buy(signals, price, idx, stock, transactions):
@@ -161,7 +161,7 @@ def backtest(
 def experiments(
     title: str,
     data: pd.core.frame.DataFrame,
-    strategy: Callable[[Any], pd.core.frame.DataFrame],
+    method: Callable[[Any], pd.core.frame.DataFrame],
     exps: List[List[Any]],
     ohlc: Optional[str] = "",
     vis: Optional[bool] = False,
@@ -173,7 +173,7 @@ def experiments(
     Args:
         title (``str``): 종목 이름
         data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
-        strategy (``Callable[[Any], pd.core.frame.DataFrame]``): Full factorial을 수행할 전략 함수
+        method (``Callable[[Any], pd.core.frame.DataFrame]``): Full factorial을 수행할 전략 함수
         exps (``List[List[Any]]``): 전략 함수에 입력될 변수들의 범위
         ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
         vis (``Optional[bool]``): Candle chart 시각화 여부
@@ -217,7 +217,7 @@ def experiments(
         reports.align["PROFIT"] = "r"
         reports.align["LOSS RATIO"] = "r"
     for exp in product(*exps):
-        signals = strategy(data, *exp, ohlc=ohlc)
+        signals = method(data, *exp, ohlc=ohlc)
         backtest_results = backtest(data, signals, ohlc=ohlc)
         exp_str = "-".join(list(map(str, exp)))
         profit_total = backtest_results["profit"]
@@ -318,13 +318,13 @@ class Experiments:
 
     def _experiments(
         self,
-        strategy: Callable[[Any], pd.core.frame.DataFrame],
+        method: Callable[[Any], pd.core.frame.DataFrame],
         exps: List[List[Any]],
     ) -> Dict[str, List[Any]]:
         return experiments(
             self.title,
             self.data,
-            strategy,
+            method,
             exps,
             ohlc=self.ohlc,
             vis=self.vis,
