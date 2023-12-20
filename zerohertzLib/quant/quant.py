@@ -643,21 +643,21 @@ class QuantSlackBot(SlackBot):
         report["main"] += f" *{quant.title}* (`{symbol}`)\n"
         report[
             "main"
-        ] += f"\t:technologist: Signal Info: {today['total'][1]:.2f}% (`{int(today['total'][0])}/{int(quant.total_cnt)}`) → {logic[today['logic']]}\n"
+        ] += f"\t:technologist: Signal Info: {today['total'][1]:.2f}% ({int(today['total'][0])}/{int(quant.total_cnt)}) → {logic[today['logic']]}\n"
         report["param"] += "> :information_desk_person: *Parameter Info*"
         for key in quant.methods:
             report[
                 "main"
-            ] += f"\t\t:hammer: {_method2str(key)}: {today[key][1]:.2f}% (`{int(today[key][0])}/{int(quant.methods_cnt[key])}`)\n"
+            ] += f"\t\t:hammer: {_method2str(key)}: {today[key][1]:.2f}% ({int(today[key][0])}/{int(quant.methods_cnt[key])})\n"
             report[
                 "param"
             ] += (
                 f"\n\t:hammer: {_method2str(key)}: `{'`, `'.join(quant.exps_str[key])}`"
             )
-        report["main"] += "\t:memo: THRESHOLD:\n"
+        report["main"] += "\t:memo: Threshold:\n"
         report[
             "main"
-        ] += f"\t\t:arrow_double_up: BUY: `{quant.threshold_buy}`\n\t\t:arrow_double_down: SELL: `{quant.threshold_sell}`"
+        ] += f"\t\t:arrow_double_up: Buy: {quant.threshold_buy}\n\t\t:arrow_double_down: Sell: {quant.threshold_sell}"
         report[
             "backtest"
         ] += f"> :computer: *Backtest* ({self.start_day[:4]}/{self.start_day[4:6]}/{self.start_day[6:]} ~)\n\t:money_with_wings: Total Profit:\t{quant.profit:.2f}%\n"
