@@ -16,11 +16,11 @@
     <meta property="og:title" content="v0.7" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/release/v0.7.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.7.1 Documents" />
-<meta property="og:description" content="v0.7.1: quant- 원활한 유지보수를 위해 backtest 함수 refactoring, QuantSlackBot class의 전략에 따른 분석 추가 (사용된 전략과 이익이 발생한 전략의 수 및 분포), Quant class의 전략 간 평가 시 combination의 상한선 정의, 전략 이름의 전송 및 시각화 시 format 변경 (_method..." />
+<meta property="og:site_name" content="Zerohertz's Library v0.7.2 Documents" />
+<meta property="og:description" content="v0.7.2: quant- Quant- signals[&quot;logic&quot;] shallow copy로 인한 치명적 오류 수정, backtest 함수 사용 시 ohlc 가 누락되는 오류 수정., backtest 함수 내에서 주식을 보유하고 있지 않지만 판매한 것으로 기록하는 오류 수정.. plot 내 모호한 변수명 수정, backtest 함수의 누락된 type..." />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.7.1 Documents" />
-<meta name="description" content="v0.7.1: quant- 원활한 유지보수를 위해 backtest 함수 refactoring, QuantSlackBot class의 전략에 따른 분석 추가 (사용된 전략과 이익이 발생한 전략의 수 및 분포), Quant class의 전략 간 평가 시 combination의 상한선 정의, 전략 이름의 전송 및 시각화 시 format 변경 (_method..." />
+<meta property="og:image:alt" content="Zerohertz's Library v0.7.2 Documents" />
+<meta name="description" content="v0.7.2: quant- Quant- signals[&quot;logic&quot;] shallow copy로 인한 치명적 오류 수정, backtest 함수 사용 시 ohlc 가 누락되는 오류 수정., backtest 함수 내에서 주식을 보유하고 있지 않지만 판매한 것으로 기록하는 오류 수정.. plot 내 모호한 변수명 수정, backtest 함수의 누락된 type..." />
     <link href="../_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -28,7 +28,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/release/v0.7.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>v0.7 - zerohertzLib v0.7.1 documentation</title>
+        <title>v0.7 - zerohertzLib v0.7.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -156,7 +156,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">zerohertzLib v0.7.1 documentation</div></a>
+      <a href="../index.html"><div class="brand">zerohertzLib v0.7.2 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
     <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.7.1 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.7.2 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -258,6 +258,39 @@
         <article role="main">
           <section id="v0-7">
 <h1>v0.7<a class="headerlink" href="#v0-7" title="Permalink to this heading">#</a></h1>
+<section id="v0-7-2">
+<h2>v0.7.2<a class="headerlink" href="#v0-7-2" title="Permalink to this heading">#</a></h2>
+<h3>[v0.7.2] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/191>#191</a>)</h3>
+<div class="tip admonition">
+<p class="admonition-title">Release Date</p>
+<p>2023/12/20</p>
+</div>
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:style"><img src="https://img.shields.io/badge/style-03A17F?style=flat-square&logo=github" alt="style"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/quant"><img src="https://img.shields.io/badge/feat/quant-ededed?style=flat-square&logo=github" alt="feat/quant"/></a>
+</p>
+<h4>Features</h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">quant</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Quant</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">signals[&quot;logic&quot;]</span></code> shallow copy로 인한 치명적 오류 수정</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">backtest</span></code> 함수 사용 시 <code class="docutils literal notranslate"><span class="pre">ohlc</span></code>가 누락되는 오류 수정</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">backtest</span></code> 함수 내에서 주식을 보유하고 있지 않지만 판매한 것으로 기록하는 오류 수정</p></li>
+</ul>
+</li>
+</ul>
+<h4>Style</h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">plot</span></code> 내 모호한 변수명 수정</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">backtest</span></code> 함수의 누락된 type hint 추가</p></li>
+</ul>
+</section>
 <section id="v0-7-1">
 <h2>v0.7.1<a class="headerlink" href="#v0-7-1" title="Permalink to this heading">#</a></h2>
 <h3>[v0.7.1] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/189>#189</a>)</h3>
@@ -413,6 +446,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">v0.7</a><ul>
+<li><a class="reference internal" href="#v0-7-2">v0.7.2</a></li>
 <li><a class="reference internal" href="#v0-7-1">v0.7.1</a></li>
 <li><a class="reference internal" href="#v0-7-0">v0.7.0</a></li>
 </ul>
@@ -428,7 +462,7 @@
   </div>
 </div><script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=d99421f2"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=ee6cab98"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>

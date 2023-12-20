@@ -232,20 +232,20 @@ def candle(
         sell_idx_logic = []
         if "logic" not in signals.columns:
             signals["logic"] = 0
-        for idx, (pos, pos_backtest) in enumerate(
+        for idx, (pos_signals, pos_logic) in enumerate(
             zip(signals["signals"], signals["logic"])
         ):
-            if pos_backtest == 1:
+            if pos_logic == 1:
                 buy_idx_backtest.append(idx)
-            elif pos_backtest == -1:
+            elif pos_logic == -1:
                 sell_idx_backtest.append(idx)
-            elif pos_backtest == 2:
+            elif pos_logic == 2:
                 buy_idx_logic.append(idx)
-            elif pos_backtest == -2:
+            elif pos_logic == -2:
                 sell_idx_logic.append(idx)
-            elif pos >= threshold_buy:
+            elif pos_signals >= threshold_buy:
                 buy_idx_signal.append(idx)
-            elif pos <= threshold_sell:
+            elif pos_signals <= threshold_sell:
                 sell_idx_signal.append(idx)
         for i in buy_idx_signal:
             new_axis.axvline(

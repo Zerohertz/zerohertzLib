@@ -34,12 +34,22 @@ from zerohertzLib.plot import candle
 from .methods import bollinger_bands, macd, momentum, moving_average, rsi
 
 
-def _backtest_buy(signals, price, idx, stock, transactions):
+def _backtest_buy(
+    price: pd.core.series.Series,
+    idx: pd._libs.tslibs.timestamps.Timestamp,
+    stock: deque,
+    transactions: Dict[str, List[Any]],
+) -> None:
     stock.append((price[idx], idx))
     transactions["buy"].append(price[idx])
 
 
-def _backtest_sell(signals, price, idx, stock, transactions):
+def _backtest_sell(
+    price: pd.core.series.Series,
+    idx: pd._libs.tslibs.timestamps.Timestamp,
+    stock: deque,
+    transactions: Dict[str, List[Any]],
+) -> None:
     price_buy, day = stock.popleft()
     transactions["sell"].append(price[idx])
     transactions["profit"].append((price[idx] - price_buy) / price[idx] * 100)
@@ -72,10 +82,10 @@ def backtest(
         >>> results["transaction"].keys()
         dict_keys(['buy', 'sell', 'profit', 'period'])
     """
-    if not isinstance(threshold, int):
-        threshold_sell, threshold_buy = threshold
-    else:
+    if isinstance(threshold, int):
         threshold_sell, threshold_buy = -threshold, threshold
+    else:
+        threshold_sell, threshold_buy = threshold
     wallet_buy = 0
     wallet_sell = 0
     wallet = [0, 0]
@@ -90,16 +100,16 @@ def backtest(
         position = signals.loc[idx, signal_key]
         if position >= threshold_buy:
             signals.loc[idx, "logic"] = 1
-            _backtest_buy(signals, price, idx, stock, transactions)
+            _backtest_buy(price, idx, stock, transactions)
             wallet_buy += price[idx]
             wallet[0] += price[idx]
             wallet[1] += 1
         elif position <= threshold_sell:
-            signals.loc[idx, "logic"] = -1
             while stock:
-                _backtest_sell(signals, price, idx, stock, transactions)
+                signals.loc[idx, "logic"] = -1
+                _backtest_sell(price, idx, stock, transactions)
                 wallet_sell += price[idx]
-            wallet = [0, 0]
+                wallet = [0, 0]
         elif stock:
             # Rule
             # -10%의 손실 혹은 +20%의 이익이 발생하면 판매
@@ -110,12 +120,12 @@ def backtest(
             if profit <= -10 or profit >= 20:
                 signals.loc[idx, "logic"] = -2
                 while stock:
-                    _backtest_sell(signals, price, idx, stock, transactions)
+                    _backtest_sell(price, idx, stock, transactions)
                     wallet_sell += price[idx]
                 wallet = [0, 0]
             elif profit <= 0:
                 signals.loc[idx, "logic"] = 2
-                _backtest_buy(signals, price, idx, stock, transactions)
+                _backtest_buy(price, idx, stock, transactions)
                 wallet_buy += price[idx]
                 wallet[0] += price[idx]
                 wallet[1] += 1
@@ -123,7 +133,7 @@ def backtest(
                 price_buy, day = stock[0]
                 if (idx - day).days > 365:
                     signals.loc[idx, "logic"] = -2
-                    _backtest_sell(signals, price, idx, stock, transactions)
+                    _backtest_sell(price, idx, stock, transactions)
                     wallet_sell += price[idx]
                     wallet[0] -= price_buy
                     wallet[1] -= 1

@@ -178,6 +178,7 @@ class Quant(Experiments):
                             results = backtest(
                                 self.data,
                                 self.signals,
+                                ohlc=ohlc,
                                 threshold=(-threshold_sell, threshold_buy),
                             )
                             backtests.append(
@@ -190,7 +191,7 @@ class Quant(Experiments):
                                     "transaction": results["transaction"],
                                     "buy": results["buy"],
                                     "sell": results["sell"],
-                                    "logic": self.signals["logic"],
+                                    "logic": self.signals["logic"].copy(),
                                 }
                             )
             backtests.sort(key=lambda x: x["weighted_profit"], reverse=True)
@@ -506,7 +507,7 @@ class QuantSlackBot(SlackBot):
         >>> qsb = zz.quant.QuantSlackBot(symbols, token, channel)
         >>> qsb.index()
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291798289-a0e7fabe-250c-4cef-9125-482c568062a3.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291835798-cd29ddff-253b-465d-9685-81f14ebd8d39.png
             :alt: Slack Bot Result
             :align: center
             :width: 800px
@@ -767,6 +768,7 @@ class QuantSlackBot(SlackBot):
             "",
             f"Distribution of Methods in Use (Avg: {sum(self.total_cnt) / self.quant_cnt:.2f})",
             cnt=max(self.total_cnt) * 2,
+            ovp=True,
             save=False,
         )
         plt.subplot(2, 2, 3)
