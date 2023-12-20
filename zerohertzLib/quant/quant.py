@@ -162,7 +162,7 @@ class Quant(Experiments):
         # 전략 간 조합 최적화
         if is_profit >= 1:
             backtests = []
-            for cnt in range(1, len(methods) + 1):
+            for cnt in range(1, min(3, len(methods)) + 1):
                 for methods_in_use in combinations(methods.keys(), cnt):
                     miu_total = 0
                     for miu in methods_in_use:
