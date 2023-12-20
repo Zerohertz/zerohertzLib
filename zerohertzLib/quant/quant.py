@@ -178,6 +178,7 @@ class Quant(Experiments):
                             results = backtest(
                                 self.data,
                                 self.signals,
+                                ohlc=ohlc,
                                 threshold=(-threshold_sell, threshold_buy),
                             )
                             backtests.append(
