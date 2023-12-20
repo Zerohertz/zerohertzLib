@@ -770,7 +770,7 @@ class QuantSlackBot(SlackBot):
         plt.subplot(2, 2, 3)
         barv(
             dict(
-                [(key, sum(value)) for key, value in sorted(self.methods_cnt.items())]
+                ((key, sum(value)) for key, value in sorted(self.methods_cnt.items()))
             ),
             "",
             "",
