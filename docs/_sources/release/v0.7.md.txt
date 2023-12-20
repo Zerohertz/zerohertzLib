@@ -1,5 +1,36 @@
 # v0.7
 
+## v0.7.2
+
+<h3>[v0.7.2] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/191>#191</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2023/12/20
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:style"><img src="https://img.shields.io/badge/style-03A17F?style=flat-square&logo=github" alt="style"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/quant"><img src="https://img.shields.io/badge/feat/quant-ededed?style=flat-square&logo=github" alt="feat/quant"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `quant`
+  + `Quant`
+    + `signals["logic"]` shallow copy로 인한 치명적 오류 수정
+    + `backtest` 함수 사용 시 `ohlc`가 누락되는 오류 수정
+  + `backtest` 함수 내에서 주식을 보유하고 있지 않지만 판매한 것으로 기록하는 오류 수정
+
+<h4>Style</h4>
+
++ `plot` 내 모호한 변수명 수정
++ `backtest` 함수의 누락된 type hint 추가
+
 ## v0.7.1
 
 <h3>[v0.7.1] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/189>#189</a>)</h3>
