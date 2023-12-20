@@ -308,7 +308,7 @@ def _bollinger_bands(data: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
     return bands
 
 
-def _method2str(method: str):
+def _method2str(method: str) -> str:
     if "_" in method:
         methods = method.split("_")
         for idx, met in enumerate(methods):

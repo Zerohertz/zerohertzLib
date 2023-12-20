@@ -94,7 +94,7 @@ def _seconds_to_hms(seconds: int) -> str:
     return f"{hours}h {minutes}m {seconds}s"
 
 
-def _method2str(method: str):
+def _method2str(method: str) -> str:
     if "_" in method:
         methods = method.split("_")
         for idx, met in enumerate(methods):
