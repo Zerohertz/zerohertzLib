@@ -92,3 +92,14 @@ def _seconds_to_hms(seconds: int) -> str:
             return f"{seconds}s"
         return f"{minutes}m {seconds}s"
     return f"{hours}h {minutes}m {seconds}s"
+
+
+def _method2str(method: str):
+    if "_" in method:
+        methods = method.split("_")
+        for idx, met in enumerate(methods):
+            methods[idx] = met[0].upper() + met[1:]
+        return " ".join(methods)
+    if "momentum" == method:
+        return "Momentum"
+    return method.upper()

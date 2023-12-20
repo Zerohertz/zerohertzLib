@@ -1,5 +1,39 @@
 # v0.7
 
+## v0.7.1
+
+<h3>[v0.7.1] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/189>#189</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2023/12/20
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:style"><img src="https://img.shields.io/badge/style-03A17F?style=flat-square&logo=github" alt="style"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/quant"><img src="https://img.shields.io/badge/feat/quant-ededed?style=flat-square&logo=github" alt="feat/quant"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `quant`
+  + 원활한 유지보수를 위해 `backtest` 함수 refactoring
+  + `QuantSlackBot` class의 전략에 따른 분석 추가 (사용된 전략과 이익이 발생한 전략의 수 및 분포)
+  + `Quant` class의 전략 간 평가 시 combination의 상한선 정의
+  + 전략 이름의 전송 및 시각화 시 format 변경 (`_method2str`)
+
+<h4>Chore</h4>
+
++ `tritonclient[grpc]`의 의존성 추가 (`protobuf`)
+
+<h4>Style</h4>
+
++ `quant` submodule 내 `strategy`와 `method`의 모호한 변수명 통일 (`strategy` → `method`)
+
 ## v0.7.0
 
 <h3>[v0.7.0] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/187>#187</a>)</h3>

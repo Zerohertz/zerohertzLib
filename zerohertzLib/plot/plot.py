@@ -170,7 +170,7 @@ def candle(
         >>> signals = zz.quant.macd(data)
         >>> zz.plot.candle(data, "MACD", signals=signals)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657597-1d957685-2a5a-4aed-9992-eaecdd12a5ae.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291796451-8977552d-5a3d-4e11-b884-a0e63ef4039b.png
             :alt: Visualzation Result
             :align: center
             :width: 600px
@@ -282,7 +282,7 @@ def candle(
                     color=colors[idx],
                     linewidth=2,
                     alpha=0.5,
-                    label=col,
+                    label=_method2str(col),
                 )
             plt.legend()
         new_axis.set_yticks([])
@@ -306,3 +306,14 @@ def _bollinger_bands(data: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
     bands["upper_band"] = bands["middle_band"] + (std_dev * 2)
     bands["lower_band"] = bands["middle_band"] - (std_dev * 2)
     return bands
+
+
+def _method2str(method: str):
+    if "_" in method:
+        methods = method.split("_")
+        for idx, met in enumerate(methods):
+            methods[idx] = met[0].upper() + met[1:]
+        return " ".join(methods)
+    if "momentum" == method:
+        return "Momentum"
+    return method.upper()
