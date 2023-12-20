@@ -21,6 +21,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
+
+
 import json
 import multiprocessing as mp
 import time
@@ -46,14 +48,14 @@ class Quant(Experiments):
 
     Args:
         title (``str``): 종목 이름
-        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+        data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
         top (``Optional[int]``): Experiment 과정에서 사용할 각 전략별 수
         methods (``Optional[Dict[str, List[List[Any]]]]``): 사용할 전략들의 함수명 및 parameters
         report: (``Optional[bool]``): Experiment 결과 출력 여부
 
     Attributes:
-        signals (``pd.core.frame.DataFrame``): 융합된 전략의 signal
+        signals (``pd.DataFrame``): 융합된 전략의 signal
         methods (``Tuple[str]``): 융합된 전략명
         profit (``float``): 융합된 전략의 backtest profit
         buy (``Union[int, float]``): 융합된 전략의 backtest 시 총 매수
@@ -113,7 +115,7 @@ class Quant(Experiments):
     def __init__(
         self,
         title: str,
-        data: pd.core.frame.DataFrame,
+        data: pd.DataFrame,
         ohlc: Optional[str] = "",
         top: Optional[int] = 1,
         methods: Optional[Dict[str, List[List[Any]]]] = None,
@@ -173,8 +175,8 @@ class Quant(Experiments):
                     if miu_total == 0:
                         continue
                     self.signals["signals"] = self.signals.loc[:, methods_in_use].sum(1)
-                    for threshold_sell in range(1, miu_total + 1):
-                        for threshold_buy in range(1, miu_total + 1):
+                    for threshold_sell in range(1, max(2, miu_total)):
+                        for threshold_buy in range(1, max(2, miu_total)):
                             results = backtest(
                                 self.data,
                                 self.signals,
@@ -481,7 +483,7 @@ class QuantSlackBot(SlackBot):
 
         .. code-block:: python
 
-            def _get_data(self, symbol: str) -> Tuple[str, pd.core.frame.DataFrame]:
+            def _get_data(self, symbol: str) -> Tuple[str, pd.DataFrame]:
                 title = data = None
                 return title, data
 
@@ -507,7 +509,7 @@ class QuantSlackBot(SlackBot):
         >>> qsb = zz.quant.QuantSlackBot(symbols, token, channel)
         >>> qsb.index()
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291835798-cd29ddff-253b-465d-9685-81f14ebd8d39.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291917559-aa3f8a00-b23b-425b-bdfa-003465130b91.png
             :alt: Slack Bot Result
             :align: center
             :width: 800px
@@ -671,7 +673,7 @@ class QuantSlackBot(SlackBot):
         report["candle"], report["hist"] = self._plot(quant)
         return report
 
-    def _get_data(self, symbol: str) -> Tuple[str, pd.core.frame.DataFrame]:
+    def _get_data(self, symbol: str) -> Tuple[str, pd.DataFrame]:
         title = data = None
         return title, data
 
@@ -924,7 +926,7 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
         self.symbols = symbols
         self.symbols_bought = symbols_bought
 
-    def _get_data(self, symbol: str) -> Tuple[str, pd.core.frame.DataFrame]:
+    def _get_data(self, symbol: str) -> Tuple[str, pd.DataFrame]:
         response = self.get_ohlcv(symbol, start_day=self.start_day, kor=self.kor)
         title, data = self.response2ohlcv(response)
         return title, data
@@ -965,7 +967,7 @@ class QuantSlackBotFDR(QuantSlackBot):
 
     Attributes:
         exps (``Dict[str, List[Dict[str, int]]]``): 각 전략에 따른 parameter 분포
-        market (``pd.core.frame.DataFrame``): ``kor`` 에 따른 시장 목록
+        market (``pd.DataFrame``): ``kor`` 에 따른 시장 목록
 
     Examples:
         >>> qsb = zz.quant.QuantSlackBotFDR(symbols, token=token, channel=channel)
@@ -1016,7 +1018,7 @@ class QuantSlackBotFDR(QuantSlackBot):
             else:
                 self.symbols = list(self.market["Symbol"])[:symbols]
 
-    def _get_data(self, symbol: str) -> Tuple[str, pd.core.frame.DataFrame]:
+    def _get_data(self, symbol: str) -> Tuple[str, pd.DataFrame]:
         if self.kor:
             title = self.market[self.market["Code"] == symbol].iloc[0, 1]
         else:

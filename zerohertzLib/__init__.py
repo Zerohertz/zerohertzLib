@@ -23,6 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+
 from zerohertzLib import algorithm, monitoring, plot, util
 
 try:
@@ -55,4 +56,4 @@ except ImportError as error:
     print("(but you can use other submodules except zerohertzLib.vision)")
     print("=" * 100)
 
-__version__ = "v0.7.2"
+__version__ = "v0.7.3"

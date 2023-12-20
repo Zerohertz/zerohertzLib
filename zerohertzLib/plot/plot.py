@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 import mplfinance as mpf
@@ -136,7 +137,7 @@ def plot(
 
 
 def candle(
-    data: pd.core.frame.DataFrame,
+    data: pd.DataFrame,
     title: Optional[str] = "tmp",
     figsize: Optional[Tuple[int]] = (18, 10),
     dpi: Optional[int] = 300,
@@ -154,7 +155,7 @@ def candle(
         - 일점쇄선 (``-.``): Backtest logic에 의한 매수, 매도
 
     Args:
-        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+        data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
@@ -170,7 +171,7 @@ def candle(
         >>> signals = zz.quant.macd(data)
         >>> zz.plot.candle(data, "MACD", signals=signals)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291796451-8977552d-5a3d-4e11-b884-a0e63ef4039b.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291915503-d119e9ee-2b8b-4fca-bd01-841dc19867d0.png
             :alt: Visualzation Result
             :align: center
             :width: 600px
@@ -217,13 +218,6 @@ def candle(
     if signals is not None:
         new_axis = axlist[0].twinx()
         xdata = axlist[0].get_lines()[0].get_xdata()
-        new_axis.plot(
-            xdata,
-            signals["signals"],
-            color="black",
-            linewidth=1,
-            alpha=0.5,
-        )
         buy_idx_signal = []
         sell_idx_signal = []
         buy_idx_backtest = []
@@ -271,34 +265,40 @@ def candle(
             new_axis.axvline(
                 x=xdata[i], color=(0, 0.2, 1), linestyle="-.", linewidth=2, alpha=0.3
             )
-        new_axis.set_yticks([])
-        new_axis = axlist[0].twinx()
-        colors = color(len(signals.columns), palette="magma")
+        colors = color(len(signals.columns), palette="Set1")
         if len(signals.columns) > 1:
             for idx, col in enumerate(signals.columns[:-2]):
                 new_axis.plot(
                     xdata,
                     signals[col],
                     color=colors[idx],
-                    linewidth=2,
+                    linewidth=3,
                     alpha=0.5,
                     label=_method2str(col),
                 )
             plt.legend()
+        new_axis.set_yticks([])
+        new_axis = axlist[0].twinx()
+        new_axis.plot(
+            xdata,
+            signals["signals"],
+            color="black",
+            linewidth=1,
+        )
         new_axis.set_yticks([])
     if save:
         return savefig(title, dpi)
     return None
 
 
-def _bollinger_bands(data: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
+def _bollinger_bands(data: pd.DataFrame) -> pd.DataFrame:
     """Bollinger band 계산 함수
 
     Args:
-        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+        data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
 
     Returns:
-        ``pd.core.frame.DataFrame``: Bollinger band
+        ``pd.DataFrame``: Bollinger band
     """
     bands = pd.DataFrame(index=data.index)
     bands["middle_band"] = data.iloc[:, :4].mean(1).rolling(window=20).mean()
@@ -308,7 +308,7 @@ def _bollinger_bands(data: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
     return bands
 
 
-def _method2str(method: str):
+def _method2str(method: str) -> str:
     if "_" in method:
         methods = method.split("_")
         for idx, met in enumerate(methods):
