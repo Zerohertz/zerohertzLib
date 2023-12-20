@@ -105,11 +105,11 @@ def backtest(
             wallet[0] += price[idx]
             wallet[1] += 1
         elif position <= threshold_sell:
-            signals.loc[idx, "logic"] = -1
             while stock:
+                signals.loc[idx, "logic"] = -1
                 _backtest_sell(price, idx, stock, transactions)
                 wallet_sell += price[idx]
-            wallet = [0, 0]
+                wallet = [0, 0]
         elif stock:
             # Rule
             # -10%의 손실 혹은 +20%의 이익이 발생하면 판매
