@@ -36,8 +36,8 @@ from .methods import bollinger_bands, macd, momentum, moving_average, rsi
 
 
 def _backtest_buy(
-    price: pd.core.series.Series,
-    idx: pd._libs.tslibs.timestamps.Timestamp,
+    price: pd.Series,
+    idx: pd.Timestamp,
     stock: deque,
     transactions: Dict[str, List[Any]],
 ) -> None:
@@ -46,8 +46,8 @@ def _backtest_buy(
 
 
 def _backtest_sell(
-    price: pd.core.series.Series,
-    idx: pd._libs.tslibs.timestamps.Timestamp,
+    price: pd.Series,
+    idx: pd.Timestamp,
     stock: deque,
     transactions: Dict[str, List[Any]],
 ) -> None:
@@ -58,8 +58,8 @@ def _backtest_sell(
 
 
 def backtest(
-    data: pd.core.frame.DataFrame,
-    signals: pd.core.frame.DataFrame,
+    data: pd.DataFrame,
+    signals: pd.DataFrame,
     ohlc: Optional[str] = "",
     threshold: Optional[Union[int, Tuple[int]]] = 1,
     signal_key: Optional[str] = "signals",
@@ -67,8 +67,8 @@ def backtest(
     """전략에 의해 생성된 ``signals`` backtest
 
     Args:
-        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
-        signals (``pd.core.frame.DataFrame``): ``"signals"`` column이 포함된 data (다른 이름으로 지정했을 시 ``signal_key`` 사용)
+        data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+        signals (``pd.DataFrame``): ``"signals"`` column이 포함된 data (다른 이름으로 지정했을 시 ``signal_key`` 사용)
         ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
         threshold (``Optional[Union[int, Tuple[int]]]``): 매수, 매도를 결정할 ``signals`` 경계값
         signal_key (``Optional[str]``): ``"signals"`` 의 key 값
@@ -171,8 +171,8 @@ def backtest(
 
 def experiments(
     title: str,
-    data: pd.core.frame.DataFrame,
-    method: Callable[[Any], pd.core.frame.DataFrame],
+    data: pd.DataFrame,
+    method: Callable[[Any], pd.DataFrame],
     exps: List[List[Any]],
     ohlc: Optional[str] = "",
     vis: Optional[bool] = False,
@@ -183,8 +183,8 @@ def experiments(
 
     Args:
         title (``str``): 종목 이름
-        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
-        method (``Callable[[Any], pd.core.frame.DataFrame]``): Full factorial을 수행할 전략 함수
+        data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+        method (``Callable[[Any], pd.DataFrame]``): Full factorial을 수행할 전략 함수
         exps (``List[List[Any]]``): 전략 함수에 입력될 변수들의 범위
         ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
         vis (``Optional[bool]``): Candle chart 시각화 여부
@@ -299,7 +299,7 @@ class Experiments:
 
     Args:
         title (``str``): 종목 이름
-        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+        data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
         vis (``Optional[bool]``): Candle chart 시각화 여부
         report: (``Optional[bool]``): Experiment 결과 출력 여부
@@ -311,7 +311,7 @@ class Experiments:
     def __init__(
         self,
         title: str,
-        data: pd.core.frame.DataFrame,
+        data: pd.DataFrame,
         ohlc: Optional[str] = "",
         vis: Optional[bool] = False,
         report: Optional[bool] = True,
@@ -329,7 +329,7 @@ class Experiments:
 
     def _experiments(
         self,
-        method: Callable[[Any], pd.core.frame.DataFrame],
+        method: Callable[[Any], pd.DataFrame],
         exps: List[List[Any]],
     ) -> Dict[str, List[Any]]:
         return experiments(

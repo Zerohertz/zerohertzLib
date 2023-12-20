@@ -410,16 +410,14 @@ class KoreaInvestment:
                 time.sleep(0.02)
         return data
 
-    def response2ohlcv(
-        self, response: Dict[str, Dict]
-    ) -> Tuple[str, pd.core.frame.DataFrame]:
+    def response2ohlcv(self, response: Dict[str, Dict]) -> Tuple[str, pd.DataFrame]:
         """``get_ohlcv`` 에 의한 응답을 ``pd.DataFrame`` 으로 변환
 
         Args:
             response (``Dict[str, Dict]``): ``get_ohlcv`` 의 출력
 
         Returns:
-            ``Tuple[str, pd.core.frame.DataFrame]``: 종목의 이름과 OHLCV (Open, High, Low, Close, Volume)
+            ``Tuple[str, pd.DataFrame]``: 종목의 이름과 OHLCV (Open, High, Low, Close, Volume)
 
         Examples:
             >>> samsung = broker.get_ohlcv("005930")
@@ -479,7 +477,7 @@ class KoreaInvestment:
         end_day: Optional[str] = "",
         adj_price: Optional[bool] = True,
         kor: Optional[bool] = True,
-    ) -> Tuple[List[str], List[pd.core.frame.DataFrame]]:
+    ) -> Tuple[List[str], List[pd.DataFrame]]:
         """여러 종목 code에 따른 기간별 OHLCV (Open, High, Low, Close, Volume)
 
         Args:
@@ -491,7 +489,7 @@ class KoreaInvestment:
             kor (``Optional[bool]``): 국내 여부
 
         Returns:
-            ``Tuple[List[str], List[pd.core.frame.DataFrame]]``: Code들에 따른 종목의 이름과 OHLCV (Open, High, Low, Close, Volume)
+            ``Tuple[List[str], List[pd.DataFrame]]``: Code들에 따른 종목의 이름과 OHLCV (Open, High, Low, Close, Volume)
 
         Examples:
             >>> broker.get_ohlcvs(["005930", "035420"], start_day="20221205")

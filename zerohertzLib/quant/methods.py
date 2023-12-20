@@ -32,12 +32,12 @@ from .util import _bollinger_bands, _rsi
 
 
 def moving_average(
-    data: pd.core.frame.DataFrame,
+    data: pd.DataFrame,
     short_window: Optional[int] = 40,
     long_window: Optional[int] = 80,
     threshold: Optional[float] = 0.0,
     ohlc: Optional[str] = "",
-) -> pd.core.frame.DataFrame:
+) -> pd.DataFrame:
     """단기 및 장기 이동 평균 기반 매수 및 매도 signal을 생성하는 함수
 
     Note:
@@ -49,14 +49,14 @@ def moving_average(
     - 매도 신호 (``-1``): 단기 이동 평균이 장기 이동 평균보다 낮을 때 생성 (하락 추세)
 
     Args:
-        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+        data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         short_window (``Optional[int]``): 단기 이동 평균을 계산하기 위한 window 크기
         long_window (``Optional[int]``): 장기 이동 평균을 계산하기 위한 widnow 크기
         threshold (``Optional[float]``): 신호를 발생 시킬 임계값
         ohlc (``Optional[str]``): 이동 평균을 계산할 때 사용할 ``data`` 의 column 이름
 
     Returns:
-        ``pd.core.frame.DataFrame``: 각 날짜에 대한 signal (``"signals"``) 정보
+        ``pd.DataFrame``: 각 날짜에 대한 signal (``"signals"``) 정보
 
     Examples:
         >>> zz.quant.moving_average(data)
@@ -101,12 +101,12 @@ def moving_average(
 
 
 def rsi(
-    data: pd.core.frame.DataFrame,
+    data: pd.DataFrame,
     lower_bound: Optional[int] = 20,
     upper_bound: Optional[int] = 80,
     window: Optional[int] = 30,
     ohlc: Optional[str] = "",
-) -> pd.core.frame.DataFrame:
+) -> pd.DataFrame:
     r"""RSI 기반 매수 및 매도 signal을 생성하는 함수
 
     Note:
@@ -126,14 +126,14 @@ def rsi(
     - 매도 신호 (``-1``): RSI 값이 ``upper_bound`` 보다 높을 때 생성 (과매수 상태)
 
     Args:
-        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+        data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         lower_bound (``Optional[int]``): RSI 과매도 기준
         upper_bound (``Optional[int]``): RSI 과매수 기준
         window (``Optional[int]``): 이동 평균을 계산하기 위한 widnow 크기
         ohlc (``Optional[str]``): RSI를 계산할 때 사용할 ``data`` 의 column 이름
 
     Returns:
-        ``pd.core.frame.DataFrame``: 각 날짜에 대한 signal (``"signals"``) 정보
+        ``pd.DataFrame``: 각 날짜에 대한 signal (``"signals"``) 정보
 
     Examples:
         >>> zz.quant.rsi(data)
@@ -162,11 +162,11 @@ def rsi(
 
 
 def bollinger_bands(
-    data: pd.core.frame.DataFrame,
+    data: pd.DataFrame,
     window: Optional[int] = 60,
     num_std_dev: Optional[float] = 2.5,
     ohlc: Optional[str] = "",
-) -> pd.core.frame.DataFrame:
+) -> pd.DataFrame:
     """Bollinger band 기반 매수 및 매도 signal을 생성하는 함수
 
     Note:
@@ -182,13 +182,13 @@ def bollinger_bands(
     - 매도 신호 (``-1``): 주가가 상단 Bollinger band (``upper_band``) 위로 상승할 때 생성 (과매수 상태)
 
     Args:
-        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+        data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         window (``Optional[int]``): 이동 평균을 계산하기 위한 widnow 크기
         num_std_dev (``Optional[float]``): 표준편차의 배수
         ohlc (``Optional[str]``): 이동 평균을 계산할 때 사용할 ``data`` 의 column 이름
 
     Returns:
-        ``pd.core.frame.DataFrame``: 각 날짜에 대한 signal (``"signals"``) 정보
+        ``pd.DataFrame``: 각 날짜에 대한 signal (``"signals"``) 정보
 
     Examples:
         >>> zz.quant.bollinger_bands(data)
@@ -224,10 +224,10 @@ def bollinger_bands(
 
 
 def momentum(
-    data: pd.core.frame.DataFrame,
+    data: pd.DataFrame,
     window: Optional[int] = 5,
     ohlc: Optional[str] = "",
-) -> pd.core.frame.DataFrame:
+) -> pd.DataFrame:
     """Momentum 기반 매수 및 매도 signal을 생성하는 함수
 
     Note:
@@ -243,12 +243,12 @@ def momentum(
     - 매도 신호 (``-1``): 주가 momentum이 음수일 때 생성 (하락 추세)
 
     Args:
-        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+        data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         window (``Optional[int]``): Momentum을 계산하기 위한 widnow 크기
         ohlc (``Optional[str]``): Momentum을 계산할 때 사용할 ``data`` 의 column 이름
 
     Returns:
-        ``pd.core.frame.DataFrame``: 각 날짜에 대한 signal (``"signals"``) 정보
+        ``pd.DataFrame``: 각 날짜에 대한 signal (``"signals"``) 정보
 
     Examples:
         >>> zz.quant.momentum(data)
@@ -278,11 +278,11 @@ def momentum(
 
 
 def macd(
-    data: pd.core.frame.DataFrame,
+    data: pd.DataFrame,
     n_fast: Optional[int] = 12,
     n_signal: Optional[int] = 9,
     ohlc: Optional[str] = "",
-) -> pd.core.frame.DataFrame:
+) -> pd.DataFrame:
     """MACD 기반 매수 및 매도 signal을 생성하는 함수
 
     Note:
@@ -298,13 +298,13 @@ def macd(
     - 매도 신호 (``-1``): MACD가 signal line 아래로 하락할 때 생성 (하락 추세)
 
     Args:
-        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+        data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         n_fast (``Optional[int]``): 빠른 EMA 계산을 위한 기간
         n_signal (``Optional[int]``): MACD signal line 계산을 위한 기간
         ohlc (``Optional[str]``): Momentum을 계산할 때 사용할 ``data`` 의 column 이름
 
     Returns:
-        ``pd.core.frame.DataFrame``: 각 날짜에 대한 signal (``"signals"``) 정보
+        ``pd.DataFrame``: 각 날짜에 대한 signal (``"signals"``) 정보
 
     Examples:
         >>> zz.quant.macd(data)

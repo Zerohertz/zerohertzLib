@@ -137,7 +137,7 @@ def plot(
 
 
 def candle(
-    data: pd.core.frame.DataFrame,
+    data: pd.DataFrame,
     title: Optional[str] = "tmp",
     figsize: Optional[Tuple[int]] = (18, 10),
     dpi: Optional[int] = 300,
@@ -155,7 +155,7 @@ def candle(
         - 일점쇄선 (``-.``): Backtest logic에 의한 매수, 매도
 
     Args:
-        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+        data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
@@ -291,14 +291,14 @@ def candle(
     return None
 
 
-def _bollinger_bands(data: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
+def _bollinger_bands(data: pd.DataFrame) -> pd.DataFrame:
     """Bollinger band 계산 함수
 
     Args:
-        data (``pd.core.frame.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+        data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
 
     Returns:
-        ``pd.core.frame.DataFrame``: Bollinger band
+        ``pd.DataFrame``: Bollinger band
     """
     bands = pd.DataFrame(index=data.index)
     bands["middle_band"] = data.iloc[:, :4].mean(1).rolling(window=20).mean()
