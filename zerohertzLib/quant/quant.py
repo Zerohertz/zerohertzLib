@@ -768,6 +768,7 @@ class QuantSlackBot(SlackBot):
             "",
             f"Distribution of Methods in Use (Avg: {sum(self.total_cnt) / self.quant_cnt:.2f})",
             cnt=max(self.total_cnt) * 2,
+            ovp=True,
             save=False,
         )
         plt.subplot(2, 2, 3)
