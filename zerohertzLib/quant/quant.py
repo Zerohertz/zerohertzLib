@@ -175,8 +175,8 @@ class Quant(Experiments):
                     if miu_total == 0:
                         continue
                     self.signals["signals"] = self.signals.loc[:, methods_in_use].sum(1)
-                    for threshold_sell in range(1, miu_total + 1):
-                        for threshold_buy in range(1, miu_total + 1):
+                    for threshold_sell in range(1, max(2, miu_total)):
+                        for threshold_buy in range(1, max(2, miu_total)):
                             results = backtest(
                                 self.data,
                                 self.signals,
