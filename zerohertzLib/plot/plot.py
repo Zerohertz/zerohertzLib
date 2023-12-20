@@ -170,7 +170,7 @@ def candle(
         >>> signals = zz.quant.macd(data)
         >>> zz.plot.candle(data, "MACD", signals=signals)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657597-1d957685-2a5a-4aed-9992-eaecdd12a5ae.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291796451-8977552d-5a3d-4e11-b884-a0e63ef4039b.png
             :alt: Visualzation Result
             :align: center
             :width: 600px

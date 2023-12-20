@@ -506,7 +506,7 @@ class QuantSlackBot(SlackBot):
         >>> qsb = zz.quant.QuantSlackBot(symbols, token, channel)
         >>> qsb.index()
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290177638-802e3118-439f-4cb8-972b-ded26734c50d.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291798289-a0e7fabe-250c-4cef-9125-482c568062a3.png
             :alt: Slack Bot Result
             :align: center
             :width: 800px

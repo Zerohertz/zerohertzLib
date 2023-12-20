@@ -66,7 +66,7 @@ def moving_average(
         2023-12-19  102450.000  102337.1875        0
         [485 rows x 3 columns]
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657583-2fc7bf03-18f4-4f64-aa68-4baa70321acb.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291796445-ef51a9f1-fd85-4502-ab37-4d9721745d2e.png
             :alt: Visualzation Result
             :align: center
             :width: 500px
@@ -143,7 +143,7 @@ def rsi(
         2023-12-19  35.671343        0
         [485 rows x 2 columns]
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657592-b3dfe58e-c593-4d8c-bf93-b1a8dff25cde.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291796449-2ece7727-a667-48a2-b0dd-c8008fb3d1bb.png
             :alt: Visualzation Result
             :align: center
             :width: 500px
@@ -198,7 +198,7 @@ def bollinger_bands(
         2023-12-19  102771.666667  111527.577705  94015.755629        0
         [485 rows x 4 columns]
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657567-c6144db8-0762-4dad-b7bd-13f55a3610bd.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291796417-4dbca252-3b2b-41cd-9278-cf8ef02728bf.png
             :alt: Visualzation Result
             :align: center
             :width: 500px
@@ -258,7 +258,7 @@ def momentum(
         2023-12-19     550.0        0
         [485 rows x 2 columns]
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657579-3d299fee-020e-4f0f-afdd-74843f9838a9.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291796441-a17b81b0-cf9f-4ab3-bb6f-90d8a68e4a45.png
             :alt: Visualzation Result
             :align: center
             :width: 500px
@@ -314,7 +314,7 @@ def macd(
         2023-12-19 -1950.006134        0
         [485 rows x 2 columns]
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291657572-5821c232-b6bb-4de0-aee7-0921da672bce.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291796437-5e78f2f9-cab3-497d-a67d-55ae21e9d553.png
             :alt: Visualzation Result
             :align: center
             :width: 500px
