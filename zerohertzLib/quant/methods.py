@@ -102,7 +102,7 @@ def moving_average(
 
 def rsi(
     data: pd.core.frame.DataFrame,
-    lower_bound: Optional[int] = 10,
+    lower_bound: Optional[int] = 20,
     upper_bound: Optional[int] = 80,
     window: Optional[int] = 30,
     ohlc: Optional[str] = "",
