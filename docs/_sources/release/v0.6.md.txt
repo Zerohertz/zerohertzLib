@@ -155,7 +155,7 @@
 + `quant`
   + `QuantSlackBot`
     + Private 함수의 변수 refactoring
-    + Strategy의 indent 추가
+    + Report의 indent 추가
 + `vision`
   + 입력 image를 base64 기반으로 encoding 및 decoding하는 함수 `encode`, `decode` 개발
   + YOLO format의 data를 Label Studio format으로 전환하는 `YoloLoader` class의 method `labelstudio`추가
