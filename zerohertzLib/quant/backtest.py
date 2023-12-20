@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+
 from collections import defaultdict, deque
 from itertools import product
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
