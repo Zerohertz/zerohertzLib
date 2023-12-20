@@ -48,6 +48,15 @@ def test_experiments():
 
 def test_quant():
     qnt = zz.quant.Quant("Test", DATA, top=3, report=True)
+    qnt_signals = qnt.signals.copy()
+    results = zz.quant.backtest(
+        DATA, qnt_signals, threshold=(qnt.threshold_sell, qnt.threshold_buy)
+    )
+    assert qnt.buy == results["buy"]
+    assert qnt.sell == results["sell"]
+    assert qnt.profit == results["profit"]
+    assert qnt.transaction == results["transaction"]
+    assert (qnt.signals == qnt_signals).all().all()
     qnt()
 
 
