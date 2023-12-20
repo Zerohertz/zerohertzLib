@@ -218,13 +218,6 @@ def candle(
     if signals is not None:
         new_axis = axlist[0].twinx()
         xdata = axlist[0].get_lines()[0].get_xdata()
-        new_axis.plot(
-            xdata,
-            signals["signals"],
-            color="black",
-            linewidth=1,
-            alpha=0.5,
-        )
         buy_idx_signal = []
         sell_idx_signal = []
         buy_idx_backtest = []
@@ -272,20 +265,26 @@ def candle(
             new_axis.axvline(
                 x=xdata[i], color=(0, 0.2, 1), linestyle="-.", linewidth=2, alpha=0.3
             )
-        new_axis.set_yticks([])
-        new_axis = axlist[0].twinx()
-        colors = color(len(signals.columns), palette="magma")
+        colors = color(len(signals.columns), palette="Set1")
         if len(signals.columns) > 1:
             for idx, col in enumerate(signals.columns[:-2]):
                 new_axis.plot(
                     xdata,
                     signals[col],
                     color=colors[idx],
-                    linewidth=2,
+                    linewidth=3,
                     alpha=0.5,
                     label=_method2str(col),
                 )
             plt.legend()
+        new_axis.set_yticks([])
+        new_axis = axlist[0].twinx()
+        new_axis.plot(
+            xdata,
+            signals["signals"],
+            color="black",
+            linewidth=1,
+        )
         new_axis.set_yticks([])
     if save:
         return savefig(title, dpi)
