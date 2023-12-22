@@ -397,11 +397,11 @@ class Balance(KoreaInvestment):
             return None
         if self.kor:
             col = [
-                "Purchase Price [￦]",
-                "Current Price [￦]",
+                "Purchase Price [₩]",
+                "Current Price [₩]",
                 "Quantity",
                 "Profit and Loss (P&L) [%]",
-                "Profit and Loss (P&L) [￦]",
+                "Profit and Loss (P&L) [₩]",
             ]
         else:
             col = [
@@ -465,7 +465,7 @@ class Balance(KoreaInvestment):
         if self() == 0:
             return None
         if self.kor:
-            dim = "￦"
+            dim = "₩"
         else:
             dim = "$"
         data = defaultdict(float)
