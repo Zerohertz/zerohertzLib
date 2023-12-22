@@ -53,6 +53,7 @@ def _bollinger_bands(
     data: pd.DataFrame,
     window: Optional[int] = 20,
     num_std_dev: Optional[int] = 2,
+    ohlc: Optional[str] = "",
 ) -> pd.DataFrame:
     """Bollinger band 계산 함수
 
@@ -60,13 +61,18 @@ def _bollinger_bands(
         data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         window (``Optional[int]``): 이동 평균을 계산하기 위한 윈도우 크기. 기본값은 20.
         num_std_dev (``Optional[int]``): 표준편차의 배수. 기본값은 2.
+        ohlc (``Optional[str]``): 이동 평균을 계산할 때 사용할 ``data`` 의 column 이름
 
     Returns:
         ``pd.DataFrame``: Bollinger band
     """
     bands = pd.DataFrame(index=data.index)
-    bands["middle_band"] = data.iloc[:, :4].mean(1).rolling(window=window).mean()
-    std_dev = data.iloc[:, :4].mean(1).rolling(window=window).std()
+    if ohlc == "":
+        bands["middle_band"] = data.iloc[:, :4].mean(1).rolling(window=window).mean()
+        std_dev = data.iloc[:, :4].mean(1).rolling(window=window).std()
+    else:
+        bands["middle_band"] = data[ohlc].rolling(window=window).mean()
+        std_dev = data[ohlc].rolling(window=window).std()
     bands["upper_band"] = bands["middle_band"] + (std_dev * num_std_dev)
     bands["lower_band"] = bands["middle_band"] - (std_dev * num_std_dev)
     return bands

@@ -204,7 +204,7 @@ def bollinger_bands(
             :align: center
             :width: 500px
     """
-    signals = _bollinger_bands(data, window, num_std_dev)
+    signals = _bollinger_bands(data, window, num_std_dev, ohlc)
     signals["signals"] = 0
     if ohlc == "":
         signals["signals"] = np.where(
