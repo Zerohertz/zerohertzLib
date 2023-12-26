@@ -1,5 +1,36 @@
 # v0.7
 
+## v0.7.4
+
+<h3>[v0.7.4] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/196>#196</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2023/12/26
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/plot"><img src="https://img.shields.io/badge/feat/plot-968B14?style=flat-square&logo=github" alt="feat/plot"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:style"><img src="https://img.shields.io/badge/style-03A17F?style=flat-square&logo=github" alt="style"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/quant"><img src="https://img.shields.io/badge/feat/quant-ededed?style=flat-square&logo=github" alt="feat/quant"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `plot`
+  + `candle` 사용 시 가독성 향상을 위해 bollinger bands의 간소화 및 moving average 변
+  + `matplotlib`의 dependency issue 해결 (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/195">#195</a>)
++ `quant`
+  + `bollinger_bands` 함수의 `ohlc` 변수 기능 수정
+
+<h4>Style</h4>
+
++ 화폐 단위 format 수정 (`₩`, `$`)
+
 ## v0.7.3
 
 <h3>[v0.7.3] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/193>#193</a>)</h3>
