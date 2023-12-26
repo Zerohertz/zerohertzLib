@@ -387,21 +387,16 @@ class Balance(KoreaInvestment):
 
         Examples:
             >>> balance.table()
-
-            .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290379778-48f7ce85-ad3e-41fd-8045-0f4640e7532e.png
-                :alt: Balance Table Result
-                :align: center
-                :width: 400px
         """
         if self() == 0:
             return None
         if self.kor:
             col = [
-                "Purchase Price [￦]",
-                "Current Price [￦]",
+                "Purchase Price [₩]",
+                "Current Price [₩]",
                 "Quantity",
                 "Profit and Loss (P&L) [%]",
-                "Profit and Loss (P&L) [￦]",
+                "Profit and Loss (P&L) [₩]",
             ]
         else:
             col = [
@@ -456,16 +451,11 @@ class Balance(KoreaInvestment):
 
         Examples:
             >>> balance.pie()
-
-            .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290379806-254b2b6b-02b1-4691-891a-356e2d0bafb1.png
-                :alt: Balance Pie Result
-                :align: center
-                :width: 500px
         """
         if self() == 0:
             return None
         if self.kor:
-            dim = "￦"
+            dim = "₩"
         else:
             dim = "$"
         data = defaultdict(float)

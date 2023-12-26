@@ -171,7 +171,7 @@ def candle(
         >>> signals = zz.quant.macd(data)
         >>> zz.plot.candle(data, "MACD", signals=signals)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291915503-d119e9ee-2b8b-4fca-bd01-841dc19867d0.png
+        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/292802552-7e07bc0d-3d91-4a31-8b65-f8fd63809200.png
             :alt: Visualzation Result
             :align: center
             :width: 600px
@@ -202,18 +202,18 @@ def candle(
             "figure.titlesize": 35,
         },
     )
-    bands = _bollinger_bands(data)
-    bollinger = mpf.make_addplot(bands[["lower_band", "upper_band"]], type="line")
+    # bands = _bollinger_bands(data)
+    # bollinger = mpf.make_addplot(bands[["lower_band", "upper_band"]], type="line")
     _, axlist = mpf.plot(
         data,
         type="candle",
-        mav=(5, 10, 20),
+        mav=(5, 20, 60, 120),
         volume=True,
         figsize=figsize,
         title=title,
         style=style,
         returnfig=True,
-        addplot=bollinger,
+        # addplot=bollinger,
     )
     if signals is not None:
         new_axis = axlist[0].twinx()
@@ -291,21 +291,21 @@ def candle(
     return None
 
 
-def _bollinger_bands(data: pd.DataFrame) -> pd.DataFrame:
-    """Bollinger band 계산 함수
+# def _bollinger_bands(data: pd.DataFrame) -> pd.DataFrame:
+#     """Bollinger band 계산 함수
 
-    Args:
-        data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
+#     Args:
+#         data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
 
-    Returns:
-        ``pd.DataFrame``: Bollinger band
-    """
-    bands = pd.DataFrame(index=data.index)
-    bands["middle_band"] = data.iloc[:, :4].mean(1).rolling(window=20).mean()
-    std_dev = data.iloc[:, :4].mean(1).rolling(window=20).std()
-    bands["upper_band"] = bands["middle_band"] + (std_dev * 2)
-    bands["lower_band"] = bands["middle_band"] - (std_dev * 2)
-    return bands
+#     Returns:
+#         ``pd.DataFrame``: Bollinger band
+#     """
+#     bands = pd.DataFrame(index=data.index)
+#     bands["middle_band"] = data.iloc[:, :4].mean(1).rolling(window=20).mean()
+#     std_dev = data.iloc[:, :4].mean(1).rolling(window=20).std()
+#     bands["upper_band"] = bands["middle_band"] + (std_dev * 2)
+#     bands["lower_band"] = bands["middle_band"] - (std_dev * 2)
+#     return bands
 
 
 def _method2str(method: str) -> str:
