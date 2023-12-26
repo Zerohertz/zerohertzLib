@@ -2,8 +2,9 @@
 psutil
 
 # plot
-matplotlib
+matplotlib>=3.5.2
 seaborn
+pandas
 mplfinance
 
 # util
