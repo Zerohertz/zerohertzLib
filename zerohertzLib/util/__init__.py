@@ -7,7 +7,7 @@
 
 
 from zerohertzLib.util.csv import read_csv, write_csv
-from zerohertzLib.util.data import MakeData, find_ext, rmtree
+from zerohertzLib.util.data import MakeData, find_ext, rmtree, sort_dict
 from zerohertzLib.util.json import Json, JsonDir, write_json
 
 __all__ = [
@@ -19,4 +19,5 @@ __all__ = [
     "read_csv",
     "find_ext",
     "rmtree",
+    "sort_dict",
 ]
