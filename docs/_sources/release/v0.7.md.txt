@@ -1,5 +1,29 @@
 # v0.7
 
+## v0.7.6
+
+<h3>[v0.7.6] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/200>#200</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2023/12/27
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/plot"><img src="https://img.shields.io/badge/feat/plot-968B14?style=flat-square&logo=github" alt="feat/plot"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/util"><img src="https://img.shields.io/badge/feat/util-DEBEAA?style=flat-square&logo=github" alt="feat/util"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `plot`
+  + 시각화 시 다양한 색상을 설정할 수 있는 `colors` 변수 추가
++ `util`
+  + Dictionary의 순서를 재배열하는 함수 `sort_dict` 개발
+
 ## v0.7.5
 
 <h3>[v0.7.5] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/198>#198</a>)</h3>
