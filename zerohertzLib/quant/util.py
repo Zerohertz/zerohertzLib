@@ -84,7 +84,7 @@ def _cash2str(
 ) -> str:
     if kor:
         if cash < 0:
-            return f"-₩{cash:,.0f}"
+            return f"-₩{abs(cash):,.0f}"
         return f"₩{cash:,.0f}"
     if cash < 0:
         return f"-${abs(cash):,.2f}"

@@ -1009,9 +1009,12 @@ class QuantSlackBotFDR(QuantSlackBot):
                 self.symbols = list(self.market["Symbol"])[:symbols]
 
     def _get_data(self, symbol: str) -> Tuple[str, pd.DataFrame]:
-        if self.kor:
-            title = self.market[self.market["Code"] == symbol].iloc[0, 1]
-        else:
-            title = self.market[self.market["Symbol"] == symbol].iloc[0, 1]
+        try:
+            if self.kor:
+                title = self.market[self.market["Code"] == symbol].iloc[0, 1]
+            else:
+                title = self.market[self.market["Symbol"] == symbol].iloc[0, 1]
+        except IndexError:
+            title = symbol
         data = fdr.DataReader(symbol, self.start_day)
         return title, data
