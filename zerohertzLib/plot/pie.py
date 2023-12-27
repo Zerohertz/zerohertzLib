@@ -23,17 +23,18 @@ SOFTWARE.
 """
 
 
-from typing import Dict, Optional, Tuple, Union
+from typing import Dict, List, Optional, Tuple, Union
 
 from matplotlib import pyplot as plt
 
-from .util import color, savefig
+from .util import _color, savefig
 
 
 def pie(
     data: Dict[str, Union[int, float]],
     dim: Optional[str] = "",
     title: Optional[str] = "tmp",
+    colors: Optional[Union[str, List]] = None,
     figsize: Optional[Tuple[int]] = (15, 10),
     dpi: Optional[int] = 300,
     int_label: Optional[bool] = True,
@@ -45,6 +46,7 @@ def pie(
         data (``Dict[str, Union[int, float]]``): 입력 데이터
         dim: (``Optional[str]``): 입력 ``data`` 의 단위
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
+        colors (``Optional[Union[str, List]]``): 각 요소의 색
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         int_label: (``Optional[bool]``): Label 내 수치의 소수점 표기 여부
@@ -62,9 +64,7 @@ def pie(
             :align: center
             :width: 500px
     """
-    colors = color(len(data))
-    if len(data) == 1:
-        colors = [colors]
+    colors = _color(data, colors)
     if save:
         plt.figure(figsize=figsize)
     if int_label:

@@ -25,7 +25,7 @@ SOFTWARE.
 
 import os
 import random
-from typing import List, Optional, Tuple, Union
+from typing import Any, List, Optional, Tuple, Union
 
 import seaborn as sns
 from matplotlib import pyplot as plt
@@ -119,3 +119,16 @@ def color(
             [int(j * 255) for j in i] for i in sns.color_palette(palette, n_colors=cnt)
         ]
     return sns.color_palette(palette, n_colors=cnt)
+
+
+def _color(data: Any, colors: Union[str, List]):
+    if isinstance(colors, list):
+        if len(data) > len(colors):
+            return colors + ["black" for _ in range(len(data) - len(colors))]
+        return colors
+    if colors is None:
+        colors = "husl"
+    colors = color(len(data), palette=colors)
+    if len(data) == 1:
+        return [colors]
+    return colors

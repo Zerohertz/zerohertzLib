@@ -27,7 +27,7 @@ import os
 import shutil
 from collections import defaultdict
 from glob import glob
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 
 from tqdm import tqdm
 
@@ -249,3 +249,31 @@ def find_ext(path: Optional[str] = "") -> Dict[str, int]:
     for file_path in file_paths:
         exts[file_path.split(".")[-1]] += 1
     return exts
+
+
+def sort_dict(target: Dict, order: Optional[List] = None):
+    """Dictionary를 순서에 맞춰 재배열하는 함수
+
+    Args:
+        target (``Dict``): 입력 dictionary
+        order (``Optional[List]``): 재배열 순서
+
+    Returns:
+        ``Dict``: 재배열이 완료된 dictionary
+
+    Examples:
+        >>> zz.util.sort_dict({3: 6, 4: 2, 2: 7})
+        {2: 7, 3: 6, 4: 2}
+        >>> zz.util.sort_dict({3: 6, 4: 2, 2: 7}, [4, 2, 3])
+        {4: 2, 2: 7, 3: 6}
+        >>> zz.util.sort_dict({"C": 6, "D": 2, "A": 7})
+        {'A': 7, 'C': 6, 'D': 2}
+        >>> zz.util.sort_dict({"C": 6, "D": 2, "A": 7}, ["D", "C"])
+        {'D': 2, 'C': 6}
+    """
+    if order is None:
+        return dict(sorted(target.items()))
+    result = {}
+    for order_ in order:
+        result[order_] = target[order_]
+    return result

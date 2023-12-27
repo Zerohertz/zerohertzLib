@@ -30,7 +30,7 @@ import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 
-from .util import color, savefig
+from .util import _color, color, savefig
 
 
 def plot(
@@ -43,6 +43,7 @@ def plot(
     stacked: Optional[bool] = False,
     ncol: Optional[int] = 1,
     title: Optional[str] = "tmp",
+    colors: Optional[Union[str, List]] = None,
     markersize: Optional[int] = 12,
     figsize: Optional[Tuple[int]] = (15, 10),
     dpi: Optional[int] = 300,
@@ -60,6 +61,7 @@ def plot(
         stacked (``Optional[bool]``): Stacked plot 여부
         ncol (``Optional[int]``): Graph에 표시될 legend 열의 수
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
+        colors (``Optional[Union[str, List]]``): 각 요소의 색
         markersize (``Optional[int]``): Graph에 표시될 marker의 size
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
@@ -88,9 +90,7 @@ def plot(
                 :align: center
                 :width: 500px
     """
-    colors = color(len(ydata))
-    if len(ydata) == 1:
-        colors = [colors]
+    colors = _color(ydata, colors)
     if save:
         plt.figure(figsize=figsize)
     # import matplotlib.markers as mmarkers

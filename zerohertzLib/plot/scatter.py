@@ -27,7 +27,7 @@ from typing import Dict, List, Optional, Tuple, Union
 
 from matplotlib import pyplot as plt
 
-from .util import color, figure, savefig
+from .util import _color, figure, savefig
 
 
 def scatter(
@@ -36,6 +36,7 @@ def scatter(
     xlab: Optional[str] = "x축 [단위]",
     ylab: Optional[str] = "y축 [단위]",
     title: Optional[str] = "tmp",
+    colors: Optional[Union[str, List]] = None,
     figsize: Optional[Tuple[int]] = (15, 10),
     dpi: Optional[int] = 300,
     save: Optional[bool] = True,
@@ -48,6 +49,7 @@ def scatter(
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
+        colors (``Optional[Union[str, List]]``): 각 요소의 색
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         save (``Optional[bool]``): Graph 저장 여부
@@ -64,9 +66,7 @@ def scatter(
             :align: center
             :width: 500px
     """
-    colors = color(len(data))
-    if len(data) == 1:
-        colors = [colors]
+    colors = _color(data, colors)
     if save:
         figure(figsize=figsize)
     # import matplotlib.markers as mmarkers
