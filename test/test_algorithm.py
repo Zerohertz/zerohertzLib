@@ -1,3 +1,5 @@
+import random
+
 import zerohertzLib as zz
 
 
@@ -56,3 +58,21 @@ def test_fft_inv():
         0j,
         0j,
     ]
+
+
+def test_sort_int():
+    arr = [random.randint(-100, 100) for _ in range(100)]
+    sorted_arr = sorted(arr)
+    assert sorted_arr == zz.algorithm.bubble_sort(arr.copy())
+    assert sorted_arr == zz.algorithm.selection_sort(arr.copy())
+    assert sorted_arr == zz.algorithm.insertion_sort(arr.copy())
+    assert sorted_arr == zz.algorithm.merge_sort(arr.copy())
+    assert sorted_arr == zz.algorithm.quick_sort(arr.copy())
+    assert sorted_arr == zz.algorithm.heap_sort(arr.copy())
+
+
+def test_sort_nat():
+    arr = [random.randint(0, 100) for _ in range(100)]
+    sorted_arr = sorted(arr)
+    assert sorted_arr == zz.algorithm.counting_sort(arr.copy())
+    assert sorted_arr == zz.algorithm.radix_sort(arr.copy())
