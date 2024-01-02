@@ -76,3 +76,12 @@ def test_sort_nat():
     sorted_arr = sorted(arr)
     assert sorted_arr == zz.algorithm.counting_sort(arr.copy())
     assert sorted_arr == zz.algorithm.radix_sort(arr.copy())
+
+
+# FROM: https://www.acmicpc.net/problem/1238
+def test_dijkstra():
+    graph = [[(1, 4), (2, 2), (3, 7)], [(0, 1), (2, 5)], [(0, 2), (3, 4)], [(1, 3)]]
+    assert [0, 4, 2, 6] == zz.algorithm.dijkstra(graph, 0)
+    assert [1, 0, 3, 7] == zz.algorithm.dijkstra(graph, 1)
+    assert [2, 6, 0, 4] == zz.algorithm.dijkstra(graph, 2)
+    assert [4, 3, 6, 0] == zz.algorithm.dijkstra(graph, 3)

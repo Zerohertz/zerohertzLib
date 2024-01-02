@@ -23,8 +23,10 @@ SOFTWARE.
 """
 
 
+import heapq
+import sys
 from collections import deque
-from typing import List
+from typing import List, Tuple
 
 
 def bfs(maps: List[List[int]], start: int) -> List[int]:
@@ -82,3 +84,44 @@ def dfs(maps: List[List[int]], start: int) -> List[int]:
 
     _dfs(start)
     return results
+
+
+def dijkstra(graph: List[List[Tuple[int, int]]], start: int) -> List[int]:
+    """Graph에서 시작 node로부터 모든 다른 node까지의 최단 경로 거리 계산
+
+    Note:
+        Time Complexity: :math:`O((V+E)\log{V})`
+
+        - :math:`V`: Node의 수
+        - :math:`E`: 간선의 수
+
+    Args:
+        graph (``List[List[Tuple[int, int]]]``): Index (간선의 시작 node)에 따른 간선의 도착 node와 가중치 정보
+        start (``int``): 최단 경로 거리가 계신될 시작 node
+
+    Returns:
+        ``List[int]``: ``start`` 에서 graph 내 모든 다른 node 까지의 최단 경로 거리
+
+    Examples:
+        >>> graph = [[(1, 4), (2, 2), (3, 7)], [(0, 1), (2, 5)], [(0, 2), (3, 4)], [(1, 3)]]
+        >>> zz.algorithm.dijkstra(graph, 0)
+        [0, 4, 2, 6]
+        >>> zz.algorithm.dijkstra(graph, 1)
+        [1, 0, 3, 7]
+        >>> zz.algorithm.dijkstra(graph, 2)
+        [2, 6, 0, 4]
+        >>> zz.algorithm.dijkstra(graph, 3)
+        [4, 3, 6, 0]
+    """
+    distance = [sys.maxsize for _ in range(len(graph))]
+    distance[start] = 0
+    queue = [(0, start)]
+    while queue:
+        dist, node = heapq.heappop(queue)
+        if distance[node] < dist:
+            continue
+        for node_, dist_ in graph[node]:
+            if dist + dist_ < distance[node_]:
+                distance[node_] = dist + dist_
+                heapq.heappush(queue, (dist + dist_, node_))
+    return distance
