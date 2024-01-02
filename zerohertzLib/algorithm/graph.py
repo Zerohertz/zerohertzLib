@@ -119,6 +119,56 @@ def floyd_warshall(graph: List[List[Tuple[int, int]]]) -> List[List[int]]:
     return distance
 
 
+def bellman_ford(graph: List[List[Tuple[int, int]]], start: int) -> List[int]:
+    """Graph에서 시작 node로부터 모든 다른 node까지의 최단 경로 거리 계산
+
+    Note:
+        Time Complexity: :math:`O(VE)`
+
+        - :math:`V`: Node의 수
+        - :math:`E`: 간선의 수
+
+    Args:
+        graph (``List[List[Tuple[int, int]]]``): Index (간선의 시작 node)에 따른 간선의 도착 node와 가중치 정보
+        start (``int``): 최단 경로 거리가 계신될 시작 node
+
+    Returns:
+        ``List[int]``: ``start`` 에서 graph 내 모든 다른 node 까지의 최단 경로 거리 (음의 cycle을 가질 시 ``None`` return)
+
+    Examples:
+        >>> graph = [[(1, 4), (2, 2), (3, 7)], [(0, 1), (2, 5)], [(0, 2), (3, 4)], [(1, 3)]]
+        >>> zz.algorithm.bellman_ford(graph, 0)
+        [0, 4, 2, 6]
+        >>> zz.algorithm.bellman_ford(graph, 1)
+        [1, 0, 3, 7]
+        >>> zz.algorithm.bellman_ford(graph, 2)
+        [2, 6, 0, 4]
+        >>> zz.algorithm.bellman_ford(graph, 3)
+        [4, 3, 6, 0]
+        >>> zz.algorithm.bellman_ford([[(1, -1)], [(0, -1)]], 0) is None
+        True
+    """
+    n = len(graph)
+    distance = [sys.maxsize for _ in range(n)]
+    distance[start] = 0
+    for _ in range(n - 1):
+        for node in range(n):
+            for node_, dist_ in graph[node]:
+                if (
+                    distance[node] != sys.maxsize
+                    and distance[node_] > distance[node] + dist_
+                ):
+                    distance[node_] = distance[node] + dist_
+    for node in range(n):
+        for node_, dist_ in graph[node]:
+            if (
+                distance[node] != sys.maxsize
+                and distance[node_] > distance[node] + dist_
+            ):
+                return None
+    return distance
+
+
 def dijkstra(graph: List[List[Tuple[int, int]]], start: int) -> List[int]:
     """Graph에서 시작 node로부터 모든 다른 node까지의 최단 경로 거리 계산
 
@@ -154,7 +204,7 @@ def dijkstra(graph: List[List[Tuple[int, int]]], start: int) -> List[int]:
         if distance[node] < dist:
             continue
         for node_, dist_ in graph[node]:
-            if dist + dist_ < distance[node_]:
+            if distance[node_] > dist + dist_:
                 distance[node_] = dist + dist_
                 heapq.heappush(queue, (dist + dist_, node_))
     return distance
