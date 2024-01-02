@@ -8,7 +8,7 @@
 
 from zerohertzLib.algorithm.bisect import bisect_left, bisect_right
 from zerohertzLib.algorithm.fft import fft
-from zerohertzLib.algorithm.graph import bfs, dfs, dijkstra
+from zerohertzLib.algorithm.graph import bfs, dfs, dijkstra, floyd_warshall
 from zerohertzLib.algorithm.prime import soe
 from zerohertzLib.algorithm.sort import (
     bubble_sort,
@@ -37,4 +37,5 @@ __all__ = [
     "counting_sort",
     "radix_sort",
     "dijkstra",
+    "floyd_warshall",
 ]

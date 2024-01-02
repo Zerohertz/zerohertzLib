@@ -85,3 +85,10 @@ def test_dijkstra():
     assert [1, 0, 3, 7] == zz.algorithm.dijkstra(graph, 1)
     assert [2, 6, 0, 4] == zz.algorithm.dijkstra(graph, 2)
     assert [4, 3, 6, 0] == zz.algorithm.dijkstra(graph, 3)
+
+
+def test_floyd_warshall():
+    graph = [[(1, 4), (2, 2), (3, 7)], [(0, 1), (2, 5)], [(0, 2), (3, 4)], [(1, 3)]]
+    results = zz.algorithm.floyd_warshall(graph)
+    for i, result in enumerate(results):
+        assert result == zz.algorithm.dijkstra(graph, i)
