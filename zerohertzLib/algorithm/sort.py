@@ -162,12 +162,12 @@ def _heapify(arr: List[int], n: int, i: int):
         i (``int``): 재구성할 subtree의 root node index
     """
     largest = i
-    l = 2 * i + 1
-    r = 2 * i + 2
-    if l < n and arr[i] < arr[l]:
-        largest = l
-    if r < n and arr[largest] < arr[r]:
-        largest = r
+    left = 2 * i + 1
+    right = 2 * i + 2
+    if left < n and arr[i] < arr[left]:
+        largest = left
+    if right < n and arr[largest] < arr[right]:
+        largest = right
     if largest != i:
         arr[i], arr[largest] = arr[largest], arr[i]
         _heapify(arr, n, largest)
@@ -213,9 +213,9 @@ def counting_sort(arr: List[int]):
     for arr_ in arr:
         count[arr_] += 1
     idx = 0
-    for val in range(max_val):
-        for _ in range(count[val]):
-            arr[idx] = val
+    for value in range(max_val):
+        for _ in range(count[value]):
+            arr[idx] = value
             idx += 1
     return arr
 

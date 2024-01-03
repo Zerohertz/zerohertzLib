@@ -1,9 +1,10 @@
 [flake8]
-ignore = E203, E501, F401, W503, W605
+ignore = E203, E501, F401, VNE001, W503, W605
 enable-extensions = VNE
 
 ; E203 whitespace before ':'
-; E501 line too long (260 > 79 characters)
+; E501 line too long (* > * characters)
 ; F401 '*' imported but unused
+; VNE001 single letter variable names like '*' are not allowed
 ; W503 line break before binary operator
 ; W605 invalid escape sequence '\.'

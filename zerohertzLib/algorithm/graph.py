@@ -168,13 +168,6 @@ def bellman_ford(graph: List[List[Tuple[int, int]]], start: int) -> List[int]:
                     distance[node_] = distance[node] + dist_
                     if cnt == n - 1:
                         return None
-    # for node in range(n):
-    #     for node_, dist_ in graph[node]:
-    #         if (
-    #             distance[node] != sys.maxsize
-    #             and distance[node_] > distance[node] + dist_
-    #         ):
-    #             return None
     return distance
 
 
