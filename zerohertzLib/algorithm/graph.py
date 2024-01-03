@@ -98,7 +98,7 @@ def floyd_warshall(graph: List[List[Tuple[int, int]]]) -> List[List[int]]:
         graph (``List[List[Tuple[int, int]]]``): Index (간선의 시작 node)에 따른 간선의 도착 node와 가중치 정보
 
     Returns:
-        ``List[int]``: 모든 node 쌍에 대한 최단 경로 거리
+        ``List[int]``: 모든 node 쌍에 대한 최단 경로 거리 (음의 cycle을 가질 시 ``None`` return)
 
     Examples:
         >>> graph = [[(1, 4), (2, 2), (3, 7)], [(0, 1), (2, 5)], [(0, 2), (3, 4)], [(1, 3)]]
@@ -114,8 +114,15 @@ def floyd_warshall(graph: List[List[Tuple[int, int]]]) -> List[List[int]]:
     for k in range(n):
         for i in range(n):
             for j in range(n):
-                if distance[i][j] > distance[i][k] + distance[k][j]:
+                if (
+                    distance[i][j] > distance[i][k] + distance[k][j]
+                    and distance[i][k] != sys.maxsize
+                    and distance[k][j] != sys.maxsize
+                ):
                     distance[i][j] = distance[i][k] + distance[k][j]
+    for i in range(n):
+        if distance[i][i] < 0:
+            return None
     return distance
 
 
@@ -151,7 +158,7 @@ def bellman_ford(graph: List[List[Tuple[int, int]]], start: int) -> List[int]:
     n = len(graph)
     distance = [sys.maxsize for _ in range(n)]
     distance[start] = 0
-    for _ in range(n - 1):
+    for cnt in range(n):
         for node in range(n):
             for node_, dist_ in graph[node]:
                 if (
@@ -159,13 +166,15 @@ def bellman_ford(graph: List[List[Tuple[int, int]]], start: int) -> List[int]:
                     and distance[node_] > distance[node] + dist_
                 ):
                     distance[node_] = distance[node] + dist_
-    for node in range(n):
-        for node_, dist_ in graph[node]:
-            if (
-                distance[node] != sys.maxsize
-                and distance[node_] > distance[node] + dist_
-            ):
-                return None
+                    if cnt == n - 1:
+                        return None
+    # for node in range(n):
+    #     for node_, dist_ in graph[node]:
+    #         if (
+    #             distance[node] != sys.maxsize
+    #             and distance[node_] > distance[node] + dist_
+    #         ):
+    #             return None
     return distance
 
 
@@ -183,7 +192,7 @@ def dijkstra(graph: List[List[Tuple[int, int]]], start: int) -> List[int]:
         start (``int``): 최단 경로 거리가 계신될 시작 node
 
     Returns:
-        ``List[int]``: ``start`` 에서 graph 내 모든 다른 node 까지의 최단 경로 거리
+        ``List[int]``: ``start`` 에서 graph 내 모든 다른 node 까지의 최단 경로 거리 (음의 가중치에서는 정확하지 않음)
 
     Examples:
         >>> graph = [[(1, 4), (2, 2), (3, 7)], [(0, 1), (2, 5)], [(0, 2), (3, 4)], [(1, 3)]]

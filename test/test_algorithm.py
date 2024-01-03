@@ -85,6 +85,12 @@ def test_floyd_warshall():
     for i, result in enumerate(results):
         assert result == zz.algorithm.dijkstra(graph, i)
         assert result == zz.algorithm.bellman_ford(graph, i)
+    graph_no_cycle = [[(1, -2), (2, -3)], [(3, -5)], [(3, -1)], []]
+    results = zz.algorithm.floyd_warshall(graph_no_cycle)
+    for i, result in enumerate(results):
+        assert result == zz.algorithm.bellman_ford(graph_no_cycle, i)
+    graph_cycle = [[(1, -2), (2, 3)], [(2, -2)], [(0, -2), (3, 1)], []]
+    assert zz.algorithm.floyd_warshall(graph_cycle) is None
 
 
 def test_bellman_ford():
@@ -93,6 +99,11 @@ def test_bellman_ford():
     assert [1, 0, 3, 7] == zz.algorithm.bellman_ford(graph, 1)
     assert [2, 6, 0, 4] == zz.algorithm.bellman_ford(graph, 2)
     assert [4, 3, 6, 0] == zz.algorithm.bellman_ford(graph, 3)
+    graph_cycle = [[(1, -2), (2, 3)], [(2, -2)], [(0, -2), (3, 1)], []]
+    assert zz.algorithm.bellman_ford(graph_cycle, 0) is None
+    assert zz.algorithm.bellman_ford(graph_cycle, 1) is None
+    assert zz.algorithm.bellman_ford(graph_cycle, 2) is None
+    # assert zz.algorithm.bellman_ford(graph_cycle, 3) is None
 
 
 def test_dijkstra():
