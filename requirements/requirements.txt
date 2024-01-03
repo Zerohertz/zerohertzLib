@@ -3,7 +3,7 @@ psutil
 
 # plot
 matplotlib>=3.5.2
-seaborn
+seaborn>=0.12
 pandas
 mplfinance
 
