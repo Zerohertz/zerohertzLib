@@ -163,7 +163,7 @@ class KoreaInvestment:
         ).json()
         self.access_token = f"Bearer {response['access_token']}"
         now = datetime.datetime.now()
-        response["timestamp"] = int(now.timestamp()) + response["expires_in"]
+        response["timestamp"] = int(now.timestamp()) + response["expires_in"] - 600
         response["api_key"] = self.api_key
         response["api_secret"] = self.api_secret
         with open(os.path.join(self.path, "token.dat"), "wb") as file:
