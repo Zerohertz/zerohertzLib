@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.mlops" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.mlops.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.7.7 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.7.8 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.7.7 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.7.8 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.mlops.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.mlops - zerohertzLib v0.7.7 documentation</title>
+        <title>zerohertzLib.mlops - zerohertzLib v0.7.8 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.7.7 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.7.8 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.7.7 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.7.8 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -260,6 +260,113 @@
 <p class="admonition-title">MLOps</p>
 <p>MLOps에서 사용되는 class들</p>
 </div>
+<dl class="py class">
+<dt class="sig sig-object py" id="zerohertzLib.mlops.BaseTritonPythonModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.mlops.</span></span><span class="sig-name descname"><span class="pre">BaseTritonPythonModel</span></span><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Triton Inference Server에서 Python backend 사용을 위한 class</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.mlops.BaseTritonPythonModel.logger">
+<span class="sig-name descname"><span class="pre">logger</span></span><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel.logger" title="Permalink to this definition">#</a></dt>
+<dd><p>Triton Inference Server 내 log를 출력하기 위한 instance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">zerohertzLib.logging.Logger</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.mlops.BaseTritonPythonModel._inference">
+<span class="sig-name descname"><span class="pre">_inference</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel._inference" title="Permalink to this definition">#</a></dt>
+<dd><p>Model 추론을 수행하는 private method (상속을 통한 재정의 필수)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>inputs</strong> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – Model 추론 시 사용될 입력 (<code class="docutils literal notranslate"><span class="pre">config.pbtxt</span></code> 의 입력에 따라 입력 결정)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Model의 추론 결과</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Union[NDArray[DTypeLike],</span> <span class="pre">Tuple[NDArray[DTypeLike]]]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Examples</p>
+<dl>
+<dt><code class="docutils literal notranslate"><span class="pre">model.py</span></code>:</dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TritonPythonModel</span><span class="p">(</span><span class="n">zz</span><span class="o">.</span><span class="n">mlops</span><span class="o">.</span><span class="n">BaseTritonPythonModel</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_inference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_image</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">input_image</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt>Normal Logs:</dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">2024</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">12</span> <span class="mi">01</span><span class="p">:</span><span class="mi">47</span><span class="p">:</span><span class="mi">19</span><span class="p">,</span><span class="mi">123</span> <span class="o">|</span> <span class="n">INFO</span>     <span class="o">|</span> <span class="n">MODEL</span> <span class="o">|</span> <span class="n">Called</span>
+<span class="mi">2024</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">12</span> <span class="mi">01</span><span class="p">:</span><span class="mi">47</span><span class="p">:</span><span class="mi">19</span><span class="p">,</span><span class="mi">124</span> <span class="o">|</span> <span class="n">DEBUG</span>    <span class="o">|</span> <span class="n">MODEL</span> <span class="o">|</span> <span class="n">inputs</span><span class="p">:</span> <span class="p">(</span><span class="mi">2259</span><span class="p">,</span> <span class="mi">1663</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="mi">2024</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">12</span> <span class="mi">01</span><span class="p">:</span><span class="mi">47</span><span class="p">:</span><span class="mi">19</span><span class="p">,</span><span class="mi">124</span> <span class="o">|</span> <span class="n">INFO</span>     <span class="o">|</span> <span class="n">MODEL</span> <span class="o">|</span> <span class="n">Inferecne</span> <span class="n">start</span>
+<span class="mi">2024</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">12</span> <span class="mi">01</span><span class="p">:</span><span class="mi">47</span><span class="p">:</span><span class="mi">19</span><span class="p">,</span><span class="mi">254</span> <span class="o">|</span> <span class="n">DEBUG</span>    <span class="o">|</span> <span class="n">MODEL</span> <span class="o">|</span> <span class="n">outputs</span><span class="p">:</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="mi">3</span><span class="p">,)</span>
+<span class="mi">2024</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">12</span> <span class="mi">01</span><span class="p">:</span><span class="mi">47</span><span class="p">:</span><span class="mi">19</span><span class="p">,</span><span class="mi">254</span> <span class="o">|</span> <span class="n">INFO</span>     <span class="o">|</span> <span class="n">MODEL</span> <span class="o">|</span> <span class="n">Inferecne</span> <span class="n">completed</span>
+</pre></div>
+</div>
+</dd>
+<dt>Error Logs:</dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">2024</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">12</span> <span class="mi">02</span><span class="p">:</span><span class="mi">03</span><span class="p">:</span><span class="mi">24</span><span class="p">,</span><span class="mi">288</span> <span class="o">|</span> <span class="n">CRITICAL</span> <span class="o">|</span> <span class="n">MODEL</span> <span class="o">|</span> <span class="n">name</span> <span class="s1">&#39;test&#39;</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">defined</span>
+<span class="o">====================================================================================================</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="n">File</span> <span class="s2">&quot;/usr/local/lib/python3.8/dist-packages/zerohertzLib/mlops/triton.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="o">*</span><span class="p">,</span> <span class="ow">in</span> <span class="n">execute</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">(</span><span class="o">*</span><span class="n">inputs</span><span class="p">)</span>
+<span class="n">File</span> <span class="s2">&quot;/models/model/*/model.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="o">*</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_inference</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">input_image</span><span class="p">)</span>
+<span class="n">File</span> <span class="s2">&quot;/models/model/*/*.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="o">*</span><span class="p">,</span> <span class="ow">in</span> <span class="o">*</span>
+    <span class="n">test</span>
+<span class="ne">NameError</span><span class="p">:</span> <span class="n">name</span> <span class="s1">&#39;test&#39;</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">defined</span>
+<span class="o">====================================================================================================</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.mlops.BaseTritonPythonModel.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requests</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel.execute" title="Permalink to this definition">#</a></dt>
+<dd><p>Triton Inference Server 호출 시 수행되는 method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.mlops.BaseTritonPythonModel.execute.params.requests"></span><strong>requests</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.BaseTritonPythonModel.execute.params.requests">¶</a> (<code class="docutils literal notranslate"><span class="pre">List[pb_utils.InferenceRequest]</span></code>) – Client에서 전송된 model inputs</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Client에 응답할 model의 추론 결과</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[pb_utils.InferenceResponse]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.mlops.BaseTritonPythonModel.finalize">
+<span class="sig-name descname"><span class="pre">finalize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel.finalize" title="Permalink to this definition">#</a></dt>
+<dd><p>Triton Inference Server 종료 시 수행되는 method</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.mlops.BaseTritonPythonModel.initialize">
+<span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel.initialize" title="Permalink to this definition">#</a></dt>
+<dd><p>Triton Inference Server 시작 시 수행되는 method</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.mlops.BaseTritonPythonModel.initialize.params.args"></span><strong>args</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.BaseTritonPythonModel.initialize.params.args">¶</a> (<code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">Any]</span></code>) – <code class="docutils literal notranslate"><span class="pre">config.pbtxt</span></code> 에 포함된 model의 정보</p></li>
+<li><p><span class="target" id="zerohertzLib.mlops.BaseTritonPythonModel.initialize.params.level"></span><strong>level</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.BaseTritonPythonModel.initialize.params.level">¶</a> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – Logger의 level</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="py class">
 <dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientK8s">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.mlops.</span></span><span class="sig-name descname"><span class="pre">TritonClientK8s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">svc_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.mlops.TritonClientK8s" title="Permalink to this definition">#</a></dt>
@@ -465,6 +572,14 @@ triton-inference-server-svc   ClusterIP   10.96.28.172    &lt;none&gt;        80
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">zerohertzLib.mlops</a><ul>
+<li><a class="reference internal" href="#zerohertzLib.mlops.BaseTritonPythonModel"><code class="docutils literal notranslate"><span class="pre">BaseTritonPythonModel</span></code></a><ul>
+<li><a class="reference internal" href="#zerohertzLib.mlops.BaseTritonPythonModel.logger"><code class="docutils literal notranslate"><span class="pre">BaseTritonPythonModel.logger</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.mlops.BaseTritonPythonModel._inference"><code class="docutils literal notranslate"><span class="pre">BaseTritonPythonModel._inference()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.mlops.BaseTritonPythonModel.execute"><code class="docutils literal notranslate"><span class="pre">BaseTritonPythonModel.execute()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.mlops.BaseTritonPythonModel.finalize"><code class="docutils literal notranslate"><span class="pre">BaseTritonPythonModel.finalize()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.mlops.BaseTritonPythonModel.initialize"><code class="docutils literal notranslate"><span class="pre">BaseTritonPythonModel.initialize()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#zerohertzLib.mlops.TritonClientK8s"><code class="docutils literal notranslate"><span class="pre">TritonClientK8s</span></code></a><ul>
 <li><a class="reference internal" href="#zerohertzLib.mlops.TritonClientK8s.inputs"><code class="docutils literal notranslate"><span class="pre">TritonClientK8s.inputs</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.mlops.TritonClientK8s.outputs"><code class="docutils literal notranslate"><span class="pre">TritonClientK8s.outputs</span></code></a></li>
@@ -490,7 +605,7 @@ triton-inference-server-svc   ClusterIP   10.96.28.172    &lt;none&gt;        80
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b6653526"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=5e7f96e4"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
