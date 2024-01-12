@@ -107,28 +107,28 @@ class Logger(logging.Logger):
             stream_handler.setFormatter(formatter)
             self.addHandler(stream_handler)
 
-    def debug(self, log: str) -> None:
-        super().debug(log)
+    def debug(self, msg: str, *args, **kwargs) -> None:
+        super().debug(msg, *args, **kwargs)
         if self.sender is not None:
             self._send()
 
-    def info(self, log: str) -> None:
-        super().info(log)
+    def info(self, msg: str, *args, **kwargs) -> None:
+        super().info(msg, *args, **kwargs)
         if self.sender is not None:
             self._send()
 
-    def warning(self, log: str) -> None:
-        super().warning(log)
+    def warning(self, msg: str, *args, **kwargs) -> None:
+        super().warning(msg, *args, **kwargs)
         if self.sender is not None:
             self._send()
 
-    def error(self, log: str) -> None:
-        super().error(log)
+    def error(self, msg: str, *args, **kwargs) -> None:
+        super().error(msg, *args, **kwargs)
         if self.sender is not None:
             self._send()
 
-    def critical(self, log: str) -> None:
-        super().critical(log)
+    def critical(self, msg: str, *args, **kwargs) -> None:
+        super().critical(msg, *args, **kwargs)
         if self.sender is not None:
             self._send()
 
