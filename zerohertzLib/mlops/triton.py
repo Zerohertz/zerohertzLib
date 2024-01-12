@@ -291,7 +291,7 @@ class BaseTritonPythonModel:
         return pb_utils.InferenceResponse(output_tensors=output_tensors)
 
     def _inference(
-        self, inputs: NDArray[DTypeLike]
+        self, *inputs: NDArray[DTypeLike]
     ) -> Union[NDArray[DTypeLike], Tuple[NDArray[DTypeLike]]]:
         return inputs
 
