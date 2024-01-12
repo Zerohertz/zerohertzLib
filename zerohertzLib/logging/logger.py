@@ -32,7 +32,7 @@ import requests
 from zerohertzLib.api import Discord, SlackBot, SlackWebhook
 
 
-class Logger:
+class Logger(logging.Logger):
     """이쁘게 log를 찍어보는 class
 
     Note:
@@ -73,20 +73,19 @@ class Logger:
         console_level: Optional[int] = logging.DEBUG,
         file_level: Optional[int] = logging.DEBUG,
     ) -> None:
-        self.logger = logging.getLogger(logger_name)
-        self.logger.setLevel(logger_level)
+        super().__init__(logger_name, logger_level)
         formatter = logging.Formatter(
             "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"
         )
         console_handler = logging.StreamHandler()
         console_handler.setLevel(console_level)
         console_handler.setFormatter(formatter)
-        self.logger.addHandler(console_handler)
+        self.addHandler(console_handler)
         if file_name is not None:
             file_handler = logging.FileHandler(f"{file_name}.log")
             file_handler.setLevel(file_level)
             file_handler.setFormatter(formatter)
-            self.logger.addHandler(file_handler)
+            self.addHandler(file_handler)
         if discord is not None and slack is not None:
             raise ValueError("Slack and Discord cannot be used simultaneously")
         self.sender = None
@@ -106,30 +105,30 @@ class Logger:
             stream_handler = logging.StreamHandler(self.log_stream)
             stream_handler.setLevel(logger_level)
             stream_handler.setFormatter(formatter)
-            self.logger.addHandler(stream_handler)
+            self.addHandler(stream_handler)
 
-    def debug(self, log: str) -> None:
-        self.logger.debug(log)
+    def debug(self, msg: str, *args, **kwargs) -> None:
+        super().debug(msg, *args, **kwargs)
         if self.sender is not None:
             self._send()
 
-    def info(self, log: str) -> None:
-        self.logger.info(log)
+    def info(self, msg: str, *args, **kwargs) -> None:
+        super().info(msg, *args, **kwargs)
         if self.sender is not None:
             self._send()
 
-    def warning(self, log: str) -> None:
-        self.logger.warning(log)
+    def warning(self, msg: str, *args, **kwargs) -> None:
+        super().warning(msg, *args, **kwargs)
         if self.sender is not None:
             self._send()
 
-    def error(self, log: str) -> None:
-        self.logger.error(log)
+    def error(self, msg: str, *args, **kwargs) -> None:
+        super().error(msg, *args, **kwargs)
         if self.sender is not None:
             self._send()
 
-    def critical(self, log: str) -> None:
-        self.logger.critical(log)
+    def critical(self, msg: str, *args, **kwargs) -> None:
+        super().critical(msg, *args, **kwargs)
         if self.sender is not None:
             self._send()
 
