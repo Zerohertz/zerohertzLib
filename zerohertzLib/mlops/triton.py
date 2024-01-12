@@ -193,9 +193,9 @@ class BaseTritonPythonModel:
 
                 2024-01-12 01:47:19,123 | INFO     | MODEL | Called
                 2024-01-12 01:47:19,124 | DEBUG    | MODEL | inputs: (2259, 1663, 3)
-                2024-01-12 01:47:19,124 | INFO     | MODEL | Inferecne start
+                2024-01-12 01:47:19,124 | INFO     | MODEL | Inference start
                 2024-01-12 01:47:19,254 | DEBUG    | MODEL | outputs: (3, 4, 2) (3,)
-                2024-01-12 01:47:19,254 | INFO     | MODEL | Inferecne completed
+                2024-01-12 01:47:19,254 | INFO     | MODEL | Inference completed
 
         Error Logs:
             .. code-block:: python
@@ -241,12 +241,12 @@ class BaseTritonPythonModel:
                 self.logger.debug(
                     "inputs: %s", " ".join([str(input_.shape) for input_ in inputs])
                 )
-                self.logger.info("Inferecne start")
+                self.logger.info("Inference start")
                 outputs = self._inference(*inputs)
                 self.logger.debug(
                     "outputs: %s", " ".join([str(output.shape) for output in outputs])
                 )
-                self.logger.info("Inferecne completed")
+                self.logger.info("Inference completed")
                 response = self._set_outputs(outputs)
                 responses.append(response)
             except Exception as error:
