@@ -6,6 +6,6 @@
 """
 
 
-from zerohertzLib.logging.log import Logger
+from zerohertzLib.logging.logger import Logger
 
 __all__ = ["Logger"]
