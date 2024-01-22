@@ -47,7 +47,7 @@ $ pip install zerohertzLib[quant]
 $ pip install zerohertzLib[all]
 ```
 <p align="center">
-    <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/298473567-7604532b-f7ee-4e06-ad9d-cb4d6e53c812.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240122%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240122T054612Z&X-Amz-Expires=300&X-Amz-Signature=2e277afda234270955f8401856b82329b18ab32bf9f3f8aaef979f07f9a224fd&X-Amz-SignedHeaders=host&actor_id=42334717&key_id=0&repo_id=573522248" width="600"/>
+    <img src="https://github.com/Zerohertz/Zerohertz/assets/42334717/b8dc5ac1-840d-4757-be70-2137b2a73259" width="600"/>
 </p>
 
 ```python
