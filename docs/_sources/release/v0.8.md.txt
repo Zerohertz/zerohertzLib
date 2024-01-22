@@ -1,5 +1,26 @@
 # v0.8
 
+## v0.8.2
+
+<h3>[v0.8.2] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/213>#213</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/01/22
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+
+
+<h4>Chore</h4>
+
++ Submodule 간 의존성 수정 (`pip install zerohertzLib[mlops]` 활성화)
+
 ## v0.8.1
 
 <h3>[v0.8.1] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/211>#211</a>)</h3>

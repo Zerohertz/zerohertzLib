@@ -48,12 +48,13 @@
 $ sudo apt install python3-opencv -y
 $ pip install zerohertzLib
 $ pip install zerohertzLib[api]
+$ pip install zerohertzLib[mlops]
 $ pip install zerohertzLib[quant]
 $ pip install zerohertzLib[all]
 ```
 
 <p align="center">
-    <img src="https://github.com/Zerohertz/Zerohertz/assets/42334717/b8dc5ac1-840d-4757-be70-2137b2a73259" width="600"/>
+    <img src="https://github.com/Zerohertz/Zerohertz/assets/42334717/2ed7f05b-3542-4f1d-8267-4fe681235cb9" width="600"/>
 </p>
 
 ```python

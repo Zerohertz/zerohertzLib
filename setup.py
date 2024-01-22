@@ -39,6 +39,7 @@ def get_package_version() -> str:
 
 requirements = get_requirements()
 requirements_api = get_requirements(HERE / "requirements/requirements-api.txt")
+requirements_mlops = get_requirements(HERE / "requirements/requirements-mlops.txt")
 requirements_quant = get_requirements(HERE / "requirements/requirements-quant.txt")
 version = get_package_version()
 
@@ -57,8 +58,9 @@ setup(
     install_requires=requirements,
     extras_require={
         "api": requirements_api,
+        "mlops": requirements_api + requirements_mlops,
         "quant": requirements_api + requirements_quant,
-        "all": requirements_api + requirements_quant,
+        "all": requirements_api + requirements_mlops + requirements_quant,
     },
     package_data={
         "zerohertzLib": ["plot/*.ttf"],
