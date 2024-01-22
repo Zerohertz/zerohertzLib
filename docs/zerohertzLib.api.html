@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.api" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.api.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.7.9 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.8.0 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.7.9 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.8.0 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.api.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.api - zerohertzLib v0.7.9 documentation</title>
+        <title>zerohertzLib.api - zerohertzLib v0.8.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.7.9 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.8.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.7.9 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.8.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -202,6 +202,7 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="release.html">Release Notes</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Release Notes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="release/v0.8.html">v0.8</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.7.html">v0.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.6.html">v0.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.5.html">v0.5</a></li>
@@ -738,11 +739,6 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.edits">
-<span class="sig-name descname"><span class="pre">edits</span></span><a class="headerlink" href="#zerohertzLib.api.OpenAI.edits" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.embeddings">
 <span class="sig-name descname"><span class="pre">embeddings</span></span><a class="headerlink" href="#zerohertzLib.api.OpenAI.embeddings" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
@@ -750,11 +746,6 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.files">
 <span class="sig-name descname"><span class="pre">files</span></span><a class="headerlink" href="#zerohertzLib.api.OpenAI.files" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.fine_tunes">
-<span class="sig-name descname"><span class="pre">fine_tunes</span></span><a class="headerlink" href="#zerohertzLib.api.OpenAI.fine_tunes" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -785,6 +776,11 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.with_raw_response">
 <span class="sig-name descname"><span class="pre">with_raw_response</span></span><a class="headerlink" href="#zerohertzLib.api.OpenAI.with_raw_response" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.with_streaming_response">
+<span class="sig-name descname"><span class="pre">with_streaming_response</span></span><a class="headerlink" href="#zerohertzLib.api.OpenAI.with_streaming_response" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1012,16 +1008,15 @@
 <li><a class="reference internal" href="#zerohertzLib.api.OpenAI.beta"><code class="docutils literal notranslate"><span class="pre">OpenAI.beta</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.api.OpenAI.chat"><code class="docutils literal notranslate"><span class="pre">OpenAI.chat</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.api.OpenAI.completions"><code class="docutils literal notranslate"><span class="pre">OpenAI.completions</span></code></a></li>
-<li><a class="reference internal" href="#zerohertzLib.api.OpenAI.edits"><code class="docutils literal notranslate"><span class="pre">OpenAI.edits</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.api.OpenAI.embeddings"><code class="docutils literal notranslate"><span class="pre">OpenAI.embeddings</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.api.OpenAI.files"><code class="docutils literal notranslate"><span class="pre">OpenAI.files</span></code></a></li>
-<li><a class="reference internal" href="#zerohertzLib.api.OpenAI.fine_tunes"><code class="docutils literal notranslate"><span class="pre">OpenAI.fine_tunes</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.api.OpenAI.fine_tuning"><code class="docutils literal notranslate"><span class="pre">OpenAI.fine_tuning</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.api.OpenAI.images"><code class="docutils literal notranslate"><span class="pre">OpenAI.images</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.api.OpenAI.models"><code class="docutils literal notranslate"><span class="pre">OpenAI.models</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.api.OpenAI.moderations"><code class="docutils literal notranslate"><span class="pre">OpenAI.moderations</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.api.OpenAI.organization"><code class="docutils literal notranslate"><span class="pre">OpenAI.organization</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.api.OpenAI.with_raw_response"><code class="docutils literal notranslate"><span class="pre">OpenAI.with_raw_response</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.api.OpenAI.with_streaming_response"><code class="docutils literal notranslate"><span class="pre">OpenAI.with_streaming_response</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#zerohertzLib.api.SlackBot"><code class="docutils literal notranslate"><span class="pre">SlackBot</span></code></a><ul>
@@ -1046,7 +1041,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=fa0712fd"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=cbff0a6f"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
