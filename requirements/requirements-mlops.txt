@@ -1,3 +1,0 @@
-# mlops
-protobuf
-tritonclient[grpc]
