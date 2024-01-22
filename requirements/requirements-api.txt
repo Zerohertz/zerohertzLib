@@ -1,3 +1,7 @@
-# api & logging & quant
+# api & logging & quant & mlops
 requests
 openai
+
+# mlops
+protobuf
+tritonclient[grpc]
