@@ -410,7 +410,7 @@ class LabelStudio:
                 idx (``int``): 입력 index
 
             Returns:
-                ``Union[Tuple[str, Dict[str, Dict[str, str]]], Tuple[List[str], Dict[str, List[Any]]]]``: Index에 따른 image file 이름 또는 경로와 JSON file에 포함될 dictionary 또는 annotation 정보
+                ``Union[Tuple[str, Dict[str, Dict[str, str]]], Tuple[str, Dict[str, List[Any]]]]``: Index에 따른 image file 이름 또는 경로와 JSON file에 포함될 dictionary 또는 annotation 정보
 
     Examples:
         Without ``json_path``:
@@ -466,9 +466,7 @@ class LabelStudio:
 
     def __getitem__(
         self, idx: int
-    ) -> Union[
-        Tuple[str, Dict[str, Dict[str, str]]], Tuple[List[str], Dict[str, List[Any]]]
-    ]:
+    ) -> Union[Tuple[str, Dict[str, Dict[str, str]]], Tuple[str, Dict[str, List[Any]]]]:
         if self.annotations is None:
             file_name = self.data_paths[idx].split("/")[-1]
             return file_name, {
