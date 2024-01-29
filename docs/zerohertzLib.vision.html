@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.vision" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.vision.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.8.2 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.8.3 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.8.2 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.8.3 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.vision.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
-        <title>zerohertzLib.vision - zerohertzLib v0.8.2 documentation</title>
+        <title>zerohertzLib.vision - zerohertzLib v0.8.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.8.2 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.8.3 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.8.2 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.8.3 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -453,7 +453,7 @@
 <dd class="field-even"><p>Index에 따른 image file 이름 또는 경로와 JSON file에 포함될 dictionary 또는 annotation 정보</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Union[Tuple[str,</span> <span class="pre">Dict[str,</span> <span class="pre">Dict[str,</span> <span class="pre">str]]],</span> <span class="pre">Tuple[List[str],</span> <span class="pre">Dict[str,</span> <span class="pre">List[Any]]]]</span></code></p>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Union[Tuple[str,</span> <span class="pre">Dict[str,</span> <span class="pre">Dict[str,</span> <span class="pre">str]]],</span> <span class="pre">Tuple[str,</span> <span class="pre">Dict[str,</span> <span class="pre">List[Any]]]]</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -947,6 +947,61 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="zerohertzLib.vision.evaluation">
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">evaluation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ground_truths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inferences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gt_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inf_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.evaluation" title="Permalink to this definition">#</a></dt>
+<dd><p>단일 이미지 내 detection model의 추론 성능 평가</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.vision.evaluation.params.ground_truths"></span><strong>ground_truths</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.evaluation.params.ground_truths">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – Ground truth object들의 polygon (<code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">4,</span> <span class="pre">2]</span></code>, <code class="docutils literal notranslate"><span class="pre">[[[x_0,</span> <span class="pre">y_0],</span> <span class="pre">[x_1,</span> <span class="pre">y_1],</span> <span class="pre">...],</span> <span class="pre">...]</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.evaluation.params.inferences"></span><strong>inferences</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.evaluation.params.inferences">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – Model이 추론한 각 object들의 polygon (<code class="docutils literal notranslate"><span class="pre">[M,</span> <span class="pre">4,</span> <span class="pre">2]</span></code>, <code class="docutils literal notranslate"><span class="pre">[[[x_0,</span> <span class="pre">y_0],</span> <span class="pre">[x_1,</span> <span class="pre">y_1],</span> <span class="pre">...],</span> <span class="pre">...]</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.evaluation.params.confidences"></span><strong>confidences</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.evaluation.params.confidences">¶</a> (<code class="docutils literal notranslate"><span class="pre">List[float]</span></code>) – Model이 추론한 각 object들의 confidence(<code class="docutils literal notranslate"><span class="pre">[M]</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.evaluation.params.gt_classes"></span><strong>gt_classes</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.evaluation.params.gt_classes">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[List[str]]</span></code>) – Ground truth object들의 class (<code class="docutils literal notranslate"><span class="pre">[N]</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.evaluation.params.inf_classes"></span><strong>inf_classes</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.evaluation.params.inf_classes">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[List[str]]</span></code>) – Model이 추론한 각 object들의 class (<code class="docutils literal notranslate"><span class="pre">[M]</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.evaluation.params.threshold"></span><strong>threshold</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.evaluation.params.threshold">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[float]</span></code>) – IoU의 threshold</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p><cite>N</cite>: 한 이미지의 ground truth 내 존재하는 object의 수</p></li>
+<li><p><cite>M</cite>: 한 이미지의 inference 결과 내 존재하는 object의 수</p></li>
+</ul>
+<a class="reference internal image-reference" href="https://github.com/Zerohertz/Zerohertz/assets/42334717/dd80f6fc-1701-4ed5-a48a-47d2e7569618"><img alt="IoU Examples" class="align-center" src="https://github.com/Zerohertz/Zerohertz/assets/42334717/dd80f6fc-1701-4ed5-a48a-47d2e7569618" style="width: 600px;" /></a>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>단일 이미지의 model 성능 평가 결과</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">pd.DataFrame</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">poly</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ground_truths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">poly</span><span class="p">,</span> <span class="n">poly</span> <span class="o">+</span> <span class="mi">20</span><span class="p">,</span> <span class="n">poly</span> <span class="o">+</span> <span class="mi">40</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">inferences</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">poly</span><span class="p">,</span> <span class="n">poly</span> <span class="o">+</span> <span class="mi">19</span><span class="p">,</span> <span class="n">poly</span> <span class="o">+</span> <span class="mi">80</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">confidences</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">ground_truths</span><span class="p">,</span> <span class="n">inferences</span><span class="p">,</span> <span class="n">confidences</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="s2">&quot;test.png&quot;</span><span class="p">)</span>
+<span class="go">  file_name  instance  confidence  class       IoU results  gt_x0  gt_y0  gt_x1  gt_y1  gt_x2  gt_y2  gt_x3  gt_y3  inf_x0  inf_y0  inf_x1  inf_y1  inf_x2  inf_y2  inf_x3  inf_y3</span>
+<span class="go">0  test.png         0         0.8    0.0  0.000000      FP    NaN    NaN    NaN    NaN    NaN    NaN    NaN    NaN    80.0    80.0    90.0    80.0    90.0    90.0    80.0    90.0</span>
+<span class="go">1  test.png         1         0.7    0.0  0.680672      TP   20.0   20.0   30.0   20.0   30.0   30.0   20.0   30.0    19.0    19.0    29.0    19.0    29.0    29.0    19.0    29.0</span>
+<span class="go">2  test.png         2         0.6    0.0  1.000000      TP    0.0    0.0   10.0    0.0   10.0   10.0    0.0   10.0     0.0     0.0    10.0     0.0    10.0    10.0     0.0    10.0</span>
+<span class="go">3  test.png         3         0.0    0.0  0.000000      FN   40.0   40.0   50.0   40.0   50.0   50.0   40.0   50.0     NaN     NaN     NaN     NaN     NaN     NaN     NaN     NaN</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gt_classes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;dog&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">inf_classes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;dog&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">ground_truths</span><span class="p">,</span> <span class="n">inferences</span><span class="p">,</span> <span class="n">confidences</span><span class="p">,</span> <span class="n">gt_classes</span><span class="p">,</span> <span class="n">inf_classes</span><span class="p">)</span>
+<span class="go">   instance  confidence class       IoU results  gt_x0  gt_y0  gt_x1  gt_y1  gt_x2  gt_y2  gt_x3  gt_y3  inf_x0  inf_y0  inf_x1  inf_y1  inf_x2  inf_y2  inf_x3  inf_y3</span>
+<span class="go">0         0         0.8   cat  0.000000      FP    NaN    NaN    NaN    NaN    NaN    NaN    NaN    NaN    80.0    80.0    90.0    80.0    90.0    90.0    80.0    90.0</span>
+<span class="go">1         1         0.6   cat  1.000000      TP    0.0    0.0   10.0    0.0   10.0   10.0    0.0   10.0     0.0     0.0    10.0     0.0    10.0    10.0     0.0    10.0</span>
+<span class="go">2         2         0.0   cat  0.000000      FN   40.0   40.0   50.0   40.0   50.0   50.0   40.0   50.0     NaN     NaN     NaN     NaN     NaN     NaN     NaN     NaN</span>
+<span class="go">3         3         0.7   dog  0.680672      TP   20.0   20.0   30.0   20.0   30.0   30.0   20.0   30.0    19.0    19.0    29.0    19.0    29.0    29.0    19.0    29.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.vision.grid">
 <span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">imgs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(255,</span> <span class="pre">255,</span> <span class="pre">255)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tmp'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.grid" title="Permalink to this definition">#</a></dt>
 <dd><p>여러 image를 입력받아 한 정방형 image로 병합</p>
@@ -1002,6 +1057,38 @@
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280735315-2eaa059e-0cf5-4cb7-8983-5b7e1f2d3f21.gif"><img alt="GIF Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280735315-2eaa059e-0cf5-4cb7-8983-5b7e1f2d3f21.gif" style="width: 200px;" /></a>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="zerohertzLib.vision.iou">
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">iou</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poly1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poly2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.iou" title="Permalink to this definition">#</a></dt>
+<dd><p>IoU (Intersection over Union)를 계산하는 함수</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.vision.iou.params.poly1"></span><strong>poly1</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.iou.params.poly1">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – IoU를 계산할 polygon (<code class="docutils literal notranslate"><span class="pre">[S1,</span> <span class="pre">2]</span></code>, <code class="docutils literal notranslate"><span class="pre">[[x_0,</span> <span class="pre">y_0],</span> <span class="pre">[x_1,</span> <span class="pre">y_1],</span> <span class="pre">...]</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.iou.params.poly2"></span><strong>poly2</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.iou.params.poly2">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – IoU를 계산할 polygon (<code class="docutils literal notranslate"><span class="pre">[S2,</span> <span class="pre">2]</span></code>, <code class="docutils literal notranslate"><span class="pre">[[x_0,</span> <span class="pre">y_0],</span> <span class="pre">[x_1,</span> <span class="pre">y_1],</span> <span class="pre">...]</span></code>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>IoU 값</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">poly1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">poly2</span> <span class="o">=</span> <span class="n">poly1</span> <span class="o">+</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">poly2</span>
+<span class="go">array([[ 5,  0],</span>
+<span class="go">       [15,  0],</span>
+<span class="go">       [15, 10],</span>
+<span class="go">       [ 5, 10]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">iou</span><span class="p">(</span><span class="n">poly1</span><span class="p">,</span> <span class="n">poly2</span><span class="p">)</span>
+<span class="go">0.3333333333333333</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -1091,6 +1178,31 @@
 </dd>
 </dl>
 <a class="reference internal image-reference" href="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284878547-c36cd4ff-2b36-4b0f-a125-89ed8380a456.png"><img alt="Visualzation Result" class="align-center" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284878547-c36cd4ff-2b36-4b0f-a125-89ed8380a456.png" style="width: 600px;" /></a>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="zerohertzLib.vision.meanap">
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">meanap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zerohertzLib.vision.meanap" title="Permalink to this definition">#</a></dt>
+<dd><p>Detection model의 P-R curve 시각화 및 mAP 산출</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.vision.meanap.params.logs"></span><strong>logs</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.meanap.params.logs">¶</a> (<code class="docutils literal notranslate"><span class="pre">pd.DataFrame</span></code>) – <code class="docutils literal notranslate"><span class="pre">zz.vision.evaluation</span></code> 함수를 통해 평가된 결과</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>mAP 값 및 class에 따른 AP 값 (P-R curve는 <code class="docutils literal notranslate"><span class="pre">eval.png</span></code> 로 현재 directory에 저장)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Tuple[float,</span> <span class="pre">Dict[str,</span> <span class="pre">float]]</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">logs1</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">ground_truths_1</span><span class="p">,</span> <span class="n">inferences_1</span><span class="p">,</span> <span class="n">confidences_1</span><span class="p">,</span> <span class="n">gt_classes</span><span class="p">,</span> <span class="n">inf_classes</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="s2">&quot;test_1.png&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logs2</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">ground_truths_2</span><span class="p">,</span> <span class="n">inferences_2</span><span class="p">,</span> <span class="n">confidences_2</span><span class="p">,</span> <span class="n">gt_classes</span><span class="p">,</span> <span class="n">inf_classes</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="s2">&quot;test_2.png&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">logs1</span><span class="p">,</span> <span class="n">logs2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">meanap</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
+<span class="go">(0.03125, defaultdict(&lt;class &#39;float&#39;&gt;, {&#39;dog&#39;: 0.025, &#39;cat&#39;: 0.0375}))</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -1623,10 +1735,13 @@
 <li><a class="reference internal" href="#zerohertzLib.vision.cutout"><code class="docutils literal notranslate"><span class="pre">cutout()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.cwh2poly"><code class="docutils literal notranslate"><span class="pre">cwh2poly()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.cwh2xyxy"><code class="docutils literal notranslate"><span class="pre">cwh2xyxy()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.vision.evaluation"><code class="docutils literal notranslate"><span class="pre">evaluation()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.grid"><code class="docutils literal notranslate"><span class="pre">grid()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.img2gif"><code class="docutils literal notranslate"><span class="pre">img2gif()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.vision.iou"><code class="docutils literal notranslate"><span class="pre">iou()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.is_pts_in_poly"><code class="docutils literal notranslate"><span class="pre">is_pts_in_poly()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.masks"><code class="docutils literal notranslate"><span class="pre">masks()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.vision.meanap"><code class="docutils literal notranslate"><span class="pre">meanap()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.pad"><code class="docutils literal notranslate"><span class="pre">pad()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.paste"><code class="docutils literal notranslate"><span class="pre">paste()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.vision.poly2area"><code class="docutils literal notranslate"><span class="pre">poly2area()</span></code></a></li>
@@ -1653,7 +1768,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=587f041c"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=fc078005"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

@@ -32,6 +32,7 @@ from zerohertzLib.vision.data import (
     LabelStudio,
     YoloLoader,
 )
+from zerohertzLib.vision.eval import evaluation, iou, meanap
 from zerohertzLib.vision.gif import img2gif, vid2gif
 from zerohertzLib.vision.transform import cutout, pad, transparent
 from zerohertzLib.vision.util import is_pts_in_poly
@@ -64,4 +65,7 @@ __all__ = [
     "transparent",
     "YoloLoader",
     "LabelStudio",
+    "iou",
+    "meanap",
+    "evaluation",
 ]
