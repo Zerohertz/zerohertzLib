@@ -3,6 +3,7 @@ import random
 
 import cv2
 import numpy as np
+import pandas as pd
 
 import zerohertzLib as zz
 
@@ -347,3 +348,65 @@ def test_is_pts_in_poly():
     assert zz.vision.is_pts_in_poly(BOX_POLY, [[450, 400], [850, 800]]).all()
     assert zz.vision.is_pts_in_poly(BOX_POLY, np.array([650, 600]))
     assert zz.vision.is_pts_in_poly(BOX_POLY, np.array([[450, 400], [850, 800]])).all()
+
+
+def test_eval():
+    num = 10
+
+    def _detection(num):
+        ground_truths = zz.vision.cwh2poly(
+            np.array(
+                [
+                    [random.randrange(50, 950), random.randrange(50, 950), 50, 50]
+                    for _ in range(num)
+                ]
+            )
+        )
+        inferences = zz.vision.cwh2poly(
+            np.array(
+                [
+                    [random.randrange(50, 950), random.randrange(50, 950), 50, 50]
+                    for _ in range(num)
+                ]
+            )
+        )
+        inferences[: num // 2] = ground_truths[: num // 2] + random.randrange(5, 20)
+        return ground_truths, inferences
+
+    ground_truths_1, inferences_1 = _detection(num)
+    ground_truths_2, inferences_2 = _detection(num)
+    img = np.full((1000, 1000, 3), 255, dtype=np.uint8)
+    img = zz.vision.bbox(img, ground_truths_1, (255, 0, 0))
+    img = zz.vision.bbox(img, inferences_2, (0, 0, 255))
+    cv2.imwrite("bboxes.png", img)
+    confidences = np.random.random(num)
+    gt_classes = np.array(
+        ["cat", "dog", "cat", "dog", "cat", "dog", "cat", "dog", "cat", "cat"]
+    )
+    inf_classes = np.array(
+        ["cat", "dog", "cat", "dog", "cat", "dog", "cat", "dog", "cat", "cat"]
+    )
+    logs = zz.vision.evaluation(
+        ground_truths_1,
+        inferences_2,
+        confidences,
+        threshold=0.1,
+    )
+    logs1 = zz.vision.evaluation(
+        ground_truths_1,
+        inferences_1,
+        confidences,
+        gt_classes,
+        inf_classes,
+        file_name="test_1.png",
+    )
+    logs2 = zz.vision.evaluation(
+        ground_truths_2,
+        inferences_2,
+        confidences,
+        gt_classes,
+        inf_classes,
+        file_name="test_2.png",
+    )
+    logs = pd.concat([logs1, logs2])
+    zz.vision.meanap(logs)
