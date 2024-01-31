@@ -351,62 +351,92 @@ def test_is_pts_in_poly():
 
 
 def test_eval():
-    num = 10
+    num = 21
+    false_negative = 1  # 미탐지
+    false_positive = 50  # 오탐지
+    false_positive -= false_negative
+    inf = 14
+    idx = num - false_negative
+    classes = ["cat", "dog"]
 
-    def _detection(num):
+    def _detection():
         ground_truths = zz.vision.cwh2poly(
             np.array(
                 [
-                    [random.randrange(50, 950), random.randrange(50, 950), 50, 50]
+                    [random.randrange(50, 1950), random.randrange(50, 1950), 50, 50]
                     for _ in range(num)
                 ]
             )
         )
+        fp = random.randrange(false_positive)
         inferences = zz.vision.cwh2poly(
             np.array(
                 [
-                    [random.randrange(50, 950), random.randrange(50, 950), 50, 50]
-                    for _ in range(num)
+                    [random.randrange(50, 1950), random.randrange(50, 1950), 50, 50]
+                    for _ in range(num + fp)
                 ]
             )
         )
-        inferences[: num // 2] = ground_truths[: num // 2] + random.randrange(5, 20)
-        return ground_truths, inferences
+        inferences[:idx] = (
+            ground_truths[:idx]
+            + np.random.randint(low=-inf, high=inf, size=ground_truths.shape)[:idx]
+        )
+        confidences = []
+        gt_classes, inf_classes = [], []
+        for ground_truth, inference in zip(ground_truths, inferences[:num]):
+            iou_ = zz.vision.iou(ground_truth, inference)
+            confidences.append(
+                (iou_ * 2 + np.random.rand()) / 3 + (np.random.rand() - 1) / 10
+            )
+            cls = random.choice(classes)
+            gt_classes.append(cls)
+            inf_classes.append(cls)
+        for _ in range(fp):
+            confidences.append(np.random.rand() * 2 / 3)
+            cls = random.choice(classes)
+            inf_classes.append(cls)
+        return (
+            ground_truths,
+            inferences.astype(int),
+            np.array(confidences).clip(0, 1),
+            np.array(gt_classes),
+            np.array(inf_classes),
+        )
 
-    ground_truths_1, inferences_1 = _detection(num)
-    ground_truths_2, inferences_2 = _detection(num)
-    img = np.full((1000, 1000, 3), 255, dtype=np.uint8)
-    img = zz.vision.bbox(img, ground_truths_1, (255, 0, 0))
-    img = zz.vision.bbox(img, inferences_2, (0, 0, 255))
+    ground_truths, inferences, _, _, _ = _detection()
+    img = np.full((2000, 2000, 3), 255, dtype=np.uint8)
+    img = zz.vision.bbox(img, ground_truths, (255, 0, 0))
+    img = zz.vision.bbox(img, inferences, (0, 0, 255))
     cv2.imwrite("bboxes.png", img)
-    confidences = np.random.random(num)
-    gt_classes = np.array(
-        ["cat", "dog", "cat", "dog", "cat", "dog", "cat", "dog", "cat", "cat"]
-    )
-    inf_classes = np.array(
-        ["cat", "dog", "cat", "dog", "cat", "dog", "cat", "dog", "cat", "cat"]
-    )
-    logs = zz.vision.evaluation(
-        ground_truths_1,
-        inferences_2,
-        confidences,
-        threshold=0.1,
-    )
-    logs1 = zz.vision.evaluation(
-        ground_truths_1,
-        inferences_1,
-        confidences,
-        gt_classes,
-        inf_classes,
-        file_name="test_1.png",
-    )
-    logs2 = zz.vision.evaluation(
-        ground_truths_2,
-        inferences_2,
-        confidences,
-        gt_classes,
-        inf_classes,
-        file_name="test_2.png",
-    )
-    logs = pd.concat([logs1, logs2])
+    logs = None
+    for i in range(20):
+        ground_truths, inferences, confidences, _, _ = _detection()
+        logs_ = zz.vision.evaluation(
+            ground_truths,
+            inferences,
+            confidences,
+            file_name=f"test_{i}.png",
+            threshold=0.5,
+        )
+        if logs is None:
+            logs = logs_
+        else:
+            logs = pd.concat([logs, logs_], ignore_index=True)
+    zz.vision.meanap(logs)
+    logs = None
+    for i in range(20):
+        ground_truths, inferences, confidences, gt_classes, inf_classes = _detection()
+        logs_ = zz.vision.evaluation(
+            ground_truths,
+            inferences,
+            confidences,
+            gt_classes,
+            inf_classes,
+            file_name=f"test_{i}.png",
+            threshold=0.5,
+        )
+        if logs is None:
+            logs = logs_
+        else:
+            logs = pd.concat([logs, logs_], ignore_index=True)
     zz.vision.meanap(logs)
