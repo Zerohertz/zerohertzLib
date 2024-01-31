@@ -276,10 +276,10 @@ def test_scatter():
                 list(np.random.rand(200) * 10 - 2),
             ],
         },
-        size=400,
         xlab="비용 [미네랄]",
         ylab="전투력 [점]",
         title="Star Craft (scatter)",
+        markersize=400,
     )
     assert path.split("/")[-1] in os.listdir()
 
@@ -289,11 +289,11 @@ def test_scatter_palette():
         {
             "테란": [list(np.random.rand(200) * 10), list(np.random.rand(200) * 10)],
         },
-        size=400,
         xlab="비용 [미네랄]",
         ylab="전투력 [점]",
         title="Star Craft (scatter, palette)",
         colors="Set2",
+        markersize=400,
     )
     assert path.split("/")[-1] in os.listdir()
 
@@ -311,11 +311,11 @@ def test_scatter_colors():
                 list(np.random.rand(200) * 10 - 2),
             ],
         },
-        size=400,
         xlab="비용 [미네랄]",
         ylab="전투력 [점]",
         title="Star Craft (scatter, colors)",
         colors=["#800a0a", "#0a800a", "#0a0a80"],
+        markersize=400,
     )
     assert path.split("/")[-1] in os.listdir()
 
