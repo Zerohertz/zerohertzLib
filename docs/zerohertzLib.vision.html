@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.vision" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.vision.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.8.3 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.8.4 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.8.3 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.8.4 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.vision.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2024.01.29 -->
-        <title>zerohertzLib.vision - zerohertzLib v0.8.3 documentation</title>
+        <title>zerohertzLib.vision - zerohertzLib v0.8.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.8.3 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.8.4 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.8.3 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.8.4 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -1189,7 +1189,7 @@
 <dd class="field-odd"><p><span class="target" id="zerohertzLib.vision.meanap.params.logs"></span><strong>logs</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.meanap.params.logs">¶</a> (<code class="docutils literal notranslate"><span class="pre">pd.DataFrame</span></code>) – <code class="docutils literal notranslate"><span class="pre">zz.vision.evaluation</span></code> 함수를 통해 평가된 결과</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>mAP 값 및 class에 따른 AP 값 (P-R curve는 <code class="docutils literal notranslate"><span class="pre">eval.png</span></code> 로 현재 directory에 저장)</p>
+<dd class="field-even"><p>mAP 값 및 class에 따른 AP 값 (시각화 결과는 <code class="docutils literal notranslate"><span class="pre">prc_curve.png</span></code>, <code class="docutils literal notranslate"><span class="pre">pr_curve.png</span></code> 로 현재 directory에 저장)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Tuple[float,</span> <span class="pre">Dict[str,</span> <span class="pre">float]]</span></code></p>
@@ -1198,11 +1198,12 @@
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">logs1</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">ground_truths_1</span><span class="p">,</span> <span class="n">inferences_1</span><span class="p">,</span> <span class="n">confidences_1</span><span class="p">,</span> <span class="n">gt_classes</span><span class="p">,</span> <span class="n">inf_classes</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="s2">&quot;test_1.png&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">logs2</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">ground_truths_2</span><span class="p">,</span> <span class="n">inferences_2</span><span class="p">,</span> <span class="n">confidences_2</span><span class="p">,</span> <span class="n">gt_classes</span><span class="p">,</span> <span class="n">inf_classes</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="s2">&quot;test_2.png&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">logs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">logs1</span><span class="p">,</span> <span class="n">logs2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">logs1</span><span class="p">,</span> <span class="n">logs2</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">meanap</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
-<span class="go">(0.03125, defaultdict(&lt;class &#39;float&#39;&gt;, {&#39;dog&#39;: 0.025, &#39;cat&#39;: 0.0375}))</span>
+<span class="go">(0.7030629916206652, defaultdict(&lt;class &#39;float&#39;&gt;, {&#39;dog&#39;: 0.7177078883735305, &#39;cat&#39;: 0.6884180948677999}))</span>
 </pre></div>
 </div>
+<a class="reference internal image-reference" href="https://github.com/Zerohertz/Zerohertz/assets/42334717/e92e68ed-0671-437b-a476-e19c89c1a018"><img alt="mAP Results" class="align-center" src="https://github.com/Zerohertz/Zerohertz/assets/42334717/e92e68ed-0671-437b-a476-e19c89c1a018" style="width: 600px;" /></a>
 </dd></dl>
 
 <dl class="py function">
@@ -1768,7 +1769,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=fc078005"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=378e10c8"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
