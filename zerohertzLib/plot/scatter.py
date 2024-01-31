@@ -32,11 +32,14 @@ from .util import _color, figure, savefig
 
 def scatter(
     data: Dict[str, List[List[Union[int, float]]]],
-    size: Optional[float] = 36,
     xlab: Optional[str] = "x축 [단위]",
     ylab: Optional[str] = "y축 [단위]",
+    xlim: Optional[List[Union[int, float]]] = None,
+    ylim: Optional[List[Union[int, float]]] = None,
+    ncol: Optional[int] = 1,
     title: Optional[str] = "tmp",
     colors: Optional[Union[str, List]] = None,
+    markersize: Optional[float] = 36,
     figsize: Optional[Tuple[int]] = (15, 10),
     dpi: Optional[int] = 300,
     save: Optional[bool] = True,
@@ -45,11 +48,14 @@ def scatter(
 
     Args:
         data (``Dict[str, List[List[Union[int, float]]]]``): 입력 데이터
-        size (``Optional[int]``): Graph에 출력될 marker의 크기
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
+        xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
+        ylim (``Optional[List[Union[int, float]]]``): Graph에 출력될 Y축 limit
+        ncol (``Optional[int]``): Graph에 표시될 legend 열의 수
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
         colors (``Optional[Union[str, List]]``): 각 요소의 색
+        markersize (``Optional[int]``): Graph에 출력될 marker의 크기
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         save (``Optional[bool]``): Graph 저장 여부
@@ -76,7 +82,7 @@ def scatter(
         plt.scatter(
             value[0],
             value[1],
-            s=size,
+            s=markersize,
             color=colors[i],
             marker=marker[i % len(marker)],
             label=key,
@@ -85,9 +91,13 @@ def scatter(
     plt.grid(zorder=0)
     plt.xlabel(xlab)
     plt.ylabel(ylab)
+    if xlim is not None:
+        plt.xlim(xlim)
+    if ylim is not None:
+        plt.ylim(ylim)
     plt.title(title, fontsize=25)
     if len(data) > 1:
-        plt.legend()
+        plt.legend(ncol=ncol)
     if save:
         return savefig(title, dpi)
     return None
