@@ -6,12 +6,15 @@
 
 # -- Path setup --------------------------------------------------------------
 
+import inspect
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
 import sys
+from os.path import dirname, relpath
 
 sys.path.insert(0, os.path.abspath("../.."))
 
@@ -42,6 +45,8 @@ extensions = [
     "sphinx.ext.mathjax",
     "sphinx.ext.napoleon",
     "sphinx.ext.todo",
+    # "sphinx.ext.viewcode",
+    "sphinx.ext.linkcode",
     "sphinxcontrib.gtagjs",
     "sphinxcontrib.jquery",
     "sphinxext.opengraph",
@@ -135,6 +140,30 @@ ogp_image = "_static/og.png"
 ogp_type = "website"
 
 sitemap_url_scheme = "{link}"
+
+
+# -- sphinx.ext.linkcode ---------------------------------------------------
+
+
+def linkcode_resolve(domain, info):
+    if domain != "py":
+        return None
+    if not info["module"]:
+        return None
+    module = sys.modules.get(info["module"])
+    if module is None:
+        return None
+    try:
+        obj = module
+        for part in info["fullname"].split("."):
+            obj = getattr(obj, part)
+        obj_filename = inspect.getsourcefile(obj)
+        obj_line = inspect.getsourcelines(obj)[1]
+    except Exception as error:
+        return None
+    rel_fn = relpath(obj_filename, start=dirname(module.__file__))
+    return f"https://github.com/zerohertz/zerohertzLib/blob/master/{info['module'].replace('.', '/')}/{rel_fn}#L{obj_line}"
+
 
 # -- Options for sphinx_rtd_theme -------------------------------------------------
 
