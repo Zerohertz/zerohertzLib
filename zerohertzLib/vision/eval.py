@@ -24,7 +24,7 @@ SOFTWARE.
 
 
 from collections import defaultdict
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional, Set, Tuple, Union
 
 import numpy as np
 import pandas as pd
@@ -32,7 +32,7 @@ from matplotlib import pyplot as plt
 from numpy.typing import DTypeLike, NDArray
 from shapely.geometry import Polygon
 
-from zerohertzLib.plot import figure, plot, savefig
+from zerohertzLib.plot import figure, plot, savefig, scatter
 
 
 def iou(
@@ -225,21 +225,34 @@ def meanap(logs: pd.DataFrame) -> Tuple[float, Dict[str, float]]:
         logs (``pd.DataFrame``): ``zz.vision.evaluation`` 함수를 통해 평가된 결과
 
     Returns:
-        ``Tuple[float, Dict[str, float]]``: mAP 값 및 class에 따른 AP 값 (P-R curve는 ``eval.png`` 로 현재 directory에 저장)
+        ``Tuple[float, Dict[str, float]]``: mAP 값 및 class에 따른 AP 값 (시각화 결과는 ``prc_curve.png``, ``pr_curve.png`` 로 현재 directory에 저장)
 
     Examples:
         >>> logs1 = zz.vision.eval(ground_truths_1, inferences_1, confidences_1, gt_classes, inf_classes, file_name="test_1.png")
         >>> logs2 = zz.vision.eval(ground_truths_2, inferences_2, confidences_2, gt_classes, inf_classes, file_name="test_2.png")
-        >>> logs = pd.concat([logs1, logs2])
+        >>> logs = pd.concat([logs1, logs2], ignore_index=True)
         >>> zz.vision.meanap(logs)
-        (0.03125, defaultdict(<class 'float'>, {'dog': 0.025, 'cat': 0.0375}))
+        (0.7030629916206652, defaultdict(<class 'float'>, {'dog': 0.7177078883735305, 'cat': 0.6884180948677999}))
+
+        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/e92e68ed-0671-437b-a476-e19c89c1a018
+            :alt: mAP Results
+            :align: center
+            :width: 600px
     """
     logs = logs.sort_values(by="confidence", ascending=False)
-    gt = len(logs[logs["results"] == "TP"]) + len(logs[logs["results"] == "FP"])
+    confidence_per_cls = defaultdict(list)
+    recall_per_cls = defaultdict(list)
+    precision_per_cls = defaultdict(list)
     pr_curve = defaultdict(list)
     aps = defaultdict(float)
     classes = set(logs["class"])
     for cls in classes:
+        gt = len(
+            logs[
+                (logs["class"] == cls)
+                & ((logs["results"] == "TP") | (logs["results"] == "FN"))
+            ]
+        )
         for confidence in set(logs[logs["class"] == cls]["confidence"]):
             true_positive = len(
                 logs[
@@ -258,12 +271,56 @@ def meanap(logs: pd.DataFrame) -> Tuple[float, Dict[str, float]]:
             precision = true_positive / (true_positive + false_positive)
             recall = true_positive / gt  # (true_positive + false_negative)
             pr_curve[cls].append((recall, precision))
+            confidence_per_cls[cls].append(confidence)
+            recall_per_cls[cls].append(recall)
+            precision_per_cls[cls].append(precision)
         pr_curve[cls] = sorted(pr_curve[cls])
         for i in range(1, len(pr_curve[cls])):
             recall_diff = pr_curve[cls][i][0] - pr_curve[cls][i - 1][0]
             precision_max = max(precision[1] for precision in pr_curve[cls][i:])
             aps[cls] += recall_diff * precision_max
     map_ = sum(aps.values()) / len(aps)
+    _prc_curve(confidence_per_cls, recall_per_cls, precision_per_cls, classes)
+    _pr_curve(pr_curve, classes, map_)
+    return map_, aps
+
+
+def _prc_curve(
+    confidence_per_cls: Dict[str, List[float]],
+    recall_per_cls: Dict[str, List[float]],
+    precision_per_cls: Dict[str, List[float]],
+    classes: Set[str],
+) -> None:
+    data = {}
+    if len(classes) == 1:
+        cls = list(classes)[0]
+        data["Recall"] = [confidence_per_cls[cls], recall_per_cls[cls]]
+        data["Precision"] = [
+            confidence_per_cls[cls],
+            precision_per_cls[cls],
+        ]
+    else:
+        for cls in classes:
+            data[f"{cls}: Recall"] = [confidence_per_cls[cls], recall_per_cls[cls]]
+            data[f"{cls}: Precision"] = [
+                confidence_per_cls[cls],
+                precision_per_cls[cls],
+            ]
+    scatter(
+        data,
+        "Confidence",
+        "Recall & Precision",
+        [-0.1, 1.1],
+        [-0.1, 1.1],
+        ncol=2,
+        title="PRC Curve",
+        markersize=6,
+    )
+
+
+def _pr_curve(
+    pr_curve: Dict[str, List[Tuple[float]]], classes: Set[str], map_: float
+) -> None:
     figure()
     if len(classes) == 1:
         recall, precision = [], []
@@ -277,8 +334,9 @@ def meanap(logs: pd.DataFrame) -> Tuple[float, Dict[str, float]]:
             "Precision",
             [-0.1, 1.1],
             [-0.1, 1.1],
+            stacked=True,
             title=f"P-R Curve (mAP: {map_:.2f})",
-            markersize=6,
+            markersize=1,
             save=False,
         )
     else:
@@ -294,10 +352,10 @@ def meanap(logs: pd.DataFrame) -> Tuple[float, Dict[str, float]]:
                 "Precision",
                 [-0.1, 1.1],
                 [-0.1, 1.1],
+                stacked=True,
                 title=f"P-R Curve (mAP: {map_:.2f})",
-                markersize=6,
+                markersize=1,
                 save=False,
             )
         plt.legend()
-    savefig("eval")
-    return map_, aps
+    savefig("pr_curve")
