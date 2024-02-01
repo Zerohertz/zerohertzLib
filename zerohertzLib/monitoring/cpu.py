@@ -55,7 +55,7 @@ def cpu(
         >>> zz.monitoring.cpu(threshold=15)
         >>> zz.monitoring.cpu(per=False)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290403278-2069d327-c905-4b60-8fdb-bf2804199cbd.png
+        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/8a405df0-078f-4a3b-84bb-bb48703b94d0
             :alt: Visualzation Result
             :align: center
             :width: 600px
@@ -68,7 +68,7 @@ def cpu(
         if per:
             cpu_usages = psutil.cpu_percent(percpu=per)
             for core, cpu_usage in enumerate(cpu_usages):
-                data[f"Core {core+1}"].append(cpu_usage)
+                data[f"Core {core}"].append(cpu_usage)
         else:
             cpu_usage = psutil.cpu_percent(percpu=per)
             data["CPU"].append(cpu_usage)
