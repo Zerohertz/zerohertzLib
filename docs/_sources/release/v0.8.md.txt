@@ -2,6 +2,23 @@
 
 ## v0.8.5
 
+<h3>[v0.8.5] Chore Update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/223>#223</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/02/01
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release/chore"><img src="https://img.shields.io/badge/release/chore-22FD7F?style=flat-square&logo=github" alt="release/chore"/></a>
+</p>
+
+
+<h4>Chore</h4>
+
++ `.whl` file 삭제
+
 <h3>[v0.8.5] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/221>#221</a>)</h3>
 
 ```{admonition} Release Date
