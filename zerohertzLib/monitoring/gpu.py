@@ -60,7 +60,7 @@ def gpu_usages(
     Examples:
         >>> zz.monitoring.gpu_usages(threshold=15)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290403456-cd0fcd39-b30d-4b2d-a9f1-b439fc61d2c9.png
+        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/f6d71510-242b-449e-b314-d83150566470
             :alt: Visualzation Result
             :align: center
             :width: 600px
@@ -72,7 +72,7 @@ def gpu_usages(
         time_list.append(tmp)
         gpu_usages_list = _get_gpu_usages()
         for num, gpu_usage in enumerate(gpu_usages_list):
-            data[f"GPU {num+1}"].append(gpu_usage)
+            data[f"GPU {num}"].append(gpu_usage)
         plot(
             time_list,
             data,
@@ -127,7 +127,7 @@ def gpu_memory(
     Examples:
         >>> zz.monitoring.gpu_memory(threshold=15)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290403447-78620782-cb9c-4186-a363-fa85456f204f.png
+        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/76edff1f-d07d-436e-b919-59daf418a9eb
             :alt: Visualzation Result
             :align: center
             :width: 600px
@@ -141,7 +141,7 @@ def gpu_memory(
         gpu_usages_list = _get_gpu_memory()
         for num, (gpu_memory_usage, gpu_memory_total) in enumerate(gpu_usages_list):
             gpu_memory_max = max(gpu_memory_total / 1024, gpu_memory_max)
-            data[f"GPU {num+1}"].append(gpu_memory_usage / 1024)
+            data[f"GPU {num}"].append(gpu_memory_usage / 1024)
         plot(
             time_list,
             data,
