@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 from collections import defaultdict
 from typing import Any, Dict, List, Optional, Set, Tuple, Union
 
@@ -153,7 +152,7 @@ def evaluation(
         >>> ground_truths = np.array([poly, poly + 20, poly + 40])
         >>> inferences = np.array([poly, poly + 19, poly + 80])
         >>> confidences = np.array([0.6, 0.7, 0.8])
-        >>> zz.vision.eval(ground_truths, inferences, confidences, file_name="test.png")
+        >>> zz.vision.evaluation(ground_truths, inferences, confidences, file_name="test.png")
           file_name  instance  confidence  class       IoU results  gt_x0  gt_y0  gt_x1  gt_y1  gt_x2  gt_y2  gt_x3  gt_y3  inf_x0  inf_y0  inf_x1  inf_y1  inf_x2  inf_y2  inf_x3  inf_y3
         0  test.png         0         0.8    0.0  0.000000      FP    NaN    NaN    NaN    NaN    NaN    NaN    NaN    NaN    80.0    80.0    90.0    80.0    90.0    90.0    80.0    90.0
         1  test.png         1         0.7    0.0  0.680672      TP   20.0   20.0   30.0   20.0   30.0   30.0   20.0   30.0    19.0    19.0    29.0    19.0    29.0    29.0    19.0    29.0
@@ -161,7 +160,7 @@ def evaluation(
         3  test.png         3         0.0    0.0  0.000000      FN   40.0   40.0   50.0   40.0   50.0   50.0   40.0   50.0     NaN     NaN     NaN     NaN     NaN     NaN     NaN     NaN
         >>> gt_classes = np.array(["cat", "dog", "cat"])
         >>> inf_classes = np.array(["cat", "dog", "cat"])
-        >>> zz.vision.eval(ground_truths, inferences, confidences, gt_classes, inf_classes)
+        >>> zz.vision.evaluation(ground_truths, inferences, confidences, gt_classes, inf_classes)
            instance  confidence class       IoU results  gt_x0  gt_y0  gt_x1  gt_y1  gt_x2  gt_y2  gt_x3  gt_y3  inf_x0  inf_y0  inf_x1  inf_y1  inf_x2  inf_y2  inf_x3  inf_y3
         0         0         0.8   cat  0.000000      FP    NaN    NaN    NaN    NaN    NaN    NaN    NaN    NaN    80.0    80.0    90.0    80.0    90.0    90.0    80.0    90.0
         1         1         0.6   cat  1.000000      TP    0.0    0.0   10.0    0.0   10.0   10.0    0.0   10.0     0.0     0.0    10.0     0.0    10.0    10.0     0.0    10.0
@@ -228,8 +227,8 @@ def meanap(logs: pd.DataFrame) -> Tuple[float, Dict[str, float]]:
         ``Tuple[float, Dict[str, float]]``: mAP 값 및 class에 따른 AP 값 (시각화 결과는 ``prc_curve.png``, ``pr_curve.png`` 로 현재 directory에 저장)
 
     Examples:
-        >>> logs1 = zz.vision.eval(ground_truths_1, inferences_1, confidences_1, gt_classes, inf_classes, file_name="test_1.png")
-        >>> logs2 = zz.vision.eval(ground_truths_2, inferences_2, confidences_2, gt_classes, inf_classes, file_name="test_2.png")
+        >>> logs1 = zz.vision.evaluation(ground_truths_1, inferences_1, confidences_1, gt_classes, inf_classes, file_name="test_1.png")
+        >>> logs2 = zz.vision.evaluation(ground_truths_2, inferences_2, confidences_2, gt_classes, inf_classes, file_name="test_2.png")
         >>> logs = pd.concat([logs1, logs2], ignore_index=True)
         >>> zz.vision.meanap(logs)
         (0.7030629916206652, defaultdict(<class 'float'>, {'dog': 0.7177078883735305, 'cat': 0.6884180948677999}))
