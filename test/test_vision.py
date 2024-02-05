@@ -282,7 +282,9 @@ def test_text_bgra_poly():
     img = cv2.imread(f"{data}/test.jpg")
     img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
     boxes = BOXES_POLY
-    BGRA = zz.vision.text(img, boxes, ["오래오래", "오래오래", "오래오래"], (0, 255, 0), vis=True)
+    BGRA = zz.vision.text(
+        img, boxes, ["오래오래", "오래오래", "오래오래"], (0, 255, 0), vis=True
+    )
     cv2.imwrite("TEXT_BGRA_POLY.png", BGRA)
     assert "TEXT_BGRA_POLY.png" in os.listdir()
 
@@ -308,7 +310,9 @@ def test_text_bgra_cwh():
     img = cv2.imread(f"{data}/test.jpg")
     img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
     boxes = BOXES_CWH
-    BGRA = zz.vision.text(img, boxes, ["오래오래", "오래오래", "오래오래"], (0, 255, 0), vis=True)
+    BGRA = zz.vision.text(
+        img, boxes, ["오래오래", "오래오래", "오래오래"], (0, 255, 0), vis=True
+    )
     cv2.imwrite("TEXT_BGRA_CWH.png", BGRA)
     assert "TEXT_BGRA_CWH.png" in os.listdir()
 

@@ -1,5 +1,26 @@
 # v0.8
 
+## v0.8.6
+
+<h3>[v0.8.6] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/227>#227</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/02/05
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/vision"><img src="https://img.shields.io/badge/feat/vision-D1F9CB?style=flat-square&logo=github" alt="feat/vision"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `vision`
+  + `meanap` 함수 내 P-R curve 계산 및 시각화 시 정의역 (recall) 확장
+
 ## v0.8.5
 
 <h3>[v0.8.5] Docs Update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/225>#225</a>)</h3>

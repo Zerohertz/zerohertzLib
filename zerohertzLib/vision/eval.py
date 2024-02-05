@@ -233,7 +233,7 @@ def meanap(logs: pd.DataFrame) -> Tuple[float, Dict[str, float]]:
         >>> zz.vision.meanap(logs)
         (0.7030629916206652, defaultdict(<class 'float'>, {'dog': 0.7177078883735305, 'cat': 0.6884180948677999}))
 
-        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/e92e68ed-0671-437b-a476-e19c89c1a018
+        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/b40ce947-69c2-446f-9fea-8349ab5ded9e
             :alt: mAP Results
             :align: center
             :width: 600px
@@ -274,6 +274,7 @@ def meanap(logs: pd.DataFrame) -> Tuple[float, Dict[str, float]]:
             recall_per_cls[cls].append(recall)
             precision_per_cls[cls].append(precision)
         pr_curve[cls] = sorted(pr_curve[cls])
+        pr_curve[cls].insert(0, (0, pr_curve[cls][0][1]))
         for i in range(1, len(pr_curve[cls])):
             recall_diff = pr_curve[cls][i][0] - pr_curve[cls][i - 1][0]
             precision_max = max(precision[1] for precision in pr_curve[cls][i:])
