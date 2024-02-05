@@ -274,6 +274,7 @@ def meanap(logs: pd.DataFrame) -> Tuple[float, Dict[str, float]]:
             recall_per_cls[cls].append(recall)
             precision_per_cls[cls].append(precision)
         pr_curve[cls] = sorted(pr_curve[cls])
+        pr_curve[cls].insert(0, (0, pr_curve[cls][0][1]))
         for i in range(1, len(pr_curve[cls])):
             recall_diff = pr_curve[cls][i][0] - pr_curve[cls][i - 1][0]
             precision_max = max(precision[1] for precision in pr_curve[cls][i:])
