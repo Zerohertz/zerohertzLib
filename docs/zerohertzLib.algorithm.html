@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.algorithm" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.algorithm.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.8.6 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.8.7 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.8.6 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.8.7 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.algorithm.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2024.01.29 -->
-        <title>zerohertzLib.algorithm - zerohertzLib v0.8.6 documentation</title>
+        <title>zerohertzLib.algorithm - zerohertzLib v0.8.7 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.8.6 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.8.7 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.8.6 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.8.7 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -261,6 +261,268 @@
 <p class="admonition-title">Algorithm</p>
 <p>Algorithm과 관련된 다양한 함수들</p>
 </div>
+<dl class="py class">
+<dt class="sig sig-object py" id="zerohertzLib.algorithm.DisjointSet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.algorithm.</span></span><span class="sig-name descname"><span class="pre">DisjointSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compression</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/algorithm/collections.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.algorithm.DisjointSet" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Vanilla disjoint set</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<dl class="simple">
+<dt>Time Complexity:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>Without path compression:</dt><dd><ul>
+<li><p>Worst: <span class="math notranslate nohighlight">\(O(V)\)</span></p></li>
+<li><p>Average: <span class="math notranslate nohighlight">\(O(V)\)</span></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>With path compression:</dt><dd><ul>
+<li><p>Worst: <span class="math notranslate nohighlight">\(O(\log{V})\)</span></p></li>
+<li><p>Average: <span class="math notranslate nohighlight">\(O(\alpha(V))\)</span></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(V\)</span>: Node의 수</p></li>
+<li><p><span class="math notranslate nohighlight">\(\alpha(V)\)</span>: <a class="reference external" href="https://ko.wikipedia.org/wiki/%EC%95%84%EC%BB%A4%EB%A7%8C_%ED%95%A8%EC%88%98">Ackermann function</a> 의 역함수 (<span class="math notranslate nohighlight">\(O(\alpha(V))\simeq O(1)\)</span>)</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.algorithm.DisjointSet.params.size"></span><strong>size</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.algorithm.DisjointSet.params.size">¶</a> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – Node의 수</p></li>
+<li><p><span class="target" id="zerohertzLib.algorithm.DisjointSet.params.compression"></span><strong>compression</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.algorithm.DisjointSet.params.compression">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – Path compression 여부</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.algorithm.DisjointSet.parent">
+<span class="sig-name descname"><span class="pre">parent</span></span><a class="headerlink" href="#zerohertzLib.algorithm.DisjointSet.parent" title="Permalink to this definition">#</a></dt>
+<dd><p>Node에 따른 부모 node의 index</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[int]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">disjointset</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">algorithm</span><span class="o">.</span><span class="n">DisjointSet</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disjointset</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disjointset</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disjointset</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disjointset</span><span class="o">.</span><span class="n">parent</span>
+<span class="go">[0, 0, 0, 2, 4]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disjointset</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">algorithm</span><span class="o">.</span><span class="n">DisjointSet</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disjointset</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disjointset</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disjointset</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disjointset</span><span class="o">.</span><span class="n">parent</span>
+<span class="go">[0, 0, 0, 2, 4]</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.algorithm.DisjointSet.find">
+<span class="sig-name descname"><span class="pre">find</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/algorithm/collections.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.algorithm.DisjointSet.find" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.algorithm.DisjointSet.find.params.node"></span><strong>node</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.algorithm.DisjointSet.find.params.node">¶</a> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – 목표 node의 index</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>목표 node에 대한 root node의 index</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.algorithm.DisjointSet.union">
+<span class="sig-name descname"><span class="pre">union</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node2</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/algorithm/collections.py#L85"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.algorithm.DisjointSet.union" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.algorithm.DisjointSet.union.params.node1"></span><strong>node1</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.algorithm.DisjointSet.union.params.node1">¶</a> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – 목표 node의 index</p></li>
+<li><p><span class="target" id="zerohertzLib.algorithm.DisjointSet.union.params.node2"></span><strong>node2</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.algorithm.DisjointSet.union.params.node2">¶</a> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – 목표 node의 index</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">self.parent</span></code> 에 root node의 index를 update</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="zerohertzLib.algorithm.DisjointSetRank">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.algorithm.</span></span><span class="sig-name descname"><span class="pre">DisjointSetRank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/algorithm/collections.py#L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.algorithm.DisjointSetRank" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zerohertzLib.algorithm.DisjointSet" title="zerohertzLib.algorithm.collections.DisjointSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">DisjointSet</span></code></a></p>
+<p>Disjoint set (union by rank)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<dl class="simple">
+<dt>Time Complexity:</dt><dd><ul class="simple">
+<li><p>Worst: <span class="math notranslate nohighlight">\(O(\log{V})\)</span></p></li>
+<li><p>Average: <span class="math notranslate nohighlight">\(O(\alpha(V))\)</span></p></li>
+</ul>
+</dd>
+</dl>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(V\)</span>: Node의 수</p></li>
+<li><p><span class="math notranslate nohighlight">\(\alpha(V)\)</span>: <a class="reference external" href="https://ko.wikipedia.org/wiki/%EC%95%84%EC%BB%A4%EB%A7%8C_%ED%95%A8%EC%88%98">Ackermann function</a> 의 역함수 (<span class="math notranslate nohighlight">\(O(\alpha(V))\simeq O(1)\)</span>)</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.algorithm.DisjointSetRank.params.size"></span><strong>size</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.algorithm.DisjointSetRank.params.size">¶</a> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – Node의 수</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.algorithm.DisjointSetRank.parent">
+<span class="sig-name descname"><span class="pre">parent</span></span><a class="headerlink" href="#zerohertzLib.algorithm.DisjointSetRank.parent" title="Permalink to this definition">#</a></dt>
+<dd><p>Node에 따른 부모 node의 index</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[int]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.algorithm.DisjointSetRank.rank">
+<span class="sig-name descname"><span class="pre">rank</span></span><a class="headerlink" href="#zerohertzLib.algorithm.DisjointSetRank.rank" title="Permalink to this definition">#</a></dt>
+<dd><p>Node에 따른 rank</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[int]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">disjointset</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">algorithm</span><span class="o">.</span><span class="n">DisjointSetRank</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disjointset</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disjointset</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disjointset</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disjointset</span><span class="o">.</span><span class="n">parent</span>
+<span class="go">[0, 0, 0, 2, 4]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disjointset</span><span class="o">.</span><span class="n">rank</span>
+<span class="go">[2, 0, 1, 0, 0]</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.algorithm.DisjointSetRank.union">
+<span class="sig-name descname"><span class="pre">union</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node2</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/algorithm/collections.py#L132"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.algorithm.DisjointSetRank.union" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.algorithm.DisjointSetRank.union.params.node1"></span><strong>node1</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.algorithm.DisjointSetRank.union.params.node1">¶</a> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – 목표 node의 index</p></li>
+<li><p><span class="target" id="zerohertzLib.algorithm.DisjointSetRank.union.params.node2"></span><strong>node2</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.algorithm.DisjointSetRank.union.params.node2">¶</a> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – 목표 node의 index</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">self.parent</span></code> 에 root node의 index를 update</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="zerohertzLib.algorithm.DisjointSetSize">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.algorithm.</span></span><span class="sig-name descname"><span class="pre">DisjointSetSize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/algorithm/collections.py#L152"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.algorithm.DisjointSetSize" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zerohertzLib.algorithm.DisjointSet" title="zerohertzLib.algorithm.collections.DisjointSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">DisjointSet</span></code></a></p>
+<p>Disjoint set (union by size)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<dl class="simple">
+<dt>Time Complexity:</dt><dd><ul class="simple">
+<li><p>Worst: <span class="math notranslate nohighlight">\(O(\log{V})\)</span></p></li>
+<li><p>Average: <span class="math notranslate nohighlight">\(O(\alpha(V))\)</span></p></li>
+</ul>
+</dd>
+</dl>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(V\)</span>: Node의 수</p></li>
+<li><p><span class="math notranslate nohighlight">\(\alpha(V)\)</span>: <a class="reference external" href="https://ko.wikipedia.org/wiki/%EC%95%84%EC%BB%A4%EB%A7%8C_%ED%95%A8%EC%88%98">Ackermann function</a> 의 역함수 (<span class="math notranslate nohighlight">\(O(\alpha(V))\simeq O(1)\)</span>)</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="zerohertzLib.algorithm.DisjointSetSize.params.size"></span><strong>size</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.algorithm.DisjointSetSize.params.size">¶</a> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – Node의 수</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.algorithm.DisjointSetSize.parent">
+<span class="sig-name descname"><span class="pre">parent</span></span><a class="headerlink" href="#zerohertzLib.algorithm.DisjointSetSize.parent" title="Permalink to this definition">#</a></dt>
+<dd><p>Node에 따른 부모 node의 index</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[int]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="zerohertzLib.algorithm.DisjointSetSize.size">
+<span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#zerohertzLib.algorithm.DisjointSetSize.size" title="Permalink to this definition">#</a></dt>
+<dd><p>Node에 따른 size</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[int]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">disjointset</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">algorithm</span><span class="o">.</span><span class="n">DisjointSetSize</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disjointset</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disjointset</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disjointset</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disjointset</span><span class="o">.</span><span class="n">parent</span>
+<span class="go">[0, 0, 0, 2, 4]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disjointset</span><span class="o">.</span><span class="n">size</span>
+<span class="go">[4, 1, 2, 1, 1]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">disjointset</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="n">disjointset</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span>
+<span class="go">[4, 4, 4, 4, 1]</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.algorithm.DisjointSetSize.union">
+<span class="sig-name descname"><span class="pre">union</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node2</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/algorithm/collections.py#L187"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.algorithm.DisjointSetSize.union" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.algorithm.DisjointSetSize.union.params.node1"></span><strong>node1</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.algorithm.DisjointSetSize.union.params.node1">¶</a> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – 목표 node의 index</p></li>
+<li><p><span class="target" id="zerohertzLib.algorithm.DisjointSetSize.union.params.node2"></span><strong>node2</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.algorithm.DisjointSetSize.union.params.node2">¶</a> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – 목표 node의 index</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">self.parent</span></code> 에 root node의 index를 update</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.algorithm.bellman_ford">
 <span class="sig-prename descclassname"><span class="pre">zerohertzLib.algorithm.</span></span><span class="sig-name descname"><span class="pre">bellman_ford</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/algorithm/graph.py#L129"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.algorithm.bellman_ford" title="Permalink to this definition">#</a></dt>
@@ -767,6 +1029,24 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">zerohertzLib.algorithm</a><ul>
+<li><a class="reference internal" href="#zerohertzLib.algorithm.DisjointSet"><code class="docutils literal notranslate"><span class="pre">DisjointSet</span></code></a><ul>
+<li><a class="reference internal" href="#zerohertzLib.algorithm.DisjointSet.parent"><code class="docutils literal notranslate"><span class="pre">DisjointSet.parent</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.algorithm.DisjointSet.find"><code class="docutils literal notranslate"><span class="pre">DisjointSet.find()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.algorithm.DisjointSet.union"><code class="docutils literal notranslate"><span class="pre">DisjointSet.union()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#zerohertzLib.algorithm.DisjointSetRank"><code class="docutils literal notranslate"><span class="pre">DisjointSetRank</span></code></a><ul>
+<li><a class="reference internal" href="#zerohertzLib.algorithm.DisjointSetRank.parent"><code class="docutils literal notranslate"><span class="pre">DisjointSetRank.parent</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.algorithm.DisjointSetRank.rank"><code class="docutils literal notranslate"><span class="pre">DisjointSetRank.rank</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.algorithm.DisjointSetRank.union"><code class="docutils literal notranslate"><span class="pre">DisjointSetRank.union()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#zerohertzLib.algorithm.DisjointSetSize"><code class="docutils literal notranslate"><span class="pre">DisjointSetSize</span></code></a><ul>
+<li><a class="reference internal" href="#zerohertzLib.algorithm.DisjointSetSize.parent"><code class="docutils literal notranslate"><span class="pre">DisjointSetSize.parent</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.algorithm.DisjointSetSize.size"><code class="docutils literal notranslate"><span class="pre">DisjointSetSize.size</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.algorithm.DisjointSetSize.union"><code class="docutils literal notranslate"><span class="pre">DisjointSetSize.union()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#zerohertzLib.algorithm.bellman_ford"><code class="docutils literal notranslate"><span class="pre">bellman_ford()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.algorithm.bfs"><code class="docutils literal notranslate"><span class="pre">bfs()</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.algorithm.bisect_left"><code class="docutils literal notranslate"><span class="pre">bisect_left()</span></code></a></li>
@@ -797,7 +1077,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=a40e1ebb"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=00769aa2"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

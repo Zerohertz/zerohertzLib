@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 import subprocess
 import time
 from collections import defaultdict
@@ -60,7 +59,7 @@ def gpu_usages(
     Examples:
         >>> zz.monitoring.gpu_usages(threshold=15)
 
-        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/f6d71510-242b-449e-b314-d83150566470
+        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/99d04211-4560-4960-81d1-b6db18204276
             :alt: Visualzation Result
             :align: center
             :width: 600px
@@ -76,8 +75,8 @@ def gpu_usages(
         plot(
             time_list,
             data,
-            "시간 [초]",
-            "GPU 사용률 [%]",
+            "Time [Sec]",
+            "GPU Usages [%]",
             ylim=[0, 100],
             ncol=2,
             title=path,
@@ -127,7 +126,7 @@ def gpu_memory(
     Examples:
         >>> zz.monitoring.gpu_memory(threshold=15)
 
-        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/76edff1f-d07d-436e-b919-59daf418a9eb
+        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/a35d2e7f-8ac5-41be-a36d-e527ce9b6c20
             :alt: Visualzation Result
             :align: center
             :width: 600px
@@ -145,7 +144,7 @@ def gpu_memory(
         plot(
             time_list,
             data,
-            "시간 [초]",
+            "Time [Sec]",
             "GPU Memory [GB]",
             ylim=[0, gpu_memory_max],
             ncol=2,

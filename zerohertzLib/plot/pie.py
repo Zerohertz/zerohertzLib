@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 from typing import Dict, List, Optional, Tuple, Union
 
 from matplotlib import pyplot as plt
@@ -32,7 +31,7 @@ from .util import _color, savefig
 
 def pie(
     data: Dict[str, Union[int, float]],
-    dim: Optional[str] = "",
+    dim: Optional[str] = None,
     title: Optional[str] = "tmp",
     colors: Optional[Union[str, List]] = None,
     figsize: Optional[Tuple[int]] = (15, 10),
@@ -56,10 +55,10 @@ def pie(
         ``str``: 저장된 graph의 절대 경로
 
     Examples:
-        >>> data = {"테란": 27, "저그": 40, "프로토스": 30}
-        >>> zz.plot.pie(data, dim="명", title="Star Craft")
+        >>> data = {"Terran": 27, "Zerg": 40, "Protoss": 30}
+        >>> zz.plot.pie(data, dim="$", title="Star Craft")
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/282473748-bec83476-9ed6-4fe8-8f1a-2651344c1b7c.png
+        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/c2314e5a-9da7-4863-8629-874faadde9ca
             :alt: Visualzation Result
             :align: center
             :width: 500px
@@ -68,14 +67,14 @@ def pie(
     if save:
         plt.figure(figsize=figsize)
     if int_label:
-        if dim == "":
+        if dim is None:
             labels = [f"{k} ({v:.0f})" for k, v in data.items()]
         elif dim in ["₩", "$"]:
             labels = [f"{k} ({dim}{v:,.0f})" for k, v in data.items()]
         else:
             labels = [f"{k} ({v:.0f} {dim})" for k, v in data.items()]
     else:
-        if dim == "":
+        if dim is None:
             labels = [f"{k} ({v:.2f})" for k, v in data.items()]
         elif dim in ["₩", "$"]:
             labels = [f"{k} ({dim}{v:,.2f})" for k, v in data.items()]

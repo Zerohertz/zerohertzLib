@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 from typing import Dict, List, Optional, Tuple, Union
 
 from matplotlib import pyplot as plt
@@ -32,14 +31,14 @@ from .util import _color, figure, savefig
 
 def scatter(
     data: Dict[str, List[List[Union[int, float]]]],
-    xlab: Optional[str] = "x축 [단위]",
-    ylab: Optional[str] = "y축 [단위]",
+    xlab: Optional[str] = None,
+    ylab: Optional[str] = None,
     xlim: Optional[List[Union[int, float]]] = None,
     ylim: Optional[List[Union[int, float]]] = None,
     ncol: Optional[int] = 1,
     title: Optional[str] = "tmp",
     colors: Optional[Union[str, List]] = None,
-    markersize: Optional[float] = 36,
+    markersize: Optional[int] = 36,
     figsize: Optional[Tuple[int]] = (15, 10),
     dpi: Optional[int] = 300,
     save: Optional[bool] = True,
@@ -64,10 +63,10 @@ def scatter(
         ``str``: 저장된 graph의 절대 경로
 
     Examples:
-        >>> data = {"테란": [list(np.random.rand(200) * 10), list(np.random.rand(200) * 10)], "저그": [list(np.random.rand(200) * 5 - 1), list(np.random.rand(200) * 5 + 1)], "프로토스": [list(np.random.rand(200) * 10 + 3), list(np.random.rand(200) * 10 - 2)]}
-        >>> zz.plot.scatter(data, size=400, xlab="비용 [미네랄]", ylab="전투력 [점]", title="Star Craft")
+        >>> data = {"Terran": [list(np.random.rand(200) * 10), list(np.random.rand(200) * 10)], "Zerg": [list(np.random.rand(200) * 5 - 1), list(np.random.rand(200) * 5 + 1)], "Protoss": [list(np.random.rand(200) * 10 + 3), list(np.random.rand(200) * 10 - 2)]}
+        >>> zz.plot.scatter(data, xlab="Cost [Mineral]", ylab="Scores", title="Star Craft", markersize=400)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/282639459-efca04cc-3c4a-42c5-b07d-e64705a5f791.png
+        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/b67ea358-57c3-450e-900f-cfd5ac0cf35b
             :alt: Visualzation Result
             :align: center
             :width: 500px
@@ -89,11 +88,13 @@ def scatter(
             zorder=2,
         )
     plt.grid(zorder=0)
-    plt.xlabel(xlab)
-    plt.ylabel(ylab)
-    if xlim is not None:
+    if xlab:
+        plt.xlabel(xlab)
+    if ylab:
+        plt.ylabel(ylab)
+    if xlim:
         plt.xlim(xlim)
-    if ylim is not None:
+    if ylim:
         plt.ylim(ylim)
     plt.title(title, fontsize=25)
     if len(data) > 1:

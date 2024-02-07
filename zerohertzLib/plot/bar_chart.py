@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 import sys
 from typing import Any, Dict, List, Optional, Tuple, Union
 
@@ -34,8 +33,8 @@ from .util import _color, savefig
 
 def barv(
     data: Dict[str, Any],
-    xlab: Optional[str] = "변수 [단위]",
-    ylab: Optional[str] = "빈도 [단위]",
+    xlab: Optional[str] = None,
+    ylab: Optional[str] = None,
     title: Optional[str] = "tmp",
     colors: Optional[Union[str, List]] = None,
     figsize: Optional[Tuple[int]] = (15, 10),
@@ -62,12 +61,12 @@ def barv(
         ``str``: 저장된 graph의 절대 경로
 
     Examples:
-        >>> data = {"테란": 27, "저그": 40, "프로토스": 30}
-        >>> zz.plot.barv(data, xlab="종족", ylab="인구 [명]", title="Star Craft")
-        >>> data = {"xticks": ["테란", "저그", "프로토스"], "Type A": [4, 5, 6], "Type B": [4, 3, 2], "Type C": [8, 5, 12], "Type D": [6, 3, 2]}
-        >>> zz.plot.barv(data, xlab="종족", ylab="시간 [초]", title="Star Craft")
+        >>> data = {"Terran": 27, "Zerg": 40, "Protoss": 30}
+        >>> zz.plot.barv(data, xlab="Races", ylab="Population", title="Star Craft")
+        >>> data = {"xticks": ["Terran", "Zerg", "Protoss"], "Type A": [4, 5, 6], "Type B": [4, 3, 2], "Type C": [8, 5, 12], "Type D": [6, 3, 2]}
+        >>> zz.plot.barv(data, xlab="Races", ylab="Time [sec]", title="Star Craft")
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291453369-55c38b80-9edd-4d6a-ae01-ff834676d541.png
+        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/7a7e87ea-491d-42f9-96a3-16261ecd0860
             :alt: Visualzation Result
             :align: center
             :width: 600px
@@ -124,8 +123,10 @@ def barv(
                     va="bottom",
                 )
     plt.grid(zorder=0)
-    plt.xlabel(xlab)
-    plt.ylabel(ylab)
+    if xlab:
+        plt.xlabel(xlab)
+    if ylab:
+        plt.ylabel(ylab)
     plt.xticks(rotation=rot)
     plt.title(title, fontsize=25)
     if save:
@@ -135,8 +136,8 @@ def barv(
 
 def barh(
     data: Dict[str, Any],
-    xlab: Optional[str] = "빈도 [단위]",
-    ylab: Optional[str] = "변수 [단위]",
+    xlab: Optional[str] = None,
+    ylab: Optional[str] = None,
     title: Optional[str] = "tmp",
     colors: Optional[Union[str, List]] = None,
     figsize: Optional[Tuple[int]] = (10, 15),
@@ -163,12 +164,12 @@ def barh(
         ``str``: 저장된 graph의 절대 경로
 
     Examples:
-        >>> data = {"테란": 27, "저그": 40, "프로토스": 30}
-        >>> zz.plot.barh(data, xlab="인구 [명]", ylab="종족", title="Star Craft")
-        >>> data = {"yticks": ["테란", "저그", "프로토스"], "Type A": [4, 5, 6], "Type B": [4, 3, 2], "Type C": [8, 5, 12], "Type D": [6, 3, 2]}
-        >>> zz.plot.barh(data, xlab="시간 [초]", ylab="종족", title="Star Craft")
+        >>> data = {"Terran": 27, "Zerg": 40, "Protoss": 30}
+        >>> zz.plot.barh(data, xlab="Population", ylab="Races", title="Star Craft")
+        >>> data = {"yticks": ["Terran", "Zerg", "Protoss"], "Type A": [4, 5, 6], "Type B": [4, 3, 2], "Type C": [8, 5, 12], "Type D": [6, 3, 2]}
+        >>> zz.plot.barh(data, xlab="Time [Sec]", ylab="Races", title="Star Craft")
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291453365-e5cd1d87-8938-4f9f-8d81-ce8051ef6a68.png
+        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/ef947c3f-c68c-4afe-9392-40dd8da7c0bb
             :alt: Visualzation Result
             :align: center
             :width: 450px
@@ -227,8 +228,10 @@ def barh(
                     rotation=270,
                 )
     plt.grid(zorder=0)
-    plt.xlabel(xlab)
-    plt.ylabel(ylab)
+    if xlab:
+        plt.xlabel(xlab)
+    if ylab:
+        plt.ylabel(ylab)
     plt.yticks(rotation=rot)
     plt.title(title, fontsize=25)
     if save:
@@ -238,8 +241,8 @@ def barh(
 
 def hist(
     data: Dict[str, List[Union[int, float]]],
-    xlab: Optional[str] = "변수 [단위]",
-    ylab: Optional[str] = "빈도 [단위]",
+    xlab: Optional[str] = None,
+    ylab: Optional[str] = None,
     title: Optional[str] = "tmp",
     colors: Optional[Union[str, List]] = None,
     cnt: Optional[int] = 30,
@@ -266,10 +269,10 @@ def hist(
         ``str``: 저장된 graph의 절대 경로
 
     Examples:
-        >>> data = {"테란": list(np.random.rand(1000) * 10), "저그": list(np.random.rand(1000) * 10 + 1), "프로토스": list(np.random.rand(1000) * 10 + 2)}
-        >>> zz.plot.hist(data, xlab="성적 [점]", ylab="인원 [명]", title="Star Craft")
+        >>> data = {"Terran": list(np.random.rand(1000) * 10), "Zerg": list(np.random.rand(1000) * 10 + 1), "Protoss": list(np.random.rand(1000) * 10 + 2)}
+        >>> zz.plot.hist(data, xlab="Scores", ylab="Population", title="Star Craft")
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280599183-2508d4d4-7398-48ac-ad94-54296934c300.png
+        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/93f6b487-2b3d-40fb-8f07-27ce0ff7048d
             :alt: Visualzation Result
             :align: center
             :width: 600px
@@ -296,8 +299,10 @@ def hist(
             zorder=2,
         )
     plt.grid(zorder=0)
-    plt.xlabel(xlab)
-    plt.ylabel(ylab)
+    if xlab:
+        plt.xlabel(xlab)
+    if ylab:
+        plt.ylabel(ylab)
     plt.title(title, fontsize=25)
     if len(data) > 1:
         plt.legend()

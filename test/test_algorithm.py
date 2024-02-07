@@ -112,3 +112,32 @@ def test_dijkstra():
     assert [1, 0, 3, 7] == zz.algorithm.dijkstra(graph, 1)
     assert [2, 6, 0, 4] == zz.algorithm.dijkstra(graph, 2)
     assert [4, 3, 6, 0] == zz.algorithm.dijkstra(graph, 3)
+
+
+def test_disjointset():
+    disjointset = zz.algorithm.DisjointSet(5)
+    disjointset.union(0, 1)
+    disjointset.union(2, 3)
+    disjointset.union(1, 2)
+    assert disjointset.parent == [0, 0, 0, 2, 4]
+
+    disjointset = zz.algorithm.DisjointSet(5, True)
+    disjointset.union(0, 1)
+    disjointset.union(2, 3)
+    disjointset.union(1, 2)
+    assert disjointset.parent == [0, 0, 0, 2, 4]
+
+    disjointset = zz.algorithm.DisjointSetRank(5)
+    disjointset.union(0, 1)
+    disjointset.union(2, 3)
+    disjointset.union(1, 2)
+    assert disjointset.parent == [0, 0, 0, 2, 4]
+    assert disjointset.rank == [2, 0, 1, 0, 0]
+
+    disjointset = zz.algorithm.DisjointSetSize(5)
+    disjointset.union(0, 1)
+    disjointset.union(2, 3)
+    disjointset.union(1, 2)
+    assert disjointset.parent == [0, 0, 0, 2, 4]
+    assert disjointset.size == [4, 1, 2, 1, 1]
+    assert [disjointset.size[disjointset.find(i)] for i in range(5)] == [4, 4, 4, 4, 1]
