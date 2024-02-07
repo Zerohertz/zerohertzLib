@@ -1,5 +1,31 @@
 # v0.8
 
+## v0.8.7
+
+<h3>[v0.8.7] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/229>#229</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/02/07
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/algorithm"><img src="https://img.shields.io/badge/feat/algorithm-0759DE?style=flat-square&logo=github" alt="feat/algorithm"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/plot"><img src="https://img.shields.io/badge/feat/plot-968B14?style=flat-square&logo=github" alt="feat/plot"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `algorithm`
+  + Disjoint set을 사용할 수 있는 class `DisjointSet`, `DisjointSetRank`, `DisjointSetSize` 개발
++ `plot`
+  + Times New Roman font를 사용할 수 있도록 update
+  + 전역적으로 font와 크기를 변경할 수 있는 함수 `font` 추가
+  + `xlab`과 `ylab`의 default value 변경
+
 ## v0.8.6
 
 <h3>[v0.8.6] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/227>#227</a>)</h3>
