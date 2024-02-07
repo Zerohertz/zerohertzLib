@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 import json
 import multiprocessing as mp
 import time
@@ -313,11 +312,15 @@ class Balance(KoreaInvestment):
                     self.symbols.append(stock["prdt_name"])
                     self.balance["stock"][stock["prdt_name"]] = [
                         stock["pdno"],  # 종목번호
-                        float(stock["pchs_avg_pric"]),  # 매입평균가격 (매입금액 / 보유수량)
+                        float(
+                            stock["pchs_avg_pric"]
+                        ),  # 매입평균가격 (매입금액 / 보유수량)
                         int(stock["prpr"]),  # 현재가
                         int(stock["hldg_qty"]),  # 보유수량
                         float(stock["evlu_pfls_rt"]),  # 평가손익율
-                        int(stock["evlu_pfls_amt"]),  # 평가손익금액 (평가금액 - 매입금액)
+                        int(
+                            stock["evlu_pfls_amt"]
+                        ),  # 평가손익금액 (평가금액 - 매입금액)
                     ]
             self.balance["cash"] = int(response["output2"][0]["nass_amt"])  # 순자산금액
         else:
@@ -326,7 +329,9 @@ class Balance(KoreaInvestment):
                     self.symbols.append(stock["ovrs_item_name"])
                     self.balance["stock"][stock["ovrs_item_name"]] = [
                         stock["ovrs_pdno"],  # 종목번호
-                        float(stock["pchs_avg_pric"]),  # 매입평균가격 (매입금액 / 보유수량)
+                        float(
+                            stock["pchs_avg_pric"]
+                        ),  # 매입평균가격 (매입금액 / 보유수량)
                         float(stock["now_pric2"]),  # 현재가
                         int(stock["ovrs_cblc_qty"]),  # 해외잔고수량
                         float(stock["evlu_pfls_rt"]),  # 평가손익율
@@ -496,7 +501,7 @@ class QuantSlackBot(SlackBot):
         exps (``Dict[str, List[Dict[str, int]]]``): 각 전략에 따른 parameter 분포
 
     Examples:
-        >>> qsb = zz.quant.QuantSlackBot(symbols, token, channel)
+        >>> qsb = zz.quant.QuantSlackBot(symbols, token=token, channel=channel)
         >>> qsb.index()
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291917559-aa3f8a00-b23b-425b-bdfa-003465130b91.png
