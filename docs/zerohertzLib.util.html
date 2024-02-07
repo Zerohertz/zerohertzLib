@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.util" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.util.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.8.6 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.8.7 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.8.6 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.8.7 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.util.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2024.01.29 -->
-        <title>zerohertzLib.util - zerohertzLib v0.8.6 documentation</title>
+        <title>zerohertzLib.util - zerohertzLib v0.8.7 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.8.6 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.8.7 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.8.6 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.8.7 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -763,7 +763,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.util.read_csv">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.util.</span></span><span class="sig-name descname"><span class="pre">read_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/util/csv.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.util.read_csv" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.util.</span></span><span class="sig-name descname"><span class="pre">read_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/util/csv.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.util.read_csv" title="Permalink to this definition">#</a></dt>
 <dd><p>CSV (Comma-Separated Values) 혹은 TSV (Tab-Separated Values)를 작성하는 함수</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -785,13 +785,13 @@
 </div>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;star_craft.csv&quot;</span><span class="p">)</span>
-<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;id&#39;: [&#39;5hi9&#39;, &#39;gor2&#39;, &#39;gk03&#39;], &#39;종족&#39;: [&#39;프로토스&#39;, &#39;테란&#39;, &#39;저그&#39;], &#39;점수&#39;: [&#39;1248&#39;, &#39;2309&#39;, &#39;291&#39;]})</span>
+<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;id&#39;: [&#39;5hi9&#39;, &#39;gor2&#39;, &#39;gk03&#39;], &#39;Races&#39;: [&#39;Protoss&#39;, &#39;Terran&#39;, &#39;Zerg&#39;], &#39;Scores&#39;: [&#39;1248&#39;, &#39;2309&#39;, &#39;291&#39;]})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;star_craft.tsv&quot;</span><span class="p">)</span>
-<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;id&#39;: [&#39;5hi9&#39;, &#39;gor2&#39;, &#39;gk03&#39;], &#39;종족&#39;: [&#39;프로토스&#39;, &#39;테란&#39;, &#39;저그&#39;], &#39;점수&#39;: [&#39;1248&#39;, &#39;2309&#39;, &#39;291&#39;]})</span>
+<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {&#39;id&#39;: [&#39;5hi9&#39;, &#39;gor2&#39;, &#39;gk03&#39;], &#39;Races&#39;: [&#39;Protoss&#39;, &#39;Terran&#39;, &#39;Zerg&#39;], &#39;Scores&#39;: [&#39;1248&#39;, &#39;2309&#39;, &#39;291&#39;]})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;star_craft.csv&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {0: [&#39;id&#39;, &#39;5hi9&#39;, &#39;gor2&#39;, &#39;gk03&#39;], 1: [&#39;종족&#39;, &#39;프로토스&#39;, &#39;테란&#39;, &#39;저그&#39;], 2: [&#39;점수&#39;, &#39;1248&#39;, &#39;2309&#39;, &#39;291&#39;]})</span>
+<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {0: [&#39;id&#39;, &#39;5hi9&#39;, &#39;gor2&#39;, &#39;gk03&#39;], 1: [&#39;Races&#39;, &#39;Protoss&#39;, &#39;Terran&#39;, &#39;Zerg&#39;], 2: [&#39;Scores&#39;, &#39;1248&#39;, &#39;2309&#39;, &#39;291&#39;]})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;star_craft.tsv&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {0: [&#39;id&#39;, &#39;5hi9&#39;, &#39;gor2&#39;, &#39;gk03&#39;], 1: [&#39;종족&#39;, &#39;프로토스&#39;, &#39;테란&#39;, &#39;저그&#39;], 2: [&#39;점수&#39;, &#39;1248&#39;, &#39;2309&#39;, &#39;291&#39;]})</span>
+<span class="go">defaultdict(&lt;class &#39;list&#39;&gt;, {0: [&#39;id&#39;, &#39;5hi9&#39;, &#39;gor2&#39;, &#39;gk03&#39;], 1: [&#39;Races&#39;, &#39;Protoss&#39;, &#39;Terran&#39;, &#39;Zerg&#39;], 2: [&#39;Scores&#39;, &#39;1248&#39;, &#39;2309&#39;, &#39;291&#39;]})</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -851,7 +851,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.util.write_csv">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.util.</span></span><span class="sig-name descname"><span class="pre">write_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tsv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/util/csv.py#L80"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.util.write_csv" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.util.</span></span><span class="sig-name descname"><span class="pre">write_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tsv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/util/csv.py#L79"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.util.write_csv" title="Permalink to this definition">#</a></dt>
 <dd><p>CSV (Comma-Separated Values) 혹은 TSV (Tab-Separated Values)를 작성하는 함수</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -869,9 +869,9 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">write_csv</span><span class="p">([[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;종족&quot;</span><span class="p">,</span> <span class="s2">&quot;점수&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;5hi9&quot;</span><span class="p">,</span> <span class="s2">&quot;프로토스&quot;</span><span class="p">,</span> <span class="mi">1248</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;gor2&quot;</span><span class="p">,</span> <span class="s2">&quot;테란&quot;</span><span class="p">,</span> <span class="mi">2309</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;gk03&quot;</span><span class="p">,</span> <span class="s2">&quot;저그&quot;</span><span class="p">,</span> <span class="mi">291</span><span class="p">]],</span> <span class="s2">&quot;zerohertzLib/star_craft&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">write_csv</span><span class="p">([[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;Races&quot;</span><span class="p">,</span> <span class="s2">&quot;Scores&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;5hi9&quot;</span><span class="p">,</span> <span class="s2">&quot;Protoss&quot;</span><span class="p">,</span> <span class="mi">1248</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;gor2&quot;</span><span class="p">,</span> <span class="s2">&quot;Terran&quot;</span><span class="p">,</span> <span class="mi">2309</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;gk03&quot;</span><span class="p">,</span> <span class="s2">&quot;Zerg&quot;</span><span class="p">,</span> <span class="mi">291</span><span class="p">]],</span> <span class="s2">&quot;zerohertzLib/star_craft&quot;</span><span class="p">)</span>
 <span class="go">&#39;/.../star_craft.csv&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">write_csv</span><span class="p">([[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;종족&quot;</span><span class="p">,</span> <span class="s2">&quot;점수&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;5hi9&quot;</span><span class="p">,</span> <span class="s2">&quot;프로토스&quot;</span><span class="p">,</span> <span class="mi">1248</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;gor2&quot;</span><span class="p">,</span> <span class="s2">&quot;테란&quot;</span><span class="p">,</span> <span class="mi">2309</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;gk03&quot;</span><span class="p">,</span> <span class="s2">&quot;저그&quot;</span><span class="p">,</span> <span class="mi">291</span><span class="p">]],</span> <span class="s2">&quot;zerohertzLib/star_craft&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zz</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">write_csv</span><span class="p">([[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;Races&quot;</span><span class="p">,</span> <span class="s2">&quot;Scores&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;5hi9&quot;</span><span class="p">,</span> <span class="s2">&quot;Protoss&quot;</span><span class="p">,</span> <span class="mi">1248</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;gor2&quot;</span><span class="p">,</span> <span class="s2">&quot;Terran&quot;</span><span class="p">,</span> <span class="mi">2309</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;gk03&quot;</span><span class="p">,</span> <span class="s2">&quot;Zerg&quot;</span><span class="p">,</span> <span class="mi">291</span><span class="p">]],</span> <span class="s2">&quot;zerohertzLib/star_craft&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 <span class="go">&#39;/.../star_craft.tsv&#39;</span>
 </pre></div>
 </div>
@@ -1030,7 +1030,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=a40e1ebb"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=00769aa2"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
