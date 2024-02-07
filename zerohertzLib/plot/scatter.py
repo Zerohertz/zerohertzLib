@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 from typing import Dict, List, Optional, Tuple, Union
 
 from matplotlib import pyplot as plt
@@ -39,7 +38,7 @@ def scatter(
     ncol: Optional[int] = 1,
     title: Optional[str] = "tmp",
     colors: Optional[Union[str, List]] = None,
-    markersize: Optional[float] = 36,
+    markersize: Optional[int] = 36,
     figsize: Optional[Tuple[int]] = (15, 10),
     dpi: Optional[int] = 300,
     save: Optional[bool] = True,
@@ -65,7 +64,7 @@ def scatter(
 
     Examples:
         >>> data = {"테란": [list(np.random.rand(200) * 10), list(np.random.rand(200) * 10)], "저그": [list(np.random.rand(200) * 5 - 1), list(np.random.rand(200) * 5 + 1)], "프로토스": [list(np.random.rand(200) * 10 + 3), list(np.random.rand(200) * 10 - 2)]}
-        >>> zz.plot.scatter(data, size=400, xlab="비용 [미네랄]", ylab="전투력 [점]", title="Star Craft")
+        >>> zz.plot.scatter(data, xlab="비용 [미네랄]", ylab="전투력 [점]", title="Star Craft", markersize=400)
 
         .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/282639459-efca04cc-3c4a-42c5-b07d-e64705a5f791.png
             :alt: Visualzation Result
