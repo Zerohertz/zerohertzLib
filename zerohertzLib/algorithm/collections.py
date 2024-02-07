@@ -63,7 +63,7 @@ class DisjointSet:
     """
 
     def __init__(self, size: int, compression: Optional[bool] = False) -> None:
-        self.parent = [i for i in range(size)]
+        self.parent = list(range(size))
         self.compression = compression
 
     def find(self, node: int) -> int:
@@ -129,16 +129,6 @@ class DisjointSetRank(DisjointSet):
         super().__init__(size, True)
         self.rank = [0 for _ in range(size)]
 
-    def find(self, node: int) -> int:
-        """
-        Args:
-            node (``int``): 목표 node의 index
-
-        Returns:
-            ``int``: 목표 node에 대한 root node의 index
-        """
-        return super().find(node)
-
     def union(self, node1: int, node2: int) -> None:
         """
         Args:
@@ -193,16 +183,6 @@ class DisjointSetSize(DisjointSet):
     def __init__(self, size: int) -> None:
         super().__init__(size, True)
         self.size = [1 for _ in range(size)]
-
-    def find(self, node: int) -> int:
-        """
-        Args:
-            node (``int``): 목표 node의 index
-
-        Returns:
-            ``int``: 목표 node에 대한 root node의 index
-        """
-        return super().find(node)
 
     def union(self, node1: int, node2: int) -> None:
         """
