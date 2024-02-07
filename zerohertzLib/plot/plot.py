@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 import mplfinance as mpf
@@ -36,8 +35,8 @@ from .util import _color, color, savefig
 def plot(
     xdata: List[Union[int, float]],
     ydata: Dict[str, List[Union[int, float]]],
-    xlab: Optional[str] = "x축 [단위]",
-    ylab: Optional[str] = "y축 [단위]",
+    xlab: Optional[str] = None,
+    ylab: Optional[str] = None,
     xlim: Optional[List[Union[int, float]]] = None,
     ylim: Optional[List[Union[int, float]]] = None,
     stacked: Optional[bool] = False,
@@ -73,19 +72,19 @@ def plot(
     Examples:
         ``stacked=False``:
             >>> xdata = [i for i in range(20)]
-            >>> ydata = {"테란": list(np.random.rand(20) * 10), "저그": list(np.random.rand(20) * 10 + 1), "프로토스": list(np.random.rand(20) * 10 + 2)}
-            >>> zz.plot.plot(xdata, ydata, xlab="시간 [초]", ylab="성적 [점]", title="Star Craft")
+            >>> ydata = {"Terran": list(np.random.rand(20) * 10), "Zerg": list(np.random.rand(20) * 10 + 1), "Protoss": list(np.random.rand(20) * 10 + 2)}
+            >>> zz.plot.plot(xdata, ydata, xlab="Time [Sec]", ylab="Scores", title="Star Craft")
 
-            .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280603766-22a0f42c-91b0-4f34-aa73-29de6fdbd4e9.png
+            .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/d7883691-b137-4975-aa28-6b52f4117451
                 :alt: Visualzation Result
                 :align: center
                 :width: 500px
 
         ``stacked=True``:
-            >>> ydata["Total"] = [sum(data) + 10 for data in zip(ydata["테란"], ydata["프로토스"], ydata["저그"])]
-            >>> zz.plot.plot(xdata, ydata, xlab="시간 [초]", ylab="성적 [점]", stacked=True, title="Star Craft")
+            >>> ydata["Total"] = [sum(data) + 10 for data in zip(ydata["Terran"], ydata["Protoss"], ydata["Zerg"])]
+            >>> zz.plot.plot(xdata, ydata, xlab="Time [Sec]", ylab="Scores", stacked=True, title="Star Craft")
 
-            .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290732177-9a9b9584-5207-4575-a759-160890ac8a13.png
+            .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/6368b2fe-e1af-4a42-b931-515be7d55980
                 :alt: Visualzation Result
                 :align: center
                 :width: 500px
@@ -122,11 +121,13 @@ def plot(
             plt.fill_between(xdata, value, bias, color=colors[i], alpha=0.5)
             bias = value
     plt.grid(zorder=0)
-    plt.xlabel(xlab)
-    plt.ylabel(ylab)
-    if xlim is not None:
+    if xlab:
+        plt.xlabel(xlab)
+    if ylab:
+        plt.ylabel(ylab)
+    if xlim:
         plt.xlim(xlim)
-    if ylim is not None:
+    if ylim:
         plt.ylim(ylim)
     plt.title(title, fontsize=25)
     if len(ydata) > 1:
@@ -171,7 +172,7 @@ def candle(
         >>> signals = zz.quant.macd(data)
         >>> zz.plot.candle(data, "MACD", signals=signals)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/292802552-7e07bc0d-3d91-4a31-8b65-f8fd63809200.png
+        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/d77711a9-f199-49c4-acff-f09276c60a29
             :alt: Visualzation Result
             :align: center
             :width: 600px

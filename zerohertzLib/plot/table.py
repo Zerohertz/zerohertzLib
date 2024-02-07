@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 from typing import List, Optional, Tuple, Union
 
 from matplotlib import pyplot as plt
@@ -55,12 +54,12 @@ def table(
 
     Examples:
         >>> data = [["123", 123, 123.4], [123.4, "123", 123], [123, 123.4, "123"], ["123", 123, 123.4]]
-        >>> col = ["테란", "저그", "프로토스"]
+        >>> col = ["Terran", "Zerg", "Protoss"]
         >>> row = ["test1", "test2", "test3", "test4"]
         >>> zz.plot.table(data, col, row, title="Star Craft")
         >>> zz.plot.table(data, col, row, title="Star Craft2", fontsize=50)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/286497412-cd081b32-1c12-46b3-bdcb-b18d6221bd08.png
+        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/ce2ca5f4-d9ee-482d-8529-f06d5ef3f256
             :alt: Visualzation Result
             :align: center
             :width: 500px

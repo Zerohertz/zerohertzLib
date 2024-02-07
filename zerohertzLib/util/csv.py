@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 import os
 from collections import defaultdict
 from typing import Any, Dict, List, Optional, Union
@@ -45,13 +44,13 @@ def read_csv(
 
     Examples:
         >>> zz.util.read_csv("star_craft.csv")
-        defaultdict(<class 'list'>, {'id': ['5hi9', 'gor2', 'gk03'], '종족': ['프로토스', '테란', '저그'], '점수': ['1248', '2309', '291']})
+        defaultdict(<class 'list'>, {'id': ['5hi9', 'gor2', 'gk03'], 'Races': ['Protoss', 'Terran', 'Zerg'], 'Scores': ['1248', '2309', '291']})
         >>> zz.util.read_csv("star_craft.tsv")
-        defaultdict(<class 'list'>, {'id': ['5hi9', 'gor2', 'gk03'], '종족': ['프로토스', '테란', '저그'], '점수': ['1248', '2309', '291']})
+        defaultdict(<class 'list'>, {'id': ['5hi9', 'gor2', 'gk03'], 'Races': ['Protoss', 'Terran', 'Zerg'], 'Scores': ['1248', '2309', '291']})
         >>> zz.util.read_csv("star_craft.csv", header=False)
-        defaultdict(<class 'list'>, {0: ['id', '5hi9', 'gor2', 'gk03'], 1: ['종족', '프로토스', '테란', '저그'], 2: ['점수', '1248', '2309', '291']})
+        defaultdict(<class 'list'>, {0: ['id', '5hi9', 'gor2', 'gk03'], 1: ['Races', 'Protoss', 'Terran', 'Zerg'], 2: ['Scores', '1248', '2309', '291']})
         >>> zz.util.read_csv("star_craft.tsv", header=False)
-        defaultdict(<class 'list'>, {0: ['id', '5hi9', 'gor2', 'gk03'], 1: ['종족', '프로토스', '테란', '저그'], 2: ['점수', '1248', '2309', '291']})
+        defaultdict(<class 'list'>, {0: ['id', '5hi9', 'gor2', 'gk03'], 1: ['Races', 'Protoss', 'Terran', 'Zerg'], 2: ['Scores', '1248', '2309', '291']})
     """
     data = defaultdict(list)
     keys = []
@@ -89,9 +88,9 @@ def write_csv(data: List[List[Any]], path: str, tsv: Optional[bool] = False) -> 
         ``str``: File의 절대 경로
 
     Examples:
-        >>> zz.util.write_csv([["id", "종족", "점수"], ["5hi9", "프로토스", 1248], ["gor2", "테란", 2309], ["gk03", "저그", 291]], "zerohertzLib/star_craft")
+        >>> zz.util.write_csv([["id", "Races", "Scores"], ["5hi9", "Protoss", 1248], ["gor2", "Terran", 2309], ["gk03", "Zerg", 291]], "zerohertzLib/star_craft")
         '/.../star_craft.csv'
-        >>> zz.util.write_csv([["id", "종족", "점수"], ["5hi9", "프로토스", 1248], ["gor2", "테란", 2309], ["gk03", "저그", 291]], "zerohertzLib/star_craft", True)
+        >>> zz.util.write_csv([["id", "Races", "Scores"], ["5hi9", "Protoss", 1248], ["gor2", "Terran", 2309], ["gk03", "Zerg", 291]], "zerohertzLib/star_craft", True)
         '/.../star_craft.tsv'
     """
     if tsv:

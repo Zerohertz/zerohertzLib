@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 import time
 from collections import defaultdict
 from typing import Optional
@@ -55,7 +54,7 @@ def cpu(
         >>> zz.monitoring.cpu(threshold=15)
         >>> zz.monitoring.cpu(per=False)
 
-        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/8a405df0-078f-4a3b-84bb-bb48703b94d0
+        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/c092d600-8c75-4945-846a-fe618c2d401e
             :alt: Visualzation Result
             :align: center
             :width: 600px
@@ -75,8 +74,8 @@ def cpu(
         plot(
             time_list,
             data,
-            "시간 [초]",
-            "CPU 사용률 [%]",
+            "Time [Sec]",
+            "CPU Usages [%]",
             ylim=[0, 100],
             ncol=2,
             title=path,

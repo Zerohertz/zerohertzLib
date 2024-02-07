@@ -22,12 +22,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+import os
 from typing import Dict, List, Optional, Tuple, Union
 
 import cv2
 import numpy as np
 from numpy.typing import DTypeLike, NDArray
 from PIL import Image, ImageDraw, ImageFont
+
+from zerohertzLib.plot import FONT_PATH
 
 from .convert import _list2np, cwh2poly, cwh2xyxy, poly2cwh, poly2mask
 from .transform import pad
@@ -247,7 +250,7 @@ def _make_text(
     palette = Image.new("RGBA", size, (255, 255, 255, 0))
     draw = ImageDraw.Draw(palette)
     font = ImageFont.truetype(
-        __file__.replace("vision/visual.py", "plot/fonts/NotoSansKR-Medium.ttf"),
+        os.path.join(FONT_PATH, "NotoSansKR-Medium.ttf"),
         fontsize,
     )
     text_width, text_height = draw.textsize(txt, font=font)

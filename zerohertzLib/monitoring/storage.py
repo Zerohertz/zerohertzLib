@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 import os
 from typing import Optional
 
@@ -55,7 +54,7 @@ def storage(path: Optional[str] = ".", threshold: Optional[int] = 1) -> str:
     Examples:
         >>> zz.monitoring.storage(".")
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/282481985-15ce10ff-e4b1-4b6a-84ea-6e948b684e0c.png
+        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/251c49e5-1008-43c4-a166-52fb77c1dac4
             :alt: Visualzation Result
             :align: center
             :width: 600px
