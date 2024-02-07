@@ -5,6 +5,7 @@
     다양한 변수들을 최대한 지정하지 않고 사용할 수 있는 시각화 함수들
 """
 
+from typing import Optional
 
 from matplotlib import font_manager
 from matplotlib import pyplot as plt
@@ -16,11 +17,31 @@ from zerohertzLib.plot.scatter import scatter
 from zerohertzLib.plot.table import table
 from zerohertzLib.plot.util import color, figure, savefig
 
-plt.rcParams["font.size"] = 20
-font_manager.fontManager.addfont(
-    __file__.replace("__init__.py", "NotoSansKR-Medium.ttf")
-)
-plt.rcParams["font.family"] = "Noto Sans KR"
+
+def font(kor: Optional[bool] = False, size: Optional[int] = 20) -> None:
+    """``plot`` submodule 내 사용될 font 및 크기 설정
+
+    Args:
+        kor (``Optional[bool]``): 한국어 여부
+        size (``Optional[int]``): Font의 크기
+
+    Returns:
+        ``None``: ``plt.rcParams`` 을 통한 전역적 설정
+    """
+    plt.rcParams["font.size"] = size
+    if kor:
+        font_manager.fontManager.addfont(
+            __file__.replace("__init__.py", "fonts/NotoSansKR-Medium.ttf")
+        )
+        plt.rcParams["font.family"] = "Noto Sans KR"
+    else:
+        font_manager.fontManager.addfont(
+            __file__.replace("__init__.py", "fonts/times.ttf")
+        )
+        plt.rcParams["font.family"] = "Times New Roman"
+
+
+font()
 
 __all__ = [
     "barv",
@@ -34,4 +55,5 @@ __all__ = [
     "savefig",
     "figure",
     "candle",
+    "font",
 ]

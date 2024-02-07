@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 from typing import Dict, List, Optional, Tuple, Union
 
 import cv2
@@ -248,7 +247,8 @@ def _make_text(
     palette = Image.new("RGBA", size, (255, 255, 255, 0))
     draw = ImageDraw.Draw(palette)
     font = ImageFont.truetype(
-        __file__.replace("vision/visual.py", "plot/NotoSansKR-Medium.ttf"), fontsize
+        __file__.replace("vision/visual.py", "plot/fonts/NotoSansKR-Medium.ttf"),
+        fontsize,
     )
     text_width, text_height = draw.textsize(txt, font=font)
     d_x, d_y = (size[0] - text_width) // 2, (size[1] - text_height) // 2
