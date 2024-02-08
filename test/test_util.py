@@ -30,8 +30,7 @@ def test_JsonDir():
 
 def test_write_json():
     zz.util.write_json(
-        [{"id": "4169", "전투력": 4209, "정보": ["아무", "거나"]}] * 100,
-        "star_craft",
+        [{"id": "4169", "전투력": 4209, "정보": ["아무", "거나"]}] * 100, "star_craft"
     )
     assert "star_craft.json" in os.listdir()
 

@@ -1,6 +1,7 @@
 import os
 
 import numpy as np
+
 import zerohertzLib as zz
 
 
@@ -45,10 +46,7 @@ def test_barv_stacked():
         "Type D": [6, 3, 2],
     }
     path = zz.plot.barv(
-        data,
-        xlab="Races",
-        ylab="Time [Sec]",
-        title="Star Craft (barv, stacked)",
+        data, xlab="Races", ylab="Time [Sec]", title="Star Craft (barv, stacked)"
     )
     assert path.split("/")[-1] in os.listdir()
 
@@ -105,10 +103,7 @@ def test_barh_stacked():
         "Type D": [6, 3, 2],
     }
     path = zz.plot.barh(
-        data,
-        xlab="Time [Sec]",
-        ylab="Races",
-        title="Star Craft (barh, stacked)",
+        data, xlab="Time [Sec]", ylab="Races", title="Star Craft (barh, stacked)"
     )
     assert path.split("/")[-1] in os.listdir()
 
@@ -129,9 +124,7 @@ def test_hist():
 
 def test_hist_palette():
     path = zz.plot.hist(
-        {
-            "Terran": list(np.random.rand(1000) * 10),
-        },
+        {"Terran": list(np.random.rand(1000) * 10)},
         xlab="Scores",
         ylab="Population",
         title="Star Craft (hist, palette)",
@@ -285,9 +278,7 @@ def test_scatter():
 
 def test_scatter_palette():
     path = zz.plot.scatter(
-        {
-            "Terran": [list(np.random.rand(200) * 10), list(np.random.rand(200) * 10)],
-        },
+        {"Terran": [list(np.random.rand(200) * 10), list(np.random.rand(200) * 10)]},
         xlab="Cost [Mineral]",
         ylab="Scores",
         title="Star Craft (scatter, palette)",

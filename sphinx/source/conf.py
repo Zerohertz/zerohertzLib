@@ -95,10 +95,7 @@ favicons = [
     {"href": "favicon.png"},
     {"href": "favicon-16x16.png"},
     {"href": "favicon-32x32.png"},
-    {
-        "rel": "apple-touch-icon",
-        "href": "favicon.png",
-    },
+    {"rel": "apple-touch-icon", "href": "favicon.png"},
 ]
 
 # https://sphinx-themes.org/sample-sites/furo/

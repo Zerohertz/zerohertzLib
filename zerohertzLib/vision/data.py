@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 import math
 import multiprocessing as mp
 import os
@@ -118,13 +117,17 @@ class ImageLoader:
         Tuple[str, NDArray[np.uint8]], Tuple[List[str], List[NDArray[np.uint8]]]
     ]:
         if self.cnt == 1:
-            return self.image_paths[idx], cv2.imread(
-                self.image_paths[idx], cv2.IMREAD_UNCHANGED
+            return (
+                self.image_paths[idx],
+                cv2.imread(self.image_paths[idx], cv2.IMREAD_UNCHANGED),
             )
-        return self.image_paths[self.cnt * idx : self.cnt * (idx + 1)], [
-            cv2.imread(path, cv2.IMREAD_UNCHANGED)
-            for path in self.image_paths[self.cnt * idx : self.cnt * (idx + 1)]
-        ]
+        return (
+            self.image_paths[self.cnt * idx : self.cnt * (idx + 1)],
+            [
+                cv2.imread(path, cv2.IMREAD_UNCHANGED)
+                for path in self.image_paths[self.cnt * idx : self.cnt * (idx + 1)]
+            ],
+        )
 
 
 class JsonImageLoader:
@@ -469,9 +472,10 @@ class LabelStudio:
     ) -> Union[Tuple[str, Dict[str, Dict[str, str]]], Tuple[str, Dict[str, List[Any]]]]:
         if self.annotations is None:
             file_name = self.data_paths[idx].split("/")[-1]
-            return file_name, {
-                "data": {"image": f"data/local-files/?d=image/{file_name}"}
-            }
+            return (
+                file_name,
+                {"data": {"image": f"data/local-files/?d=image/{file_name}"}},
+            )
         file_name = self.annotations[idx]["data"]["image"].split("/")[-1]
         file_name = urllib.parse.unquote(file_name)
         if len(file_name) > 8 and "-" == file_name[8]:
@@ -480,12 +484,14 @@ class LabelStudio:
         if len(self.annotations[idx]["annotations"]) > 1:
             raise ValueError("The 'annotations' are plural")
         if self.type == "rectanglelabels":
-            return file_path, self._dict2cwh(
-                self.annotations[idx]["annotations"][0]["result"]
+            return (
+                file_path,
+                self._dict2cwh(self.annotations[idx]["annotations"][0]["result"]),
             )
         if self.type == "polygonlabels":
-            return file_path, self._dict2poly(
-                self.annotations[idx]["annotations"][0]["result"]
+            return (
+                file_path,
+                self._dict2poly(self.annotations[idx]["annotations"][0]["result"]),
             )
         raise ValueError(f"Unknown annotation type: {self.type}")
 

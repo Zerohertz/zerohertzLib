@@ -34,10 +34,7 @@ from shapely.geometry import Polygon
 from zerohertzLib.plot import figure, plot, savefig, scatter
 
 
-def iou(
-    poly1: NDArray[DTypeLike],
-    poly2: NDArray[DTypeLike],
-) -> float:
+def iou(poly1: NDArray[DTypeLike], poly2: NDArray[DTypeLike]) -> float:
     """IoU (Intersection over Union)를 계산하는 함수
 
     Args:

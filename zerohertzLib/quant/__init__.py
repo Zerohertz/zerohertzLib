@@ -12,7 +12,6 @@
     - ``-1``: 매도
 """
 
-
 from zerohertzLib.quant.backtest import Experiments, backtest, experiments
 from zerohertzLib.quant.methods import (
     bollinger_bands,
