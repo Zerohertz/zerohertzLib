@@ -2,6 +2,25 @@
 
 ## v0.8.7
 
+<h3>[v0.8.7] Chore Update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/231>#231</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/02/08
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release/chore"><img src="https://img.shields.io/badge/release/chore-22FD7F?style=flat-square&logo=github" alt="release/chore"/></a>
+</p>
+
+
+<h4>Chore</h4>
+
++ `Black` formatter 재활성화
+
 <h3>[v0.8.7] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/229>#229</a>)</h3>
 
 ```{admonition} Release Date
