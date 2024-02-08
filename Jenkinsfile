@@ -99,7 +99,7 @@ spec:
                         container("python") {
                             sh "pip install .'[all]'"
                             sh "pip install black flake8 flake8-variables-names pylint"
-                            // sh "black --check ."
+                            sh "black --check ."
                             sh "flake8 zerohertzLib"
                             sh "pylint -r n zerohertzLib"
                         }

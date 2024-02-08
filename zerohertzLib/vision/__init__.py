@@ -13,7 +13,6 @@
     - ``poly``: ``[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]`` 로 구성된 bbox (``[4, 2]`` or ``[N, 4, 2]``)
 """
 
-
 from zerohertzLib.vision.compare import before_after, grid, vert
 from zerohertzLib.vision.convert import (
     cwh2poly,

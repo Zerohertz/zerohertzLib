@@ -205,12 +205,7 @@ def barh(
                     rotation=270,
                 )
     else:
-        bars = plt.barh(
-            list(data.keys()),
-            list(data.values()),
-            color=colors,
-            zorder=2,
-        )
+        bars = plt.barh(list(data.keys()), list(data.values()), color=colors, zorder=2)
         if min(data.values()) > 0:
             plt.xlim([0, 1.1 * max(list(data.values()))])
         if per:

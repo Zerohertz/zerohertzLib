@@ -62,9 +62,7 @@ setup(
         "quant": requirements_api + requirements_quant,
         "all": requirements_api + requirements_mlops + requirements_quant,
     },
-    package_data={
-        "zerohertzLib": ["plot/fonts/*.ttf"],
-    },
+    package_data={"zerohertzLib": ["plot/fonts/*.ttf"]},
     license="MIT",
     classifiers=[
         "Development Status :: 5 - Production/Stable",

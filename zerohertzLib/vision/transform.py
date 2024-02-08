@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 from typing import List, Optional, Tuple, Union
 
 import cv2
@@ -100,12 +99,14 @@ def pad(
             tar_height,
         )
     img = cv2.resize(img, (resize_width, resize_height), interpolation=cv2.INTER_LINEAR)
-    top, bottom = (tar_height - resize_height) // 2, (
-        tar_height - resize_height
-    ) // 2 + (tar_height - resize_height) % 2
-    left, right = (tar_width - resize_width) // 2, (tar_width - resize_width) // 2 + (
-        tar_width - resize_width
-    ) % 2
+    top, bottom = (
+        (tar_height - resize_height) // 2,
+        (tar_height - resize_height) // 2 + (tar_height - resize_height) % 2,
+    )
+    left, right = (
+        (tar_width - resize_width) // 2,
+        (tar_width - resize_width) // 2 + (tar_width - resize_width) % 2,
+    )
     img = cv2.copyMakeBorder(
         img, top, bottom, left, right, cv2.BORDER_CONSTANT, value=color
     )
