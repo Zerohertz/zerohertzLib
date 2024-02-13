@@ -33,6 +33,11 @@ class SlackWebhook:
 
     Args:
         webhook_url (``str``): Slack Webhook의 URL
+        channel (``Optional[str]``): Slack Webhook이 전송할 channel
+        name (``Optional[str]``): Slack Webhook의 표시될 이름
+        icon_emoji (``Optional[str]``): Slack Webhook의 표시될 사진 (emoji)
+        icon_url (``Optional[str]``): Slack Webhook의 표시될 사진 (photo)
+        timeout (``Optional[int]``): ``message``, ``file`` method 사용 시 사용될 timeout
 
     Examples:
         >>> slack = zz.api.SlackWebhook("https://hooks.slack.com/services/...")
@@ -51,6 +56,7 @@ class SlackWebhook:
         name: Optional[str] = None,
         icon_emoji: Optional[str] = None,
         icon_url: Optional[str] = None,
+        timeout: Optional[int] = 10,
     ) -> None:
         self.webhook_url = webhook_url
         self.headers = {"Content-Type": "application/json"}
@@ -63,6 +69,7 @@ class SlackWebhook:
             self.data["icon_emoji"] = f":{icon_emoji}:"
         if icon_url is not None:
             self.data["icon_url"] = icon_url
+        self.timeout = timeout
 
     def message(
         self,
@@ -91,7 +98,7 @@ class SlackWebhook:
             self.webhook_url,
             data=json.dumps(self.data),
             headers=self.headers,
-            timeout=10,
+            timeout=self.timeout,
         )
 
 
@@ -109,6 +116,7 @@ class SlackBot:
         name (``Optional[str]``): Slack Bot의 표시될 이름
         icon_emoji (``Optional[str]``): Slack Bot의 표시될 사진 (emoji)
         icon_url (``Optional[str]``): Slack Bot의 표시될 사진 (photo)
+        timeout (``Optional[int]``): ``message``, ``file`` method 사용 시 사용될 timeout
 
     Examples:
         >>> slack = zz.api.SlackBot("xoxb-...", "test")
@@ -129,6 +137,7 @@ class SlackBot:
         name: Optional[str] = None,
         icon_emoji: Optional[str] = None,
         icon_url: Optional[str] = None,
+        timeout: Optional[int] = 10,
     ) -> None:
         self.token = token
         self.headers = {
@@ -144,6 +153,7 @@ class SlackBot:
             self.data["icon_emoji"] = f":{icon_emoji}:"
         if icon_url is not None:
             self.data["icon_url"] = icon_url
+        self.timeout = timeout
 
     def message(
         self,
@@ -183,7 +193,7 @@ class SlackBot:
             "https://slack.com/api/chat.postMessage",
             headers=self.headers,
             json=data,
-            timeout=10,
+            timeout=self.timeout,
         )
         if not response.json()["ok"]:
             error = response.json()["error"]
@@ -226,7 +236,7 @@ class SlackBot:
                 headers=self.headers,
                 files={"file": file},
                 data={"channels": self.channel, "thread_ts": thread_ts},
-                timeout=10,
+                timeout=self.timeout,
             )
         if not response.json()["ok"]:
             error = response.json()["error"]

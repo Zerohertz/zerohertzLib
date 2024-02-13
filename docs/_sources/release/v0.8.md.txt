@@ -1,5 +1,26 @@
 # v0.8
 
+## v0.8.8
+
+<h3>[v0.8.8] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/233>#233</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/02/13
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/api"><img src="https://img.shields.io/badge/feat/api-541B9A?style=flat-square&logo=github" alt="feat/api"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `api`
+  + `SlackWebhook`과 `SlackBot`이 `timeout`을 설정할 수 있도록 변경
+
 ## v0.8.7
 
 <h3>[v0.8.7] Chore Update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/231>#231</a>)</h3>
