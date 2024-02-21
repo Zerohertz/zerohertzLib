@@ -1,6 +1,7 @@
 import os
 import random
 import shutil
+from datetime import datetime, timedelta
 from glob import glob
 
 import cv2
@@ -11,8 +12,13 @@ import zerohertzLib as zz
 
 TMP = os.path.dirname(__file__)
 EXAMPLE_PATH = os.path.join(TMP, "source/_static/examples/dynamic")
-TITLE = "Apple Inc."
-DATA = fdr.DataReader("AAPL", "20220101")
+
+NOW = datetime.now()
+START_DAY = NOW - timedelta(days=30 * 18)
+START_DAY = START_DAY.strftime("%Y%m%d")
+TITLE = "Tesla"
+DATA = fdr.DataReader("TSLA", START_DAY)
+
 IMAGE = cv2.imread(os.path.join(TMP, "..", "test/data/test.jpg"))
 
 
