@@ -116,7 +116,7 @@ def bbox(
     return img
 
 
-def masks(
+def mask(
     img: NDArray[np.uint8],
     mks: Optional[NDArray[bool]] = None,
     poly: Optional[NDArray[DTypeLike]] = None,
@@ -126,7 +126,7 @@ def masks(
     border: Optional[bool] = True,
     alpha: Optional[float] = 0.5,
 ) -> NDArray[np.uint8]:
-    """Masks 시각화
+    """Mask 시각화
 
     Args:
         img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
@@ -146,13 +146,13 @@ def masks(
             >>> H, W, _ = img.shape
             >>> cnt = 30
             >>> mks = np.zeros((cnt, H, W), np.uint8)
-            >>> for mask in mks:
+            >>> for mks_ in mks:
             >>>     center_x = random.randint(0, W)
             >>>     center_y = random.randint(0, H)
             >>>     radius = random.randint(30, 200)
-            >>>     cv2.circle(mask, (center_x, center_y), radius, (True), -1)
+            >>>     cv2.circle(mks_, (center_x, center_y), radius, (True), -1)
             >>> mks = mks.astype(bool)
-            >>> res1 = zz.vision.masks(img, mks)
+            >>> res1 = zz.vision.mask(img, mks)
 
         Mask (with class):
             >>> cls = [i for i in range(cnt)]
@@ -160,13 +160,13 @@ def masks(
             >>> class_color = {}
             >>> for c in cls:
             >>>     class_color[c] = [random.randint(0, 255) for _ in range(3)]
-            >>> res2 = zz.vision.masks(img, mks, class_list=class_list, class_color=class_color)
+            >>> res2 = zz.vision.mask(img, mks, class_list=class_list, class_color=class_color)
 
         Poly:
             >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
-            >>> res3 = zz.vision.masks(img, poly=poly)
+            >>> res3 = zz.vision.mask(img, poly=poly)
 
-        .. image:: _static/examples/dynamic/vision.masks.png
+        .. image:: _static/examples/dynamic/vision.mask.png
             :align: center
             :width: 600px
     """
@@ -190,12 +190,12 @@ def masks(
             edges = cv2.Canny(mks.astype(np.uint8) * 255, 100, 200)
             overlay[edges > 0] = color
     elif len(shape) == 3:
-        for idx, mask in enumerate(mks):
+        for idx, mks_ in enumerate(mks):
             if class_list is not None and class_color is not None:
                 color = class_color[class_list[idx]]
-            overlapping = cumulative_mask & mask
-            non_overlapping = mask & ~cumulative_mask
-            cumulative_mask |= mask
+            overlapping = cumulative_mask & mks_
+            non_overlapping = mks_ & ~cumulative_mask
+            cumulative_mask |= mks_
             if overlapping.any():
                 overlapping_color = overlay[overlapping].astype(np.float32)
                 mixed_color = ((overlapping_color + color) / 2).astype(np.uint8)
@@ -203,7 +203,7 @@ def masks(
             if non_overlapping.any():
                 overlay[non_overlapping] = color
             if border:
-                edges = cv2.Canny(mask.astype(np.uint8) * 255, 100, 200)
+                edges = cv2.Canny(mks_.astype(np.uint8) * 255, 100, 200)
                 overlay[edges > 0] = color
     else:
         raise ValueError("The 'mks' must be of shape [H, W] or [N, H, W]")

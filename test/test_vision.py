@@ -191,49 +191,49 @@ def test_bboxes_gray_cwh():
     assert "BBOXES_GRAY_CWH.png" in os.listdir()
 
 
-def test_masks_bgr():
+def test_mask_bgr():
     img = cv2.imread(f"{data}/test.jpg")
     H, W, _ = img.shape
     cnt = 30
     mks = np.zeros((cnt, H, W), np.uint8)
-    for mask in mks:
+    for mks_ in mks:
         center_x = random.randint(0, W)
         center_y = random.randint(0, H)
         radius = random.randint(30, 200)
-        cv2.circle(mask, (center_x, center_y), radius, (True), -1)
+        cv2.circle(mks_, (center_x, center_y), radius, (True), -1)
     mks = mks.astype(bool)
-    BGR = zz.vision.masks(img, mks)
+    BGR = zz.vision.mask(img, mks)
     cv2.imwrite("MASK_BGR.png", BGR)
     assert "MASK_BGR.png" in os.listdir()
 
 
-def test_masks_bgra():
+def test_mask_bgra():
     img = cv2.imread(f"{data}/test.jpg")
     H, W, _ = img.shape
     cnt = 30
     mks = np.zeros((cnt, H, W), np.uint8)
-    for mask in mks:
+    for mks_ in mks:
         center_x = random.randint(0, W)
         center_y = random.randint(0, H)
         radius = random.randint(30, 200)
-        cv2.circle(mask, (center_x, center_y), radius, (True), -1)
+        cv2.circle(mks_, (center_x, center_y), radius, (True), -1)
     mks = mks.astype(bool)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
-    BGRA = zz.vision.masks(img, mks, color=[random.randint(0, 255) for _ in range(3)])
+    BGRA = zz.vision.mask(img, mks, color=[random.randint(0, 255) for _ in range(3)])
     cv2.imwrite("MASK_BGRA.png", BGRA)
     assert "MASK_BGRA.png" in os.listdir()
 
 
-def test_masks_gray_int():
+def test_mask_gray_int():
     img = cv2.imread(f"{data}/test.jpg")
     H, W, _ = img.shape
     cnt = 30
     mks = np.zeros((cnt, H, W), np.uint8)
-    for mask in mks:
+    for mks_ in mks:
         center_x = random.randint(0, W)
         center_y = random.randint(0, H)
         radius = random.randint(30, 200)
-        cv2.circle(mask, (center_x, center_y), radius, (True), -1)
+        cv2.circle(mks_, (center_x, center_y), radius, (True), -1)
     mks = mks.astype(bool)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     cls = [i for i in range(cnt)]
@@ -241,23 +241,23 @@ def test_masks_gray_int():
     class_color = {}
     for c in cls:
         class_color[c] = [random.randint(0, 255) for _ in range(3)]
-    GRAY = zz.vision.masks(
+    GRAY = zz.vision.mask(
         img, mks, class_list=class_list, class_color=class_color, alpha=1
     )
     cv2.imwrite("MASK_GRAY_INT.png", GRAY)
     assert "MASK_GRAY_INT.png" in os.listdir()
 
 
-def test_masks_bgra_str():
+def test_mask_bgra_str():
     img = cv2.imread(f"{data}/test.jpg")
     H, W, _ = img.shape
     cnt = 30
     mks = np.zeros((cnt, H, W), np.uint8)
-    for mask in mks:
+    for mks_ in mks:
         center_x = random.randint(0, W)
         center_y = random.randint(0, H)
         radius = random.randint(30, 200)
-        cv2.circle(mask, (center_x, center_y), radius, (True), -1)
+        cv2.circle(mks_, (center_x, center_y), radius, (True), -1)
     mks = mks.astype(bool)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
     cls = ["a", "b", "c"]
@@ -265,7 +265,7 @@ def test_masks_bgra_str():
     class_color = {}
     for c in cls:
         class_color[c] = [random.randint(0, 255) for _ in range(3)]
-    BGRA = zz.vision.masks(img, mks, class_list=class_list, class_color=class_color)
+    BGRA = zz.vision.mask(img, mks, class_list=class_list, class_color=class_color)
     cv2.imwrite("MASK_BGRA_STR.png", BGRA)
     assert "MASK_BGRA_STR.png" in os.listdir()
 

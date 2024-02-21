@@ -38,7 +38,7 @@ from tqdm import tqdm
 from zerohertzLib.util import Json, JsonDir, rmtree, write_json
 
 from .convert import poly2cwh, poly2mask, poly2xyxy, xyxy2poly
-from .visual import bbox, masks
+from .visual import bbox, mask
 
 
 def _get_image_paths(path: str) -> List[str]:
@@ -303,7 +303,7 @@ class YoloLoader:
         if self.poly:
             for idx, poly in enumerate(objects):
                 mks[idx] = poly2mask(poly, img.shape[:2])
-            img = masks(img, mks, class_list=class_list, class_color=self.class_color)
+            img = mask(img, mks, class_list=class_list, class_color=self.class_color)
         else:
             for idx, (cls, box) in enumerate(zip(class_list, objects)):
                 img = bbox(img, box, self.class_color[cls])

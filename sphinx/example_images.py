@@ -271,27 +271,27 @@ def example_bbox():
     zz.vision.vert([res1, res2], file_name=f"{EXAMPLE_PATH}/vision.bbox")
 
 
-# vision.masks.png
-def example_masks():
+# vision.mask.png
+def example_mask():
     H, W, _ = IMAGE.shape
     cnt = 30
     mks = np.zeros((cnt, H, W), np.uint8)
-    for mask in mks:
+    for mks_ in mks:
         center_x = random.randint(0, W)
         center_y = random.randint(0, H)
         radius = random.randint(30, 200)
-        cv2.circle(mask, (center_x, center_y), radius, (True), -1)
+        cv2.circle(mks_, (center_x, center_y), radius, (True), -1)
     mks = mks.astype(bool)
-    res1 = zz.vision.masks(IMAGE, mks)
+    res1 = zz.vision.mask(IMAGE, mks)
     cls = [i for i in range(cnt)]
     class_list = [cls[random.randint(0, 2)] for _ in range(cnt)]
     class_color = {}
     for c in cls:
         class_color[c] = [random.randint(0, 255) for _ in range(3)]
-    res2 = zz.vision.masks(IMAGE, mks, class_list=class_list, class_color=class_color)
+    res2 = zz.vision.mask(IMAGE, mks, class_list=class_list, class_color=class_color)
     poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
-    res3 = zz.vision.masks(IMAGE, poly=poly)
-    zz.vision.vert([res1, res2, res3], file_name=f"{EXAMPLE_PATH}/vision.masks")
+    res3 = zz.vision.mask(IMAGE, poly=poly)
+    zz.vision.vert([res1, res2, res3], file_name=f"{EXAMPLE_PATH}/vision.mask")
 
 
 # vision.text.png
@@ -364,7 +364,7 @@ if __name__ == "__main__":
     example_cutout()
     example_transparent()
     example_bbox()
-    example_masks()
+    example_mask()
     example_text()
     example_paste()
     # clean
