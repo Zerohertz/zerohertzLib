@@ -244,11 +244,11 @@ spec:
                                 sh "apt install build-essential -y"
                                 sh "pip install sphinx furo sphinxcontrib-gtagjs sphinxcontrib-jquery sphinxext-opengraph sphinx-copybutton sphinx-favicon sphinx-paramlinks sphinx-sitemap myst-parser"
                                 sh 'python sphinx/release_note.py --token $GIT_PASSWORD'
+                                sh "python sphinx/example_images.py"
                                 sh "cd sphinx && make html"
                                 sh "rm -rf docs"
                                 sh "mv sphinx/build/html docs"
                                 sh "touch docs/.nojekyll"
-                                sh "python sphinx/example_images.py"
                             }
                             def hasDocsChanges = sh(
                                 script: "git diff --name-only | grep -w docs",
