@@ -2,6 +2,25 @@
 
 ## v0.8.9
 
+<h3>[v0.8.9] Docs Update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/237>#237</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/02/21
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release/chore"><img src="https://img.shields.io/badge/release/chore-22FD7F?style=flat-square&logo=github" alt="release/chore"/></a>
+</p>
+
+
+<h4>Docs</h4>
+
++ `vision.mask.png`가 정상적으로 출력되지 않는 오류 수정
+
 <h3>[v0.8.9] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/235>#235</a>)</h3>
 
 ```{admonition} Release Date
