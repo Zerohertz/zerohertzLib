@@ -33,8 +33,7 @@ class OpenAI(openai.OpenAI):
     Note:
         `공식 OpenAI GitHub <https://github.com/openai/openai-python>`_ 참고
 
-    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280564436-27d62c06-f59a-4772-8cd6-48be49147a86.png
-        :alt: OpenAI API Key
+    .. image:: _static/examples/static/api.OpenAI.api_key.png
         :align: center
         :width: 300px
 
@@ -74,8 +73,7 @@ class OpenAI(openai.OpenAI):
         'Kubernetes는 컨테이너화된 애플리케이션을 자동화하고 관리하기 위한 오픈소스 플랫폼입니다. ...'
         >>> client("Kubernetes에 대해 설명해", stream=True)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284217669-043e3445-2e9a-4667-86af-e11f142ec931.gif
-            :alt: client("Kubernetes에 대해 설명해", stream=True)
+        .. image:: _static/examples/static/api.OpenAI.client.gif
             :align: center
             :width: 600px
     """

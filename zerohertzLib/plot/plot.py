@@ -75,8 +75,7 @@ def plot(
             >>> ydata = {"Terran": list(np.random.rand(20) * 10), "Zerg": list(np.random.rand(20) * 10 + 1), "Protoss": list(np.random.rand(20) * 10 + 2)}
             >>> zz.plot.plot(xdata, ydata, xlab="Time [Sec]", ylab="Scores", title="Star Craft")
 
-            .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/d7883691-b137-4975-aa28-6b52f4117451
-                :alt: Visualzation Result
+            .. image:: _static/examples/dynamic/plot.plot.1.png
                 :align: center
                 :width: 500px
 
@@ -84,8 +83,7 @@ def plot(
             >>> ydata["Total"] = [sum(data) + 10 for data in zip(ydata["Terran"], ydata["Protoss"], ydata["Zerg"])]
             >>> zz.plot.plot(xdata, ydata, xlab="Time [Sec]", ylab="Scores", stacked=True, title="Star Craft")
 
-            .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/6368b2fe-e1af-4a42-b931-515be7d55980
-                :alt: Visualzation Result
+            .. image:: _static/examples/dynamic/plot.plot.2.png
                 :align: center
                 :width: 500px
     """
@@ -172,8 +170,7 @@ def candle(
         >>> signals = zz.quant.macd(data)
         >>> zz.plot.candle(data, "MACD", signals=signals)
 
-        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/d77711a9-f199-49c4-acff-f09276c60a29
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/plot.candle.png
             :align: center
             :width: 600px
     """

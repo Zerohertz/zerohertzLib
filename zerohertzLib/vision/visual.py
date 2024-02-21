@@ -93,8 +93,7 @@ def bbox(
             (3, 4)
             >>> res2 = zz.vision.bbox(img, boxes, (0, 255, 0), thickness=10)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284566751-ec443fc2-6b71-4ba3-a770-590fa873e944.png
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/vision.bbox.png
             :align: center
             :width: 600px
     """
@@ -167,8 +166,7 @@ def masks(
             >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
             >>> res3 = zz.vision.masks(img, poly=poly)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284878547-c36cd4ff-2b36-4b0f-a125-89ed8380a456.png
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/vision.masks.png
             :align: center
             :width: 600px
     """
@@ -324,8 +322,7 @@ def text(
             (3, 4)
             >>> res2 = zz.vision.text(img, boxes, ["먼지야", "먼지야", "먼지야"], vis=True)
 
-    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284566305-fe9d1be6-b506-4140-bca9-db2a210f333c.png
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/vision.text.png
             :align: center
             :width: 600px
     """
@@ -417,8 +414,7 @@ def paste(
             >>> res5, poly5 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, poly=poly, gaussian=501)
             >>> res5 = zz.vision.bbox(res5, poly5)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/285364676-27ae4292-0553-4561-a275-ea56c046d147.png
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/vision.paste.png
             :align: center
             :width: 600px
     """

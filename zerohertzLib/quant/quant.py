@@ -504,8 +504,7 @@ class QuantSlackBot(SlackBot):
         >>> qsb = zz.quant.QuantSlackBot(symbols, token=token, channel=channel)
         >>> qsb.index()
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/291917559-aa3f8a00-b23b-425b-bdfa-003465130b91.png
-            :alt: Slack Bot Result
+        .. image:: _static/examples/static/quant.QuantSlackBot.png
             :align: center
             :width: 800px
     """

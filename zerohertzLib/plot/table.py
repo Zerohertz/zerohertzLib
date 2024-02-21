@@ -59,8 +59,7 @@ def table(
         >>> zz.plot.table(data, col, row, title="Star Craft")
         >>> zz.plot.table(data, col, row, title="Star Craft2", fontsize=50)
 
-        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/ce2ca5f4-d9ee-482d-8529-f06d5ef3f256
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/plot.table.png
             :align: center
             :width: 500px
     """

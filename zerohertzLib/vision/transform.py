@@ -72,8 +72,7 @@ def pad(
             >>> res4, poly = zz.vision.pad(res4, (1000, 1000), poly=poly)
             >>> res4 = zz.vision.bbox(img, poly, color=(0, 0, 255))
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/285082573-3192363a-9b76-4474-a627-2d434db060fc.png
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/vision.pad.png
             :align: center
             :width: 600px
     """
@@ -140,8 +139,7 @@ def cutout(
         >>> res2 = zz.vision.cutout(img, poly, 128, False)
         >>> res3 = zz.vision.cutout(img, poly, background=128)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284778462-8a1e3017-328e-4776-adeb-b2f24fd09c58.png
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/vision.cutout.png
             :align: center
             :width: 600px
     """
@@ -184,8 +182,7 @@ def transparent(
         >>> res1 = zz.vision.transparent(img)
         >>> res2 = zz.vision.transparent(img, reverse=True)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/285412616-b996263a-86a7-4e45-b2a5-fb36b94da18a.png
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/vision.transparent.png
             :align: center
             :width: 600px
     """

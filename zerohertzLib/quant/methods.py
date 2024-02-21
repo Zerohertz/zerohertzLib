@@ -66,8 +66,7 @@ def moving_average(
         2023-12-19  102450.000  102337.1875        0
         [485 rows x 3 columns]
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/292802554-3607873d-10db-41e3-8828-1f7116c109d2.png
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/quant.moving_average.png
             :align: center
             :width: 500px
     """
@@ -143,8 +142,7 @@ def rsi(
         2023-12-19  35.671343        0
         [485 rows x 2 columns]
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/292802553-687d7105-3906-49ee-9b4d-5538a4618ff1.png
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/quant.rsi.png
             :align: center
             :width: 500px
     """
@@ -198,8 +196,7 @@ def bollinger_bands(
         2023-12-19  102771.666667  111527.577705  94015.755629        0
         [485 rows x 4 columns]
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/292802551-b48140d2-2818-4a09-990c-a3901dea10a2.png
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/quant.bollinger_bands.png
             :align: center
             :width: 500px
     """
@@ -258,8 +255,7 @@ def momentum(
         2023-12-19     550.0        0
         [485 rows x 2 columns]
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/292802551-b48140d2-2818-4a09-990c-a3901dea10a2.png
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/quant.momentum.png
             :align: center
             :width: 500px
     """
@@ -314,8 +310,7 @@ def macd(
         2023-12-19 -1950.006134        0
         [485 rows x 2 columns]
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/292802545-4fd208a5-0a89-4700-8625-1e5572d532b2.png
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/quant.macd.png
             :align: center
             :width: 500px
     """

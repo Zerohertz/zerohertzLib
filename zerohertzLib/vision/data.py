@@ -560,15 +560,13 @@ class LabelStudio:
             + File Filter Regex: ``^.*\.(jpe?g|JPE?G|png|PNG|tiff?|TIFF?)$``
             + Treat every bucket object as a source file: ``True``
 
-            .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/290148098-8a837511-152e-4044-b085-90f992a76891.png
-                :alt: Label Studio Setup
+            .. image:: _static/examples/static/vision.LabelStudio.json.1.png
                 :align: center
                 :width: 400px
 
             Sync 이후 ``LabelStudio`` class로 생성된 JSON file을 Label Studio에 import하면 아래와 같이 setup 할 수 있다.
 
-            .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/286842007-1fb780eb-7275-4569-a662-a4545be2e348.png
-                :alt: Label Studio Setup
+            .. image:: _static/examples/static/vision.LabelStudio.json.2.png
                 :align: center
                 :width: 400px
 

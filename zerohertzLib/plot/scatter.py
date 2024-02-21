@@ -66,8 +66,7 @@ def scatter(
         >>> data = {"Terran": [list(np.random.rand(200) * 10), list(np.random.rand(200) * 10)], "Zerg": [list(np.random.rand(200) * 5 - 1), list(np.random.rand(200) * 5 + 1)], "Protoss": [list(np.random.rand(200) * 10 + 3), list(np.random.rand(200) * 10 - 2)]}
         >>> zz.plot.scatter(data, xlab="Cost [Mineral]", ylab="Scores", title="Star Craft", markersize=400)
 
-        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/b67ea358-57c3-450e-900f-cfd5ac0cf35b
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/plot.scatter.png
             :align: center
             :width: 500px
     """

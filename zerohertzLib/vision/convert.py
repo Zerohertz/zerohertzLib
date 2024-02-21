@@ -301,8 +301,7 @@ def poly2mask(
         >>> mask.dtype
         dtype('bool')
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284488846-9237c52b-d181-447c-95da-f67aa8fb2854.png
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/vision.poly2mask.png
             :align: center
             :width: 300px
     """
