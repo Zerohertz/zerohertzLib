@@ -250,7 +250,7 @@ def _make_text(
     palette = Image.new("RGBA", size, (255, 255, 255, 0))
     draw = ImageDraw.Draw(palette)
     font = ImageFont.truetype(
-        os.path.join(FONT_PATH, "NotoSansKR-Medium.ttf"),
+        os.path.join(FONT_PATH, "NotoSerifKR-Medium.otf"),
         fontsize,
     )
     text_width, text_height = draw.textsize(txt, font=font)

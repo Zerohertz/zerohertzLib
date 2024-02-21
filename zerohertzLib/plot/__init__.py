@@ -35,9 +35,9 @@ def font(kor: Optional[bool] = False, size: Optional[int] = 20) -> None:
     # font_path = os.path.join(os.path.dirname(__file__), "fonts")
     if kor:
         font_manager.fontManager.addfont(
-            os.path.join(FONT_PATH, "NotoSansKR-Medium.ttf")
+            os.path.join(FONT_PATH, "NotoSerifKR-Medium.otf")
         )
-        plt.rcParams["font.family"] = "Noto Sans KR"
+        plt.rcParams["font.family"] = "Noto Serif KR"
     else:
         font_manager.fontManager.addfont(os.path.join(FONT_PATH, "times.ttf"))
         plt.rcParams["font.family"] = "Times New Roman"
