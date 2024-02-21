@@ -66,8 +66,7 @@ def barv(
         >>> data = {"xticks": ["Terran", "Zerg", "Protoss"], "Type A": [4, 5, 6], "Type B": [4, 3, 2], "Type C": [8, 5, 12], "Type D": [6, 3, 2]}
         >>> zz.plot.barv(data, xlab="Races", ylab="Time [sec]", title="Star Craft")
 
-        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/7a7e87ea-491d-42f9-96a3-16261ecd0860
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/plot.barv.png
             :align: center
             :width: 600px
     """
@@ -169,8 +168,7 @@ def barh(
         >>> data = {"yticks": ["Terran", "Zerg", "Protoss"], "Type A": [4, 5, 6], "Type B": [4, 3, 2], "Type C": [8, 5, 12], "Type D": [6, 3, 2]}
         >>> zz.plot.barh(data, xlab="Time [Sec]", ylab="Races", title="Star Craft")
 
-        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/ef947c3f-c68c-4afe-9392-40dd8da7c0bb
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/plot.barh.png
             :align: center
             :width: 450px
     """
@@ -267,8 +265,7 @@ def hist(
         >>> data = {"Terran": list(np.random.rand(1000) * 10), "Zerg": list(np.random.rand(1000) * 10 + 1), "Protoss": list(np.random.rand(1000) * 10 + 2)}
         >>> zz.plot.hist(data, xlab="Scores", ylab="Population", title="Star Craft")
 
-        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/93f6b487-2b3d-40fb-8f07-27ce0ff7048d
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/plot.hist.png
             :align: center
             :width: 600px
     """

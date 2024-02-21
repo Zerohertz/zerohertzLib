@@ -48,7 +48,7 @@ $ pip install zerohertzLib[quant]
 $ pip install zerohertzLib[all]
 ```
 <p align="center">
-    <img src="https://github.com/Zerohertz/Zerohertz/assets/42334717/2ed7f05b-3542-4f1d-8267-4fe681235cb9" width="600"/>
+    <img src="sphinx/source/_static/zerohertzLib.png" width="600"/>
 </p>
 
 ```python

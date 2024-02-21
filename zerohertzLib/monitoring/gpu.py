@@ -59,8 +59,7 @@ def gpu_usages(
     Examples:
         >>> zz.monitoring.gpu_usages(threshold=15)
 
-        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/99d04211-4560-4960-81d1-b6db18204276
-            :alt: Visualzation Result
+        .. image:: _static/examples/static/monitoring.gpu_usages.png
             :align: center
             :width: 600px
     """
@@ -126,8 +125,7 @@ def gpu_memory(
     Examples:
         >>> zz.monitoring.gpu_memory(threshold=15)
 
-        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/a35d2e7f-8ac5-41be-a36d-e527ce9b6c20
-            :alt: Visualzation Result
+        .. image:: _static/examples/static/monitoring.gpu_memory.png
             :align: center
             :width: 600px
     """

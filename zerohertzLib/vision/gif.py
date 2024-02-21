@@ -59,8 +59,7 @@ def img2gif(
     Examples:
         >>> zz.vision.img2gif("./")
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280735315-2eaa059e-0cf5-4cb7-8983-5b7e1f2d3f21.gif
-            :alt: GIF Result
+        .. image:: _static/examples/static/vision.img2gif.gif
             :align: center
             :width: 200px
     """
@@ -102,8 +101,7 @@ def vid2gif(
     Examples:
         >>> zz.vision.vid2gif("test.mp4")
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/280735327-ba590c0b-6180-4dce-a256-ccf12d0ba64b.gif
-            :alt: GIF Result
+        .. image:: _static/examples/static/vision.vid2gif.gif
             :align: center
             :width: 300px
     """

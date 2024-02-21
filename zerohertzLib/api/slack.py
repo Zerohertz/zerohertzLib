@@ -43,8 +43,7 @@ class SlackWebhook:
         >>> slack = zz.api.SlackWebhook("https://hooks.slack.com/services/...")
         >>> slack = zz.api.SlackWebhook("https://hooks.slack.com/services/...", name="TEST", icon_emoji="ghost")
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/286251394-358e5662-06af-454b-8b1b-8b05e320bf5a.png
-            :alt: Slack Webhook
+        .. image:: _static/examples/static/api.SlackWebhook.png
             :align: center
             :width: 300px
     """
@@ -105,8 +104,7 @@ class SlackWebhook:
 class SlackBot:
     """Slack Bot의 데이터 전송을 위한 class
 
-    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/286245553-83bc9a7f-a840-4983-bc54-8e27fc9d01b1.png
-        :alt: Slack Bot Scopes
+    .. image:: _static/examples/static/api.SlackBot.scope.png
         :align: center
         :width: 300px
 
@@ -124,8 +122,7 @@ class SlackBot:
         >>> slack = zz.api.SlackBot("xoxb-...", "test", icon_emoji="sparkles")
         >>> slack = zz.api.SlackBot("xoxb-...", "test", name="zerohertzLib", icon_url="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284166558-0ba4b755-39cc-48ee-ba3b-5c02f54c4ca7.png")
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/286248478-10f5e8f4-a48c-4bf3-b742-da5818f30fee.png
-            :alt: Slack Bot Scopes
+        .. image:: _static/examples/static/api.SlackBot.png
             :align: center
             :width: 300px
     """

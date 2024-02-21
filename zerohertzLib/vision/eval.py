@@ -136,8 +136,7 @@ def evaluation(
         - `N`: 한 이미지의 ground truth 내 존재하는 object의 수
         - `M`: 한 이미지의 inference 결과 내 존재하는 object의 수
 
-        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/dd80f6fc-1701-4ed5-a48a-47d2e7569618
-            :alt: IoU Examples
+        .. image:: _static/examples/static/vision.evaluation.png
             :align: center
             :width: 600px
 
@@ -230,8 +229,7 @@ def meanap(logs: pd.DataFrame) -> Tuple[float, Dict[str, float]]:
         >>> zz.vision.meanap(logs)
         (0.7030629916206652, defaultdict(<class 'float'>, {'dog': 0.7177078883735305, 'cat': 0.6884180948677999}))
 
-        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/b40ce947-69c2-446f-9fea-8349ab5ded9e
-            :alt: mAP Results
+        .. image:: _static/examples/static/vision.meanap.png
             :align: center
             :width: 600px
     """

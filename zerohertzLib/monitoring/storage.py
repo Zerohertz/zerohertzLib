@@ -54,8 +54,7 @@ def storage(path: Optional[str] = ".", threshold: Optional[int] = 1) -> str:
     Examples:
         >>> zz.monitoring.storage(".")
 
-        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/251c49e5-1008-43c4-a166-52fb77c1dac4
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/monitoring.storage.png
             :align: center
             :width: 600px
     """

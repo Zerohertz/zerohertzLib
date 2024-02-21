@@ -71,8 +71,7 @@ def before_after(
             >>> after = cv2.cvtColor(after, cv2.COLOR_BGR2GRAY)
             >>> zz.vision.before_after(before, after, quality=10)
 
-            .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284503831-44cbe7a2-c1a2-4d44-91bf-7f35c2f80d2e.png
-                :alt: Visualzation Result
+            .. image:: _static/examples/dynamic/vision.before_after.1.png
                 :align: center
                 :width: 300px
 
@@ -80,8 +79,7 @@ def before_after(
             >>> after = cv2.resize(before, (100, 100))
             >>> zz.vision.before_after(before, after, [20, 40, 30, 60])
 
-            .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284503976-789c6f8d-1b98-4941-b528-523b2973e4b4.png
-                :alt: Visualzation Result
+            .. image:: _static/examples/dynamic/vision.before_after.2.png
                 :align: center
                 :width: 300px
     """
@@ -137,8 +135,7 @@ def grid(
         >>> zz.vision.grid(imgs, color=(0, 255, 0))
         >>> zz.vision.grid(imgs, color=(0, 0, 0, 0))
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/285098735-3b259a4b-3b26-4d50-9cec-8ef8458bf5b5.png
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/vision.grid.png
             :align: center
             :width: 600px
     """
@@ -163,7 +160,7 @@ def vert(
     imgs: List[NDArray[np.uint8]],
     height: int = 1000,
     file_name: Optional[str] = "tmp",
-):
+) -> None:
     """여러 image를 입력받아 한 가로 image로 병합
 
     Args:
@@ -178,8 +175,7 @@ def vert(
         >>> imgs = [cv2.resize(img, (random.randrange(300, 600), random.randrange(300, 600))) for _ in range(5)]
         >>> zz.vision.vert(imgs)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284879452-d856fa8c-49a9-4a64-83b9-b27ae4f45007.png
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/vision.vert.png
             :align: center
             :width: 600px
     """

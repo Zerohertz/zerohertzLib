@@ -248,14 +248,17 @@ spec:
                                 sh "rm -rf docs"
                                 sh "mv sphinx/build/html docs"
                                 sh "touch docs/.nojekyll"
+                                sh "python sphinx/example_images.py"
                             }
                             def hasDocsChanges = sh(
                                 script: "git diff --name-only | grep -w docs",
                                 returnStatus: true
                             ) == 0
-                            if (!hasDocsChanges) {
-                                    setBuildStatus("Success", "SUCCESS", "Merge From Docs")
-                            } else {
+                            def hasSphinxChanges = sh(
+                                script: "git diff --name-only | grep -w sphinx/source",
+                                returnStatus: true
+                            ) == 0
+                            if (hasDocsChanges || hasSphinxChanges) {
                                 sh "git add docs"
                                 sh "git add sphinx/source"
                                 sh "git commit -m ':memo: Docs: Build Sphinx (#${env.CHANGE_ID})'"
@@ -274,6 +277,8 @@ spec:
                                 https://api.github.com/repos/Zerohertz/zerohertzLib/pulls \
                                 -d @payload.json
                                 '''
+                            } else {
+                                setBuildStatus("Success", "SUCCESS", "Merge From Docs")
                             }
                         }
                         def endTime = System.currentTimeMillis()

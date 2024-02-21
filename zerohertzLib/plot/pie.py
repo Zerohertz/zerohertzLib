@@ -58,8 +58,7 @@ def pie(
         >>> data = {"Terran": 27, "Zerg": 40, "Protoss": 30}
         >>> zz.plot.pie(data, dim="$", title="Star Craft")
 
-        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/c2314e5a-9da7-4863-8629-874faadde9ca
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/plot.pie.png
             :align: center
             :width: 500px
     """

@@ -54,8 +54,7 @@ def cpu(
         >>> zz.monitoring.cpu(threshold=15)
         >>> zz.monitoring.cpu(per=False)
 
-        .. image:: https://github.com/Zerohertz/Zerohertz/assets/42334717/c092d600-8c75-4945-846a-fe618c2d401e
-            :alt: Visualzation Result
+        .. image:: _static/examples/static/monitoring.cpu.png
             :align: center
             :width: 600px
     """

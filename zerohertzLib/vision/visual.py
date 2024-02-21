@@ -93,8 +93,7 @@ def bbox(
             (3, 4)
             >>> res2 = zz.vision.bbox(img, boxes, (0, 255, 0), thickness=10)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284566751-ec443fc2-6b71-4ba3-a770-590fa873e944.png
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/vision.bbox.png
             :align: center
             :width: 600px
     """
@@ -117,7 +116,7 @@ def bbox(
     return img
 
 
-def masks(
+def mask(
     img: NDArray[np.uint8],
     mks: Optional[NDArray[bool]] = None,
     poly: Optional[NDArray[DTypeLike]] = None,
@@ -127,7 +126,7 @@ def masks(
     border: Optional[bool] = True,
     alpha: Optional[float] = 0.5,
 ) -> NDArray[np.uint8]:
-    """Masks 시각화
+    """Mask 시각화
 
     Args:
         img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
@@ -147,13 +146,13 @@ def masks(
             >>> H, W, _ = img.shape
             >>> cnt = 30
             >>> mks = np.zeros((cnt, H, W), np.uint8)
-            >>> for mask in mks:
+            >>> for mks_ in mks:
             >>>     center_x = random.randint(0, W)
             >>>     center_y = random.randint(0, H)
             >>>     radius = random.randint(30, 200)
-            >>>     cv2.circle(mask, (center_x, center_y), radius, (True), -1)
+            >>>     cv2.circle(mks_, (center_x, center_y), radius, (True), -1)
             >>> mks = mks.astype(bool)
-            >>> res1 = zz.vision.masks(img, mks)
+            >>> res1 = zz.vision.mask(img, mks)
 
         Mask (with class):
             >>> cls = [i for i in range(cnt)]
@@ -161,14 +160,13 @@ def masks(
             >>> class_color = {}
             >>> for c in cls:
             >>>     class_color[c] = [random.randint(0, 255) for _ in range(3)]
-            >>> res2 = zz.vision.masks(img, mks, class_list=class_list, class_color=class_color)
+            >>> res2 = zz.vision.mask(img, mks, class_list=class_list, class_color=class_color)
 
         Poly:
             >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
-            >>> res3 = zz.vision.masks(img, poly=poly)
+            >>> res3 = zz.vision.mask(img, poly=poly)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284878547-c36cd4ff-2b36-4b0f-a125-89ed8380a456.png
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/vision.mask.png
             :align: center
             :width: 600px
     """
@@ -192,12 +190,12 @@ def masks(
             edges = cv2.Canny(mks.astype(np.uint8) * 255, 100, 200)
             overlay[edges > 0] = color
     elif len(shape) == 3:
-        for idx, mask in enumerate(mks):
+        for idx, mks_ in enumerate(mks):
             if class_list is not None and class_color is not None:
                 color = class_color[class_list[idx]]
-            overlapping = cumulative_mask & mask
-            non_overlapping = mask & ~cumulative_mask
-            cumulative_mask |= mask
+            overlapping = cumulative_mask & mks_
+            non_overlapping = mks_ & ~cumulative_mask
+            cumulative_mask |= mks_
             if overlapping.any():
                 overlapping_color = overlay[overlapping].astype(np.float32)
                 mixed_color = ((overlapping_color + color) / 2).astype(np.uint8)
@@ -205,7 +203,7 @@ def masks(
             if non_overlapping.any():
                 overlay[non_overlapping] = color
             if border:
-                edges = cv2.Canny(mask.astype(np.uint8) * 255, 100, 200)
+                edges = cv2.Canny(mks_.astype(np.uint8) * 255, 100, 200)
                 overlay[edges > 0] = color
     else:
         raise ValueError("The 'mks' must be of shape [H, W] or [N, H, W]")
@@ -250,7 +248,7 @@ def _make_text(
     palette = Image.new("RGBA", size, (255, 255, 255, 0))
     draw = ImageDraw.Draw(palette)
     font = ImageFont.truetype(
-        os.path.join(FONT_PATH, "NotoSansKR-Medium.ttf"),
+        os.path.join(FONT_PATH, "NotoSerifKR-Medium.otf"),
         fontsize,
     )
     text_width, text_height = draw.textsize(txt, font=font)
@@ -324,8 +322,7 @@ def text(
             (3, 4)
             >>> res2 = zz.vision.text(img, boxes, ["먼지야", "먼지야", "먼지야"], vis=True)
 
-    .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284566305-fe9d1be6-b506-4140-bca9-db2a210f333c.png
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/vision.text.png
             :align: center
             :width: 600px
     """
@@ -417,8 +414,7 @@ def paste(
             >>> res5, poly5 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, poly=poly, gaussian=501)
             >>> res5 = zz.vision.bbox(res5, poly5)
 
-        .. image:: https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/285364676-27ae4292-0553-4561-a275-ea56c046d147.png
-            :alt: Visualzation Result
+        .. image:: _static/examples/dynamic/vision.paste.png
             :align: center
             :width: 600px
     """
