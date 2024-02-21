@@ -11,6 +11,8 @@ START_DAY = NOW - timedelta(days=30 * 18)
 START_DAY = START_DAY.strftime("%Y%m%d")
 DATA = fdr.DataReader("066570", START_DAY)
 
+zz.plot.font(kor=True)
+
 
 def test_moving_average_backtest():
     signals = zz.quant.moving_average(DATA)
