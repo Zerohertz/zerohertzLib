@@ -475,7 +475,7 @@ class QuantSlackBot(ABC, SlackBot):
     """입력된 여러 종목에 대해 매수, 매도 signal을 판단하고 Slack으로 message와 graph를 전송하는 class
 
     Note:
-        Abstract Base Class: 종목 code에 따른 종목명과 data를 불러오는 method ``_get_data`` 를 상속을 통해 정의해야 사용 가능
+        Abstract Base Class: 종목 code에 따른 종목명과 data를 불러오는 abstract method ``_get_data`` 정의 후 사용
 
         .. code-block:: python
 
