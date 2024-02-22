@@ -61,7 +61,7 @@ class MakeData(ABC):
     """JSON file 내 값에 따라 data를 구축하는 class
 
     Note:
-        Abstract Base Class: Data 구축 시 filtering 될 조건을 정의하는 method ``condition`` 를 상속을 통해 정의해야 사용 가능
+        Abstract Base Class: Data 구축 시 filtering 될 조건을 정의하는 abstract method ``condition`` 정의 후 사용
 
     Args:
         start_data_path (``str``): 목표 data가 존재하는 directory 경로

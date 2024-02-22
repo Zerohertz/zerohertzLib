@@ -164,7 +164,7 @@ class BaseTritonPythonModel(ABC):
     """Triton Inference Server에서 Python backend 사용을 위한 class
 
     Note:
-        Abstract Base Class: Model의 추론을 수행하는 method ``_inference`` 를 상속을 통해 정의해야 사용 가능
+        Abstract Base Class: Model의 추론을 수행하는 abstract method ``_inference`` 정의 후 사용
 
     Attributes:
         logger (``zerohertzLib.logging.Logger``): Triton Inference Server 내 log를 출력하기 위한 instance
