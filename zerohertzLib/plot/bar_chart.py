@@ -38,9 +38,9 @@ def barv(
     title: Optional[str] = "tmp",
     colors: Optional[Union[str, List]] = None,
     figsize: Optional[Tuple[int]] = (15, 10),
-    dpi: Optional[int] = 300,
     rot: Optional[int] = 0,
     per: Optional[bool] = True,
+    dpi: Optional[int] = 300,
     save: Optional[bool] = True,
 ) -> str:
     """Dictionary로 입력받은 데이터를 가로 bar chart로 시각화
@@ -52,9 +52,9 @@ def barv(
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
         colors (``Optional[Union[str, List]]``): 각 요소의 색
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
-        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         rot: (``Optional[int]``): X축의 눈금 회전 각도
         per: (``Optional[bool]``): 각 bar 상단에 percentage 표시 여부
+        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
@@ -140,9 +140,9 @@ def barh(
     title: Optional[str] = "tmp",
     colors: Optional[Union[str, List]] = None,
     figsize: Optional[Tuple[int]] = (10, 15),
-    dpi: Optional[int] = 300,
     rot: Optional[int] = 0,
     per: Optional[bool] = True,
+    dpi: Optional[int] = 300,
     save: Optional[bool] = True,
 ) -> str:
     """Dictionary로 입력받은 데이터를 세로 bar chart로 시각화
@@ -154,9 +154,9 @@ def barh(
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
         colors (``Optional[Union[str, List]]``): 각 요소의 색
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
-        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         rot: (``Optional[int]``): X축의 눈금 회전 각도
         per: (``Optional[bool]``): 각 bar 상단에 percentage 표시 여부
+        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         save (``Optional[bool]``): Graph 저장 여부
 
     Returns:

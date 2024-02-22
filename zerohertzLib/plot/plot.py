@@ -139,10 +139,10 @@ def candle(
     data: pd.DataFrame,
     title: Optional[str] = "tmp",
     figsize: Optional[Tuple[int]] = (18, 10),
-    dpi: Optional[int] = 300,
-    save: Optional[bool] = True,
     signals: Optional[Dict[str, Any]] = None,
     threshold: Optional[Union[int, Tuple[int]]] = 1,
+    dpi: Optional[int] = 300,
+    save: Optional[bool] = True,
 ) -> str:
     """OHLCV (Open, High, Low, Close, Volume) data에 따른 candle chart
 
@@ -157,10 +157,10 @@ def candle(
         data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
-        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
-        save (``Optional[bool]``): Graph 저장 여부
         signals (``Optional[Dict[str, Any]]``): 추가적으로 plot할 data
         threshold (``Optional[Union[int, Tuple[int]]]``): 매수, 매도를 결정할 ``signals`` 경계값
+        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
         ``str``: 저장된 graph의 절대 경로
