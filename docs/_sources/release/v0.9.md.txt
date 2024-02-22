@@ -2,6 +2,24 @@
 
 ## v0.9.0
 
+<h3>[v0.9.0] Docs Update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/241>#241</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/02/22
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release/chore"><img src="https://img.shields.io/badge/release/chore-22FD7F?style=flat-square&logo=github" alt="release/chore"/></a>
+</p>
+
+
+<h4>Docs</h4>
+
++ Abstract base class의 설명 수정
+
 <h3>[v0.9.0] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/239>#239</a>)</h3>
 
 ```{admonition} Release Date
