@@ -775,7 +775,7 @@
 <p>입력된 여러 종목에 대해 매수, 매도 signal을 판단하고 Slack으로 message와 graph를 전송하는 class</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Abstract Base Class: 종목 code에 따른 종목명과 data를 불러오는 method <code class="docutils literal notranslate"><span class="pre">_get_data</span></code> 를 상속을 통해 정의해야 사용 가능</p>
+<p>Abstract Base Class: 종목 code에 따른 종목명과 data를 불러오는 abstract method <code class="docutils literal notranslate"><span class="pre">_get_data</span></code> 정의 후 사용</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
     <span class="n">title</span> <span class="o">=</span> <span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="n">title</span><span class="p">,</span> <span class="n">data</span>
