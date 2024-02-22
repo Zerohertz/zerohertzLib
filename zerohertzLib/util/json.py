@@ -78,15 +78,15 @@ class Json:
         >>> js = zz.util.Json()
         >>> js["title"]
         '[v0.2.3] Release'
-        >>> key = js._get_key("language")
+        >>> key = js._get_key("color")
         >>> key
-        'head/repo/language'
+        'labels/LIST/color'
         >>> js._get_value(key)
-        'Python'
+        'd73a4a'
         >>> js.name
         '65.json'
         >>> js.keys
-        ['url', 'id', ..., 'user', 'user/login', 'user/id', ...]
+        ['url', 'id', ..., 'assignees/LIST/login', ..., 'active_lock_reason']
     """
 
     def __init__(self, path: Optional[str] = None) -> None:
@@ -106,20 +106,32 @@ class Json:
     def __getitem__(self, key: str) -> Any:
         return self.data[key]
 
-    def __get_keys(self, data: Any, key: str, cnt: int):
+    def __get_keys(self, data: Any, key: str = "", front: str = "") -> None:
         if isinstance(data, dict):
-            for key_, val_ in data.items():
-                self.map.append(" " * 4 * cnt + "└─ " + str(key_))
-                if key is None:
-                    self.keys.append(f"{key_}")
-                    self.__get_keys(val_, f"{key_}", cnt + 1)
+            for idx, (key_, val_) in enumerate(data.items()):
+                if idx + 1 == len(data):
+                    self.map.append(front + "└── " + str(key_))
+                    front_ = " "
                 else:
+                    self.map.append(front + "├── " + str(key_))
+                    front_ = "│"
+                if key:
                     self.keys.append(f"{key}/{key_}")
-                    self.__get_keys(val_, f"{key}/{key_}", cnt + 1)
+                    self.__get_keys(val_, f"{key}/{key_}", front + f"{front_}   ")
+                else:
+                    self.keys.append(f"{key_}")
+                    self.__get_keys(val_, f"{key_}", front + f"{front_}   ")
+        elif isinstance(data, list):
+            self.map.append(front + "└── " + "LIST")
+            if data:
+                if key:
+                    self.__get_keys(data[0], f"{key}/LIST", front + "    ")
+                else:
+                    self.__get_keys(data[0], "LIST", front + "    ")
 
-    def _get_keys(self, key: str = None, cnt=0):
+    def _get_keys(self) -> List[str]:
         if not self.keys and not self.map:
-            self.__get_keys(self.data, key, cnt)
+            self.__get_keys(self.data)
         return self.keys
 
     def _get_key(self, key: str) -> str:
@@ -136,7 +148,10 @@ class Json:
     def _get_value(self, key: str) -> Any:
         value = self.data
         for key_ in key.split("/"):
-            value = value.get(key_)
+            if key_ == "LIST":
+                value = value[0]
+            else:
+                value = value.get(key_)
         return value
 
     def get(self, key: str) -> Any:
@@ -153,14 +168,13 @@ class Json:
             '[v0.2.3] Release'
             >>> js.get("title")
             '[v0.2.3] Release'
-            >>> js["language"]
+            >>> js["color"]
             Traceback (most recent call last):
-            File "<stdin>", line 1, in <module>
-            File "/home/zerohertz/anaconda3/lib/python3.8/site-packages/zerohertzLib/util/json.py", line 65, in __getitem__
-                return self.data[key]
-            KeyError: 'language'
-            >>> js.get("language")
-            'Python'
+              File "<stdin>", line 1, in <module>
+              File "/home/zerohertz/Zerohertz/zerohertzLib/zerohertzLib/util/json.py", line 107, in __getitem__
+            KeyError: 'color'
+            >>> js.get("color")
+            'd73a4a'
         """
         return self._get_value(self._get_key(key))
 
@@ -169,13 +183,25 @@ class Json:
 
         Examples:
             >>> js.tree()
-            └─ url
-            └─ id
+            ├── url
             ...
-            └─ user
-                └─ login
-                └─ id
+            ├── user
+            │   ├── login
             ...
+            │   └── site_admin
+            ├── body
+            ...
+            ├── assignee
+            │   ├── login
+            ...
+            │   └── site_admin
+            ├── assignees
+            │   └── LIST
+            │       ├── login
+            ...
+            │       └── site_admin
+            ...
+            └── active_lock_reason
         """
         self._get_keys()
         print("\n".join(self.map))
@@ -225,8 +251,8 @@ class JsonDir:
         <zerohertzLib.util.json.Json object at 0x7f2562b83d00>
         >>> jsd[0]["title"]
         '[v0.2.3] Release'
-        >>> jsd._get_key("language")
-        'head/repo/language'
+        >>> jsd._get_key("color")
+        'labels/LIST/color'
     """
 
     def __init__(self, path: Optional[str] = "") -> None:
@@ -253,13 +279,25 @@ class JsonDir:
 
         Examples:
             >>> jsd.tree()
-            └─ url
-            └─ id
+            ├── url
             ...
-            └─ user
-                └─ login
-                └─ id
+            ├── user
+            │   ├── login
             ...
+            │   └── site_admin
+            ├── body
+            ...
+            ├── assignee
+            │   ├── login
+            ...
+            │   └── site_admin
+            ├── assignees
+            │   └── LIST
+            │       ├── login
+            ...
+            │       └── site_admin
+            ...
+            └── active_lock_reason
         """
         self[0].tree()
 
