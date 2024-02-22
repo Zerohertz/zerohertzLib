@@ -35,6 +35,8 @@ def barv(
     data: Dict[str, Any],
     xlab: Optional[str] = None,
     ylab: Optional[str] = None,
+    xlim: Optional[List[Union[int, float]]] = None,
+    ylim: Optional[List[Union[int, float]]] = None,
     title: Optional[str] = "tmp",
     colors: Optional[Union[str, List]] = None,
     figsize: Optional[Tuple[int]] = (15, 10),
@@ -49,6 +51,8 @@ def barv(
         data (``Dict[str, Any]``): 입력 데이터
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
+        xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
+        ylim (``Optional[List[Union[int, float]]]``): Graph에 출력될 Y축 limit
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
         colors (``Optional[Union[str, List]]``): 각 요소의 색
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
@@ -126,6 +130,10 @@ def barv(
         plt.xlabel(xlab)
     if ylab:
         plt.ylabel(ylab)
+    if xlim:
+        plt.xlim(xlim)
+    if ylim:
+        plt.ylim(ylim)
     plt.xticks(rotation=rot)
     plt.title(title, fontsize=25)
     if save:
@@ -137,6 +145,8 @@ def barh(
     data: Dict[str, Any],
     xlab: Optional[str] = None,
     ylab: Optional[str] = None,
+    xlim: Optional[List[Union[int, float]]] = None,
+    ylim: Optional[List[Union[int, float]]] = None,
     title: Optional[str] = "tmp",
     colors: Optional[Union[str, List]] = None,
     figsize: Optional[Tuple[int]] = (10, 15),
@@ -151,6 +161,8 @@ def barh(
         data (``Dict[str, Any]``): 입력 데이터
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
+        xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
+        ylim (``Optional[List[Union[int, float]]]``): Graph에 출력될 Y축 limit
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
         colors (``Optional[Union[str, List]]``): 각 요소의 색
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
@@ -225,6 +237,10 @@ def barh(
         plt.xlabel(xlab)
     if ylab:
         plt.ylabel(ylab)
+    if xlim:
+        plt.xlim(xlim)
+    if ylim:
+        plt.ylim(ylim)
     plt.yticks(rotation=rot)
     plt.title(title, fontsize=25)
     if save:
@@ -236,6 +252,8 @@ def hist(
     data: Dict[str, List[Union[int, float]]],
     xlab: Optional[str] = None,
     ylab: Optional[str] = None,
+    xlim: Optional[List[Union[int, float]]] = None,
+    ylim: Optional[List[Union[int, float]]] = None,
     title: Optional[str] = "tmp",
     colors: Optional[Union[str, List]] = None,
     cnt: Optional[int] = 30,
@@ -250,6 +268,8 @@ def hist(
         data (``Dict[str, List[Union[int, float]]]``): 입력 데이터
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
+        xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
+        ylim (``Optional[List[Union[int, float]]]``): Graph에 출력될 Y축 limit
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
         colors (``Optional[Union[str, List]]``): 각 요소의 색
         cnt (``Optional[int]``): Bin의 개수
@@ -295,6 +315,10 @@ def hist(
         plt.xlabel(xlab)
     if ylab:
         plt.ylabel(ylab)
+    if xlim:
+        plt.xlim(xlim)
+    if ylim:
+        plt.ylim(ylim)
     plt.title(title, fontsize=25)
     if len(data) > 1:
         plt.legend()
