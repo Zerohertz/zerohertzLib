@@ -26,6 +26,7 @@ import json
 import multiprocessing as mp
 import time
 import traceback
+from abc import ABC, abstractmethod
 from collections import defaultdict
 from itertools import combinations
 from typing import Any, Dict, ItemsView, List, Optional, Tuple, Union
@@ -470,11 +471,11 @@ class Balance(KoreaInvestment):
         return pie(data, dim, title="Portfolio", dpi=100, int_label=self.kor)
 
 
-class QuantSlackBot(SlackBot):
+class QuantSlackBot(ABC, SlackBot):
     """입력된 여러 종목에 대해 매수, 매도 signal을 판단하고 Slack으로 message와 graph를 전송하는 class
 
     Note:
-        종목 code에 따른 종목명과 data를 불러오는 함수 ``_get_data`` 를 상속을 통해 정의해야 사용 가능
+        Abstract Base Class: 종목 code에 따른 종목명과 data를 불러오는 method ``_get_data`` 를 상속을 통해 정의해야 사용 가능
 
         .. code-block:: python
 
@@ -667,6 +668,7 @@ class QuantSlackBot(SlackBot):
         report["candle"], report["hist"] = self._plot(quant)
         return report
 
+    @abstractmethod
     def _get_data(self, symbol: str) -> Tuple[str, pd.DataFrame]:
         title = data = None
         return title, data

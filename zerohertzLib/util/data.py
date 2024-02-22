@@ -24,6 +24,7 @@ SOFTWARE.
 
 import os
 import shutil
+from abc import ABC, abstractmethod
 from collections import defaultdict
 from glob import glob
 from typing import Dict, List, Optional
@@ -56,8 +57,11 @@ def rmtree(path: str) -> None:
     os.makedirs(path, exist_ok=True)
 
 
-class MakeData:
+class MakeData(ABC):
     """JSON file 내 값에 따라 data를 구축하는 class
+
+    Note:
+        Abstract Base Class: Data 구축 시 filtering 될 조건을 정의하는 method ``condition`` 를 상속을 통해 정의해야 사용 가능
 
     Args:
         start_data_path (``str``): 목표 data가 존재하는 directory 경로
@@ -94,6 +98,7 @@ class MakeData:
             os.path.join(self.target_path, end_json_dir)
         )
 
+    @abstractmethod
     def condition(self, json_instance: Json) -> bool:
         """Data 구축 시 filtering 될 조건
 
