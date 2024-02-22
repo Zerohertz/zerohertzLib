@@ -474,7 +474,11 @@ class LabelStudio:
             file_name = self.data_paths[idx].split("/")[-1]
             return (
                 file_name,
-                {"data": {"image": f"data/local-files/?d=image/{file_name}"}},
+                {
+                    "data": {
+                        "image": f"data/local-files/?d=image/{self.data_paths[idx]}"
+                    }
+                },
             )
         file_name = self.annotations[idx]["data"]["image"].split("/")[-1]
         file_name = urllib.parse.unquote(file_name)

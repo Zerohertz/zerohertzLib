@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 import tritonclient.grpc as grpcclient
@@ -159,8 +160,11 @@ class TritonClientK8s(TritonClientURL):
         super().__init__(f"{svc_name}.{namespace}", model_name, port)
 
 
-class BaseTritonPythonModel:
+class BaseTritonPythonModel(ABC):
     """Triton Inference Server에서 Python backend 사용을 위한 class
+
+    Note:
+        Abstract Base Class: Model의 추론을 수행하는 method ``_inference`` 를 상속을 통해 정의해야 사용 가능
 
     Attributes:
         logger (``zerohertzLib.logging.Logger``): Triton Inference Server 내 log를 출력하기 위한 instance
@@ -289,6 +293,7 @@ class BaseTritonPythonModel:
             )
         return pb_utils.InferenceResponse(output_tensors=output_tensors)
 
+    @abstractmethod
     def _inference(
         self, *inputs: NDArray[DTypeLike]
     ) -> Union[NDArray[DTypeLike], Tuple[NDArray[DTypeLike]]]:
