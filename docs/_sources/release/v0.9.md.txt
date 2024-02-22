@@ -1,0 +1,31 @@
+# v0.9
+
+## v0.9.0
+
+<h3>[v0.9.0] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/239>#239</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/02/22
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/vision"><img src="https://img.shields.io/badge/feat/vision-D1F9CB?style=flat-square&logo=github" alt="feat/vision"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:style"><img src="https://img.shields.io/badge/style-03A17F?style=flat-square&logo=github" alt="style"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/util"><img src="https://img.shields.io/badge/feat/util-DEBEAA?style=flat-square&logo=github" alt="feat/util"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `util`
+  + `Json` class의 `tree` method의 직관성 향상
++ `vision`
+  + `LabelStudio` class의 `__getitem__` method에서 상대 경로 허용
+
+<h4>Style</h4>
+
++ `abc` module을 이용한 abstract base class의 엄격한 정의 제공
+
