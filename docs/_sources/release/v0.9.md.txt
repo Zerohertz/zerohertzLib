@@ -1,5 +1,38 @@
 # v0.9
 
+## v0.9.1
+
+<h3>[v0.9.1] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/243>#243</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/02/23
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/plot"><img src="https://img.shields.io/badge/feat/plot-968B14?style=flat-square&logo=github" alt="feat/plot"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:style"><img src="https://img.shields.io/badge/style-03A17F?style=flat-square&logo=github" alt="style"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `plot`
+  + `barh`, `barv`, `hist` 함수의 `xlim` 및 `ylim` 변수 추가
+
+<h4>Chore</h4>
+
++ `requirements-docs.txt` 및 `requirements-style.txt` 추가
+
+<h4>Docs</h4>
+
++ `index.md`의 양식 변경
++ `cicd.md` 내 image들을 `_static`로 이동
+
 ## v0.9.0
 
 <h3>[v0.9.0] Docs Update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/241>#241</a>)</h3>
