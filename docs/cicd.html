@@ -16,10 +16,10 @@
     <meta property="og:title" content="CI/CD Pipelines" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/cicd.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.9.0 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.9.1 Documents" />
 <meta property="og:description" content="Jenkins:,, Stage, Condition,,, 1. Setup, ⭕ [* Push],, 2. Merge From Docs, ⭕ [* Push] “Merge pull request*/docs” ⭕ [* Push] “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”,, 3. 1. Lint,..." />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.9.0 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.9.1 Documents" />
 <meta name="description" content="Jenkins:,, Stage, Condition,,, 1. Setup, ⭕ [* Push],, 2. Merge From Docs, ⭕ [* Push] “Merge pull request*/docs” ⭕ [* Push] “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”,, 3. 1. Lint,..." />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
@@ -28,7 +28,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/cicd.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2024.01.29 -->
-        <title>CI/CD Pipelines - zerohertzLib v0.9.0 documentation</title>
+        <title>CI/CD Pipelines - zerohertzLib v0.9.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -156,7 +156,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.9.0 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.9.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.9.0 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.9.1 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -190,7 +190,7 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul class="current">
+  <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="zerohertzLib.html">zerohertzLib</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of zerohertzLib</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="zerohertzLib.algorithm.html">zerohertzLib.algorithm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zerohertzLib.api.html">zerohertzLib.api</a></li>
@@ -203,6 +203,8 @@
 <li class="toctree-l2"><a class="reference internal" href="zerohertzLib.vision.html">zerohertzLib.vision</a></li>
 </ul>
 </li>
+</ul>
+<ul class="current">
 <li class="toctree-l1 has-children"><a class="reference internal" href="release.html">Release Notes</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Release Notes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.9.html">v0.9</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.8.html">v0.8</a></li>
@@ -270,7 +272,7 @@
 <section id="jenkins">
 <h2>Jenkins<a class="headerlink" href="#jenkins" title="Permalink to this heading">#</a></h2>
 <p align="center">
-    <img width="1844" alt="CI/CD" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284097735-f7893be3-1e0f-4124-b22e-1e56dbc4f585.png">
+    <img width="1844" alt="CI/CD" src="_static/cicd/cicd.png">
 </p>
 <div class="table-wrapper colwidths-auto docutils container">
 <table class="docutils align-default">
@@ -311,7 +313,7 @@
 <p>The <code class="docutils literal notranslate"><span class="pre">dev</span></code> branch is used when there are functional changes resulting in different build outcomes.</p>
 </div>
 <p align="center">
-   <img width="872" alt="dev-branch" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284097739-895d55da-2812-44c8-8d5e-0f632b43a83a.png">
+   <img width="872" alt="dev-branch" src="_static/cicd/dev-branch.png">
 </p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">dev-*</span></code> push</p>
@@ -353,7 +355,7 @@
 <p>The <code class="docutils literal notranslate"><span class="pre">chore</span></code> branch is utilized when the build result is not different, but there are changes in the CI/CD pipeline or documentation.</p>
 </div>
 <p align="center">
-   <img width="872" alt="dev-branch" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284097744-66dfa600-5f44-4500-9171-326000588d74.png">
+   <img width="872" alt="chore-branch" src="_static/cicd/chore-branch.png">
 </p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">chore-*</span></code> push</p>
@@ -429,7 +431,7 @@
 <p>Documents created and built using Sphinx are deployed via GitHub Actions and GitHub Pages</p>
 </div>
 <p align="center">
-   <img width="872" alt="pages-build-and-deployment" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284098708-158ea625-5bba-4b5b-8f9e-d7cb72b880f0.png">
+   <img width="872" alt="pages-build-and-deployment" src="_static/cicd/pages-build-and-deployment.png">
 </p>
 </section>
 </section>
@@ -509,7 +511,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=ba2a4036"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=1e52c42f"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

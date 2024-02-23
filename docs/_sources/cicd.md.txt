@@ -10,7 +10,7 @@
 ## Jenkins
 
 <p align="center">
-    <img width="1844" alt="CI/CD" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284097735-f7893be3-1e0f-4124-b22e-1e56dbc4f585.png">
+    <img width="1844" alt="CI/CD" src="_static/cicd/cicd.png">
 </p>
 
 |Stage|Condition|
@@ -32,7 +32,7 @@ The `dev` branch is used when there are functional changes resulting in differen
 ```
 
 <p align="center">
-   <img width="872" alt="dev-branch" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284097739-895d55da-2812-44c8-8d5e-0f632b43a83a.png">
+   <img width="872" alt="dev-branch" src="_static/cicd/dev-branch.png">
 </p>
 
 1. `dev-*` push
@@ -63,7 +63,7 @@ The `chore` branch is utilized when the build result is not different, but there
 ```
 
 <p align="center">
-   <img width="872" alt="dev-branch" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284097744-66dfa600-5f44-4500-9171-326000588d74.png">
+   <img width="872" alt="chore-branch" src="_static/cicd/chore-branch.png">
 </p>
 
 1. `chore-*` push
@@ -113,5 +113,5 @@ Documents created and built using Sphinx are deployed via GitHub Actions and Git
 ```
 
 <p align="center">
-   <img width="872" alt="pages-build-and-deployment" src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284098708-158ea625-5bba-4b5b-8f9e-d7cb72b880f0.png">
+   <img width="872" alt="pages-build-and-deployment" src="_static/cicd/pages-build-and-deployment.png">
 </p>
