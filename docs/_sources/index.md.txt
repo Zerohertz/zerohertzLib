@@ -66,6 +66,12 @@ import zerohertzLib as zz
     :maxdepth: 2
 
     zerohertzLib
+```
+
+```{eval-rst}
+.. toctree::
+    :maxdepth: 1
+
     release
     cicd
 ```

@@ -604,7 +604,6 @@ class QuantSlackBot(ABC, SlackBot):
         hist(
             {"Buy": quant.transaction["buy"], "Sell": quant.transaction["sell"]},
             xlab=f"매수/매도가 [{dim}]",
-            ylab="",
             title="",
             save=False,
         )
@@ -612,7 +611,6 @@ class QuantSlackBot(ABC, SlackBot):
         hist(
             {"Profit": quant.transaction["profit"]},
             xlab="이율 [%]",
-            ylab="",
             title="",
             save=False,
         )
@@ -620,7 +618,6 @@ class QuantSlackBot(ABC, SlackBot):
         hist(
             {"Period": quant.transaction["period"]},
             xlab="거래 기간 [일]",
-            ylab="",
             title="",
             save=False,
         )
@@ -754,17 +751,13 @@ class QuantSlackBot(ABC, SlackBot):
         plt.subplot(2, 2, 1)
         barv(
             dict(sorted(self.miu_cnt.items())),
-            "",
-            "",
-            f"Methods in Use (Avg: {sum(self.miu_cnt.values()) / self.quant_cnt:.2f})",
+            title=f"Methods in Use (Avg: {sum(self.miu_cnt.values()) / self.quant_cnt:.2f})",
             save=False,
         )
         plt.subplot(2, 2, 2)
         hist(
             {"": self.total_cnt},
-            "",
-            "",
-            f"Distribution of Methods in Use (Avg: {sum(self.total_cnt) / self.quant_cnt:.2f})",
+            title=f"Distribution of Methods in Use (Avg: {sum(self.total_cnt) / self.quant_cnt:.2f})",
             cnt=max(self.total_cnt) * 2,
             ovp=True,
             save=False,
@@ -774,17 +767,13 @@ class QuantSlackBot(ABC, SlackBot):
             dict(
                 ((key, sum(value)) for key, value in sorted(self.methods_cnt.items()))
             ),
-            "",
-            "",
-            "Available Methods",
+            title="Available Methods",
             save=False,
         )
         plt.subplot(2, 2, 4)
         hist(
             dict(sorted(self.methods_cnt.items())),
-            "",
-            "",
-            "Distribution of Available Methods",
+            title="Distribution of Available Methods",
             cnt=self.top * 2,
             ovp=False,
             save=False,
@@ -797,7 +786,7 @@ class QuantSlackBot(ABC, SlackBot):
             for idx, count in enumerate(cnt):
                 try:
                     plt.subplot(1, len(cnt), idx + 1)
-                    barh(count, "", "", "", save=False)
+                    barh(count, title="", save=False)
                 except IndexError:
                     stg = False
                     print(f"'{method}' was not available: {count}")

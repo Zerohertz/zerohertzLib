@@ -53,6 +53,7 @@ extensions = [
     "sphinx_copybutton",
     "sphinx_favicon",
     "sphinx_paramlinks",
+    # "sphinx_search.extension", -> https://about.readthedocs.com/
     "sphinx_sitemap",
     "myst_parser",
 ]
