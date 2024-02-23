@@ -98,7 +98,7 @@ spec:
                         setBuildStatus("Checking Lint...", "PENDING", "$STAGE_NAME")
                         container("python") {
                             sh "pip install .'[all]'"
-                            sh "pip install black flake8 flake8-variables-names pylint"
+                            sh "pip install -r requirements/requirements-style.txt"
                             sh "black --check ."
                             sh "flake8 zerohertzLib"
                             sh "pylint -r n zerohertzLib"
@@ -242,7 +242,7 @@ spec:
                             container("python") {
                                 sh "apt update"
                                 sh "apt install build-essential -y"
-                                sh "pip install sphinx furo sphinxcontrib-gtagjs sphinxcontrib-jquery sphinxext-opengraph sphinx-copybutton sphinx-favicon sphinx-paramlinks sphinx-sitemap myst-parser"
+                                sh "pip install -r requirements/requirements-docs.txt"
                                 sh 'python sphinx/release_note.py --token $GIT_PASSWORD'
                                 sh "python sphinx/example_images.py"
                                 sh "cd sphinx && make html"
