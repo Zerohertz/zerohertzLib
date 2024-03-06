@@ -86,6 +86,7 @@ def vid2gif(
     file_name: Optional[str] = "tmp",
     quality: Optional[int] = 100,
     fps: Optional[int] = 15,
+    speed: Optional[float] = 1.0,
 ) -> None:
     """동영상을 GIF로 변환
 
@@ -94,6 +95,7 @@ def vid2gif(
         file_name (``Optional[str]``): 출력될 GIF file 이름
         quality: (``Optional[int]``): 출력될 GIF의 품질
         fps: (``Optional[int]``): 출력될 GIF의 FPS (Frames Per Second)
+        speed: (``Optional[float]``): 출력될 GIF의 배속
 
     Returns:
         ``None``: 현재 directory에 바로 GIF 저장
@@ -108,12 +110,16 @@ def vid2gif(
     frames = []
     cap = cv2.VideoCapture(path)
     original_fps = round(cap.get(cv2.CAP_PROP_FPS))
-    frame_count = 0
+    fps = min(original_fps, fps)
+    frame_count_speed = frame_count_fps = 0
     while True:
         ret, frame = cap.read()
         if not ret:
             break
-        if frame_count % (original_fps // fps) == 0:
+        frame_count_speed += 1
+        if round(frame_count_speed % speed) != 0:
+            continue
+        if frame_count_fps % (int(original_fps / fps)) == 0:
             frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             pil_img = Image.fromarray(frame_rgb)
             width, height = pil_img.size
@@ -121,7 +127,7 @@ def vid2gif(
             new_height = int(height * quality / 100)
             resized_img = pil_img.resize((new_width, new_height), Image.LANCZOS)
             frames.append(resized_img)
-        frame_count += 1
+        frame_count_fps += 1
     cap.release()
-    duration = 1000 // fps
+    duration = int(1000 / fps)
     _create_gif_from_frames(frames, file_name, duration)
