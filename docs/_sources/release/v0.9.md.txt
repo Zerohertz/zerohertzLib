@@ -1,5 +1,29 @@
 # v0.9
 
+## v0.9.2
+
+<h3>[v0.9.2] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/245>#245</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/03/06
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/api"><img src="https://img.shields.io/badge/feat/api-541B9A?style=flat-square&logo=github" alt="feat/api"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/quant"><img src="https://img.shields.io/badge/feat/quant-ededed?style=flat-square&logo=github" alt="feat/quant"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `api`
+  + `KoreaInvestment`의 계좌 입력 기능 추가 (`account_no`)
++ `quant`
+  + `Balance`, `QuantSlackBotKI`에 대해 계좌 입력 기능 추가
+
 ## v0.9.1
 
 <h3>[v0.9.1] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/243>#243</a>)</h3>
