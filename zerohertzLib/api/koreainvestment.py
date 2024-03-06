@@ -68,7 +68,6 @@ class KoreaInvestment:
 
             zero... (API Key)
             hertz... (API Secret)
-            00000000-00 (Account Number)
 
     Args:
         account_no (``str``): API 호출 시 사용할 계좌 번호
