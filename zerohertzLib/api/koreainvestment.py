@@ -71,21 +71,25 @@ class KoreaInvestment:
             00000000-00 (Account Number)
 
     Args:
+        account_no (``str``): API 호출 시 사용할 계좌 번호
         path (``Optional[str]``): ``secret.key`` 혹은 ``token.dat`` 이 포함된 경로
 
     Attributes:
         api_key (``str``): API Key
         api_secret (``str``): API Secret
-        acc_no (``str``): Account number
 
     Examples:
-        >>> broker = zz.api.KoreaInvestment()
+        >>> broker = zz.api.KoreaInvestment("00000000-00")
     """
 
     def __init__(
         self,
+        account_no: str,
         path: Optional[str] = "./",
     ) -> None:
+        self.account_no = account_no
+        self.account_no_prefix = self.account_no.split("-")[0]
+        self.account_no_postfix = self.account_no.split("-")[1]
         self.path = path
         self.base_url = "https://openapi.koreainvestment.com:9443"
         files = os.listdir(path)
@@ -110,9 +114,6 @@ class KoreaInvestment:
             secrets = file.readlines()
         self.api_key = secrets[0].strip()
         self.api_secret = secrets[1].strip()
-        self.acc_no = secrets[2].strip()
-        self.acc_no_prefix = self.acc_no.split("-")[0]
-        self.acc_no_postfix = self.acc_no.split("-")[1]
 
     def _check_token(self) -> bool:
         """``token.dat`` check
@@ -590,8 +591,8 @@ class KoreaInvestment:
             "tr_id": "TTTC8434R",
         }
         params = {
-            "CANO": self.acc_no_prefix,
-            "ACNT_PRDT_CD": self.acc_no_postfix,
+            "CANO": self.account_no_prefix,
+            "ACNT_PRDT_CD": self.account_no_postfix,
             "AFHR_FLPR_YN": "N",
             "OFL_YN": "N",
             "INQR_DVSN": "01",
@@ -631,8 +632,8 @@ class KoreaInvestment:
             "tr_id": "JTTT3012R",  # TTTS3012R
         }
         params = {
-            "CANO": self.acc_no_prefix,
-            "ACNT_PRDT_CD": self.acc_no_postfix,
+            "CANO": self.account_no_prefix,
+            "ACNT_PRDT_CD": self.account_no_postfix,
             "OVRS_EXCG_CD": "NASD",
             "TR_CRCY_CD": "USD",
             "CTX_AREA_FK200": ctx_area_fk200,
@@ -686,8 +687,8 @@ class KoreaInvestment:
             "tr_id": "TTTC8494R",
         }
         params = {
-            "CANO": self.acc_no_prefix,
-            "ACNT_PRDT_CD": self.acc_no_postfix,
+            "CANO": self.account_no_prefix,
+            "ACNT_PRDT_CD": self.account_no_postfix,
             "AFHR_FLPR_YN": "N",
             "OFL_YN": "N",
             "INQR_DVSN": "01",
