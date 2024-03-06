@@ -244,6 +244,7 @@ class Balance(KoreaInvestment):
     """한국투자증권의 국내 계좌 정보 조회 class
 
     Args:
+        account_no (``str``): API 호출 시 사용할 계좌 번호
         path (``Optional[str]``): ``secret.key`` 혹은 ``token.dat`` 이 포함된 경로
         kor (``Optional[bool]``): 국내 여부
 
@@ -275,7 +276,7 @@ class Balance(KoreaInvestment):
 
     Examples:
         ``kor=True``:
-            >>> balance = zz.quant.Balance()
+            >>> balance = zz.quant.Balance("00000000-00")
             >>> "LG전자" in balance
             True
             >>> "삼성전자" in balance
@@ -288,7 +289,7 @@ class Balance(KoreaInvestment):
             1997997
 
         ``kor=False``:
-            >>> balance = zz.quant.Balance(kor=False)
+            >>> balance = zz.quant.Balance("00000000-00", kor=False)
             >>> "아마존닷컴" in balance
             True
             >>> "삼성전자" in balance
@@ -301,8 +302,10 @@ class Balance(KoreaInvestment):
             146.5
     """
 
-    def __init__(self, path: Optional[str] = "./", kor: Optional[bool] = True) -> None:
-        super().__init__(path)
+    def __init__(
+        self, account_no: str, path: Optional[str] = "./", kor: Optional[bool] = True
+    ) -> None:
+        super().__init__(account_no, path)
         self.balance = {"stock": defaultdict(list)}
         self.kor = kor
         self.symbols = []
@@ -846,6 +849,7 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
     """한국투자증권 API를 기반으로 입력된 여러 종목에 대해 매수, 매도 signal을 판단하고 Slack으로 message와 graph를 전송하는 class
 
     Args:
+        account_no (``str``): API 호출 시 사용할 계좌 번호
         symbols (``Optional[List[str]]``): 종목 code들
         start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
         ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
@@ -865,11 +869,12 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
         exps (``Dict[str, List[Dict[str, int]]]``): 각 전략에 따른 parameter 분포
 
     Examples:
-        >>> qsb = zz.quant.QuantSlackBotKI(symbols, token=token, channel=channel)
+        >>> qsb = zz.quant.QuantSlackBotKI("00000000-00", token=token, channel=channel)
     """
 
     def __init__(
         self,
+        account_no: str,
         symbols: Optional[List[str]] = None,
         start_day: Optional[str] = "",
         ohlc: Optional[str] = "",
@@ -885,7 +890,7 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
         kor: Optional[bool] = True,
         path: Optional[str] = "./",
     ) -> None:
-        Balance.__init__(self, path, kor)
+        Balance.__init__(self, account_no, path, kor)
         if symbols is None:
             symbols = []
         QuantSlackBot.__init__(
@@ -904,12 +909,7 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
             analysis,
             kor,
         )
-        symbols_bought = self.bought_symbols()
-        for symbol in symbols_bought:
-            if symbol in symbols:
-                symbols.remove(symbol)
-        self.symbols = symbols
-        self.symbols_bought = symbols_bought
+        self.symbols_bought = self.bought_symbols()
 
     def _get_data(self, symbol: str) -> Tuple[str, pd.DataFrame]:
         response = self.get_ohlcv(symbol, start_day=self.start_day, kor=self.kor)
