@@ -457,12 +457,22 @@ class KoreaInvestment:
                 "acml_vol",
             )
         for data_ in response["output2"]:
-            date.append(data_[date_key])
-            data["Open"].append(float(data_[open_key]))
-            data["High"].append(float(data_[high_key]))
-            data["Low"].append(float(data_[low_key]))
-            data["Close"].append(float(data_[close_key]))
-            data["Volume"].append(float(data_[volume_key]))
+            try:
+                date.append(data_[date_key])
+                data["Open"].append(float(data_[open_key]))
+                data["High"].append(float(data_[high_key]))
+                data["Low"].append(float(data_[low_key]))
+                data["Close"].append(float(data_[close_key]))
+                data["Volume"].append(float(data_[volume_key]))
+            except KeyError as error:
+                if date:
+                    return (
+                        name,
+                        pd.DataFrame(data, index=pd.to_datetime(date, format="%Y%m%d"))[
+                            ::-1
+                        ],
+                    )
+                raise error
         return (
             name,
             pd.DataFrame(data, index=pd.to_datetime(date, format="%Y%m%d"))[::-1],
