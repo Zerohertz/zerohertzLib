@@ -468,9 +468,11 @@ class Balance(KoreaInvestment):
         else:
             dim = "$"
         data = defaultdict(float)
+        data["Cash"] = 0
         for name, value in self.items():
             _, purchase, _, quantity, _, _ = value
             data[f"{name}"] = purchase * quantity
+        data["Cash"] = self() - sum(data.values())
         return pie(data, dim, title="Portfolio", dpi=100, int_label=self.kor)
 
 
