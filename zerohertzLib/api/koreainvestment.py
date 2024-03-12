@@ -335,7 +335,7 @@ class KoreaInvestment:
         response = requests.get(url, headers=headers, params=params, timeout=10)
         data = response.json()
         if not start_day == "19800104":
-            while start_day < data["output2"][-1]["stck_bsop_date"]:
+            while "stck_bsop_date" in data["output2"][-1].keys() and start_day < data["output2"][-1]["stck_bsop_date"]:
                 params["FID_INPUT_DATE_2"] = data["output2"][-1]["stck_bsop_date"]
                 response = requests.get(url, headers=headers, params=params, timeout=10)
                 data_ = response.json()
