@@ -16,19 +16,19 @@
     <meta property="og:title" content="v0.9" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/release/v0.9.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.9.4 Documents" />
-<meta property="og:description" content="v0.9.3: vision- vid2gif 함수 내 배속 기능 추가.. v0.9.2: api- KoreaInvestment class의 계좌 입력 기능 추가 ( account_no)., quant- Balance, QuantSlackBotKI class에 대해 계좌 입력 기능 추가.. v0.9.1: plot- barh, barv, hist 함수의 xl..." />
+<meta property="og:site_name" content="Zerohertz's Library v0.9.5 Documents" />
+<meta property="og:description" content="v0.9.5: api- KoreaInvestment._get_korea_ohlcv() 사용 시 짧은 기간의 정보만 제공하는 예외 수정., logging- rich 를 이용한 Logger 의 가시성 향상, DiscordHandler, SlackBotHandler, SlackWebhookHandler 추가 및 Logger refactoring., quan..." />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.9.4 Documents" />
-<meta name="description" content="v0.9.3: vision- vid2gif 함수 내 배속 기능 추가.. v0.9.2: api- KoreaInvestment class의 계좌 입력 기능 추가 ( account_no)., quant- Balance, QuantSlackBotKI class에 대해 계좌 입력 기능 추가.. v0.9.1: plot- barh, barv, hist 함수의 xl..." />
+<meta property="og:image:alt" content="Zerohertz's Library v0.9.5 Documents" />
+<meta name="description" content="v0.9.5: api- KoreaInvestment._get_korea_ohlcv() 사용 시 짧은 기간의 정보만 제공하는 예외 수정., logging- rich 를 이용한 Logger 의 가시성 향상, DiscordHandler, SlackBotHandler, SlackWebhookHandler 추가 및 Logger refactoring., quan..." />
     <link href="../_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
-    <link rel="apple-touch-icon" href="../_static/favicon.png" sizes="802x802" type="image/png"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="v0.8" href="v0.8.html" /><link rel="prev" title="0.9" href="0.9.html" />
+    <link rel="apple-touch-icon" href="../_static/favicon.png" sizes="802x802" type="image/png"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="0.9" href="0.9.html" /><link rel="prev" title="Release Notes" href="../release.html" />
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/release/v0.9.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2024.01.29 -->
-        <title>v0.9 - zerohertzLib v0.9.4 documentation</title>
+        <title>v0.9 - zerohertzLib v0.9.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -156,7 +156,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">zerohertzLib v0.9.4 documentation</div></a>
+      <a href="../index.html"><div class="brand">zerohertzLib v0.9.5 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
     <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.9.4 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.9.5 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -206,8 +206,8 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../release.html">Release Notes</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Release Notes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="0.9.html">0.9</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">v0.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0.9.html">0.9</a></li>
 <li class="toctree-l2"><a class="reference internal" href="v0.8.html">v0.8</a></li>
 <li class="toctree-l2"><a class="reference internal" href="v0.7.html">v0.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="v0.6.html">v0.6</a></li>
@@ -263,6 +263,41 @@
         <article role="main">
           <section id="v0-9">
 <h1>v0.9<a class="headerlink" href="#v0-9" title="Permalink to this heading">#</a></h1>
+<section id="v0-9-5">
+<h2>v0.9.5<a class="headerlink" href="#v0-9-5" title="Permalink to this heading">#</a></h2>
+<h3>[v0.9.5] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/251>#251</a>)</h3>
+<div class="tip admonition">
+<p class="admonition-title">Release Date</p>
+<p>2024/03/13</p>
+</div>
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/api"><img src="https://img.shields.io/badge/feat/api-541B9A?style=flat-square&logo=github" alt="feat/api"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/logging"><img src="https://img.shields.io/badge/feat/logging-477A5E?style=flat-square&logo=github" alt="feat/logging"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:style"><img src="https://img.shields.io/badge/style-03A17F?style=flat-square&logo=github" alt="style"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/quant"><img src="https://img.shields.io/badge/feat/quant-ededed?style=flat-square&logo=github" alt="feat/quant"/></a>
+</p>
+<h4>Features</h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">api</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">KoreaInvestment._get_korea_ohlcv()</span></code> 사용 시 짧은 기간의 정보만 제공하는 예외 수정</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">logging</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">rich</span></code>를 이용한 <code class="docutils literal notranslate"><span class="pre">Logger</span></code>의 가시성 향상</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DiscordHandler</span></code>, <code class="docutils literal notranslate"><span class="pre">SlackBotHandler</span></code>, <code class="docutils literal notranslate"><span class="pre">SlackWebhookHandler</span></code> 추가 및 <code class="docutils literal notranslate"><span class="pre">Logger</span></code> refactoring</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">quant</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Balance.pie()</span></code> 사용 시 보유 현금 시각화 기능 추가</p></li>
+</ul>
+</li>
+</ul>
+</section>
 <section id="v0-9-3">
 <h2>v0.9.3<a class="headerlink" href="#v0-9-3" title="Permalink to this heading">#</a></h2>
 <h3>[v0.9.3] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/247>#247</a>)</h3>
@@ -392,23 +427,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="v0.8.html">
+          <a class="next-page" href="0.9.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">v0.8</div>
+                <div class="title">0.9</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="0.9.html">
+          <a class="prev-page" href="../release.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">0.9</div>
+                <div class="title">Release Notes</div>
                 
               </div>
             </a>
@@ -446,6 +481,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">v0.9</a><ul>
+<li><a class="reference internal" href="#v0-9-5">v0.9.5</a></li>
 <li><a class="reference internal" href="#v0-9-3">v0.9.3</a></li>
 <li><a class="reference internal" href="#v0-9-2">v0.9.2</a></li>
 <li><a class="reference internal" href="#v0-9-1">v0.9.1</a></li>
@@ -463,7 +499,7 @@
   </div>
 </div><script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=465b5a91"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=e223de88"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
