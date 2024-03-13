@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.logging" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.logging.html" />
-<meta property="og:site_name" content="Zerohertz's Library v0.9.5 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v0.9.6 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v0.9.5 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v0.9.6 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.logging.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2024.01.29 -->
-        <title>zerohertzLib.logging - zerohertzLib v0.9.5 documentation</title>
+        <title>zerohertzLib.logging - zerohertzLib v0.9.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v0.9.5 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v0.9.6 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v0.9.5 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v0.9.6 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -205,7 +205,6 @@
 <ul>
 <li class="toctree-l1 has-children"><a class="reference internal" href="release.html">Release Notes</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Release Notes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.9.html">v0.9</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release/0.9.html">0.9</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.8.html">v0.8</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.7.html">v0.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release/v0.6.html">v0.6</a></li>
@@ -266,6 +265,34 @@
 <p>Webhook 또는 file에 쉽게 log를 작성할 수 있는 class</p>
 </div>
 <dl class="py class">
+<dt class="sig sig-object py" id="zerohertzLib.logging.DiscordHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.logging.</span></span><span class="sig-name descname"><span class="pre">DiscordHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">webhook_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/logging/handler.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.logging.DiscordHandler" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Handler</span></code>, <a class="reference internal" href="zerohertzLib.api.html#zerohertzLib.api.Discord" title="zerohertzLib.api.discord.Discord"><code class="xref py py-class docutils literal notranslate"><span class="pre">Discord</span></code></a></p>
+<p>Discord Webhook 기반 handler</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.logging.DiscordHandler.params.webhook_url"></span><strong>webhook_url</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.DiscordHandler.params.webhook_url">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Discord Webhook의 URL</p></li>
+<li><p><span class="target" id="zerohertzLib.logging.DiscordHandler.params.level"></span><strong>level</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.DiscordHandler.params.level">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – Logger의 level</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">zz</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">DiscordHandler</span><span class="p">(</span><span class="n">webhook_url</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.logging.DiscordHandler.emit">
+<span class="sig-name descname"><span class="pre">emit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/logging/handler.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.logging.DiscordHandler.emit" title="Permalink to this definition">#</a></dt>
+<dd><p>Do whatever it takes to actually log the specified logging record.</p>
+<p>This version is intended to be implemented by subclasses and so
+raises a NotImplementedError.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="zerohertzLib.logging.Logger">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.logging.</span></span><span class="sig-name descname"><span class="pre">Logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discord</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">console_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/logging/logger.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.logging.Logger" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code></p>
@@ -302,6 +329,72 @@
 <span class="go">[03/13/24 15:09:59] CRITICAL [TEST_1] critical   &lt;stdin&gt;:1</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="zerohertzLib.logging.SlackBotHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.logging.</span></span><span class="sig-name descname"><span class="pre">SlackBotHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icon_emoji</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icon_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/logging/handler.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.logging.SlackBotHandler" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Handler</span></code>, <a class="reference internal" href="zerohertzLib.api.html#zerohertzLib.api.SlackBot" title="zerohertzLib.api.slack.SlackBot"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlackBot</span></code></a></p>
+<p>Slack Bot 기반 handler</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.logging.SlackBotHandler.params.token"></span><strong>token</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.SlackBotHandler.params.token">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Slack Bot의 token</p></li>
+<li><p><span class="target" id="zerohertzLib.logging.SlackBotHandler.params.channel"></span><strong>channel</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.SlackBotHandler.params.channel">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Slack Bot이 전송할 channel</p></li>
+<li><p><span class="target" id="zerohertzLib.logging.SlackBotHandler.params.name"></span><strong>name</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.SlackBotHandler.params.name">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Slack Bot의 표시될 이름</p></li>
+<li><p><span class="target" id="zerohertzLib.logging.SlackBotHandler.params.icon_emoji"></span><strong>icon_emoji</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.SlackBotHandler.params.icon_emoji">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Slack Bot의 표시될 사진 (emoji)</p></li>
+<li><p><span class="target" id="zerohertzLib.logging.SlackBotHandler.params.icon_url"></span><strong>icon_url</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.SlackBotHandler.params.icon_url">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Slack Bot의 표시될 사진 (photo)</p></li>
+<li><p><span class="target" id="zerohertzLib.logging.SlackBotHandler.params.timeout"></span><strong>timeout</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.SlackBotHandler.params.timeout">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – <code class="docutils literal notranslate"><span class="pre">message</span></code>, method 사용 시 사용될 timeout</p></li>
+<li><p><span class="target" id="zerohertzLib.logging.SlackBotHandler.params.level"></span><strong>level</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.SlackBotHandler.params.level">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – Logger의 level</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">zz</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">SlackBotHandler</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">icon_emoji</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.logging.SlackBotHandler.emit">
+<span class="sig-name descname"><span class="pre">emit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/logging/handler.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.logging.SlackBotHandler.emit" title="Permalink to this definition">#</a></dt>
+<dd><p>Do whatever it takes to actually log the specified logging record.</p>
+<p>This version is intended to be implemented by subclasses and so
+raises a NotImplementedError.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="zerohertzLib.logging.SlackWebhookHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.logging.</span></span><span class="sig-name descname"><span class="pre">SlackWebhookHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">webhook_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icon_emoji</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">icon_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/logging/handler.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.logging.SlackWebhookHandler" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Handler</span></code>, <a class="reference internal" href="zerohertzLib.api.html#zerohertzLib.api.SlackWebhook" title="zerohertzLib.api.slack.SlackWebhook"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlackWebhook</span></code></a></p>
+<p>Slack Webhook 기반 handler</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.logging.SlackWebhookHandler.params.webhook_url"></span><strong>webhook_url</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.SlackWebhookHandler.params.webhook_url">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – Slack Webhook의 URL</p></li>
+<li><p><span class="target" id="zerohertzLib.logging.SlackWebhookHandler.params.channel"></span><strong>channel</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.SlackWebhookHandler.params.channel">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Slack Webhook이 전송할 channel</p></li>
+<li><p><span class="target" id="zerohertzLib.logging.SlackWebhookHandler.params.name"></span><strong>name</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.SlackWebhookHandler.params.name">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Slack Webhook의 표시될 이름</p></li>
+<li><p><span class="target" id="zerohertzLib.logging.SlackWebhookHandler.params.icon_emoji"></span><strong>icon_emoji</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.SlackWebhookHandler.params.icon_emoji">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Slack Webhook의 표시될 사진 (emoji)</p></li>
+<li><p><span class="target" id="zerohertzLib.logging.SlackWebhookHandler.params.icon_url"></span><strong>icon_url</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.SlackWebhookHandler.params.icon_url">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Slack Webhook의 표시될 사진 (photo)</p></li>
+<li><p><span class="target" id="zerohertzLib.logging.SlackWebhookHandler.params.timeout"></span><strong>timeout</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.SlackWebhookHandler.params.timeout">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – <code class="docutils literal notranslate"><span class="pre">message</span></code> method 사용 시 사용될 timeout</p></li>
+<li><p><span class="target" id="zerohertzLib.logging.SlackWebhookHandler.params.level"></span><strong>level</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.logging.SlackWebhookHandler.params.level">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – Logger의 level</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">zz</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">SlackWebhookHandler</span><span class="p">(</span><span class="n">webhook_url</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">icon_emoji</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.logging.SlackWebhookHandler.emit">
+<span class="sig-name descname"><span class="pre">emit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/logging/handler.py#L118"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.logging.SlackWebhookHandler.emit" title="Permalink to this definition">#</a></dt>
+<dd><p>Do whatever it takes to actually log the specified logging record.</p>
+<p>This version is intended to be implemented by subclasses and so
+raises a NotImplementedError.</p>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -365,7 +458,19 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">zerohertzLib.logging</a><ul>
+<li><a class="reference internal" href="#zerohertzLib.logging.DiscordHandler"><code class="docutils literal notranslate"><span class="pre">DiscordHandler</span></code></a><ul>
+<li><a class="reference internal" href="#zerohertzLib.logging.DiscordHandler.emit"><code class="docutils literal notranslate"><span class="pre">DiscordHandler.emit()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#zerohertzLib.logging.Logger"><code class="docutils literal notranslate"><span class="pre">Logger</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.logging.SlackBotHandler"><code class="docutils literal notranslate"><span class="pre">SlackBotHandler</span></code></a><ul>
+<li><a class="reference internal" href="#zerohertzLib.logging.SlackBotHandler.emit"><code class="docutils literal notranslate"><span class="pre">SlackBotHandler.emit()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#zerohertzLib.logging.SlackWebhookHandler"><code class="docutils literal notranslate"><span class="pre">SlackWebhookHandler</span></code></a><ul>
+<li><a class="reference internal" href="#zerohertzLib.logging.SlackWebhookHandler.emit"><code class="docutils literal notranslate"><span class="pre">SlackWebhookHandler.emit()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -379,7 +484,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=e223de88"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=d5db54e2"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
