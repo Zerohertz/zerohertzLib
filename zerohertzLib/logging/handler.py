@@ -46,6 +46,7 @@ class DiscordHandler(Handler, Discord):
         Discord.__init__(self, webhook_url)
 
     def emit(self, record: logging.LogRecord) -> None:
+        """`logging.Handler.emit <https://docs.python.org/ko/3/library/logging.html#logging.Handler.emit>`_ 구현"""
         self.message(self.format(record), codeblock=True)
 
 
@@ -80,6 +81,7 @@ class SlackBotHandler(Handler, SlackBot):
         SlackBot.__init__(self, token, channel, name, icon_emoji, icon_url, timeout)
 
     def emit(self, record: logging.LogRecord) -> None:
+        """`logging.Handler.emit <https://docs.python.org/ko/3/library/logging.html#logging.Handler.emit>`_ 구현"""
         self.message(self.format(record), codeblock=True)
 
 
@@ -116,4 +118,5 @@ class SlackWebhookHandler(Handler, SlackWebhook):
         )
 
     def emit(self, record: logging.LogRecord) -> None:
+        """`logging.Handler.emit <https://docs.python.org/ko/3/library/logging.html#logging.Handler.emit>`_ 구현"""
         self.message(self.format(record), codeblock=True)
