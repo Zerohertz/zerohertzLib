@@ -2,7 +2,25 @@
 
 ## v0.9.6
 
-<h3>[v0.9.6] (<a href=https://github.com/Zerohertz/zerohertzLib/pull/253>#253</a>)</h3>
+<h3>[v0.9.6] Docs Update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/255>#255</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/03/13
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release/chore"><img src="https://img.shields.io/badge/release/chore-22FD7F?style=flat-square&logo=github" alt="release/chore"/></a>
+</p>
+
+
+<h4>Docs</h4>
+
++ Release Notes의 오타 수정
+
+<h3>[v0.9.6] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/253>#253</a>)</h3>
 
 ```{admonition} Release Date
 :class: tip
