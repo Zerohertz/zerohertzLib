@@ -4,7 +4,8 @@
 ```
 
 <p align="center">
-    <img src="_static/logo.png">
+    <!-- <img src="_static/logo.png"> -->
+    <img src="https://github.com/Zerohertz/Zerohertz/assets/42334717/90adcc0f-c6ec-4aca-af41-856931956093">
 </p>
 
 <h3 align = "center">
@@ -54,7 +55,8 @@ $ pip install zerohertzLib[all]
 ```
 
 <p align="center">
-    <img src="_static/zerohertzLib.png" width="600"/>
+    <!-- <img src="_static/zerohertzLib.png" width="600"/> -->
+    <img src="https://github.com/Zerohertz/Zerohertz/assets/42334717/85c44efa-1440-4962-a6e5-7453b0bdc689">
 </p>
 
 ```python
