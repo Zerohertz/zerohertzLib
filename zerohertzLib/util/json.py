@@ -103,7 +103,7 @@ class Json:
     def __len__(self) -> int:
         return len(self.data)
 
-    def __getitem__(self, key: str) -> Any:
+    def __getitem__(self, key: Union[int, str]) -> Any:
         return self.data[key]
 
     def __get_keys(self, data: Any, key: str = "", front: str = "") -> None:

@@ -25,14 +25,15 @@ from zerohertzLib.vision.convert import (
     xyxy2cwh,
     xyxy2poly,
 )
-from zerohertzLib.vision.data import (
-    ImageLoader,
-    JsonImageLoader,
-    LabelStudio,
-    YoloLoader,
-)
+from zerohertzLib.vision.data import LabelStudio
 from zerohertzLib.vision.eval import evaluation, iou, meanap
 from zerohertzLib.vision.gif import img2gif, vid2gif
+from zerohertzLib.vision.loader import (
+    CocoLoader,
+    ImageLoader,
+    JsonImageLoader,
+    YoloLoader,
+)
 from zerohertzLib.vision.transform import cutout, pad, transparent
 from zerohertzLib.vision.util import is_pts_in_poly
 from zerohertzLib.vision.visual import bbox, mask, paste, text
@@ -67,4 +68,5 @@ __all__ = [
     "iou",
     "meanap",
     "evaluation",
+    "CocoLoader",
 ]
