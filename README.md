@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284166558-0ba4b755-39cc-48ee-ba3b-5c02f54c4ca7.png">
+    <img src="https://github.com/Zerohertz/Zerohertz/assets/42334717/90adcc0f-c6ec-4aca-af41-856931956093">
 </p>
 
 <h2 align = "center">
@@ -40,15 +40,16 @@
 </p>
 
 ```bash
-$ sudo apt install python3-opencv -y
-$ pip install zerohertzLib
-$ pip install zerohertzLib[api]
-$ pip install zerohertzLib[mlops]
-$ pip install zerohertzLib[quant]
-$ pip install zerohertzLib[all]
+sudo apt install python3-opencv -y
+pip install zerohertzLib
+pip install zerohertzLib[api]
+pip install zerohertzLib[mlops]
+pip install zerohertzLib[quant]
+pip install zerohertzLib[all]
 ```
+
 <p align="center">
-    <img src="sphinx/source/_static/zerohertzLib.png" width="600"/>
+    <img src="https://github.com/Zerohertz/Zerohertz/assets/42334717/85c44efa-1440-4962-a6e5-7453b0bdc689" width="600">
 </p>
 
 ```python
