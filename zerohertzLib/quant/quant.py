@@ -472,7 +472,8 @@ class Balance(KoreaInvestment):
         for name, value in self.items():
             _, purchase, _, quantity, _, _ = value
             data[f"{name}"] = purchase * quantity
-        data["Cash"] = self() - sum(data.values())
+        cash = self() - sum(data.values())
+        data["Cash"] = max(data["Cash"], cash)
         return pie(data, dim, title="Portfolio", dpi=100, int_label=self.kor)
 
 
