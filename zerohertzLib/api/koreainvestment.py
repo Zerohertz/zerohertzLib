@@ -562,22 +562,21 @@ class KoreaInvestment:
             >>> balance["output2"][0]["evlu_pfls_smtl_amt"]  # 평가손익합계금액
             >>> broker.get_balance(False)
             {'output1': [], 'output2': {'frcr_pchs_amt1': '...', ...}}
+            {'output1': [{'prdt_name': '...', ...}], 'output2': [{'crcy_cd': 'USD', ...}], 'output3': {'pchs_amt_smtl': '...', ...}}
         """
         if kor:
-            _get_balance = self._get_korea_balance
-        else:
-            _get_balance = self._get_oversea_balance
-        output = {}
-        data = _get_balance()
-        output["output1"] = data["output1"]
-        output["output2"] = data["output2"]
-        while data["tr_cont"] == "M":
-            fk100 = data["ctx_area_fk100"]
-            nk100 = data["ctx_area_nk100"]
-            data = _get_balance(fk100, nk100)
-            output["output1"].extend(data["output1"])
-            output["output2"].extend(data["output2"])
-        return output
+            output = {}
+            data = self._get_korea_balance()
+            output["output1"] = data["output1"]
+            output["output2"] = data["output2"]
+            while data["tr_cont"] == "M":
+                fk100 = data["ctx_area_fk100"]
+                nk100 = data["ctx_area_nk100"]
+                data = self._get_korea_balance(fk100, nk100)
+                output["output1"].extend(data["output1"])
+                output["output2"].extend(data["output2"])
+            return output
+        return self._get_oversea_balance()
 
     def _get_korea_balance(
         self, ctx_area_fk100: Optional[str] = "", ctx_area_nk100: Optional[str] = ""
@@ -620,40 +619,67 @@ class KoreaInvestment:
         data["tr_cont"] = response.headers["tr_cont"]
         return data
 
-    def _get_oversea_balance(
-        self, ctx_area_fk200: Optional[str] = "", ctx_area_nk200: Optional[str] = ""
-    ) -> Dict[str, Dict]:
-        """해외 주식 잔고 [v1_해외주식-006]
+    # def _get_oversea_balance(
+    #     self, ctx_area_fk200: Optional[str] = "", ctx_area_nk200: Optional[str] = ""
+    # ) -> Dict[str, Dict]:
+    #     """해외 주식 잔고 [v1_해외주식-006]
+    #
+    #     실전계좌의 경우, 한 번의 호출에 최대 100건까지 확인 가능하며, 이후의 값은 연속조회를 통해 확인하실 수 있습니다.
+    #
+    #     Args:
+    #         ctx_area_fk200 (``Optional[str]``): 연속조회검색조건200
+    #         ctx_area_nk200 (``Optional[str]``): 연속조회키200
+    #
+    #     Returns:
+    #         ``Dict[str, Dict]``: 잔고 조회 결과
+    #     """
+    #     path = "uapi/overseas-stock/v1/trading/inquire-balance"
+    #     url = f"{self.base_url}/{path}"
+    #     headers = {
+    #         "content-type": "application/json",
+    #         "authorization": self.access_token,
+    #         "appKey": self.api_key,
+    #         "appSecret": self.api_secret,
+    #         "tr_id": "JTTT3012R",  # TTTS3012R
+    #     }
+    #     params = {
+    #         "CANO": self.account_no_prefix,
+    #         "ACNT_PRDT_CD": self.account_no_postfix,
+    #         "OVRS_EXCG_CD": "NASD",
+    #         "TR_CRCY_CD": "USD",
+    #         "CTX_AREA_FK200": ctx_area_fk200,
+    #         "CTX_AREA_NK200": ctx_area_nk200,
+    #     }
+    #     response = requests.get(url, headers=headers, params=params, timeout=10)
+    #     data = response.json()
+    #     data["tr_cont"] = response.headers["tr_cont"]
+    #     return data
 
-        실전계좌의 경우, 한 번의 호출에 최대 100건까지 확인 가능하며, 이후의 값은 연속조회를 통해 확인하실 수 있습니다.
-
-        Args:
-            ctx_area_fk200 (``Optional[str]``): 연속조회검색조건200
-            ctx_area_nk200 (``Optional[str]``): 연속조회키200
+    def _get_oversea_balance(self) -> Dict[str, Dict]:
+        """해외 주식 체결기준현재잔고[v1_해외주식-008]
 
         Returns:
             ``Dict[str, Dict]``: 잔고 조회 결과
         """
-        path = "uapi/overseas-stock/v1/trading/inquire-balance"
+        path = "uapi/overseas-stock/v1/trading/inquire-present-balance"
         url = f"{self.base_url}/{path}"
         headers = {
             "content-type": "application/json",
             "authorization": self.access_token,
             "appKey": self.api_key,
             "appSecret": self.api_secret,
-            "tr_id": "JTTT3012R",  # TTTS3012R
+            "tr_id": "CTRP6504R",
         }
         params = {
             "CANO": self.account_no_prefix,
             "ACNT_PRDT_CD": self.account_no_postfix,
-            "OVRS_EXCG_CD": "NASD",
-            "TR_CRCY_CD": "USD",
-            "CTX_AREA_FK200": ctx_area_fk200,
-            "CTX_AREA_NK200": ctx_area_nk200,
+            "WCRC_FRCR_DVSN_CD": "02",
+            "NATN_CD": "840",
+            "TR_MKET_CD": "00",
+            "INQR_DVSN_CD": "00",
         }
         response = requests.get(url, headers=headers, params=params, timeout=10)
         data = response.json()
-        data["tr_cont"] = response.headers["tr_cont"]
         return data
 
     def get_conclusion(self):

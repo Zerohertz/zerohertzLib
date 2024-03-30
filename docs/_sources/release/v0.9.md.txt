@@ -1,5 +1,30 @@
 # v0.9
 
+## v0.9.8
+
+<h3>[v0.9.8] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/264>#264</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/03/30
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/api"><img src="https://img.shields.io/badge/feat/api-541B9A?style=flat-square&logo=github" alt="feat/api"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/quant"><img src="https://img.shields.io/badge/feat/quant-ededed?style=flat-square&logo=github" alt="feat/quant"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `api`
+  + `KoreaInvestment._get_oversea_balance()` 실행 시 현재 잔고를 가져오기 위해 사용 API 변경
++ `quant`
+  + `Balance.pie()` 실행 시 현금이 잔고인 예외 추가
+  + `Balance` class의 해외 잔고 API 변경에 따른 refactoring
+
 ## v0.9.7
 
 <h3>[v0.9.7] Docs Update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/262>#262</a>)</h3>

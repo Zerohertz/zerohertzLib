@@ -28,6 +28,7 @@ import time
 import traceback
 from abc import ABC, abstractmethod
 from collections import defaultdict
+from datetime import datetime, timedelta
 from itertools import combinations
 from typing import Any, Dict, ItemsView, List, Optional, Tuple, Union
 
@@ -312,7 +313,7 @@ class Balance(KoreaInvestment):
         response = self.get_balance(kor)
         if self.kor:
             for stock in response["output1"]:
-                if int(stock["hldg_qty"]) > 0:
+                if int(stock["hldg_qty"]) > 0:  # 보유수량
                     self.symbols.append(stock["prdt_name"])
                     self.balance["stock"][stock["prdt_name"]] = [
                         stock["pdno"],  # 종목번호
@@ -329,21 +330,19 @@ class Balance(KoreaInvestment):
             self.balance["cash"] = int(response["output2"][0]["nass_amt"])  # 순자산금액
         else:
             for stock in response["output1"]:
-                if int(stock["ovrs_cblc_qty"]) > 0:
-                    self.symbols.append(stock["ovrs_item_name"])
-                    self.balance["stock"][stock["ovrs_item_name"]] = [
-                        stock["ovrs_pdno"],  # 종목번호
-                        float(
-                            stock["pchs_avg_pric"]
-                        ),  # 매입평균가격 (매입금액 / 보유수량)
-                        float(stock["now_pric2"]),  # 현재가
-                        int(stock["ovrs_cblc_qty"]),  # 해외잔고수량
-                        float(stock["evlu_pfls_rt"]),  # 평가손익율
-                        float(stock["frcr_evlu_pfls_amt"]),  # 외화평가손익금액
+                if int(float(stock["ccld_qty_smtl1"])) > 0:  # 체결수량합계
+                    self.symbols.append(stock["prdt_name"])
+                    self.balance["stock"][stock["prdt_name"]] = [
+                        stock["pdno"],  # 종목번호
+                        float(stock["avg_unpr3"]),  # 평균단가
+                        float(stock["ovrs_now_pric1"]),  # 해외현재가격
+                        int(float(stock["ccld_qty_smtl1"])),  # 해외잔고수량
+                        float(stock["evlu_pfls_rt1"]),  # 평가손익율
+                        float(stock["evlu_pfls_amt2"]),  # 평가손익금액
                     ]
-            self.balance["cash"] = float(
-                response["output2"]["tot_evlu_pfls_amt"]
-            )  # 총평가손익금액
+            self.balance["cash"] = (
+                int(response["output3"]["tot_asst_amt"]) / self._exchange()
+            )  # 총자산금액
         self.balance["stock"] = dict(
             sorted(
                 self.balance["stock"].items(),
@@ -363,6 +362,16 @@ class Balance(KoreaInvestment):
 
     def __call__(self) -> int:
         return self.balance["cash"]
+
+    def _exchange(self) -> float:
+        """USD/KRW의 현재 시세
+
+        Returns:
+            ``float``: USD/KRW의 현재 시세
+        """
+        now = datetime.now()
+        data = fdr.DataReader("USD/KRW", now - timedelta(days=10))
+        return data.Close[-1]
 
     def items(self) -> ItemsView[str, List[Union[int, float, str]]]:
         """보유 주식의 반복문 사용을 위한 method
@@ -472,7 +481,8 @@ class Balance(KoreaInvestment):
         for name, value in self.items():
             _, purchase, _, quantity, _, _ = value
             data[f"{name}"] = purchase * quantity
-        data["Cash"] = self() - sum(data.values())
+        cash = self() - sum(data.values())
+        data["Cash"] = max(data["Cash"], cash)
         return pie(data, dim, title="Portfolio", dpi=100, int_label=self.kor)
 
 
