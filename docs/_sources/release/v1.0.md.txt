@@ -1,0 +1,35 @@
+# v1.0
+
+## v1.0.0
+
+<h3>[v1.0.0] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/268>#268</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/04/01
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/monitoring"><img src="https://img.shields.io/badge/feat/monitoring-31395C?style=flat-square&logo=github" alt="feat/monitoring"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/vision"><img src="https://img.shields.io/badge/feat/vision-D1F9CB?style=flat-square&logo=github" alt="feat/vision"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:style"><img src="https://img.shields.io/badge/style-03A17F?style=flat-square&logo=github" alt="style"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/quant"><img src="https://img.shields.io/badge/feat/quant-ededed?style=flat-square&logo=github" alt="feat/quant"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `monitoring`
+  + `gpu_usages` 및 `gpu_memory` 함수 사용 시 GPU를 선택할 수 있는 `grep` 변수 추가
++ `quant`
+  + `Balance.table` method 내 `ZeroDivisionError` 해결
++ `vision`
+  + `evaluation` 함수 내 `ZeroDivisionError` 해결
+
+<h4>Style</h4>
+
++ 잘못되거나 누락된 type hint와 docstring 수정
+
