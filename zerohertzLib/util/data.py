@@ -38,7 +38,7 @@ def rmtree(path: str) -> None:
     """지정한 경로의 file을 삭제하고 다시 생성하는 함수
 
     Args:
-        path (``Optional[str]``): 삭제 후 생성할 경로
+        path (``str``): 삭제 후 생성할 경로
 
     Returns:
         ``None``
@@ -103,7 +103,7 @@ class MakeData(ABC):
         """Data 구축 시 filtering 될 조건
 
         Args:
-            json_instance (``zerohertzLib.util.Json``): ``Json`` instance의 정보
+            json_instance (``zerohertzLib.util.Json``): ``Json`` instance
 
         Returns:
             ``bool``: Data 포함 여부
@@ -185,7 +185,7 @@ class MakeData(ABC):
         """Data 구축 방법 정의
 
         Args:
-            json_instance (``zerohertzLib.util.Json``): ``Json`` instance의 정보
+            json_instance (``zerohertzLib.util.Json``): ``Json`` instance
             data_name (``str``): ``json_key`` 에 의해 출력된 data의 이름
 
         Returns:
@@ -255,7 +255,7 @@ def find_ext(path: Optional[str] = "") -> Dict[str, int]:
     return exts
 
 
-def sort_dict(target: Dict, order: Optional[List] = None):
+def sort_dict(target: Dict, order: Optional[List] = None) -> Dict:
     """Dictionary를 순서에 맞춰 재배열하는 함수
 
     Args:

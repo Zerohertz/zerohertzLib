@@ -50,7 +50,7 @@ def savefig(title: str, dpi: Optional[int] = 300) -> str:
 
     Args:
         title (``str``): Graph file 이름
-        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``str``: 저장된 graph의 절대 경로
@@ -83,7 +83,7 @@ def color(
         palette (``Optional[str]``): 추출할 색들의 palette
 
     Returns:
-        ``Union[Tuple[float], List[Tuple[List]]]``: 단일 색 또는 list로 구성된 여러 색
+        ``Union[Tuple[float], List[int], List[Tuple[float]], List[List[int]]]``: 단일 색 또는 list로 구성된 여러 색
 
     Examples:
         >>> zz.plot.color()
@@ -120,7 +120,7 @@ def color(
     return sns.color_palette(palette, n_colors=cnt)
 
 
-def _color(data: Any, colors: Union[str, List]):
+def _color(data: Any, colors: Any) -> List[Union[Tuple[float], str]]:
     if isinstance(colors, list):
         if len(data) > len(colors):
             return colors + ["black" for _ in range(len(data) - len(colors))]

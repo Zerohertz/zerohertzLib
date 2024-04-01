@@ -301,7 +301,7 @@ def text(
     Args:
         img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
         box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): 문자열이 존재할 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
-        txt (``str``): Image에 추가할 문자열
+        txt (``Union[str, List[str]]``): Image에 추가할 문자열
         color (``Optional[Tuple[int]]``): 문자의 색
         vis (``Optional[bool]``): 문자 영역의 시각화 여부
         fontsize (``Optional[int]``): 문자의 크기

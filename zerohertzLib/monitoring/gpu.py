@@ -25,12 +25,12 @@ SOFTWARE.
 import subprocess
 import time
 from collections import defaultdict
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 from zerohertzLib.plot import plot
 
 
-def _get_gpu_usages():
+def _get_gpu_usages() -> List[float]:
     result = subprocess.check_output(
         ["nvidia-smi", "--query-gpu=utilization.gpu", "--format=csv,nounits,noheader"],
         encoding="utf-8",
@@ -91,7 +91,7 @@ def gpu_usages(
             break
 
 
-def _get_gpu_memory():
+def _get_gpu_memory() -> List[Tuple[float]]:
     result = subprocess.check_output(
         [
             "nvidia-smi",

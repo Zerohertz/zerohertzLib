@@ -42,10 +42,10 @@ def cpu(
 
     Args:
         tick (``Optional[int]``): Update 주기
-        threshold: (``Optional[int]``): 시각화할 총 시간
-        path (``str``): Graph를 저장할 경로
-        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
-        per: (``Optional[bool]``): CPU 개별 사용량 시각화 여부
+        threshold (``Optional[int]``): 시각화할 총 시간
+        path (``Optional[str]``): Graph를 저장할 경로
+        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        per (``Optional[bool]``): CPU 개별 사용량 시각화 여부
 
     Returns:
         ``None``: 지정한 경로에 바로 graph 저장

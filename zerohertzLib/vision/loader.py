@@ -290,7 +290,13 @@ class YoloLoader:
                 img = bbox(img, box, self.class_color[cls])
         cv2.imwrite(os.path.join(self.vis_path, file_name), img)
 
-    def _value(self, img, obj, labels, cls):
+    def _value(
+        self,
+        img: NDArray[np.uint8],
+        obj: NDArray[DTypeLike],
+        labels: List[str],
+        cls: int,
+    ):
         original_height, original_width = img.shape[:2]
         obj *= 100
         if self.poly:
@@ -328,7 +334,7 @@ class YoloLoader:
             "origin": "manual",
         }
 
-    def _annotation(self, args) -> Dict[str, Any]:
+    def _annotation(self, args: List[int, str, List[str]]) -> Dict[str, Any]:
         idx, directory, labels = args
         img, class_list, objects = self[idx]
         data_path = self.data_paths[idx]
@@ -395,8 +401,8 @@ class CocoLoader:
 
             Args:
                 idx (``int``): 입력 index
-                read (``bool``): Image 읽음 여부
-                int_class (``bool``): 출력될 class의 type 지정
+                read (``Optional[bool]``): Image 읽음 여부
+                int_class (``Optional[bool]``): 출력될 class의 type 지정
 
             Returns:
                 ``Tuple[Union[str, NDArray[np.uint8]], List[Union[int, str]], NDArray[DTypeLike]]``: Image 경로 혹은 읽어온 image와 그에 따른 ``classes`` 및 ``bboxes``
@@ -467,7 +473,7 @@ class CocoLoader:
         return len(self.images)
 
     def __call__(
-        self, idx: int, read: bool = False, int_class: bool = False
+        self, idx: int, read: Optional[bool] = False, int_class: Optional[bool] = False
     ) -> Tuple[
         Union[str, NDArray[np.uint8]], List[Union[int, str]], NDArray[DTypeLike]
     ]:

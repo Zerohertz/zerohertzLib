@@ -48,11 +48,11 @@ def plot(
     dpi: Optional[int] = 300,
     save: Optional[bool] = True,
 ) -> str:
-    """List와 Dictionary로 입력받은 데이터를 line chart로 시각화
+    """List와 Dictionary로 입력받은 data를 line chart로 시각화
 
     Args:
-        xdata (``List[Union[int, float]]``): 입력 데이터 (X축)
-        ydata (``Dict[str, List[Union[int, float]]]``): 입력 데이터 (Y축)
+        xdata (``List[Union[int, float]]``): 입력 data (X축)
+        ydata (``Dict[str, List[Union[int, float]]]``): 입력 data (Y축)
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
         xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
@@ -63,7 +63,7 @@ def plot(
         colors (``Optional[Union[str, List]]``): 각 요소의 색
         markersize (``Optional[int]``): Graph에 표시될 marker의 size
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
-        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
@@ -159,7 +159,7 @@ def candle(
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         signals (``Optional[Dict[str, Any]]``): 추가적으로 plot할 data
         threshold (``Optional[Union[int, Tuple[int]]]``): 매수, 매도를 결정할 ``signals`` 경계값
-        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         save (``Optional[bool]``): Graph 저장 여부
 
     Returns:

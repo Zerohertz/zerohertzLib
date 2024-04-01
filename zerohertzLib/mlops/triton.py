@@ -46,7 +46,7 @@ class TritonClientURL:
     Args:
         url (``str``): 호출할 triton inference server의 URL
         model_name(``str``): 호출할 triton inference server 내 model의 이름
-        port (``Optional[int]``): triton inference server의 GRPC 통신 port 번호
+        port (``Optional[int]``): triton inference server의 gRPC 통신 port 번호
 
     Attributes:
         inputs (``List[Dict[str, Any]]``): 지정된 model의 입력
@@ -119,7 +119,7 @@ class TritonClientK8s(TritonClientURL):
         svc_name (``str``): 호출할 triton inference server의 Kubernetes service의 이름
         namespace (``str``): 호출할 triton inference server의 namespace
         model_name(``str``): 호출할 triton inference server 내 model의 이름
-        port (``Optional[int]``): triton inference server의 GRPC 통신 port 번호
+        port (``Optional[int]``): triton inference server의 gRPC 통신 port 번호
 
     Attributes:
         inputs (``List[Dict[str, Any]]``): 지정된 model의 입력
@@ -216,12 +216,12 @@ class BaseTritonPythonModel(ABC):
                 ====================================================================================================
     """
 
-    def initialize(self, args: Dict[str, Any], level: int = 20) -> None:
+    def initialize(self, args: Dict[str, Any], level: Optional[int] = 20) -> None:
         """Triton Inference Server 시작 시 수행되는 method
 
         Args:
             args (``Dict[str, Any]``): ``config.pbtxt`` 에 포함된 model의 정보
-            level (``int``): Logger의 level
+            level (``Optional[int]``): Logger의 level
         """
         self.cfg = json.loads(args["model_config"])
         self.logger = Logger(self.cfg["name"].upper(), level)

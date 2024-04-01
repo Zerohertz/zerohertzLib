@@ -51,7 +51,7 @@ def img2gif(
     Args:
         path (``str``): GIF로 변환할 image들이 존재하는 경로
         file_name (``Optional[str]``): 출력될 GIF file 이름
-        duration: (``Optional[int]``): ms 단위의 사진 간 간격
+        duration (``Optional[int]``): ms 단위의 사진 간 간격
 
     Returns:
         ``None``: 현재 directory에 바로 GIF 저장
@@ -93,9 +93,9 @@ def vid2gif(
     Args:
         path (``str``): GIF로 변환할 동영상이 존재하는 경로
         file_name (``Optional[str]``): 출력될 GIF file 이름
-        quality: (``Optional[int]``): 출력될 GIF의 품질
-        fps: (``Optional[int]``): 출력될 GIF의 FPS (Frames Per Second)
-        speed: (``Optional[float]``): 출력될 GIF의 배속
+        quality (``Optional[int]``): 출력될 GIF의 품질
+        fps (``Optional[int]``): 출력될 GIF의 FPS (Frames Per Second)
+        speed (``Optional[float]``): 출력될 GIF의 배속
 
     Returns:
         ``None``: 현재 directory에 바로 GIF 저장

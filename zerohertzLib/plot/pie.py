@@ -39,16 +39,16 @@ def pie(
     dpi: Optional[int] = 300,
     save: Optional[bool] = True,
 ) -> str:
-    """Dictionary로 입력받은 데이터를 pie chart로 시각화
+    """Dictionary로 입력받은 data를 pie chart로 시각화
 
     Args:
-        data (``Dict[str, Union[int, float]]``): 입력 데이터
-        dim: (``Optional[str]``): 입력 ``data`` 의 단위
+        data (``Dict[str, Union[int, float]]``): 입력 data
+        dim (``Optional[str]``): 입력 ``data`` 의 단위
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
         colors (``Optional[Union[str, List]]``): 각 요소의 색
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
-        int_label: (``Optional[bool]``): Label 내 수치의 소수점 표기 여부
-        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        int_label (``Optional[bool]``): Label 내 수치의 소수점 표기 여부
+        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         save (``Optional[bool]``): Graph 저장 여부
 
     Returns:

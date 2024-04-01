@@ -46,7 +46,7 @@ def storage(path: Optional[str] = ".", threshold: Optional[int] = 1) -> str:
 
     Args:
         path (``Optional[str]``): 용량을 시각화할 경로
-        threshold: (``Optional[int]``): Etc.로 분류될 임계값 (단위: %)
+        threshold (``Optional[int]``): Etc.로 분류될 임계값 (단위: %)
 
     Returns:
         ``str``: 저장된 graph의 절대 경로

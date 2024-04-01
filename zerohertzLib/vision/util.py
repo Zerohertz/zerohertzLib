@@ -54,7 +54,7 @@ def _is_bbox(shape: Tuple[int]) -> Tuple[bool]:
         shape (``Tuple[int]``): Bbox의 `shape`
 
     Returns:
-        ``bool``: 복수의 bbox 여부 및 format의 정보
+        ``Tuple[bool]``: 복수의 bbox 여부 및 format의 정보
     """
     if len(shape) == 1 and shape[0] == 4:
         # [cx, cy, w, h] or N * [x0, y0, x1, y1]
@@ -92,7 +92,7 @@ def is_pts_in_poly(
         pts (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): point (``[2]`` or ``[N, 2]``)
 
     Returns:
-        ``Union[bool, NDArray[DTypeLike]]``: 입력 ``point`` 의 다각형 ``poly`` 내부 존재 여부
+        ``Union[bool, NDArray[bool]]``: 입력 ``point`` 의 다각형 ``poly`` 내부 존재 여부
 
     Examples:
         >>> poly = np.array([[10, 10], [20, 10], [30, 40], [20, 60], [10, 20]])

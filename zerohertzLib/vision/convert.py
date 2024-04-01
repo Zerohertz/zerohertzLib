@@ -23,7 +23,7 @@ SOFTWARE.
 """
 
 import base64
-from typing import Any, List, Tuple, Union
+from typing import List, Optional, Tuple, Union
 
 import cv2
 import numpy as np
@@ -33,7 +33,9 @@ from numpy.typing import DTypeLike, NDArray
 from .util import _is_bbox
 
 
-def _list2np(box: List[Any]) -> NDArray[DTypeLike]:
+def _list2np(
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]]
+) -> NDArray[DTypeLike]:
     if isinstance(box, list):
         return np.array(box)
     return box
@@ -363,12 +365,12 @@ def poly2ratio(poly: Union[List[Union[int, float]], NDArray[DTypeLike]]) -> floa
     return poly_area / bbox_area
 
 
-def encode(img: NDArray[np.uint8], ext: str = "png") -> str:
+def encode(img: NDArray[np.uint8], ext: Optional[str] = "png") -> str:
     """Base64 encoding
 
     Args:
         img (``NDArray[np.uint8]``): ``cv2.imread``로 읽어온 image
-        ext (``str``): 출력 파일의 확장자
+        ext (``Optional[str]``): 출력 파일의 확장자
 
     Returns:
         ``str``: Base64 encoding된 문자열

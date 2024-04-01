@@ -97,7 +97,7 @@ def floyd_warshall(graph: List[List[Tuple[int, int]]]) -> List[List[int]]:
         graph (``List[List[Tuple[int, int]]]``): Index (간선의 시작 node)에 따른 간선의 도착 node와 가중치 정보
 
     Returns:
-        ``List[int]``: 모든 node 쌍에 대한 최단 경로 거리 (음의 cycle을 가질 시 ``None`` return)
+        ``List[List[int]]``: 모든 node 쌍에 대한 최단 경로 거리 (음의 cycle을 가질 시 ``None`` return)
 
     Examples:
         >>> graph = [[(1, 4), (2, 2), (3, 7)], [(0, 1), (2, 5)], [(0, 2), (3, 4)], [(1, 3)]]

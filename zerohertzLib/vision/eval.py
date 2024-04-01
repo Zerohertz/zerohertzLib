@@ -130,6 +130,7 @@ def evaluation(
         confidences (``List[float]``): Model이 추론한 각 object들의 confidence(``[M]``)
         gt_classes (``Optional[List[str]]``): Ground truth object들의 class (``[N]``)
         inf_classes (``Optional[List[str]]``): Model이 추론한 각 object들의 class (``[M]``)
+        file_name (``Optional[str]``): 평가 image의 이름
         threshold (``Optional[float]``): IoU의 threshold
 
     Note:

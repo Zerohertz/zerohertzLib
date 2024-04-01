@@ -89,7 +89,7 @@ class OpenAI(openai.OpenAI):
         prompt: Optional[str] = None,
         model: Optional[str] = "gpt4",
         stream: Optional[bool] = False,
-    ):
+    ) -> str:
         if prompt is None:
             messages = [{"role": "user", "content": message}]
         else:

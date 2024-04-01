@@ -53,7 +53,7 @@ class Quant(Experiments):
         ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
         top (``Optional[int]``): Experiment 과정에서 사용할 각 전략별 수
         methods (``Optional[Dict[str, List[List[Any]]]]``): 사용할 전략들의 함수명 및 parameters
-        report: (``Optional[bool]``): Experiment 결과 출력 여부
+        report (``Optional[bool]``): Experiment 결과 출력 여부
 
     Attributes:
         signals (``pd.DataFrame``): 융합된 전략의 signal
@@ -70,7 +70,7 @@ class Quant(Experiments):
         exps_str (``Dict[str, List[str]]``): 각 전략에 따른 이익이 존재하는 paramter 문자열
 
     Methods:
-        __getitem__:
+        __call__:
             입력된 날짜에 대해 분석 정보 return
 
             Args:
@@ -506,7 +506,7 @@ class QuantSlackBot(ABC, SlackBot):
         ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
         top (``Optional[int]``): Experiment 과정에서 사용할 각 전략별 수
         methods (``Optional[Dict[str, List[List[Any]]]]``): 사용할 전략들의 함수명 및 parameters
-        report: (``Optional[bool]``): Experiment 결과 출력 여부
+        report (``Optional[bool]``): Experiment 결과 출력 여부
         token (``Optional[str]``): Slack Bot의 token
         channel (``Optional[str]``): Slack Bot이 전송할 channel
         name (``Optional[str]``): Slack Bot의 표시될 이름
@@ -869,7 +869,7 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
         ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
         top (``Optional[int]``): Experiment 과정에서 사용할 각 전략별 수
         methods (``Optional[Dict[str, List[List[Any]]]]``): 사용할 전략들의 함수명 및 parameters
-        report: (``Optional[bool]``): Experiment 결과 출력 여부
+        report (``Optional[bool]``): Experiment 결과 출력 여부
         token (``Optional[str]``): Slack Bot의 token
         channel (``Optional[str]``): Slack Bot이 전송할 channel
         name (``Optional[str]``): Slack Bot의 표시될 이름
@@ -955,7 +955,7 @@ class QuantSlackBotFDR(QuantSlackBot):
         ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
         top (``Optional[int]``): Experiment 과정에서 사용할 각 전략별 수
         methods (``Optional[Dict[str, List[List[Any]]]]``): 사용할 전략들의 함수명 및 parameters
-        report: (``Optional[bool]``): Experiment 결과 출력 여부
+        report (``Optional[bool]``): Experiment 결과 출력 여부
         token (``Optional[str]``): Slack Bot의 token
         channel (``Optional[str]``): Slack Bot이 전송할 channel
         name (``Optional[str]``): Slack Bot의 표시될 이름
