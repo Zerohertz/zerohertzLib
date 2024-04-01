@@ -25,7 +25,7 @@ SOFTWARE.
 import subprocess
 import time
 from collections import defaultdict
-from typing import Optional
+from typing import List, Optional
 
 from zerohertzLib.plot import plot
 
@@ -42,6 +42,7 @@ def _get_gpu_usages():
 def gpu_usages(
     tick: Optional[int] = 1,
     threshold: Optional[int] = 10,
+    grep: Optional[List[int]] = None,
     path: Optional[str] = "GPU Usages",
     dpi: Optional[int] = 100,
 ) -> None:
@@ -49,9 +50,10 @@ def gpu_usages(
 
     Args:
         tick (``Optional[int]``): Update 주기
-        threshold: (``Optional[int]``): 시각화할 총 시간
-        path (``str``): Graph를 저장할 경로
-        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        threshold (``Optional[int]``): 시각화할 총 시간
+        grep (``Optional[List[int]]``): 시각화할 GPU의 번호
+        path (``Optional[str]``): Graph를 저장할 경로
+        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``None``: 지정한 경로에 바로 graph 저장
@@ -70,7 +72,8 @@ def gpu_usages(
         time_list.append(tmp)
         gpu_usages_list = _get_gpu_usages()
         for num, gpu_usage in enumerate(gpu_usages_list):
-            data[f"GPU {num}"].append(gpu_usage)
+            if grep is None or num in grep:
+                data[f"GPU {num}"].append(gpu_usage)
         plot(
             time_list,
             data,
@@ -108,6 +111,7 @@ def _get_gpu_memory():
 def gpu_memory(
     tick: Optional[int] = 1,
     threshold: Optional[int] = 10,
+    grep: Optional[List[int]] = None,
     path: Optional[str] = "GPU Memory",
     dpi: Optional[int] = 100,
 ) -> None:
@@ -115,9 +119,10 @@ def gpu_memory(
 
     Args:
         tick (``Optional[int]``): Update 주기
-        threshold: (``Optional[int]``): 시각화할 총 시간
-        path (``str``): Graph를 저장할 경로
-        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        threshold (``Optional[int]``): 시각화할 총 시간
+        grep (``Optional[List[int]]``): 시각화할 GPU의 번호
+        path (``Optional[str]``): Graph를 저장할 경로
+        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``None``: 지정한 경로에 바로 graph 저장
@@ -137,8 +142,9 @@ def gpu_memory(
         time_list.append(tmp)
         gpu_usages_list = _get_gpu_memory()
         for num, (gpu_memory_usage, gpu_memory_total) in enumerate(gpu_usages_list):
-            gpu_memory_max = max(gpu_memory_total / 1024, gpu_memory_max)
-            data[f"GPU {num}"].append(gpu_memory_usage / 1024)
+            if grep is None or num in grep:
+                gpu_memory_max = max(gpu_memory_total / 1024, gpu_memory_max)
+                data[f"GPU {num}"].append(gpu_memory_usage / 1024)
         plot(
             time_list,
             data,
