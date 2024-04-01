@@ -127,7 +127,7 @@ class GitHub:
         # closed_at: Issue 또는 PR이 종료된 시점           2023-11-16T07:48:51Z
         return results
 
-    def _parse_version(self, title):
+    def _parse_version(self, title: str) -> str:
         version = re.findall(r"\[(.*?)\]", title)
         assert len(version) == 1
         return version[0]
@@ -142,7 +142,7 @@ class GitHub:
             f"""<a href="https://github.com/{self.user}/{self.repo}/issues/{issue}">#{issue}</a>""",
         )
 
-    def _shield_icon(self, tag: str, color: str, href: str):
+    def _shield_icon(self, tag: str, color: str, href: str) -> str:
         return f"""<a href="{href}"><img src="https://img.shields.io/badge/{tag}-{color}?style=flat-square&logo=github" alt="{tag}"/></a>\n"""
 
     def _labels_markdown(self, labels: List[Dict[str, Any]]) -> str:

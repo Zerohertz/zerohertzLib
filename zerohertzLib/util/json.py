@@ -51,7 +51,7 @@ class Json:
             읽어온 JSON file에 key 값 입력
 
             Args:
-                key (``str``): 읽어온 JSON file에서 불러올 key 값
+                key (``Union[int, str]``): 읽어온 JSON file에서 불러올 key 값
 
             Returns:
                 ``Any``: Key에 따른 value 값
@@ -106,7 +106,9 @@ class Json:
     def __getitem__(self, key: Union[int, str]) -> Any:
         return self.data[key]
 
-    def __get_keys(self, data: Any, key: str = "", front: str = "") -> None:
+    def __get_keys(
+        self, data: Any, key: Optional[str] = "", front: Optional[str] = ""
+    ) -> None:
         if isinstance(data, dict):
             for idx, (key_, val_) in enumerate(data.items()):
                 if idx + 1 == len(data):
@@ -302,7 +304,7 @@ class JsonDir:
         self[0].tree()
 
     def unique(self, key: str) -> Set[str]:
-        """읽어온 JSON 데이터들의 유일한 값을 return하는 method
+        """읽어온 JSON data들의 유일한 값을 return하는 method
 
         Args:
             key (``str``): 읽어온 JSON file에서 불러올 key 값
@@ -328,7 +330,7 @@ def write_json(data: Union[Dict[Any, Any], List[Dict[Any, Any]]], path: str) -> 
     """JSON (JavaScript Object Notation)을 작성하는 함수
 
     Args:
-        data (``Dict[Any, Any]``): 입력 데이터 (header 포함 무관)
+        data (``Union[Dict[Any, Any], List[Dict[Any, Any]]]``): 입력 data (header 포함 무관)
         path (``str``): 출력될 JSON file의 경로 및 이름
 
     Returns:

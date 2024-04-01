@@ -130,6 +130,7 @@ def evaluation(
         confidences (``List[float]``): Model이 추론한 각 object들의 confidence(``[M]``)
         gt_classes (``Optional[List[str]]``): Ground truth object들의 class (``[N]``)
         inf_classes (``Optional[List[str]]``): Model이 추론한 각 object들의 class (``[M]``)
+        file_name (``Optional[str]``): 평가 image의 이름
         threshold (``Optional[float]``): IoU의 threshold
 
     Note:
@@ -262,8 +263,14 @@ def meanap(logs: pd.DataFrame) -> Tuple[float, Dict[str, float]]:
                     & (logs["results"] == "FP")
                 ]
             )
-            precision = true_positive / (true_positive + false_positive)
-            recall = true_positive / gt  # (true_positive + false_negative)
+            if true_positive + false_positive == 0:
+                precision = 0
+            else:
+                precision = true_positive / (true_positive + false_positive)
+            if gt == 0:
+                recall = 0
+            else:
+                recall = true_positive / gt  # (true_positive + false_negative)
             pr_curve[cls].append((recall, precision))
             confidence_per_cls[cls].append(confidence)
             recall_per_cls[cls].append(recall)

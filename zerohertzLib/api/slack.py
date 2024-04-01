@@ -29,7 +29,7 @@ import requests
 
 
 class SlackWebhook:
-    """Slack Webhook의 데이터 전송을 위한 class
+    """Slack Webhook의 data 전송을 위한 class
 
     Args:
         webhook_url (``str``): Slack Webhook의 URL
@@ -102,7 +102,7 @@ class SlackWebhook:
 
 
 class SlackBot:
-    """Slack Bot의 데이터 전송을 위한 class
+    """Slack Bot의 data 전송을 위한 class
 
     .. image:: _static/examples/static/api.SlackBot.scope.png
         :align: center

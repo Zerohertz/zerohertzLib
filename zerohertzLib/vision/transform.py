@@ -167,7 +167,7 @@ def transparent(
     img: NDArray[np.uint8],
     threshold: Optional[int] = 128,
     reverse: Optional[bool] = False,
-):
+) -> NDArray[np.uint8]:
     """입력 image에 대해 ``threshold`` 미만의 pixel들을 투명화
 
     Args:

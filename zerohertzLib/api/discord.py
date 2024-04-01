@@ -30,7 +30,7 @@ import requests
 
 
 class Discord:
-    """Discord Webhook의 데이터 전송을 위한 class
+    """Discord Webhook의 data 전송을 위한 class
 
     Args:
         webhook_url (``str``): Discord Webhook의 URL

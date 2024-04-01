@@ -57,10 +57,10 @@ def before_after(
     Args:
         before (``NDArray[np.uint8]``): 원본 image
         after (``NDArray[np.uint8]``): 영상 처리 혹은 모델 추론 후 image
-        area: (``Optional[List[Union[int, float]]]``): 비교할 좌표 (``[x_0, y_0, x_1, y_1]``)
+        area (``Optional[List[Union[int, float]]]``): 비교할 좌표 (``[x_0, y_0, x_1, y_1]``)
         per (``Optional[bool]``): ``area`` 의 백분율 여부
         quality (``Optional[int]``): 출력 image의 quality (단위: %)
-        file_name: (``Optional[str]``): 저장될 file의 이름
+        file_name (``Optional[str]``): 저장될 file의 이름
 
     Returns:
         ``None``: 현재 directory에 바로 image 저장
@@ -120,9 +120,9 @@ def grid(
 
     Args:
         imgs (``List[NDArray[np.uint8]]``): 입력 image
-        size: (``Optional[int]``): 출력 image의 크기
-        color: (``Optional[Tuple[int]]``): Padding의 색
-        file_name: (``Optional[str]``): 저장될 file의 이름
+        size (``Optional[int]``): 출력 image의 크기
+        color (``Optional[Tuple[int]]``): Padding의 색
+        file_name (``Optional[str]``): 저장될 file의 이름
 
     Returns:
         ``None``: 현재 directory에 바로 image 저장
@@ -158,15 +158,15 @@ def grid(
 
 def vert(
     imgs: List[NDArray[np.uint8]],
-    height: int = 1000,
+    height: Optional[int] = 1000,
     file_name: Optional[str] = "tmp",
 ) -> None:
     """여러 image를 입력받아 한 가로 image로 병합
 
     Args:
         imgs (``List[NDArray[np.uint8]]``): 입력 image
-        height: (``Optional[int]``): 출력 image의 높이
-        file_name: (``Optional[str]``): 저장될 file의 이름
+        height (``Optional[int]``): 출력 image의 높이
+        file_name (``Optional[str]``): 저장될 file의 이름
 
     Returns:
         ``None``: 현재 directory에 바로 image 저장

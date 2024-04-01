@@ -183,7 +183,7 @@ class KoreaInvestment:
 
         Args:
             symbol (``str``): 종목 code
-            kor (``Optional[str]``): 국내 여부
+            kor (``Optional[bool]``): 국내 여부
 
         Returns:
             ``Dict[str, Dict]``: 주식 현재가 시세
@@ -294,7 +294,7 @@ class KoreaInvestment:
         start_day: Optional[str] = "",
         end_day: Optional[str] = "",
         adj_price: Optional[bool] = True,
-    ):
+    ) -> Dict[str, Dict]:
         """국내 주식 기간별 시세 (일/주/월/년) [v1_국내주식-016]
 
         한 번의 호출에 최대 100건까지 확인 가능합니다.
@@ -305,7 +305,6 @@ class KoreaInvestment:
             start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
             end_day (``Optional[str]``): 조회 종료 일자 (``YYYYMMDD``)
             adj_price (``Optional[bool]``): 수정 주가 반영 여부
-            kor (``Optional[str]``): 국내 여부
 
         Returns:
             ``Dict[str, Dict]``: 국내 주식의 기간별 시세
@@ -531,11 +530,11 @@ class KoreaInvestment:
                 print(f"'{symbol}' is not found")
         return title, data
 
-    def get_balance(self, kor: Optional[str] = True) -> Dict[str, Dict]:
+    def get_balance(self, kor: Optional[bool] = True) -> Dict[str, Dict]:
         """주식 계좌 잔고 조회
 
         Args:
-            kor (``Optional[str]``): 국내 여부
+            kor (``Optional[bool]``): 국내 여부
 
         Returns:
             ``Dict[str, Dict]``: 계좌 내역
@@ -682,7 +681,7 @@ class KoreaInvestment:
         data = response.json()
         return data
 
-    def get_conclusion(self):
+    def get_conclusion(self) -> Dict[str, Dict]:
         """주식 계좌 잔고의 국내 실현손익 조회
 
         Returns:

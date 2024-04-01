@@ -43,10 +43,10 @@ def scatter(
     dpi: Optional[int] = 300,
     save: Optional[bool] = True,
 ) -> str:
-    """Dictionary로 입력받은 데이터를 scatter plot으로 시각화
+    """Dictionary로 입력받은 data를 scatter plot으로 시각화
 
     Args:
-        data (``Dict[str, List[List[Union[int, float]]]]``): 입력 데이터
+        data (``Dict[str, List[List[Union[int, float]]]]``): 입력 data
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
         xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
@@ -56,7 +56,7 @@ def scatter(
         colors (``Optional[Union[str, List]]``): 각 요소의 색
         markersize (``Optional[int]``): Graph에 출력될 marker의 크기
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
-        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         save (``Optional[bool]``): Graph 저장 여부
 
     Returns:

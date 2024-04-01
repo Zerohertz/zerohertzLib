@@ -187,8 +187,8 @@ def experiments(
         exps (``List[List[Any]]``): 전략 함수에 입력될 변수들의 범위
         ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
         vis (``Optional[bool]``): Candle chart 시각화 여부
-        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
-        report: (``Optional[bool]``): Experiment 결과 출력 여부
+        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        report (``Optional[bool]``): Experiment 결과 출력 여부
 
     Returns:
         ``Dict[str, List[Any]]``: 손실 거래 비율에 따른 수익률, ``signals``, parameters
@@ -301,7 +301,7 @@ class Experiments:
         data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
         vis (``Optional[bool]``): Candle chart 시각화 여부
-        report: (``Optional[bool]``): Experiment 결과 출력 여부
+        report (``Optional[bool]``): Experiment 결과 출력 여부
 
     Examples:
         >>> experiments = zz.quant.Experiments(title, data)

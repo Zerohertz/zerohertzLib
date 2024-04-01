@@ -37,7 +37,7 @@ def read_csv(
         header (``Optional[bool]``): Header의 존재 유무
 
     Returns:
-        ``Dict[str, List[str]]``: Header의 값을 기반으로 column에 따라 `List` 로 구성
+        ``Dict[Union[int, str], List[str]]``: Header의 값을 기반으로 column에 따라 `List` 로 구성
 
     Note:
         Header가 존재하지 않는 경우 `0` 부터 차례대로 key 값 정의
@@ -80,7 +80,7 @@ def write_csv(data: List[List[Any]], path: str, tsv: Optional[bool] = False) -> 
     """CSV (Comma-Separated Values) 혹은 TSV (Tab-Separated Values)를 작성하는 함수
 
     Args:
-        data (``List[List[Any]]``): 입력 데이터 (header 포함 무관)
+        data (``List[List[Any]]``): 입력 data (header 포함 무관)
         path (``str``): 출력될 CSV 혹은 TSV 경로 및 file 이름
         tsv (``Optional[bool]``): TSV 작성 여부
 

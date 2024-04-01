@@ -25,7 +25,7 @@ SOFTWARE.
 from typing import List
 
 
-def bubble_sort(arr: List[int]):
+def bubble_sort(arr: List[int]) -> List[int]:
     """Bubble Sort Algorithm: 연속된 값들을 비교하여 가장 큰 값을 배열의 끝으로 이동시키는 방식으로 정렬
 
     Args:
@@ -46,7 +46,7 @@ def bubble_sort(arr: List[int]):
     return arr
 
 
-def selection_sort(arr: List[int]):
+def selection_sort(arr: List[int]) -> List[int]:
     """Selection Sort Algorithm: 배열에서 가장 작은 값을 찾아 해당 값을 배열의 앞부분으로 이동시키는 방식으로 정렬
 
     Args:
@@ -68,7 +68,7 @@ def selection_sort(arr: List[int]):
     return arr
 
 
-def insertion_sort(arr: List[int]):
+def insertion_sort(arr: List[int]) -> List[int]:
     """Insertion Sort Algorithm: 각 값들을 이미 정렬된 부분의 올바른 위치에 삽입하는 방식으로 정렬
 
     Args:
@@ -91,7 +91,7 @@ def insertion_sort(arr: List[int]):
     return arr
 
 
-def merge_sort(arr: List[int]):
+def merge_sort(arr: List[int]) -> List[int]:
     """Merge Sort Algorithm: 분할 정복 방법을 사용하여 배열을 절반으로 나누고, 각 부분을 정렬한 다음 합치는 방식으로 정렬
 
     Args:
@@ -130,7 +130,7 @@ def merge_sort(arr: List[int]):
     return arr
 
 
-def quick_sort(arr: List[int]):
+def quick_sort(arr: List[int]) -> List[int]:
     """Quick Sort Algorithm: Pivot을 선택하여 이보다 작은 요소는 왼쪽, 큰 요소는 오른쪽에 위치시키는 방식으로 분할 정복을 사용하여 정렬
 
     Args:
@@ -152,7 +152,7 @@ def quick_sort(arr: List[int]):
     return quick_sort(left) + middle + quick_sort(right)
 
 
-def _heapify(arr: List[int], n: int, i: int):
+def _heapify(arr: List[int], n: int, i: int) -> None:
     """Helper function for Heap Sort: 주어진 node를 root로 하는 subtree를 heap 속성을 만족하도록 재구성
 
     Args:
@@ -172,7 +172,7 @@ def _heapify(arr: List[int], n: int, i: int):
         _heapify(arr, n, largest)
 
 
-def heap_sort(arr: List[int]):
+def heap_sort(arr: List[int]) -> List[int]:
     """Heap Sort Algorithm: 배열 요소들을 heap으로 구성한 다음, 최대 heap 속성을 이용하여 정렬
 
     Args:
@@ -194,7 +194,7 @@ def heap_sort(arr: List[int]):
     return arr
 
 
-def counting_sort(arr: List[int]):
+def counting_sort(arr: List[int]) -> List[int]:
     """Counting Sort Algorithm: 각 숫자의 개수를 세어 정렬
 
     Args:
@@ -219,7 +219,7 @@ def counting_sort(arr: List[int]):
     return arr
 
 
-def _counting_sort_for_radix(arr: List[int], exp: int):
+def _counting_sort_for_radix(arr: List[int], exp: int) -> None:
     """Helper function for Radix Sort: 기수 정렬을 위해 주어진 자릿수 (``exp``)에 따라 각 요소를 정렬
 
     Args:
@@ -244,7 +244,7 @@ def _counting_sort_for_radix(arr: List[int], exp: int):
         arr[i] = output[i]
 
 
-def radix_sort(arr: List[int]):
+def radix_sort(arr: List[int]) -> List[int]:
     """Radix Sort Algorithm: 각 자릿수에 대해 개별적으로 정렬
 
     Args:

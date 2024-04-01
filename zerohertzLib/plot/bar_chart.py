@@ -45,10 +45,10 @@ def barv(
     dpi: Optional[int] = 300,
     save: Optional[bool] = True,
 ) -> str:
-    """Dictionary로 입력받은 데이터를 가로 bar chart로 시각화
+    """Dictionary로 입력받은 data를 가로 bar chart로 시각화
 
     Args:
-        data (``Dict[str, Any]``): 입력 데이터
+        data (``Dict[str, Any]``): 입력 data
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
         xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
@@ -56,9 +56,9 @@ def barv(
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
         colors (``Optional[Union[str, List]]``): 각 요소의 색
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
-        rot: (``Optional[int]``): X축의 눈금 회전 각도
-        per: (``Optional[bool]``): 각 bar 상단에 percentage 표시 여부
-        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        rot (``Optional[int]``): X축의 눈금 회전 각도
+        per (``Optional[bool]``): 각 bar 상단에 percentage 표시 여부
+        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
@@ -155,10 +155,10 @@ def barh(
     dpi: Optional[int] = 300,
     save: Optional[bool] = True,
 ) -> str:
-    """Dictionary로 입력받은 데이터를 세로 bar chart로 시각화
+    """Dictionary로 입력받은 data를 세로 bar chart로 시각화
 
     Args:
-        data (``Dict[str, Any]``): 입력 데이터
+        data (``Dict[str, Any]``): 입력 data
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
         xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
@@ -166,9 +166,9 @@ def barh(
         title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
         colors (``Optional[Union[str, List]]``): 각 요소의 색
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
-        rot: (``Optional[int]``): X축의 눈금 회전 각도
-        per: (``Optional[bool]``): 각 bar 상단에 percentage 표시 여부
-        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        rot (``Optional[int]``): X축의 눈금 회전 각도
+        per (``Optional[bool]``): 각 bar 상단에 percentage 표시 여부
+        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
@@ -262,10 +262,10 @@ def hist(
     dpi: Optional[int] = 300,
     save: Optional[bool] = True,
 ) -> str:
-    """Dictionary로 입력받은 데이터를 histogram으로 시각화
+    """Dictionary로 입력받은 data를 histogram으로 시각화
 
     Args:
-        data (``Dict[str, List[Union[int, float]]]``): 입력 데이터
+        data (``Dict[str, List[Union[int, float]]]``): 입력 data
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
         xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
@@ -275,7 +275,7 @@ def hist(
         cnt (``Optional[int]``): Bin의 개수
         ovp (``Optional[bool]``): Class에 따른 histogram overlap 여부
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
-        dpi: (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
