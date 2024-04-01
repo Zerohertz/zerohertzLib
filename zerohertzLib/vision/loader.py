@@ -334,7 +334,7 @@ class YoloLoader:
             "origin": "manual",
         }
 
-    def _annotation(self, args: List[int, str, List[str]]) -> Dict[str, Any]:
+    def _annotation(self, args: List[Union[int, str, List[str]]]) -> Dict[str, Any]:
         idx, directory, labels = args
         img, class_list, objects = self[idx]
         data_path = self.data_paths[idx]
