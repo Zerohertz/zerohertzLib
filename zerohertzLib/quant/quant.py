@@ -445,12 +445,16 @@ class Balance(KoreaInvestment):
             purchase_total += purchase * quantity
             current_total += current * quantity
         row.append("TOTAL")
+        if purchase_total == 0:
+            pl_percentage = 0
+        else:
+            pl_percentage = (current_total - purchase_total) / purchase_total * 100
         data.append(
             [
                 _cash2str(purchase_total, self.kor),
                 _cash2str(current_total, self.kor),
                 "-",
-                f"{(current_total-purchase_total)/purchase_total*100:.2f}%",
+                f"{pl_percentage:.2f}%",
                 f"{_cash2str(current_total - purchase_total, self.kor)}\n\n{_cash2str(self(), self.kor)}",
             ]
         )
