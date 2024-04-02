@@ -31,7 +31,9 @@ def example_storage():
 # plot.barv.png
 def example_barv():
     data = {"Terran": 27, "Zerg": 40, "Protoss": 30}
-    path = zz.plot.barv(data, xlab="Races", ylab="Population", title="Star Craft")
+    path = zz.plot.barv(
+        data, xlab="Races", ylab="Population", title="Star Craft", dim="m"
+    )
     left = cv2.imread(path)
     data = {
         "xticks": ["Terran", "Zerg", "Protoss"],
@@ -40,7 +42,9 @@ def example_barv():
         "Type C": [8, 5, 12],
         "Type D": [6, 3, 2],
     }
-    path = zz.plot.barv(data, xlab="Races", ylab="Time [sec]", title="Star Craft")
+    path = zz.plot.barv(
+        data, xlab="Races", ylab="Time [sec]", title="Star Craft", dim="%", sign=2
+    )
     right = cv2.imread(path)
     zz.vision.before_after(left, right, file_name=f"{EXAMPLE_PATH}/plot.barv")
 
@@ -48,7 +52,9 @@ def example_barv():
 # plot.barh.png
 def example_barh():
     data = {"Terran": 27, "Zerg": 40, "Protoss": 30}
-    path = zz.plot.barh(data, xlab="Population", ylab="Races", title="Star Craft")
+    path = zz.plot.barh(
+        data, xlab="Population", ylab="Races", title="Star Craft", dim="m"
+    )
     left = cv2.imread(path)
     data = {
         "yticks": ["Terran", "Zerg", "Protoss"],
@@ -57,7 +63,9 @@ def example_barh():
         "Type C": [8, 5, 12],
         "Type D": [6, 3, 2],
     }
-    path = zz.plot.barh(data, xlab="Time [Sec]", ylab="Races", title="Star Craft")
+    path = zz.plot.barh(
+        data, xlab="Time [Sec]", ylab="Races", title="Star Craft", dim="%", sign=2
+    )
     right = cv2.imread(path)
     zz.vision.before_after(left, right, file_name=f"{EXAMPLE_PATH}/plot.barh")
 
