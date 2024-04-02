@@ -477,7 +477,9 @@ class CocoLoader:
     ) -> Tuple[
         Union[str, NDArray[np.uint8]], List[Union[int, str]], NDArray[DTypeLike]
     ]:
-        img_path = os.path.join(self.data_path, self.images[idx]["file_name"])
+        img_path = os.path.join(
+            self.data_path, os.path.basename(self.images[idx]["file_name"])
+        )
         if read:
             img = cv2.imread(img_path)
         else:
