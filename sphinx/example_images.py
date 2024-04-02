@@ -30,9 +30,9 @@ def example_storage():
 
 # plot.barv.png
 def example_barv():
-    data = {"Terran": 27, "Zerg": 40, "Protoss": 30}
+    data = {"Terran": 27, "Zerg": 40, "Protoss": -30}
     path = zz.plot.barv(
-        data, xlab="Races", ylab="Population", title="Star Craft", dim="m"
+        data, xlab="Races", ylab="Population", title="Star Craft", dim=""
     )
     left = cv2.imread(path)
     data = {
@@ -51,9 +51,9 @@ def example_barv():
 
 # plot.barh.png
 def example_barh():
-    data = {"Terran": 27, "Zerg": 40, "Protoss": 30}
+    data = {"Terran": 27, "Zerg": 40, "Protoss": -30}
     path = zz.plot.barh(
-        data, xlab="Population", ylab="Races", title="Star Craft", dim="m"
+        data, xlab="Population", ylab="Races", title="Star Craft", dim=""
     )
     left = cv2.imread(path)
     data = {

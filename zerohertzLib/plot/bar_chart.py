@@ -67,8 +67,8 @@ def barv(
         ``str``: 저장된 graph의 절대 경로
 
     Examples:
-        >>> data = {"Terran": 27, "Zerg": 40, "Protoss": 30}
-        >>> zz.plot.barv(data, xlab="Races", ylab="Population", title="Star Craft", dim="m")
+        >>> data = {"Terran": 27, "Zerg": 40, "Protoss": -30}
+        >>> zz.plot.barv(data, xlab="Races", ylab="Population", title="Star Craft", dim="")
         >>> data = {"xticks": ["Terran", "Zerg", "Protoss"], "Type A": [4, 5, 6], "Type B": [4, 3, 2], "Type C": [8, 5, 12], "Type D": [6, 3, 2]}
         >>> zz.plot.barv(data, xlab="Races", ylab="Time [sec]", title="Star Craft", dim="%", sign=2)
 
@@ -143,14 +143,21 @@ def barv(
                 )
         else:
             maximum = max(list(data.values()))
+            minimum = min(list(data.values()))
             for bar_ in bars:
-                height = bar_.get_height()
+                height = position = bar_.get_height()
+                if height < 0:
+                    position -= (maximum - minimum) * 0.01
+                    va = "top"
+                else:
+                    position += (maximum - minimum) * 0.01
+                    va = "bottom"
                 plt.text(
                     bar_.get_x() + bar_.get_width() / 2,
-                    height + maximum * 0.01,
+                    position,
                     f"{height:.{sign}f}{dim}",
                     ha="center",
-                    va="bottom",
+                    va=va,
                 )
     plt.grid(zorder=0)
     if xlab:
@@ -204,8 +211,8 @@ def barh(
         ``str``: 저장된 graph의 절대 경로
 
     Examples:
-        >>> data = {"Terran": 27, "Zerg": 40, "Protoss": 30}
-        >>> zz.plot.barh(data, xlab="Population", ylab="Races", title="Star Craft", dim="m")
+        >>> data = {"Terran": 27, "Zerg": 40, "Protoss": -30}
+        >>> zz.plot.barh(data, xlab="Population", ylab="Races", title="Star Craft", dim="")
         >>> data = {"yticks": ["Terran", "Zerg", "Protoss"], "Type A": [4, 5, 6], "Type B": [4, 3, 2], "Type C": [8, 5, 12], "Type D": [6, 3, 2]}
         >>> zz.plot.barh(data, xlab="Time [Sec]", ylab="Races", title="Star Craft", dim="%", sign=2)
 
@@ -278,13 +285,20 @@ def barh(
                 )
         else:
             maximum = max(list(data.values()))
+            minimum = min(list(data.values()))
             for bar_ in bars:
-                width = bar_.get_width()
+                width = position = bar_.get_width()
+                if width < 0:
+                    position -= (maximum - minimum) * 0.01
+                    ha = "right"
+                else:
+                    position += (maximum - minimum) * 0.01
+                    ha = "left"
                 plt.text(
-                    width + maximum * 0.01,
+                    position,
                     bar_.get_y() + bar_.get_height() / 2,
                     f"{width:.{sign}f}{dim}",
-                    ha="left",
+                    ha=ha,
                     va="center",
                     rotation=270,
                 )

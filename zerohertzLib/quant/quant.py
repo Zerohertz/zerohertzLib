@@ -782,6 +782,7 @@ class QuantSlackBot(ABC, SlackBot):
         barv(
             dict(sorted(self.miu_cnt.items())),
             title=f"Methods in Use (Avg: {sum(self.miu_cnt.values()) / self.quant_cnt:.2f})",
+            dim="%",
             save=False,
         )
         plt.subplot(2, 2, 2)
@@ -798,6 +799,7 @@ class QuantSlackBot(ABC, SlackBot):
                 ((key, sum(value)) for key, value in sorted(self.methods_cnt.items()))
             ),
             title="Available Methods",
+            dim="%",
             save=False,
         )
         plt.subplot(2, 2, 4)
@@ -816,7 +818,7 @@ class QuantSlackBot(ABC, SlackBot):
             for idx, count in enumerate(cnt):
                 try:
                     plt.subplot(1, len(cnt), idx + 1)
-                    barh(count, title="", save=False)
+                    barh(count, title="", dim="%", save=False)
                 except IndexError:
                     stg = False
                     print(f"'{method}' was not available: {count}")
