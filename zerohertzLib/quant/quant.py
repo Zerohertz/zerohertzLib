@@ -340,11 +340,20 @@ class Balance(KoreaInvestment):
                         float(stock["evlu_pfls_rt1"]),  # 평가손익율
                         float(stock["evlu_pfls_amt2"]),  # 평가손익금액
                     ]
+            # self.balance["cash"] = (
+            #     int(response["output3"]["tot_asst_amt"])  # 총자산금액
+            #     - int(response["output3"]["ustl_sll_amt_smtl"])  # 미결제매도금액합계
+            #     - int(response["output3"]["ustl_buy_amt_smtl"])  # 미결제매수금액합계
+            # ) / self._exchange()
             self.balance["cash"] = (
-                int(response["output3"]["tot_asst_amt"])  # 총자산금액
-                - int(response["output3"]["ustl_sll_amt_smtl"])  # 미결제매도금액합계
-                - int(response["output3"]["ustl_buy_amt_smtl"])  # 미결제매수금액합계
+                float(response["output3"]["evlu_amt_smtl_amt"])  # 평가금액합계금액
+                + float(response["output3"]["frcr_use_psbl_amt"])  # 외화사용가능금액
             ) / self._exchange()
+            # self.balance["cash"] = (
+            #     float(response["output3"]["evlu_amt_smtl"])  # 평가금액합계
+            #     + float(response["output3"]["frcr_use_psbl_amt"])  # 외화사용가능금액
+            #     / self._exchange()
+            # )
         self.balance["stock"] = dict(
             sorted(
                 self.balance["stock"].items(),
@@ -773,6 +782,7 @@ class QuantSlackBot(ABC, SlackBot):
         barv(
             dict(sorted(self.miu_cnt.items())),
             title=f"Methods in Use (Avg: {sum(self.miu_cnt.values()) / self.quant_cnt:.2f})",
+            dim="%",
             save=False,
         )
         plt.subplot(2, 2, 2)
@@ -789,6 +799,7 @@ class QuantSlackBot(ABC, SlackBot):
                 ((key, sum(value)) for key, value in sorted(self.methods_cnt.items()))
             ),
             title="Available Methods",
+            dim="%",
             save=False,
         )
         plt.subplot(2, 2, 4)
@@ -807,7 +818,7 @@ class QuantSlackBot(ABC, SlackBot):
             for idx, count in enumerate(cnt):
                 try:
                     plt.subplot(1, len(cnt), idx + 1)
-                    barh(count, title="", save=False)
+                    barh(count, title="", dim="%", save=False)
                 except IndexError:
                     stg = False
                     print(f"'{method}' was not available: {count}")
