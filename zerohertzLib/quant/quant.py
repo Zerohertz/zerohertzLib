@@ -346,11 +346,11 @@ class Balance(KoreaInvestment):
             #     - int(response["output3"]["ustl_buy_amt_smtl"])  # 미결제매수금액합계
             # ) / self._exchange()
             self.balance["cash"] = (
-                int(response["output3"]["evlu_amt_smtl_amt"])  # 평가금액합계금액
-                - int(response["output3"]["frcr_use_psbl_amt"])  # 외화사용가능금액
+                float(response["output3"]["evlu_amt_smtl_amt"])  # 평가금액합계금액
+                + float(response["output3"]["frcr_use_psbl_amt"])  # 외화사용가능금액
             ) / self._exchange()
-            # (
-            #     int(response["output3"]["evlu_amt_smtl"])  # 평가금액합계
+            # self.balance["cash"] = (
+            #     float(response["output3"]["evlu_amt_smtl"])  # 평가금액합계
             #     + float(response["output3"]["frcr_use_psbl_amt"])  # 외화사용가능금액
             #     / self._exchange()
             # )
