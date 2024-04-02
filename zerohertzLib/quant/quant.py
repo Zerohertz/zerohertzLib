@@ -340,11 +340,20 @@ class Balance(KoreaInvestment):
                         float(stock["evlu_pfls_rt1"]),  # 평가손익율
                         float(stock["evlu_pfls_amt2"]),  # 평가손익금액
                     ]
+            # self.balance["cash"] = (
+            #     int(response["output3"]["tot_asst_amt"])  # 총자산금액
+            #     - int(response["output3"]["ustl_sll_amt_smtl"])  # 미결제매도금액합계
+            #     - int(response["output3"]["ustl_buy_amt_smtl"])  # 미결제매수금액합계
+            # ) / self._exchange()
             self.balance["cash"] = (
-                int(response["output3"]["tot_asst_amt"])  # 총자산금액
-                - int(response["output3"]["ustl_sll_amt_smtl"])  # 미결제매도금액합계
-                - int(response["output3"]["ustl_buy_amt_smtl"])  # 미결제매수금액합계
+                int(response["output3"]["evlu_amt_smtl_amt"])  # 평가금액합계금액
+                - int(response["output3"]["frcr_use_psbl_amt"])  # 외화사용가능금액
             ) / self._exchange()
+            # (
+            #     int(response["output3"]["evlu_amt_smtl"])  # 평가금액합계
+            #     + float(response["output3"]["frcr_use_psbl_amt"])  # 외화사용가능금액
+            #     / self._exchange()
+            # )
         self.balance["stock"] = dict(
             sorted(
                 self.balance["stock"].items(),
