@@ -42,6 +42,7 @@ def barv(
     figsize: Optional[Tuple[int]] = (15, 10),
     rot: Optional[int] = 0,
     dim: Optional[str] = None,
+    dimsize: Optional[float] = 10,
     sign: Optional[int] = 1,
     dpi: Optional[int] = 300,
     save: Optional[bool] = True,
@@ -59,6 +60,7 @@ def barv(
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         rot (``Optional[int]``): X축의 눈금 회전 각도
         dim (``Optional[str]``): 각 bar 상단에 표시될 값의 단위 (``%``: percentage)
+        dimsize (``Optional[float]``): 각 bar 상단에 표시될 값의 크기
         sign (``Optional[int]``): 각 bar 상단에 표시될 값의 유효숫자
         dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         save (``Optional[bool]``): Graph 저장 여부
@@ -106,6 +108,7 @@ def barv(
                     f"{percentage:.{sign}f}%",
                     ha="center",
                     va="bottom",
+                    fontsize=dimsize,
                 )
         else:
             maximum = bottom.max()
@@ -116,6 +119,7 @@ def barv(
                     f"{bot:.{sign}f}{dim}",
                     ha="center",
                     va="bottom",
+                    fontsize=dimsize,
                 )
     else:
         bars = plt.bar(
@@ -140,6 +144,7 @@ def barv(
                     f"{percentage:.{sign}f}%",
                     ha="center",
                     va="bottom",
+                    fontsize=dimsize,
                 )
         else:
             maximum = max(list(data.values()))
@@ -158,6 +163,7 @@ def barv(
                     f"{height:.{sign}f}{dim}",
                     ha="center",
                     va=va,
+                    fontsize=dimsize,
                 )
     plt.grid(zorder=0)
     if xlab:
@@ -186,6 +192,7 @@ def barh(
     figsize: Optional[Tuple[int]] = (10, 15),
     rot: Optional[int] = 0,
     dim: Optional[str] = None,
+    dimsize: Optional[float] = 10,
     sign: Optional[int] = 1,
     dpi: Optional[int] = 300,
     save: Optional[bool] = True,
@@ -203,6 +210,7 @@ def barh(
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         rot (``Optional[int]``): X축의 눈금 회전 각도
         dim (``Optional[str]``): 각 bar 상단에 표시될 값의 단위 (``%``: percentage)
+        dimsize (``Optional[float]``): 각 bar 상단에 표시될 값의 크기
         sign (``Optional[int]``): 각 bar 상단에 표시될 값의 유효숫자
         dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
         save (``Optional[bool]``): Graph 저장 여부
@@ -251,6 +259,7 @@ def barh(
                     ha="left",
                     va="center",
                     rotation=270,
+                    fontsize=dimsize,
                 )
         else:
             maximum = left.max()
@@ -262,6 +271,7 @@ def barh(
                     ha="left",
                     va="center",
                     rotation=270,
+                    fontsize=dimsize,
                 )
     else:
         bars = plt.barh(list(data.keys()), list(data.values()), color=colors, zorder=2)
@@ -282,6 +292,7 @@ def barh(
                     ha="left",
                     va="center",
                     rotation=270,
+                    fontsize=dimsize,
                 )
         else:
             maximum = max(list(data.values()))
@@ -301,6 +312,7 @@ def barh(
                     ha=ha,
                     va="center",
                     rotation=270,
+                    fontsize=dimsize,
                 )
     plt.grid(zorder=0)
     if xlab:
