@@ -27,6 +27,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 import tritonclient.grpc as grpcclient
 from numpy.typing import DTypeLike, NDArray
+from prettytable import PrettyTable
 from tritonclient.utils import triton_to_np_dtype
 
 from zerohertzLib.logging import Logger
@@ -40,76 +41,195 @@ except ImportError:
     pass
 
 
-class TritonClientURL:
+class TritonClientURL(grpcclient.InferenceServerClient):
     """외부에서 실행되는 triton inference server의 호출을 위한 class
 
     Args:
         url (``str``): 호출할 triton inference server의 URL
-        model_name(``str``): 호출할 triton inference server 내 model의 이름
         port (``Optional[int]``): triton inference server의 gRPC 통신 port 번호
-
-    Attributes:
-        inputs (``List[Dict[str, Any]]``): 지정된 model의 입력
-        outputs (``List[Dict[str, Any]]``): 지정된 model의 출력
 
     Methods:
         __call__:
             Model 호출 수행
 
             Args:
-                *args (``NDArray[DTypeLike]``): Model 호출 시 사용될 입력 (``self.inputs``)
+                model (``Union[int, str]``): 호출할 model의 이름
+                *args (``NDArray[DTypeLike]``): Model 호출 시 사용될 입력
 
             Returns:
                 ``Dict[str, NDArray[DTypeLike]]``: 호출된 model의 결과
 
     Examples:
-        >>> tc = zz.mlops.TritonClientURL("localhost", "YOLO")
-        >>> tc.inputs
-        [{'name': 'images', 'data_type': 'TYPE_FP32', 'dims': ['1', '3', '640', '640']}]
-        >>> tc.outputs
-        [{'name': 'output0', 'data_type': 'TYPE_FP32', 'dims': ['1', '25200', '85']}]
-        >>> tc(np.zeros((1, 3, 640, 640)))
+        >>> tc = zz.mlops.TritonClientURL("localhost")
+        >>> tc("YOLO", np.zeros((1, 3, 640, 640)))
         {'output0': array([[[3.90108061e+00, 3.51982164e+00, 7.49971962e+00, ...,
         2.21481919e-03, 1.17585063e-03, 1.36753917e-03]]], dtype=float32)}
     """
 
-    def __init__(self, url: str, model_name: str, port: Optional[int] = 8001) -> None:
-        self.server_url = f"{url}:{port}"
-        self.model_name = model_name
-        self.triton_client = grpcclient.InferenceServerClient(
-            url=self.server_url, verbose=False
-        )
-        self.info = self.triton_client.get_model_config(model_name, as_json=True)
-        assert self.info["config"]["name"] == model_name
-        self.inputs = self.info["config"]["input"]
-        self.outputs = self.info["config"]["output"]
+    def __init__(
+        self, url: str, port: Optional[int] = 8001, verbose: Optional[bool] = False
+    ) -> None:
+        self.url = f"{url}:{port}"
+        super().__init__(url=self.url, verbose=verbose)
+        self.configs = {}
+        self.models = []
+        for model in self.get_model_repository_index(as_json=True)["models"]:
+            self.models.append(model["name"])
+        self.logger = Logger("TritonClient", logger_level=20)
+        self.emoji = {
+            "LOADING": "🚀",
+            "READY": "✅",
+            "UNLOADING": "🛠️",
+            "UNAVAILABLE": "💤",
+        }
 
-    def __call__(self, *args: NDArray[DTypeLike]) -> Dict[str, NDArray[DTypeLike]]:
-        assert len(self.inputs) == len(args)
+    def __call__(
+        self, model: Union[int, str], *args: NDArray[DTypeLike]
+    ) -> Dict[str, NDArray[DTypeLike]]:
+        if isinstance(model, int):
+            model = self.models[model]
+        self._update_configs(model)
+        inputs = self.configs[model]["config"]["input"]
+        outputs = self.configs[model]["config"]["output"]
+        assert len(inputs) == len(args)
         triton_inputs = []
-        for input_info, arg in zip(self.inputs, args):
+        for input_info, arg in zip(inputs, args):
             triton_inputs.append(self._set_input(input_info, arg))
         triton_outputs = []
-        for output in self.outputs:
+        for output in outputs:
             triton_outputs.append(grpcclient.InferRequestedOutput(output["name"]))
-        response = self.triton_client.infer(
-            model_name=self.model_name, inputs=triton_inputs, outputs=triton_outputs
+        response = self.infer(
+            model_name=model, inputs=triton_inputs, outputs=triton_outputs
         )
         response.get_response()
         triton_results = {}
-        for output in self.outputs:
+        for output in outputs:
             triton_results[output["name"]] = response.as_numpy(output["name"])
         return triton_results
 
-    def _set_input(self, input_info: Dict[str, List[int]], value: NDArray[DTypeLike]):
-        if "dims" in input_info.keys():
-            assert len(input_info["dims"]) == len(value.shape)
+    def _update_configs(self, model: str) -> None:
+        if model not in self.configs:
+            self.configs[model] = self.get_model_config(model, as_json=True)
+
+    def _set_input(
+        self, input_info: Dict[str, List[int]], value: NDArray[DTypeLike]
+    ) -> grpcclient._infer_input.InferInput:
+        if "dims" in input_info.keys() and len(input_info["dims"]) != len(value.shape):
+            self.logger.warning(
+                "Expected dimension length of input (%d) does not match the input dimension length (%d) [input dimension: %s]",
+                len(input_info["dims"]),
+                len(value.shape),
+                value.shape,
+            )
         value = value.astype(triton_to_np_dtype(input_info["data_type"][5:]))
         return grpcclient.InferInput(
             input_info["name"],
             value.shape,
             input_info["data_type"][5:],
         ).set_data_from_numpy(value)
+
+    def status(
+        self, sortby: Optional[str] = "STATE", reverse: Optional[bool] = False
+    ) -> None:
+        """Triton Inferece Server의 상태를 확인하는 함수
+
+        Args:
+            sortby (``Optional[str]``): 정렬 기준
+            reverse (``Optional[bool]``): 정렬 역순 여부
+
+        Examples:
+            >>> tc.status()
+
+            .. image:: _static/examples/static/mlops.TritonClientURL.status.png
+                :align: center
+                :width: 700px
+        """
+        table = PrettyTable(
+            ["STATE", "ID", "MODEL", "VERSION", "BACKEND", "INPUT", "OUTPUT"],
+            title=f"Triton Inference Server Status [{self.url}]",
+        )
+        for model in self.get_model_repository_index(as_json=True)["models"]:
+            if model["name"] not in self.models:
+                self.models.append(model["name"])
+            state = model.get("state", "UNAVAILABLE")
+            if state in ["LOADING", "UNAVAILABLE"]:
+                _input, _output = ["-"], ["-"]
+                backend = "-"
+            else:
+                self._update_configs(model["name"])
+                _input, _output = [], []
+                for inputs in self.configs[model["name"]]["config"]["input"]:
+                    _input.append(
+                        f"""{inputs["name"]} [{inputs["data_type"][5:]}: ({", ".join(inputs["dims"])})]"""
+                    )
+                for outputs in self.configs[model["name"]]["config"]["output"]:
+                    _output.append(
+                        f"""{outputs["name"]} [{outputs["data_type"][5:]}: ({", ".join(outputs["dims"])})]"""
+                    )
+                backend = self.configs[model["name"]]["config"].get("backend", "-")
+            table.add_row(
+                [
+                    self.emoji[state],
+                    self.models.index(model["name"]),
+                    model["name"],
+                    model.get("version", "-"),
+                    backend,
+                    "\n".join(_input),
+                    "\n".join(_output),
+                ]
+            )
+        if sortby:
+            table.sortby = sortby
+        table.reversesort = reverse
+        self.logger.info("\n%s", str(table))
+
+    def load_model(
+        self,
+        model_name: Union[int, str],
+        headers: Optional[Dict] = None,
+        config: Optional[str] = None,
+        files: Optional[Dict] = None,
+        client_timeout: Optional[float] = None,
+    ) -> None:
+        """Triton Inference Server 내 model을 load하는 함수
+
+        Args:
+            model_name (``Union[int, str]``): Unload할 model의 이름 및 ID
+            headers (``Optional[Dict]``): Request 전송 시 포함할 추가 HTTP header
+            config (``Optional[str]``): Model load 시 사용될 config
+            config (``Optional[Dict]``): Model load 시 override model directory에서 사용할 file
+            client_timeout (``Optional[float]``): 초 단위의 timeout
+
+        Examples:
+            >>> tc.load_model(0)
+            >>> tc.load_model("MODEL_NAME")
+        """
+        if isinstance(model_name, int):
+            model_name = self.models[model_name]
+        super().load_model(model_name, headers, config, files, client_timeout)
+
+    def unload_model(
+        self,
+        model_name: Union[int, str],
+        headers: Optional[Dict] = None,
+        unload_dependents: Optional[bool] = False,
+        client_timeout: Optional[float] = None,
+    ) -> None:
+        """Triton Inference Server 내 model을 unload하는 함수
+
+        Args:
+            model_name (``Union[int, str]``): Unload할 model의 이름 및 ID
+            headers (``Optional[Dict]``): Request 전송 시 포함할 추가 HTTP header
+            unload_dependents (``Optional[bool]``): Model unload 시 dependents의 unload 여부
+            client_timeout (``Optional[float]``): 초 단위의 timeout
+
+        Examples:
+            >>> tc.unload_model(0)
+            >>> tc.unload_model("MODEL_NAME")
+        """
+        if isinstance(model_name, int):
+            model_name = self.models[model_name]
+        super().unload_model(model_name, headers, unload_dependents, client_timeout)
 
 
 class TritonClientK8s(TritonClientURL):
@@ -118,19 +238,15 @@ class TritonClientK8s(TritonClientURL):
     Args:
         svc_name (``str``): 호출할 triton inference server의 Kubernetes service의 이름
         namespace (``str``): 호출할 triton inference server의 namespace
-        model_name(``str``): 호출할 triton inference server 내 model의 이름
         port (``Optional[int]``): triton inference server의 gRPC 통신 port 번호
-
-    Attributes:
-        inputs (``List[Dict[str, Any]]``): 지정된 model의 입력
-        outputs (``List[Dict[str, Any]]``): 지정된 model의 출력
 
     Methods:
         __call__:
             Model 호출 수행
 
             Args:
-                *args (``NDArray[DTypeLike]``): Model 호출 시 사용될 입력 (``self.inputs``)
+                model (``Union[int, str]``): 호출할 model의 이름
+                *args (``NDArray[DTypeLike]``): Model 호출 시 사용될 입력
 
             Returns:
                 ``Dict[str, NDArray[DTypeLike]]``: 호출된 model의 결과
@@ -144,20 +260,16 @@ class TritonClientK8s(TritonClientURL):
             >>> docker exec -it ${API_CONTAINER} bash
 
         Python:
-            >>> tc = zz.mlops.TritonClientK8s("triton-inference-server-svc", "yolo", "YOLO")
-            >>> tc.inputs
-            [{'name': 'images', 'data_type': 'TYPE_FP32', 'dims': ['1', '3', '640', '640']}]
-            >>> tc.outputs
-            [{'name': 'output0', 'data_type': 'TYPE_FP32', 'dims': ['1', '25200', '85']}]
-            >>> tc(np.zeros((1, 3, 640, 640)))
+            >>> tc = zz.mlops.TritonClientK8s("triton-inference-server-svc", "yolo")
+            >>> tc("YOLO", np.zeros((1, 3, 640, 640)))
             {'output0': array([[[3.90108061e+00, 3.51982164e+00, 7.49971962e+00, ...,
             2.21481919e-03, 1.17585063e-03, 1.36753917e-03]]], dtype=float32)}
     """
 
     def __init__(
-        self, svc_name: str, namespace: str, model_name: str, port: Optional[int] = 8001
+        self, svc_name: str, namespace: str, port: Optional[int] = 8001
     ) -> None:
-        super().__init__(f"{svc_name}.{namespace}", model_name, port)
+        super().__init__(f"{svc_name}.{namespace}", port)
 
 
 class BaseTritonPythonModel(ABC):

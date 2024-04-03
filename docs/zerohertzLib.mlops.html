@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.mlops" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.mlops.html" />
-<meta property="og:site_name" content="Zerohertz's Library v1.0.1 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v1.0.2 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v1.0.1 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v1.0.2 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.mlops.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2024.01.29 -->
-        <title>zerohertzLib.mlops - zerohertzLib v1.0.1 documentation</title>
+        <title>zerohertzLib.mlops - zerohertzLib v1.0.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v1.0.1 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v1.0.2 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v1.0.1 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v1.0.2 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -267,7 +267,7 @@
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="zerohertzLib.mlops.BaseTritonPythonModel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.mlops.</span></span><span class="sig-name descname"><span class="pre">BaseTritonPythonModel</span></span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L163"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.mlops.</span></span><span class="sig-name descname"><span class="pre">BaseTritonPythonModel</span></span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L275"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
 <p>Triton Inference Server에서 Python backend 사용을 위한 class</p>
 <div class="admonition note">
@@ -287,7 +287,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.mlops.BaseTritonPythonModel._inference">
-<span class="sig-name descname"><span class="pre">_inference</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L296"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel._inference" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_inference</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L408"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel._inference" title="Permalink to this definition">#</a></dt>
 <dd><p>Model 추론을 수행하는 private method (상속을 통한 재정의 필수)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -339,7 +339,7 @@
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.mlops.BaseTritonPythonModel.execute">
-<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requests</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L230"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel.execute" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requests</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L342"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel.execute" title="Permalink to this definition">#</a></dt>
 <dd><p>Triton Inference Server 호출 시 수행되는 method</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -356,13 +356,13 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.mlops.BaseTritonPythonModel.finalize">
-<span class="sig-name descname"><span class="pre">finalize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L302"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel.finalize" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">finalize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L414"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel.finalize" title="Permalink to this definition">#</a></dt>
 <dd><p>Triton Inference Server 종료 시 수행되는 method</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.mlops.BaseTritonPythonModel.initialize">
-<span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L219"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel.initialize" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L331"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel.initialize" title="Permalink to this definition">#</a></dt>
 <dd><p>Triton Inference Server 시작 시 수행되는 method</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -378,7 +378,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientK8s">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.mlops.</span></span><span class="sig-name descname"><span class="pre">TritonClientK8s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">svc_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8001</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L115"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.TritonClientK8s" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.mlops.</span></span><span class="sig-name descname"><span class="pre">TritonClientK8s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">svc_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8001</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L235"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.TritonClientK8s" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#zerohertzLib.mlops.TritonClientURL" title="zerohertzLib.mlops.triton.TritonClientURL"><code class="xref py py-class docutils literal notranslate"><span class="pre">TritonClientURL</span></code></a></p>
 <p>Kubernetes에서 실행되는 triton inference server의 호출을 위한 class</p>
 <dl class="field-list simple">
@@ -386,40 +386,20 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><span class="target" id="zerohertzLib.mlops.TritonClientK8s.params.svc_name"></span><strong>svc_name</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientK8s.params.svc_name">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 호출할 triton inference server의 Kubernetes service의 이름</p></li>
 <li><p><span class="target" id="zerohertzLib.mlops.TritonClientK8s.params.namespace"></span><strong>namespace</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientK8s.params.namespace">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 호출할 triton inference server의 namespace</p></li>
-<li><p><span class="target" id="zerohertzLib.mlops.TritonClientK8s.params.model_name"></span><strong>model_name</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientK8s.params.model_name">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 호출할 triton inference server 내 model의 이름</p></li>
 <li><p><span class="target" id="zerohertzLib.mlops.TritonClientK8s.params.port"></span><strong>port</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientK8s.params.port">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – triton inference server의 gRPC 통신 port 번호</p></li>
 </ul>
 </dd>
 </dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientK8s.inputs">
-<span class="sig-name descname"><span class="pre">inputs</span></span><a class="headerlink" href="#zerohertzLib.mlops.TritonClientK8s.inputs" title="Permalink to this definition">#</a></dt>
-<dd><p>지정된 model의 입력</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[Dict[str,</span> <span class="pre">Any]]</span></code></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientK8s.outputs">
-<span class="sig-name descname"><span class="pre">outputs</span></span><a class="headerlink" href="#zerohertzLib.mlops.TritonClientK8s.outputs" title="Permalink to this definition">#</a></dt>
-<dd><p>지정된 model의 출력</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[Dict[str,</span> <span class="pre">Any]]</span></code></p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientK8s.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L87"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.TritonClientK8s.__call__" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.TritonClientK8s.__call__" title="Permalink to this definition">#</a></dt>
 <dd><p>Model 호출 수행</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>*args</strong> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – Model 호출 시 사용될 입력 (<code class="docutils literal notranslate"><span class="pre">self.inputs</span></code>)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<code class="docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">str]</span></code>) – 호출할 model의 이름</p></li>
+<li><p><strong>*args</strong> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – Model 호출 시 사용될 입력</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>호출된 model의 결과</p>
@@ -440,12 +420,8 @@ triton-inference-server-svc   ClusterIP   10.96.28.172    &lt;none&gt;        80
 </pre></div>
 </div>
 </dd>
-<dt>Python:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">mlops</span><span class="o">.</span><span class="n">TritonClientK8s</span><span class="p">(</span><span class="s2">&quot;triton-inference-server-svc&quot;</span><span class="p">,</span> <span class="s2">&quot;yolo&quot;</span><span class="p">,</span> <span class="s2">&quot;YOLO&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="o">.</span><span class="n">inputs</span>
-<span class="go">[{&#39;name&#39;: &#39;images&#39;, &#39;data_type&#39;: &#39;TYPE_FP32&#39;, &#39;dims&#39;: [&#39;1&#39;, &#39;3&#39;, &#39;640&#39;, &#39;640&#39;]}]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="o">.</span><span class="n">outputs</span>
-<span class="go">[{&#39;name&#39;: &#39;output0&#39;, &#39;data_type&#39;: &#39;TYPE_FP32&#39;, &#39;dims&#39;: [&#39;1&#39;, &#39;25200&#39;, &#39;85&#39;]}]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">640</span><span class="p">,</span> <span class="mi">640</span><span class="p">)))</span>
+<dt>Python:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">mlops</span><span class="o">.</span><span class="n">TritonClientK8s</span><span class="p">(</span><span class="s2">&quot;triton-inference-server-svc&quot;</span><span class="p">,</span> <span class="s2">&quot;yolo&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="p">(</span><span class="s2">&quot;YOLO&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">640</span><span class="p">,</span> <span class="mi">640</span><span class="p">)))</span>
 <span class="go">{&#39;output0&#39;: array([[[3.90108061e+00, 3.51982164e+00, 7.49971962e+00, ...,</span>
 <span class="go">2.21481919e-03, 1.17585063e-03, 1.36753917e-03]]], dtype=float32)}</span>
 </pre></div>
@@ -456,47 +432,27 @@ triton-inference-server-svc   ClusterIP   10.96.28.172    &lt;none&gt;        80
 
 <dl class="py class">
 <dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientURL">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.mlops.</span></span><span class="sig-name descname"><span class="pre">TritonClientURL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8001</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L43"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.TritonClientURL" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.mlops.</span></span><span class="sig-name descname"><span class="pre">TritonClientURL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.TritonClientURL" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">InferenceServerClient</span></code></p>
 <p>외부에서 실행되는 triton inference server의 호출을 위한 class</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.params.url"></span><strong>url</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.params.url">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 호출할 triton inference server의 URL</p></li>
-<li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.params.model_name"></span><strong>model_name</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.params.model_name">¶</a> (<code class="docutils literal notranslate"><span class="pre">str</span></code>) – 호출할 triton inference server 내 model의 이름</p></li>
 <li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.params.port"></span><strong>port</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.params.port">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[int]</span></code>) – triton inference server의 gRPC 통신 port 번호</p></li>
 </ul>
 </dd>
 </dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientURL.inputs">
-<span class="sig-name descname"><span class="pre">inputs</span></span><a class="headerlink" href="#zerohertzLib.mlops.TritonClientURL.inputs" title="Permalink to this definition">#</a></dt>
-<dd><p>지정된 model의 입력</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[Dict[str,</span> <span class="pre">Any]]</span></code></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientURL.outputs">
-<span class="sig-name descname"><span class="pre">outputs</span></span><a class="headerlink" href="#zerohertzLib.mlops.TritonClientURL.outputs" title="Permalink to this definition">#</a></dt>
-<dd><p>지정된 model의 출력</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">List[Dict[str,</span> <span class="pre">Any]]</span></code></p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientURL.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L87"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.TritonClientURL.__call__" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.TritonClientURL.__call__" title="Permalink to this definition">#</a></dt>
 <dd><p>Model 호출 수행</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>*args</strong> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – Model 호출 시 사용될 입력 (<code class="docutils literal notranslate"><span class="pre">self.inputs</span></code>)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<code class="docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">str]</span></code>) – 호출할 model의 이름</p></li>
+<li><p><strong>*args</strong> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – Model 호출 시 사용될 입력</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>호출된 model의 결과</p>
@@ -508,16 +464,74 @@ triton-inference-server-svc   ClusterIP   10.96.28.172    &lt;none&gt;        80
 </dd></dl>
 
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">mlops</span><span class="o">.</span><span class="n">TritonClientURL</span><span class="p">(</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="s2">&quot;YOLO&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="o">.</span><span class="n">inputs</span>
-<span class="go">[{&#39;name&#39;: &#39;images&#39;, &#39;data_type&#39;: &#39;TYPE_FP32&#39;, &#39;dims&#39;: [&#39;1&#39;, &#39;3&#39;, &#39;640&#39;, &#39;640&#39;]}]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="o">.</span><span class="n">outputs</span>
-<span class="go">[{&#39;name&#39;: &#39;output0&#39;, &#39;data_type&#39;: &#39;TYPE_FP32&#39;, &#39;dims&#39;: [&#39;1&#39;, &#39;25200&#39;, &#39;85&#39;]}]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">640</span><span class="p">,</span> <span class="mi">640</span><span class="p">)))</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">mlops</span><span class="o">.</span><span class="n">TritonClientURL</span><span class="p">(</span><span class="s2">&quot;localhost&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="p">(</span><span class="s2">&quot;YOLO&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">640</span><span class="p">,</span> <span class="mi">640</span><span class="p">)))</span>
 <span class="go">{&#39;output0&#39;: array([[[3.90108061e+00, 3.51982164e+00, 7.49971962e+00, ...,</span>
 <span class="go">2.21481919e-03, 1.17585063e-03, 1.36753917e-03]]], dtype=float32)}</span>
 </pre></div>
 </div>
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientURL.load_model">
+<span class="sig-name descname"><span class="pre">load_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L186"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.TritonClientURL.load_model" title="Permalink to this definition">#</a></dt>
+<dd><p>Triton Inference Server 내 model을 load하는 함수</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.load_model.params.model_name"></span><strong>model_name</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.load_model.params.model_name">¶</a> (<code class="docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">str]</span></code>) – Unload할 model의 이름 및 ID</p></li>
+<li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.load_model.params.headers"></span><strong>headers</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.load_model.params.headers">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[Dict]</span></code>) – Request 전송 시 포함할 추가 HTTP header</p></li>
+<li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.load_model.params.config"></span><strong>config</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.load_model.params.config">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[Dict]</span></code>) – Model load 시 사용될 config</p></li>
+<li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.load_model.params.config"></span><strong>config</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.load_model.params.config">¶</a> – Model load 시 override model directory에서 사용할 file</p></li>
+<li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.load_model.params.client_timeout"></span><strong>client_timeout</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.load_model.params.client_timeout">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[float]</span></code>) – 초 단위의 timeout</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s2">&quot;MODEL_NAME&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientURL.status">
+<span class="sig-name descname"><span class="pre">status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sortby</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'STATE'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L131"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.TritonClientURL.status" title="Permalink to this definition">#</a></dt>
+<dd><p>Triton Inferece Server의 상태를 확인하는 함수</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.status.params.sortby"></span><strong>sortby</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.status.params.sortby">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 정렬 기준</p></li>
+<li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.status.params.reverse"></span><strong>reverse</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.status.params.reverse">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 정렬 역순 여부</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="o">.</span><span class="n">status</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/mlops.TritonClientURL.status.png"><img alt="_images/mlops.TritonClientURL.status.png" class="align-center" src="_images/mlops.TritonClientURL.status.png" style="width: 700px;" /></a>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientURL.unload_model">
+<span class="sig-name descname"><span class="pre">unload_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unload_dependents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L211"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.TritonClientURL.unload_model" title="Permalink to this definition">#</a></dt>
+<dd><p>Triton Inference Server 내 model을 unload하는 함수</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.unload_model.params.model_name"></span><strong>model_name</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.unload_model.params.model_name">¶</a> (<code class="docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">str]</span></code>) – Unload할 model의 이름 및 ID</p></li>
+<li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.unload_model.params.headers"></span><strong>headers</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.unload_model.params.headers">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[Dict]</span></code>) – Request 전송 시 포함할 추가 HTTP header</p></li>
+<li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.unload_model.params.unload_dependents"></span><strong>unload_dependents</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.unload_model.params.unload_dependents">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – Model unload 시 dependents의 unload 여부</p></li>
+<li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.unload_model.params.client_timeout"></span><strong>client_timeout</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.unload_model.params.client_timeout">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[float]</span></code>) – 초 단위의 timeout</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="o">.</span><span class="n">unload_model</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="o">.</span><span class="n">unload_model</span><span class="p">(</span><span class="s2">&quot;MODEL_NAME&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -590,15 +604,14 @@ triton-inference-server-svc   ClusterIP   10.96.28.172    &lt;none&gt;        80
 </ul>
 </li>
 <li><a class="reference internal" href="#zerohertzLib.mlops.TritonClientK8s"><code class="docutils literal notranslate"><span class="pre">TritonClientK8s</span></code></a><ul>
-<li><a class="reference internal" href="#zerohertzLib.mlops.TritonClientK8s.inputs"><code class="docutils literal notranslate"><span class="pre">TritonClientK8s.inputs</span></code></a></li>
-<li><a class="reference internal" href="#zerohertzLib.mlops.TritonClientK8s.outputs"><code class="docutils literal notranslate"><span class="pre">TritonClientK8s.outputs</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.mlops.TritonClientK8s.__call__"><code class="docutils literal notranslate"><span class="pre">TritonClientK8s.__call__()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#zerohertzLib.mlops.TritonClientURL"><code class="docutils literal notranslate"><span class="pre">TritonClientURL</span></code></a><ul>
-<li><a class="reference internal" href="#zerohertzLib.mlops.TritonClientURL.inputs"><code class="docutils literal notranslate"><span class="pre">TritonClientURL.inputs</span></code></a></li>
-<li><a class="reference internal" href="#zerohertzLib.mlops.TritonClientURL.outputs"><code class="docutils literal notranslate"><span class="pre">TritonClientURL.outputs</span></code></a></li>
 <li><a class="reference internal" href="#zerohertzLib.mlops.TritonClientURL.__call__"><code class="docutils literal notranslate"><span class="pre">TritonClientURL.__call__()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.mlops.TritonClientURL.load_model"><code class="docutils literal notranslate"><span class="pre">TritonClientURL.load_model()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.mlops.TritonClientURL.status"><code class="docutils literal notranslate"><span class="pre">TritonClientURL.status()</span></code></a></li>
+<li><a class="reference internal" href="#zerohertzLib.mlops.TritonClientURL.unload_model"><code class="docutils literal notranslate"><span class="pre">TritonClientURL.unload_model()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -614,7 +627,7 @@ triton-inference-server-svc   ClusterIP   10.96.28.172    &lt;none&gt;        80
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=aabfef7a"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=9d476510"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

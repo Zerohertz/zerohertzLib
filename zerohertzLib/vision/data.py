@@ -333,6 +333,7 @@ class LabelStudio:
             converted_gt = []
             for lab, poly in zip(result["labels"], result["polys"]):
                 if self.type == "rectanglelabels":
+                    poly[:2] += poly[2:] / 2
                     box_cwh = poly
                 elif self.type == "polygonlabels":
                     box_cwh = poly2cwh(poly)
@@ -480,3 +481,65 @@ class LabelStudio:
                         print(
                             f"Impossible crop ('x_0': {x_0}, 'y_0': {y_0}, 'x_1': {x_1}, 'y_1': {y_1})"
                         )
+
+    def coco(self, label: Dict[str, int]) -> None:
+        """Label Studio로 annotation한 JSON data를 COCO format으로 변환
+
+        Args:
+            label (``Optional[Dict[str, int]]``): Label Studio에서 사용한 label을 변경하는 dictionary
+
+        Returns:
+            ``None``: ``{data_path}.json`` 에 JSON file 저장
+
+        Examples:
+            >>> ls = zz.vision.LabelStudio(data_path, json_path)
+            >>> label = {"label1": 1, "label2": 2}
+            >>> ls.coco(label)
+            100%|█████████████| 476/476 [00:00<00:00, 78794.25it/s]
+        """
+        converted_gt = {
+            "images": [],
+            "annotations": [],
+            "categories": [],
+        }
+        for lab, id_ in label.items():
+            converted_gt["categories"].append({"id": id_, "name": lab})
+        ant_id = 0
+        for id_, (file_path, result) in enumerate(tqdm(self)):
+            _images = {
+                "file_name": os.path.basename(file_path),
+                "height": result["whs"][0][1],
+                "width": result["whs"][0][0],
+                "id": id_,
+            }
+            _annotations = []
+            for ant_id_, (lab, poly, wh) in enumerate(
+                zip(result["labels"], result["polys"], result["whs"])
+            ):
+                # box_cwh is [x_0, y_0, width, height] not [cx, cy, width, height]
+                if self.type == "rectanglelabels":
+                    poly = poly * (wh * 2)
+                    box_cwh = poly.copy()
+                    poly[2:] += poly[:2]
+                    poly = xyxy2poly(poly)
+                elif self.type == "polygonlabels":
+                    poly = poly * wh
+                    box_cwh = poly2cwh(poly)
+                    box_cwh[:2] -= box_cwh[2:] / 2
+                else:
+                    raise ValueError(f"Unknown annotation type: {self.type}")
+                _annotations.append(
+                    {
+                        "segmentation": [poly.reshape(-1).tolist()],
+                        "area": box_cwh[2] * box_cwh[3],
+                        "iscrowd": 0,
+                        "image_id": id,
+                        "bbox": box_cwh.tolist(),
+                        "category_id": label[lab],
+                        "id": ant_id + ant_id_,
+                    }
+                )
+            converted_gt["images"].append(_images)
+            converted_gt["annotations"] += _annotations
+            ant_id += len(result["labels"]) + 1
+        write_json(converted_gt, self.data_path)
