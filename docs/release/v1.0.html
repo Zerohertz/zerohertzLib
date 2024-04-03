@@ -16,11 +16,11 @@
     <meta property="og:title" content="v1.0" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/release/v1.0.html" />
-<meta property="og:site_name" content="Zerohertz's Library v1.0.1 Documents" />
-<meta property="og:description" content="v1.0.1: plot- barv 및 barh 에 대해 bar 상단 값 표기 기능 추가., quant- 해외 주식의 자산 오류 수정.. v1.0.0: monitoring- gpu_usages 및 gpu_memory 함수 사용 시 GPU를 선택할 수 있는 grep 변수 추가., quant- Balance.table method 내 ZeroDivision..." />
+<meta property="og:site_name" content="Zerohertz's Library v1.0.2 Documents" />
+<meta property="og:description" content="v1.0.2: mlops- TritonClientURL& TritonClientK8s- tritonclient.grpc.InferenceServerClient 를 attribute로 가지는 것에서 상속 구조로 refactoring, Triton Inference Server의 현재 상태를 확인할 수 있는 status method 추가, Triton I..." />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v1.0.1 Documents" />
-<meta name="description" content="v1.0.1: plot- barv 및 barh 에 대해 bar 상단 값 표기 기능 추가., quant- 해외 주식의 자산 오류 수정.. v1.0.0: monitoring- gpu_usages 및 gpu_memory 함수 사용 시 GPU를 선택할 수 있는 grep 변수 추가., quant- Balance.table method 내 ZeroDivision..." />
+<meta property="og:image:alt" content="Zerohertz's Library v1.0.2 Documents" />
+<meta name="description" content="v1.0.2: mlops- TritonClientURL& TritonClientK8s- tritonclient.grpc.InferenceServerClient 를 attribute로 가지는 것에서 상속 구조로 refactoring, Triton Inference Server의 현재 상태를 확인할 수 있는 status method 추가, Triton I..." />
     <link href="../_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -28,7 +28,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/release/v1.0.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2024.01.29 -->
-        <title>v1.0 - zerohertzLib v1.0.1 documentation</title>
+        <title>v1.0 - zerohertzLib v1.0.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -156,7 +156,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">zerohertzLib v1.0.1 documentation</div></a>
+      <a href="../index.html"><div class="brand">zerohertzLib v1.0.2 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
     <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v1.0.1 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v1.0.2 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -263,6 +263,52 @@
         <article role="main">
           <section id="v1-0">
 <h1>v1.0<a class="headerlink" href="#v1-0" title="Permalink to this heading">#</a></h1>
+<section id="v1-0-2">
+<h2>v1.0.2<a class="headerlink" href="#v1-0-2" title="Permalink to this heading">#</a></h2>
+<h3>[v1.0.2] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/273>#273</a>)</h3>
+<div class="tip admonition">
+<p class="admonition-title">Release Date</p>
+<p>2024/04/03</p>
+</div>
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/mlops"><img src="https://img.shields.io/badge/feat/mlops-EE5D2A?style=flat-square&logo=github" alt="feat/mlops"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/vision"><img src="https://img.shields.io/badge/feat/vision-D1F9CB?style=flat-square&logo=github" alt="feat/vision"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+<h4>Features</h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mlops</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">TritonClientURL</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">TritonClientK8s</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">tritonclient.grpc.InferenceServerClient</span></code>를 attribute로 가지는 것에서 상속 구조로 refactoring</p></li>
+<li><p>Triton Inference Server의 현재 상태를 확인할 수 있는 <code class="docutils literal notranslate"><span class="pre">status</span></code> method 추가</p></li>
+<li><p>Triton Inference Server 내 존재하는 model을 load 및 unload 할 수 있는 <code class="docutils literal notranslate"><span class="pre">load_model</span></code> 및 <code class="docutils literal notranslate"><span class="pre">unload_model</span></code> method 추가</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tritonclient[grpc]</span></code>의 version update (<code class="docutils literal notranslate"><span class="pre">&gt;=2.44.0</span></code>)</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vision</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">CocoLoader</span></code></p>
+<ul>
+<li><p>Image를 읽어올 때 기존 경로를 포함하는 문제 수정</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">segmentation</span></code> 값이 존재할 때 다각형 출력 및 시각화 기능 추가</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LabelStudio</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">yolo</span></code> method의 변환 시 오류 수정</p></li>
+<li><p>Label Studio format에서 COCO format으로 변환하는 <code class="docutils literal notranslate"><span class="pre">coco</span></code> method 추가</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
 <section id="v1-0-1">
 <h2>v1.0.1<a class="headerlink" href="#v1-0-1" title="Permalink to this heading">#</a></h2>
 <h3>[v1.0.1] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/270>#270</a>)</h3>
@@ -390,6 +436,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">v1.0</a><ul>
+<li><a class="reference internal" href="#v1-0-2">v1.0.2</a></li>
 <li><a class="reference internal" href="#v1-0-1">v1.0.1</a></li>
 <li><a class="reference internal" href="#v1-0-0">v1.0.0</a></li>
 </ul>
@@ -405,7 +452,7 @@
   </div>
 </div><script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=aabfef7a"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=9d476510"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
