@@ -397,7 +397,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>model</strong> (<code class="docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">str]</span></code>) – 호출할 model의 이름</p></li>
+<li><p><strong>model</strong> (<code class="docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">str]</span></code>) – 호출할 model의 이름 또는 ID</p></li>
 <li><p><strong>*args</strong> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – Model 호출 시 사용될 입력</p></li>
 </ul>
 </dd>
@@ -450,7 +450,7 @@ triton-inference-server-svc   ClusterIP   10.96.28.172    &lt;none&gt;        80
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>model</strong> (<code class="docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">str]</span></code>) – 호출할 model의 이름</p></li>
+<li><p><strong>model</strong> (<code class="docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">str]</span></code>) – 호출할 model의 이름 및 ID</p></li>
 <li><p><strong>*args</strong> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – Model 호출 시 사용될 입력</p></li>
 </ul>
 </dd>
@@ -477,7 +477,7 @@ triton-inference-server-svc   ClusterIP   10.96.28.172    &lt;none&gt;        80
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.load_model.params.model_name"></span><strong>model_name</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.load_model.params.model_name">¶</a> (<code class="docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">str]</span></code>) – Unload할 model의 이름 및 ID</p></li>
+<li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.load_model.params.model_name"></span><strong>model_name</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.load_model.params.model_name">¶</a> (<code class="docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">str]</span></code>) – Load할 model의 이름 또는 ID</p></li>
 <li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.load_model.params.headers"></span><strong>headers</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.load_model.params.headers">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[Dict]</span></code>) – Request 전송 시 포함할 추가 HTTP header</p></li>
 <li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.load_model.params.config"></span><strong>config</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.load_model.params.config">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[Dict]</span></code>) – Model load 시 사용될 config</p></li>
 <li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.load_model.params.config"></span><strong>config</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.load_model.params.config">¶</a> – Model load 시 override model directory에서 사용할 file</p></li>
@@ -518,7 +518,7 @@ triton-inference-server-svc   ClusterIP   10.96.28.172    &lt;none&gt;        80
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.unload_model.params.model_name"></span><strong>model_name</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.unload_model.params.model_name">¶</a> (<code class="docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">str]</span></code>) – Unload할 model의 이름 및 ID</p></li>
+<li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.unload_model.params.model_name"></span><strong>model_name</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.unload_model.params.model_name">¶</a> (<code class="docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">str]</span></code>) – Unload할 model의 이름 또는 ID</p></li>
 <li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.unload_model.params.headers"></span><strong>headers</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.unload_model.params.headers">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[Dict]</span></code>) – Request 전송 시 포함할 추가 HTTP header</p></li>
 <li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.unload_model.params.unload_dependents"></span><strong>unload_dependents</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.unload_model.params.unload_dependents">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – Model unload 시 dependents의 unload 여부</p></li>
 <li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.unload_model.params.client_timeout"></span><strong>client_timeout</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.unload_model.params.client_timeout">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[float]</span></code>) – 초 단위의 timeout</p></li>
