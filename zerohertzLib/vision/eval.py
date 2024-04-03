@@ -64,7 +64,7 @@ def _append(
     logs: Dict[str, List[Any]],
     instance: int,
     confidence: float,
-    class_: Union[str, int],
+    class_: Union[int, str],
     iou_: float,
     results: str,
     gt: NDArray[DTypeLike],
