@@ -1,3 +1,4 @@
 # mlops
 protobuf
 tritonclient[grpc]
+prettytable
