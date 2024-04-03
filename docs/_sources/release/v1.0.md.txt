@@ -2,6 +2,24 @@
 
 ## v1.0.2
 
+<h3>[v1.0.2] Docs Update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/275>#275</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/04/03
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release/chore"><img src="https://img.shields.io/badge/release/chore-22FD7F?style=flat-square&logo=github" alt="release/chore"/></a>
+</p>
+
+
+<h4>Docs</h4>
+
++ Sphinx 내 오타 수정
+
 <h3>[v1.0.2] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/273>#273</a>)</h3>
 
 ```{admonition} Release Date
