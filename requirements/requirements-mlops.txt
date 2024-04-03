@@ -1,4 +1,4 @@
 # mlops
 protobuf
-tritonclient[grpc]
+tritonclient[grpc]>=2.44.0
 prettytable
