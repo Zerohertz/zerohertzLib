@@ -333,6 +333,7 @@ class LabelStudio:
             converted_gt = []
             for lab, poly in zip(result["labels"], result["polys"]):
                 if self.type == "rectanglelabels":
+                    poly[:2] += poly[2:] / 2
                     box_cwh = poly
                 elif self.type == "polygonlabels":
                     box_cwh = poly2cwh(poly)
