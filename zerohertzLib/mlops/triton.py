@@ -79,7 +79,7 @@ class TritonClientURL(grpcclient.InferenceServerClient):
         self.emoji = {
             "LOADING": "🚀",
             "READY": "✅",
-            "UNLOADING": "🛠️",
+            "UNLOADING": "🛌",
             "UNAVAILABLE": "💤",
         }
 
