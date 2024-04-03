@@ -212,7 +212,7 @@ class YoloLoader:
         self,
         data_path: Optional[str] = "images",
         txt_path: Optional[str] = "labels",
-        poly: Optional[bool] = True,
+        poly: Optional[bool] = False,
         absolute: Optional[bool] = False,
         vis_path: Optional[str] = None,
         class_color: Optional[Dict[Union[int, str], Tuple[int]]] = None,
@@ -280,8 +280,8 @@ class YoloLoader:
         class_list: List[int],
         objects: List[NDArray[DTypeLike]],
     ) -> None:
-        mks = np.zeros((len(objects), *img.shape[:2]), bool)
         if self.poly:
+            mks = np.zeros((len(objects), *img.shape[:2]), bool)
             for idx, poly in enumerate(objects):
                 mks[idx] = poly2mask(poly, img.shape[:2])
             img = mask(img, mks, class_list=class_list, class_color=self.class_color)
@@ -405,7 +405,7 @@ class CocoLoader:
                 int_class (``Optional[bool]``): 출력될 class의 type 지정
 
             Returns:
-                ``Tuple[Union[str, NDArray[np.uint8]], List[Union[int, str]], NDArray[DTypeLike]]``: Image 경로 혹은 읽어온 image와 그에 따른 ``classes`` 및 ``bboxes``
+                ``Tuple[Union[str, NDArray[np.uint8]], List[Union[int, str]], NDArray[DTypeLike], List[NDArray[DTypeLike]]]``: Image 경로 혹은 읽어온 image와 그에 따른 ``class_list``, ``bboxes``, ``polys``
 
         __getitem__:
             Index에 따른 image와 annotation에 대한 정보 return (``vis_path`` 와 ``class_color`` 입력 시 시각화 image ``vis_path`` 에 저장)
@@ -414,13 +414,13 @@ class CocoLoader:
                 idx (``int``): 입력 index
 
             Returns:
-                ``Tuple[NDArray[np.uint8], List[str], NDArray[DTypeLike]]``: 읽어온 image와 그에 따른 ``classes`` 및 ``bboxes``
+                ``Tuple[NDArray[np.uint8], List[str], NDArray[DTypeLike], List[NDArray[DTypeLike]]]``: 읽어온 image와 그에 따른 ``class_list``, ``bboxes``, ``polys``
 
     Examples:
         >>> data_path = "train"
         >>> class_color = {"label1": (0, 255, 0), "label2": (255, 0, 0)}
         >>> coco = zz.vision.CocoLoader(data_path, vis_path="tmp", class_color=class_color)
-        >>> image, class_list, bboxes = coco(0, False, True)
+        >>> image, class_list, bboxes, polys = coco(0, False, True)
         >>> type(image)
         <class 'str'>
         >>> image
@@ -475,7 +475,10 @@ class CocoLoader:
     def __call__(
         self, idx: int, read: Optional[bool] = False, int_class: Optional[bool] = False
     ) -> Tuple[
-        Union[str, NDArray[np.uint8]], List[Union[int, str]], NDArray[DTypeLike]
+        Union[str, NDArray[np.uint8]],
+        List[Union[int, str]],
+        NDArray[DTypeLike],
+        List[NDArray[DTypeLike]],
     ]:
         img_path = os.path.join(
             self.data_path, os.path.basename(self.images[idx]["file_name"])
@@ -484,14 +487,15 @@ class CocoLoader:
             img = cv2.imread(img_path)
         else:
             img = img_path
-        classes = []
+        class_list = []
         bboxes = []
+        polys = []
         for idx_ in self.image2annotation[self.images[idx]["id"]]:
             annotation = self.annotations[idx_]
             if int_class:
-                classes.append(self.classes[annotation["category_id"]][0])
+                class_list.append(self.classes[annotation["category_id"]][0])
             else:
-                classes.append(self.classes[annotation["category_id"]][1])
+                class_list.append(self.classes[annotation["category_id"]][1])
             bboxes.append(
                 [
                     annotation["bbox"][0] + annotation["bbox"][2] / 2,
@@ -500,36 +504,56 @@ class CocoLoader:
                     annotation["bbox"][3],
                 ]
             )
+            if "segmentation" in annotation.keys():
+                polys.append(np.array(annotation["segmentation"][0]).reshape(-1, 2))
         bboxes = np.array(bboxes)
-        return img, classes, bboxes
+        return img, class_list, bboxes, polys
 
     def __getitem__(
         self, idx: int
-    ) -> Tuple[NDArray[np.uint8], List[str], NDArray[DTypeLike]]:
-        img, classes, bboxes = self(idx, read=True)
+    ) -> Tuple[
+        NDArray[np.uint8], List[str], NDArray[DTypeLike], List[NDArray[DTypeLike]]
+    ]:
+        img, class_list, bboxes, polys = self(idx, read=True)
         if self.vis_path is not None:
             self._visualization(
-                os.path.basename(self.images[idx]["file_name"]), img, classes, bboxes
+                os.path.basename(self.images[idx]["file_name"]),
+                img,
+                class_list,
+                bboxes,
+                polys,
             )
-        return img, classes, bboxes
+        return img, class_list, bboxes, polys
 
     def _visualization(
         self,
         file_name: str,
         img: NDArray[np.uint8],
-        classes: List[str],
+        class_list: List[str],
         bboxes: NDArray[DTypeLike],
+        polys: List[NDArray[DTypeLike]],
     ) -> None:
-        for cls, box in zip(classes, bboxes):
+        for cls, box in zip(class_list, bboxes):
             img = bbox(img, box, self.class_color[cls])
+        if polys:
+            mks = np.zeros((len(polys), *img.shape[:2]), bool)
+            for idx, poly in enumerate(polys):
+                mks[idx] = poly2mask(poly, img.shape[:2])
+            img = mask(img, mks, class_list=class_list, class_color=self.class_color)
         cv2.imwrite(os.path.join(self.vis_path, file_name), img)
 
-    def yolo(self, target_path: str, label: Optional[List[str]] = None) -> None:
+    def yolo(
+        self,
+        target_path: str,
+        label: Optional[List[str]] = None,
+        poly: Optional[bool] = False,
+    ) -> None:
         """COCO format을 YOLO format으로 변환
 
         Args:
             target_path (``str``): YOLO format data가 저장될 경로
             label (``Optional[List[str]]``): COCO에서 사용한 label을 정수로 변환하는 list (index 사용)
+            poly (``Optional[bool]``): Segmentation format 유무
 
         Returns:
             ``None``: ``{target_path}/images`` 및 ``{target_path}/labels`` 에 image와 `.txt` file 저장
@@ -545,13 +569,24 @@ class CocoLoader:
         rmtree(os.path.join(target_path, "images"))
         rmtree(os.path.join(target_path, "labels"))
         for idx in tqdm(range(len(self))):
-            img_path, classes, bboxes = self(idx, read=False, int_class=label is None)
+            img_path, class_list, bboxes, polys = self(
+                idx, read=False, int_class=label is None
+            )
             converted_gt = []
-            for cls, box in zip(classes, bboxes):
-                box /= (self.images[idx]["width"], self.images[idx]["height"]) * 2
-                if label:
-                    cls = label.index(cls)
-                converted_gt.append(f"{cls} " + " ".join(map(str, box)))
+            if poly:
+                for cls, poly_ in zip(class_list, polys):
+                    poly_ /= (self.images[idx]["width"], self.images[idx]["height"])
+                    if label:
+                        cls = label.index(cls)
+                    converted_gt.append(
+                        f"{cls} " + " ".join(map(str, poly_.reshape(-1)))
+                    )
+            else:
+                for cls, box in zip(class_list, bboxes):
+                    box /= (self.images[idx]["width"], self.images[idx]["height"]) * 2
+                    if label:
+                        cls = label.index(cls)
+                    converted_gt.append(f"{cls} " + " ".join(map(str, box)))
             img_file_name = os.path.basename(img_path)
             txt_file_name = ".".join(img_file_name.split(".")[:-1]) + ".txt"
             try:
