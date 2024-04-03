@@ -489,7 +489,7 @@ class LabelStudio:
             label (``Optional[Dict[str, int]]``): Label Studio에서 사용한 label을 변경하는 dictionary
 
         Returns:
-            ``None``: ``{data_path}.json``에 JSON file 저장
+            ``None``: ``{data_path}.json`` 에 JSON file 저장
 
         Examples:
             >>> ls = zz.vision.LabelStudio(data_path, json_path)
