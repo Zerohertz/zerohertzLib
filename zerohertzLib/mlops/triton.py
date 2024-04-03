@@ -53,7 +53,7 @@ class TritonClientURL(grpcclient.InferenceServerClient):
             Model 호출 수행
 
             Args:
-                model (``Union[int, str]``): 호출할 model의 이름
+                model (``Union[int, str]``): 호출할 model의 이름 및 ID
                 *args (``NDArray[DTypeLike]``): Model 호출 시 사용될 입력
 
             Returns:
@@ -194,7 +194,7 @@ class TritonClientURL(grpcclient.InferenceServerClient):
         """Triton Inference Server 내 model을 load하는 함수
 
         Args:
-            model_name (``Union[int, str]``): Unload할 model의 이름 및 ID
+            model_name (``Union[int, str]``): Load할 model의 이름 또는 ID
             headers (``Optional[Dict]``): Request 전송 시 포함할 추가 HTTP header
             config (``Optional[str]``): Model load 시 사용될 config
             config (``Optional[Dict]``): Model load 시 override model directory에서 사용할 file
@@ -218,7 +218,7 @@ class TritonClientURL(grpcclient.InferenceServerClient):
         """Triton Inference Server 내 model을 unload하는 함수
 
         Args:
-            model_name (``Union[int, str]``): Unload할 model의 이름 및 ID
+            model_name (``Union[int, str]``): Unload할 model의 이름 또는 ID
             headers (``Optional[Dict]``): Request 전송 시 포함할 추가 HTTP header
             unload_dependents (``Optional[bool]``): Model unload 시 dependents의 unload 여부
             client_timeout (``Optional[float]``): 초 단위의 timeout
@@ -245,7 +245,7 @@ class TritonClientK8s(TritonClientURL):
             Model 호출 수행
 
             Args:
-                model (``Union[int, str]``): 호출할 model의 이름
+                model (``Union[int, str]``): 호출할 model의 이름 또는 ID
                 *args (``NDArray[DTypeLike]``): Model 호출 시 사용될 입력
 
             Returns:
