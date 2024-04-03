@@ -502,15 +502,15 @@ class LabelStudio:
             "annotations": [],
             "categories": [],
         }
-        for lab, id in label.items():
-            converted_gt["categories"].append({"id": id, "name": lab})
+        for lab, id_ in label.items():
+            converted_gt["categories"].append({"id": id_, "name": lab})
         ant_id = 0
-        for id, (file_path, result) in enumerate(tqdm(self)):
+        for id_, (file_path, result) in enumerate(tqdm(self)):
             _images = {
                 "file_name": os.path.basename(file_path),
                 "height": result["whs"][0][1],
                 "width": result["whs"][0][0],
-                "id": id,
+                "id": id_,
             }
             _annotations = []
             for ant_id_, (lab, poly, wh) in enumerate(

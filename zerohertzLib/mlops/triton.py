@@ -108,7 +108,7 @@ class TritonClientURL(grpcclient.InferenceServerClient):
         return triton_results
 
     def _update_configs(self, model: str) -> None:
-        if model not in self.configs.keys():
+        if model not in self.configs:
             self.configs[model] = self.get_model_config(model, as_json=True)
 
     def _set_input(
@@ -116,7 +116,10 @@ class TritonClientURL(grpcclient.InferenceServerClient):
     ) -> grpcclient._infer_input.InferInput:
         if "dims" in input_info.keys() and len(input_info["dims"]) != len(value.shape):
             self.logger.warning(
-                f"Expected dimension of input ({len(input_info['dims'])}) does not match the input dimension ({len(value.shape)}, {value.shape})"
+                "Expected dimension length of input (%d) does not match the input dimension length (%d) [input dimension: %s]",
+                len(input_info["dims"]),
+                len(value.shape),
+                value.shape,
             )
         value = value.astype(triton_to_np_dtype(input_info["data_type"][5:]))
         return grpcclient.InferInput(
@@ -150,41 +153,43 @@ class TritonClientURL(grpcclient.InferenceServerClient):
                 self.models.append(model["name"])
             state = model.get("state", "UNAVAILABLE")
             if state in ["LOADING", "UNAVAILABLE"]:
-                input, output = ["-"], ["-"]
+                _input, _output = ["-"], ["-"]
                 backend = "-"
             else:
                 self._update_configs(model["name"])
-                input, output = [], []
+                _input, _output = [], []
                 for inputs in self.configs[model["name"]]["config"]["input"]:
-                    input.append(
+                    _input.append(
                         f"""{inputs["name"]} [{inputs["data_type"][5:]}: ({", ".join(inputs["dims"])})]"""
                     )
                 for outputs in self.configs[model["name"]]["config"]["output"]:
-                    output.append(
+                    _output.append(
                         f"""{outputs["name"]} [{outputs["data_type"][5:]}: ({", ".join(outputs["dims"])})]"""
                     )
                 backend = self.configs[model["name"]]["config"].get("backend", "-")
             table.add_row(
                 [
-                    self.emoji.get[state],
+                    self.emoji[state],
                     self.models.index(model["name"]),
                     model["name"],
                     model.get("version", "-"),
                     backend,
-                    "\n".join(input),
-                    "\n".join(output),
+                    "\n".join(_input),
+                    "\n".join(_output),
                 ]
             )
         if sortby:
             table.sortby = sortby
         table.reversesort = reverse
-        self.logger.info("\n" + str(table))
+        self.logger.info("\n%s", str(table))
 
     def load_model(
         self,
         model_name: Union[int, str],
         headers: Optional[Dict] = None,
         config: Optional[str] = None,
+        files: Optional[Dict] = None,
+        client_timeout: Optional[float] = None,
     ) -> None:
         """Triton Inference Server 내 model을 load하는 함수
 
@@ -192,6 +197,8 @@ class TritonClientURL(grpcclient.InferenceServerClient):
             model_name (``Union[int, str]``): Unload할 model의 이름 및 ID
             headers (``Optional[Dict]``): Request 전송 시 포함할 추가 HTTP header
             config (``Optional[str]``): Model load 시 사용될 config
+            config (``Optional[Dict]``): Model load 시 override model directory에서 사용할 file
+            client_timeout (``Optional[float]``): 초 단위의 timeout
 
         Examples:
             >>> tc.load_model(0)
@@ -199,13 +206,14 @@ class TritonClientURL(grpcclient.InferenceServerClient):
         """
         if isinstance(model_name, int):
             model_name = self.models[model_name]
-        super().load_model(model_name, headers, config)
+        super().load_model(model_name, headers, config, files, client_timeout)
 
     def unload_model(
         self,
         model_name: Union[int, str],
         headers: Optional[Dict] = None,
         unload_dependents: Optional[bool] = False,
+        client_timeout: Optional[float] = None,
     ) -> None:
         """Triton Inference Server 내 model을 unload하는 함수
 
@@ -213,6 +221,7 @@ class TritonClientURL(grpcclient.InferenceServerClient):
             model_name (``Union[int, str]``): Unload할 model의 이름 및 ID
             headers (``Optional[Dict]``): Request 전송 시 포함할 추가 HTTP header
             unload_dependents (``Optional[bool]``): Model unload 시 dependents의 unload 여부
+            client_timeout (``Optional[float]``): 초 단위의 timeout
 
         Examples:
             >>> tc.unload_model(0)
@@ -220,7 +229,7 @@ class TritonClientURL(grpcclient.InferenceServerClient):
         """
         if isinstance(model_name, int):
             model_name = self.models[model_name]
-        super().unload_model(model_name, headers, unload_dependents)
+        super().unload_model(model_name, headers, unload_dependents, client_timeout)
 
 
 class TritonClientK8s(TritonClientURL):
