@@ -362,7 +362,12 @@ class BaseTritonPythonModel(ABC):
             level (``Optional[int]``): Logger의 level
         """
         self.cfg = json.loads(args["model_config"])
-        self.logger = Logger(self.cfg["name"].upper(), level)
+        self.logger = Logger(
+            self.cfg["name"].upper(),
+            170,
+            file_name=self.cfg["name"],
+            logger_level=level,
+        )
         self.logger.info("Initialize")
 
     def execute(self, requests: List[Any]) -> List[Any]:
