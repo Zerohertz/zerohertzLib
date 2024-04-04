@@ -402,7 +402,6 @@ class BaseTritonPythonModel(ABC):
                     + "=" * 100
                     + "\n"
                     + str(traceback.format_exc())
-                    + "\n"
                     + "=" * 100
                 )
                 self.logger.critical(message)
