@@ -25,6 +25,7 @@ SOFTWARE.
 import logging
 from typing import Optional
 
+from rich.console import Console
 from rich.logging import RichHandler
 
 from .handler import DiscordHandler, SlackBotHandler, SlackWebhookHandler
@@ -38,6 +39,8 @@ class Logger(logging.Logger):
 
     Args:
         logger_name (``Optional[str]``): Logger의 이름
+        width (``Optional[int]``): Logger의 너비
+        show_path (``Optional[bool]``): Logger의 호출 경로 표시 여부
         file_name(``Optional[str]``): ``.log`` file의 이름 (미입력 시 미출력)
         discord (``Optional[str]``): Discord Webhook의 URL (``logger_level`` 적용)
         slack (``Optional[str]``): Slack Webhook의 URL 혹은 Bot의 token (``logger_level`` 적용)
@@ -49,20 +52,22 @@ class Logger(logging.Logger):
     Examples:
         >>> logger = zz.logging.Logger("TEST_1")
         >>> logger.debug("debug")
-        [03/13/24 15:09:45] DEBUG    [TEST_1] debug      <stdin>:1
+        [03/13/24 00:00:00] DEBUG    [TEST_1] debug                                  <stdin>:1
         >>> logger.info("info")
-        [03/13/24 15:09:49] INFO     [TEST_1] info       <stdin>:1
+        [03/13/24 00:00:00] INFO     [TEST_1] info                                   <stdin>:1
         >>> logger.warning("warning")
-        [03/13/24 15:09:53] WARNING  [TEST_1] warning    <stdin>:1
+        [03/13/24 00:00:00] WARNING  [TEST_1] warning                                <stdin>:1
         >>> logger.error("error")
-        [03/13/24 15:09:56] ERROR    [TEST_1] error      <stdin>:1
+        [03/13/24 00:00:00] ERROR    [TEST_1] error                                  <stdin>:1
         >>> logger.critical("critical")
-        [03/13/24 15:09:59] CRITICAL [TEST_1] critical   <stdin>:1
+        [03/13/24 00:00:00] CRITICAL [TEST_1] critical                               <stdin>:1
     """
 
     def __init__(
         self,
         logger_name: Optional[str] = None,
+        width: Optional[int] = None,
+        show_path: Optional[bool] = True,
         file_name: Optional[str] = None,
         discord: Optional[str] = None,
         slack: Optional[str] = None,
@@ -77,7 +82,10 @@ class Logger(logging.Logger):
         )
         rich_formatter = logging.Formatter("[%(name)s] %(message)s")
         console_handler = RichHandler(
-            keywords=[f"[{logger_name}]"], rich_tracebacks=True
+            console=Console(width=width),
+            show_path=show_path,
+            rich_tracebacks=True,
+            keywords=[f"[{logger_name}]"],
         )
         console_handler.setLevel(console_level)
         console_handler.setFormatter(rich_formatter)

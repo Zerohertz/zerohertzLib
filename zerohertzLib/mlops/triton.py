@@ -55,6 +55,7 @@ class TritonClientURL(grpcclient.InferenceServerClient):
             Args:
                 model (``Union[int, str]``): 호출할 model의 이름 및 ID
                 *args (``NDArray[DTypeLike]``): Model 호출 시 사용될 입력
+                renew: (``Optional[bool]``): 각 모델의 상태 조회 시 갱신 여부
 
             Returns:
                 ``Dict[str, NDArray[DTypeLike]]``: 호출된 model의 결과
@@ -79,16 +80,19 @@ class TritonClientURL(grpcclient.InferenceServerClient):
         self.emoji = {
             "LOADING": "🚀",
             "READY": "✅",
-            "UNLOADING": "🛠️",
+            "UNLOADING": "🛌",
             "UNAVAILABLE": "💤",
         }
 
     def __call__(
-        self, model: Union[int, str], *args: NDArray[DTypeLike]
+        self,
+        model: Union[int, str],
+        *args: NDArray[DTypeLike],
+        renew: Optional[bool] = False,
     ) -> Dict[str, NDArray[DTypeLike]]:
         if isinstance(model, int):
             model = self.models[model]
-        self._update_configs(model)
+        self._update_configs(model, renew)
         inputs = self.configs[model]["config"]["input"]
         outputs = self.configs[model]["config"]["output"]
         assert len(inputs) == len(args)
@@ -107,8 +111,8 @@ class TritonClientURL(grpcclient.InferenceServerClient):
             triton_results[output["name"]] = response.as_numpy(output["name"])
         return triton_results
 
-    def _update_configs(self, model: str) -> None:
-        if model not in self.configs:
+    def _update_configs(self, model: str, renew: bool) -> None:
+        if renew or model not in self.configs:
             self.configs[model] = self.get_model_config(model, as_json=True)
 
     def _set_input(
@@ -129,18 +133,22 @@ class TritonClientURL(grpcclient.InferenceServerClient):
         ).set_data_from_numpy(value)
 
     def status(
-        self, sortby: Optional[str] = "STATE", reverse: Optional[bool] = False
+        self,
+        renew: Optional[bool] = False,
+        sortby: Optional[str] = "STATE",
+        reverse: Optional[bool] = False,
     ) -> None:
         """Triton Inferece Server의 상태를 확인하는 함수
 
         Args:
+            renew: (``Optional[bool]``): 각 모델의 상태 조회 시 갱신 여부
             sortby (``Optional[str]``): 정렬 기준
             reverse (``Optional[bool]``): 정렬 역순 여부
 
         Examples:
             >>> tc.status()
 
-            .. image:: _static/examples/static/mlops.TritonClientURL.status.png
+            .. image:: _static/examples/static/mlops.TritonClientURL.status.gif
                 :align: center
                 :width: 700px
         """
@@ -156,7 +164,7 @@ class TritonClientURL(grpcclient.InferenceServerClient):
                 _input, _output = ["-"], ["-"]
                 backend = "-"
             else:
-                self._update_configs(model["name"])
+                self._update_configs(model["name"], renew)
                 _input, _output = [], []
                 for inputs in self.configs[model["name"]]["config"]["input"]:
                     _input.append(
@@ -247,6 +255,7 @@ class TritonClientK8s(TritonClientURL):
             Args:
                 model (``Union[int, str]``): 호출할 model의 이름 또는 ID
                 *args (``NDArray[DTypeLike]``): Model 호출 시 사용될 입력
+                renew: (``Optional[bool]``): 각 모델의 상태 조회 시 갱신 여부
 
             Returns:
                 ``Dict[str, NDArray[DTypeLike]]``: 호출된 model의 결과
@@ -278,6 +287,22 @@ class BaseTritonPythonModel(ABC):
     Note:
         Abstract Base Class: Model의 추론을 수행하는 abstract method ``_inference`` 정의 후 사용
 
+    Hint:
+        Logger의 색상 적용을 위해 아래와 같은 환경 변수 정의 필요
+
+        .. code-block:: yaml
+
+            spec:
+              template:
+                spec:
+                  containers:
+                    - name: ${NAME}
+                      ...
+                      env:
+                        - name: "FORCE_COLOR"
+                        value: "1"
+                      ...
+
     Attributes:
         logger (``zerohertzLib.logging.Logger``): Triton Inference Server 내 log를 출력하기 위한 instance
 
@@ -304,28 +329,29 @@ class BaseTritonPythonModel(ABC):
                         return self.model(input_image)
 
         Normal Logs:
-            .. code-block:: python
+            .. code-block:: apl
 
-                2024-01-12 01:47:19,123 | INFO     | MODEL | Called
-                2024-01-12 01:47:19,124 | DEBUG    | MODEL | inputs: (2259, 1663, 3)
-                2024-01-12 01:47:19,124 | INFO     | MODEL | Inference start
-                2024-01-12 01:47:19,254 | DEBUG    | MODEL | outputs: (3, 4, 2) (3,)
-                2024-01-12 01:47:19,254 | INFO     | MODEL | Inference completed
+                [04/04/24 00:00:00] INFO     [MODEL] Initialize                        triton.py:*
+                [04/04/24 00:00:00] INFO     [MODEL] Called                            triton.py:*
+                                    DEBUG    [MODEL] inputs: (3, 3, 3)                 triton.py:*
+                                    INFO     [MODEL] Inference start                   triton.py:*
+                                    DEBUG    [MODEL] outputs: (10,) (20,)              triton.py:*
+                                    INFO     [MODEL] Inference completed               triton.py:*
 
         Error Logs:
-            .. code-block:: python
+            .. code-block:: apl
 
-                2024-01-12 02:03:24,288 | CRITICAL | MODEL | name 'test' is not defined
-                ====================================================================================================
-                Traceback (most recent call last):
-                File "/usr/local/lib/python3.8/dist-packages/zerohertzLib/mlops/triton.py", line *, in execute
-                    outputs = self._inference(*inputs)
-                File "/models/model/*/model.py", line *, in _inference
-                    return self.model(input_image)
-                File "/models/model/*/*.py", line *, in *
-                    test
-                NameError: name 'test' is not defined
-                ====================================================================================================
+                [04/04/24 00:00:00] INFO     [MODEL] Called                            triton.py:*
+                                    INFO     [MODEL] Inference start                   triton.py:*
+                                    CRITICAL [MODEL] Hello, World!                     triton.py:*
+                                            ====================================================================================================
+                                            Traceback (most recent call last):
+                                            File "/usr/local/lib/python3.8/dist-packages/zerohertzLib/mlops/triton.py", line *, in execute
+                                                outputs = self._inference(*inputs)
+                                            File "/models/model/*/model.py", line *, in _inference
+                                                raise Exception("Hello, World!")
+                                            Exception: Hello, World!
+                                            ====================================================================================================
     """
 
     def initialize(self, args: Dict[str, Any], level: Optional[int] = 20) -> None:
@@ -336,7 +362,12 @@ class BaseTritonPythonModel(ABC):
             level (``Optional[int]``): Logger의 level
         """
         self.cfg = json.loads(args["model_config"])
-        self.logger = Logger(self.cfg["name"].upper(), level)
+        self.logger = Logger(
+            self.cfg["name"].upper(),
+            170,
+            file_name=self.cfg["name"],
+            logger_level=level,
+        )
         self.logger.info("Initialize")
 
     def execute(self, requests: List[Any]) -> List[Any]:
@@ -358,6 +389,8 @@ class BaseTritonPythonModel(ABC):
                 )
                 self.logger.info("Inference start")
                 outputs = self._inference(*inputs)
+                if not isinstance(outputs, tuple):
+                    outputs = tuple([outputs])
                 self.logger.debug(
                     "outputs: %s", " ".join([str(output.shape) for output in outputs])
                 )
@@ -371,7 +404,6 @@ class BaseTritonPythonModel(ABC):
                     + "=" * 100
                     + "\n"
                     + str(traceback.format_exc())
-                    + "\n"
                     + "=" * 100
                 )
                 self.logger.critical(message)
@@ -390,12 +422,8 @@ class BaseTritonPythonModel(ABC):
             )
         return inputs
 
-    def _set_outputs(
-        self, outputs: Union[NDArray[DTypeLike], Tuple[NDArray[DTypeLike]]]
-    ) -> Any:
+    def _set_outputs(self, outputs: Tuple[NDArray[DTypeLike]]) -> Any:
         output_tensors = []
-        if not isinstance(outputs, tuple):
-            outputs = [outputs]
         for output, value in zip(self.cfg["output"], outputs):
             output_tensors.append(
                 pb_utils.Tensor(
