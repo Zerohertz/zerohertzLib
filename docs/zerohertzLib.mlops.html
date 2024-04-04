@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.mlops" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.mlops.html" />
-<meta property="og:site_name" content="Zerohertz's Library v1.0.2 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v1.0.3 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v1.0.2 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v1.0.3 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.mlops.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2024.01.29 -->
-        <title>zerohertzLib.mlops - zerohertzLib v1.0.2 documentation</title>
+        <title>zerohertzLib.mlops - zerohertzLib v1.0.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -154,7 +154,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v1.0.2 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v1.0.3 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v1.0.2 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v1.0.3 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -267,12 +267,28 @@
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="zerohertzLib.mlops.BaseTritonPythonModel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.mlops.</span></span><span class="sig-name descname"><span class="pre">BaseTritonPythonModel</span></span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L275"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.mlops.</span></span><span class="sig-name descname"><span class="pre">BaseTritonPythonModel</span></span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L284"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
 <p>Triton Inference Server에서 Python backend 사용을 위한 class</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Abstract Base Class: Model의 추론을 수행하는 abstract method <code class="docutils literal notranslate"><span class="pre">_inference</span></code> 정의 후 사용</p>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Logger의 색상 적용을 위해 아래와 같은 환경 변수 정의 필요</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">template</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${NAME}</span>
+<span class="w">          </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">          </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;FORCE_COLOR&quot;</span>
+<span class="w">            </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1&quot;</span>
+<span class="w">          </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</pre></div>
+</div>
 </div>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="zerohertzLib.mlops.BaseTritonPythonModel.logger">
@@ -287,7 +303,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.mlops.BaseTritonPythonModel._inference">
-<span class="sig-name descname"><span class="pre">_inference</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L408"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel._inference" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_inference</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L436"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel._inference" title="Permalink to this definition">#</a></dt>
 <dd><p>Model 추론을 수행하는 private method (상속을 통한 재정의 필수)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -314,32 +330,33 @@
 </pre></div>
 </div>
 </dd>
-<dt>Normal Logs:</dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">2024</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">12</span> <span class="mi">01</span><span class="p">:</span><span class="mi">47</span><span class="p">:</span><span class="mi">19</span><span class="p">,</span><span class="mi">123</span> <span class="o">|</span> <span class="n">INFO</span>     <span class="o">|</span> <span class="n">MODEL</span> <span class="o">|</span> <span class="n">Called</span>
-<span class="mi">2024</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">12</span> <span class="mi">01</span><span class="p">:</span><span class="mi">47</span><span class="p">:</span><span class="mi">19</span><span class="p">,</span><span class="mi">124</span> <span class="o">|</span> <span class="n">DEBUG</span>    <span class="o">|</span> <span class="n">MODEL</span> <span class="o">|</span> <span class="n">inputs</span><span class="p">:</span> <span class="p">(</span><span class="mi">2259</span><span class="p">,</span> <span class="mi">1663</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="mi">2024</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">12</span> <span class="mi">01</span><span class="p">:</span><span class="mi">47</span><span class="p">:</span><span class="mi">19</span><span class="p">,</span><span class="mi">124</span> <span class="o">|</span> <span class="n">INFO</span>     <span class="o">|</span> <span class="n">MODEL</span> <span class="o">|</span> <span class="n">Inference</span> <span class="n">start</span>
-<span class="mi">2024</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">12</span> <span class="mi">01</span><span class="p">:</span><span class="mi">47</span><span class="p">:</span><span class="mi">19</span><span class="p">,</span><span class="mi">254</span> <span class="o">|</span> <span class="n">DEBUG</span>    <span class="o">|</span> <span class="n">MODEL</span> <span class="o">|</span> <span class="n">outputs</span><span class="p">:</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="mi">3</span><span class="p">,)</span>
-<span class="mi">2024</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">12</span> <span class="mi">01</span><span class="p">:</span><span class="mi">47</span><span class="p">:</span><span class="mi">19</span><span class="p">,</span><span class="mi">254</span> <span class="o">|</span> <span class="n">INFO</span>     <span class="o">|</span> <span class="n">MODEL</span> <span class="o">|</span> <span class="n">Inference</span> <span class="n">completed</span>
+<dt>Normal Logs:</dt><dd><div class="highlight-apl notranslate"><div class="highlight"><pre><span></span><span class="sr">[</span><span class="m">04</span><span class="na">/</span><span class="m">04</span><span class="na">/</span><span class="m">24</span><span class="w"> </span><span class="m">00</span><span class="bp">:</span><span class="m">00</span><span class="bp">:</span><span class="m">00</span><span class="sr">]</span><span class="w"> </span><span class="nv">INFO</span><span class="w">     </span><span class="sr">[</span><span class="nv">MODEL</span><span class="sr">]</span><span class="w"> </span><span class="nv">Initialize</span><span class="w">                        </span><span class="nv">triton</span><span class="na">.</span><span class="nv">py</span><span class="bp">:</span><span class="o">*</span>
+<span class="sr">[</span><span class="m">04</span><span class="na">/</span><span class="m">04</span><span class="na">/</span><span class="m">24</span><span class="w"> </span><span class="m">00</span><span class="bp">:</span><span class="m">00</span><span class="bp">:</span><span class="m">00</span><span class="sr">]</span><span class="w"> </span><span class="nv">INFO</span><span class="w">     </span><span class="sr">[</span><span class="nv">MODEL</span><span class="sr">]</span><span class="w"> </span><span class="nv">Called</span><span class="w">                            </span><span class="nv">triton</span><span class="na">.</span><span class="nv">py</span><span class="bp">:</span><span class="o">*</span>
+<span class="w">                    </span><span class="nv">DEBUG</span><span class="w">    </span><span class="sr">[</span><span class="nv">MODEL</span><span class="sr">]</span><span class="w"> </span><span class="nv">inputs</span><span class="bp">:</span><span class="w"> </span><span class="p">(</span><span class="m">3</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="w">                 </span><span class="nv">triton</span><span class="na">.</span><span class="nv">py</span><span class="bp">:</span><span class="o">*</span>
+<span class="w">                    </span><span class="nv">INFO</span><span class="w">     </span><span class="sr">[</span><span class="nv">MODEL</span><span class="sr">]</span><span class="w"> </span><span class="nv">Inference</span><span class="w"> </span><span class="nv">start</span><span class="w">                   </span><span class="nv">triton</span><span class="na">.</span><span class="nv">py</span><span class="bp">:</span><span class="o">*</span>
+<span class="w">                    </span><span class="nv">DEBUG</span><span class="w">    </span><span class="sr">[</span><span class="nv">MODEL</span><span class="sr">]</span><span class="w"> </span><span class="nv">outputs</span><span class="bp">:</span><span class="w"> </span><span class="p">(</span><span class="m">10</span><span class="o">,</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="m">20</span><span class="o">,</span><span class="p">)</span><span class="w">              </span><span class="nv">triton</span><span class="na">.</span><span class="nv">py</span><span class="bp">:</span><span class="o">*</span>
+<span class="w">                    </span><span class="nv">INFO</span><span class="w">     </span><span class="sr">[</span><span class="nv">MODEL</span><span class="sr">]</span><span class="w"> </span><span class="nv">Inference</span><span class="w"> </span><span class="nv">completed</span><span class="w">               </span><span class="nv">triton</span><span class="na">.</span><span class="nv">py</span><span class="bp">:</span><span class="o">*</span>
 </pre></div>
 </div>
 </dd>
-<dt>Error Logs:</dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">2024</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">12</span> <span class="mi">02</span><span class="p">:</span><span class="mi">03</span><span class="p">:</span><span class="mi">24</span><span class="p">,</span><span class="mi">288</span> <span class="o">|</span> <span class="n">CRITICAL</span> <span class="o">|</span> <span class="n">MODEL</span> <span class="o">|</span> <span class="n">name</span> <span class="s1">&#39;test&#39;</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">defined</span>
-<span class="o">====================================================================================================</span>
-<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-<span class="n">File</span> <span class="s2">&quot;/usr/local/lib/python3.8/dist-packages/zerohertzLib/mlops/triton.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="o">*</span><span class="p">,</span> <span class="ow">in</span> <span class="n">execute</span>
-    <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inference</span><span class="p">(</span><span class="o">*</span><span class="n">inputs</span><span class="p">)</span>
-<span class="n">File</span> <span class="s2">&quot;/models/model/*/model.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="o">*</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_inference</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">input_image</span><span class="p">)</span>
-<span class="n">File</span> <span class="s2">&quot;/models/model/*/*.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="o">*</span><span class="p">,</span> <span class="ow">in</span> <span class="o">*</span>
-    <span class="n">test</span>
-<span class="ne">NameError</span><span class="p">:</span> <span class="n">name</span> <span class="s1">&#39;test&#39;</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">defined</span>
-<span class="o">====================================================================================================</span>
+<dt>Error Logs:</dt><dd><div class="highlight-apl notranslate"><div class="highlight"><pre><span></span><span class="sr">[</span><span class="m">04</span><span class="na">/</span><span class="m">04</span><span class="na">/</span><span class="m">24</span><span class="w"> </span><span class="m">00</span><span class="bp">:</span><span class="m">00</span><span class="bp">:</span><span class="m">00</span><span class="sr">]</span><span class="w"> </span><span class="nv">INFO</span><span class="w">     </span><span class="sr">[</span><span class="nv">MODEL</span><span class="sr">]</span><span class="w"> </span><span class="nv">Called</span><span class="w">                            </span><span class="nv">triton</span><span class="na">.</span><span class="nv">py</span><span class="bp">:</span><span class="o">*</span>
+<span class="w">                    </span><span class="nv">INFO</span><span class="w">     </span><span class="sr">[</span><span class="nv">MODEL</span><span class="sr">]</span><span class="w"> </span><span class="nv">Inference</span><span class="w"> </span><span class="nv">start</span><span class="w">                   </span><span class="nv">triton</span><span class="na">.</span><span class="nv">py</span><span class="bp">:</span><span class="o">*</span>
+<span class="w">                    </span><span class="nv">CRITICAL</span><span class="w"> </span><span class="sr">[</span><span class="nv">MODEL</span><span class="sr">]</span><span class="w"> </span><span class="nv">Hello</span><span class="o">,</span><span class="w"> </span><span class="nv">World</span><span class="o">!</span><span class="w">                     </span><span class="nv">triton</span><span class="na">.</span><span class="nv">py</span><span class="bp">:</span><span class="o">*</span>
+<span class="w">                            </span><span class="o">====================================================================================================</span>
+<span class="w">                            </span><span class="nv">Traceback</span><span class="w"> </span><span class="p">(</span><span class="nv">most</span><span class="w"> </span><span class="nv">recent</span><span class="w"> </span><span class="nv">call</span><span class="w"> </span><span class="nv">last</span><span class="p">)</span><span class="bp">:</span>
+<span class="w">                            </span><span class="nv">File</span><span class="w"> </span><span class="s2">&quot;/usr/local/lib/python3.8/dist-packages/zerohertzLib/mlops/triton.py&quot;</span><span class="o">,</span><span class="w"> </span><span class="nv">line</span><span class="w"> </span><span class="o">*,</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">execute</span>
+<span class="w">                                </span><span class="nv">outputs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">self</span><span class="na">.</span><span class="nv">_inference</span><span class="p">(</span><span class="o">*</span><span class="nv">inputs</span><span class="p">)</span>
+<span class="w">                            </span><span class="nv">File</span><span class="w"> </span><span class="s2">&quot;/models/model/*/model.py&quot;</span><span class="o">,</span><span class="w"> </span><span class="nv">line</span><span class="w"> </span><span class="o">*,</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">_inference</span>
+<span class="w">                                </span><span class="nv">raise</span><span class="w"> </span><span class="nv">Exception</span><span class="p">(</span><span class="s2">&quot;Hello, World!&quot;</span><span class="p">)</span>
+<span class="w">                            </span><span class="nv">Exception</span><span class="bp">:</span><span class="w"> </span><span class="nv">Hello</span><span class="o">,</span><span class="w"> </span><span class="nv">World</span><span class="o">!</span>
+<span class="w">                            </span><span class="o">====================================================================================================</span>
 </pre></div>
 </div>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.mlops.BaseTritonPythonModel.execute">
-<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requests</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L342"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel.execute" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requests</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L373"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel.execute" title="Permalink to this definition">#</a></dt>
 <dd><p>Triton Inference Server 호출 시 수행되는 method</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -356,13 +373,13 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.mlops.BaseTritonPythonModel.finalize">
-<span class="sig-name descname"><span class="pre">finalize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L414"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel.finalize" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">finalize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L442"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel.finalize" title="Permalink to this definition">#</a></dt>
 <dd><p>Triton Inference Server 종료 시 수행되는 method</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.mlops.BaseTritonPythonModel.initialize">
-<span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L331"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel.initialize" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L357"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.BaseTritonPythonModel.initialize" title="Permalink to this definition">#</a></dt>
 <dd><p>Triton Inference Server 시작 시 수행되는 method</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -378,7 +395,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientK8s">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.mlops.</span></span><span class="sig-name descname"><span class="pre">TritonClientK8s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">svc_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8001</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L235"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.TritonClientK8s" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zerohertzLib.mlops.</span></span><span class="sig-name descname"><span class="pre">TritonClientK8s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">svc_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8001</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L243"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.TritonClientK8s" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#zerohertzLib.mlops.TritonClientURL" title="zerohertzLib.mlops.triton.TritonClientURL"><code class="xref py py-class docutils literal notranslate"><span class="pre">TritonClientURL</span></code></a></p>
 <p>Kubernetes에서 실행되는 triton inference server의 호출을 위한 class</p>
 <dl class="field-list simple">
@@ -392,13 +409,14 @@
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientK8s.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.TritonClientK8s.__call__" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L87"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.TritonClientK8s.__call__" title="Permalink to this definition">#</a></dt>
 <dd><p>Model 호출 수행</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> (<code class="docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">str]</span></code>) – 호출할 model의 이름 또는 ID</p></li>
 <li><p><strong>*args</strong> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – Model 호출 시 사용될 입력</p></li>
+<li><p><strong>renew</strong> – (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>): 각 모델의 상태 조회 시 갱신 여부</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -445,13 +463,14 @@ triton-inference-server-svc   ClusterIP   10.96.28.172    &lt;none&gt;        80
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientURL.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.TritonClientURL.__call__" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L87"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.TritonClientURL.__call__" title="Permalink to this definition">#</a></dt>
 <dd><p>Model 호출 수행</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> (<code class="docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">str]</span></code>) – 호출할 model의 이름 및 ID</p></li>
 <li><p><strong>*args</strong> (<code class="docutils literal notranslate"><span class="pre">NDArray[DTypeLike]</span></code>) – Model 호출 시 사용될 입력</p></li>
+<li><p><strong>renew</strong> – (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>): 각 모델의 상태 조회 시 갱신 여부</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -472,7 +491,7 @@ triton-inference-server-svc   ClusterIP   10.96.28.172    &lt;none&gt;        80
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientURL.load_model">
-<span class="sig-name descname"><span class="pre">load_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L186"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.TritonClientURL.load_model" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">load_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L194"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.TritonClientURL.load_model" title="Permalink to this definition">#</a></dt>
 <dd><p>Triton Inference Server 내 model을 load하는 함수</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -494,11 +513,12 @@ triton-inference-server-svc   ClusterIP   10.96.28.172    &lt;none&gt;        80
 
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientURL.status">
-<span class="sig-name descname"><span class="pre">status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sortby</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'STATE'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L131"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.TritonClientURL.status" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">renew</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sortby</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'STATE'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L135"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.TritonClientURL.status" title="Permalink to this definition">#</a></dt>
 <dd><p>Triton Inferece Server의 상태를 확인하는 함수</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.status.params.renew"></span><strong>renew</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.status.params.renew">¶</a> – (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>): 각 모델의 상태 조회 시 갱신 여부</p></li>
 <li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.status.params.sortby"></span><strong>sortby</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.status.params.sortby">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – 정렬 기준</p></li>
 <li><p><span class="target" id="zerohertzLib.mlops.TritonClientURL.status.params.reverse"></span><strong>reverse</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.mlops.TritonClientURL.status.params.reverse">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[bool]</span></code>) – 정렬 역순 여부</p></li>
 </ul>
@@ -508,12 +528,12 @@ triton-inference-server-svc   ClusterIP   10.96.28.172    &lt;none&gt;        80
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tc</span><span class="o">.</span><span class="n">status</span><span class="p">()</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="_images/mlops.TritonClientURL.status.png"><img alt="_images/mlops.TritonClientURL.status.png" class="align-center" src="_images/mlops.TritonClientURL.status.png" style="width: 700px;" /></a>
+<a class="reference internal image-reference" href="_images/mlops.TritonClientURL.status.gif"><img alt="_images/mlops.TritonClientURL.status.gif" class="align-center" src="_images/mlops.TritonClientURL.status.gif" style="width: 700px;" /></a>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.mlops.TritonClientURL.unload_model">
-<span class="sig-name descname"><span class="pre">unload_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unload_dependents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L211"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.TritonClientURL.unload_model" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">unload_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unload_dependents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/mlops/triton.py#L219"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.mlops.TritonClientURL.unload_model" title="Permalink to this definition">#</a></dt>
 <dd><p>Triton Inference Server 내 model을 unload하는 함수</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -627,7 +647,7 @@ triton-inference-server-svc   ClusterIP   10.96.28.172    &lt;none&gt;        80
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=9d476510"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=393fe109"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
