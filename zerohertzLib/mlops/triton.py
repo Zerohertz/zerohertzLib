@@ -55,6 +55,7 @@ class TritonClientURL(grpcclient.InferenceServerClient):
             Args:
                 model (``Union[int, str]``): 호출할 model의 이름 및 ID
                 *args (``NDArray[DTypeLike]``): Model 호출 시 사용될 입력
+                renew: (``Optional[bool]``): 각 모델의 상태 조회 시 갱신 여부
 
             Returns:
                 ``Dict[str, NDArray[DTypeLike]]``: 호출된 model의 결과
@@ -84,11 +85,14 @@ class TritonClientURL(grpcclient.InferenceServerClient):
         }
 
     def __call__(
-        self, model: Union[int, str], *args: NDArray[DTypeLike]
+        self,
+        model: Union[int, str],
+        *args: NDArray[DTypeLike],
+        renew: Optional[bool] = False,
     ) -> Dict[str, NDArray[DTypeLike]]:
         if isinstance(model, int):
             model = self.models[model]
-        self._update_configs(model)
+        self._update_configs(model, renew)
         inputs = self.configs[model]["config"]["input"]
         outputs = self.configs[model]["config"]["output"]
         assert len(inputs) == len(args)
@@ -107,8 +111,8 @@ class TritonClientURL(grpcclient.InferenceServerClient):
             triton_results[output["name"]] = response.as_numpy(output["name"])
         return triton_results
 
-    def _update_configs(self, model: str) -> None:
-        if model not in self.configs:
+    def _update_configs(self, model: str, renew: bool) -> None:
+        if renew or model not in self.configs:
             self.configs[model] = self.get_model_config(model, as_json=True)
 
     def _set_input(
@@ -129,11 +133,15 @@ class TritonClientURL(grpcclient.InferenceServerClient):
         ).set_data_from_numpy(value)
 
     def status(
-        self, sortby: Optional[str] = "STATE", reverse: Optional[bool] = False
+        self,
+        renew: Optional[bool] = False,
+        sortby: Optional[str] = "STATE",
+        reverse: Optional[bool] = False,
     ) -> None:
         """Triton Inferece Server의 상태를 확인하는 함수
 
         Args:
+            renew: (``Optional[bool]``): 각 모델의 상태 조회 시 갱신 여부
             sortby (``Optional[str]``): 정렬 기준
             reverse (``Optional[bool]``): 정렬 역순 여부
 
@@ -156,7 +164,7 @@ class TritonClientURL(grpcclient.InferenceServerClient):
                 _input, _output = ["-"], ["-"]
                 backend = "-"
             else:
-                self._update_configs(model["name"])
+                self._update_configs(model["name"], renew)
                 _input, _output = [], []
                 for inputs in self.configs[model["name"]]["config"]["input"]:
                     _input.append(
@@ -247,6 +255,7 @@ class TritonClientK8s(TritonClientURL):
             Args:
                 model (``Union[int, str]``): 호출할 model의 이름 또는 ID
                 *args (``NDArray[DTypeLike]``): Model 호출 시 사용될 입력
+                renew: (``Optional[bool]``): 각 모델의 상태 조회 시 갱신 여부
 
             Returns:
                 ``Dict[str, NDArray[DTypeLike]]``: 호출된 model의 결과
