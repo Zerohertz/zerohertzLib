@@ -148,7 +148,7 @@ class TritonClientURL(grpcclient.InferenceServerClient):
         Examples:
             >>> tc.status()
 
-            .. image:: _static/examples/static/mlops.TritonClientURL.status.png
+            .. image:: _static/examples/static/mlops.TritonClientURL.status.gif
                 :align: center
                 :width: 700px
         """
@@ -287,6 +287,22 @@ class BaseTritonPythonModel(ABC):
     Note:
         Abstract Base Class: Model의 추론을 수행하는 abstract method ``_inference`` 정의 후 사용
 
+    Hint:
+        Logger의 색상 적용을 위해 아래와 같은 환경 변수 정의 필요
+
+        .. code-block:: yaml
+
+            spec:
+              template:
+                spec:
+                  containers:
+                    - name: ${NAME}
+                      ...
+                      env:
+                        - name: "FORCE_COLOR"
+                        value: "1"
+                      ...
+
     Attributes:
         logger (``zerohertzLib.logging.Logger``): Triton Inference Server 내 log를 출력하기 위한 instance
 
@@ -313,28 +329,29 @@ class BaseTritonPythonModel(ABC):
                         return self.model(input_image)
 
         Normal Logs:
-            .. code-block:: python
+            .. code-block:: apl
 
-                2024-01-12 01:47:19,123 | INFO     | MODEL | Called
-                2024-01-12 01:47:19,124 | DEBUG    | MODEL | inputs: (2259, 1663, 3)
-                2024-01-12 01:47:19,124 | INFO     | MODEL | Inference start
-                2024-01-12 01:47:19,254 | DEBUG    | MODEL | outputs: (3, 4, 2) (3,)
-                2024-01-12 01:47:19,254 | INFO     | MODEL | Inference completed
+                [04/04/24 00:00:00] INFO     [MODEL] Initialize                        triton.py:*
+                [04/04/24 00:00:00] INFO     [MODEL] Called                            triton.py:*
+                                    DEBUG    [MODEL] inputs: (3, 3, 3)                 triton.py:*
+                                    INFO     [MODEL] Inference start                   triton.py:*
+                                    DEBUG    [MODEL] outputs: (10,) (20,)              triton.py:*
+                                    INFO     [MODEL] Inference completed               triton.py:*
 
         Error Logs:
-            .. code-block:: python
+            .. code-block:: apl
 
-                2024-01-12 02:03:24,288 | CRITICAL | MODEL | name 'test' is not defined
-                ====================================================================================================
-                Traceback (most recent call last):
-                File "/usr/local/lib/python3.8/dist-packages/zerohertzLib/mlops/triton.py", line *, in execute
-                    outputs = self._inference(*inputs)
-                File "/models/model/*/model.py", line *, in _inference
-                    return self.model(input_image)
-                File "/models/model/*/*.py", line *, in *
-                    test
-                NameError: name 'test' is not defined
-                ====================================================================================================
+                [04/04/24 00:00:00] INFO     [MODEL] Called                            triton.py:*
+                                    INFO     [MODEL] Inference start                   triton.py:*
+                                    CRITICAL [MODEL] Hello, World!                     triton.py:*
+                                            ====================================================================================================
+                                            Traceback (most recent call last):
+                                            File "/usr/local/lib/python3.8/dist-packages/zerohertzLib/mlops/triton.py", line *, in execute
+                                                outputs = self._inference(*inputs)
+                                            File "/models/model/*/model.py", line *, in _inference
+                                                raise Exception("Hello, World!")
+                                            Exception: Hello, World!
+                                            ====================================================================================================
     """
 
     def initialize(self, args: Dict[str, Any], level: Optional[int] = 20) -> None:
