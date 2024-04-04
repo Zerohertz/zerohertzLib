@@ -389,6 +389,8 @@ class BaseTritonPythonModel(ABC):
                 )
                 self.logger.info("Inference start")
                 outputs = self._inference(*inputs)
+                if not isinstance(outputs, tuple):
+                    outputs = tuple([outputs])
                 self.logger.debug(
                     "outputs: %s", " ".join([str(output.shape) for output in outputs])
                 )
@@ -420,12 +422,8 @@ class BaseTritonPythonModel(ABC):
             )
         return inputs
 
-    def _set_outputs(
-        self, outputs: Union[NDArray[DTypeLike], Tuple[NDArray[DTypeLike]]]
-    ) -> Any:
+    def _set_outputs(self, outputs: Tuple[NDArray[DTypeLike]]) -> Any:
         output_tensors = []
-        if not isinstance(outputs, tuple):
-            outputs = [outputs]
         for output, value in zip(self.cfg["output"], outputs):
             output_tensors.append(
                 pb_utils.Tensor(
