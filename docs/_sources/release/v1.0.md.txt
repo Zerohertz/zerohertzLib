@@ -1,5 +1,31 @@
 # v1.0
 
+## v1.0.4
+
+<h3>[v1.0.4] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/279>#279</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/04/05
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/vision"><img src="https://img.shields.io/badge/feat/vision-D1F9CB?style=flat-square&logo=github" alt="feat/vision"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/quant"><img src="https://img.shields.io/badge/feat/quant-ededed?style=flat-square&logo=github" alt="feat/quant"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `quant`
+  + `Balance` class에서 두 계좌의 정보를 병합할 수 있는 `merge` method 추가
+  + `Balance` class에서 현재 계좌의 정보 기준으로 이익 및 손실을 시각화하는 `barv` method 추가
++ `vision`
+  + `pad` 함수에서 `poly`를 입력하지 않아도 변환에 대한 정보를 출력하도록 변경
+
 ## v1.0.3
 
 <h3>[v1.0.3] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/277>#277</a>)</h3>
