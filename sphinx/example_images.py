@@ -246,18 +246,26 @@ def example_poly2mask():
 def example_pad():
     img = cv2.cvtColor(IMAGE, cv2.COLOR_BGRA2GRAY)
     res1 = cv2.resize(img, (500, 1000))
-    res1 = zz.vision.pad(res1, (1000, 1000), color=(0, 255, 0))
-    res2 = cv2.resize(img, (1000, 500))
-    res2 = zz.vision.pad(res2, (1000, 1000))
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
+    res1, _ = zz.vision.pad(res1, (1000, 1000), color=(0, 255, 0))
+    res2 = cv2.resize(IMAGE, (1000, 500))
+    res2, _ = zz.vision.pad(res2, (1000, 1000))
+    img = cv2.cvtColor(IMAGE, cv2.COLOR_BGR2BGRA)
     res3 = cv2.resize(img, (500, 1000))
-    res3 = zz.vision.pad(res3, (1000, 1000), color=(0, 0, 255, 128))
+    res3, _ = zz.vision.pad(res3, (1000, 1000), color=(0, 0, 255, 128))
     poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
-    res4 = cv2.resize(img, (2000, 1000))
+    res4 = cv2.resize(IMAGE, (2000, 1000))
     res4 = zz.vision.bbox(res4, poly, color=(255, 0, 0), thickness=20)
     res4, poly = zz.vision.pad(res4, (1000, 1000), poly=poly)
-    res4 = zz.vision.bbox(img, poly, color=(0, 0, 255))
-    zz.vision.vert([res1, res2, res3, res4], file_name=f"{EXAMPLE_PATH}/vision.pad")
+    res4 = zz.vision.bbox(res4, poly, color=(0, 0, 255))
+    poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
+    res5 = cv2.resize(IMAGE, (2000, 1000))
+    res5 = zz.vision.bbox(res5, poly, color=(255, 0, 0), thickness=20)
+    res5, info = zz.vision.pad(res5, (1000, 1000), color=(128, 128, 128))
+    poly = poly * info[0] + info[1:]
+    res5 = zz.vision.bbox(res5, poly, color=(0, 0, 255))
+    zz.vision.vert(
+        [res1, res2, res3, res4, res5], file_name=f"{EXAMPLE_PATH}/vision.pad"
+    )
 
 
 # vision.cutout.png

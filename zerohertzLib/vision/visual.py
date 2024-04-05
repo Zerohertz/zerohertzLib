@@ -259,7 +259,7 @@ def _make_text(
     y_0, y_1 = d_y, d_y + text_height
     draw.text((d_x, d_y), txt, font=font, fill=(*color, 255))
     palette = np.array(palette)[y_0:y_1, x_0:x_1, :]
-    return pad(palette, shape, (0, 0, 0, 0))
+    return pad(palette, shape, (0, 0, 0, 0))[0]
 
 
 def _text(
@@ -449,7 +449,7 @@ def paste(
             poly = poly * (box_width / tar_width, box_height / tar_height) + (x_0, y_0)
     else:
         if poly is None:
-            target = pad(target, (box_height, box_width), (0, 0, 0, 0))
+            target, _ = pad(target, (box_height, box_width), (0, 0, 0, 0))
         else:
             target, poly = pad(target, (box_height, box_width), (0, 0, 0, 0), poly)
             poly += (x_0, y_0)
