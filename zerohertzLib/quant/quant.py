@@ -44,7 +44,7 @@ from zerohertzLib.plot import barh, barv, candle, figure, hist, pie, savefig, ta
 from .backtest import Experiments, backtest
 from .util import _cash2str, _method2str, _seconds_to_hms
 
-BalanceType = TypeVar("Balance", bound="Balance")
+T = TypeVar("T", bound="Balance")
 
 
 class Quant(Experiments):
@@ -387,7 +387,7 @@ class Balance(KoreaInvestment):
         data = fdr.DataReader("USD/KRW", now - timedelta(days=10))
         return data.Close[-1]
 
-    def merge(self, balance: BalanceType) -> None:
+    def merge(self, balance: T) -> None:
         """현재 계좌와 입력 계좌의 정보를 병합하는 함수
 
         Args:
@@ -582,14 +582,14 @@ class Balance(KoreaInvestment):
         data["Cash"] = max(data["Cash"], cash)
         return pie(data, dim, title="Portfolio", dpi=100, int_label=self.kor)
 
-    def bar(self) -> str:
+    def barv(self) -> str:
         """현재 보유 종목의 이익과 손실을 bar chart로 시각화
 
         Returns:
             ``str``: 저장된 graph의 절대 경로
 
         Examples:
-            >>> balance.bar()
+            >>> balance.barv()
         """
         if self.kor:
             dim = "₩"
