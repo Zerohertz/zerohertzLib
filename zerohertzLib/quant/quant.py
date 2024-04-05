@@ -30,7 +30,7 @@ from abc import ABC, abstractmethod
 from collections import defaultdict
 from datetime import datetime, timedelta
 from itertools import combinations
-from typing import Any, Dict, ItemsView, List, Optional, Tuple, Union
+from typing import Any, Dict, ItemsView, List, Optional, Tuple, TypeVar, Union
 
 import FinanceDataReader as fdr
 import pandas as pd
@@ -42,6 +42,8 @@ from zerohertzLib.plot import barh, barv, candle, figure, hist, pie, savefig, ta
 
 from .backtest import Experiments, backtest
 from .util import _cash2str, _method2str, _seconds_to_hms
+
+BalanceType = TypeVar("Balance", bound="Balance")
 
 
 class Quant(Experiments):
@@ -287,7 +289,7 @@ class Balance(KoreaInvestment):
             >>> balance[0]
             ['066570', 102200.0, 100200, 1, -1.95, -2000]
             >>> balance()
-            1997997
+            000
 
         ``kor=False``:
             >>> balance = zz.quant.Balance("00000000-00", kor=False)
@@ -298,9 +300,9 @@ class Balance(KoreaInvestment):
             >>> len(balance)
             1
             >>> balance[0]
-            ['AMZN', 145.98, 146.5, 1, 0.36, 146.5]
+            ['META', 488.74, 510.92, 1, 4.53, 22.18]
             >>> balance()
-            146.5
+            000.000
     """
 
     def __init__(
@@ -383,6 +385,82 @@ class Balance(KoreaInvestment):
         now = datetime.now()
         data = fdr.DataReader("USD/KRW", now - timedelta(days=10))
         return data.Close[-1]
+
+    def merge(self, balance: BalanceType) -> None:
+        """현재 계좌와 입력 계좌의 정보를 병합하는 함수
+
+        Args:
+            balance (``zerohertzLib.quant.Balance``): 병합될 계좌 정보
+
+        Returns:
+            ``None``: 현재 계좌에 정보 update
+        """
+        merged_balance = balance.balance.copy()
+        if self.kor != balance.kor:
+            exchange = self._exchange()
+            if self.kor:
+                for key, value in balance.items():
+                    merged_balance["stock"][key][1] = value[1] * exchange
+                    merged_balance["stock"][key][2] = value[2] * exchange
+                    merged_balance["stock"][key][-1] = value[-1] * exchange
+                merged_balance["cash"] = balance.balance["cash"] * exchange
+            else:
+                for key, value in balance.items():
+                    merged_balance["stock"][key][1] = value[1] / exchange
+                    merged_balance["stock"][key][2] = value[2] / exchange
+                    merged_balance["stock"][key][-1] = value[-1] / exchange
+                merged_balance["cash"] = balance.balance["cash"] / exchange
+        for key, value in merged_balance["stock"].items():
+            if key in self:
+                (
+                    _merged_code,
+                    _merged_buy_price,
+                    _merged_present_price,
+                    _merged_cnt,
+                    _merged_pandl_per,
+                    _merged_pandl_abs,
+                ) = self.balance["stock"][key]
+                (
+                    _tmp_code,
+                    _tmp_buy_price,
+                    _tmp_present_price,
+                    _tmp_cnt,
+                    _tmp_pandl_per,
+                    _tmp_pandl_abs,
+                ) = value
+                assert _merged_code == _tmp_code
+                _merged_buy_price = (
+                    _merged_buy_price * _merged_cnt + _tmp_buy_price * _tmp_cnt
+                ) / (_merged_cnt + _tmp_cnt)
+                _merged_present_price = (_merged_present_price + _tmp_present_price) / 2
+                _merged_cnt += _tmp_cnt
+                _merged_pandl_abs = (
+                    _merged_present_price - _merged_buy_price
+                ) * _merged_cnt
+                _merged_pandl_per = (
+                    (_merged_present_price - _merged_buy_price)
+                    / _merged_buy_price
+                    * 100
+                )
+                self.balance["stock"][key] = [
+                    _merged_code,
+                    _merged_buy_price,
+                    _merged_present_price,
+                    _merged_cnt,
+                    _merged_pandl_per,
+                    _merged_pandl_abs,
+                ]
+            else:
+                self.symbols.append(key)
+                self.balance["stock"][key] = value
+        self.balance["cash"] += merged_balance["cash"]
+        self.balance["stock"] = dict(
+            sorted(
+                self.balance["stock"].items(),
+                key=lambda item: item[1][1] * item[1][3],
+                reverse=True,
+            )
+        )
 
     def items(self) -> ItemsView[str, List[Union[int, float, str]]]:
         """보유 주식의 반복문 사용을 위한 method
