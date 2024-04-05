@@ -38,7 +38,7 @@ def pad(
     shape: Tuple[int],
     color: Optional[Tuple[int]] = (255, 255, 255),
     poly: Optional[NDArray[DTypeLike]] = None,
-) -> Union[NDArray[np.uint8], Tuple[NDArray[np.uint8], NDArray[DTypeLike]]]:
+) -> Tuple[NDArray[np.uint8], Union[Tuple[float, int, int], NDArray[DTypeLike]]]:
     """입력 image를 원하는 shape로 resize 및 pad
 
     Args:
@@ -48,33 +48,44 @@ def pad(
         poly (``Optional[NDArray[DTypeLike]]``): Padding에 따라 변형될 좌표 (``[N, 2]``)
 
     Returns:
-        ``Union[NDArray[np.uint8], Tuple[NDArray[np.uint8], NDArray[DTypeLike]]]``: 출력 image (``[H, W, C]``) 및 ``poly`` 입력 시 padding에 따른 변형된 좌표값
+        ``Tuple[NDArray[np.uint8], Union[Tuple[float, int, int], NDArray[DTypeLike]]]``: 출력 image (``[H, W, C]``) 및 padding에 따른 정보 또는 변형된 좌표값
+
+    Note:
+        ``poly`` 를 입력하지 않을 시 ``(ratio, left, top)`` 가 출력되며 ``poly * ratio + (left, top)`` 와 같이 차후에 변환 가능
 
     Examples:
         GRAY:
             >>> img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
             >>> res1 = cv2.resize(img, (500, 1000))
-            >>> res1 = zz.vision.pad(res1, (1000, 1000), color=(0, 255, 0))
+            >>> res1, _ = zz.vision.pad(res1, (1000, 1000), color=(0, 255, 0))
 
         BGR:
             >>> res2 = cv2.resize(img, (1000, 500))
-            >>> res2 = zz.vision.pad(res2, (1000, 1000))
+            >>> res2, _ = zz.vision.pad(res2, (1000, 1000))
 
         BGRA:
             >>> img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
             >>> res3 = cv2.resize(img, (500, 1000))
-            >>> res3 = zz.vision.pad(res3, (1000, 1000), color=(0, 0, 255, 128))
+            >>> res3, _ = zz.vision.pad(res3, (1000, 1000), color=(0, 0, 255, 128))
 
         Poly:
             >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
             >>> res4 = cv2.resize(img, (2000, 1000))
             >>> res4 = zz.vision.bbox(res4, poly, color=(255, 0, 0), thickness=20)
             >>> res4, poly = zz.vision.pad(res4, (1000, 1000), poly=poly)
-            >>> res4 = zz.vision.bbox(img, poly, color=(0, 0, 255))
+            >>> res4 = zz.vision.bbox(res4, poly, color=(0, 0, 255))
+
+        Transformation:
+            >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
+            >>> res5 = cv2.resize(img, (2000, 1000))
+            >>> res5 = zz.vision.bbox(res5, poly, color=(255, 0, 0), thickness=20)
+            >>> res5, info = zz.vision.pad(res5, (1000, 1000), color=(128, 128, 128))
+            >>> poly = poly * info[0] + info[1:]
+            >>> res5 = zz.vision.bbox(res5, poly, color=(0, 0, 255))
 
         .. image:: _static/examples/dynamic/vision.pad.png
             :align: center
-            :width: 600px
+            :width: 700px
     """
     if len(img.shape) == 2:
         img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
@@ -110,7 +121,7 @@ def pad(
         img, top, bottom, left, right, cv2.BORDER_CONSTANT, value=color
     )
     if poly is None:
-        return img
+        return img, (ratio, left, top)
     return img, poly * ratio + (left, top)
 
 

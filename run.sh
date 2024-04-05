@@ -13,7 +13,7 @@ pip install dist/*.whl
 # sphinx-apidoc -f -o sphinx/source zerohertzLib --implicit-namespaces
 # sed -i '/.. automodule::/a\   :private-members:' sphinx/source/*.rst
 # python sphinx/release_note.py
-# python sphinx/example_images.py
+python sphinx/example_images.py
 cd sphinx
 rm -rf build
 make html

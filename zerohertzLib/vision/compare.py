@@ -152,7 +152,7 @@ def grid(
             (d_y + 1) * length,
         )
         img = _cvt_bgra(img)
-        palette[y_0:y_1, x_0:x_1, :] = pad(img, (length, length), color)
+        palette[y_0:y_1, x_0:x_1, :], _ = pad(img, (length, length), color)
     cv2.imwrite(f"{file_name}.png", palette)
 
 
