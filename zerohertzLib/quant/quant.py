@@ -36,6 +36,7 @@ import FinanceDataReader as fdr
 import pandas as pd
 import requests
 from matplotlib import pyplot as plt
+from matplotlib import ticker
 
 from zerohertzLib.api import KoreaInvestment, SlackBot
 from zerohertzLib.plot import barh, barv, candle, figure, hist, pie, savefig, table
@@ -577,6 +578,37 @@ class Balance(KoreaInvestment):
         cash = self() - sum(data.values())
         data["Cash"] = max(data["Cash"], cash)
         return pie(data, dim, title="Portfolio", dpi=100, int_label=self.kor)
+
+    def bar(self) -> str:
+        """현재 보유 종목의 이익과 손실을 bar chart로 시각화
+
+        Returns:
+            ``str``: 저장된 graph의 절대 경로
+
+        Examples:
+            >>> balance.bar()
+        """
+        if self.kor:
+            dim = "₩"
+        else:
+            dim = "$"
+        data = {}
+        for value in self:
+            data[value[0]] = value[5]
+        figure((30, 10))
+        barv(
+            data,
+            xlab="",
+            ylab=f"Profit and Loss (P&L) [{dim}]",
+            title="",
+            dim="",
+            dimsize=16,
+            save=False,
+        )
+        plt.gca().yaxis.set_major_formatter(
+            ticker.FuncFormatter(lambda x, p: format(int(x), ","))
+        )
+        return savefig("ProfitLoss", 100)
 
 
 class QuantSlackBot(ABC, SlackBot):
