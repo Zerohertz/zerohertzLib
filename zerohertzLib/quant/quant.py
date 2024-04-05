@@ -395,6 +395,9 @@ class Balance(KoreaInvestment):
 
         Returns:
             ``None``: 현재 계좌에 정보 update
+
+        Examples:
+            >>> balance_1.merge(balance_2)
         """
         merged_balance = balance.balance.copy()
         if self.kor != balance.kor:
@@ -574,7 +577,7 @@ class Balance(KoreaInvestment):
         data["Cash"] = 0
         for name, value in self.items():
             _, purchase, _, quantity, _, _ = value
-            data[f"{name}"] = purchase * quantity
+            data[name] = purchase * quantity
         cash = self() - sum(data.values())
         data["Cash"] = max(data["Cash"], cash)
         return pie(data, dim, title="Portfolio", dpi=100, int_label=self.kor)
