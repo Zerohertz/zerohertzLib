@@ -521,30 +521,30 @@ class Balance(KoreaInvestment):
         purchase_total = 0
         current_total = 0
         for name, value in self.items():
-            _, purchase, current, quantity, pal, pal_price = value
+            _, purchase, current, quantity, pandl_per, pandl_abs = value
             row.append(name)
             data.append(
                 [
                     _cash2str(purchase, self.kor),
                     _cash2str(current, self.kor),
                     quantity,
-                    f"{pal}%",
-                    _cash2str(pal_price, self.kor),
+                    f"{pandl_per:.2f}%",
+                    _cash2str(pandl_abs, self.kor),
                 ]
             )
             purchase_total += purchase * quantity
             current_total += current * quantity
         row.append("TOTAL")
         if purchase_total == 0:
-            pl_percentage = 0
+            pandl_total = 0
         else:
-            pl_percentage = (current_total - purchase_total) / purchase_total * 100
+            pandl_total = (current_total - purchase_total) / purchase_total * 100
         data.append(
             [
                 _cash2str(purchase_total, self.kor),
                 _cash2str(current_total, self.kor),
                 "-",
-                f"{pl_percentage:.2f}%",
+                f"{pandl_total:.2f}%",
                 f"{_cash2str(current_total - purchase_total, self.kor)}\n\n{_cash2str(self(), self.kor)}",
             ]
         )
