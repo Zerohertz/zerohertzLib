@@ -312,12 +312,10 @@ class Balance(KoreaInvestment):
         super().__init__(account_no, path)
         self.balance = {"stock": defaultdict(list)}
         self.kor = kor
-        self.symbols = []
         response = self.get_balance(kor)
         if self.kor:
             for stock in response["output1"]:
                 if int(stock["hldg_qty"]) > 0:  # 보유수량
-                    self.symbols.append(stock["prdt_name"])
                     self.balance["stock"][stock["prdt_name"]] = [
                         stock["pdno"],  # 종목번호
                         float(
@@ -334,7 +332,6 @@ class Balance(KoreaInvestment):
         else:
             for stock in response["output1"]:
                 if int(float(stock["ccld_qty_smtl1"])) > 0:  # 체결수량합계
-                    self.symbols.append(stock["prdt_name"])
                     self.balance["stock"][stock["prdt_name"]] = [
                         stock["pdno"],  # 종목번호
                         float(stock["avg_unpr3"]),  # 평균단가
@@ -364,6 +361,7 @@ class Balance(KoreaInvestment):
                 reverse=True,
             )
         )
+        self.symbols = list(self.balance["stock"].keys())
 
     def __contains__(self, item: Any) -> bool:
         return item in self.balance["stock"]
@@ -465,6 +463,7 @@ class Balance(KoreaInvestment):
                 reverse=True,
             )
         )
+        self.symbols = list(self.balance["stock"].keys())
 
     def items(self) -> ItemsView[str, List[Union[int, float, str]]]:
         """보유 주식의 반복문 사용을 위한 method
@@ -522,30 +521,30 @@ class Balance(KoreaInvestment):
         purchase_total = 0
         current_total = 0
         for name, value in self.items():
-            _, purchase, current, quantity, pal, pal_price = value
+            _, purchase, current, quantity, pandl_per, pandl_abs = value
             row.append(name)
             data.append(
                 [
                     _cash2str(purchase, self.kor),
                     _cash2str(current, self.kor),
                     quantity,
-                    f"{pal}%",
-                    _cash2str(pal_price, self.kor),
+                    f"{pandl_per:.2f}%",
+                    _cash2str(pandl_abs, self.kor),
                 ]
             )
             purchase_total += purchase * quantity
             current_total += current * quantity
         row.append("TOTAL")
         if purchase_total == 0:
-            pl_percentage = 0
+            pandl_total = 0
         else:
-            pl_percentage = (current_total - purchase_total) / purchase_total * 100
+            pandl_total = (current_total - purchase_total) / purchase_total * 100
         data.append(
             [
                 _cash2str(purchase_total, self.kor),
                 _cash2str(current_total, self.kor),
                 "-",
-                f"{pl_percentage:.2f}%",
+                f"{pandl_total:.2f}%",
                 f"{_cash2str(current_total - purchase_total, self.kor)}\n\n{_cash2str(self(), self.kor)}",
             ]
         )

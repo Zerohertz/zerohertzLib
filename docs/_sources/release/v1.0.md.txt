@@ -1,5 +1,26 @@
 # v1.0
 
+## v1.0.5
+
+<h3>[v1.0.5] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/281>#281</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/04/08
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/quant"><img src="https://img.shields.io/badge/feat/quant-ededed?style=flat-square&logo=github" alt="feat/quant"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `quant`
+  + `Balance` class의 `barv` method 사용 시 보유 금액 순으로 정렬되지 않는 오류 개선
+  + `Balance` class의 `table` method 사용 시 profit & loss의 유효 숫자 고정
 ## v1.0.4
 
 <h3>[v1.0.4] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/279>#279</a>)</h3>
