@@ -312,12 +312,10 @@ class Balance(KoreaInvestment):
         super().__init__(account_no, path)
         self.balance = {"stock": defaultdict(list)}
         self.kor = kor
-        self.symbols = []
         response = self.get_balance(kor)
         if self.kor:
             for stock in response["output1"]:
                 if int(stock["hldg_qty"]) > 0:  # 보유수량
-                    self.symbols.append(stock["prdt_name"])
                     self.balance["stock"][stock["prdt_name"]] = [
                         stock["pdno"],  # 종목번호
                         float(
@@ -334,7 +332,6 @@ class Balance(KoreaInvestment):
         else:
             for stock in response["output1"]:
                 if int(float(stock["ccld_qty_smtl1"])) > 0:  # 체결수량합계
-                    self.symbols.append(stock["prdt_name"])
                     self.balance["stock"][stock["prdt_name"]] = [
                         stock["pdno"],  # 종목번호
                         float(stock["avg_unpr3"]),  # 평균단가
@@ -364,6 +361,7 @@ class Balance(KoreaInvestment):
                 reverse=True,
             )
         )
+        self.symbols = list(self.balance["stock"].keys())
 
     def __contains__(self, item: Any) -> bool:
         return item in self.balance["stock"]
@@ -465,6 +463,7 @@ class Balance(KoreaInvestment):
                 reverse=True,
             )
         )
+        self.symbols = list(self.balance["stock"].keys())
 
     def items(self) -> ItemsView[str, List[Union[int, float, str]]]:
         """보유 주식의 반복문 사용을 위한 method
