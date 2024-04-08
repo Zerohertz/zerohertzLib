@@ -16,11 +16,11 @@
     <meta property="og:title" content="v1.0" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/release/v1.0.html" />
-<meta property="og:site_name" content="Zerohertz's Library v1.0.4 Documents" />
-<meta property="og:description" content="v1.0.4: quant- Balance class에서 두 계좌의 정보를 병합할 수 있는 merge method 추가, Balance class에서 현재 계좌의 정보 기준으로 이익 및 손실을 시각화하는 barv method 추가., vision- pad 함수에서 poly 를 입력하지 않아도 변환에 대한 정보를 출력하도록 변경.. v1.0.3: logg..." />
+<meta property="og:site_name" content="Zerohertz's Library v1.0.5 Documents" />
+<meta property="og:description" content="v1.0.5: quant- Balance class의 barv method 사용 시 보유 금액 순으로 정렬되지 않는 오류 개선, Balance class의 table method 사용 시 profit & loss의 유효 숫자 고정.. v1.0.4: quant- Balance class에서 두 계좌의 정보를 병합할 수 있는 merge method 추가,..." />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v1.0.4 Documents" />
-<meta name="description" content="v1.0.4: quant- Balance class에서 두 계좌의 정보를 병합할 수 있는 merge method 추가, Balance class에서 현재 계좌의 정보 기준으로 이익 및 손실을 시각화하는 barv method 추가., vision- pad 함수에서 poly 를 입력하지 않아도 변환에 대한 정보를 출력하도록 변경.. v1.0.3: logg..." />
+<meta property="og:image:alt" content="Zerohertz's Library v1.0.5 Documents" />
+<meta name="description" content="v1.0.5: quant- Balance class의 barv method 사용 시 보유 금액 순으로 정렬되지 않는 오류 개선, Balance class의 table method 사용 시 profit & loss의 유효 숫자 고정.. v1.0.4: quant- Balance class에서 두 계좌의 정보를 병합할 수 있는 merge method 추가,..." />
     <link href="../_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -28,7 +28,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/release/v1.0.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2024.01.29 -->
-        <title>v1.0 - zerohertzLib v1.0.4 documentation</title>
+        <title>v1.0 - zerohertzLib v1.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -156,7 +156,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">zerohertzLib v1.0.4 documentation</div></a>
+      <a href="../index.html"><div class="brand">zerohertzLib v1.0.5 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
     <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v1.0.4 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v1.0.5 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -263,6 +263,27 @@
         <article role="main">
           <section id="v1-0">
 <h1>v1.0<a class="headerlink" href="#v1-0" title="Permalink to this heading">#</a></h1>
+<section id="v1-0-5">
+<h2>v1.0.5<a class="headerlink" href="#v1-0-5" title="Permalink to this heading">#</a></h2>
+<h3>[v1.0.5] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/281>#281</a>)</h3>
+<div class="tip admonition">
+<p class="admonition-title">Release Date</p>
+<p>2024/04/08</p>
+</div>
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/quant"><img src="https://img.shields.io/badge/feat/quant-ededed?style=flat-square&logo=github" alt="feat/quant"/></a>
+</p>
+<h4>Features</h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">quant</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Balance</span></code> class의 <code class="docutils literal notranslate"><span class="pre">barv</span></code> method 사용 시 보유 금액 순으로 정렬되지 않는 오류 개선</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Balance</span></code> class의 <code class="docutils literal notranslate"><span class="pre">table</span></code> method 사용 시 profit &amp; loss의 유효 숫자 고정</p></li>
+</ul>
+</li>
+</ul>
+</section>
 <section id="v1-0-4">
 <h2>v1.0.4<a class="headerlink" href="#v1-0-4" title="Permalink to this heading">#</a></h2>
 <h3>[v1.0.4] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/279>#279</a>)</h3>
@@ -517,6 +538,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">v1.0</a><ul>
+<li><a class="reference internal" href="#v1-0-5">v1.0.5</a></li>
 <li><a class="reference internal" href="#v1-0-4">v1.0.4</a></li>
 <li><a class="reference internal" href="#v1-0-3">v1.0.3</a></li>
 <li><a class="reference internal" href="#v1-0-2">v1.0.2</a></li>
@@ -535,7 +557,7 @@
   </div>
 </div><script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=f2b671c4"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=56cef5dd"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
