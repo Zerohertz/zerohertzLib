@@ -79,9 +79,9 @@ class LabelStudio:
         Without ``json_path``:
             >>> ls = zz.vision.LabelStudio(data_path)
             >>> ls[0]
-            ('0000007864.png', {'data': {'image': 'data/local-files/?d=image/0000007864.png'}})
+            ('0000007864.png', {'data': {'image': 'data/local-files/?d=/label-studio/data/local/tmp/0000007864.png'}})
             >>> ls[1]
-            ('0000008658.png', {'data': {'image': 'data/local-files/?d=image/0000008658.png'}})
+            ('0000008658.png', {'data': {'image': 'data/local-files/?d=/label-studio/data/local/tmp/0000008658.png'}})
 
         With ``json_path``:
             Bbox:
@@ -115,6 +115,7 @@ class LabelStudio:
     ) -> None:
         self.annotations = None
         if json_path is None:
+            self.path = "/label-studio/data/local"
             self.data_paths = _get_image_paths(data_path)
         else:
             self.annotations = Json(json_path)
@@ -131,16 +132,16 @@ class LabelStudio:
         self, idx: int
     ) -> Union[Tuple[str, Dict[str, Dict[str, str]]], Tuple[str, Dict[str, List[Any]]]]:
         if self.annotations is None:
-            file_name = self.data_paths[idx].split("/")[-1]
+            file_name = os.path.basename(self.data_paths[idx])
             return (
                 file_name,
                 {
                     "data": {
-                        "image": f"data/local-files/?d=image/{self.data_paths[idx]}"
+                        "image": f"data/local-files/?d={self.path}/{self.data_paths[idx]}"
                     }
                 },
             )
-        file_name = self.annotations[idx]["data"]["image"].split("/")[-1]
+        file_name = os.path.basename(self.annotations[idx]["data"]["image"])
         file_name = urllib.parse.unquote(file_name)
         if len(file_name) > 8 and "-" == file_name[8]:
             file_name = "-".join(file_name.split("-")[1:])
@@ -199,28 +200,28 @@ class LabelStudio:
 
     def json(
         self,
+        path: Optional[str] = "/label-studio/data/local",
         data_function: Optional[Callable[[str], Dict[str, Any]]] = None,
     ) -> None:
         """Label Studio에 mount된 data를 불러오기 위한 JSON file 생성
 
         Note:
-            아래와 같이 환경 변수가 설정된 Label Studio image를 사용하고 ``/home/user`` 에 ``image`` directory가 mount 되어야 ``LabelStudio`` class로 생성된 JSON file을 적용할 수 있다.
+            아래와 같이 환경 변수가 설정된 Label Studio image를 사용하면 ``LabelStudio`` class로 생성된 JSON file을 적용할 수 있다.
 
             .. code-block:: docker
 
                 FROM heartexlabs/label-studio
 
                 ENV LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED=true
-                ENV LABEL_STUDIO_LOCAL_FILES_DOCUMENT_ROOT=/home/user
 
             .. code-block:: bash
 
-                docker run --name label-studio -p 8080:8080 -v ${PWD}/files:/home/user label-studio
+                docker run --name label-studio -p 8080:8080 -v ${PWD}/data:/label-studio/data label-studio
 
             ``Projects`` → ``{PROJECT_NAME}`` → ``Settings`` → ``Cloud Storage`` → ``Add Source Storage`` 클릭 후 아래와 같이 정보를 기재하고 ``Sync Storage`` 를 누른다.
 
             + Storage Type: ``Local files``
-            + Absolute local path: ``/home/user/image`` (``data_path``: ``${PWD}/files/image``)
+            + Absolute local path: ``/label-studio/data/local/${PATH}`` (``data_path``: ``${PWD}/data/local``)
             + File Filter Regex: ``^.*\.(jpe?g|JPE?G|png|PNG|tiff?|TIFF?)$``
             + Treat every bucket object as a source file: ``True``
 
@@ -235,6 +236,7 @@ class LabelStudio:
                 :width: 400px
 
         Args:
+            path (``Optional[str]``): Local files의 경로
             data_function (``Optional[Callable[[str], Dict[str, Any]]]``): Label Studio에서 사용할 수 있는 ``data`` 항목 추가 함수 (예시 참고)
 
         Returns:
@@ -251,7 +253,7 @@ class LabelStudio:
                     [
                         {
                             "data": {
-                                "image": "data/local-files/?d=image/0000007864.png"
+                                "image": "data/local-files/?d=/label-studio/data/local/tmp/0000007864.png"
                             }
                         },
                         {
@@ -276,16 +278,9 @@ class LabelStudio:
                     [
                         {
                             "data": {
-                                "image": "data/local-files/?d=image/0000007864.png",
+                                "image": "data/local-files/?d=/label-studio/data/local/tmp/0000007864.png",
                                 "Label": "...",
                                 "patient_id": "...",
-                                "file_name": "...",
-                                "외래/입원": "...",
-                                "성별": "...",
-                                "나이(세)": "...",
-                                "나이(개월)": "...",
-                                "나이(세월)": "...",
-                                "나이대": "...",
                                 "...": "...",
                             }
                         },
@@ -296,6 +291,7 @@ class LabelStudio:
                         },
                     ]
         """
+        self.path = path
         json_data = []
         for file_name, data in tqdm(self):
             if "aug" in file_name:
