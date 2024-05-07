@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.vision" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.vision.html" />
-<meta property="og:site_name" content="Zerohertz's Library v1.0.6 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v1.0.7 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v1.0.6 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v1.0.7 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.vision.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2024.05.06 -->
-        <title>zerohertzLib.vision - zerohertzLib v1.0.6 documentation</title>
+        <title>zerohertzLib.vision - zerohertzLib v1.0.7 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=387cc868" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -210,7 +210,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v1.0.6 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v1.0.7 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -237,7 +237,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v1.0.6 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v1.0.7 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -617,7 +617,7 @@
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.vision.LabelStudio.__len__">
-<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/vision/data.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.vision.LabelStudio.__len__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/vision/data.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.vision.LabelStudio.__len__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>읽어온 image file 혹은 annotation들의 수</p>
@@ -630,7 +630,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.vision.LabelStudio.__getitem__">
-<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/vision/data.py#L130"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.vision.LabelStudio.__getitem__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/vision/data.py#L131"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.vision.LabelStudio.__getitem__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>idx</strong> (<code class="docutils literal notranslate"><span class="pre">int</span></code>) – 입력 index</p>
@@ -648,9 +648,9 @@
 <dl>
 <dt>Without <code class="docutils literal notranslate"><span class="pre">json_path</span></code>:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ls</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">LabelStudio</span><span class="p">(</span><span class="n">data_path</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="go">(&#39;0000007864.png&#39;, {&#39;data&#39;: {&#39;image&#39;: &#39;data/local-files/?d=image/0000007864.png&#39;}})</span>
+<span class="go">(&#39;0000007864.png&#39;, {&#39;data&#39;: {&#39;image&#39;: &#39;data/local-files/?d=/label-studio/data/local/tmp/0000007864.png&#39;}})</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ls</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="go">(&#39;0000008658.png&#39;, {&#39;data&#39;: {&#39;image&#39;: &#39;data/local-files/?d=image/0000008658.png&#39;}})</span>
+<span class="go">(&#39;0000008658.png&#39;, {&#39;data&#39;: {&#39;image&#39;: &#39;data/local-files/?d=/label-studio/data/local/tmp/0000008658.png&#39;}})</span>
 </pre></div>
 </div>
 </dd>
@@ -685,7 +685,7 @@
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.vision.LabelStudio.classification">
-<span class="sig-name descname"><span class="pre">classification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rand</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shrink</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/vision/data.py#L413"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.vision.LabelStudio.classification" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">classification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rand</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shrink</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/vision/data.py#L409"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.vision.LabelStudio.classification" title="Permalink to this definition">¶</a></dt>
 <dd><p>Label Studio로 annotation한 JSON data를 classification format으로 변환</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -717,7 +717,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.vision.LabelStudio.coco">
-<span class="sig-name descname"><span class="pre">coco</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/vision/data.py#L485"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.vision.LabelStudio.coco" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">coco</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/vision/data.py#L481"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.vision.LabelStudio.coco" title="Permalink to this definition">¶</a></dt>
 <dd><p>Label Studio로 annotation한 JSON data를 COCO format으로 변환</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -741,24 +741,23 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.vision.LabelStudio.json">
-<span class="sig-name descname"><span class="pre">json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_function</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/vision/data.py#L200"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.vision.LabelStudio.json" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/label-studio/data/local'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_function</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/vision/data.py#L201"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.vision.LabelStudio.json" title="Permalink to this definition">¶</a></dt>
 <dd><p>Label Studio에 mount된 data를 불러오기 위한 JSON file 생성</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>아래와 같이 환경 변수가 설정된 Label Studio image를 사용하고 <code class="docutils literal notranslate"><span class="pre">/home/user</span></code> 에 <code class="docutils literal notranslate"><span class="pre">image</span></code> directory가 mount 되어야 <code class="docutils literal notranslate"><span class="pre">LabelStudio</span></code> class로 생성된 JSON file을 적용할 수 있다.</p>
+<p>아래와 같이 환경 변수가 설정된 Label Studio image를 사용하면 <code class="docutils literal notranslate"><span class="pre">LabelStudio</span></code> class로 생성된 JSON file을 적용할 수 있다.</p>
 <div class="highlight-docker notranslate"><div class="highlight"><pre><span></span><span class="k">FROM</span><span class="w"> </span><span class="s">heartexlabs/label-studio</span>
 
 <span class="k">ENV</span><span class="w"> </span><span class="nv">LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED</span><span class="o">=</span><span class="nb">true</span>
-<span class="k">ENV</span><span class="w"> </span><span class="nv">LABEL_STUDIO_LOCAL_FILES_DOCUMENT_ROOT</span><span class="o">=</span>/home/user
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>label-studio<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>-v<span class="w"> </span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>/files:/home/user<span class="w"> </span>label-studio
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>label-studio<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>-v<span class="w"> </span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>/data:/label-studio/data<span class="w"> </span>label-studio
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">Projects</span></code> → <code class="docutils literal notranslate"><span class="pre">{PROJECT_NAME}</span></code> → <code class="docutils literal notranslate"><span class="pre">Settings</span></code> → <code class="docutils literal notranslate"><span class="pre">Cloud</span> <span class="pre">Storage</span></code> → <code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">Source</span> <span class="pre">Storage</span></code> 클릭 후 아래와 같이 정보를 기재하고 <code class="docutils literal notranslate"><span class="pre">Sync</span> <span class="pre">Storage</span></code> 를 누른다.</p>
 <ul class="simple">
 <li><p>Storage Type: <code class="docutils literal notranslate"><span class="pre">Local</span> <span class="pre">files</span></code></p></li>
-<li><p>Absolute local path: <code class="docutils literal notranslate"><span class="pre">/home/user/image</span></code> (<code class="docutils literal notranslate"><span class="pre">data_path</span></code>: <code class="docutils literal notranslate"><span class="pre">${PWD}/files/image</span></code>)</p></li>
+<li><p>Absolute local path: <code class="docutils literal notranslate"><span class="pre">/label-studio/data/local/${PATH}</span></code> (<code class="docutils literal notranslate"><span class="pre">data_path</span></code>: <code class="docutils literal notranslate"><span class="pre">${PWD}/data/local</span></code>)</p></li>
 <li><p>File Filter Regex: <code class="docutils literal notranslate"><span class="pre">^.*\.(jpe?g|JPE?G|png|PNG|tiff?|TIFF?)$</span></code></p></li>
 <li><p>Treat every bucket object as a source file: <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
 </ul>
@@ -768,7 +767,10 @@
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="target" id="zerohertzLib.vision.LabelStudio.json.params.data_function"></span><strong>data_function</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.LabelStudio.json.params.data_function">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[Callable[[str],</span> <span class="pre">Dict[str,</span> <span class="pre">Any]]]</span></code>) – Label Studio에서 사용할 수 있는 <code class="docutils literal notranslate"><span class="pre">data</span></code> 항목 추가 함수 (예시 참고)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="zerohertzLib.vision.LabelStudio.json.params.path"></span><strong>path</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.LabelStudio.json.params.path">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[str]</span></code>) – Local files의 경로</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.LabelStudio.json.params.data_function"></span><strong>data_function</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.LabelStudio.json.params.data_function">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[Callable[[str],</span> <span class="pre">Dict[str,</span> <span class="pre">Any]]]</span></code>) – Label Studio에서 사용할 수 있는 <code class="docutils literal notranslate"><span class="pre">data</span></code> 항목 추가 함수 (예시 참고)</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">{data_path}.json</span></code> 에 결과 저장</p>
@@ -787,7 +789,7 @@
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;image&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/local-files/?d=image/0000007864.png&quot;</span>
+<span class="w">            </span><span class="nt">&quot;image&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/local-files/?d=/label-studio/data/local/tmp/0000007864.png&quot;</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
@@ -811,16 +813,9 @@
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">        </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;image&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/local-files/?d=image/0000007864.png&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;image&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data/local-files/?d=/label-studio/data/local/tmp/0000007864.png&quot;</span><span class="p">,</span>
 <span class="w">            </span><span class="nt">&quot;Label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
 <span class="w">            </span><span class="nt">&quot;patient_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;file_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;외래/입원&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;성별&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;나이(세)&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;나이(개월)&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;나이(세월)&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;나이대&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
 <span class="w">            </span><span class="nt">&quot;...&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">},</span>
@@ -838,7 +833,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.vision.LabelStudio.labelme">
-<span class="sig-name descname"><span class="pre">labelme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/vision/data.py#L360"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.vision.LabelStudio.labelme" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">labelme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/vision/data.py#L356"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.vision.LabelStudio.labelme" title="Permalink to this definition">¶</a></dt>
 <dd><p>Label Studio로 annotation한 JSON data를 LabelMe format으로 변환</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -867,7 +862,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.vision.LabelStudio.yolo">
-<span class="sig-name descname"><span class="pre">yolo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/vision/data.py#L308"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.vision.LabelStudio.yolo" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">yolo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/vision/data.py#L304"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.vision.LabelStudio.yolo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Label Studio로 annotation한 JSON data를 YOLO format으로 변환</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2002,7 +1997,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=61367fb7"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=c54efbae"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="_static/scripts/furo.js?v=4e2eecee"></script>
