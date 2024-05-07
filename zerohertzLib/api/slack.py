@@ -26,6 +26,8 @@ import json
 from typing import Optional
 
 import requests
+from slack_sdk import WebClient
+from slack_sdk.web import SlackResponse
 
 
 class SlackWebhook:
@@ -134,30 +136,32 @@ class SlackBot:
         name: Optional[str] = None,
         icon_emoji: Optional[str] = None,
         icon_url: Optional[str] = None,
-        timeout: Optional[int] = 10,
+        timeout: Optional[int] = 30,
     ) -> None:
-        self.token = token
-        self.headers = {
-            "Authorization": "Bearer " + token,
-        }
-        self.channel = channel
-        self.data = {
-            "channel": channel,
-        }
-        if name is not None:
-            self.data["username"] = name
-        if icon_emoji is not None:
-            self.data["icon_emoji"] = f":{icon_emoji}:"
-        if icon_url is not None:
-            self.data["icon_url"] = icon_url
-        self.timeout = timeout
+        self.webclient = WebClient(token, timeout=timeout)
+        self.channel2id = {}
+        for channel_info in self.webclient.conversations_list(
+            types="public_channel,private_channel"
+        ).data["channels"]:
+            channel_id, channel_name, is_channel = (
+                channel_info.get("id"),
+                channel_info.get("name"),
+                channel_info.get("is_channel"),
+            )
+            if is_channel:
+                self.channel2id[channel_name] = channel_id
+        self.channel_name = channel
+        self.channel_id = self.channel2id[channel]
+        self.username = name
+        self.icon_emoji = icon_emoji
+        self.icon_url = icon_url
 
     def message(
         self,
         message: str,
         codeblock: Optional[bool] = False,
         thread_ts: Optional[str] = None,
-    ) -> requests.models.Response:
+    ) -> SlackResponse:
         """Slack Bot을 통해 message 전송
 
         Args:
@@ -166,50 +170,29 @@ class SlackBot:
             thread_ts (``Optional[str]``): 댓글을 전송할 thread의 timestamp
 
         Returns:
-            ``requests.models.Response``: Slack Bot의 응답
+            ``slack_sdk.web.slack_response.SlackResponse``: Slack Bot의 응답
 
         Examples:
             >>> response = slack.message("test")
             >>> response
-            <Response [200]>
-            >>> slack.message("test", True, response.json()["ts"])
-            <Response [200]>
-            >>> response = slack.file("test.jpg")
-            >>> slack.message("test", thread_ts=list(response.json()["file"]["shares"]["private"].values())[0][0]["ts"])
-            <Response [200]>
+            <slack_sdk.web.slack_response.SlackResponse object at 0x7fb0c4346340>
+            >>> slack.message("test", True, response.get("ts"))
+            <slack_sdk.web.slack_response.SlackResponse object at 0x7fb0761b1100>
         """
         if message == "":
             return None
         if codeblock:
             message = f"```{message}```"
-        data = self.data.copy()
-        data["text"] = message
-        if thread_ts is not None:
-            data["thread_ts"] = thread_ts
-        response = requests.post(
-            "https://slack.com/api/chat.postMessage",
-            headers=self.headers,
-            json=data,
-            timeout=self.timeout,
+        return self.webclient.chat_postMessage(
+            channel=self.channel_id,
+            text=message,
+            thread_ts=thread_ts,
+            icon_emoji=self.icon_emoji,
+            icon_url=self.icon_url,
+            username=self.username,
         )
-        if not response.json()["ok"]:
-            error = response.json()["error"]
-            print(
-                "[zerohertzLib.api.SlackBot] Failed: " + error.replace("_", " ").upper()
-            )
-            if error in ["not_authed", "invalid_auth", "channel_not_found"]:
-                return response
-            response_metadata = "\n".join(
-                response.json()["response_metadata"]["messages"]
-            )
-            self.message(
-                f"[`zerohertzLib.api.SlackBot`] Failed: `{error}`\n```>>> message({message}, {codeblock}, {thread_ts})\n{response_metadata}```"
-            )
-        return response
 
-    def file(
-        self, path: str, thread_ts: Optional[str] = None
-    ) -> requests.models.Response:
+    def file(self, path: str, thread_ts: Optional[str] = None) -> SlackResponse:
         """Slack Bot을 통해 file 전송
 
         Note:
@@ -220,29 +203,13 @@ class SlackBot:
             thread_ts (``Optional[str]``): 댓글을 전송할 thread의 timestamp
 
         Returns:
-            ``requests.models.Response``: Slack Bot의 응답
+            ``slack_sdk.web.slack_response.SlackResponse``: Slack Bot의 응답
 
         Examples:
             >>> response = slack.file("test.jpg")
             >>> response
-            <Response [200]>
+            <slack_sdk.web.slack_response.SlackResponse object at 0x7fb0675e0c10>
         """
-        with open(path, "rb") as file:
-            response = requests.post(
-                "https://slack.com/api/files.upload",
-                headers=self.headers,
-                files={"file": file},
-                data={"channels": self.channel, "thread_ts": thread_ts},
-                timeout=self.timeout,
-            )
-        if not response.json()["ok"]:
-            error = response.json()["error"]
-            print(
-                "[zerohertzLib.api.SlackBot] Failed: " + error.replace("_", " ").upper()
-            )
-            if error in ["not_authed", "invalid_auth", "channel_not_found"]:
-                return response
-            self.message(
-                f"[`zerohertzLib.api.SlackBot`] Failed: `{error}`\n```>>> file({path}, {thread_ts})```"
-            )
-        return response
+        return self.webclient.files_upload_v2(
+            file=path, channel=self.channel_id, thread_ts=thread_ts
+        )

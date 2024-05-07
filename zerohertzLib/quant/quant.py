@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import json
 import multiprocessing as mp
 import time
 import traceback
@@ -34,9 +33,9 @@ from typing import Any, Dict, ItemsView, List, Optional, Tuple, TypeVar, Union
 
 import FinanceDataReader as fdr
 import pandas as pd
-import requests
 from matplotlib import pyplot as plt
 from matplotlib import ticker
+from slack_sdk.web import SlackResponse
 
 from zerohertzLib.api import KoreaInvestment, SlackBot
 from zerohertzLib.plot import barh, barv, candle, figure, hist, pie, savefig, table
@@ -692,7 +691,7 @@ class QuantSlackBot(ABC, SlackBot):
         message: str,
         codeblock: Optional[bool] = False,
         thread_ts: Optional[str] = None,
-    ) -> requests.models.Response:
+    ) -> SlackResponse:
         """``token`` 혹은 ``channel`` 이 입력되지 않을 시 전송 불가
 
         Args:
@@ -701,17 +700,13 @@ class QuantSlackBot(ABC, SlackBot):
             thread_ts (``Optional[str]``): 댓글을 전송할 thread의 timestamp
 
         Returns:
-            ``requests.models.Response``: Slack Bot의 응답
+            ``slack_sdk.web.slack_response.SlackResponse``: Slack Bot의 응답
         """
         if self.slack:
             return super().message(message, codeblock, thread_ts)
-        response = requests.Response()
-        response._content = json.dumps({"ts": None}).encode("utf-8")
-        return response
+        return None
 
-    def file(
-        self, path: str, thread_ts: Optional[str] = None
-    ) -> requests.models.Response:
+    def file(self, path: str, thread_ts: Optional[str] = None) -> SlackResponse:
         """``token`` 혹은 ``channel`` 이 입력되지 않을 시 전송 불가
 
         Args:
@@ -719,13 +714,11 @@ class QuantSlackBot(ABC, SlackBot):
             thread_ts (``Optional[str]``): 댓글을 전송할 thread의 timestamp
 
         Returns:
-            ``requests.models.Response``: Slack Bot의 응답
+            ``slack_sdk.web.slack_response.SlackResponse``: Slack Bot의 응답
         """
         if self.slack:
             return super().file(path, thread_ts)
-        response = requests.Response()
-        response._content = json.dumps({"ts": None}).encode("utf-8")
-        return response
+        return None
 
     def _plot(self, quant: Quant) -> Tuple[str]:
         candle_path = candle(
@@ -820,8 +813,9 @@ class QuantSlackBot(ABC, SlackBot):
                 return None, None
         except KeyError as error:
             response = self.message(f":x: `{symbol}` was not found")
-            self.message(str(error), True, response.json()["ts"])
-            self.message(traceback.format_exc(), True, response.json()["ts"])
+            thread_ts = response.get("ts")
+            self.message(str(error), True, thread_ts)
+            self.message(traceback.format_exc(), True, thread_ts)
             return None, None
         try:
             quant = Quant(
@@ -837,8 +831,9 @@ class QuantSlackBot(ABC, SlackBot):
             response = self.message(
                 f":x: `{symbol}` ({title}): {data.index[0]} ({len(data)})"
             )
-            self.message(str(error), True, response.json()["ts"])
-            self.message(traceback.format_exc(), True, response.json()["ts"])
+            thread_ts = response.get("ts")
+            self.message(str(error), True, thread_ts)
+            self.message(traceback.format_exc(), True, thread_ts)
             return None, None
         if today["position"] == "NULL":
             return None, None
@@ -856,7 +851,7 @@ class QuantSlackBot(ABC, SlackBot):
         if report is None:
             return
         response = self.message(report["main"])
-        thread_ts = response.json()["ts"]
+        thread_ts = response.get("ts")
         self.file(report["candle"], thread_ts)
         response = self.message(report["backtest"], thread_ts=thread_ts)
         self.file(report["hist"], thread_ts)
@@ -888,7 +883,7 @@ class QuantSlackBot(ABC, SlackBot):
 
     def _analysis_send(self) -> None:
         response = self.message("> :memo: Parameter Analysis")
-        thread_ts = response.json()["ts"]
+        thread_ts = response.get("ts")
         figure((30, 20))
         plt.subplot(2, 2, 1)
         barv(
@@ -957,7 +952,7 @@ class QuantSlackBot(ABC, SlackBot):
             # [Methods in Use: X] 전략과 parameter에 따른 이익이 존재하는 수
             self.exps_cnt = defaultdict(list)
         response = self.message(f"> :moneybag: Check {mode} Signals")
-        self.message(", ".join(symbols), True, response.json()["ts"])
+        self.message(", ".join(symbols), True, response.get("ts"))
         if self.mp_num == 0 or self.mp_num >= len(symbols):
             for symbol in symbols:
                 report, quant = self._run([symbol, mode])
@@ -1067,8 +1062,9 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
             self.message("Balance: NULL", True)
             return None
         response = self.message("> :bank: Balance")
-        self.file(path_balance, response.json()["ts"])
-        self.file(path_portfolio, response.json()["ts"])
+        thread_ts = response.get("ts")
+        self.file(path_balance, thread_ts)
+        self.file(path_portfolio, thread_ts)
         self._inference(self.symbols_bought, "Sell")
         return None
 
