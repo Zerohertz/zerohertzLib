@@ -1,5 +1,26 @@
 # v1.0
 
+## v1.0.7
+
+<h3>[v1.0.7] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/285>#285</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/05/07
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/quant"><img src="https://img.shields.io/badge/feat/quant-ededed?style=flat-square&logo=github" alt="feat/quant"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `quant`
+  + `Balance` class의 해외 잔고 type issue 수정
 ## v1.0.6
 
 <h3>[v1.0.6] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/283>#283</a>)</h3>
