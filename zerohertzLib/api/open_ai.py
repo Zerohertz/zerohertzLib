@@ -64,11 +64,13 @@ class OpenAI(openai.OpenAI):
         SyncPage[Model](data=[Model(id='text-search-babbage-doc-001', created=1651172509, object='model', owned_by='openai-dev'),
                               Model(id='gpt-4', created=1687882411, object='model', owned_by='openai'), ...
         >>> client.model
-        ['gpt3', 'gpt4']
-        >>> client("zerohertzLib에 대해 설명해", model="gpt3")
-        'zerohertzLib는 오픈 소스 프로젝트로, ... 이 라이브러리는 MATLAB 언어로 작성되었으며 ...'
-        >>> client("zerohertzLib에 대해 설명해", "zerohertzLib은 python package야.", model="gpt3")
-        'zerohertzLib는 신호 처리 및 통신 시스템에 대한 Python 라이브러리입니다. 이 라이브러리는 ...'
+        ['gpt3.5', 'gpt4', 'gpt4o']
+        >>> client("넌 GPT 몇이야?", model="gpt3.5")
+        '안녕하세요! 저는 GPT-3 모델을 기반으로 동작하는 인공지능 어시스턴트입니다. 따라서 GPT-3입니다. 무엇을 도와드릴까요?'
+        >>> client("넌 GPT 몇이야?", model="gpt4")
+        '저는 GPT-4 모델을 기반으로 합니다. OpenAI의 몇 가지 개선을 거쳐 더 많은 맥락을 이해하고 다양한 주제에 대해 더 정확하게 대답할 수 있도록 설계되었습니다. 어떤 질문이든지 도와드릴 준비가 되어 있습니다!'
+        >>> client("넌 GPT 몇이야?", model="gpt4o")
+        '나는 OpenAI에서 개발한 GPT-4야. 무슨 도움이 필요해?'
         >>> client("Kubernetes에 대해 설명해", model="gpt3")
         'Kubernetes는 컨테이너화된 애플리케이션을 자동화하고 관리하기 위한 오픈소스 플랫폼입니다. ...'
         >>> client("Kubernetes에 대해 설명해", stream=True)
@@ -80,7 +82,11 @@ class OpenAI(openai.OpenAI):
 
     def __init__(self, api_key: str) -> None:
         super().__init__(api_key=api_key)
-        self.model_dict = {"gpt3": "gpt-3.5-turbo", "gpt4": "gpt-4", "gpt4o": "gpt-4o"}
+        self.model_dict = {
+            "gpt3.5": "gpt-3.5-turbo",
+            "gpt4": "gpt-4-turbo",
+            "gpt4o": "gpt-4o",
+        }
         self.model = list(self.model_dict.keys())
 
     def __call__(
