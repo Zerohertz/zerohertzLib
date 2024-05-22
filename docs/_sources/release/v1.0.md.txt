@@ -1,5 +1,37 @@
 # v1.0
 
+## v1.0.8
+
+<h3>[v1.0.8] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/292>#292</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/05/22
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/api"><img src="https://img.shields.io/badge/feat/api-541B9A?style=flat-square&logo=github" alt="feat/api"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/util"><img src="https://img.shields.io/badge/feat/util-DEBEAA?style=flat-square&logo=github" alt="feat/util"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/quant"><img src="https://img.shields.io/badge/feat/quant-ededed?style=flat-square&logo=github" alt="feat/quant"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `api`
+  + `OpenAI`에 `GPT 4o` 추가
++ `quant`
+  + `Balance` class의 `merge` method 사용 시 shallow copy 현상 수정
+  + `pandas` 사용 시 deprecated issue 수정 (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/291">#291</a>)
++ `util`
+  + JSON file의 읽고 쓰는 class와 함수에 대해 `orjson`으로 refactoring (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/289">#289</a>)
+
+<h4>Chore</h4>
+
++ Build 및 PyTest 수행 image upgrade (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/290">#290</a>)
 ## v1.0.7
 
 <h3>[v1.0.7] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/285>#285</a>)</h3>

@@ -29,7 +29,7 @@ spec:
           memory: "1024Mi"
           cpu: "1000m"
     - name: python
-      image: python:3.8-slim
+      image: python:3.11
       command:
         - cat
       tty: true

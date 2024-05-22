@@ -80,14 +80,14 @@ class OpenAI(openai.OpenAI):
 
     def __init__(self, api_key: str) -> None:
         super().__init__(api_key=api_key)
-        self.model_dict = {"gpt3": "gpt-3.5-turbo", "gpt4": "gpt-4"}
+        self.model_dict = {"gpt3": "gpt-3.5-turbo", "gpt4": "gpt-4", "gpt4o": "gpt-4o"}
         self.model = list(self.model_dict.keys())
 
     def __call__(
         self,
         message: str,
         prompt: Optional[str] = None,
-        model: Optional[str] = "gpt4",
+        model: Optional[str] = "gpt4o",
         stream: Optional[bool] = False,
     ) -> str:
         if prompt is None:

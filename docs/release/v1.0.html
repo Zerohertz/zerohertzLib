@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="en" data-content_root="">
+<html class="no-js" lang="en" data-content_root="../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -16,19 +16,19 @@
     <meta property="og:title" content="v1.0" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/release/v1.0.html" />
-<meta property="og:site_name" content="Zerohertz's Library v1.0.7 Documents" />
-<meta property="og:description" content="v1.0.7: quant- Balance class의 해외 잔고 type issue 수정., vision- LabelStudio class의 json method 경로 입력 추가.. v1.0.6: api- SlackBot class의 file method에 대한 deprecated issue 해결., quant- Balance class의 해외 잔고의..." />
+<meta property="og:site_name" content="Zerohertz's Library v1.0.8 Documents" />
+<meta property="og:description" content="v1.0.8: api- OpenAI 에 GPT 4o 추가., quant- Balance class의 merge method 사용 시 shallow copy 현상 수정, pandas 사용 시 deprecated issue 수정 (resolves:#291)., util- JSON file의 읽고 쓰는 class와 함수에 대해 orjson 으로 refact..." />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v1.0.7 Documents" />
-<meta name="description" content="v1.0.7: quant- Balance class의 해외 잔고 type issue 수정., vision- LabelStudio class의 json method 경로 입력 추가.. v1.0.6: api- SlackBot class의 file method에 대한 deprecated issue 해결., quant- Balance class의 해외 잔고의..." />
+<meta property="og:image:alt" content="Zerohertz's Library v1.0.8 Documents" />
+<meta name="description" content="v1.0.8: api- OpenAI 에 GPT 4o 추가., quant- Balance class의 merge method 사용 시 shallow copy 현상 수정, pandas 사용 시 deprecated issue 수정 (resolves:#291)., util- JSON file의 읽고 쓰는 class와 함수에 대해 orjson 으로 refact..." />
     <link href="../_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
     <link rel="apple-touch-icon" href="../_static/favicon.png" sizes="802x802" type="image/png"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="v0.9" href="v0.9.html" /><link rel="prev" title="Release Notes" href="../release.html" />
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/release/v1.0.html" />
 
-    <!-- Generated with Sphinx 7.1.2 and Furo 2024.05.06 -->
-        <title>v1.0 - zerohertzLib v1.0.7 documentation</title>
+    <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
+        <title>v1.0 - zerohertzLib v1.0.8 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=387cc868" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -212,7 +212,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">zerohertzLib v1.0.7 documentation</div></a>
+      <a href="../index.html"><div class="brand">zerohertzLib v1.0.8 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -239,7 +239,7 @@
     <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v1.0.7 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v1.0.8 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -321,9 +321,47 @@
         </div>
         <article role="main" id="furo-main-content">
           <section id="v1-0">
-<h1>v1.0<a class="headerlink" href="#v1-0" title="Permalink to this heading">¶</a></h1>
+<h1>v1.0<a class="headerlink" href="#v1-0" title="Link to this heading">¶</a></h1>
+<section id="v1-0-8">
+<h2>v1.0.8<a class="headerlink" href="#v1-0-8" title="Link to this heading">¶</a></h2>
+<h3>[v1.0.8] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/292>#292</a>)</h3>
+<div class="tip admonition">
+<p class="admonition-title">Release Date</p>
+<p>2024/05/22</p>
+</div>
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/api"><img src="https://img.shields.io/badge/feat/api-541B9A?style=flat-square&logo=github" alt="feat/api"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/util"><img src="https://img.shields.io/badge/feat/util-DEBEAA?style=flat-square&logo=github" alt="feat/util"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/quant"><img src="https://img.shields.io/badge/feat/quant-ededed?style=flat-square&logo=github" alt="feat/quant"/></a>
+</p>
+<h4>Features</h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">api</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">OpenAI</span></code>에 <code class="docutils literal notranslate"><span class="pre">GPT</span> <span class="pre">4o</span></code> 추가</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">quant</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Balance</span></code> class의 <code class="docutils literal notranslate"><span class="pre">merge</span></code> method 사용 시 shallow copy 현상 수정</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pandas</span></code> 사용 시 deprecated issue 수정 (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/291">#291</a>)</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">util</span></code></p>
+<ul>
+<li><p>JSON file의 읽고 쓰는 class와 함수에 대해 <code class="docutils literal notranslate"><span class="pre">orjson</span></code>으로 refactoring (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/289">#289</a>)</p></li>
+</ul>
+</li>
+</ul>
+<h4>Chore</h4>
+<ul class="simple">
+<li><p>Build 및 PyTest 수행 image upgrade (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/290">#290</a>)</p></li>
+</ul>
+</section>
 <section id="v1-0-7">
-<h2>v1.0.7<a class="headerlink" href="#v1-0-7" title="Permalink to this heading">¶</a></h2>
+<h2>v1.0.7<a class="headerlink" href="#v1-0-7" title="Link to this heading">¶</a></h2>
 <h3>[v1.0.7] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/285>#285</a>)</h3>
 <div class="tip admonition">
 <p class="admonition-title">Release Date</p>
@@ -350,7 +388,7 @@
 </ul>
 </section>
 <section id="v1-0-6">
-<h2>v1.0.6<a class="headerlink" href="#v1-0-6" title="Permalink to this heading">¶</a></h2>
+<h2>v1.0.6<a class="headerlink" href="#v1-0-6" title="Link to this heading">¶</a></h2>
 <h3>[v1.0.6] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/283>#283</a>)</h3>
 <div class="tip admonition">
 <p class="admonition-title">Release Date</p>
@@ -377,7 +415,7 @@
 </ul>
 </section>
 <section id="v1-0-5">
-<h2>v1.0.5<a class="headerlink" href="#v1-0-5" title="Permalink to this heading">¶</a></h2>
+<h2>v1.0.5<a class="headerlink" href="#v1-0-5" title="Link to this heading">¶</a></h2>
 <h3>[v1.0.5] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/281>#281</a>)</h3>
 <div class="tip admonition">
 <p class="admonition-title">Release Date</p>
@@ -398,7 +436,7 @@
 </ul>
 </section>
 <section id="v1-0-4">
-<h2>v1.0.4<a class="headerlink" href="#v1-0-4" title="Permalink to this heading">¶</a></h2>
+<h2>v1.0.4<a class="headerlink" href="#v1-0-4" title="Link to this heading">¶</a></h2>
 <h3>[v1.0.4] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/279>#279</a>)</h3>
 <div class="tip admonition">
 <p class="admonition-title">Release Date</p>
@@ -426,7 +464,7 @@
 </ul>
 </section>
 <section id="v1-0-3">
-<h2>v1.0.3<a class="headerlink" href="#v1-0-3" title="Permalink to this heading">¶</a></h2>
+<h2>v1.0.3<a class="headerlink" href="#v1-0-3" title="Link to this heading">¶</a></h2>
 <h3>[v1.0.3] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/277>#277</a>)</h3>
 <div class="tip admonition">
 <p class="admonition-title">Release Date</p>
@@ -466,7 +504,7 @@
 </ul>
 </section>
 <section id="v1-0-2">
-<h2>v1.0.2<a class="headerlink" href="#v1-0-2" title="Permalink to this heading">¶</a></h2>
+<h2>v1.0.2<a class="headerlink" href="#v1-0-2" title="Link to this heading">¶</a></h2>
 <h3>[v1.0.2] Docs Update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/275>#275</a>)</h3>
 <div class="tip admonition">
 <p class="admonition-title">Release Date</p>
@@ -525,7 +563,7 @@
 </ul>
 </section>
 <section id="v1-0-1">
-<h2>v1.0.1<a class="headerlink" href="#v1-0-1" title="Permalink to this heading">¶</a></h2>
+<h2>v1.0.1<a class="headerlink" href="#v1-0-1" title="Link to this heading">¶</a></h2>
 <h3>[v1.0.1] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/270>#270</a>)</h3>
 <div class="tip admonition">
 <p class="admonition-title">Release Date</p>
@@ -553,7 +591,7 @@
 </ul>
 </section>
 <section id="v1-0-0">
-<h2>v1.0.0<a class="headerlink" href="#v1-0-0" title="Permalink to this heading">¶</a></h2>
+<h2>v1.0.0<a class="headerlink" href="#v1-0-0" title="Link to this heading">¶</a></h2>
 <h3>[v1.0.0] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/268>#268</a>)</h3>
 <div class="tip admonition">
 <p class="admonition-title">Release Date</p>
@@ -651,6 +689,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">v1.0</a><ul>
+<li><a class="reference internal" href="#v1-0-8">v1.0.8</a></li>
 <li><a class="reference internal" href="#v1-0-7">v1.0.7</a></li>
 <li><a class="reference internal" href="#v1-0-6">v1.0.6</a></li>
 <li><a class="reference internal" href="#v1-0-5">v1.0.5</a></li>
@@ -672,9 +711,9 @@
   </div>
 </div><script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=c54efbae"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/documentation_options.js?v=5571eb18"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=4e2eecee"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>

@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+import copy
 import multiprocessing as mp
 import time
 import traceback
@@ -220,13 +221,13 @@ class Quant(Experiments):
         possibility = defaultdict(list)
         for key in self.methods:
             possibility[key] = [
-                self.signals[key][day],
-                self.signals[key][day] / self.methods_cnt[key] * 100,
+                self.signals[key].iloc[day],
+                self.signals[key].iloc[day] / self.methods_cnt[key] * 100,
             ]
-        possibility["logic"] = self.signals["logic"][day]
+        possibility["logic"] = self.signals["logic"].iloc[day]
         possibility["total"] = [
-            self.signals["signals"][day],
-            self.signals["signals"][day] / self.total_cnt * 100,
+            self.signals["signals"].iloc[day],
+            self.signals["signals"].iloc[day] / self.total_cnt * 100,
         ]
         if 0 < possibility["logic"]:
             possibility["position"] = "Buy"
@@ -388,21 +389,16 @@ class Balance(KoreaInvestment):
         Examples:
             >>> balance_1.merge(balance_2)
         """
-        merged_balance = balance.balance.copy()
+        merged_balance = copy.deepcopy(balance.balance)
         if self.kor != balance.kor:
             exchange = self._exchange()
-            if self.kor:
-                for key, value in balance.items():
-                    merged_balance["stock"][key][1] = value[1] * exchange
-                    merged_balance["stock"][key][2] = value[2] * exchange
-                    merged_balance["stock"][key][-1] = value[-1] * exchange
-                merged_balance["cash"] = balance.balance["cash"] * exchange
-            else:
-                for key, value in balance.items():
-                    merged_balance["stock"][key][1] = value[1] / exchange
-                    merged_balance["stock"][key][2] = value[2] / exchange
-                    merged_balance["stock"][key][-1] = value[-1] / exchange
-                merged_balance["cash"] = balance.balance["cash"] / exchange
+            if not self.kor:
+                exchange = 1 / exchange
+            for key, value in balance.items():
+                merged_balance["stock"][key][1] = value[1] * exchange
+                merged_balance["stock"][key][2] = value[2] * exchange
+                merged_balance["stock"][key][-1] = value[-1] * exchange
+            merged_balance["cash"] = balance.balance["cash"] * exchange
         for key, value in merged_balance["stock"].items():
             if key in self:
                 (

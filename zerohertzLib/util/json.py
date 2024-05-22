@@ -22,11 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import json
 import os
 from glob import glob
 from typing import Any, Dict, List, Optional, Set, Union
 
+import orjson
 from tqdm import tqdm
 
 
@@ -96,7 +96,7 @@ class Json:
             path = glob(f"{path}/*.json")[0]
         self.name = path.replace(os.path.dirname(path), "").replace("/", "")
         with open(path, "r", encoding="utf-8") as file:
-            self.data = json.load(file)
+            self.data = orjson.loads(file.read())
         self.keys = []
         self.map = []
 
@@ -358,6 +358,6 @@ def write_json(data: Union[Dict[Any, Any], List[Dict[Any, Any]]], path: str) -> 
             },
         ...
     """
-    with open(f"{path}.json", "w", encoding="utf-8") as file:
-        json.dump(data, file, indent=4, ensure_ascii=False)
+    with open(f"{path}.json", "wb") as file:
+        file.write(orjson.dumps(data, option=orjson.OPT_INDENT_2))
     return os.path.abspath(f"{path}.json")
