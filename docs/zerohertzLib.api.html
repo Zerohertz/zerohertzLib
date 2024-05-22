@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.api" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.api.html" />
-<meta property="og:site_name" content="Zerohertz's Library v1.0.8 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v1.0.9 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v1.0.8 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v1.0.9 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.api.html" />
 
     <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
-        <title>zerohertzLib.api - zerohertzLib v1.0.8 documentation</title>
+        <title>zerohertzLib.api - zerohertzLib v1.0.9 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=387cc868" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -210,7 +210,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v1.0.8 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v1.0.9 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -237,7 +237,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v1.0.8 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v1.0.9 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -732,7 +732,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="zerohertzLib.api.OpenAI.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/api/open_ai.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.api.OpenAI.__call__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/api/open_ai.py#L92"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.api.OpenAI.__call__" title="Link to this definition">¶</a></dt>
 <dd><p>Model 호출 수행</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -758,11 +758,13 @@
 <span class="go">SyncPage[Model](data=[Model(id=&#39;text-search-babbage-doc-001&#39;, created=1651172509, object=&#39;model&#39;, owned_by=&#39;openai-dev&#39;),</span>
 <span class="go">                      Model(id=&#39;gpt-4&#39;, created=1687882411, object=&#39;model&#39;, owned_by=&#39;openai&#39;), ...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="o">.</span><span class="n">model</span>
-<span class="go">[&#39;gpt3&#39;, &#39;gpt4&#39;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;zerohertzLib에 대해 설명해&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt3&quot;</span><span class="p">)</span>
-<span class="go">&#39;zerohertzLib는 오픈 소스 프로젝트로, ... 이 라이브러리는 MATLAB 언어로 작성되었으며 ...&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;zerohertzLib에 대해 설명해&quot;</span><span class="p">,</span> <span class="s2">&quot;zerohertzLib은 python package야.&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt3&quot;</span><span class="p">)</span>
-<span class="go">&#39;zerohertzLib는 신호 처리 및 통신 시스템에 대한 Python 라이브러리입니다. 이 라이브러리는 ...&#39;</span>
+<span class="go">[&#39;gpt3.5&#39;, &#39;gpt4&#39;, &#39;gpt4o&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;넌 GPT 몇이야?&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt3.5&quot;</span><span class="p">)</span>
+<span class="go">&#39;안녕하세요! 저는 GPT-3 모델을 기반으로 동작하는 인공지능 어시스턴트입니다. 따라서 GPT-3입니다. 무엇을 도와드릴까요?&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;넌 GPT 몇이야?&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt4&quot;</span><span class="p">)</span>
+<span class="go">&#39;저는 GPT-4 모델을 기반으로 합니다. OpenAI의 몇 가지 개선을 거쳐 더 많은 맥락을 이해하고 다양한 주제에 대해 더 정확하게 대답할 수 있도록 설계되었습니다. 어떤 질문이든지 도와드릴 준비가 되어 있습니다!&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;넌 GPT 몇이야?&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt4o&quot;</span><span class="p">)</span>
+<span class="go">&#39;나는 OpenAI에서 개발한 GPT-4야. 무슨 도움이 필요해?&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;Kubernetes에 대해 설명해&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt3&quot;</span><span class="p">)</span>
 <span class="go">&#39;Kubernetes는 컨테이너화된 애플리케이션을 자동화하고 관리하기 위한 오픈소스 플랫폼입니다. ...&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">client</span><span class="p">(</span><span class="s2">&quot;Kubernetes에 대해 설명해&quot;</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1021,7 +1023,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="_static/documentation_options.js?v=5571eb18"></script>
+    <script src="_static/documentation_options.js?v=f1096f01"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=4e2eecee"></script>
