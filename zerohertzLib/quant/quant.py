@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+import copy
 import multiprocessing as mp
 import time
 import traceback
@@ -388,21 +389,16 @@ class Balance(KoreaInvestment):
         Examples:
             >>> balance_1.merge(balance_2)
         """
-        merged_balance = balance.balance.copy()
+        merged_balance = copy.deepcopy(balance.balance)
         if self.kor != balance.kor:
             exchange = self._exchange()
-            if self.kor:
-                for key, value in balance.items():
-                    merged_balance["stock"][key][1] = value[1] * exchange
-                    merged_balance["stock"][key][2] = value[2] * exchange
-                    merged_balance["stock"][key][-1] = value[-1] * exchange
-                merged_balance["cash"] = balance.balance["cash"] * exchange
-            else:
-                for key, value in balance.items():
-                    merged_balance["stock"][key][1] = value[1] / exchange
-                    merged_balance["stock"][key][2] = value[2] / exchange
-                    merged_balance["stock"][key][-1] = value[-1] / exchange
-                merged_balance["cash"] = balance.balance["cash"] / exchange
+            if not self.kor:
+                exchange = 1 / exchange
+            for key, value in balance.items():
+                merged_balance["stock"][key][1] = value[1] * exchange
+                merged_balance["stock"][key][2] = value[2] * exchange
+                merged_balance["stock"][key][-1] = value[-1] * exchange
+            merged_balance["cash"] = balance.balance["cash"] * exchange
         for key, value in merged_balance["stock"].items():
             if key in self:
                 (
