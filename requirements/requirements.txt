@@ -9,6 +9,7 @@ mplfinance
 
 # util
 tqdm
+orjson
 
 # vision
 numpy==1.22.4
