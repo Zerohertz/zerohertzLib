@@ -375,7 +375,7 @@ class Balance(KoreaInvestment):
         """
         now = datetime.now()
         data = fdr.DataReader("USD/KRW", now - timedelta(days=10))
-        return data.Close[-1]
+        return float(data.Close[-1])
 
     def merge(self, balance: T) -> None:
         """현재 계좌와 입력 계좌의 정보를 병합하는 함수
