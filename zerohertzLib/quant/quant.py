@@ -221,13 +221,13 @@ class Quant(Experiments):
         possibility = defaultdict(list)
         for key in self.methods:
             possibility[key] = [
-                self.signals[key][day],
-                self.signals[key][day] / self.methods_cnt[key] * 100,
+                self.signals[key].iloc[day],
+                self.signals[key].iloc[day] / self.methods_cnt[key] * 100,
             ]
-        possibility["logic"] = self.signals["logic"][day]
+        possibility["logic"] = self.signals["logic"].iloc[day]
         possibility["total"] = [
-            self.signals["signals"][day],
-            self.signals["signals"][day] / self.total_cnt * 100,
+            self.signals["signals"].iloc[day],
+            self.signals["signals"].iloc[day] / self.total_cnt * 100,
         ]
         if 0 < possibility["logic"]:
             possibility["position"] = "Buy"
