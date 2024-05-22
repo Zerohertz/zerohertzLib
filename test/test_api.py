@@ -55,7 +55,7 @@ def test_slack_bot_file():
 
 def test_openai():
     client = zz.api.OpenAI(OPENAI_TOKEN)
-    response = client("오늘 기분이 어때? 1줄로 대답해줘.", model="gpt3")
+    response = client("오늘 기분이 어때? 1줄로 대답해줘.", model="gpt3.5")
     assert isinstance(response, str)
     slack = zz.api.SlackBot(
         SLACK_BOT_TOKEN, "test", name="Test Bot", icon_emoji="hammer"
