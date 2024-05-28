@@ -24,7 +24,7 @@ SOFTWARE.
 
 import re
 from collections import defaultdict
-from typing import Any, Dict, List, Optional, Set
+from typing import Any, Dict, List, Optional
 
 import requests
 
@@ -127,21 +127,6 @@ class GitHub:
         # closed_at: Issue 또는 PR이 종료된 시점           2023-11-16T07:48:51Z
         return results
 
-    def _parse_version(self, title: str) -> str:
-        version = re.findall(r"\[(.*?)\]", title)
-        assert len(version) == 1
-        return version[0]
-
-    def _parse_issues_from_pr_body(self, body: str) -> Set[str]:
-        issues = re.findall(r"#(\d+)", body)
-        return set(issues)
-
-    def _replace_issue_markdown(self, body: str, issue: str) -> str:
-        return body.replace(
-            f"#{issue}",
-            f"""<a href="https://github.com/{self.user}/{self.repo}/issues/{issue}">#{issue}</a>""",
-        )
-
     def _shield_icon(self, tag: str, color: str, href: str) -> str:
         return f"""<a href="{href}"><img src="https://img.shields.io/badge/{tag}-{color}?style=flat-square&logo=github" alt="{tag}"/></a>\n"""
 
@@ -157,10 +142,18 @@ class GitHub:
         labels_markdown += "</p>\n"
         return labels_markdown
 
+    def _replace_cancel_line(self, body: str) -> str:
+        return re.sub(r"~(.*?)~", r"<s>\1</s>", body)
+
+    def _replace_issue(self, body: str) -> str:
+        return re.sub(
+            r"#(\d+)",
+            lambda match: f"""<a href="https://github.com/{self.user}/{self.repo}/issues/{match.group(1)}">#{match.group(1)}</a>""",
+            body,
+        )
+
     def _replace_pr_title(self, body: str) -> str:
-        pattern = r"### (.*?)\n"
-        replacement = r"<h4>\1</h4>\n"
-        return re.sub(pattern, replacement, body)
+        return re.sub(r"### (.*?)\n", r"<h4>\1</h4>\n", body)
 
     def _merge_release_note_version(self, version: str, data: List[List[Any]]) -> str:
         merge_release_note = f"## {version}\n\n"
@@ -177,12 +170,16 @@ class GitHub:
             merge_release_note += f"{self._labels_markdown(labels)}\n\n"
             if body is not None:
                 body = body.replace("\r\n", "\n")
-                issues = self._parse_issues_from_pr_body(body)
-                for issue in issues:
-                    body = self._replace_issue_markdown(body, issue)
+                body = self._replace_cancel_line(body)
+                body = self._replace_issue(body)
                 body = self._replace_pr_title(body)
                 merge_release_note += body + "\n"
         return merge_release_note
+
+    def _parse_version(self, title: str) -> str:
+        version = re.findall(r"\[(.*?)\]", title)
+        assert len(version) == 1
+        return version[0]
 
     def _write_release_note_version(
         self, name: str, sphinx_source_path: str, version: str, body: str
