@@ -2,6 +2,24 @@
 
 ## v1.1.0
 
+<h3>[v1.1.0] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/300>#300</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/05/28
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release/chore"><img src="https://img.shields.io/badge/release/chore-22FD7F?style=flat-square&logo=github" alt="release/chore"/></a>
+</p>
+
+
+<h4>Chore</h4>
+
++ Deploy pipeline의 오류 수정 (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/297">#297</a>)
 <h3>[v1.1.0] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/298>#298</a>)</h3>
 
 ```{admonition} Release Date
@@ -20,7 +38,7 @@
 
 <h4>Chore</h4>
 
-+ Deploy pipeline의 오류 수정 (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/297">#297</a>)
++ ~Deploy pipeline의 오류 수정 (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/297">#297</a>)~ → [PR <a href="https://github.com/Zerohertz/zerohertzLib/issues/300">#300</a>](https://github.com/Zerohertz/zerohertzLib/pull/300)
 
 <h4>Docs</h4>
 
