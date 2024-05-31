@@ -1,5 +1,34 @@
 # v1.1
 
+## v1.1.2
+
+<h3>[v1.1.2] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/305>#305</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/05/31
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/mlops"><img src="https://img.shields.io/badge/feat/mlops-EE5D2A?style=flat-square&logo=github" alt="feat/mlops"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/vision"><img src="https://img.shields.io/badge/feat/vision-D1F9CB?style=flat-square&logo=github" alt="feat/vision"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `mlops`
+  + Triton inference server의 제어 및 상태 조회 CLI `trictl` 개발
++ `vision`
+  + 지정된 directory 내 image들을 병합하는 CLI `vert`와 `grid` 개발
+
+<h4>Chore</h4>
+
++ Legacy packaging 제거 (`setup.py`에서 `pyproject.toml`로 변경)
++ `apt update` 위치 변경
 ## v1.1.1
 
 <h3>[v1.1.1] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/303>#303</a>)</h3>
