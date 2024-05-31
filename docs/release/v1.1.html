@@ -16,11 +16,11 @@
     <meta property="og:title" content="v1.1" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/release/v1.1.html" />
-<meta property="og:site_name" content="Zerohertz's Library v1.1.1 Documents" />
-<meta property="og:description" content="v1.1.1: api- GitHub class의 release_note method 사용 시 취소선이 제대로 표현되지 않는 현상 수정.. v1.1.0: Deploy pipeline의 오류 수정 (resolves:#297). Deploy pipeline의 오류 수정 (resolves:#297) →#300. vision module 내 images upd..." />
+<meta property="og:site_name" content="Zerohertz's Library v1.1.2 Documents" />
+<meta property="og:description" content="v1.1.2: mlops- Triton inference server의 제어 및 상태 조회 CLI trictl 개발., vision- 지정된 directory 내 image들을 병합하는 CLI vert 와 grid 개발.. Legacy packaging 제거 ( setup.py 에서 pyproject.toml 로 변경), apt update 위치 변경..." />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v1.1.1 Documents" />
-<meta name="description" content="v1.1.1: api- GitHub class의 release_note method 사용 시 취소선이 제대로 표현되지 않는 현상 수정.. v1.1.0: Deploy pipeline의 오류 수정 (resolves:#297). Deploy pipeline의 오류 수정 (resolves:#297) →#300. vision module 내 images upd..." />
+<meta property="og:image:alt" content="Zerohertz's Library v1.1.2 Documents" />
+<meta name="description" content="v1.1.2: mlops- Triton inference server의 제어 및 상태 조회 CLI trictl 개발., vision- 지정된 directory 내 image들을 병합하는 CLI vert 와 grid 개발.. Legacy packaging 제거 ( setup.py 에서 pyproject.toml 로 변경), apt update 위치 변경..." />
     <link href="../_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -28,7 +28,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/release/v1.1.html" />
 
     <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
-        <title>v1.1 - zerohertzLib v1.1.1 documentation</title>
+        <title>v1.1 - zerohertzLib v1.1.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=387cc868" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -212,7 +212,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">zerohertzLib v1.1.1 documentation</div></a>
+      <a href="../index.html"><div class="brand">zerohertzLib v1.1.2 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -239,7 +239,7 @@
     <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v1.1.1 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v1.1.2 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -323,6 +323,38 @@
         <article role="main" id="furo-main-content">
           <section id="v1-1">
 <h1>v1.1<a class="headerlink" href="#v1-1" title="Link to this heading">¶</a></h1>
+<section id="v1-1-2">
+<h2>v1.1.2<a class="headerlink" href="#v1-1-2" title="Link to this heading">¶</a></h2>
+<h3>[v1.1.2] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/305>#305</a>)</h3>
+<div class="tip admonition">
+<p class="admonition-title">Release Date</p>
+<p>2024/05/31</p>
+</div>
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/mlops"><img src="https://img.shields.io/badge/feat/mlops-EE5D2A?style=flat-square&logo=github" alt="feat/mlops"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/vision"><img src="https://img.shields.io/badge/feat/vision-D1F9CB?style=flat-square&logo=github" alt="feat/vision"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+<h4>Features</h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mlops</span></code></p>
+<ul>
+<li><p>Triton inference server의 제어 및 상태 조회 CLI <code class="docutils literal notranslate"><span class="pre">trictl</span></code> 개발</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vision</span></code></p>
+<ul>
+<li><p>지정된 directory 내 image들을 병합하는 CLI <code class="docutils literal notranslate"><span class="pre">vert</span></code>와 <code class="docutils literal notranslate"><span class="pre">grid</span></code> 개발</p></li>
+</ul>
+</li>
+</ul>
+<h4>Chore</h4>
+<ul class="simple">
+<li><p>Legacy packaging 제거 (<code class="docutils literal notranslate"><span class="pre">setup.py</span></code>에서 <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>로 변경)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">update</span></code> 위치 변경</p></li>
+</ul>
+</section>
 <section id="v1-1-1">
 <h2>v1.1.1<a class="headerlink" href="#v1-1-1" title="Link to this heading">¶</a></h2>
 <h3>[v1.1.1] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/303>#303</a>)</h3>
@@ -441,6 +473,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">v1.1</a><ul>
+<li><a class="reference internal" href="#v1-1-2">v1.1.2</a></li>
 <li><a class="reference internal" href="#v1-1-1">v1.1.1</a></li>
 <li><a class="reference internal" href="#v1-1-0">v1.1.0</a></li>
 </ul>
@@ -456,7 +489,7 @@
   </div>
 </div><script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../_static/documentation_options.js?v=a34f1657"></script>
+    <script src="../_static/documentation_options.js?v=94b79c3d"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=4e2eecee"></script>

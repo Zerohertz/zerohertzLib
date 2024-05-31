@@ -1,9 +1,0 @@
-# api & logging & quant & mlops
-requests
-
-# api
-openai
-slack_sdk
-
-# logging
-rich
