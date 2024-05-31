@@ -131,6 +131,8 @@ changelog = "https://zerohertz.github.io/zerohertzLib/release.html"
 
 [project.scripts]
 trictl = "zerohertzLib.mlops.cli:trictl"
+vert = "zerohertzLib.vision.cli:_vert"
+grid = "zerohertzLib.vision.cli:_grid"
 
 [tool.setuptools.packages.find]
 where = ["."]
