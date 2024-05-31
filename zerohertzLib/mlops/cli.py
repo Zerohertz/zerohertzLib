@@ -27,7 +27,7 @@ import argparse
 from .triton import TritonClientURL
 
 
-def trictl() -> None:
+def _trictl() -> None:
     """
     Triton Inference CLI
     """
@@ -69,4 +69,4 @@ def trictl() -> None:
 
 
 if __name__ == "__main__":
-    trictl()
+    _trictl()

@@ -130,7 +130,7 @@ repository = "https://github.com/Zerohertz/zerohertzLib"
 changelog = "https://zerohertz.github.io/zerohertzLib/release.html"
 
 [project.scripts]
-trictl = "zerohertzLib.mlops.cli:trictl"
+trictl = "zerohertzLib.mlops.cli:_trictl"
 vert = "zerohertzLib.vision.cli:_vert"
 grid = "zerohertzLib.vision.cli:_grid"
 
