@@ -129,6 +129,9 @@ documentation = "https://zerohertz.github.io/zerohertzLib"
 repository = "https://github.com/Zerohertz/zerohertzLib"
 changelog = "https://zerohertz.github.io/zerohertzLib/release.html"
 
+[project.scripts]
+trictl = "zerohertzLib.mlops.cli:trictl"
+
 [tool.setuptools.packages.find]
 where = ["."]
 
