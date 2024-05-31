@@ -141,7 +141,6 @@ spec:
                         def startTime = System.currentTimeMillis()
                         setBuildStatus("Build...", "PENDING", "$STAGE_NAME")
                         container("python") {
-                            sh "apt update"
                             sh "pip install build"
                             sh "python -m build ."
                         }
@@ -181,6 +180,7 @@ spec:
                             def startTime = System.currentTimeMillis()
                             setBuildStatus("Test...", "PENDING", "$STAGE_NAME")
                             container("python") {
+                                sh "apt update"
                                 sh "apt install python3-opencv -y"
                                 sh "pip install pytest"
                                 sh "pytest"
