@@ -142,7 +142,8 @@ spec:
                         setBuildStatus("Build...", "PENDING", "$STAGE_NAME")
                         container("python") {
                             sh "apt update"
-                            sh "python setup.py sdist bdist_wheel"
+                            sh "pip install build"
+                            sh "python -m build ."
                         }
                         def endTime = System.currentTimeMillis()
                         def DURATION = (endTime - startTime) / 1000
