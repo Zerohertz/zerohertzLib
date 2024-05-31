@@ -47,6 +47,7 @@ class TritonClientURL(grpcclient.InferenceServerClient):
     Args:
         url (``str``): 호출할 triton inference server의 URL
         port (``Optional[int]``): triton inference server의 gRPC 통신 port 번호
+        verbose (``Optional[bool]``): Verbose 출력 여부
 
     Methods:
         __call__:
@@ -247,6 +248,7 @@ class TritonClientK8s(TritonClientURL):
         svc_name (``str``): 호출할 triton inference server의 Kubernetes service의 이름
         namespace (``str``): 호출할 triton inference server의 namespace
         port (``Optional[int]``): triton inference server의 gRPC 통신 port 번호
+        verbose (``Optional[bool]``): Verbose 출력 여부
 
     Methods:
         __call__:
@@ -276,9 +278,13 @@ class TritonClientK8s(TritonClientURL):
     """
 
     def __init__(
-        self, svc_name: str, namespace: str, port: Optional[int] = 8001
+        self,
+        svc_name: str,
+        namespace: str,
+        port: Optional[int] = 8001,
+        verbose: Optional[bool] = False,
     ) -> None:
-        super().__init__(f"{svc_name}.{namespace}", port)
+        super().__init__(f"{svc_name}.{namespace}", port, verbose)
 
 
 class BaseTritonPythonModel(ABC):
