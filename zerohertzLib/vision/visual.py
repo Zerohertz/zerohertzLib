@@ -251,7 +251,7 @@ def _make_text(
         os.path.join(FONT_PATH, "NotoSerifKR-Medium.otf"),
         fontsize,
     )
-    text_width, text_height = draw.textsize(txt, font=font)
+    _, _, text_width, text_height = draw.textbbox((0, 0), txt, font=font)
     d_x, d_y = (size[0] - text_width) // 2, (size[1] - text_height) // 2
     if d_x < 0 or d_y < 0:
         raise ValueError("Input text 'txt' is too long")

@@ -52,7 +52,7 @@ dependencies = [
     # vision
     "numpy",
     "opencv-python",
-    "Pillow==8.4.0",
+    "Pillow>=10.0.0",
     "shapely"
 ]
 
