@@ -32,14 +32,18 @@ def _trictl() -> None:
     Triton Inference CLI
     """
     parser = argparse.ArgumentParser(
-        description="Triton Inference Server CLI\n\nExmaples:\n\ttrictl load 0\n\ttrictl unload model\n\ttrictl status",
+        description="Triton Inference Server CLI\n\n"
+        "Exmaples:\n\ttrictl load 0\n"
+        "\ttrictl unload model\n"
+        "\ttrictl status",
         formatter_class=argparse.RawTextHelpFormatter,
     )
     parser.add_argument(
         "action",
         type=str,
         choices=["load", "unload", "status"],
-        help="load, unload: Control models if the triton inference server is running with '--model-control-mode=explicit'\nstatus: Display the current status of the triton inference server",
+        help="load, unload: Control models if the triton inference server is running with '--model-control-mode=explicit'\n"
+        "status: Display the current status of the triton inference server",
     )
     parser.add_argument(
         "model",
@@ -66,7 +70,3 @@ def _trictl() -> None:
         getattr(client, f"{args.action}_model")(args.model)
     elif args.action == "status":
         client.status()
-
-
-if __name__ == "__main__":
-    _trictl()

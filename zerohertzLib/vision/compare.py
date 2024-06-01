@@ -116,7 +116,7 @@ def grid(
     color: Optional[Tuple[int]] = (255, 255, 255),
     file_name: Optional[str] = "tmp",
 ) -> None:
-    """여러 image를 입력받아 한 정방형 image로 병합
+    """여러 image를 입력받아 정방형 image로 병합
 
     Args:
         imgs (``List[NDArray[np.uint8]]``): 입력 image
@@ -161,7 +161,7 @@ def vert(
     height: Optional[int] = 1000,
     file_name: Optional[str] = "tmp",
 ) -> None:
-    """여러 image를 입력받아 한 가로 image로 병합
+    """여러 image를 입력받아 가로 image로 병합
 
     Args:
         imgs (``List[NDArray[np.uint8]]``): 입력 image

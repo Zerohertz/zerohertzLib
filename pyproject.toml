@@ -8,7 +8,7 @@ dynamic = ["version"]
 description = "Zerohertz's Library"
 readme = "README.md"
 requires-python = ">=3.7"
-license = {file = "LICENSE"}
+license = {text = "MIT"}
 keywords = [
     "Scientific/Engineering",
     "Mathematics", "Artificial Intelligence",
@@ -52,7 +52,7 @@ dependencies = [
     # vision
     "numpy",
     "opencv-python",
-    "Pillow==8.4.0",
+    "Pillow>=10.0.0",
     "shapely"
 ]
 
@@ -133,6 +133,8 @@ changelog = "https://zerohertz.github.io/zerohertzLib/release.html"
 trictl = "zerohertzLib.mlops.cli:_trictl"
 vert = "zerohertzLib.vision.cli:_vert"
 grid = "zerohertzLib.vision.cli:_grid"
+img2gif = "zerohertzLib.vision.cli:_img2gif"
+vid2gif = "zerohertzLib.vision.cli:_vid2gif"
 
 [tool.setuptools.packages.find]
 where = ["."]
