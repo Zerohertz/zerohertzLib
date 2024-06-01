@@ -66,7 +66,3 @@ def _trictl() -> None:
         getattr(client, f"{args.action}_model")(args.model)
     elif args.action == "status":
         client.status()
-
-
-if __name__ == "__main__":
-    _trictl()

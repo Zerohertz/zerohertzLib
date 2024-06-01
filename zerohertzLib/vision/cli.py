@@ -50,8 +50,3 @@ def _grid() -> None:
     else:
         imgs = [ils[i][1] for i in range(args.cnt**2)]
     grid(imgs, args.shape)
-
-
-if __name__ == "__main__":
-    _vert()
-    _grid()
