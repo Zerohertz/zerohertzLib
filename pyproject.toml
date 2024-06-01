@@ -133,6 +133,8 @@ changelog = "https://zerohertz.github.io/zerohertzLib/release.html"
 trictl = "zerohertzLib.mlops.cli:_trictl"
 vert = "zerohertzLib.vision.cli:_vert"
 grid = "zerohertzLib.vision.cli:_grid"
+img2gif = "zerohertzLib.vision.cli:_img2gif"
+vid2gif = "zerohertzLib.vision.cli:_vid2gif"
 
 [tool.setuptools.packages.find]
 where = ["."]
