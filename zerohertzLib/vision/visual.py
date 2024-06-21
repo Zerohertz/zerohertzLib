@@ -119,7 +119,9 @@ def bbox(
 def mask(
     img: NDArray[np.uint8],
     mks: Optional[NDArray[bool]] = None,
-    poly: Optional[NDArray[DTypeLike]] = None,
+    poly: Optional[
+        Union[List[Union[int, float]], NDArray[DTypeLike], List[NDArray[DTypeLike]]]
+    ] = None,
     color: Optional[Tuple[int]] = (0, 0, 255),
     class_list: Optional[List[Union[int, str]]] = None,
     class_color: Optional[Dict[Union[int, str], Tuple[int]]] = None,
@@ -131,7 +133,7 @@ def mask(
     Args:
         img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
         mks (``Optional[NDArray[bool]]``): 입력 image 위에 병합할 mask (``[H, W]`` or ``[N, H, W]``)
-        poly (``Optional[NDArray[DTypeLike]]``): 입력 image 위에 병합할 mask (``[N, 2]``)
+        poly (``Optional[Union[List[Union[int, float]], NDArray[DTypeLike], List[NDArray[DTypeLike]]]]``): 입력 image 위에 병합할 mask (``[M, 2]`` or ``[N, M, 2]``)
         color (``Optional[Tuple[int]]``): Mask의 색
         class_list (``Optional[List[Union[int, str]]]``): ``mks`` 의 index에 따른 class
         class_color (``Optional[Dict[Union[int, str], Tuple[int]]]``): Class에 따른 색 (``color`` 무시)
@@ -156,20 +158,25 @@ def mask(
 
         Mask (with class):
             >>> cls = [i for i in range(cnt)]
-            >>> class_list = [cls[random.randint(0, 2)] for _ in range(cnt)]
+            >>> class_list = [cls[random.randint(0, 5)] for _ in range(cnt)]
             >>> class_color = {}
             >>> for c in cls:
             >>>     class_color[c] = [random.randint(0, 255) for _ in range(3)]
             >>> res2 = zz.vision.mask(img, mks, class_list=class_list, class_color=class_color)
 
-        Poly:
+        Poly (without class):
             >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
             >>> res3 = zz.vision.mask(img, poly=poly)
+
+        Poly (with class):
+            >>> poly = zz.vision.xyxy2poly(zz.vision.poly2xyxy((np.random.rand(cnt, 4, 2) * (W, H))))
+            >>> res4 = zz.vision.mask(img, poly=poly, class_list=class_list, class_color=class_color)
 
         .. image:: _static/examples/dynamic/vision.mask.png
             :align: center
             :width: 600px
     """
+    assert (mks is None) ^ (poly is None)
     shape = img.shape
     if len(shape) == 2:
         img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)

@@ -16,9 +16,9 @@
     <meta property="og:title" content="zerohertzLib.vision" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/zerohertzLib.vision.html" />
-<meta property="og:site_name" content="Zerohertz's Library v1.1.3 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v1.1.4 Documents" />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v1.1.3 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v1.1.4 Documents" />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -26,7 +26,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/zerohertzLib.vision.html" />
 
     <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
-        <title>zerohertzLib.vision - zerohertzLib v1.1.3 documentation</title>
+        <title>zerohertzLib.vision - zerohertzLib v1.1.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=387cc868" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -210,7 +210,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v1.1.3 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v1.1.4 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -237,7 +237,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v1.1.3 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v1.1.4 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -1348,7 +1348,7 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><span class="target" id="zerohertzLib.vision.mask.params.img"></span><strong>img</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.mask.params.img">¶</a> (<code class="docutils literal notranslate"><span class="pre">NDArray[np.uint8]</span></code>) – 입력 image (<code class="docutils literal notranslate"><span class="pre">[H,</span> <span class="pre">W,</span> <span class="pre">C]</span></code>)</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.mask.params.mks"></span><strong>mks</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.mask.params.mks">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[NDArray[bool]]</span></code>) – 입력 image 위에 병합할 mask (<code class="docutils literal notranslate"><span class="pre">[H,</span> <span class="pre">W]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">H,</span> <span class="pre">W]</span></code>)</p></li>
-<li><p><span class="target" id="zerohertzLib.vision.mask.params.poly"></span><strong>poly</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.mask.params.poly">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[NDArray[DTypeLike]]</span></code>) – 입력 image 위에 병합할 mask (<code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">2]</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.mask.params.poly"></span><strong>poly</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.mask.params.poly">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[Union[List[Union[int,</span> <span class="pre">float]],</span> <span class="pre">NDArray[DTypeLike],</span> <span class="pre">List[NDArray[DTypeLike]]]]</span></code>) – 입력 image 위에 병합할 mask (<code class="docutils literal notranslate"><span class="pre">[M,</span> <span class="pre">2]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">M,</span> <span class="pre">2]</span></code>)</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.mask.params.color"></span><strong>color</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.mask.params.color">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[Tuple[int]]</span></code>) – Mask의 색</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.mask.params.class_list"></span><strong>class_list</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.mask.params.class_list">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[List[Union[int,</span> <span class="pre">str]]]</span></code>) – <code class="docutils literal notranslate"><span class="pre">mks</span></code> 의 index에 따른 class</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.mask.params.class_color"></span><strong>class_color</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.mask.params.class_color">¶</a> (<code class="docutils literal notranslate"><span class="pre">Optional[Dict[Union[int,</span> <span class="pre">str],</span> <span class="pre">Tuple[int]]]</span></code>) – Class에 따른 색 (<code class="docutils literal notranslate"><span class="pre">color</span></code> 무시)</p></li>
@@ -1379,7 +1379,7 @@
 </div>
 </dd>
 <dt>Mask (with class):</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="bp">cls</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cnt</span><span class="p">)]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">class_list</span> <span class="o">=</span> <span class="p">[</span><span class="bp">cls</span><span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cnt</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">class_list</span> <span class="o">=</span> <span class="p">[</span><span class="bp">cls</span><span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cnt</span><span class="p">)]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">class_color</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">cls</span><span class="p">:</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">class_color</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
@@ -1387,8 +1387,13 @@
 </pre></div>
 </div>
 </dd>
-<dt>Poly:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">poly</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">400</span><span class="p">],</span> <span class="p">[</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">],</span> <span class="p">[</span><span class="mi">800</span><span class="p">,</span> <span class="mi">900</span><span class="p">],</span> <span class="p">[</span><span class="mi">400</span><span class="p">,</span> <span class="mi">1100</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">800</span><span class="p">]])</span>
+<dt>Poly (without class):</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">poly</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">400</span><span class="p">],</span> <span class="p">[</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">],</span> <span class="p">[</span><span class="mi">800</span><span class="p">,</span> <span class="mi">900</span><span class="p">],</span> <span class="p">[</span><span class="mi">400</span><span class="p">,</span> <span class="mi">1100</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">800</span><span class="p">]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">res3</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">mask</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">poly</span><span class="o">=</span><span class="n">poly</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt>Poly (with class):</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">poly</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">xyxy2poly</span><span class="p">(</span><span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">poly2xyxy</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">cnt</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">H</span><span class="p">))))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res4</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">mask</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">poly</span><span class="o">=</span><span class="n">poly</span><span class="p">,</span> <span class="n">class_list</span><span class="o">=</span><span class="n">class_list</span><span class="p">,</span> <span class="n">class_color</span><span class="o">=</span><span class="n">class_color</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
@@ -1491,7 +1496,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.vision.paste">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">paste</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gaussian</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/vision/visual.py#L354"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.vision.paste" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">paste</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gaussian</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/vision/visual.py#L361"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.vision.paste" title="Link to this definition">¶</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">target</span></code> image를 <code class="docutils literal notranslate"><span class="pre">img</span></code> 위에 투명도를 포함하여 병합</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1564,7 +1569,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.vision.poly2area">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">poly2area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poly</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/vision/convert.py#L320"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.vision.poly2area" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">poly2area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poly</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/vision/convert.py#L339"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.vision.poly2area" title="Link to this definition">¶</a></dt>
 <dd><p>다각형의 면적을 산출하는 함수</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1615,17 +1620,17 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.vision.poly2mask">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">poly2mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/vision/convert.py#L286"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.vision.poly2mask" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">poly2mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poly</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/vision/convert.py#L296"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.vision.poly2mask" title="Link to this definition">¶</a></dt>
 <dd><p>다각형 좌표를 입력받아 mask로 변환</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><span class="target" id="zerohertzLib.vision.poly2mask.params.poly"></span><strong>poly</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.poly2mask.params.poly">¶</a> (<code class="docutils literal notranslate"><span class="pre">Union[List[Union[int,</span> <span class="pre">float]],</span> <span class="pre">NDArray[DTypeLike]]</span></code>) – Mask의 꼭짓점 좌표 (<code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">2]</span></code>)</p></li>
+<li><p><span class="target" id="zerohertzLib.vision.poly2mask.params.poly"></span><strong>poly</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.poly2mask.params.poly">¶</a> (<code class="docutils literal notranslate"><span class="pre">Union[List[Union[int,</span> <span class="pre">float]],</span> <span class="pre">NDArray[DTypeLike],</span> <span class="pre">List[NDArray[DTypeLike]]]</span></code>) – Mask의 꼭짓점 좌표 (<code class="docutils literal notranslate"><span class="pre">[M,</span> <span class="pre">2]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">M,</span> <span class="pre">2]</span></code>)</p></li>
 <li><p><span class="target" id="zerohertzLib.vision.poly2mask.params.shape"></span><strong>shape</strong><a class="paramlink headerlink reference internal" href="#zerohertzLib.vision.poly2mask.params.shape">¶</a> (<code class="docutils literal notranslate"><span class="pre">Tuple[int]</span></code>) – 출력될 mask의 shape <code class="docutils literal notranslate"><span class="pre">(H,</span> <span class="pre">W)</span></code></p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>시각화 결과 (<code class="docutils literal notranslate"><span class="pre">[H,</span> <span class="pre">W,</span> <span class="pre">C]</span></code>)</p>
+<dd class="field-even"><p>변환된 mask (<code class="docutils literal notranslate"><span class="pre">[H,</span> <span class="pre">W]</span></code> or <code class="docutils literal notranslate"><span class="pre">[N,</span> <span class="pre">H,</span> <span class="pre">W]</span></code>)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">NDArray[bool]</span></code></p>
@@ -1633,20 +1638,26 @@
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">poly</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mask</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">poly2mask</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mask</span><span class="o">.</span><span class="n">shape</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mask1</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">poly2mask</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mask1</span><span class="o">.</span><span class="n">shape</span>
 <span class="go">(70, 100)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mask</span><span class="o">.</span><span class="n">dtype</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mask1</span><span class="o">.</span><span class="n">dtype</span>
+<span class="go">dtype(&#39;bool&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">poly</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mask2</span> <span class="o">=</span> <span class="n">zz</span><span class="o">.</span><span class="n">vision</span><span class="o">.</span><span class="n">poly2mask</span><span class="p">([</span><span class="n">poly</span><span class="p">,</span> <span class="n">poly</span> <span class="o">-</span> <span class="mi">10</span><span class="p">,</span> <span class="n">poly</span> <span class="o">+</span> <span class="mi">20</span><span class="p">],</span> <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mask2</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(3, 70, 100)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mask2</span><span class="o">.</span><span class="n">dtype</span>
 <span class="go">dtype(&#39;bool&#39;)</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="_images/vision.poly2mask.png"><img alt="_images/vision.poly2mask.png" class="align-center" src="_images/vision.poly2mask.png" style="width: 300px;" />
+<a class="reference internal image-reference" href="_static/examples/dynamic/vision.poly2mask.png"><img alt="_static/examples/dynamic/vision.poly2mask.png" class="align-center" src="_static/examples/dynamic/vision.poly2mask.png" style="width: 300px;" />
 </a>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.vision.poly2ratio">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">poly2ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poly</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/vision/convert.py#L345"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.vision.poly2ratio" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">poly2ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poly</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/vision/convert.py#L364"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.vision.poly2ratio" title="Link to this definition">¶</a></dt>
 <dd><p>다각형의 bbox 대비 다각형의 면적 비율을 산출하는 함수</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1697,7 +1708,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="zerohertzLib.vision.text">
-<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/vision/visual.py#L291"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.vision.text" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">zerohertzLib.vision.</span></span><span class="sig-name descname"><span class="pre">text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/zerohertz/zerohertzLib/blob/master/zerohertzLib/vision/visual.py#L298"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zerohertzLib.vision.text" title="Link to this definition">¶</a></dt>
 <dd><p>Text 시각화</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2016,7 +2027,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="_static/documentation_options.js?v=30cf1824"></script>
+    <script src="_static/documentation_options.js?v=fb4688e9"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=4e2eecee"></script>

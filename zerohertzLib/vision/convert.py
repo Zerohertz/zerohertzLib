@@ -283,31 +283,7 @@ def poly2xyxy(
     return _poly2xyxy(box)
 
 
-def poly2mask(
-    poly: Union[List[Union[int, float]], NDArray[DTypeLike]], shape: Tuple[int]
-) -> NDArray[bool]:
-    """다각형 좌표를 입력받아 mask로 변환
-
-    Args:
-        poly (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): Mask의 꼭짓점 좌표 (``[N, 2]``)
-        shape (``Tuple[int]``): 출력될 mask의 shape ``(H, W)``
-
-    Returns:
-        ``NDArray[bool]``: 시각화 결과 (``[H, W, C]``)
-
-    Examples:
-        >>> poly = [[10, 10], [20, 10], [30, 40], [20, 60], [10, 20]]
-        >>> mask = zz.vision.poly2mask(poly, (70, 100))
-        >>> mask.shape
-        (70, 100)
-        >>> mask.dtype
-        dtype('bool')
-
-        .. image:: _static/examples/dynamic/vision.poly2mask.png
-            :align: center
-            :width: 300px
-    """
-    poly = _list2np(poly)
+def _poly2mask(poly: NDArray[DTypeLike], shape: Tuple[int]) -> NDArray[bool]:
     poly = Path(poly)
     pts_x, pts_y = np.meshgrid(np.arange(shape[1]), np.arange(shape[0]))
     pts_x, pts_y = pts_x.flatten(), pts_y.flatten()
@@ -315,6 +291,49 @@ def poly2mask(
     grid = poly.contains_points(points)
     mask = grid.reshape(shape)
     return mask
+
+
+def poly2mask(
+    poly: Union[List[Union[int, float]], NDArray[DTypeLike], List[NDArray[DTypeLike]]],
+    shape: Tuple[int],
+) -> NDArray[bool]:
+    """다각형 좌표를 입력받아 mask로 변환
+
+    Args:
+        poly (``Union[List[Union[int, float]], NDArray[DTypeLike], List[NDArray[DTypeLike]]]``): Mask의 꼭짓점 좌표 (``[M, 2]`` or ``[N, M, 2]``)
+        shape (``Tuple[int]``): 출력될 mask의 shape ``(H, W)``
+
+    Returns:
+        ``NDArray[bool]``: 변환된 mask (``[H, W]`` or ``[N, H, W]``)
+
+    Examples:
+        >>> poly = [[10, 10], [20, 10], [30, 40], [20, 60], [10, 20]]
+        >>> mask1 = zz.vision.poly2mask(poly, (70, 100))
+        >>> mask1.shape
+        (70, 100)
+        >>> mask1.dtype
+        dtype('bool')
+        >>> poly = np.array(poly)
+        >>> mask2 = zz.vision.poly2mask([poly, poly - 10, poly + 20], (70, 100))
+        >>> mask2.shape
+        (3, 70, 100)
+        >>> mask2.dtype
+        dtype('bool')
+
+        .. image:: _static/examples/dynamic/vision.poly2mask.png
+            :align: center
+            :width: 300px
+    """
+    if (isinstance(poly, list) and isinstance(poly[0], np.ndarray)) or (
+        isinstance(poly, np.ndarray) and len(poly.shape) == 3
+    ):
+        mks = []
+        for _poly in poly:
+            mks.append(_poly2mask(_poly, shape))
+        mks = np.array(mks)
+    else:
+        mks = _poly2mask(_list2np(poly), shape)
+    return mks
 
 
 def poly2area(poly: Union[List[Union[int, float]], NDArray[DTypeLike]]) -> float:
