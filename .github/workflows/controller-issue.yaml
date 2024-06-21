@@ -1,4 +1,4 @@
-name: Issue Controller
+name: Controller (Issue)
 
 on:
   issues:
@@ -13,7 +13,7 @@ jobs:
 
       - name: Assign Zerohertz to issue
         if: github.event_name == 'issues' && github.event.action == 'opened'
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           github-token: ${{secrets.GH_TOKEN}}
           script: |
@@ -26,7 +26,7 @@ jobs:
 
       - name: Add 'fix' label
         if: contains(github.event.issue.title, '[Bug]')
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           github-token: ${{secrets.GH_TOKEN}}
           script: |
@@ -39,7 +39,7 @@ jobs:
 
       - name: Add 'chore' label
         if: contains(github.event.issue.title, '[Chore]')
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           github-token: ${{secrets.GH_TOKEN}}
           script: |
@@ -52,7 +52,7 @@ jobs:
 
       - name: Add 'style' label
         if: contains(github.event.issue.title, '[Style]')
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           github-token: ${{secrets.GH_TOKEN}}
           script: |
@@ -65,7 +65,7 @@ jobs:
 
       - name: Add 'docs' label
         if: contains(github.event.issue.title, '[Docs]')
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           github-token: ${{secrets.GH_TOKEN}}
           script: |
