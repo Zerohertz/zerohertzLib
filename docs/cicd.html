@@ -16,11 +16,11 @@
     <meta property="og:title" content="CI/CD Pipelines" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/cicd.html" />
-<meta property="og:site_name" content="Zerohertz's Library v1.1.3 Documents" />
-<meta property="og:description" content="Jenkins:,, Stage, Condition,,, 1. Setup, ⭕ [* Push],, 2. Merge From Docs, ⭕ [* Push] “Merge pull request*/docs” ⭕ [* Push] “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”,, 3. 1. Lint,..." />
+<meta property="og:site_name" content="Zerohertz's Library v1.1.4 Documents" />
+<meta property="og:description" content="Branch Rules: Dev Branch: dev-* push- check-pr: Check if a PR is open for the dev-* branch, build: Install dependencies & build package, lint: Check format of python codes, test: Do PyTest., dev-* ..." />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v1.1.3 Documents" />
-<meta name="description" content="Jenkins:,, Stage, Condition,,, 1. Setup, ⭕ [* Push],, 2. Merge From Docs, ⭕ [* Push] “Merge pull request*/docs” ⭕ [* Push] “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”,, 3. 1. Lint,..." />
+<meta property="og:image:alt" content="Zerohertz's Library v1.1.4 Documents" />
+<meta name="description" content="Branch Rules: Dev Branch: dev-* push- check-pr: Check if a PR is open for the dev-* branch, build: Install dependencies & build package, lint: Check format of python codes, test: Do PyTest., dev-* ..." />
     <link href="_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -28,7 +28,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/cicd.html" />
 
     <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
-        <title>CI/CD Pipelines - zerohertzLib v1.1.3 documentation</title>
+        <title>CI/CD Pipelines - zerohertzLib v1.1.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=387cc868" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -212,7 +212,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">zerohertzLib v1.1.3 documentation</div></a>
+      <a href="index.html"><div class="brand">zerohertzLib v1.1.4 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -239,7 +239,7 @@
     <img class="sidebar-logo" src="_static/logo.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v1.1.3 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v1.1.4 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -325,48 +325,10 @@
 <h1>CI/CD Pipelines<a class="headerlink" href="#ci-cd-pipelines" title="Link to this heading">¶</a></h1>
 <div class="important admonition">
 <p class="admonition-title">Used Stacks</p>
-<ol class="arabic simple">
-<li><p>Jenkins (Black, flake8, Pylint, Setuptools, PyTest, Sphinx)</p></li>
-<li><p>GitHub Actions</p></li>
-</ol>
+<p>GitHub Actions (Black, flake8, Pylint, Setuptools, PyTest, Sphinx)</p>
 </div>
-<section id="jenkins">
-<h2>Jenkins<a class="headerlink" href="#jenkins" title="Link to this heading">¶</a></h2>
-<p align="center">
-    <img width="1844" alt="CI/CD" src="_static/cicd/cicd.png">
-</p>
-<div class="table-wrapper colwidths-auto docutils container">
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head text-center"><p>Stage</p></th>
-<th class="head"><p>Condition</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-center"><p>1. <code class="docutils literal notranslate"><span class="pre">Setup</span></code></p></td>
-<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">*</span></code> Push]</p></td>
-</tr>
-<tr class="row-odd"><td class="text-center"><p>2. <code class="docutils literal notranslate"><span class="pre">Merge</span> <span class="pre">From</span> <span class="pre">Docs</span></code></p></td>
-<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">*</span></code> Push] “Merge pull request*/docs”</br>⭕ [<code class="docutils literal notranslate"><span class="pre">*</span></code> Push] “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”</p></td>
-</tr>
-<tr class="row-even"><td class="text-center"><p>3. <code class="docutils literal notranslate"><span class="pre">1.</span> <span class="pre">Lint</span></code></p></td>
-<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs” &amp;&amp; “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”)</p></td>
-</tr>
-<tr class="row-odd"><td class="text-center"><p>4. <code class="docutils literal notranslate"><span class="pre">2.</span> <span class="pre">Build</span></code></p></td>
-<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> Push] (Except “Merge pull request*/chore*”)</br>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs” &amp;&amp; “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”)</p></td>
-</tr>
-<tr class="row-even"><td class="text-center"><p>5. <code class="docutils literal notranslate"><span class="pre">3.</span> <span class="pre">Test</span></code></p></td>
-<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs” &amp;&amp; “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”)</p></td>
-</tr>
-<tr class="row-odd"><td class="text-center"><p>6. <code class="docutils literal notranslate"><span class="pre">4.</span> <span class="pre">Docs</span></code></p></td>
-<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs” &amp;&amp; “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”)</p></td>
-</tr>
-<tr class="row-even"><td class="text-center"><p>7. <code class="docutils literal notranslate"><span class="pre">Deploy</span></code></p></td>
-<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> Push] “Merge pull request*from Zerohertz/dev*” (Except “*from Zerohertz/chore*”)</p></td>
-</tr>
-</tbody>
-</table>
-</div>
+<section id="branch-rules">
+<h2>Branch Rules<a class="headerlink" href="#branch-rules" title="Link to this heading">¶</a></h2>
 <section id="dev-branch">
 <h3>Dev Branch<a class="headerlink" href="#dev-branch" title="Link to this heading">¶</a></h3>
 <div class="note admonition">
@@ -374,32 +336,31 @@
 <p>The <code class="docutils literal notranslate"><span class="pre">dev</span></code> branch is used when there are functional changes resulting in different build outcomes.</p>
 </div>
 <p align="center">
-   <img width="872" alt="dev-branch" src="_static/cicd/dev-branch.png">
+   <img width="872" alt="dev-branch" src="_static/cicd/github-actions-dev-branch.png">
 </p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">dev-*</span></code> push</p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Setup</span></code>: Commit message parsing</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">1.</span> <span class="pre">Lint</span></code>: Check format of python codes</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">2.</span> <span class="pre">Build</span></code>: Install dependencies &amp; build package</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">3.</span> <span class="pre">Test</span></code>: Do PyTest</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">check-pr</span></code>: Check if a PR is open for the <code class="docutils literal notranslate"><span class="pre">dev-*</span></code> branch</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build</span></code>: Install dependencies &amp; build package</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lint</span></code>: Check format of python codes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test</span></code>: Do PyTest</p></li>
 </ol>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">dev-*</span></code> → <code class="docutils literal notranslate"><span class="pre">master</span></code></p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Setup</span></code>: Commit message parsing</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">1.</span> <span class="pre">Lint</span></code>: Check format of python codes</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">2.</span> <span class="pre">Build</span></code>: Install dependencies &amp; build package</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">3.</span> <span class="pre">Test</span></code>: Do PyTest</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">4.</span> <span class="pre">Docs</span></code>: Create PR (<code class="docutils literal notranslate"><span class="pre">docs</span></code> → <code class="docutils literal notranslate"><span class="pre">dev-*</span></code>) including the build results generated by Sphinx</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Merge</span> <span class="pre">From</span> <span class="pre">Docs</span></code>: If merge PR from <code class="docutils literal notranslate"><span class="pre">docs</span></code>, can merge <code class="docutils literal notranslate"><span class="pre">dev-*</span></code> → <code class="docutils literal notranslate"><span class="pre">master</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">check-commit</span></code>: Commit message parsing</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build</span></code>: Install dependencies &amp; build package</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lint</span></code>: Check format of python codes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test</span></code>: Do PyTest</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docs</span></code>: Create PR (<code class="docutils literal notranslate"><span class="pre">docs</span></code> → <code class="docutils literal notranslate"><span class="pre">dev-*</span></code>) including the build results generated by Sphinx</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">merge-from-docs</span></code>: If merge PR from <code class="docutils literal notranslate"><span class="pre">docs</span></code>, can merge <code class="docutils literal notranslate"><span class="pre">dev-*</span></code> → <code class="docutils literal notranslate"><span class="pre">master</span></code></p></li>
 </ol>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">master</span></code> push</p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Setup</span></code>: Commit message parsing</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">2.</span> <span class="pre">Build</span></code>: Install dependencies &amp; build package</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Deploy</span></code></p>
+<li><p><code class="docutils literal notranslate"><span class="pre">build</span></code>: Install dependencies &amp; build package</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">deploy</span></code></p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">GitHub</span></code>: Deploy to GitHub</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">PyPI</span></code>: Deploy to PyPI</p></li>
@@ -416,36 +377,26 @@
 <p>The <code class="docutils literal notranslate"><span class="pre">chore</span></code> branch is utilized when the build result is not different, but there are changes in the CI/CD pipeline or documentation.</p>
 </div>
 <p align="center">
-   <img width="872" alt="chore-branch" src="_static/cicd/chore-branch.png">
+   <img width="872" alt="chore-branch" src="_static/cicd/github-actions-chore-branch.png">
 </p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">chore-*</span></code> push</p>
-<ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Setup</span></code>: Commit message parsing</p></li>
-</ol>
-</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chore-*</span></code> push</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">chore-*</span></code> → <code class="docutils literal notranslate"><span class="pre">master</span></code></p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Setup</span></code>: Commit message parsing</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">1.</span> <span class="pre">Lint</span></code>: Check format of python codes</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">2.</span> <span class="pre">Build</span></code>: Install dependencies &amp; build package</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">3.</span> <span class="pre">Test</span></code>: Do PyTest</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">4.</span> <span class="pre">Docs</span></code>: Create PR (<code class="docutils literal notranslate"><span class="pre">docs</span></code> → <code class="docutils literal notranslate"><span class="pre">chore-*</span></code>) including the build results generated by Sphinx</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Merge</span> <span class="pre">From</span> <span class="pre">Docs</span></code>: If merge PR from <code class="docutils literal notranslate"><span class="pre">docs</span></code>, can merge <code class="docutils literal notranslate"><span class="pre">chore-*</span></code> → <code class="docutils literal notranslate"><span class="pre">master</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">check-commit</span></code>: Commit message parsing</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build</span></code>: Install dependencies &amp; build package</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lint</span></code>: Check format of python codes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test</span></code>: Do PyTest</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docs</span></code>: Create PR (<code class="docutils literal notranslate"><span class="pre">docs</span></code> → <code class="docutils literal notranslate"><span class="pre">dev-*</span></code>) including the build results generated by Sphinx</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">merge-from-docs</span></code>: If merge PR from <code class="docutils literal notranslate"><span class="pre">docs</span></code>, can merge <code class="docutils literal notranslate"><span class="pre">dev-*</span></code> → <code class="docutils literal notranslate"><span class="pre">master</span></code></p></li>
 </ol>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">master</span></code> push</p>
-<ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Setup</span></code>: Commit message parsing</p></li>
-</ol>
-</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">master</span></code> push</p></li>
 </ol>
 </section>
 </section>
-<section id="github-actions">
-<h2>GitHub Actions<a class="headerlink" href="#github-actions" title="Link to this heading">¶</a></h2>
 <section id="managing-labels-for-issues-and-pull-requests-in-github">
-<h3>Managing Labels for Issues and Pull Requests in GitHub<a class="headerlink" href="#managing-labels-for-issues-and-pull-requests-in-github" title="Link to this heading">¶</a></h3>
+<h2>Managing Labels for Issues and Pull Requests in GitHub<a class="headerlink" href="#managing-labels-for-issues-and-pull-requests-in-github" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/Zerohertz/zerohertzLib/blob/master/.github/workflows/issue-controller.yaml">Issue</a></p>
 <ul>
@@ -486,7 +437,7 @@
 </ul>
 </section>
 <section id="sphinx-documentation-deployment">
-<h3>Sphinx Documentation Deployment<a class="headerlink" href="#sphinx-documentation-deployment" title="Link to this heading">¶</a></h3>
+<h2>Sphinx Documentation Deployment<a class="headerlink" href="#sphinx-documentation-deployment" title="Link to this heading">¶</a></h2>
 <div class="note admonition">
 <p class="admonition-title">Sphinx Documentation</p>
 <p>Documents created and built using Sphinx are deployed via GitHub Actions and GitHub Pages</p>
@@ -494,7 +445,122 @@
 <p align="center">
    <img width="872" alt="pages-build-and-deployment" src="_static/cicd/pages-build-and-deployment.png">
 </p>
-</section>
+<hr class="docutils" />
+<details>
+<summary>
+Jenkins (Deprecated)
+</summary>
+<div class="important admonition">
+<p class="admonition-title">Used Stacks</p>
+<p>Jenkins (Black, flake8, Pylint, Setuptools, PyTest, Sphinx)</p>
+</div>
+<p align="center">
+    <img width="1844" alt="CI/CD" src="_static/cicd/jenkins-cicd.png">
+</p>
+<h2>Jenkins</h2>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Stage</p></th>
+<th class="head"><p>Condition</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>1. <code class="docutils literal notranslate"><span class="pre">Setup</span></code></p></td>
+<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">*</span></code> Push]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>2. <code class="docutils literal notranslate"><span class="pre">Merge</span> <span class="pre">From</span> <span class="pre">Docs</span></code></p></td>
+<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">*</span></code> Push] “Merge pull request*/docs”</br>⭕ [<code class="docutils literal notranslate"><span class="pre">*</span></code> Push] “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>3. <code class="docutils literal notranslate"><span class="pre">1.</span> <span class="pre">Lint</span></code></p></td>
+<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs” &amp;&amp; “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>4. <code class="docutils literal notranslate"><span class="pre">2.</span> <span class="pre">Build</span></code></p></td>
+<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> Push] (Except “Merge pull request*/chore*”)</br>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs” &amp;&amp; “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”)</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>5. <code class="docutils literal notranslate"><span class="pre">3.</span> <span class="pre">Test</span></code></p></td>
+<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">dev*</span></code> Push]<br>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs” &amp;&amp; “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>6. <code class="docutils literal notranslate"><span class="pre">4.</span> <span class="pre">Docs</span></code></p></td>
+<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> PR] (Except “Merge pull request*/docs” &amp;&amp; “Merge pull request*[Docs] Build by Sphinx for GitHub Pages”)</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>7. <code class="docutils literal notranslate"><span class="pre">Deploy</span></code></p></td>
+<td><p>⭕ [<code class="docutils literal notranslate"><span class="pre">master</span></code> Push] “Merge pull request*from Zerohertz/dev*” (Except “*from Zerohertz/chore*”)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>Dev Branch</h3>
+<div class="note admonition">
+<p class="admonition-title">Branch Rule</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">dev</span></code> branch is used when there are functional changes resulting in different build outcomes.</p>
+</div>
+<p align="center">
+   <img width="872" alt="dev-branch" src="_static/cicd/jenkins-dev-branch.png">
+</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dev-*</span></code> push</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Setup</span></code>: Commit message parsing</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1.</span> <span class="pre">Lint</span></code>: Check format of python codes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2.</span> <span class="pre">Build</span></code>: Install dependencies &amp; build package</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3.</span> <span class="pre">Test</span></code>: Do PyTest</p></li>
+</ol>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dev-*</span></code> → <code class="docutils literal notranslate"><span class="pre">master</span></code></p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Setup</span></code>: Commit message parsing</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1.</span> <span class="pre">Lint</span></code>: Check format of python codes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2.</span> <span class="pre">Build</span></code>: Install dependencies &amp; build package</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3.</span> <span class="pre">Test</span></code>: Do PyTest</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">4.</span> <span class="pre">Docs</span></code>: Create PR (<code class="docutils literal notranslate"><span class="pre">docs</span></code> → <code class="docutils literal notranslate"><span class="pre">dev-*</span></code>) including the build results generated by Sphinx</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Merge</span> <span class="pre">From</span> <span class="pre">Docs</span></code>: If merge PR from <code class="docutils literal notranslate"><span class="pre">docs</span></code>, can merge <code class="docutils literal notranslate"><span class="pre">dev-*</span></code> → <code class="docutils literal notranslate"><span class="pre">master</span></code></p></li>
+</ol>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">master</span></code> push</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Setup</span></code>: Commit message parsing</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2.</span> <span class="pre">Build</span></code>: Install dependencies &amp; build package</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Deploy</span></code></p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">GitHub</span></code>: Deploy to GitHub</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PyPI</span></code>: Deploy to PyPI</p></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3>Chore Branch</h3>
+<div class="note admonition">
+<p class="admonition-title">Branch Rule</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">chore</span></code> branch is utilized when the build result is not different, but there are changes in the CI/CD pipeline or documentation.</p>
+</div>
+<p align="center">
+   <img width="872" alt="chore-branch" src="_static/cicd/jenkins-chore-branch.png">
+</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">chore-*</span></code> push</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Setup</span></code>: Commit message parsing</p></li>
+</ol>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chore-*</span></code> → <code class="docutils literal notranslate"><span class="pre">master</span></code></p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Setup</span></code>: Commit message parsing</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1.</span> <span class="pre">Lint</span></code>: Check format of python codes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2.</span> <span class="pre">Build</span></code>: Install dependencies &amp; build package</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3.</span> <span class="pre">Test</span></code>: Do PyTest</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">4.</span> <span class="pre">Docs</span></code>: Create PR (<code class="docutils literal notranslate"><span class="pre">docs</span></code> → <code class="docutils literal notranslate"><span class="pre">chore-*</span></code>) including the build results generated by Sphinx</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Merge</span> <span class="pre">From</span> <span class="pre">Docs</span></code>: If merge PR from <code class="docutils literal notranslate"><span class="pre">docs</span></code>, can merge <code class="docutils literal notranslate"><span class="pre">chore-*</span></code> → <code class="docutils literal notranslate"><span class="pre">master</span></code></p></li>
+</ol>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">master</span></code> push</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Setup</span></code>: Commit message parsing</p></li>
+</ol>
+</li>
+</ol>
+</details>
 </section>
 </section>
 
@@ -549,16 +615,13 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">CI/CD Pipelines</a><ul>
-<li><a class="reference internal" href="#jenkins">Jenkins</a><ul>
+<li><a class="reference internal" href="#branch-rules">Branch Rules</a><ul>
 <li><a class="reference internal" href="#dev-branch">Dev Branch</a></li>
 <li><a class="reference internal" href="#chore-branch">Chore Branch</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#github-actions">GitHub Actions</a><ul>
 <li><a class="reference internal" href="#managing-labels-for-issues-and-pull-requests-in-github">Managing Labels for Issues and Pull Requests in GitHub</a></li>
 <li><a class="reference internal" href="#sphinx-documentation-deployment">Sphinx Documentation Deployment</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -572,7 +635,7 @@
   </div>
 </div><script src="_static/jquery.js?v=5d32c60e"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="_static/documentation_options.js?v=30cf1824"></script>
+    <script src="_static/documentation_options.js?v=fb4688e9"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=4e2eecee"></script>
