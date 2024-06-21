@@ -235,10 +235,15 @@ def example_vert():
 # vision.poly2mask.png
 def example_poly2mask():
     poly = [[10, 10], [20, 10], [30, 40], [20, 60], [10, 20]]
-    mask = zz.vision.poly2mask(poly, (70, 100))
-    cv2.imwrite(
-        f"{EXAMPLE_PATH}/vision.poly2mask.png",
-        mask.astype(np.uint8) * 255,
+    mask1 = zz.vision.poly2mask(poly, (70, 100))
+    poly = np.array(poly)
+    mask2 = zz.vision.poly2mask([poly, poly - 10, poly + 20], (70, 100))
+    zz.vision.vert(
+        [
+            mask1.astype(np.uint8) * 255,
+            np.transpose(mask2, (1, 2, 0)).astype(np.uint8) * 255,
+        ],
+        file_name=f"{EXAMPLE_PATH}/vision.vert",
     )
 
 
@@ -306,14 +311,20 @@ def example_mask():
     mks = mks.astype(bool)
     res1 = zz.vision.mask(IMAGE, mks)
     cls = [i for i in range(cnt)]
-    class_list = [cls[random.randint(0, 2)] for _ in range(cnt)]
+    class_list = [cls[random.randint(0, 5)] for _ in range(cnt)]
     class_color = {}
     for c in cls:
         class_color[c] = [random.randint(0, 255) for _ in range(3)]
     res2 = zz.vision.mask(IMAGE, mks, class_list=class_list, class_color=class_color)
     poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
     res3 = zz.vision.mask(IMAGE, poly=poly)
-    zz.vision.vert([res1, res2, res3], file_name=f"{EXAMPLE_PATH}/vision.mask")
+    poly = zz.vision.xyxy2poly(
+        zz.vision.poly2xyxy((np.random.rand(cnt, 4, 2) * (W, H)))
+    )
+    res4 = zz.vision.mask(
+        IMAGE, poly=poly, class_list=class_list, class_color=class_color
+    )
+    zz.vision.vert([res1, res2, res3, res4], file_name=f"{EXAMPLE_PATH}/vision.mask")
 
 
 # vision.text.png

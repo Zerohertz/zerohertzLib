@@ -224,6 +224,21 @@ def test_mask_bgra():
     assert "MASK_BGRA.png" in os.listdir()
 
 
+def test_mask_poly():
+    img = cv2.imread(f"{data}/test.jpg")
+    H, W, _ = img.shape
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
+    cnt = 30
+    poly = zz.vision.xyxy2poly(
+        zz.vision.poly2xyxy((np.random.rand(cnt, 4, 2) * (W, H)))
+    )
+    BGRA = zz.vision.mask(
+        img, poly=poly, color=[random.randint(0, 255) for _ in range(3)]
+    )
+    cv2.imwrite("MASK_POLY.png", BGRA)
+    assert "MASK_POLY.png" in os.listdir()
+
+
 def test_mask_gray_int():
     img = cv2.imread(f"{data}/test.jpg")
     H, W, _ = img.shape
@@ -237,7 +252,7 @@ def test_mask_gray_int():
     mks = mks.astype(bool)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     cls = [i for i in range(cnt)]
-    class_list = [cls[random.randint(0, 2)] for _ in range(cnt)]
+    class_list = [cls[random.randint(0, 5)] for _ in range(cnt)]
     class_color = {}
     for c in cls:
         class_color[c] = [random.randint(0, 255) for _ in range(3)]
