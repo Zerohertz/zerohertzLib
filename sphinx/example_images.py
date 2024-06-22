@@ -243,7 +243,7 @@ def example_poly2mask():
             mask1.astype(np.uint8) * 255,
             np.transpose(mask2, (1, 2, 0)).astype(np.uint8) * 255,
         ],
-        file_name=f"{EXAMPLE_PATH}/vision.vert",
+        file_name=f"{EXAMPLE_PATH}/vision.poly2mask",
     )
 
 
