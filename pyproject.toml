@@ -95,7 +95,7 @@ quant = [
     # quant
     "plotly",
     "beautifulsoup4",
-    "finance-datareader",
+    "finance-datareader>=0.9.94",
     "prettytable",
 ]
 all = [
