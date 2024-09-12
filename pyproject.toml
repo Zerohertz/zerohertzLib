@@ -8,19 +8,16 @@ dynamic = ["version"]
 description = "Zerohertz's Library"
 readme = "README.md"
 requires-python = ">=3.7"
-license = {text = "MIT"}
+license = { text = "MIT" }
 keywords = [
     "Scientific/Engineering",
-    "Mathematics", "Artificial Intelligence",
+    "Mathematics",
+    "Artificial Intelligence",
     "Software Development",
     "Libraries",
 ]
-authors = [
-    {name = "zerohertz", email = "ohg3417@gmail.com"}
-]
-maintainers = [
-    {name = "zerohertz", email = "ohg3417@gmail.com"}
-]
+authors = [{ name = "zerohertz", email = "ohg3417@gmail.com" }]
+maintainers = [{ name = "zerohertz", email = "ohg3417@gmail.com" }]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
@@ -53,7 +50,7 @@ dependencies = [
     "numpy",
     "opencv-python",
     "Pillow>=10.0.0",
-    "shapely"
+    "shapely",
 ]
 
 [project.optional-dependencies]
@@ -97,7 +94,9 @@ quant = [
 
     # quant
     "plotly",
-    "beautifulsoup4", "finance-datareader", "prettytable",
+    "beautifulsoup4",
+    "finance-datareader>=0.9.94",
+    "prettytable",
 ]
 all = [
     # api & logging & quant & mlops
@@ -143,4 +142,4 @@ where = ["."]
 zerohertzLib = ["plot/fonts/*.ttf", "plot/fonts/*.otf"]
 
 [tool.setuptools.dynamic]
-version = {attr = "zerohertzLib.__version__"}
+version = { attr = "zerohertzLib.__version__" }
