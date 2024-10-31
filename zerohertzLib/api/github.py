@@ -120,11 +120,11 @@ class GitHub:
         # dict_keys(['url', 'repository_url', 'labels_url', 'comments_url', 'events_url', 'html_url', 'id', 'node_id', 'number', 'title', 'user', 'labels', 'state', 'locked', 'assignee', 'assignees', 'milestone', 'comments', 'created_at', 'updated_at', 'closed_at', 'author_association', 'active_lock_reason', 'draft', 'pull_request', 'body', 'reactions', 'timeline_url', 'performed_via_github_app', 'state_reason'])
 
         # html_url: HTML의 URL                         https://github.com/Zerohertz/zerohertzLib/pull/64
-        # number: Issue 또는 PR의 번호                   64
-        # title: Issue 또는 PR의 제목                    [Docs] Build by Sphinx for GitHub Pages
-        # body: Issue 또는 PR의 MarkDown                #63 (Build: 6095f8f85a0d6d8936a2caa373e675c6f5368644)
-        # labels: Issue 또는 PR에 할당된 label들          List[dict_keys(['id', 'node_id', 'url', 'name', 'color', 'default', 'description'])]
-        # closed_at: Issue 또는 PR이 종료된 시점           2023-11-16T07:48:51Z
+        # number: Issue 또는 PR의 번호                 64
+        # title: Issue 또는 PR의 제목                  [Docs] Build by Sphinx for GitHub Pages
+        # body: Issue 또는 PR의 MarkDown               #63 (Build: 6095f8f85a0d6d8936a2caa373e675c6f5368644)
+        # labels: Issue 또는 PR에 할당된 label들       List[dict_keys(['id', 'node_id', 'url', 'name', 'color', 'default', 'description'])]
+        # closed_at: Issue 또는 PR이 종료된 시점       2023-11-16T07:48:51Z
         return results
 
     def _shield_icon(self, tag: str, color: str, href: str) -> str:
@@ -219,12 +219,17 @@ class GitHub:
         bodies_version = defaultdict(list)
         versions = defaultdict(str)
         for release in releases:
-            version = self._parse_version(release["title"])
             if "\x08" in release["title"]:
                 error_title = release["title"].replace("\x08", "-> \\x08 <-")
                 raise ValueError(
                     f"""\\x08 is in '{release["html_url"]}'\n\tError Title: {error_title}"""
                 )
+            if (
+                release["state"] == "closed"
+                and release["pull_request"]["merged_at"] is None
+            ):
+                continue
+            version = self._parse_version(release["title"])
             bodies_version[version].append(
                 [
                     release["number"],
