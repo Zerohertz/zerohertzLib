@@ -210,7 +210,6 @@ class GitHub:
         self,
         name: Optional[str] = "release",
         sphinx_source_path: Optional[str] = "sphinx/source",
-        per_page=0,
     ) -> None:
         """
         Args:
