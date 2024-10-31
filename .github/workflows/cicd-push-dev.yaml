@@ -51,7 +51,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: venv
-          key: ${{ runner.os }}-python-venv
+          key: ${{ runner.os }}-python-venv-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-python-venv-
 
@@ -91,7 +91,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: venv
-          key: ${{ runner.os }}-python-venv
+          key: ${{ runner.os }}-python-venv-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-python-venv-
 
@@ -132,7 +132,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: venv
-          key: ${{ runner.os }}-python-venv
+          key: ${{ runner.os }}-python-venv-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-python-venv-
 
