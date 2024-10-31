@@ -5,6 +5,10 @@ import numpy as np
 import zerohertzLib as zz
 
 
+def test_error():
+    assert 1 != 0
+
+
 def test_barv():
     path = zz.plot.barv(
         {"Terran": 27, "Zerg": 40, "Protoss": 30},
