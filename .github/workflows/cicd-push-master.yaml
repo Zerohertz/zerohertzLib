@@ -37,6 +37,7 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           pip install build
+          pip uninstall zerohertzLib -y
           python -m build .
           pip install .'[all]'
 
