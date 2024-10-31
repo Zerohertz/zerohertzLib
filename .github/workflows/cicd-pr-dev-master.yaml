@@ -85,7 +85,7 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           pip uninstall zerohertzLib -y
-          pip install .'[all]'
+          pip install .'[all]' --no-cache-dir
 
       - name: Slack webhook
         uses: 8398a7/action-slack@v3

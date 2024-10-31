@@ -39,7 +39,7 @@ jobs:
           pip install build
           pip uninstall zerohertzLib -y
           python -m build .
-          pip install .'[all]'
+          pip install .'[all]' --no-cache-dir
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
