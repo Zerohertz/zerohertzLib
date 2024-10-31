@@ -170,8 +170,21 @@ jobs:
           source venv/bin/activate
           sudo apt update
           sudo apt install python3-opencv -y
-          pip install pytest
-          pytest
+          pip install pytest pytest-cov
+          pytest --cov --cov-report=xml --junitxml=junit.xml -o junit_family=legacy
+
+      - name: Upload test results to Codecov
+        uses: codecov/test-results-action@v1
+        with:
+          flags: python3.11
+          token: ${{ secrets.CODECOV_TOKEN }}
+        if: always()
+
+      - name: Upload results to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+        if: always()
 
       - name: Slack webhook
         uses: 8398a7/action-slack@v3

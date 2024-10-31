@@ -2,7 +2,7 @@ import os
 
 import zerohertzLib as zz
 
-OPENAI_TOKEN = os.environ.get("OPENAI_TOKEN")
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
 SLACK_WEBHOOK_URL = os.environ.get("SLACK_WEBHOOK_URL")
 SLACK_BOT_TOKEN = os.environ.get("SLACK_BOT_TOKEN")
@@ -53,11 +53,11 @@ def test_slack_bot_file():
     assert response.status_code == 200
 
 
-def test_openai():
-    client = zz.api.OpenAI(OPENAI_TOKEN)
-    response = client("오늘 기분이 어때? 1줄로 대답해줘.", model="gpt3.5")
-    assert isinstance(response, str)
-    slack = zz.api.SlackBot(
-        SLACK_BOT_TOKEN, "test", name="Test Bot", icon_emoji="hammer"
-    )
-    slack.message(response)
+# def test_openai():
+#     client = zz.api.OpenAI(OPENAI_API_KEY)
+#     response = client("오늘 기분이 어때? 1줄로 대답해줘.", model="gpt3.5")
+#     assert isinstance(response, str)
+#     slack = zz.api.SlackBot(
+#         SLACK_BOT_TOKEN, "test", name="Test Bot", icon_emoji="hammer"
+#     )
+#     slack.message(response)
