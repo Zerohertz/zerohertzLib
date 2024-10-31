@@ -205,11 +205,13 @@ class GitHub:
         self,
         name: Optional[str] = "release",
         sphinx_source_path: Optional[str] = "sphinx/source",
+        per_page: Optional[int] = 100,
     ) -> None:
         """
         Args:
             name (``Optional[str]``): Release note file 및 directory의 이름
             sphinx_source_path (``Optional[str]``): Sphinx의 ``source`` 경로
+            per_page (``Optional[int]``): 1회 호출 시 출력될 결과의 수
 
         Examples:
             >>> gh = zz.api.GitHub("Zerohertz", "zerohertzLib", token="ghp_...")

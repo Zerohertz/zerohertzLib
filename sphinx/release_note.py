@@ -12,4 +12,4 @@ if __name__ == "__main__":
         gh = zz.api.GitHub()
     else:
         gh = zz.api.GitHub(token=args.token)
-    gh.release_note(sphinx_source_path=os.path.join(sphinx, "source"))
+    gh.release_note(sphinx_source_path=os.path.join(sphinx, "source"), per_page=300)
