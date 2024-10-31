@@ -2,6 +2,42 @@
 
 ## v1.1.6
 
+<h3>[v1.1.6] Docs update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/327>#327</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/10/31
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release/chore"><img src="https://img.shields.io/badge/release/chore-22FD7F?style=flat-square&logo=github" alt="release/chore"/></a>
+</p>
+
+
+<h4>Docs</h4>
+
+- 변경된 CI/CD pipeline image update
+
+<h3>[v1.1.6] Docs update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/326>#326</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/10/31
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+
+
+<h4>Docs</h4>
+
+- 변경된 CI/CD pipeline image update
+
 <h3>[v1.1.6] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/324>#324</a>)</h3>
 
 ```{admonition} Release Date
