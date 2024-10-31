@@ -11,7 +11,7 @@ def main():
         gh = zz.api.GitHub()
     else:
         gh = zz.api.GitHub(token=args.token)
-    gh.release_note(sphinx_source_path=os.path.join(sphinx, "source"), per_page=300)
+    gh.release_note(sphinx_source_path=os.path.join(sphinx, "source"))
 
 
 if __name__ == "__main__":
