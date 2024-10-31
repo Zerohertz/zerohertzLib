@@ -37,6 +37,41 @@
 - Codecov badge 추가
 ## v1.1.5
 
+<h3>[v1.1.5] Chore update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/321>#321</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/10/31
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release/chore"><img src="https://img.shields.io/badge/release/chore-22FD7F?style=flat-square&logo=github" alt="release/chore"/></a>
+</p>
+
+
+<h4>Chore</h4>
+
+- `master` push 시 `build` pipeline 조건 변경
+- `master` CD pipeline 재활성화
+<h3>[v1.1.5] Chore update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/319>#319</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/10/31
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release/chore"><img src="https://img.shields.io/badge/release/chore-22FD7F?style=flat-square&logo=github" alt="release/chore"/></a>
+</p>
+
+
+<h4>Chore</h4>
+
+- Codecov와의 연동성을 위한 `master` branch의 `pytest` 추가
 <h3>[v1.1.5] Chore update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/317>#317</a>)</h3>
 
 ```{admonition} Release Date
