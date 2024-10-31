@@ -28,7 +28,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: venv
-          key: ${{ runner.os }}-python-venv
+          key: ${{ runner.os }}-python-venv-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-python-venv-
 
@@ -37,8 +37,9 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           pip install build
+          pip uninstall zerohertzLib -y
           python -m build .
-          pip install .'[all]'
+          pip install .'[all]' --no-cache-dir
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
@@ -75,7 +76,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: venv
-          key: ${{ runner.os }}-python-venv
+          key: ${{ runner.os }}-python-venv-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-python-venv-
 
@@ -171,7 +172,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: venv
-          key: ${{ runner.os }}-python-venv
+          key: ${{ runner.os }}-python-venv-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-python-venv-
 

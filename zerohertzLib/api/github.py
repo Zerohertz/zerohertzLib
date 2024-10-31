@@ -85,35 +85,40 @@ class GitHub:
             self.url = f"https://api.github.com/repos/{user}/{repo}/pulls"
 
     def __call__(
-        self, lab: Optional[str] = "all", per_page: Optional[int] = 100
+        self,
+        lab: Optional[str] = "all",
+        per_page: Optional[int] = 100,
     ) -> List[Dict[str, Any]]:
-        if lab == "all":
+        results = []
+        page = 1
+        total_fetched = 0
+        while True:
             params = {
                 "state": "all",
                 "sort": "created",
                 "direction": "desc",
                 "per_page": per_page,
+                "page": page,
             }
-        else:
-            if not self.issue:
-                raise ValueError(
-                    "If you want to filter by label, use\n\t--->\tGitHub(issue=True)\t<---"
-                )
-            params = {
-                "state": "all",
-                "sort": "created",
-                "direction": "desc",
-                "per_page": per_page,
-                "labels": lab,
-            }
-        response = requests.get(
-            self.url, headers=self.headers, params=params, timeout=10
-        )
-        if not response.status_code == 200:
-            raise OSError(
-                f"GitHub API Response: {response.status_code}\n\t{response.json()}"
+            if lab != "all":
+                if not self.issue:
+                    raise ValueError(
+                        "If you want to filter by label, use\n\t--->\tGitHub(issue=True)\t<---"
+                    )
+                params["labels"] = lab
+            response = requests.get(
+                self.url, headers=self.headers, params=params, timeout=10
             )
-        results = response.json()
+            if response.status_code != 200:
+                raise OSError(
+                    f"GitHub API Response: {response.status_code}\n\t{response.json()}"
+                )
+            data = response.json()
+            results.extend(data)
+            total_fetched += len(data)
+            if len(data) < per_page:
+                break
+            page += 1
         # ISSUE
         # dict_keys(['url', 'repository_url', 'labels_url', 'comments_url', 'events_url', 'html_url', 'id', 'node_id', 'number', 'title', 'user', 'labels', 'state', 'locked', 'assignee', 'assignees', 'milestone', 'comments', 'created_at', 'updated_at', 'closed_at', 'author_association', 'active_lock_reason', 'body', 'reactions', 'timeline_url', 'performed_via_github_app', 'state_reason'])
         # PULL REQUEST
