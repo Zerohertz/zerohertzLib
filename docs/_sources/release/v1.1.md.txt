@@ -1,5 +1,40 @@
 # v1.1
 
+## v1.1.6
+
+<h3>[v1.1.6] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/315>#315</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/10/31
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/api"><img src="https://img.shields.io/badge/feat/api-541B9A?style=flat-square&logo=github" alt="feat/api"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:style"><img src="https://img.shields.io/badge/style-03A17F?style=flat-square&logo=github" alt="style"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+
+
+<h4>Features</h4>
+
++ `api`
+  + OpenAI API의 정책 변경으로 인해 `pytest` 생략
+
+<h4>Chore</h4>
+
+- [Codecov](https://app.codecov.io/github/Zerohertz/zerohertzLib)를 통한 pytest report 생성
+
+<h4>Style</h4>
+
+- `pylint` update에 따른 설정 변경
+
+<h4>Docs</h4>
+
+- Codecov badge 추가
 ## v1.1.5
 
 <h3>[v1.1.5] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/313>#313</a>)</h3>
@@ -7,7 +42,7 @@
 ```{admonition} Release Date
 :class: tip
 
-2024/09/11
+2024/09/12
 ```
 
 <p align="center">
@@ -19,7 +54,7 @@
 
 <h4>Chore</h4>
 
-+ 의존성으로 인해 특정 code에 대해 호출이 정상적으로 이뤄지지 않는 현상 수정 (related: https://github.com/FinanceData/FinanceDataReader/issues/230)
++ 의존성으로 인해 특정 code에 대해 호출이 정상적으로 이뤄지지 않는 현상 수정 (related: [FinanceDataReader: issue <a href="https://github.com/Zerohertz/zerohertzLib/issues/230">#230</a>](https://github.com/FinanceData/FinanceDataReader/issues/230))
 
 <h4>Style</h4>
 
