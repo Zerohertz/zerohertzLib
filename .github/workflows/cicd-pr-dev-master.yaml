@@ -177,6 +177,7 @@ jobs:
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+        if: always()
 
       - name: Slack webhook
         uses: 8398a7/action-slack@v3
