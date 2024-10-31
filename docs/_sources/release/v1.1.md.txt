@@ -1,5 +1,36 @@
 # v1.1
 
+## v1.1.7
+
+<h3>[v1.1.7] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/329>#329</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/10/31
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/api"><img src="https://img.shields.io/badge/feat/api-541B9A?style=flat-square&logo=github" alt="feat/api"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+
+
+<h4>Features</h4>
+
+- `api`
+  - Pagination을 통해 100건 이상의 GitHub API 조회 가능하도록 수정
+  - `GitHub` class의 release note 생성 시 100건 이상의 pull request를 불러올 수 있도록 수정
+
+<h4>Chore</h4>
+
+- `actions/cache@v4` 사용으로 인해 이전 SHA의 code 사용 → build 전 `pip uninstall` 수행
+
+<h4>Docs</h4>
+
+- CI/CD 문서 변경점 추가
 ## v1.1.6
 
 <h3>[v1.1.6] Docs update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/327>#327</a>)</h3>
@@ -13,24 +44,6 @@
 <p align="center">
 <a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
 <a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release/chore"><img src="https://img.shields.io/badge/release/chore-22FD7F?style=flat-square&logo=github" alt="release/chore"/></a>
-</p>
-
-
-<h4>Docs</h4>
-
-- 변경된 CI/CD pipeline image update
-
-<h3>[v1.1.6] Docs update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/326>#326</a>)</h3>
-
-```{admonition} Release Date
-:class: tip
-
-2024/10/31
-```
-
-<p align="center">
-<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
-<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
 </p>
 
 
@@ -56,40 +69,7 @@
 <h4>Features</h4>
 
 - `api`
-  - `GitHub` class의 release note 생성 시 merged가 아닌 closed 상태의 pull request를 제외하도록 수정
-<h3>[v1.1.6] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/315>#315</a>)</h3>
-
-```{admonition} Release Date
-:class: tip
-
-2024/10/31
-```
-
-<p align="center">
-<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/api"><img src="https://img.shields.io/badge/feat/api-541B9A?style=flat-square&logo=github" alt="feat/api"/></a>
-<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
-<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
-<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:style"><img src="https://img.shields.io/badge/style-03A17F?style=flat-square&logo=github" alt="style"/></a>
-<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
-</p>
-
-
-<h4>Features</h4>
-
-+ `api`
-  + OpenAI API의 정책 변경으로 인해 `pytest` 생략
-
-<h4>Chore</h4>
-
-- [Codecov](https://app.codecov.io/github/Zerohertz/zerohertzLib)를 통한 pytest report 생성
-
-<h4>Style</h4>
-
-- `pylint` update에 따른 설정 변경
-
-<h4>Docs</h4>
-
-- Codecov badge 추가
+  - `GitHub` class의 release note 생성 시 merged가 아닌 closed 상태의 pull request를 제외하도록 수정 (→ <s></s>오류로 누락<s></s> → `git rebase`로 복구 완료)
 ## v1.1.5
 
 <h3>[v1.1.5] Chore update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/321>#321</a>)</h3>
