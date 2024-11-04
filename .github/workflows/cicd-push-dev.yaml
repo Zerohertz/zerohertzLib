@@ -146,7 +146,7 @@ jobs:
           sudo apt update
           sudo apt install python3-opencv -y
           pip install pytest pytest-cov
-          pytest --cov --cov-report=xml --junitxml=junit.xml -o junit_family=legacy
+          pytest --cov=zerohertzLib --cov-report=xml --junitxml=junit.xml -o junit_family=legacy
 
       - name: Upload test results to Codecov
         uses: codecov/test-results-action@v1
