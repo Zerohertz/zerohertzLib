@@ -2,6 +2,27 @@
 
 ## v1.1.7
 
+<h3>[v1.1.7] Chore update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/336>#336</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/11/04
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release/chore"><img src="https://img.shields.io/badge/release/chore-22FD7F?style=flat-square&logo=github" alt="release/chore"/></a>
+</p>
+
+
+<h4>Chore</h4>
+
+- Codecov를 통한 coverage 산정 시 잘못 설정된 범위 수정
+- Coverage 상승을 위한 test case 추가
+- 다양한 python version (`3.8` ~ `3.13`)에 대한 test 수행 기능 추가
+- Codecov 내 flags 및 components 설정 추가
 <h3>[v1.1.7] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/329>#329</a>)</h3>
 
 ```{admonition} Release Date
