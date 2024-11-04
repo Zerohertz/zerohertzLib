@@ -478,6 +478,32 @@ def test_transparent():
     assert "TRANSPARENT.png" in os.listdir()
 
 
+def test_paste():
+    test = cv2.imread(f"{data}/test.jpg")
+    poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
+    target = zz.vision.cutout(test, poly, 200)
+    res1 = zz.vision.paste(test, target, [200, 200, 1000, 800], resize=False, vis=True)
+    res2 = zz.vision.paste(
+        test, target, [200, 200, 1000, 800], resize=True, vis=True, alpha=255
+    )
+    poly -= zz.vision.poly2xyxy(poly)[:2]
+    target = zz.vision.bbox(target, poly, color=(255, 0, 0), thickness=20)
+    res3, poly3 = zz.vision.paste(
+        test, target, [200, 200, 1000, 800], resize=False, poly=poly
+    )
+    res3 = zz.vision.bbox(res3, poly3)
+    res4, poly4 = zz.vision.paste(
+        test, target, [200, 200, 1000, 800], resize=True, poly=poly
+    )
+    res4 = zz.vision.bbox(res4, poly4)
+    res5, poly5 = zz.vision.paste(
+        test, target, [200, 200, 1000, 800], resize=True, poly=poly, gaussian=501
+    )
+    res5 = zz.vision.bbox(res5, poly5)
+    zz.vision.vert([res1, res2, res3, res4, res5], file_name="PASTE")
+    assert "PASTE.png" in os.listdir()
+
+
 def test_ImageLoader():
     il = zz.vision.ImageLoader(data)
     assert isinstance(len(il), int)
