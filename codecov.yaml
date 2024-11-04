@@ -15,6 +15,48 @@ comment:
   require_head: false
   hide_project_coverage: false
 
+component_management:
+  - component_id: algorithm
+    name: algorithm
+    paths:
+      - test/test_algorithm.py
+      - zerohertzLib/algorithm/**
+  - component_id: api
+    name: api
+    paths:
+      - test/test_api.py
+      - zerohertzLib/api/**
+  - component_id: logging
+    name: logging
+    paths:
+      - test/test_logging.py
+      - zerohertzLib/logging/**
+  - component_id: monitoring
+    name: monitoring
+    paths:
+      - test/test_monitoring.py
+      - zerohertzLib/monitoring/**
+  - component_id: plot
+    name: plot
+    paths:
+      - test/test_plot.py
+      - zerohertzLib/plot/**
+  - component_id: quant
+    name: quant
+    paths:
+      - test/test_quant.py
+      - zerohertzLib/quant/**
+  - component_id: util
+    name: util
+    paths:
+      - test/test_util.py
+      - zerohertzLib/util/**
+  - component_id: vision
+    name: vision
+    paths:
+      - test/test_vision.py
+      - zerohertzLib/vision/**
+
 ignore:
   - zerohertzLib/__init__.py
   - zerohertzLib/api/koreainvestment.py
