@@ -8,7 +8,7 @@ coverage:
         target: 80%
 
 comment:
-  layout: "header, diff, flags, files, footer"
+  layout: "header, diff, flags, components, files, footer"
   behavior: default
   require_changes: false
   require_base: false
