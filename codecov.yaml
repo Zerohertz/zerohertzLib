@@ -17,7 +17,7 @@ comment:
 
 ignore:
   - zerohertzLib/__init__.py
-  - zerohertzLib/api/koreaninvestment.py
+  - zerohertzLib/api/koreainvestment.py
   - zerohertzLib/api/open_ai.py
   - zerohertzLib/mlops/triton.py
   - zerohertzLib/monitoring/gpu.py
