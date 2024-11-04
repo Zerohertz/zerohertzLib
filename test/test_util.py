@@ -3,11 +3,11 @@ import os
 import zerohertzLib as zz
 
 tmp = os.path.dirname(__file__)
-data = os.path.join(tmp, "data", "json")
+data = os.path.join(tmp, "data")
 
 
 def test_Json():
-    js = zz.util.Json(data)
+    js = zz.util.Json(os.path.join(data, "json"))
     assert isinstance(js["title"], str)
     key = js._get_key("language")
     assert key == "head/repo/language"
@@ -19,7 +19,7 @@ def test_Json():
 
 
 def test_JsonDir():
-    jsd = zz.util.JsonDir(data)
+    jsd = zz.util.JsonDir(os.path.join(data, "json"))
     assert len(jsd) == 5
     assert isinstance(jsd[0], zz.util.Json)
     assert isinstance(jsd[0]["title"], str)
@@ -78,6 +78,8 @@ def test_MakeData():
             return True
 
     target_path = "mockdata"
+    print(len(zz.util.JsonDir(f"{data}/annotation/mock/labels")))
+
     mockdata = MockData(
         f"{data}/annotation/mock/images",
         f"{data}/annotation/mock/labels",
@@ -85,8 +87,8 @@ def test_MakeData():
         target_path,
     )
     mockdata.make()
-    assert "test.jpg" in os.listdir(os.path.join("mockdata", "data"))
-    assert "test.json" in os.listdir(os.path.join("mockdata", "json"))
+    assert "test.jpg" in os.listdir(os.path.join(target_path, "data"))
+    assert "test.json" in os.listdir(os.path.join(target_path, "json"))
 
 
 def test_find_ext():
