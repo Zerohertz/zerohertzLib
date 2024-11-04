@@ -203,7 +203,7 @@ class LabelStudio:
         path: Optional[str] = "/label-studio/data/local",
         data_function: Optional[Callable[[str], Dict[str, Any]]] = None,
     ) -> None:
-        """Label Studio에 mount된 data를 불러오기 위한 JSON file 생성
+        r"""Label Studio에 mount된 data를 불러오기 위한 JSON file 생성
 
         Note:
             아래와 같이 환경 변수가 설정된 Label Studio image를 사용하면 ``LabelStudio`` class로 생성된 JSON file을 적용할 수 있다.
