@@ -1,5 +1,6 @@
 import os
 import random
+import shutil
 
 import cv2
 import numpy as np
@@ -541,64 +542,30 @@ def test_LabelStudio_no_json():
     assert "data.json" in os.listdir(f"{data}/..")
 
 
-def test_LabelStudio_detection():
-    ls = zz.vision.LabelStudio(data, f"{data}/annotation/label-studio-detection.json")
+def _test_LabelStudio_detection(path=None):
+    if path is None:
+        path = f"{data}/annotation/label-studio-segmentation.json"
+    ls = zz.vision.LabelStudio(data, path)
     assert len(ls) == 1
     path, annotation = ls[0]
     assert isinstance(path, str)
     assert isinstance(annotation, dict)
-
-    classification_path = "label-studio-detection-classification"
-    ls.classification(classification_path, {"Cat": "Dust"}, aug=10)
-    assert "test_0_0.jpg" in os.listdir(os.path.join(classification_path, "Dust"))
-    assert len(os.listdir(os.path.join(classification_path, "Dust"))) == 10
-
-    labelme_path = "label-studio-detection-labelme"
-    ls.labelme(labelme_path, {"Cat": "Dust"})
-    assert "test.jpg" in os.listdir(os.path.join(labelme_path, "images"))
-    assert "test.json" in os.listdir(os.path.join(labelme_path, "labels"))
-
-    yolo_path = "label-studio-detection-yolo"
-    ls.yolo(yolo_path, ["Cat"])
-    assert "test.jpg" in os.listdir(os.path.join(yolo_path, "images"))
-    assert "test.txt" in os.listdir(os.path.join(yolo_path, "labels"))
-
-    coco_path = "label-studio-detection-coco"
-    ls.coco(coco_path, {"Cat": 1})
-    assert f"{coco_path}.json" in os.listdir()
+    return ls
 
 
-def test_LabelStudio_segmentation():
-    ls = zz.vision.LabelStudio(
-        data, f"{data}/annotation/label-studio-segmentation.json"
-    )
+def _test_LabelStudio_segmentation(path=None):
+    if path is None:
+        path = f"{data}/annotation/label-studio-segmentation.json"
+    ls = zz.vision.LabelStudio(data, path)
     assert len(ls) == 1
     path, annotation = ls[0]
     assert isinstance(path, str)
     assert isinstance(annotation, dict)
-
-    classification_path = "label-studio-segmentation-classification"
-    ls.classification(classification_path, rand=1, aug=10, shrink=False)
-    assert "test_0_0.jpg" in os.listdir(os.path.join(classification_path, "Cat"))
-    assert len(os.listdir(os.path.join(classification_path, "Cat"))) == 10
-
-    labelme_path = "label-studio-segmentation-labelme"
-    ls.labelme(labelme_path)
-    assert "test.jpg" in os.listdir(os.path.join(labelme_path, "images"))
-    assert "test.json" in os.listdir(os.path.join(labelme_path, "labels"))
-
-    yolo_path = "label-studio-segmentation-yolo"
-    ls.yolo(yolo_path)
-    assert "test.jpg" in os.listdir(os.path.join(yolo_path, "images"))
-    assert "test.txt" in os.listdir(os.path.join(yolo_path, "labels"))
-
-    coco_path = "label-studio-segmentation-coco"
-    ls.coco(coco_path, {"Cat": 1})
-    assert f"{coco_path}.json" in os.listdir()
+    return ls
 
 
 def _test_YoloLoader_detection(path=None):
-    vis_path = "yololoader-detection"
+    vis_path = "yololoader-detection-vis"
     if path is None:
         path = f"{data}/annotation/yolo-detection"
     yolo = zz.vision.YoloLoader(
@@ -615,12 +582,12 @@ def _test_YoloLoader_detection(path=None):
     assert isinstance(class_list[0], int)
     assert isinstance(objects, list)
     assert isinstance(objects[0], np.ndarray)
-    assert "ce066911-test.jpg" in os.listdir(vis_path)
+    assert "test.jpg" in os.listdir(vis_path)
     return yolo
 
 
 def _test_YoloLoader_segmentation(path=None):
-    vis_path = "yololoader-segmentation"
+    vis_path = "yololoader-segmentation-vis"
     if path is None:
         path = f"{data}/annotation/yolo-segmentation"
     yolo = zz.vision.YoloLoader(
@@ -638,26 +605,16 @@ def _test_YoloLoader_segmentation(path=None):
     assert isinstance(class_list[0], int)
     assert isinstance(objects, list)
     assert isinstance(objects[0], np.ndarray)
-    assert "ce066911-test.jpg" in os.listdir(vis_path)
+    assert "test.jpg" in os.listdir(vis_path)
     return yolo
 
 
-def test_YoloLoader_detection():
-    yolo = _test_YoloLoader_detection()
-    yolo.labelstudio()
-    assert "images.json" in os.listdir(f"{data}/annotation/yolo-detection")
-
-
-def test_YoloLoader_segmentation():
-    yolo = _test_YoloLoader_segmentation()
-    yolo.labelstudio()
-    assert "images.json" in os.listdir(f"{data}/annotation/yolo-segmentation")
-
-
-def test_CocoLoader_segmentation():
-    vis_path = "cocoloader-segmentation"
+def _test_CocoLoader_segmentation(path=None):
+    vis_path = "cocoloader-segmentation-vis"
+    if path is None:
+        path = f"{data}/annotation/coco-segmentation/images"
     coco = zz.vision.CocoLoader(
-        f"{data}/annotation/coco-segmentation/images",
+        path,
         vis_path=vis_path,
         class_color={"Cat": (0, 0, 255)},
     )
@@ -678,9 +635,83 @@ def test_CocoLoader_segmentation():
     assert isinstance(bboxes, np.ndarray)
     assert isinstance(polys, list)
     assert isinstance(polys[0], np.ndarray)
-    assert "ce066911-test.jpg" in os.listdir(vis_path)
+    assert "test.jpg" in os.listdir(vis_path)
+    return coco
 
-    coco.yolo("coco2yolo-detection", ["Cat"], False)
-    _test_YoloLoader_detection("coco2yolo-detection")
-    coco.yolo("coco2yolo-segmentation", ["Cat"], True)
-    _test_YoloLoader_segmentation("coco2yolo-segmentation")
+
+def test_LabelStudio_detection():
+    ls = _test_LabelStudio_detection()
+
+    classification_path = "label-studio-detection-classification"
+    ls.classification(classification_path, {"Cat": "Dust"}, aug=10)
+    assert "test_0_0.jpg" in os.listdir(os.path.join(classification_path, "Dust"))
+    assert len(os.listdir(os.path.join(classification_path, "Dust"))) == 10
+
+    labelme_path = "label-studio-detection-labelme"
+    ls.labelme(labelme_path, {"Cat": "Dust"})
+    assert "test.jpg" in os.listdir(os.path.join(labelme_path, "images"))
+    assert "test.json" in os.listdir(os.path.join(labelme_path, "labels"))
+
+    yolo_path = "label-studio-detection-yolo"
+    ls.yolo(yolo_path, ["Cat"])
+    assert "test.jpg" in os.listdir(os.path.join(yolo_path, "images"))
+    assert "test.txt" in os.listdir(os.path.join(yolo_path, "labels"))
+    _test_YoloLoader_detection(yolo_path)
+
+    coco_path = "label-studio-detection-coco"
+    ls.coco(coco_path, {"Cat": 1})
+    assert f"{coco_path}.json" in os.listdir()
+
+
+def test_LabelStudio_segmentation():
+    ls = _test_LabelStudio_segmentation()
+
+    classification_path = "label-studio-segmentation-classification"
+    ls.classification(classification_path, rand=1, aug=10, shrink=False)
+    assert "test_0_0.jpg" in os.listdir(os.path.join(classification_path, "Cat"))
+    assert len(os.listdir(os.path.join(classification_path, "Cat"))) == 10
+
+    labelme_path = "label-studio-segmentation-labelme"
+    ls.labelme(labelme_path)
+    assert "test.jpg" in os.listdir(os.path.join(labelme_path, "images"))
+    assert "test.json" in os.listdir(os.path.join(labelme_path, "labels"))
+
+    yolo_path = "label-studio-segmentation-yolo"
+    ls.yolo(yolo_path)
+    assert "test.jpg" in os.listdir(os.path.join(yolo_path, "images"))
+    assert "test.txt" in os.listdir(os.path.join(yolo_path, "labels"))
+    _test_YoloLoader_segmentation(yolo_path)
+
+    coco_path = "label-studio-segmentation-coco"
+    ls.coco(coco_path, {"Cat": 1})
+    assert f"{coco_path}.json" in os.listdir()
+    shutil.copytree(f"{data}/annotation/coco-segmentation/images", coco_path)
+    _test_CocoLoader_segmentation(coco_path)
+
+
+def test_YoloLoader_detection():
+    yolo = _test_YoloLoader_detection()
+    yolo.labelstudio()
+    labelstudio_path = f"{data}/annotation/yolo-detection"
+    assert "images.json" in os.listdir(labelstudio_path)
+    _test_LabelStudio_detection(labelstudio_path)
+
+
+def test_YoloLoader_segmentation():
+    yolo = _test_YoloLoader_segmentation()
+    yolo.labelstudio()
+    labelstudio_path = f"{data}/annotation/yolo-segmentation"
+    assert "images.json" in os.listdir(labelstudio_path)
+    _test_LabelStudio_segmentation(labelstudio_path)
+
+
+def test_CocoLoader_segmentation():
+    coco = _test_CocoLoader_segmentation()
+
+    yolo_path = "coco-detection-yolo"
+    coco.yolo(yolo_path, ["Cat"], False)
+    _test_YoloLoader_detection(yolo_path)
+
+    yolo_path = "coco-segmentation-yolo"
+    coco.yolo(yolo_path, ["Cat"], True)
+    _test_YoloLoader_segmentation(yolo_path)

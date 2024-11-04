@@ -1,1 +1,65 @@
-[{"id":1,"annotations":[{"id":1,"completed_by":1,"result":[{"original_width":1283,"original_height":1283,"image_rotation":0,"value":{"x":0,"y":0,"width":91.1764705882353,"height":100,"rotation":0,"rectanglelabels":["Cat"]},"id":"TjAKadMcbI","from_name":"label","to_name":"image","type":"rectanglelabels","origin":"manual"}],"was_cancelled":false,"ground_truth":false,"created_at":"2024-11-04T05:11:38.330048Z","updated_at":"2024-11-04T05:14:53.361059Z","draft_created_at":"2024-11-04T05:10:42.618671Z","lead_time":86.758,"prediction":{},"result_count":0,"unique_id":"dfab6a15-7c4d-40e5-9d07-c69a4806b187","import_id":null,"last_action":null,"task":1,"project":1,"updated_by":1,"parent_prediction":null,"parent_annotation":null,"last_created_by":null}],"file_upload":"ce066911-test.jpg","drafts":[],"predictions":[],"data":{"image":"\/data\/upload\/1\/ce066911-test.jpg"},"meta":{},"created_at":"2024-11-04T05:10:07.188324Z","updated_at":"2024-11-04T05:14:53.384750Z","inner_id":1,"total_annotations":1,"cancelled_annotations":0,"total_predictions":0,"comment_count":0,"unresolved_comment_count":0,"last_comment_updated_at":null,"project":1,"updated_by":1,"comment_authors":[]}]
+[
+  {
+    "id": 1,
+    "annotations": [
+      {
+        "id": 1,
+        "completed_by": 1,
+        "result": [
+          {
+            "original_width": 1283,
+            "original_height": 1283,
+            "image_rotation": 0,
+            "value": {
+              "x": 0,
+              "y": 0,
+              "width": 91.1764705882353,
+              "height": 100,
+              "rotation": 0,
+              "rectanglelabels": ["Cat"]
+            },
+            "id": "TjAKadMcbI",
+            "from_name": "label",
+            "to_name": "image",
+            "type": "rectanglelabels",
+            "origin": "manual"
+          }
+        ],
+        "was_cancelled": false,
+        "ground_truth": false,
+        "created_at": "2024-11-04T05:11:38.330048Z",
+        "updated_at": "2024-11-04T05:14:53.361059Z",
+        "draft_created_at": "2024-11-04T05:10:42.618671Z",
+        "lead_time": 86.758,
+        "prediction": {},
+        "result_count": 0,
+        "unique_id": "dfab6a15-7c4d-40e5-9d07-c69a4806b187",
+        "import_id": null,
+        "last_action": null,
+        "task": 1,
+        "project": 1,
+        "updated_by": 1,
+        "parent_prediction": null,
+        "parent_annotation": null,
+        "last_created_by": null
+      }
+    ],
+    "file_upload": "test.jpg",
+    "drafts": [],
+    "predictions": [],
+    "data": { "image": "/data/upload/1/test.jpg" },
+    "meta": {},
+    "created_at": "2024-11-04T05:10:07.188324Z",
+    "updated_at": "2024-11-04T05:14:53.384750Z",
+    "inner_id": 1,
+    "total_annotations": 1,
+    "cancelled_annotations": 0,
+    "total_predictions": 0,
+    "comment_count": 0,
+    "unresolved_comment_count": 0,
+    "last_comment_updated_at": null,
+    "project": 1,
+    "updated_by": 1,
+    "comment_authors": []
+  }
+]
