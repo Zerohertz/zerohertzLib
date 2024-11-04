@@ -70,4 +70,5 @@ ignore:
   - zerohertzLib/api/open_ai.py
   - zerohertzLib/mlops/triton.py
   - zerohertzLib/monitoring/gpu.py
+  - zerohertzLib/quant/koreainvestment.py
   - "**/cli.py"
