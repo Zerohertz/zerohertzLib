@@ -70,3 +70,52 @@ def test_tsv():
     data = zz.util.read_csv("star_craft.tsv", False)
     assert data[0][1] == "5hi9"
     assert data[2][3] == "291"
+
+
+def test_MakeData():
+    class MockData(zz.util.MakeData):
+        def condition(self, json_instance):
+            return True
+
+    target_path = "mockdata"
+    mockdata = MockData(
+        f"{data}/annotation/mock/images",
+        f"{data}/annotation/mock/labels",
+        "name",
+        target_path,
+    )
+    mockdata.make()
+    assert "test.jpg" in os.listdir(os.path.join("mockdata", "data"))
+    assert "test.json" in os.listdir(os.path.join("mockdata", "json"))
+
+
+def test_find_ext():
+    assert isinstance(zz.util.find_ext(), dict)
+
+
+def test_sort_dict():
+    target = {3: 6, 4: 2, 2: 7}
+    solution = zz.util.sort_dict(target)
+    answer = {2: 7, 3: 6, 4: 2}
+    assert solution == answer
+    assert list(solution.keys()) == list(answer.keys())
+
+    target = {3: 6, 4: 2, 2: 7}
+    order = [4, 2, 3]
+    solution = zz.util.sort_dict(target, order)
+    answer = {4: 2, 2: 7, 3: 6}
+    assert solution == answer
+    assert list(solution.keys()) == order
+
+    target = {"C": 6, "D": 2, "A": 7}
+    solution = zz.util.sort_dict(target)
+    answer = {"A": 7, "C": 6, "D": 2}
+    assert solution == answer
+    assert list(solution.keys()) == list(answer.keys())
+
+    target = {"C": 6, "D": 2, "A": 7}
+    order = ["D", "C"]
+    solution = zz.util.sort_dict(target, order)
+    answer = {"D": 2, "C": 6}
+    assert solution == answer
+    assert list(solution.keys()) == order
