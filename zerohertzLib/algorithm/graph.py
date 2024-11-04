@@ -171,7 +171,7 @@ def bellman_ford(graph: List[List[Tuple[int, int]]], start: int) -> List[int]:
 
 
 def dijkstra(graph: List[List[Tuple[int, int]]], start: int) -> List[int]:
-    """Graph에서 시작 node로부터 모든 다른 node까지의 최단 경로 거리 계산
+    r"""Graph에서 시작 node로부터 모든 다른 node까지의 최단 경로 거리 계산
 
     Note:
         Time Complexity: :math:`O((V+E)\log{V})`

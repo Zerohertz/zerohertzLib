@@ -4,7 +4,7 @@
       "width": 1283,
       "height": 1283,
       "id": 0,
-      "file_name": "images\/ce066911-test.jpg"
+      "file_name": "images/test.jpg"
     }
   ],
   "categories": [
@@ -19,12 +19,7 @@
       "image_id": 0,
       "category_id": 0,
       "segmentation": [],
-      "bbox": [
-        0.0,
-        0.0,
-        1169.7941176470588,
-        1283.0
-      ],
+      "bbox": [0.0, 0.0, 1169.7941176470588, 1283.0],
       "ignore": 0,
       "iscrowd": 0,
       "area": 1500845.8529411764

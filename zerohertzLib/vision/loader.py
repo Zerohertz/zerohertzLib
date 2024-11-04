@@ -317,6 +317,7 @@ class YoloLoader:
             }
         obj[:2] -= obj[2:] / 2
         obj /= (original_width, original_height) * 2
+        obj = obj.tolist()
         return {
             "original_width": original_width,
             "original_height": original_height,
