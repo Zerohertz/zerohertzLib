@@ -150,6 +150,6 @@ def test_bisect_right():
 
 
 def test_bisect_left():
-    assert zz.algorithm.bisect_right([1, 3, 5], 2.7) == 1
-    assert zz.algorithm.bisect_right([1, 3, 5], 3) == 1
-    assert zz.algorithm.bisect_right([1, 3, 5], 3.3) == 2
+    assert zz.algorithm.bisect_left([1, 3, 5], 2.7) == 1
+    assert zz.algorithm.bisect_left([1, 3, 5], 3) == 1
+    assert zz.algorithm.bisect_left([1, 3, 5], 3.3) == 2
