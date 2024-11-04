@@ -10,7 +10,7 @@ permissions:
   actions: read
 
 env:
-  PYTHON_VERSION: 3.11
+  PYTHON_VERSION: "3.11"
 
 jobs:
   check-commit:
@@ -61,7 +61,7 @@ jobs:
     needs: [check-commit]
     strategy:
       matrix:
-        python-version: [3.7, 3.8, 3.9, 3.10, 3.11, 3.12, 3.13]
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
     # [`master` PR] (Except "Merge pull request*/docs" && "Merge pull request*[Docs] Build by Sphinx for GitHub Pages")
     if: |
       !(startsWith(needs.check-commit.outputs.commit-message, 'Merge pull request') &&
@@ -150,7 +150,7 @@ jobs:
     needs: [build]
     strategy:
       matrix:
-        python-version: [3.7, 3.8, 3.9, 3.10, 3.11, 3.12, 3.13]
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
