@@ -6,6 +6,7 @@ OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
 SLACK_WEBHOOK_URL = os.environ.get("SLACK_WEBHOOK_URL")
 SLACK_BOT_TOKEN = os.environ.get("SLACK_BOT_TOKEN")
+GH_TOKEN = os.environ.get("GH_TOKEN")
 
 tmp = os.path.dirname(__file__)
 data = os.path.join(tmp, "data")
@@ -51,6 +52,11 @@ def test_slack_bot_file():
     )
     response = slack.file(f"{data}/test.jpg")
     assert response.status_code == 200
+
+
+def test_github_release_note():
+    gh = zz.api.GitHub(token=GH_TOKEN)
+    gh.release_note()
 
 
 # def test_openai():

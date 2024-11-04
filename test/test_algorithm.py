@@ -141,3 +141,15 @@ def test_disjointset():
     assert disjointset.parent == [0, 0, 0, 2, 4]
     assert disjointset.size == [4, 1, 2, 1, 1]
     assert [disjointset.size[disjointset.find(i)] for i in range(5)] == [4, 4, 4, 4, 1]
+
+
+def test_bisect_right():
+    assert zz.algorithm.bisect_right([1, 3, 5], 2.7) == 1
+    assert zz.algorithm.bisect_right([1, 3, 5], 3) == 2
+    assert zz.algorithm.bisect_right([1, 3, 5], 3.3) == 2
+
+
+def test_bisect_left():
+    assert zz.algorithm.bisect_right([1, 3, 5], 2.7) == 1
+    assert zz.algorithm.bisect_right([1, 3, 5], 3) == 1
+    assert zz.algorithm.bisect_right([1, 3, 5], 3.3) == 2
