@@ -616,6 +616,7 @@ def _test_YoloLoader_detection(path=None):
     assert isinstance(objects, list)
     assert isinstance(objects[0], np.ndarray)
     assert "ce066911-test.jpg" in os.listdir(vis_path)
+    return yolo
 
 
 def _test_YoloLoader_segmentation(path=None):
@@ -638,14 +639,19 @@ def _test_YoloLoader_segmentation(path=None):
     assert isinstance(objects, list)
     assert isinstance(objects[0], np.ndarray)
     assert "ce066911-test.jpg" in os.listdir(vis_path)
+    return yolo
 
 
 def test_YoloLoader_detection():
-    _test_YoloLoader_detection()
+    yolo = _test_YoloLoader_detection()
+    yolo.labelstudio()
+    assert "images.json" in os.listdir(f"{data}/annotation/yolo-detection")
 
 
 def test_YoloLoader_segmentation():
-    _test_YoloLoader_segmentation()
+    yolo = _test_YoloLoader_segmentation()
+    yolo.labelstudio()
+    assert "images.json" in os.listdir(f"{data}/annotation/yolo-segmentation")
 
 
 def test_CocoLoader_segmentation():
@@ -678,19 +684,3 @@ def test_CocoLoader_segmentation():
     _test_YoloLoader_detection("coco2yolo-detection")
     coco.yolo("coco2yolo-segmentation", ["Cat"], True)
     _test_YoloLoader_segmentation("coco2yolo-segmentation")
-
-
-"""
-TODO: YoloLoader.labelstudio()
->>> yolo.labelstudio()
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-  File "/home/zerohertz/Zerohertz/zerohertzLib/zerohertzLib/vision/loader.py", line 383,
- in labelstudio
-    write_json(json_data, self.data_path)
-  File "/home/zerohertz/Zerohertz/zerohertzLib/zerohertzLib/util/json.py", line 362, in 
-write_json
-    file.write(orjson.dumps(data, option=orjson.OPT_INDENT_2))
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: Type is not JSON serializable: numpy.float64
-"""
