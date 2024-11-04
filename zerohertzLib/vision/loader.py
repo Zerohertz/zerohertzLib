@@ -431,7 +431,7 @@ class CocoLoader:
         <class 'numpy.ndarray'>
         >>> bboxes.shape
         (2, 4)
-        >>> image, class_list, bboxes = coco[0]
+        >>> image, class_list, bboxes, polys = coco[0]
         >>> type(image)
         <class 'numpy.ndarray'>
         >>> class_list
@@ -440,6 +440,8 @@ class CocoLoader:
         <class 'numpy.ndarray'>
         >>> bboxes.shape
         (2, 4)
+        >>> type(polys)
+        <class 'list'>
     """
 
     def __init__(
