@@ -66,7 +66,7 @@ class MakeData(ABC):
     Args:
         start_data_path (``str``): 목표 data가 존재하는 directory 경로
         start_json_path (``str``): 목표 JSON file이 존재하는 directory 경로
-        json_key (``str``): ``dataPath`` 에서 data의 file 이름을 나타내는 key 값
+        json_key (``str``): ``start_json`` 에서 data의 file 이름을 나타내는 key 값
         target_path (``str``): Data 구축 경로
         end_data_dir (``Optional[str]``): 구축될 data file들의 directory 이름
         end_json_dir (``Optional[str]``): 구축될 JSON file들의 directory 이름

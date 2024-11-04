@@ -3,11 +3,11 @@ import os
 import zerohertzLib as zz
 
 tmp = os.path.dirname(__file__)
-data = os.path.join(tmp, "data", "json")
+data = os.path.join(tmp, "data")
 
 
 def test_Json():
-    js = zz.util.Json(data)
+    js = zz.util.Json(os.path.join(data, "json"))
     assert isinstance(js["title"], str)
     key = js._get_key("language")
     assert key == "head/repo/language"
@@ -19,7 +19,7 @@ def test_Json():
 
 
 def test_JsonDir():
-    jsd = zz.util.JsonDir(data)
+    jsd = zz.util.JsonDir(os.path.join(data, "json"))
     assert len(jsd) == 5
     assert isinstance(jsd[0], zz.util.Json)
     assert isinstance(jsd[0]["title"], str)
@@ -70,3 +70,54 @@ def test_tsv():
     data = zz.util.read_csv("star_craft.tsv", False)
     assert data[0][1] == "5hi9"
     assert data[2][3] == "291"
+
+
+def test_MakeData():
+    class MockData(zz.util.MakeData):
+        def condition(self, json_instance):
+            return True
+
+    target_path = "mockdata"
+    print(len(zz.util.JsonDir(f"{data}/annotation/mock/labels")))
+
+    mockdata = MockData(
+        f"{data}/annotation/mock/images",
+        f"{data}/annotation/mock/labels",
+        "name",
+        target_path,
+    )
+    mockdata.make()
+    assert "test.jpg" in os.listdir(os.path.join(target_path, "data"))
+    assert "test.json" in os.listdir(os.path.join(target_path, "json"))
+
+
+def test_find_ext():
+    assert isinstance(zz.util.find_ext(), dict)
+
+
+def test_sort_dict():
+    target = {3: 6, 4: 2, 2: 7}
+    solution = zz.util.sort_dict(target)
+    answer = {2: 7, 3: 6, 4: 2}
+    assert solution == answer
+    assert list(solution.keys()) == list(answer.keys())
+
+    target = {3: 6, 4: 2, 2: 7}
+    order = [4, 2, 3]
+    solution = zz.util.sort_dict(target, order)
+    answer = {4: 2, 2: 7, 3: 6}
+    assert solution == answer
+    assert list(solution.keys()) == order
+
+    target = {"C": 6, "D": 2, "A": 7}
+    solution = zz.util.sort_dict(target)
+    answer = {"A": 7, "C": 6, "D": 2}
+    assert solution == answer
+    assert list(solution.keys()) == list(answer.keys())
+
+    target = {"C": 6, "D": 2, "A": 7}
+    order = ["D", "C"]
+    solution = zz.util.sort_dict(target, order)
+    answer = {"D": 2, "C": 6}
+    assert solution == answer
+    assert list(solution.keys()) == order

@@ -459,3 +459,256 @@ def test_eval():
         else:
             logs = pd.concat([logs, logs_], ignore_index=True)
     zz.vision.meanap(logs)
+
+
+def test_cutout():
+    test = cv2.imread(f"{data}/test.jpg")
+    res1 = zz.vision.cutout(test, BOX_POLY)
+    res2 = zz.vision.cutout(test, BOX_POLY, 128, False)
+    res3 = zz.vision.cutout(test, BOX_POLY, background=128)
+    zz.vision.vert([res1, res2, res3], file_name="CUTOUT")
+    assert "CUTOUT.png" in os.listdir()
+
+
+def test_transparent():
+    test = cv2.imread(f"{data}/test.jpg")
+    res1 = zz.vision.transparent(test)
+    res2 = zz.vision.transparent(test, reverse=True)
+    zz.vision.vert([res1, res2], file_name="TRANSPARENT")
+    assert "TRANSPARENT.png" in os.listdir()
+
+
+def test_paste():
+    test = cv2.imread(f"{data}/test.jpg")
+    poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
+    target = zz.vision.cutout(test, poly, 200)
+    res1 = zz.vision.paste(test, target, [200, 200, 1000, 800], resize=False, vis=True)
+    res2 = zz.vision.paste(
+        test, target, [200, 200, 1000, 800], resize=True, vis=True, alpha=255
+    )
+    poly -= zz.vision.poly2xyxy(poly)[:2]
+    target = zz.vision.bbox(target, poly, color=(255, 0, 0), thickness=20)
+    res3, poly3 = zz.vision.paste(
+        test, target, [200, 200, 1000, 800], resize=False, poly=poly
+    )
+    res3 = zz.vision.bbox(res3, poly3)
+    res4, poly4 = zz.vision.paste(
+        test, target, [200, 200, 1000, 800], resize=True, poly=poly
+    )
+    res4 = zz.vision.bbox(res4, poly4)
+    res5, poly5 = zz.vision.paste(
+        test, target, [200, 200, 1000, 800], resize=True, poly=poly, gaussian=501
+    )
+    res5 = zz.vision.bbox(res5, poly5)
+    zz.vision.vert([res1, res2, res3, res4, res5], file_name="PASTE")
+    assert "PASTE.png" in os.listdir()
+
+
+def test_ImageLoader():
+    il = zz.vision.ImageLoader(data)
+    assert isinstance(len(il), int)
+    path, img = il[0]
+    assert isinstance(path, str)
+    assert isinstance(img, np.ndarray)
+
+    il = zz.vision.ImageLoader(data, cnt=4)
+    assert isinstance(len(il), int)
+    path, img = il[0]
+    assert isinstance(path, list)
+    assert isinstance(path[0], str)
+    assert isinstance(img, list)
+    assert isinstance(img[0], np.ndarray)
+
+
+def test_JsonImageLoader():
+    jil = zz.vision.JsonImageLoader(
+        f"{data}/annotation/mock/images", f"{data}/annotation/mock/labels", "name"
+    )
+    assert len(jil) == 1
+    img, js = jil[0]
+    assert isinstance(img, np.ndarray)
+    assert isinstance(js, zz.util.Json)
+
+
+def test_LabelStudio_no_json():
+    ls = zz.vision.LabelStudio(data)
+    assert isinstance(len(ls), int)
+    path, annotation = ls[0]
+    assert isinstance(path, str)
+    assert isinstance(annotation, dict)
+
+    ls.json()
+    assert "data.json" in os.listdir(f"{data}/..")
+
+
+def test_LabelStudio_detection():
+    ls = zz.vision.LabelStudio(data, f"{data}/annotation/label-studio-detection.json")
+    assert len(ls) == 1
+    path, annotation = ls[0]
+    assert isinstance(path, str)
+    assert isinstance(annotation, dict)
+
+    classification_path = "label-studio-detection-classification"
+    ls.classification(classification_path, {"Cat": "Dust"}, aug=10)
+    assert "test_0_0.jpg" in os.listdir(os.path.join(classification_path, "Dust"))
+    assert len(os.listdir(os.path.join(classification_path, "Dust"))) == 10
+
+    labelme_path = "label-studio-detection-labelme"
+    ls.labelme(labelme_path, {"Cat": "Dust"})
+    assert "test.jpg" in os.listdir(os.path.join(labelme_path, "images"))
+    assert "test.json" in os.listdir(os.path.join(labelme_path, "labels"))
+
+    yolo_path = "label-studio-detection-yolo"
+    ls.yolo(yolo_path, ["Cat"])
+    assert "test.jpg" in os.listdir(os.path.join(yolo_path, "images"))
+    assert "test.txt" in os.listdir(os.path.join(yolo_path, "labels"))
+
+
+def test_LabelStudio_segmentation():
+    ls = zz.vision.LabelStudio(
+        data, f"{data}/annotation/label-studio-segmentation.json"
+    )
+    assert len(ls) == 1
+    path, annotation = ls[0]
+    assert isinstance(path, str)
+    assert isinstance(annotation, dict)
+
+    classification_path = "label-studio-segmentation-classification"
+    ls.classification(classification_path, rand=1, aug=10, shrink=False)
+    assert "test_0_0.jpg" in os.listdir(os.path.join(classification_path, "Cat"))
+    assert len(os.listdir(os.path.join(classification_path, "Cat"))) == 10
+
+    labelme_path = "label-studio-segmentation-labelme"
+    ls.labelme(labelme_path)
+    assert "test.jpg" in os.listdir(os.path.join(labelme_path, "images"))
+    assert "test.json" in os.listdir(os.path.join(labelme_path, "labels"))
+
+    yolo_path = "label-studio-segmentation-yolo"
+    ls.yolo(yolo_path)
+    assert "test.jpg" in os.listdir(os.path.join(yolo_path, "images"))
+    assert "test.txt" in os.listdir(os.path.join(yolo_path, "labels"))
+
+
+def _test_YoloLoader_detection(path=None):
+    vis_path = "yololoader-detection"
+    if path is None:
+        path = f"{data}/annotation/yolo-detection"
+    yolo = zz.vision.YoloLoader(
+        f"{path}/images",
+        f"{path}/labels",
+        vis_path=vis_path,
+        class_color=[(255, 0, 0)],
+    )
+    assert len(yolo) == 1
+
+    img, class_list, objects = yolo[0]
+    assert isinstance(img, np.ndarray)
+    assert isinstance(class_list, list)
+    assert isinstance(class_list[0], int)
+    assert isinstance(objects, list)
+    assert isinstance(objects[0], np.ndarray)
+    assert "ce066911-test.jpg" in os.listdir(vis_path)
+
+
+def _test_YoloLoader_segmentation(path=None):
+    vis_path = "yololoader-segmentation"
+    if path is None:
+        path = f"{data}/annotation/yolo-segmentation"
+    yolo = zz.vision.YoloLoader(
+        f"{path}/images",
+        f"{path}/labels",
+        True,
+        vis_path=vis_path,
+        class_color=[(255, 0, 0)],
+    )
+    assert len(yolo) == 1
+
+    img, class_list, objects = yolo[0]
+    assert isinstance(img, np.ndarray)
+    assert isinstance(class_list, list)
+    assert isinstance(class_list[0], int)
+    assert isinstance(objects, list)
+    assert isinstance(objects[0], np.ndarray)
+    assert "ce066911-test.jpg" in os.listdir(vis_path)
+
+
+def test_YoloLoader_detection():
+    _test_YoloLoader_detection()
+
+
+def test_YoloLoader_segmentation():
+    _test_YoloLoader_segmentation()
+
+
+def test_CocoLoader_segmentation():
+    vis_path = "cocoloader-segmentation"
+    coco = zz.vision.CocoLoader(
+        f"{data}/annotation/coco-segmentation/images",
+        vis_path=vis_path,
+        class_color={"Cat": (0, 0, 255)},
+    )
+    assert len(coco) == 1
+
+    img, class_list, bboxes, polys = coco(0, False, True)
+    assert isinstance(img, str)
+    assert isinstance(class_list, list)
+    assert isinstance(class_list[0], int)
+    assert isinstance(bboxes, np.ndarray)
+    assert isinstance(polys, list)
+    assert isinstance(polys[0], np.ndarray)
+
+    img, class_list, bboxes, polys = coco[0]
+    assert isinstance(img, np.ndarray)
+    assert isinstance(class_list, list)
+    assert isinstance(class_list[0], str)
+    assert isinstance(bboxes, np.ndarray)
+    assert isinstance(polys, list)
+    assert isinstance(polys[0], np.ndarray)
+    assert "ce066911-test.jpg" in os.listdir(vis_path)
+
+    coco.yolo("coco2yolo-detection", ["Cat"], False)
+    _test_YoloLoader_detection("coco2yolo-detection")
+    coco.yolo("coco2yolo-segmentation", ["Cat"], True)
+    _test_YoloLoader_segmentation("coco2yolo-segmentation")
+
+
+"""
+TODO: LabelStudio.coco()
+>>> lss.coco({"Cat": 1})
+100%|███████████████████████████████████████████████████| 1/1 [00:00<00:00, 5769.33it/s]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/zerohertz/Zerohertz/zerohertzLib/zerohertzLib/vision/data.py", line 541, i
+n coco
+    write_json(converted_gt, self.data_path)
+  File "/home/zerohertz/Zerohertz/zerohertzLib/zerohertzLib/util/json.py", line 362, in 
+write_json
+    file.write(orjson.dumps(data, option=orjson.OPT_INDENT_2))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Type is not JSON serializable: numpy.float64
+>>> lsd.coco({"Cat": 1})
+100%|███████████████████████████████████████████████████| 1/1 [00:00<00:00, 8112.77it/s]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/zerohertz/Zerohertz/zerohertzLib/zerohertzLib/vision/data.py", line 541, i
+n coco
+    write_json(converted_gt, self.data_path)
+  File "/home/zerohertz/Zerohertz/zerohertzLib/zerohertzLib/util/json.py", line 362, in 
+write_json
+    file.write(orjson.dumps(data, option=orjson.OPT_INDENT_2))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Type is not JSON serializable: numpy.float64
+
+TODO: YoloLoader.labelstudio()
+>>> yolo.labelstudio()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/zerohertz/Zerohertz/zerohertzLib/zerohertzLib/vision/loader.py", line 383,
+ in labelstudio
+    write_json(json_data, self.data_path)
+  File "/home/zerohertz/Zerohertz/zerohertzLib/zerohertzLib/util/json.py", line 362, in 
+write_json
+    file.write(orjson.dumps(data, option=orjson.OPT_INDENT_2))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Type is not JSON serializable: numpy.float64
+"""
