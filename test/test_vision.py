@@ -563,6 +563,10 @@ def test_LabelStudio_detection():
     assert "test.jpg" in os.listdir(os.path.join(yolo_path, "images"))
     assert "test.txt" in os.listdir(os.path.join(yolo_path, "labels"))
 
+    coco_path = "label-studio-detection-coco"
+    ls.coco(coco_path, {"Cat": 1})
+    assert f"{coco_path}.json" in os.listdir()
+
 
 def test_LabelStudio_segmentation():
     ls = zz.vision.LabelStudio(
@@ -587,6 +591,10 @@ def test_LabelStudio_segmentation():
     ls.yolo(yolo_path)
     assert "test.jpg" in os.listdir(os.path.join(yolo_path, "images"))
     assert "test.txt" in os.listdir(os.path.join(yolo_path, "labels"))
+
+    coco_path = "label-studio-segmentation-coco"
+    ls.coco(coco_path, {"Cat": 1})
+    assert f"{coco_path}.json" in os.listdir()
 
 
 def _test_YoloLoader_detection(path=None):
@@ -673,32 +681,6 @@ def test_CocoLoader_segmentation():
 
 
 """
-TODO: LabelStudio.coco()
->>> lss.coco({"Cat": 1})
-100%|███████████████████████████████████████████████████| 1/1 [00:00<00:00, 5769.33it/s]
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-  File "/home/zerohertz/Zerohertz/zerohertzLib/zerohertzLib/vision/data.py", line 541, i
-n coco
-    write_json(converted_gt, self.data_path)
-  File "/home/zerohertz/Zerohertz/zerohertzLib/zerohertzLib/util/json.py", line 362, in 
-write_json
-    file.write(orjson.dumps(data, option=orjson.OPT_INDENT_2))
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: Type is not JSON serializable: numpy.float64
->>> lsd.coco({"Cat": 1})
-100%|███████████████████████████████████████████████████| 1/1 [00:00<00:00, 8112.77it/s]
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-  File "/home/zerohertz/Zerohertz/zerohertzLib/zerohertzLib/vision/data.py", line 541, i
-n coco
-    write_json(converted_gt, self.data_path)
-  File "/home/zerohertz/Zerohertz/zerohertzLib/zerohertzLib/util/json.py", line 362, in 
-write_json
-    file.write(orjson.dumps(data, option=orjson.OPT_INDENT_2))
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: Type is not JSON serializable: numpy.float64
-
 TODO: YoloLoader.labelstudio()
 >>> yolo.labelstudio()
 Traceback (most recent call last):
