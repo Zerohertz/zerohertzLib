@@ -262,11 +262,11 @@ jobs:
             echo "No changes in version, skipping commit."
           else
             git add zerohertzLib/__init__.py
-            git commit -m ":hammer: Update: Version (#${{ github.event.pull_request.number }})"
+            git commit -m ":hammer: update: version (#${{ github.event.pull_request.number }})"
           fi
           git add docs
           git add sphinx/source
-          git commit -m ':memo: Docs: Build Sphinx (#${{ github.event.pull_request.number }})'
+          git commit -m ':memo: docs: build sphinx (#${{ github.event.pull_request.number }})'
           git push origin docs
           echo '{
             "title": "[Docs] Build by Sphinx for GitHub Pages",
