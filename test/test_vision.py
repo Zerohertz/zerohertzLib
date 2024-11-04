@@ -544,7 +544,7 @@ def test_LabelStudio_no_json():
 
 def _test_LabelStudio_detection(path=None):
     if path is None:
-        path = f"{data}/annotation/label-studio-segmentation.json"
+        path = f"{data}/annotation/label-studio-detection.json"
     ls = zz.vision.LabelStudio(data, path)
     assert len(ls) == 1
     path, annotation = ls[0]
