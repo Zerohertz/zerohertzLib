@@ -9,9 +9,15 @@ permissions:
   contents: write
   actions: read
 
+env:
+  PYTHON_VERSION: "3.11"
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
     # [`master` Push] "Merge pull request*"
     if: |
       startsWith(github.event.head_commit.message, 'Merge pull request')
@@ -22,15 +28,15 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.11
+          python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Cache virtualenv
         uses: actions/cache@v4
         with:
           path: venv
-          key: ${{ runner.os }}-python-venv-${{ github.sha }}
+          key: ${{ runner.os }}-python-venv-${{ matrix.python-version }}-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-python-venv-
+            ${{ runner.os }}-python-venv-${{ matrix.python-version }}-
 
       - name: Install build tools
         run: |
@@ -61,6 +67,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     needs: [build]
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -70,15 +79,15 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.11
+          python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Cache virtualenv
         uses: actions/cache@v4
         with:
           path: venv
-          key: ${{ runner.os }}-python-venv-${{ github.sha }}
+          key: ${{ runner.os }}-python-venv-${{ matrix.python-version }}-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-python-venv-
+            ${{ runner.os }}-python-venv-${{ matrix.python-version }}-
 
       - name: Run tests
         env:
@@ -167,15 +176,15 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.11
+          python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Cache virtualenv
         uses: actions/cache@v4
         with:
           path: venv
-          key: ${{ runner.os }}-python-venv-${{ github.sha }}
+          key: ${{ runner.os }}-python-venv-${{ env.PYTHON_VERSION }}-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-python-venv-
+            ${{ runner.os }}-python-venv-${{ env.PYTHON_VERSION }}-
 
       - name: Download build artifacts
         uses: actions/download-artifact@v4
