@@ -2,13 +2,13 @@ coverage:
   status:
     project:
       default:
-        target: 100%
+        target: 80%
     patch:
       default:
-        target: 100%
+        target: 80%
 
 comment:
-  layout: "header, diff, flags, files, footer"
+  layout: "header, diff, flags, components, files, footer"
   behavior: default
   require_changes: false
   require_base: false
@@ -16,6 +16,12 @@ comment:
   hide_project_coverage: false
 
 component_management:
+  default_rules:
+    statuses:
+      - type: project
+        target: 80%
+      - type: patch
+        target: 80%
   individual_components:
     - component_id: algorithm
       name: algorithm

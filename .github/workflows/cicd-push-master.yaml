@@ -49,6 +49,7 @@ jobs:
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
+        if: ${{ env.PYTHON_VERSION == matrix.python-version }}
         with:
           name: build-artifacts
           path: dist
