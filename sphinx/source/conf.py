@@ -90,7 +90,7 @@ exclude_patterns = []
 html_theme = "furo"
 html_baseurl = "https://zerohertz.github.io/zerohertzLib/"
 html_static_path = ["_static"]
-html_logo = "_static/logo.png"
+html_logo = "_static/zerohertzLib-tp-red.png"
 
 favicons = [
     {"href": "favicon.png"},
@@ -134,7 +134,7 @@ html_theme_options = {
 ogp_site_url = "https://zerohertz.github.io/zerohertzLib/"
 ogp_description_length = 200
 ogp_site_name = f"Zerohertz's Library {release} Documents"
-ogp_image = "_static/og.png"
+ogp_image = "_static/zerohertzLib-black-red-og.png"
 ogp_type = "website"
 
 sitemap_url_scheme = "{link}"
