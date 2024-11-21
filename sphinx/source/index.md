@@ -4,7 +4,7 @@
 ```
 
 <p align="center">
-    <img src="_static/logo.png">
+    <img src="_static/zerohertzLib-tp-red.png">
 </p>
 
 <h3 align = "center">
@@ -51,7 +51,7 @@ pip install zerohertzLib[all]
 ```
 
 <p align="center">
-    <img src="_static/zerohertzLib.png" width="600"/>
+    <img src="_static/schematic.png" width="600"/>
 </p>
 
 ```python
