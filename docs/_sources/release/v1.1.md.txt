@@ -2,6 +2,23 @@
 
 ## v1.1.8
 
+<h3>[v1.1.8] Chore update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/346>#346</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/11/21
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release/chore"><img src="https://img.shields.io/badge/release/chore-22FD7F?style=flat-square&logo=github" alt="release/chore"/></a>
+</p>
+
+
+<h4>Docs</h4>
+
+- Open graph images refactoring
 <h3>[v1.1.8] Docs update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/344>#344</a>)</h3>
 
 ```{admonition} Release Date
