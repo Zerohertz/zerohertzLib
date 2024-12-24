@@ -42,7 +42,10 @@ def figure(figsize: Optional[Tuple[int]] = (15, 10)) -> Figure:
         ``matplotlib.figure.Figure``: Graph window 생성
 
     Examples:
+        >>> zz.plot.figure()
+        <Figure size 1500x1000 with 0 Axes>
         >>> zz.plot.figure((20, 20))
+        <Figure size 2000x2000 with 0 Axes>
     """
     return plt.figure(figsize=figsize)
 
@@ -59,8 +62,9 @@ def subplot(*args, **kwargs) -> Axes:
         ``matplotlib.axes.Axes``: Subplot axes 생성
 
     Examples:
-        >>> zz.plot.subplot(2, 1, 1)
         >>> zz.plot.subplot(nrows, ncols, index, **kwargs)
+        >>> zz.plot.subplot(2, 1, 1)
+        <Axes: >
     """
     return plt.subplot(*args, **kwargs)
 
