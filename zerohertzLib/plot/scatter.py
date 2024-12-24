@@ -30,7 +30,8 @@ from .util import _color, figure, savefig
 
 
 def scatter(
-    data: Dict[str, List[List[Union[int, float]]]],
+    xdata: Union[List[Union[int, float]], Dict[str, Union[int, float]]],
+    ydata: Union[List[Union[int, float]], Dict[str, Union[int, float]]],
     xlab: Optional[str] = None,
     ylab: Optional[str] = None,
     xlim: Optional[List[Union[int, float]]] = None,
@@ -46,7 +47,8 @@ def scatter(
     """Dictionary로 입력받은 data를 scatter plot으로 시각화
 
     Args:
-        data (``Dict[str, List[List[Union[int, float]]]]``): 입력 data
+        xdata (``Union[List[Union[int, float]], Dict[str, Union[int, float]]]``): 입력 data (X축)
+        ydata (``Union[List[Union[int, float]], Dict[str, Union[int, float]]]``): 입력 data (Y축)
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
         xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
@@ -70,16 +72,24 @@ def scatter(
             :align: center
             :width: 500px
     """
-    colors = _color(data, colors)
     if save:
         figure(figsize=figsize)
     # import matplotlib.markers as mmarkers
     # markers = list(mmarkers.MarkerStyle.markers.keys())
     marker = ["o", "v", "^", "s", "p", "*", "x"]
-    for i, (key, value) in enumerate(data.items()):
+    if not isinstance(ydata, dict):
+        ydata = {"": ydata}
+    if not isinstance(xdata, dict):
+        _xdata = {}
+        for key in ydata.keys():
+            _xdata[key] = xdata
+        xdata = _xdata
+    colors = _color(ydata, colors)
+    for i, (key, yvalue) in enumerate(ydata.items()):
+        xvalue = xdata[key]
         plt.scatter(
-            value[0],
-            value[1],
+            xvalue,
+            yvalue,
             s=markersize,
             color=colors[i],
             marker=marker[i % len(marker)],
@@ -96,7 +106,7 @@ def scatter(
     if ylim:
         plt.ylim(ylim)
     plt.title(title, fontsize=25)
-    if len(data) > 1:
+    if len(ydata) > 1:
         plt.legend(ncol=ncol)
     if save:
         return savefig(title, dpi)

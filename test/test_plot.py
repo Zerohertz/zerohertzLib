@@ -287,16 +287,11 @@ def test_pie_colors():
 
 def test_scatter():
     path = zz.plot.scatter(
+        np.random.rand(200) * 10,
         {
-            "Terran": [list(np.random.rand(200) * 10), list(np.random.rand(200) * 10)],
-            "Zerg": [
-                list(np.random.rand(200) * 5 - 1),
-                list(np.random.rand(200) * 5 + 1),
-            ],
-            "Protoss": [
-                list(np.random.rand(200) * 10 + 3),
-                list(np.random.rand(200) * 10 - 2),
-            ],
+            "Terran": [list(np.random.rand(200) * 10)],
+            "Zerg": [list(np.random.rand(200) * 5 - 1)],
+            "Protoss": [list(np.random.rand(200) * 10 + 3)],
         },
         xlab="Cost [Mineral]",
         ylab="Scores",
@@ -306,9 +301,42 @@ def test_scatter():
     assert path.split("/")[-1] in os.listdir()
 
 
+def test_scatter_list():
+    path = zz.plot.scatter(
+        list(np.random.rand(200) * 10),
+        np.random.rand(200) * 10,
+        xlab="Cost [Mineral]",
+        ylab="Scores",
+        title="Star Craft (scatter, list)",
+        markersize=400,
+    )
+    assert path.split("/")[-1] in os.listdir()
+
+
+def test_scatter_dict():
+    path = zz.plot.scatter(
+        {
+            "Terran": [list(np.random.rand(200) * 10)],
+            "Zerg": [list(np.random.rand(200) * 5 + 1)],
+            "Protoss": [list(np.random.rand(200) * 10 - 2)],
+        },
+        {
+            "Terran": [list(np.random.rand(200) * 10)],
+            "Zerg": [list(np.random.rand(200) * 5 - 1)],
+            "Protoss": [list(np.random.rand(200) * 10 + 3)],
+        },
+        xlab="Cost [Mineral]",
+        ylab="Scores",
+        title="Star Craft (scatter, dict)",
+        markersize=400,
+    )
+    assert path.split("/")[-1] in os.listdir()
+
+
 def test_scatter_palette():
     path = zz.plot.scatter(
-        {"Terran": [list(np.random.rand(200) * 10), list(np.random.rand(200) * 10)]},
+        np.random.rand(200) * 10,
+        np.random.rand(200) * 10,
         xlab="Cost [Mineral]",
         ylab="Scores",
         title="Star Craft (scatter, palette)",
@@ -321,15 +349,14 @@ def test_scatter_palette():
 def test_scatter_colors():
     path = zz.plot.scatter(
         {
-            "Terran": [list(np.random.rand(200) * 10), list(np.random.rand(200) * 10)],
-            "Zerg": [
-                list(np.random.rand(200) * 5 - 1),
-                list(np.random.rand(200) * 5 + 1),
-            ],
-            "Protoss": [
-                list(np.random.rand(200) * 10 + 3),
-                list(np.random.rand(200) * 10 - 2),
-            ],
+            "Terran": [list(np.random.rand(200) * 10)],
+            "Zerg": [list(np.random.rand(200) * 5 + 1)],
+            "Protoss": [list(np.random.rand(200) * 10 - 2)],
+        },
+        {
+            "Terran": [list(np.random.rand(200) * 10)],
+            "Zerg": [list(np.random.rand(200) * 5 - 1)],
+            "Protoss": [list(np.random.rand(200) * 10 + 3)],
         },
         xlab="Cost [Mineral]",
         ylab="Scores",
