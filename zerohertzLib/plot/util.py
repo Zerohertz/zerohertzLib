@@ -28,21 +28,22 @@ from typing import Any, List, Optional, Tuple, Union
 
 import seaborn as sns
 from matplotlib import pyplot as plt
+from matplotlib.figure import Figure
 
 
-def figure(figsize: Optional[Tuple[int]] = (15, 10)) -> None:
+def figure(figsize: Optional[Tuple[int]] = (15, 10)) -> Figure:
     """Graph 생성을 위한 함수
 
     Args:
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
 
     Returns:
-        ``None``: Graph window 생성
+        ``matplotlib.figure.Figure``: Graph window 생성
 
     Examples:
         >>> zz.plot.figure((20, 20))
     """
-    plt.figure(figsize=figsize)
+    return plt.figure(figsize=figsize)
 
 
 def savefig(title: str, dpi: Optional[int] = 300) -> str:
