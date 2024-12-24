@@ -33,8 +33,8 @@ from .util import _color, color, savefig
 
 
 def plot(
-    xdata: List[Union[int, float]],
-    ydata: Dict[str, List[Union[int, float]]],
+    xdata: Union[List[Union[int, float]], Dict[str, Union[int, float]]],
+    ydata: Union[List[Union[int, float]], Dict[str, Union[int, float]]],
     xlab: Optional[str] = None,
     ylab: Optional[str] = None,
     xlim: Optional[List[Union[int, float]]] = None,
@@ -51,8 +51,8 @@ def plot(
     """List와 Dictionary로 입력받은 data를 line chart로 시각화
 
     Args:
-        xdata (``List[Union[int, float]]``): 입력 data (X축)
-        ydata (``Dict[str, List[Union[int, float]]]``): 입력 data (Y축)
+        xdata (``Union[List[Union[int, float]], Dict[str, Union[int, float]]]``): 입력 data (X축)
+        ydata (``Union[List[Union[int, float]], Dict[str, Union[int, float]]]``): 입력 data (Y축)
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
         xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
@@ -87,7 +87,6 @@ def plot(
                 :align: center
                 :width: 500px
     """
-    colors = _color(ydata, colors)
     if save:
         plt.figure(figsize=figsize)
     # import matplotlib.markers as mmarkers
@@ -96,18 +95,28 @@ def plot(
     if stacked:
         bias = np.zeros(len(xdata))
         linestyle = ["-"]
+        assert not isinstance(xdata, dict)
     else:
         # list(plt.Line2D.lineStyles.keys())
         linestyle = ["-", "--", "-.", ":"]
-    for i, (key, value) in enumerate(ydata.items()):
+    if not isinstance(ydata, dict):
+        ydata = {"": ydata}
+    if not isinstance(xdata, dict):
+        _xdata = {}
+        for key in ydata.keys():
+            _xdata[key] = xdata
+        xdata = _xdata
+    colors = _color(ydata, colors)
+    for i, (key, yvalue) in enumerate(ydata.items()):
+        xvalue = xdata[key]
         if stacked:
             if key == "Total":
                 colors[i] = (0.5, 0.5, 0.5)
             else:
-                value = np.array(value) + bias
+                yvalue = np.array(yvalue) + bias
         plt.plot(
-            xdata,
-            value,
+            xvalue,
+            yvalue,
             color=colors[i],
             linestyle=linestyle[i % len(linestyle)],
             linewidth=2,
@@ -116,8 +125,8 @@ def plot(
             label=key,
         )
         if stacked:
-            plt.fill_between(xdata, value, bias, color=colors[i], alpha=0.5)
-            bias = value
+            plt.fill_between(xvalue, yvalue, bias, color=colors[i], alpha=0.5)
+            bias = yvalue
     plt.grid(zorder=0)
     if xlab:
         plt.xlabel(xlab)

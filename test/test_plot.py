@@ -163,6 +163,36 @@ def test_plot():
     assert path.split("/")[-1] in os.listdir()
 
 
+def test_plot_list():
+    path = zz.plot.plot(
+        [i for i in range(20)],
+        np.random.rand(20) * 10,
+        xlab="Time [Sec]",
+        ylab="Scores",
+        title="Star Craft (plot, list)",
+    )
+    assert path.split("/")[-1] in os.listdir()
+
+
+def test_plot_dict():
+    path = zz.plot.plot(
+        {
+            "Terran": np.array(sorted(np.random.rand(20) * 10)),
+            "Zerg": sorted(np.random.rand(20) * 10),
+            "Protoss": sorted(np.random.rand(20) * 10),
+        },
+        {
+            "Terran": np.random.rand(20) * 10,
+            "Zerg": np.random.rand(20) * 10 + 1,
+            "Protoss": np.random.rand(20) * 10 + 2,
+        },
+        xlab="Time [Sec]",
+        ylab="Scores",
+        title="Star Craft (plot, dict)",
+    )
+    assert path.split("/")[-1] in os.listdir()
+
+
 def test_plot_stacked():
     xdata = [i for i in range(20)]
     ydata = {
