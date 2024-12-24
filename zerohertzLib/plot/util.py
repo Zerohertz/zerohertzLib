@@ -28,6 +28,7 @@ from typing import Any, List, Optional, Tuple, Union
 
 import seaborn as sns
 from matplotlib import pyplot as plt
+from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 
 
@@ -44,6 +45,24 @@ def figure(figsize: Optional[Tuple[int]] = (15, 10)) -> Figure:
         >>> zz.plot.figure((20, 20))
     """
     return plt.figure(figsize=figsize)
+
+
+def subplot(*args, **kwargs) -> Axes:
+    """Subplot 생성을 위한 함수
+
+    Args:
+        nrows (``int``): Subplot grid의 행 개수
+        ncols (``int``): Subplot grid의 열 개수
+        index (``int``): Grid에서 subplot의 위치를 지정하는 index
+
+    Returns:
+        ``matplotlib.axes.Axes``: Subplot axes 생성
+
+    Examples:
+        >>> zz.plot.subplot(2, 1, 1)
+        >>> zz.plot.subplot(nrows, ncols, index, **kwargs)
+    """
+    return plt.subplot(*args, **kwargs)
 
 
 def savefig(title: str, dpi: Optional[int] = 300) -> str:
