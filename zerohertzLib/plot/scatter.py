@@ -65,8 +65,9 @@ def scatter(
         ``str``: 저장된 graph의 절대 경로
 
     Examples:
-        >>> data = {"Terran": [list(np.random.rand(200) * 10), list(np.random.rand(200) * 10)], "Zerg": [list(np.random.rand(200) * 5 - 1), list(np.random.rand(200) * 5 + 1)], "Protoss": [list(np.random.rand(200) * 10 + 3), list(np.random.rand(200) * 10 - 2)]}
-        >>> zz.plot.scatter(data, xlab="Cost [Mineral]", ylab="Scores", title="Star Craft", markersize=400)
+        >>> xdata = {"Terran": [list(np.random.rand(200) * 10)], "Zerg": [list(np.random.rand(200) * 5 + 1)], "Protoss": [list(np.random.rand(200) * 10 - 2)]}
+        >>> ydata = {"Terran": [list(np.random.rand(200) * 10)], "Zerg": [list(np.random.rand(200) * 5 - 1)], "Protoss": [list(np.random.rand(200) * 10 + 3)]}
+        >>> zz.plot.scatter(xdata, ydata, xlab="Cost [Mineral]", ylab="Scores", title="Star Craft", markersize=400)
 
         .. image:: _static/examples/dynamic/plot.scatter.png
             :align: center
