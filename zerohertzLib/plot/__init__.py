@@ -16,7 +16,7 @@ from zerohertzLib.plot.pie import pie
 from zerohertzLib.plot.plot import candle, plot
 from zerohertzLib.plot.scatter import scatter
 from zerohertzLib.plot.table import table
-from zerohertzLib.plot.util import color, figure, savefig
+from zerohertzLib.plot.util import color, figure, savefig, subplot
 
 FONT_PATH = os.path.join(os.path.dirname(__file__), "fonts")
 
@@ -58,4 +58,5 @@ __all__ = [
     "figure",
     "candle",
     "font",
+    "subplot",
 ]
