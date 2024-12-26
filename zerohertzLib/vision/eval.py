@@ -339,7 +339,6 @@ def _pr_curve(
             stacked=True,
             title=f"P-R Curve (mAP: {map_:.2f})",
             markersize=1,
-            save=False,
         )
     else:
         for cls in classes:
@@ -357,7 +356,6 @@ def _pr_curve(
                 stacked=True,
                 title=f"P-R Curve (mAP: {map_:.2f})",
                 markersize=1,
-                save=False,
             )
         plt.legend()
     savefig("pr_curve")
