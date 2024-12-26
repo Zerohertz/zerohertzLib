@@ -389,7 +389,6 @@ class Balance(KoreaInvestment):
             title="",
             dim="",
             dimsize=16,
-            save=False,
         )
         plt.gca().yaxis.set_major_formatter(
             ticker.FuncFormatter(lambda x, p: format(int(x), ","))

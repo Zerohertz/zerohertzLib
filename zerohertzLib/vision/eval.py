@@ -293,27 +293,27 @@ def _prc_curve(
     precision_per_cls: Dict[str, List[float]],
     classes: Set[str],
 ) -> None:
-    data = {}
+    xdata = {}
+    ydata = {}
     if len(classes) == 1:
         cls = list(classes)[0]
-        data["Recall"] = [confidence_per_cls[cls], recall_per_cls[cls]]
-        data["Precision"] = [
-            confidence_per_cls[cls],
-            precision_per_cls[cls],
-        ]
+        xdata["Recall"] = confidence_per_cls[cls]
+        ydata["Recall"] = recall_per_cls[cls]
+        xdata["Precision"] = confidence_per_cls[cls]
+        ydata["Precision"] = precision_per_cls[cls]
     else:
         for cls in classes:
-            data[f"{cls}: Recall"] = [confidence_per_cls[cls], recall_per_cls[cls]]
-            data[f"{cls}: Precision"] = [
-                confidence_per_cls[cls],
-                precision_per_cls[cls],
-            ]
+            xdata[f"{cls}: Recall"] = confidence_per_cls[cls]
+            ydata[f"{cls}: Recall"] = recall_per_cls[cls]
+            xdata[f"{cls}: Precision"] = confidence_per_cls[cls]
+            ydata[f"{cls}: Precision"] = precision_per_cls[cls]
     scatter(
-        data,
-        "Confidence",
-        "Recall & Precision",
-        [-0.1, 1.1],
-        [-0.1, 1.1],
+        xdata,
+        ydata,
+        xlab="Confidence",
+        ylab="Recall & Precision",
+        xlim=[-0.1, 1.1],
+        ylim=[-0.1, 1.1],
         ncol=2,
         title="PRC Curve",
         markersize=6,
@@ -331,15 +331,14 @@ def _pr_curve(
             precision.append(precision_)
         plot(
             recall,
-            {"": precision},
-            "Recall",
-            "Precision",
-            [-0.1, 1.1],
-            [-0.1, 1.1],
+            precision,
+            xlab="Recall",
+            ylab="Precision",
+            xlim=[-0.1, 1.1],
+            ylim=[-0.1, 1.1],
             stacked=True,
             title=f"P-R Curve (mAP: {map_:.2f})",
             markersize=1,
-            save=False,
         )
     else:
         for cls in classes:
@@ -350,14 +349,13 @@ def _pr_curve(
             plot(
                 recall,
                 {cls: precision},
-                "Recall",
-                "Precision",
-                [-0.1, 1.1],
-                [-0.1, 1.1],
+                xlab="Recall",
+                ylab="Precision",
+                xlim=[-0.1, 1.1],
+                ylim=[-0.1, 1.1],
                 stacked=True,
                 title=f"P-R Curve (mAP: {map_:.2f})",
                 markersize=1,
-                save=False,
             )
         plt.legend()
     savefig("pr_curve")

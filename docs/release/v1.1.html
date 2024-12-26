@@ -16,11 +16,11 @@
     <meta property="og:title" content="v1.1" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/release/v1.1.html" />
-<meta property="og:site_name" content="Zerohertz's Library v1.1.8 Documents" />
-<meta property="og:description" content="v1.1.8: Open graph images refactoring. 변경된 GitHub Actions pipeline 수정. quant- Coverage 측정을 위한 KoreaInvestment 의 의존 관계인 class refactoring., vision- LabelStudio class에서 COCO format으로 변환하는 method의 ima..." />
+<meta property="og:site_name" content="Zerohertz's Library v1.1.9 Documents" />
+<meta property="og:description" content="v1.1.9: plot- plot- 여러 x축에 대한 기능 추가 ( list& dict), Singleton pattern으로 구현된 LINESTYLE, MARKER 추가., scatter- plot 과 동일한 data type을 입력받도록 수정, Singleton pattern으로 구현된 MARKER 추가., figure 함수가 matplotlib...." />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/zerohertzLib-black-red-og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v1.1.8 Documents" />
-<meta name="description" content="v1.1.8: Open graph images refactoring. 변경된 GitHub Actions pipeline 수정. quant- Coverage 측정을 위한 KoreaInvestment 의 의존 관계인 class refactoring., vision- LabelStudio class에서 COCO format으로 변환하는 method의 ima..." />
+<meta property="og:image:alt" content="Zerohertz's Library v1.1.9 Documents" />
+<meta name="description" content="v1.1.9: plot- plot- 여러 x축에 대한 기능 추가 ( list& dict), Singleton pattern으로 구현된 LINESTYLE, MARKER 추가., scatter- plot 과 동일한 data type을 입력받도록 수정, Singleton pattern으로 구현된 MARKER 추가., figure 함수가 matplotlib...." />
     <link href="../_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
@@ -28,7 +28,7 @@
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/release/v1.1.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>v1.1 - zerohertzLib v1.1.8 documentation</title>
+        <title>v1.1 - zerohertzLib v1.1.9 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -199,7 +199,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">zerohertzLib v1.1.8 documentation</div></a>
+      <a href="../index.html"><div class="brand">zerohertzLib v1.1.9 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -226,7 +226,7 @@
     <img class="sidebar-logo" src="../_static/zerohertzLib-tp-red.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v1.1.8 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v1.1.9 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -310,6 +310,55 @@
         <article role="main" id="furo-main-content">
           <section id="v1-1">
 <h1>v1.1<a class="headerlink" href="#v1-1" title="Link to this heading">¶</a></h1>
+<section id="v1-1-9">
+<h2>v1.1.9<a class="headerlink" href="#v1-1-9" title="Link to this heading">¶</a></h2>
+<h3>[v1.1.9] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/348>#348</a>)</h3>
+<div class="tip admonition">
+<p class="admonition-title">Release Date</p>
+<p>2024/12/26</p>
+</div>
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/monitoring"><img src="https://img.shields.io/badge/feat/monitoring-31395C?style=flat-square&logo=github" alt="feat/monitoring"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/plot"><img src="https://img.shields.io/badge/feat/plot-968B14?style=flat-square&logo=github" alt="feat/plot"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/vision"><img src="https://img.shields.io/badge/feat/vision-D1F9CB?style=flat-square&logo=github" alt="feat/vision"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:style"><img src="https://img.shields.io/badge/style-03A17F?style=flat-square&logo=github" alt="style"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/quant"><img src="https://img.shields.io/badge/feat/quant-ededed?style=flat-square&logo=github" alt="feat/quant"/></a>
+</p>
+<h4>Features</h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">plot</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot</span></code></p>
+<ul>
+<li><p>여러 x축에 대한 기능 추가 (<code class="docutils literal notranslate"><span class="pre">list</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">dict</span></code>)</p></li>
+<li><p>Singleton pattern으로 구현된 <code class="docutils literal notranslate"><span class="pre">LINESTYLE</span></code>, <code class="docutils literal notranslate"><span class="pre">MARKER</span></code> 추가</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scatter</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot</span></code>과 동일한 data type을 입력받도록 수정</p></li>
+<li><p>Singleton pattern으로 구현된 <code class="docutils literal notranslate"><span class="pre">MARKER</span></code> 추가</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">figure</span></code> 함수가 <code class="docutils literal notranslate"><span class="pre">matplotlib.figure.Figure</span></code>를 return 하도록 수정</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>의 <code class="docutils literal notranslate"><span class="pre">subplot</span></code> 함수 추가</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">candle</span></code>, <code class="docutils literal notranslate"><span class="pre">table</span></code>을 제외한 모든 <code class="docutils literal notranslate"><span class="pre">plot</span></code> 계열 함수에 대해 auto save 기능 추가 (<code class="docutils literal notranslate"><span class="pre">save</span></code> 입력 삭제)</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">monitoring</span></code>, <code class="docutils literal notranslate"><span class="pre">quant</span></code>, <code class="docutils literal notranslate"><span class="pre">vision</span></code></p>
+<ul>
+<li><p>각종 함수에서 사용하는 <code class="docutils literal notranslate"><span class="pre">plot</span></code> 및 <code class="docutils literal notranslate"><span class="pre">scatter</span></code> 함수의 변경에 따른 refactoring</p></li>
+</ul>
+</li>
+</ul>
+<h4>Chore</h4>
+<ul class="simple">
+<li><p>PyTest 실행 시 <code class="docutils literal notranslate"><span class="pre">api</span></code> 함수들에서 <code class="docutils literal notranslate"><span class="pre">HTTP</span> <span class="pre">429</span> <span class="pre">Too</span> <span class="pre">Many</span> <span class="pre">Requests</span></code> 오류를 방지하기 위해 <code class="docutils literal notranslate"><span class="pre">TIME_SLEEP</span></code> 범위 확대</p></li>
+</ul>
+</section>
 <section id="v1-1-8">
 <h2>v1.1.8<a class="headerlink" href="#v1-1-8" title="Link to this heading">¶</a></h2>
 <h3>[v1.1.8] Chore update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/346>#346</a>)</h3>
@@ -750,6 +799,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">v1.1</a><ul>
+<li><a class="reference internal" href="#v1-1-9">v1.1.9</a></li>
 <li><a class="reference internal" href="#v1-1-8">v1.1.8</a></li>
 <li><a class="reference internal" href="#v1-1-7">v1.1.7</a></li>
 <li><a class="reference internal" href="#v1-1-6">v1.1.6</a></li>
@@ -772,7 +822,7 @@
   </div>
 </div><script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../_static/documentation_options.js?v=24a4a141"></script>
+    <script src="../_static/documentation_options.js?v=80dc2558"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>

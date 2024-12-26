@@ -29,12 +29,13 @@ import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 
+from . import config
 from .util import _color, color, savefig
 
 
 def plot(
-    xdata: List[Union[int, float]],
-    ydata: Dict[str, List[Union[int, float]]],
+    xdata: Union[List[Union[int, float]], Dict[str, Union[int, float]]],
+    ydata: Union[List[Union[int, float]], Dict[str, Union[int, float]]],
     xlab: Optional[str] = None,
     ylab: Optional[str] = None,
     xlim: Optional[List[Union[int, float]]] = None,
@@ -46,13 +47,12 @@ def plot(
     markersize: Optional[int] = 12,
     figsize: Optional[Tuple[int]] = (15, 10),
     dpi: Optional[int] = 300,
-    save: Optional[bool] = True,
 ) -> str:
     """List와 Dictionary로 입력받은 data를 line chart로 시각화
 
     Args:
-        xdata (``List[Union[int, float]]``): 입력 data (X축)
-        ydata (``Dict[str, List[Union[int, float]]]``): 입력 data (Y축)
+        xdata (``Union[List[Union[int, float]], Dict[str, Union[int, float]]]``): 입력 data (X축)
+        ydata (``Union[List[Union[int, float]], Dict[str, Union[int, float]]]``): 입력 data (Y축)
         xlab (``Optional[str]``): Graph에 출력될 X축 label
         ylab (``Optional[str]``): Graph에 출력될 Y축 label
         xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
@@ -64,7 +64,6 @@ def plot(
         markersize (``Optional[int]``): Graph에 표시될 marker의 size
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
-        save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
         ``str``: 저장된 graph의 절대 경로
@@ -87,37 +86,39 @@ def plot(
                 :align: center
                 :width: 500px
     """
-    colors = _color(ydata, colors)
-    if save:
+    if config.SAVE:
         plt.figure(figsize=figsize)
-    # import matplotlib.markers as mmarkers
-    # markers = list(mmarkers.MarkerStyle.markers.keys())
-    marker = ["o", "v", "^", "s", "p", "*", "x"]
     if stacked:
         bias = np.zeros(len(xdata))
-        linestyle = ["-"]
-    else:
-        # list(plt.Line2D.lineStyles.keys())
-        linestyle = ["-", "--", "-.", ":"]
-    for i, (key, value) in enumerate(ydata.items()):
+        assert not isinstance(xdata, dict)
+    if not isinstance(ydata, dict):
+        ydata = {"": ydata}
+    if not isinstance(xdata, dict):
+        _xdata = {}
+        for key in ydata.keys():
+            _xdata[key] = xdata
+        xdata = _xdata
+    colors = _color(ydata, colors)
+    for i, (key, yvalue) in enumerate(ydata.items()):
+        xvalue = xdata[key]
         if stacked:
             if key == "Total":
                 colors[i] = (0.5, 0.5, 0.5)
             else:
-                value = np.array(value) + bias
+                yvalue = np.array(yvalue) + bias
         plt.plot(
-            xdata,
-            value,
+            xvalue,
+            yvalue,
             color=colors[i],
-            linestyle=linestyle[i % len(linestyle)],
+            linestyle=config.LINESTYLE[i % len(config.LINESTYLE)],
             linewidth=2,
-            marker=marker[i % len(marker)],
+            marker=config.MARKER[i % len(config.MARKER)],
             markersize=markersize,
             label=key,
         )
         if stacked:
-            plt.fill_between(xdata, value, bias, color=colors[i], alpha=0.5)
-            bias = value
+            plt.fill_between(xvalue, yvalue, bias, color=colors[i], alpha=0.5)
+            bias = yvalue
     plt.grid(zorder=0)
     if xlab:
         plt.xlabel(xlab)
@@ -130,7 +131,7 @@ def plot(
     plt.title(title, fontsize=25)
     if len(ydata) > 1:
         plt.legend(ncol=ncol)
-    if save:
+    if config.SAVE:
         return savefig(title, dpi)
     return None
 
@@ -142,7 +143,6 @@ def candle(
     signals: Optional[Dict[str, Any]] = None,
     threshold: Optional[Union[int, Tuple[int]]] = 1,
     dpi: Optional[int] = 300,
-    save: Optional[bool] = True,
 ) -> str:
     """OHLCV (Open, High, Low, Close, Volume) data에 따른 candle chart
 
@@ -160,7 +160,6 @@ def candle(
         signals (``Optional[Dict[str, Any]]``): 추가적으로 plot할 data
         threshold (``Optional[Union[int, Tuple[int]]]``): 매수, 매도를 결정할 ``signals`` 경계값
         dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
-        save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
         ``str``: 저장된 graph의 절대 경로
@@ -284,26 +283,9 @@ def candle(
             linewidth=1,
         )
         new_axis.set_yticks([])
-    if save:
+    if config.SAVE:
         return savefig(title, dpi)
     return None
-
-
-# def _bollinger_bands(data: pd.DataFrame) -> pd.DataFrame:
-#     """Bollinger band 계산 함수
-
-#     Args:
-#         data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
-
-#     Returns:
-#         ``pd.DataFrame``: Bollinger band
-#     """
-#     bands = pd.DataFrame(index=data.index)
-#     bands["middle_band"] = data.iloc[:, :4].mean(1).rolling(window=20).mean()
-#     std_dev = data.iloc[:, :4].mean(1).rolling(window=20).std()
-#     bands["upper_band"] = bands["middle_band"] + (std_dev * 2)
-#     bands["lower_band"] = bands["middle_band"] - (std_dev * 2)
-#     return bands
 
 
 def _method2str(method: str) -> str:

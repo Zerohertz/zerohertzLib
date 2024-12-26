@@ -32,11 +32,10 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 import FinanceDataReader as fdr
 import pandas as pd
-from matplotlib import pyplot as plt
 from slack_sdk.web import SlackResponse
 
 from zerohertzLib.api import SlackBot
-from zerohertzLib.plot import barh, barv, candle, figure, hist, savefig
+from zerohertzLib.plot import barh, barv, candle, figure, hist, savefig, subplot
 
 from .backtest import Experiments, backtest
 from .util import _cash2str, _method2str, _seconds_to_hms
@@ -358,7 +357,7 @@ class QuantSlackBot(ABC, SlackBot):
             threshold=(quant.threshold_sell, quant.threshold_buy),
         )
         figure((10, 18))
-        plt.subplot(3, 1, 1)
+        subplot(3, 1, 1)
         if self.kor:
             dim = "₩"
         else:
@@ -367,21 +366,18 @@ class QuantSlackBot(ABC, SlackBot):
             {"Buy": quant.transaction["buy"], "Sell": quant.transaction["sell"]},
             xlab=f"매수/매도가 [{dim}]",
             title="",
-            save=False,
         )
-        plt.subplot(3, 1, 2)
+        subplot(3, 1, 2)
         hist(
             {"Profit": quant.transaction["profit"]},
             xlab="이율 [%]",
             title="",
-            save=False,
         )
-        plt.subplot(3, 1, 3)
+        subplot(3, 1, 3)
         hist(
             {"Period": quant.transaction["period"]},
             xlab="거래 기간 [일]",
             title="",
-            save=False,
         )
         hist_path = savefig(f"{quant.title}_backtest", 100)
         return candle_path, hist_path
@@ -512,37 +508,33 @@ class QuantSlackBot(ABC, SlackBot):
         response = self.message("> :memo: Parameter Analysis")
         thread_ts = response.get("ts")
         figure((30, 20))
-        plt.subplot(2, 2, 1)
+        subplot(2, 2, 1)
         barv(
             dict(sorted(self.miu_cnt.items())),
             title=f"Methods in Use (Avg: {sum(self.miu_cnt.values()) / self.quant_cnt:.2f})",
             dim="%",
-            save=False,
         )
-        plt.subplot(2, 2, 2)
+        subplot(2, 2, 2)
         hist(
             {"": self.total_cnt},
             title=f"Distribution of Methods in Use (Avg: {sum(self.total_cnt) / self.quant_cnt:.2f})",
             cnt=max(self.total_cnt) * 2,
             ovp=True,
-            save=False,
         )
-        plt.subplot(2, 2, 3)
+        subplot(2, 2, 3)
         barv(
             dict(
                 ((key, sum(value)) for key, value in sorted(self.methods_cnt.items()))
             ),
             title="Available Methods",
             dim="%",
-            save=False,
         )
-        plt.subplot(2, 2, 4)
+        subplot(2, 2, 4)
         hist(
             dict(sorted(self.methods_cnt.items())),
             title="Distribution of Available Methods",
             cnt=self.top * 2,
             ovp=False,
-            save=False,
         )
         path = savefig("Methods", 100)
         self.file(path, thread_ts)
@@ -551,8 +543,8 @@ class QuantSlackBot(ABC, SlackBot):
             stg = True
             for idx, count in enumerate(cnt):
                 try:
-                    plt.subplot(1, len(cnt), idx + 1)
-                    barh(count, title="", dim="%", save=False)
+                    subplot(1, len(cnt), idx + 1)
+                    barh(count, title="", dim="%")
                 except IndexError:
                     stg = False
                     print(f"'{method}' was not available: {count}")

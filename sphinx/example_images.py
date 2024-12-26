@@ -122,16 +122,23 @@ def example_candle():
 
 # plot.scatter.png
 def example_scatter():
-    data = {
-        "Terran": [list(np.random.rand(200) * 10), list(np.random.rand(200) * 10)],
-        "Zerg": [list(np.random.rand(200) * 5 - 1), list(np.random.rand(200) * 5 + 1)],
-        "Protoss": [
-            list(np.random.rand(200) * 10 + 3),
-            list(np.random.rand(200) * 10 - 2),
-        ],
+    xdata = {
+        "Terran": [list(np.random.rand(200) * 10)],
+        "Zerg": [list(np.random.rand(200) * 5 + 1)],
+        "Protoss": [list(np.random.rand(200) * 10 - 2)],
+    }
+    ydata = {
+        "Terran": [list(np.random.rand(200) * 10)],
+        "Zerg": [list(np.random.rand(200) * 5 - 1)],
+        "Protoss": [list(np.random.rand(200) * 10 + 3)],
     }
     path = zz.plot.scatter(
-        data, xlab="Cost [Mineral]", ylab="Scores", title="Star Craft", markersize=400
+        xdata,
+        ydata,
+        xlab="Cost [Mineral]",
+        ylab="Scores",
+        title="Star Craft",
+        markersize=400,
     )
     shutil.move(path, f"{EXAMPLE_PATH}/plot.scatter.png")
 

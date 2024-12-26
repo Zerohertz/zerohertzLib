@@ -28,21 +28,49 @@ from typing import Any, List, Optional, Tuple, Union
 
 import seaborn as sns
 from matplotlib import pyplot as plt
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
+
+from . import config
 
 
-def figure(figsize: Optional[Tuple[int]] = (15, 10)) -> None:
+def figure(figsize: Optional[Tuple[int]] = (15, 10)) -> Figure:
     """Graph 생성을 위한 함수
 
     Args:
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
 
     Returns:
-        ``None``: Graph window 생성
+        ``matplotlib.figure.Figure``: Graph window 생성
 
     Examples:
+        >>> zz.plot.figure()
+        <Figure size 1500x1000 with 0 Axes>
         >>> zz.plot.figure((20, 20))
+        <Figure size 2000x2000 with 0 Axes>
     """
-    plt.figure(figsize=figsize)
+    fig = plt.figure(figsize=figsize)
+    config.SAVE = False
+    return fig
+
+
+def subplot(*args, **kwargs) -> Axes:
+    """Subplot 생성을 위한 함수
+
+    Args:
+        nrows (``int``): Subplot grid의 행 개수
+        ncols (``int``): Subplot grid의 열 개수
+        index (``int``): Grid에서 subplot의 위치를 지정하는 index
+
+    Returns:
+        ``matplotlib.axes.Axes``: Subplot axes 생성
+
+    Examples:
+        >>> zz.plot.subplot(nrows, ncols, index, **kwargs)
+        >>> zz.plot.subplot(2, 1, 1)
+        <Axes: >
+    """
+    return plt.subplot(*args, **kwargs)
 
 
 def savefig(title: str, dpi: Optional[int] = 300) -> str:
@@ -65,6 +93,7 @@ def savefig(title: str, dpi: Optional[int] = 300) -> str:
         bbox_inches="tight",
     )
     plt.close("all")
+    config.SAVE = True
     return os.path.abspath(f"{title}.png")
 
 

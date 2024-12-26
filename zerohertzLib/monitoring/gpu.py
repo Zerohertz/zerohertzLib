@@ -77,8 +77,8 @@ def gpu_usages(
         plot(
             time_list,
             data,
-            "Time [Sec]",
-            "GPU Usages [%]",
+            xlab="Time [Sec]",
+            ylab="GPU Usages [%]",
             ylim=[0, 100],
             ncol=2,
             title=path,
@@ -148,8 +148,8 @@ def gpu_memory(
         plot(
             time_list,
             data,
-            "Time [Sec]",
-            "GPU Memory [GB]",
+            xlab="Time [Sec]",
+            ylab="GPU Memory [GB]",
             ylim=[0, gpu_memory_max],
             ncol=2,
             title=path,
