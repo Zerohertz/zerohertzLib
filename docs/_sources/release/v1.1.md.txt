@@ -1,5 +1,45 @@
 # v1.1
 
+## v1.1.9
+
+<h3>[v1.1.9] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/348>#348</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/12/26
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/monitoring"><img src="https://img.shields.io/badge/feat/monitoring-31395C?style=flat-square&logo=github" alt="feat/monitoring"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/plot"><img src="https://img.shields.io/badge/feat/plot-968B14?style=flat-square&logo=github" alt="feat/plot"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/vision"><img src="https://img.shields.io/badge/feat/vision-D1F9CB?style=flat-square&logo=github" alt="feat/vision"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:style"><img src="https://img.shields.io/badge/style-03A17F?style=flat-square&logo=github" alt="style"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:feat/quant"><img src="https://img.shields.io/badge/feat/quant-ededed?style=flat-square&logo=github" alt="feat/quant"/></a>
+</p>
+
+
+<h4>Features</h4>
+
+- `plot`
+  - `plot`
+    - 여러 x축에 대한 기능 추가 (`list` & `dict`)
+    - Singleton pattern으로 구현된 `LINESTYLE`, `MARKER` 추가
+  - `scatter`
+    - `plot`과 동일한 data type을 입력받도록 수정
+    - Singleton pattern으로 구현된 `MARKER` 추가
+  - `figure` 함수가 `matplotlib.figure.Figure`를 return 하도록 수정
+  - `matplotlib`의 `subplot` 함수 추가
+  - `candle`, `table`을 제외한 모든 `plot` 계열 함수에 대해 auto save 기능 추가 (`save` 입력 삭제)
+- `monitoring`, `quant`, `vision`
+  - 각종 함수에서 사용하는 `plot` 및 `scatter` 함수의 변경에 따른 refactoring
+
+<h4>Chore</h4>
+
+- PyTest 실행 시 `api` 함수들에서 `HTTP 429 Too Many Requests` 오류를 방지하기 위해 `TIME_SLEEP` 범위 확대
 ## v1.1.8
 
 <h3>[v1.1.8] Chore update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/346>#346</a>)</h3>
