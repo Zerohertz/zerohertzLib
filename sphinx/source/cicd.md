@@ -3,7 +3,7 @@
 ```{admonition} Used Stacks
 :class: important
 
-GitHub Actions (Black, flake8, Pylint, Setuptools, PyTest, Sphinx)
+GitHub Actions (Black, flake8, Pylint, Setuptools, PyTest, Codecov, Sphinx)
 ```
 
 ## Branch Rules
