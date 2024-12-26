@@ -26,6 +26,7 @@ from typing import Dict, List, Optional, Tuple, Union
 
 from matplotlib import pyplot as plt
 
+from . import singleton
 from .util import _color, figure, savefig
 
 
@@ -42,7 +43,6 @@ def scatter(
     markersize: Optional[int] = 36,
     figsize: Optional[Tuple[int]] = (15, 10),
     dpi: Optional[int] = 300,
-    save: Optional[bool] = True,
 ) -> str:
     """Dictionary로 입력받은 data를 scatter plot으로 시각화
 
@@ -59,7 +59,6 @@ def scatter(
         markersize (``Optional[int]``): Graph에 출력될 marker의 크기
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
-        save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
         ``str``: 저장된 graph의 절대 경로
@@ -73,7 +72,7 @@ def scatter(
             :align: center
             :width: 500px
     """
-    if save:
+    if singleton.SAVE:
         figure(figsize=figsize)
     # import matplotlib.markers as mmarkers
     # markers = list(mmarkers.MarkerStyle.markers.keys())
@@ -109,6 +108,6 @@ def scatter(
     plt.title(title, fontsize=25)
     if len(ydata) > 1:
         plt.legend(ncol=ncol)
-    if save:
+    if singleton.SAVE:
         return savefig(title, dpi)
     return None

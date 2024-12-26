@@ -31,6 +31,8 @@ from matplotlib import pyplot as plt
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 
+from . import singleton
+
 
 def figure(figsize: Optional[Tuple[int]] = (15, 10)) -> Figure:
     """Graph 생성을 위한 함수
@@ -47,7 +49,9 @@ def figure(figsize: Optional[Tuple[int]] = (15, 10)) -> Figure:
         >>> zz.plot.figure((20, 20))
         <Figure size 2000x2000 with 0 Axes>
     """
-    return plt.figure(figsize=figsize)
+    fig = plt.figure(figsize=figsize)
+    singleton.SAVE = False
+    return fig
 
 
 def subplot(*args, **kwargs) -> Axes:
@@ -89,6 +93,7 @@ def savefig(title: str, dpi: Optional[int] = 300) -> str:
         bbox_inches="tight",
     )
     plt.close("all")
+    singleton.SAVE = True
     return os.path.abspath(f"{title}.png")
 
 

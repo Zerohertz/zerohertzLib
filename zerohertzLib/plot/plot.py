@@ -29,6 +29,7 @@ import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 
+from . import singleton
 from .util import _color, color, savefig
 
 
@@ -46,7 +47,6 @@ def plot(
     markersize: Optional[int] = 12,
     figsize: Optional[Tuple[int]] = (15, 10),
     dpi: Optional[int] = 300,
-    save: Optional[bool] = True,
 ) -> str:
     """List와 Dictionary로 입력받은 data를 line chart로 시각화
 
@@ -64,7 +64,6 @@ def plot(
         markersize (``Optional[int]``): Graph에 표시될 marker의 size
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
-        save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
         ``str``: 저장된 graph의 절대 경로
@@ -87,7 +86,7 @@ def plot(
                 :align: center
                 :width: 500px
     """
-    if save:
+    if singleton.SAVE:
         plt.figure(figsize=figsize)
     # import matplotlib.markers as mmarkers
     # markers = list(mmarkers.MarkerStyle.markers.keys())
@@ -139,7 +138,7 @@ def plot(
     plt.title(title, fontsize=25)
     if len(ydata) > 1:
         plt.legend(ncol=ncol)
-    if save:
+    if singleton.SAVE:
         return savefig(title, dpi)
     return None
 
@@ -151,7 +150,6 @@ def candle(
     signals: Optional[Dict[str, Any]] = None,
     threshold: Optional[Union[int, Tuple[int]]] = 1,
     dpi: Optional[int] = 300,
-    save: Optional[bool] = True,
 ) -> str:
     """OHLCV (Open, High, Low, Close, Volume) data에 따른 candle chart
 
@@ -169,7 +167,6 @@ def candle(
         signals (``Optional[Dict[str, Any]]``): 추가적으로 plot할 data
         threshold (``Optional[Union[int, Tuple[int]]]``): 매수, 매도를 결정할 ``signals`` 경계값
         dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
-        save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
         ``str``: 저장된 graph의 절대 경로
@@ -293,26 +290,9 @@ def candle(
             linewidth=1,
         )
         new_axis.set_yticks([])
-    if save:
+    if singleton.SAVE:
         return savefig(title, dpi)
     return None
-
-
-# def _bollinger_bands(data: pd.DataFrame) -> pd.DataFrame:
-#     """Bollinger band 계산 함수
-
-#     Args:
-#         data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
-
-#     Returns:
-#         ``pd.DataFrame``: Bollinger band
-#     """
-#     bands = pd.DataFrame(index=data.index)
-#     bands["middle_band"] = data.iloc[:, :4].mean(1).rolling(window=20).mean()
-#     std_dev = data.iloc[:, :4].mean(1).rolling(window=20).std()
-#     bands["upper_band"] = bands["middle_band"] + (std_dev * 2)
-#     bands["lower_band"] = bands["middle_band"] - (std_dev * 2)
-#     return bands
 
 
 def _method2str(method: str) -> str:

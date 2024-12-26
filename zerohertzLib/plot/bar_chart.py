@@ -28,6 +28,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 import numpy as np
 from matplotlib import pyplot as plt
 
+from . import singleton
 from .util import _color, savefig
 
 
@@ -45,7 +46,6 @@ def barv(
     dimsize: Optional[float] = 10,
     sign: Optional[int] = 1,
     dpi: Optional[int] = 300,
-    save: Optional[bool] = True,
 ) -> str:
     """Dictionary로 입력받은 data를 가로 bar chart로 시각화
 
@@ -63,7 +63,6 @@ def barv(
         dimsize (``Optional[float]``): 각 bar 상단에 표시될 값의 크기
         sign (``Optional[int]``): 각 bar 상단에 표시될 값의 유효숫자
         dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
-        save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
         ``str``: 저장된 graph의 절대 경로
@@ -79,7 +78,7 @@ def barv(
             :width: 600px
     """
     colors = _color(data, colors)
-    if save:
+    if singleton.SAVE:
         plt.figure(figsize=figsize)
     if isinstance(list(data.values())[-1], list):
         data = data.copy()
@@ -176,7 +175,7 @@ def barv(
         plt.ylim(ylim)
     plt.xticks(rotation=rot)
     plt.title(title, fontsize=25)
-    if save:
+    if singleton.SAVE:
         return savefig(title, dpi)
     return None
 
@@ -195,7 +194,6 @@ def barh(
     dimsize: Optional[float] = 10,
     sign: Optional[int] = 1,
     dpi: Optional[int] = 300,
-    save: Optional[bool] = True,
 ) -> str:
     """Dictionary로 입력받은 data를 세로 bar chart로 시각화
 
@@ -213,7 +211,6 @@ def barh(
         dimsize (``Optional[float]``): 각 bar 상단에 표시될 값의 크기
         sign (``Optional[int]``): 각 bar 상단에 표시될 값의 유효숫자
         dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
-        save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
         ``str``: 저장된 graph의 절대 경로
@@ -229,7 +226,7 @@ def barh(
             :width: 450px
     """
     colors = _color(data, colors)
-    if save:
+    if singleton.SAVE:
         plt.figure(figsize=figsize)
     if isinstance(list(data.values())[-1], list):
         data = data.copy()
@@ -325,7 +322,7 @@ def barh(
         plt.ylim(ylim)
     plt.yticks(rotation=rot)
     plt.title(title, fontsize=25)
-    if save:
+    if singleton.SAVE:
         return savefig(title, dpi)
     return None
 
@@ -342,7 +339,6 @@ def hist(
     ovp: Optional[bool] = True,
     figsize: Optional[Tuple[int]] = (15, 10),
     dpi: Optional[int] = 300,
-    save: Optional[bool] = True,
 ) -> str:
     """Dictionary로 입력받은 data를 histogram으로 시각화
 
@@ -358,7 +354,6 @@ def hist(
         ovp (``Optional[bool]``): Class에 따른 histogram overlap 여부
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
-        save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
         ``str``: 저장된 graph의 절대 경로
@@ -378,7 +373,7 @@ def hist(
         maximum = max(*ydata, maximum)
     gap = max(0.01, (maximum - minimum) / cnt)
     bins = np.linspace(minimum - gap, maximum + gap, cnt)
-    if save:
+    if singleton.SAVE:
         plt.figure(figsize=figsize)
     if ovp:
         for i, (key, value) in enumerate(data.items()):
@@ -404,6 +399,6 @@ def hist(
     plt.title(title, fontsize=25)
     if len(data) > 1:
         plt.legend()
-    if save:
+    if singleton.SAVE:
         return savefig(title, dpi)
     return None

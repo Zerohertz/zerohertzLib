@@ -26,6 +26,7 @@ from typing import Dict, List, Optional, Tuple, Union
 
 from matplotlib import pyplot as plt
 
+from . import singleton
 from .util import _color, savefig
 
 
@@ -37,7 +38,6 @@ def pie(
     figsize: Optional[Tuple[int]] = (15, 10),
     int_label: Optional[bool] = True,
     dpi: Optional[int] = 300,
-    save: Optional[bool] = True,
 ) -> str:
     """Dictionary로 입력받은 data를 pie chart로 시각화
 
@@ -49,7 +49,6 @@ def pie(
         figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
         int_label (``Optional[bool]``): Label 내 수치의 소수점 표기 여부
         dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
-        save (``Optional[bool]``): Graph 저장 여부
 
     Returns:
         ``str``: 저장된 graph의 절대 경로
@@ -63,7 +62,7 @@ def pie(
             :width: 500px
     """
     colors = _color(data, colors)
-    if save:
+    if singleton.SAVE:
         plt.figure(figsize=figsize)
     if int_label:
         if dim is None:
@@ -90,6 +89,6 @@ def pie(
     )
     plt.title(title, fontsize=25)
     plt.axis("equal")
-    if save:
+    if singleton.SAVE:
         return savefig(title, dpi)
     return None
