@@ -73,7 +73,7 @@ def scatter(
             :width: 500px
     """
     if singleton.SAVE:
-        figure(figsize=figsize)
+        plt.figure(figsize=figsize)
     if not isinstance(ydata, dict):
         ydata = {"": ydata}
     if not isinstance(xdata, dict):
