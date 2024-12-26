@@ -148,8 +148,8 @@ def gpu_memory(
         plot(
             time_list,
             data,
-            "Time [Sec]",
-            "GPU Memory [GB]",
+            xlab="Time [Sec]",
+            ylab="GPU Memory [GB]",
             ylim=[0, gpu_memory_max],
             ncol=2,
             title=path,
