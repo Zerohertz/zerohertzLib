@@ -8,9 +8,6 @@ import pandas as pd
 
 import zerohertzLib as zz
 
-tmp = os.path.dirname(__file__)
-data = os.path.join(tmp, "data")
-
 BOX_CWH = np.array([650, 600, 1100, 800])
 BOX_XYXY = np.array([100, 200, 1200, 1000])
 BOX_POLY = np.array([[100, 200], [1200, 200], [1200, 1000], [100, 1000]])
@@ -25,6 +22,9 @@ BOXES_POLY = np.array(
         [[750, 100], [1050, 100], [1050, 500], [750, 500]],
     ]
 )
+
+tmp = os.path.dirname(__file__)
+data = os.path.join(tmp, "data")
 
 
 def test_img2gif():
