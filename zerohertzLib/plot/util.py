@@ -31,7 +31,7 @@ from matplotlib import pyplot as plt
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 
-from . import singleton
+from . import config
 
 
 def figure(figsize: Optional[Tuple[int]] = (15, 10)) -> Figure:
@@ -50,7 +50,7 @@ def figure(figsize: Optional[Tuple[int]] = (15, 10)) -> Figure:
         <Figure size 2000x2000 with 0 Axes>
     """
     fig = plt.figure(figsize=figsize)
-    singleton.SAVE = False
+    config.SAVE = False
     return fig
 
 
@@ -93,7 +93,7 @@ def savefig(title: str, dpi: Optional[int] = 300) -> str:
         bbox_inches="tight",
     )
     plt.close("all")
-    singleton.SAVE = True
+    config.SAVE = True
     return os.path.abspath(f"{title}.png")
 
 

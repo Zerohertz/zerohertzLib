@@ -29,7 +29,7 @@ import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 
-from . import singleton
+from . import config
 from .util import _color, color, savefig
 
 
@@ -86,7 +86,7 @@ def plot(
                 :align: center
                 :width: 500px
     """
-    if singleton.SAVE:
+    if config.SAVE:
         plt.figure(figsize=figsize)
     if stacked:
         bias = np.zeros(len(xdata))
@@ -110,9 +110,9 @@ def plot(
             xvalue,
             yvalue,
             color=colors[i],
-            linestyle=singleton.LINESTYLE[i % len(singleton.LINESTYLE)],
+            linestyle=config.LINESTYLE[i % len(config.LINESTYLE)],
             linewidth=2,
-            marker=singleton.MARKER[i % len(singleton.MARKER)],
+            marker=config.MARKER[i % len(config.MARKER)],
             markersize=markersize,
             label=key,
         )
@@ -131,7 +131,7 @@ def plot(
     plt.title(title, fontsize=25)
     if len(ydata) > 1:
         plt.legend(ncol=ncol)
-    if singleton.SAVE:
+    if config.SAVE:
         return savefig(title, dpi)
     return None
 
@@ -283,7 +283,7 @@ def candle(
             linewidth=1,
         )
         new_axis.set_yticks([])
-    if singleton.SAVE:
+    if config.SAVE:
         return savefig(title, dpi)
     return None
 

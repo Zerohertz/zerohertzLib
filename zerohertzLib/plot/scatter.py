@@ -26,7 +26,7 @@ from typing import Dict, List, Optional, Tuple, Union
 
 from matplotlib import pyplot as plt
 
-from . import singleton
+from . import config
 from .util import _color, figure, savefig
 
 
@@ -72,7 +72,7 @@ def scatter(
             :align: center
             :width: 500px
     """
-    if singleton.SAVE:
+    if config.SAVE:
         plt.figure(figsize=figsize)
     if not isinstance(ydata, dict):
         ydata = {"": ydata}
@@ -89,7 +89,7 @@ def scatter(
             yvalue,
             s=markersize,
             color=colors[i],
-            marker=singleton.MARKER[i % len(singleton.MARKER)],
+            marker=config.MARKER[i % len(config.MARKER)],
             label=key,
             zorder=2,
         )
@@ -105,6 +105,6 @@ def scatter(
     plt.title(title, fontsize=25)
     if len(ydata) > 1:
         plt.legend(ncol=ncol)
-    if singleton.SAVE:
+    if config.SAVE:
         return savefig(title, dpi)
     return None

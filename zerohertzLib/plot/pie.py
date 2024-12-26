@@ -26,7 +26,7 @@ from typing import Dict, List, Optional, Tuple, Union
 
 from matplotlib import pyplot as plt
 
-from . import singleton
+from . import config
 from .util import _color, savefig
 
 
@@ -62,7 +62,7 @@ def pie(
             :width: 500px
     """
     colors = _color(data, colors)
-    if singleton.SAVE:
+    if config.SAVE:
         plt.figure(figsize=figsize)
     if int_label:
         if dim is None:
@@ -89,6 +89,6 @@ def pie(
     )
     plt.title(title, fontsize=25)
     plt.axis("equal")
-    if singleton.SAVE:
+    if config.SAVE:
         return savefig(title, dpi)
     return None

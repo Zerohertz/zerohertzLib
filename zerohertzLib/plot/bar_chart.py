@@ -28,7 +28,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 import numpy as np
 from matplotlib import pyplot as plt
 
-from . import singleton
+from . import config
 from .util import _color, savefig
 
 
@@ -78,7 +78,7 @@ def barv(
             :width: 600px
     """
     colors = _color(data, colors)
-    if singleton.SAVE:
+    if config.SAVE:
         plt.figure(figsize=figsize)
     if isinstance(list(data.values())[-1], list):
         data = data.copy()
@@ -175,7 +175,7 @@ def barv(
         plt.ylim(ylim)
     plt.xticks(rotation=rot)
     plt.title(title, fontsize=25)
-    if singleton.SAVE:
+    if config.SAVE:
         return savefig(title, dpi)
     return None
 
@@ -226,7 +226,7 @@ def barh(
             :width: 450px
     """
     colors = _color(data, colors)
-    if singleton.SAVE:
+    if config.SAVE:
         plt.figure(figsize=figsize)
     if isinstance(list(data.values())[-1], list):
         data = data.copy()
@@ -322,7 +322,7 @@ def barh(
         plt.ylim(ylim)
     plt.yticks(rotation=rot)
     plt.title(title, fontsize=25)
-    if singleton.SAVE:
+    if config.SAVE:
         return savefig(title, dpi)
     return None
 
@@ -373,7 +373,7 @@ def hist(
         maximum = max(*ydata, maximum)
     gap = max(0.01, (maximum - minimum) / cnt)
     bins = np.linspace(minimum - gap, maximum + gap, cnt)
-    if singleton.SAVE:
+    if config.SAVE:
         plt.figure(figsize=figsize)
     if ovp:
         for i, (key, value) in enumerate(data.items()):
@@ -399,6 +399,6 @@ def hist(
     plt.title(title, fontsize=25)
     if len(data) > 1:
         plt.legend()
-    if singleton.SAVE:
+    if config.SAVE:
         return savefig(title, dpi)
     return None
