@@ -25,3 +25,14 @@ zerohertzLib.plot.figure(): False
 zerohertzLib.plot.savefig(): True
 """
 SAVE = True
+
+"""
+zerohertzLib.plot.plot()
+zerohertzLib.plot.scatter()
+"""
+# from matplotlib import pyplot as plt
+# list(plt.Line2D.lineStyles.keys())
+LINESTYLE = ["-", "--", "-.", ":"]
+# import matplotlib.markers as mmarkers
+# markers = list(mmarkers.MarkerStyle.markers.keys())
+MARKER = ["o", "v", "^", "s", "p", "*", "x"]

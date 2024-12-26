@@ -88,16 +88,9 @@ def plot(
     """
     if singleton.SAVE:
         plt.figure(figsize=figsize)
-    # import matplotlib.markers as mmarkers
-    # markers = list(mmarkers.MarkerStyle.markers.keys())
-    marker = ["o", "v", "^", "s", "p", "*", "x"]
     if stacked:
         bias = np.zeros(len(xdata))
-        linestyle = ["-"]
         assert not isinstance(xdata, dict)
-    else:
-        # list(plt.Line2D.lineStyles.keys())
-        linestyle = ["-", "--", "-.", ":"]
     if not isinstance(ydata, dict):
         ydata = {"": ydata}
     if not isinstance(xdata, dict):
@@ -117,9 +110,9 @@ def plot(
             xvalue,
             yvalue,
             color=colors[i],
-            linestyle=linestyle[i % len(linestyle)],
+            linestyle=singleton.LINESTYLE[i % len(singleton.LINESTYLE)],
             linewidth=2,
-            marker=marker[i % len(marker)],
+            marker=singleton.MARKER[i % len(singleton.MARKER)],
             markersize=markersize,
             label=key,
         )

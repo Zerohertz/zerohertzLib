@@ -74,9 +74,6 @@ def scatter(
     """
     if singleton.SAVE:
         figure(figsize=figsize)
-    # import matplotlib.markers as mmarkers
-    # markers = list(mmarkers.MarkerStyle.markers.keys())
-    marker = ["o", "v", "^", "s", "p", "*", "x"]
     if not isinstance(ydata, dict):
         ydata = {"": ydata}
     if not isinstance(xdata, dict):
@@ -92,7 +89,7 @@ def scatter(
             yvalue,
             s=markersize,
             color=colors[i],
-            marker=marker[i % len(marker)],
+            marker=singleton.MARKER[i % len(singleton.MARKER)],
             label=key,
             zorder=2,
         )
