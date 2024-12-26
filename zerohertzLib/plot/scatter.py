@@ -27,7 +27,7 @@ from typing import Dict, List, Optional, Tuple, Union
 from matplotlib import pyplot as plt
 
 from . import config
-from .util import _color, figure, savefig
+from .util import _color, savefig
 
 
 def scatter(
