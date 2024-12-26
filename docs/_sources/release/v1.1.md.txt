@@ -2,7 +2,30 @@
 
 ## v1.1.9
 
-<h3>[v1.1.9] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/348>#348</a>)</h3>
+<h3>[v1.1.9] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/351>#351</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2024/12/26
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:chore"><img src="https://img.shields.io/badge/chore-fef2c0?style=flat-square&logo=github" alt="chore"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:docs"><img src="https://img.shields.io/badge/docs-E1B40A?style=flat-square&logo=github" alt="docs"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release"><img src="https://img.shields.io/badge/release-00FF00?style=flat-square&logo=github" alt="release"/></a>
+</p>
+
+
+<h4>Chore</h4>
+
+- PyPI 배포 실패 문제 해결 (resolves: <a href="https://github.com/Zerohertz/zerohertzLib/issues/350">#350</a>)
+
+<h4>Docs</h4>
+
+- CI/CD 문서 내 Codecov 추가
+
+<h3>[v1.1.9] Release (PyPI deployment failed) (<a href=https://github.com/Zerohertz/zerohertzLib/pull/348>#348</a>)</h3>
 
 ```{admonition} Release Date
 :class: tip
