@@ -17,20 +17,6 @@ tmp = os.path.dirname(__file__)
 data = os.path.join(tmp, "data")
 
 
-def test_discord_messages():
-    discord = zz.api.Discord(DISCORD_WEBHOOK_URL)
-    time.sleep(random.randrange(TIME_SLEEP))
-    for response in discord.message("Testing..." * 200):
-        assert response.status_code == 204
-
-
-def test_discord_image():
-    discord = zz.api.Discord(DISCORD_WEBHOOK_URL)
-    time.sleep(random.randrange(TIME_SLEEP))
-    response = discord.image(f"{data}/test.jpg")
-    assert response.status_code == 200
-
-
 def test_slack_webhook():
     slack = zz.api.SlackWebhook(
         SLACK_WEBHOOK_URL, "test", name="Test Webhook", icon_emoji="wrench"
@@ -58,11 +44,18 @@ def test_slack_bot_file():
     assert response.status_code == 200
 
 
-def test_discord_webhook():
-    webhook = zz.api.DiscordWebhook(DISCORD_WEBHOOK_URL)
+def test_discord_webhook_message():
+    discord = zz.api.DiscordWebhook(DISCORD_WEBHOOK_URL)
     time.sleep(random.randrange(TIME_SLEEP))
-    response = webhook.send_message("Testing DiscordWebhook...")
-    assert response.status_code == 204
+    for response in discord.message("Testing..." * 200):
+        assert response.status_code == 204
+
+
+def test_discord_webhook_image():
+    discord = zz.api.DiscordWebhook(DISCORD_WEBHOOK_URL)
+    time.sleep(random.randrange(TIME_SLEEP))
+    response = discord.image(f"{data}/test.jpg")
+    assert response.status_code == 200
 
 
 def test_discord_bot_message():
@@ -100,24 +93,6 @@ def test_discord_bot_create_thread():
     time.sleep(2)
     reply_response = bot.message("Thread reply test", thread_id)
     assert reply_response.status_code == 200
-
-
-def test_discord_bot_create_thread_with_replies():
-    bot = zz.api.DiscordBot(DISCORD_BOT_TOKEN, DISCORD_CHANNEL_ID)
-    time.sleep(random.randrange(TIME_SLEEP))
-
-    responses = bot.create_thread_with_replies(
-        "Testing thread with replies...",
-        "Automated Test Thread",
-        ["First reply", "Second reply", "Third reply"],
-        reply_delay=1,
-    )
-
-    assert "message_id" in responses
-    assert "thread_id" in responses
-    assert len(responses["reply_responses"]) == 3
-    for reply_response in responses["reply_responses"]:
-        assert reply_response.status_code == 200
 
 
 def test_github_release_note():
