@@ -157,7 +157,7 @@ def linkcode_resolve(domain, info):
             obj = getattr(obj, part)
         obj_filename = inspect.getsourcefile(obj)
         obj_line = inspect.getsourcelines(obj)[1]
-    except Exception as error:
+    except Exception:
         return None
     rel_fn = relpath(obj_filename, start=dirname(module.__file__))
     return f"https://github.com/zerohertz/zerohertzLib/blob/master/{info['module'].replace('.', '/')}/{rel_fn}#L{obj_line}"
