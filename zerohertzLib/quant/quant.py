@@ -660,7 +660,9 @@ class QuantSlackBotFDR(QuantSlackBot):
             kor,
         )
         if kor:
-            self.market = fdr.StockListing("KRX-DESC")
+            # FIXME:
+            # FDR 의존성 내에서 KRX-DESC 코드 사용 시 오류 발생
+            self.market = fdr.StockListing("KRX")
         else:
             self.market = fdr.StockListing("NASDAQ")
         if isinstance(symbols, int):
