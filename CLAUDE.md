@@ -76,7 +76,7 @@ pip install .'[all]'
 - **vision/**: Computer vision utilities with OpenCV
 
 ### Optional Dependencies
-The library supports Python 3.9+ and uses conditional imports for modules with heavy dependencies:
+The library supports Python 3.10+ and uses conditional imports for modules with heavy dependencies:
 - API integrations require `[api]` extra
 - MLOps features require `[mlops]` extra  
 - Quantitative finance requires `[quant]` extra
