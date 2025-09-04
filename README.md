@@ -25,8 +25,8 @@
     <a href="https://pypi.org/project/zerohertzLib/">
         <img alt="PyPI wheel" src="https://img.shields.io/pypi/wheel/zerohertzLib"/>
     </a>
-    <a href="https://github.com/psf/black">
-        <img src="https://img.shields.io/badge/code%20style-black-black"/>
+    <a href="https://github.com/astral-sh/ruff">
+        <img src="https://img.shields.io/badge/code%20style-ruff-ruff"/>
     </a>
     <a href="https://app.codacy.com/gh/Zerohertz/zerohertzLib/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade">
         <img src="https://app.codacy.com/project/badge/Grade/b08b1d140ee54ae1aa8ee251cb5888ff"/>
