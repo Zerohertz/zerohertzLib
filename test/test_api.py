@@ -136,7 +136,7 @@ def test_discord_bot_create_thread() -> None:
     thread_data = thread_response.json()
     thread_id = thread_data.get("id")
     time.sleep(2)
-    reply_response = discord.message("Thread reply test", thread_id)
+    reply_response = discord.message("Thread reply test", thread_id=thread_id)
     assert reply_response.status_code == 200
 
 
