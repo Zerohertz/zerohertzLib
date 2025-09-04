@@ -105,9 +105,8 @@ jobs:
         run: |
           source venv/bin/activate
           pip install -r requirements/requirements-style.txt
-          black --check .
-          flake8 zerohertzLib
-          pylint -r n zerohertzLib
+          ruff check .
+          ruff format --check .
 
   test:
     runs-on: ubuntu-latest

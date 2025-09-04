@@ -21,14 +21,13 @@ pip install .'[all]' --no-cache-dir
 pip install -r requirements/requirements-style.txt
 
 # Format code
-black .
+ruff format .
 
-# Lint code
-flake8 zerohertzLib
-pylint -r n zerohertzLib
+# Lint and check code
+ruff check .
 
-# Check formatting
-black --check .
+# Check formatting (CI mode)
+ruff format --check .
 ```
 
 ### Testing
@@ -104,7 +103,5 @@ Test data is located in `test/data/` directory.
 - CI/CD runs on pushes to dev branches and PRs to master
 
 ### Code Style
-- Uses Black formatting
-- flake8 for linting
-- pylint for additional code quality checks
+- Uses Ruff for formatting and linting (replaces Black, flake8, and pylint)
 - Consistent docstring format with type hints

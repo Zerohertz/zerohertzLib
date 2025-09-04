@@ -225,7 +225,7 @@ def example_grid():
     zz.vision.grid(imgs, color=(0, 255, 0), file_name="grid_2")
     zz.vision.grid(imgs, color=(0, 0, 0, 0), file_name="grid_3")
     zz.vision.vert(
-        [cv2.imread(f"grid_{i+1}.png", cv2.IMREAD_UNCHANGED) for i in range(3)],
+        [cv2.imread(f"grid_{i + 1}.png", cv2.IMREAD_UNCHANGED) for i in range(3)],
         file_name=f"{EXAMPLE_PATH}/vision.grid",
     )
 
