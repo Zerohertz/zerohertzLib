@@ -151,6 +151,9 @@ class DiscordBot:
             >>> response = discord.message("test")
             >>> response
             <Response [200]>
+            >>> response = discord.message('print("hi")', codeblock="python")
+            >>> response
+            <Response [200]>
         """
         if message == "":
             return None
@@ -181,9 +184,13 @@ class DiscordBot:
 
         Examples:
             >>> response = discord.message("test")
-            >>> response = discord.create_thread(response.json()["id"], "test")
+            >>> response
+            <Response [200]>
+            >>> response = discord.create_thread("test", response.json()["id"])
             >>> response
             <Response [201]>
+            >>> response = discord.message("test", thread_id=response.json()["id"])
+            <Response [200]>
         """
         payload = {
             "name": name,
