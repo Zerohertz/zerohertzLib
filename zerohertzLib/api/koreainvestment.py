@@ -176,7 +176,7 @@ class KoreaInvestment:
         """
         with open(os.path.join(self.path, "token.dat"), "rb") as file:
             data = pickle.load(file)
-            self.access_token = f"Bearer {data['access_token']}"
+        self.access_token = f"Bearer {data['access_token']}"
 
     def get_price(self, symbol: str, kor: Optional[bool] = True) -> Dict[str, Dict]:
         """주식 현재가 시세
