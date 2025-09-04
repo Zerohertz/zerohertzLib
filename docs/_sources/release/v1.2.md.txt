@@ -2,6 +2,22 @@
 
 ## v1.2.0
 
+<h3>[v1.2.0] Chore update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/361>#361</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2025/09/04
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release/chore"><img src="https://img.shields.io/badge/release/chore-22FD7F?style=flat-square&logo=github" alt="release/chore"/></a>
+</p>
+
+
+<h4>Chore</h4>
+
+- PyTest 시 잦은 실패 (`401`)로 random sleep 추가
 <h3>[v1.2.0] Docs update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/357>#357</a>)</h3>
 
 ```{admonition} Release Date
