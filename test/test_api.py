@@ -125,7 +125,7 @@ def test_discord_bot_create_thread() -> None:
 
     # 스레드 생성
     time.sleep(2)
-    thread_response = discord.create_thread(message_id, "Test Thread")
+    thread_response = discord.create_thread("Test Thread", message_id)
     assert thread_response.status_code in [200, 201]
 
     # 스레드에 댓글 작성
