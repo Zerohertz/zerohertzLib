@@ -155,8 +155,6 @@ class DiscordBot:
             >>> response
             <Response [200]>
         """
-        if message == "":
-            return None
         if codeblock:
             message = f"```{codeblock}\n" + message + "\n```"
         channel_id = thread_id if thread_id else self.channel
