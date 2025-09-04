@@ -26,10 +26,10 @@ import logging
 from logging import Handler
 from typing import Optional
 
-from zerohertzLib.api import Discord, SlackBot, SlackWebhook
+from zerohertzLib.api import DiscordWebhook, SlackBot, SlackWebhook
 
 
-class DiscordHandler(Handler, Discord):
+class DiscordHandler(Handler, DiscordWebhook):
     """Discord Webhook 기반 handler
 
     Args:
@@ -43,7 +43,7 @@ class DiscordHandler(Handler, Discord):
 
     def __init__(self, webhook_url: str, level: Optional[int] = logging.NOTSET) -> None:
         Handler.__init__(self, level)
-        Discord.__init__(self, webhook_url)
+        DiscordWebhook.__init__(self, webhook_url)
 
     def emit(self, record: logging.LogRecord) -> None:
         """`logging.Handler.emit <https://docs.python.org/ko/3/library/logging.html#logging.Handler.emit>`_ 구현"""
