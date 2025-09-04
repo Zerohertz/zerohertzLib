@@ -76,6 +76,7 @@ int main() {
 }"""
     response = discord.message(cpp_code, codeblock="cpp")
     assert response.status_code == 200
+    time.sleep(random.randrange(TIME_SLEEP))
 
     rust_code = """fn main() {
     let name = "World";
@@ -85,6 +86,7 @@ int main() {
 }"""
     response = discord.message(rust_code, codeblock="rust")
     assert response.status_code == 200
+    time.sleep(random.randrange(TIME_SLEEP))
 
     go_code = """package main
 
@@ -95,6 +97,7 @@ func main() {
 }"""
     response = discord.message(go_code, codeblock="go")
     assert response.status_code == 200
+    time.sleep(random.randrange(TIME_SLEEP))
 
     python_code = """def fibonacci(n):
     if n <= 1:
@@ -115,11 +118,11 @@ def test_discord_bot_file() -> None:
 
 def test_discord_bot_create_thread() -> None:
     discord = zz.api.DiscordBot(DISCORD_BOT_TOKEN, DISCORD_BOT_CHANNEL)
-    time.sleep(random.randrange(TIME_SLEEP))
 
     # 먼저 메시지 전송
     message_response = discord.message("Testing thread creation...")
     assert message_response.status_code == 200
+    time.sleep(random.randrange(TIME_SLEEP))
     message_data = message_response.json()
     message_id = message_data.get("id")
 
@@ -127,6 +130,7 @@ def test_discord_bot_create_thread() -> None:
     time.sleep(2)
     thread_response = discord.create_thread("Test Thread", message_id)
     assert thread_response.status_code in [200, 201]
+    time.sleep(random.randrange(TIME_SLEEP))
 
     # 스레드에 댓글 작성
     thread_data = thread_response.json()
