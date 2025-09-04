@@ -24,12 +24,11 @@ SOFTWARE.
 
 import json
 import time
-from typing import List, Optional
 
 import requests
 
 
-class Discord:
+class DiscordWebhook:
     """Discord Webhook의 data 전송을 위한 class
 
     Args:
@@ -42,11 +41,11 @@ class Discord:
     def __init__(self, webhook_url: str) -> None:
         self.webhook_url = webhook_url
 
-    def _split_string_in_chunks(self, text: str, chunk_size: int) -> List[str]:
+    def _split_string_in_chunks(self, text: str, chunk_size: int) -> list[str]:
         return [text[i : i + chunk_size] for i in range(0, len(text), chunk_size)]
 
     def _message(
-        self, message: str, codeblock: Optional[bool] = False
+        self, message: str, codeblock: bool = False
     ) -> requests.models.Response:
         headers = {"Content-Type": "application/json"}
         if codeblock:
@@ -59,15 +58,15 @@ class Discord:
     def message(
         self,
         message: str,
-        gap: Optional[int] = 1,
-        codeblock: Optional[bool] = False,
-    ) -> List[requests.models.Response]:
+        gap: int = 1,
+        codeblock: bool = False,
+    ) -> list[requests.models.Response]:
         """Discord Webhook을 통해 message 전송
 
         Args:
             message (``str``): Discord Webhook의 입력
-            gap (``Optional[int]``): ``message`` 의 전송 간 간격 (``message`` 가 1500자 이내라면 0)
-            codeblock (``Optional[bool]``): 전송되는 message의 스타일
+            gap (``int``): ``message`` 의 전송 간 간격 (``message`` 가 1500자 이내라면 0)
+            codeblock (``bool``): 전송되는 message의 스타일
 
         Returns:
             ``List[requests.models.Response]``: Discord Webhook의 응답
@@ -107,4 +106,124 @@ class Discord:
                 "file": (image_path, file),
             }
             response = requests.post(self.webhook_url, files=files, timeout=10)
+        return response
+
+
+class DiscordBot:
+    """Discord Bot의 data 전송을 위한 class
+
+    Args:
+        token (``str``): Discord Bot 토큰
+        channel (``str``): Discord Bot이 전송할 channel
+        timeout (``int``): API 요청 시 사용될 timeout
+
+    Examples:
+        >>> discord = zz.api.DiscordBot("YOUR_BOT_TOKEN", "1234567890")
+        >>> discord = zz.api.DiscordBot("YOUR_BOT_TOKEN", "1234567890", timeout=30)
+    """
+
+    def __init__(self, token: str, channel: str, timeout: int = 30) -> None:
+        self.api_base = "https://discord.com/api/v10"
+        self.headers = {
+            "Authorization": f"Bot {token}",
+            "Content-Type": "application/json",
+        }
+        self.channel = channel
+        self.timeout = timeout
+
+    def message(
+        self,
+        message: str,
+        codeblock: str = "",
+        thread_id: str | None = None,
+    ) -> requests.models.Response:
+        """Discord Bot을 통해 message 전송
+
+        Args:
+            message (``str``): 전송할 message
+            codeblock (``str``): 전송되는 message의 스타일
+            thread_id (``str | None``): 댓글을 전송할 thread의 ID
+
+        Returns:
+            ``requests.models.Response``: Discord Bot의 응답
+
+        Examples:
+            >>> response = discord.message("test")
+            >>> response
+            <Response [200]>
+            >>> response = discord.message('print("hi")', codeblock="python")
+            >>> response
+            <Response [200]>
+        """
+        if codeblock:
+            message = f"```{codeblock}\n" + message + "\n```"
+        channel_id = thread_id if thread_id else self.channel
+        payload = {"content": message}
+        return requests.post(
+            f"{self.api_base}/channels/{channel_id}/messages",
+            data=json.dumps(payload),
+            headers=self.headers,
+            timeout=self.timeout,
+        )
+
+    def create_thread(
+        self,
+        name: str,
+        message_id: str,
+    ) -> requests.models.Response:
+        """메시지에서 스레드 생성
+
+        Args:
+            name (``str``): 스레드 이름
+            message_id (``str``): 스레드를 생성할 메시지 ID
+
+        Returns:
+            ``requests.models.Response``: Discord Bot의 응답
+
+        Examples:
+            >>> response = discord.message("test")
+            >>> response
+            <Response [200]>
+            >>> response = discord.create_thread("test", response.json()["id"])
+            >>> response
+            <Response [201]>
+            >>> response = discord.message("test", thread_id=response.json()["id"])
+            <Response [200]>
+        """
+        payload = {
+            "name": name,
+            "type": 11,
+        }
+        return requests.post(
+            f"{self.api_base}/channels/{self.channel}/messages/{message_id}/threads",
+            data=json.dumps(payload),
+            headers=self.headers,
+            timeout=self.timeout,
+        )
+
+    def file(self, path: str, thread_id: str | None = None) -> requests.models.Response:
+        """Discord Bot을 통해 file 전송
+
+        Args:
+            path (``str``): 전송할 file 경로
+            thread_id (``str | None``): 댓글을 전송할 thread의 ID
+
+        Returns:
+            ``requests.models.Response``: Discord Bot의 응답
+
+        Examples:
+            >>> response = bot.file("test.jpg")
+            >>> response
+            <Response [200]>
+        """
+        channel_id = thread_id if thread_id else self.channel
+        with open(path, "rb") as file:
+            files = {"file": (path, file)}
+            headers = {"Authorization": self.headers["Authorization"]}
+            response = requests.post(
+                f"{self.api_base}/channels/{channel_id}/messages",
+                files=files,
+                headers=headers,
+                timeout=self.timeout,
+            )
         return response

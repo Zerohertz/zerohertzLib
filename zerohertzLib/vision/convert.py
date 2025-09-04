@@ -34,7 +34,7 @@ from .util import _is_bbox
 
 
 def _list2np(
-    box: Union[List[Union[int, float]], NDArray[DTypeLike]]
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
 ) -> NDArray[DTypeLike]:
     if isinstance(box, list):
         return np.array(box)
@@ -48,7 +48,7 @@ def _cwh2xyxy(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
 
 
 def cwh2xyxy(
-    box: Union[List[Union[int, float]], NDArray[DTypeLike]]
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
 ) -> NDArray[DTypeLike]:
     """Bbox 변환
 
@@ -85,7 +85,7 @@ def _cwh2poly(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
 
 
 def cwh2poly(
-    box: Union[List[Union[int, float]], NDArray[DTypeLike]]
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
 ) -> NDArray[DTypeLike]:
     """Bbox 변환
 
@@ -132,7 +132,7 @@ def _xyxy2cwh(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
 
 
 def xyxy2cwh(
-    box: Union[List[Union[int, float]], NDArray[DTypeLike]]
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
 ) -> NDArray[DTypeLike]:
     """Bbox 변환
 
@@ -168,7 +168,7 @@ def _xyxy2poly(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
 
 
 def xyxy2poly(
-    box: Union[List[Union[int, float]], NDArray[DTypeLike]]
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
 ) -> NDArray[DTypeLike]:
     """Bbox 변환
 
@@ -216,7 +216,7 @@ def _poly2cwh(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
 
 
 def poly2cwh(
-    box: Union[List[Union[int, float]], NDArray[DTypeLike]]
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
 ) -> NDArray[DTypeLike]:
     """Bbox 변환
 
@@ -253,7 +253,7 @@ def _poly2xyxy(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
 
 
 def poly2xyxy(
-    box: Union[List[Union[int, float]], NDArray[DTypeLike]]
+    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
 ) -> NDArray[DTypeLike]:
     """Bbox 변환
 

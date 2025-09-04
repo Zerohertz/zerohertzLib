@@ -394,32 +394,30 @@ class QuantSlackBot(ABC, SlackBot):
         else:
             report["main"] += "> :egg: [None Signal]"
         report["main"] += f" *{quant.title}* (`{symbol}`)\n"
-        report[
-            "main"
-        ] += f"\t:technologist: Signal Info: {today['total'][1]:.2f}% ({int(today['total'][0])}/{int(quant.total_cnt)}) → {logic[today['logic']]}\n"
+        report["main"] += (
+            f"\t:technologist: Signal Info: {today['total'][1]:.2f}% ({int(today['total'][0])}/{int(quant.total_cnt)}) → {logic[today['logic']]}\n"
+        )
         report["param"] += "> :information_desk_person: *Parameter Info*"
         for key in quant.methods:
-            report[
-                "main"
-            ] += f"\t\t:hammer: {_method2str(key)}: {today[key][1]:.2f}% ({int(today[key][0])}/{int(quant.methods_cnt[key])})\n"
-            report[
-                "param"
-            ] += (
+            report["main"] += (
+                f"\t\t:hammer: {_method2str(key)}: {today[key][1]:.2f}% ({int(today[key][0])}/{int(quant.methods_cnt[key])})\n"
+            )
+            report["param"] += (
                 f"\n\t:hammer: {_method2str(key)}: `{'`, `'.join(quant.exps_str[key])}`"
             )
         report["main"] += "\t:memo: Threshold:\n"
-        report[
-            "main"
-        ] += f"\t\t:arrow_double_up: Buy: {quant.threshold_buy}\n\t\t:arrow_double_down: Sell: {quant.threshold_sell}"
-        report[
-            "backtest"
-        ] += f"> :computer: *Backtest* ({self.start_day[:4]}/{self.start_day[4:6]}/{self.start_day[6:]} ~)\n\t:money_with_wings: Total Profit:\t{quant.profit:.2f}%\n"
-        report[
-            "backtest"
-        ] += f"\t:chart_with_upwards_trend: Total Buy:\t{_cash2str(quant.buy, self.kor)}\n"
-        report[
-            "backtest"
-        ] += f"\t:chart_with_downwards_trend: Total Sell:\t{_cash2str(quant.sell, self.kor)}\n"
+        report["main"] += (
+            f"\t\t:arrow_double_up: Buy: {quant.threshold_buy}\n\t\t:arrow_double_down: Sell: {quant.threshold_sell}"
+        )
+        report["backtest"] += (
+            f"> :computer: *Backtest* ({self.start_day[:4]}/{self.start_day[4:6]}/{self.start_day[6:]} ~)\n\t:money_with_wings: Total Profit:\t{quant.profit:.2f}%\n"
+        )
+        report["backtest"] += (
+            f"\t:chart_with_upwards_trend: Total Buy:\t{_cash2str(quant.buy, self.kor)}\n"
+        )
+        report["backtest"] += (
+            f"\t:chart_with_downwards_trend: Total Sell:\t{_cash2str(quant.sell, self.kor)}\n"
+        )
         report["candle"], report["hist"] = self._plot(quant)
         return report
 
@@ -660,7 +658,9 @@ class QuantSlackBotFDR(QuantSlackBot):
             kor,
         )
         if kor:
-            self.market = fdr.StockListing("KRX-DESC")
+            # FIXME:
+            # FDR 의존성 내에서 KRX-DESC 코드 사용 시 오류 발생
+            self.market = fdr.StockListing("KRX")
         else:
             self.market = fdr.StockListing("NASDAQ")
         if isinstance(symbols, int):

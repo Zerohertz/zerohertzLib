@@ -306,7 +306,7 @@ class BaseTritonPythonModel(ABC):
                       ...
                       env:
                         - name: "FORCE_COLOR"
-                        value: "1"
+                          value: "1"
                       ...
 
     Attributes:

@@ -16,24 +16,25 @@
     <meta property="og:title" content="v0.7" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://zerohertz.github.io/zerohertzLib/release/v0.7.html" />
-<meta property="og:site_name" content="Zerohertz's Library v1.1.9 Documents" />
+<meta property="og:site_name" content="Zerohertz's Library v1.2.0 Documents" />
 <meta property="og:description" content="v0.7.9: mlops- BaseTritonPythonModel 내 오타 수정.. v0.7.8: api- KoreaInvestment 의 token 유효성 확인 시 정확히 24시간인 경우 갱신하지 않는 오류 수정., logging- Logger 의 구조 refactoring., mlops- Triton Inference Server에서 Python ..." />
 <meta property="og:image" content="https://zerohertz.github.io/zerohertzLib/_static/zerohertzLib-black-red-og.png" />
-<meta property="og:image:alt" content="Zerohertz's Library v1.1.9 Documents" />
+<meta property="og:image:alt" content="Zerohertz's Library v1.2.0 Documents" />
 <meta name="description" content="v0.7.9: mlops- BaseTritonPythonModel 내 오타 수정.. v0.7.8: api- KoreaInvestment 의 token 유효성 확인 시 정확히 24시간인 경우 갱신하지 않는 오류 수정., logging- Logger 의 구조 refactoring., mlops- Triton Inference Server에서 Python ..." />
     <link href="../_static/favicon.png" sizes="802x802" rel="icon" type="image/png">
     <link href="../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
     <link href="../_static/favicon-32x32.png" sizes="32x32" rel="icon" type="image/png">
     <link rel="apple-touch-icon" href="../_static/favicon.png" sizes="802x802" type="image/png"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="v0.6" href="v0.6.html" /><link rel="prev" title="v0.8" href="v0.8.html" />
         <link rel="canonical" href="https://zerohertz.github.io/zerohertzLib/release/v0.7.html" />
+        <link rel="prefetch" href="../_static/zerohertzLib-tp-red.png" as="image" />
 
-    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>v0.7 - zerohertzLib v1.1.9 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <!-- Generated with Sphinx 8.2.3 and Furo 2025.07.19 -->
+        <title>v0.7 - zerohertzLib v1.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=25af2a20" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx_paramlinks.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/solid.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css" />
@@ -43,24 +44,24 @@
 
 <style>
   body {
-    --color-code-background: #f8f8f8;
-  --color-code-foreground: black;
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
   --color-brand-primary: #800a0a;
   --color-brand-content: #800a0a;
   
   }
   @media not print {
     body[data-theme="dark"] {
-      --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+      --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
   --color-brand-primary: #800a0a;
   --color-brand-content: #800a0a;
   
     }
     @media (prefers-color-scheme: dark) {
       body:not([data-theme="light"]) {
-        --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+        --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
   --color-brand-primary: #800a0a;
   --color-brand-content: #800a0a;
   
@@ -199,7 +200,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">zerohertzLib v1.1.9 documentation</div></a>
+      <a href="../index.html"><div class="brand">zerohertzLib v1.2.0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -221,12 +222,11 @@
     <div class="sidebar-container">
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
-  
   <div class="sidebar-logo-container">
     <img class="sidebar-logo" src="../_static/zerohertzLib-tp-red.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">zerohertzLib v1.1.9 documentation</span>
+  <span class="sidebar-brand-text">zerohertzLib v1.2.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -250,6 +250,7 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../release.html">Release Notes</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Release Notes</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="v1.2.html">v1.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="v1.1.html">v1.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="v1.0.html">v1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="v0.9.html">v0.9</a></li>
@@ -289,7 +290,7 @@
     <span class="visually-hidden">View this page</span>
   </a>
 </div><div class="edit-this-page">
-  <a class="muted-link" href="https://github.com/Zerohertz/zerohertzLib/edit/master/sphinx/source/release/v0.7.md" title="Edit this page">
+  <a class="muted-link" href="https://github.com/Zerohertz/zerohertzLib/edit/master/sphinx/source/release/v0.7.md" rel="edit" title="Edit this page">
     <svg><use href="#svg-pencil"></use></svg>
     <span class="visually-hidden">Edit this page</span>
   </a>
@@ -715,10 +716,10 @@
   </div>
 </div><script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../_static/documentation_options.js?v=80dc2558"></script>
+    <script src="../_static/documentation_options.js?v=95484ca5"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
     </body>
