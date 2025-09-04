@@ -2,6 +2,39 @@
 
 ## v1.2.0
 
+<h3>[v1.2.0] Docs update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/357>#357</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2025/09/04
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:fix"><img src="https://img.shields.io/badge/fix-d73a4a?style=flat-square&logo=github" alt="fix"/></a>
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release/chore"><img src="https://img.shields.io/badge/release/chore-22FD7F?style=flat-square&logo=github" alt="release/chore"/></a>
+</p>
+
+
+<h4>Docs</h4>
+
+- Release note의 오타 수정
+<h3>[v1.2.0] Docs update (<a href=https://github.com/Zerohertz/zerohertzLib/pull/355>#355</a>)</h3>
+
+```{admonition} Release Date
+:class: tip
+
+2025/09/04
+```
+
+<p align="center">
+<a href="https://github.com/Zerohertz/zerohertzLib/pulls?q=is:pr label:release/chore"><img src="https://img.shields.io/badge/release/chore-22FD7F?style=flat-square&logo=github" alt="release/chore"/></a>
+</p>
+
+
+<h4>Docs</h4>
+
+- 누락된 `DiscordWebhook` 및 `DiscordBot`의 예제 update
 <h3>[v1.2.0] Release (<a href=https://github.com/Zerohertz/zerohertzLib/pull/353>#353</a>)</h3>
 
 ```{admonition} Release Date
@@ -33,5 +66,5 @@
 
 <h4>Style</h4>
 
-- `black` 및 flake8` 제거 → `ruff`로 migration
+- `black` 및 `flake8` 제거 → `ruff`로 migration
 
