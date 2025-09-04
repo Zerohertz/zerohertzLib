@@ -35,7 +35,7 @@ class DiscordWebhook:
         webhook_url (``str``): Discord Webhook의 URL
 
     Examples:
-        >>> discord = zz.api.Discord("https://discord.com/api/webhooks/...")
+        >>> discord = zz.api.DiscordWebhook("https://discord.com/api/webhooks/...")
     """
 
     def __init__(self, webhook_url: str) -> None:
@@ -72,7 +72,7 @@ class DiscordWebhook:
             ``List[requests.models.Response]``: Discord Webhook의 응답
 
         Examples:
-            >>> discord = zz.api.Discord("https://discord.com/api/webhooks/...")
+            >>> discord = zz.api.DiscordWebhook("https://discord.com/api/webhooks/...")
             >>> discord.message("Testing...")
             [<Response [204]>]
         """
@@ -97,7 +97,7 @@ class DiscordWebhook:
             ``requests.models.Response``: Discord Webhook의 응답
 
         Examples:
-            >>> discord = zz.api.Discord("https://discord.com/api/webhooks/...")
+            >>> discord = zz.api.DiscordWebhook("https://discord.com/api/webhooks/...")
             >>> zz.api.image("test.jpg")
             <Response [200]>
         """
@@ -212,7 +212,7 @@ class DiscordBot:
             ``requests.models.Response``: Discord Bot의 응답
 
         Examples:
-            >>> response = bot.file("test.jpg")
+            >>> response = discord.file("test.jpg")
             >>> response
             <Response [200]>
         """
