@@ -213,8 +213,8 @@ class GitHub:
     ) -> None:
         """
         Args:
-            name (``str | None``): Release note file 및 directory의 이름
-            sphinx_source_path (``str | None``): Sphinx의 ``source`` 경로
+            name (``str``): Release note file 및 directory의 이름
+            sphinx_source_path (``str``): Sphinx의 ``source`` 경로
 
         Examples:
             >>> gh = zz.api.GitHub("Zerohertz", "zerohertzLib", token="ghp_...")

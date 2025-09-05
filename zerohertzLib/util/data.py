@@ -37,7 +37,7 @@ def rmtree(path: str) -> None:
     """지정한 경로의 file을 삭제하고 다시 생성하는 함수
 
     Args:
-        path (``str | None``): 삭제 후 생성할 경로
+        path (``str``): 삭제 후 생성할 경로
 
     Returns:
         ``None``
@@ -63,17 +63,17 @@ class MakeData(ABC):
         Abstract Base Class: Data 구축 시 filtering 될 조건을 정의하는 abstract method ``condition`` 정의 후 사용
 
     Args:
-        start_data_path (``str | None``): 목표 data가 존재하는 directory 경로
-        start_json_path (``str | None``): 목표 JSON file이 존재하는 directory 경로
+        start_data_path (``str``): 목표 data가 존재하는 directory 경로
+        start_json_path (``str``): 목표 JSON file이 존재하는 directory 경로
         json_key (``str``): ``start_json`` 에서 data의 file 이름을 나타내는 key 값
-        target_path (``str | None``): Data 구축 경로
+        target_path (``str``): Data 구축 경로
         end_data_dir (``str``): 구축될 data file들의 directory 이름
         end_json_dir (``str``): 구축될 JSON file들의 directory 이름
 
     Attributes:
         json (``JsonDir``): JSON file들을 읽어 data 구축 시 활용
-        end_data_path (``str | None``): ``{target_path}/{end_data_dir}``
-        end_json_path (``str | None``): ``{target_path}/{end_json_dir}``
+        end_data_path (``str``): ``{target_path}/{end_data_dir}``
+        end_json_path (``str``): ``{target_path}/{end_json_dir}``
     """
 
     def __init__(
@@ -236,7 +236,7 @@ def find_ext(path: str = "") -> dict[str, int]:
     """경로 내 확장자의 수 탐색
 
     Args:
-        path (``str | None``): 확장자를 찾을 경로
+        path (``str``): 확장자를 찾을 경로
 
     Returns:
         ``dict[str, int]``: 확장자에 따른 file의 수

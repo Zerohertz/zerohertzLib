@@ -32,7 +32,7 @@ def read_csv(path: str, header: bool = True) -> dict[int | str, list[str]]:
 
     Args:
         path (``str``): 입력될 CSV 혹은 TSV 경로 및 file 이름
-        header (``bool | None``): Header의 존재 유무
+        header (``bool``): Header의 존재 유무
 
     Returns:
         ``dict[int | str, list[str]]``: Header의 값을 기반으로 column에 따라 `list` 로 구성
@@ -80,7 +80,7 @@ def write_csv(data: list[list[Any]], path: str, tsv: bool = False) -> str:
     Args:
         data (``list[list[Any]]``): 입력 data (header 포함 무관)
         path (``str``): 출력될 CSV 혹은 TSV 경로 및 file 이름
-        tsv (``bool | None``): TSV 작성 여부
+        tsv (``bool``): TSV 작성 여부
 
     Returns:
         ``str``: File의 절대 경로

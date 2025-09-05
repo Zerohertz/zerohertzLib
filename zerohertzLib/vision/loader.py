@@ -357,9 +357,9 @@ class YoloLoader:
         YOLO format의 data를 Label Studio에서 확인 및 수정할 수 있게 변환
 
         Args:
-            directory (``str | None``): Label Studio 내 ``/home/user/{directory}`` 의 이름
+            directory (``str``): Label Studio 내 ``/home/user/{directory}`` 의 이름
             labels (``list[str | None]``): YOLO format의 ``.txt`` 상에서 index에 따른 label의 이름
-            mp_num (``int | None``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
+            mp_num (``int``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
 
         Returns:
             ``None``: ``{path}.json`` 으로 결과 저장
@@ -554,7 +554,7 @@ class CocoLoader:
         Args:
             target_path (``str``): YOLO format data가 저장될 경로
             label (``list[str | None]``): COCO에서 사용한 label을 정수로 변환하는 list (index 사용)
-            poly (``bool | None``): Segmentation format 유무
+            poly (``bool``): Segmentation format 유무
 
         Returns:
             ``None``: ``{target_path}/images`` 및 ``{target_path}/labels`` 에 image와 `.txt` file 저장

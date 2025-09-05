@@ -138,9 +138,9 @@ class TritonClientURL(grpcclient.InferenceServerClient):
         """Triton Inferece Server의 상태를 확인하는 함수
 
         Args:
-            renew: (``bool | None``): 각 모델의 상태 조회 시 갱신 여부
-            sortby (``str | None``): 정렬 기준
-            reverse (``bool | None``): 정렬 역순 여부
+            renew: (``bool``): 각 모델의 상태 조회 시 갱신 여부
+            sortby (``str``): 정렬 기준
+            reverse (``bool``): 정렬 역순 여부
 
         Examples:
             >>> tc.status()
@@ -202,7 +202,7 @@ class TritonClientURL(grpcclient.InferenceServerClient):
             model_name (``int | str``): Load할 model의 이름 또는 ID
             headers (``str | None``): Request 전송 시 포함할 추가 HTTP header
             config (``str | None``): Model load 시 사용될 config
-            config (``str | None``): Model load 시 override model directory에서 사용할 file
+            files (``str | None``): Model load 시 override model directory에서 사용할 file
             client_timeout (``float | None``): 초 단위의 timeout
 
         Examples:
@@ -225,7 +225,7 @@ class TritonClientURL(grpcclient.InferenceServerClient):
         Args:
             model_name (``int | str``): Unload할 model의 이름 또는 ID
             headers (``str | None``): Request 전송 시 포함할 추가 HTTP header
-            unload_dependents (``bool | None``): Model unload 시 dependents의 unload 여부
+            unload_dependents (``bool``): Model unload 시 dependents의 unload 여부
             client_timeout (``float | None``): 초 단위의 timeout
 
         Examples:

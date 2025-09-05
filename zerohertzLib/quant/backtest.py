@@ -184,7 +184,7 @@ def experiments(
         title (``str``): 종목 이름
         data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         method (``Callable[[Any], pd.DataFrame]``): Full factorial을 수행할 전략 function
-        exps (``list[list[Any]] | None``): 전략 function에 입력될 변수들의 범위
+        exps (``list[list[Any]]``): 전략 function에 입력될 변수들의 범위
         ohlc (``str``): 사용할 ``data`` 의 column 이름
         vis (``bool``): Candle chart 시각화 여부
         dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)

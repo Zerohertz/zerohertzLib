@@ -182,7 +182,7 @@ class KoreaInvestment:
 
         Args:
             symbol (``str``): 종목 code
-            kor (``bool | None``): 국내 여부
+            kor (``bool``): 국내 여부
 
         Returns:
             ``dict[str, dict]``: 주식 현재가 시세
@@ -263,11 +263,11 @@ class KoreaInvestment:
 
         Args:
             symbol (``str``): 종목 code
-            time_frame (``str | None``): 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월, ``"Y"``: 년)
-            start_day (``str | None``): 조회 시작 일자 (``YYYYMMDD``)
-            end_day (``str | None``): 조회 종료 일자 (``YYYYMMDD``)
-            adj_price (``bool | None``): 수정 주가 반영 여부
-            kor (``bool | None``): 국내 여부
+            time_frame (``str``): 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월, ``"Y"``: 년)
+            start_day (``str``): 조회 시작 일자 (``YYYYMMDD``)
+            end_day (``str``): 조회 종료 일자 (``YYYYMMDD``)
+            adj_price (``bool``): 수정 주가 반영 여부
+            kor (``bool``): 국내 여부
 
         Returns:
             ``dict[str, dict]``: OHLCV (Open, High, Low, Close, Volume)
@@ -300,10 +300,10 @@ class KoreaInvestment:
 
         Args:
             symbol (``str``): 종목 code
-            time_frame (``str | None``): 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월, ``"Y"``: 년)
-            start_day (``str | None``): 조회 시작 일자 (``YYYYMMDD``)
-            end_day (``str | None``): 조회 종료 일자 (``YYYYMMDD``)
-            adj_price (``bool | None``): 수정 주가 반영 여부
+            time_frame (``str``): 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월, ``"Y"``: 년)
+            start_day (``str``): 조회 시작 일자 (``YYYYMMDD``)
+            end_day (``str``): 조회 종료 일자 (``YYYYMMDD``)
+            adj_price (``bool``): 수정 주가 반영 여부
 
         Returns:
             ``dict[str, dict]``: 국내 주식의 기간별 시세
@@ -365,10 +365,10 @@ class KoreaInvestment:
 
         Args:
             symbol (``str``): 종목 code
-            time_frame (``str | None``): 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월)
-            start_day (``str | None``): 조회 시작 일자 (``YYYYMMDD``)
-            end_day (``str | None``): 조회 종료 일자 (``YYYYMMDD``)
-            adj_price (``bool | None``): 수정 주가 반영 여부
+            time_frame (``str``): 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월)
+            start_day (``str``): 조회 시작 일자 (``YYYYMMDD``)
+            end_day (``str``): 조회 종료 일자 (``YYYYMMDD``)
+            adj_price (``bool``): 수정 주가 반영 여부
 
         Returns:
             ``dict[str, dict]``: 해외 주식의 기간별 시세
@@ -492,11 +492,11 @@ class KoreaInvestment:
 
         Args:
             symbols (``list[str]``): 종목 code들
-            time_frame (``str | None``): 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월, ``"Y"``: 년)
-            start_day (``str | None``): 조회 시작 일자 (``YYYYMMDD``)
-            end_day (``str | None``): 조회 종료 일자 (``YYYYMMDD``)
-            adj_price (``bool | None``): 수정 주가 반영 여부
-            kor (``bool | None``): 국내 여부
+            time_frame (``str``): 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월, ``"Y"``: 년)
+            start_day (``str``): 조회 시작 일자 (``YYYYMMDD``)
+            end_day (``str``): 조회 종료 일자 (``YYYYMMDD``)
+            adj_price (``bool``): 수정 주가 반영 여부
+            kor (``bool``): 국내 여부
 
         Returns:
             ``tuple[list[str], list[pd.DataFrame]]``: Code들에 따른 종목의 이름과 OHLCV (Open, High, Low, Close, Volume)
@@ -533,7 +533,7 @@ class KoreaInvestment:
         """주식 계좌 잔고 조회
 
         Args:
-            kor (``bool | None``): 국내 여부
+            kor (``bool``): 국내 여부
 
         Returns:
             ``dict[str, dict]``: 계좌 내역
@@ -584,7 +584,7 @@ class KoreaInvestment:
         실전계좌의 경우, 한 번의 호출에 최대 50건까지 확인 가능하며, 이후의 값은 연속조회를 통해 확인하실 수 있습니다.
 
         Args:
-            ctx_area_fk100 (``str | None``): 연속조회검색조건100
+            ctx_area_fk100 (``str``): 연속조회검색조건100
             ctx_areak_nk100 (``str``): 연속조회키100
 
         Returns:
@@ -707,7 +707,7 @@ class KoreaInvestment:
         """주식 잔고 조회 실현손익 [v1_국내주식-041]
 
         Args:
-            ctx_area_fk100 (``str | None``): 연속조회검색조건100
+            ctx_area_fk100 (``str``): 연속조회검색조건100
             ctx_areak_nk100 (``str``): 연속조회키100
 
         Returns:
