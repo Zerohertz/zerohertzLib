@@ -15,8 +15,8 @@ __all__ = [
     "DiscordBot",
     "DiscordWebhook",
     "GitHub",
-    "OpenAI",
-    "SlackWebhook",
-    "SlackBot",
     "KoreaInvestment",
+    "OpenAI",
+    "SlackBot",
+    "SlackWebhook",
 ]

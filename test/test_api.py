@@ -40,21 +40,21 @@ def test_slack_bot_file() -> None:
         SLACK_BOT_TOKEN, "test", name="Test Bot", icon_emoji="hammer"
     )
     time.sleep(random.randrange(TIME_SLEEP))
-    response = slack.file(f"{data}/test.jpg")
+    response = slack.file(os.path.join(data, "test.jpg"))
     assert response.status_code == 200
 
 
 def test_discord_webhook_message() -> None:
     discord = zz.api.DiscordWebhook(DISCORD_WEBHOOK_URL)
     time.sleep(random.randrange(TIME_SLEEP))
-    for response in discord.message("Testing..." * 200):
-        assert response.status_code == 204
+    response = discord.message("Testing...")
+    assert response.status_code == 204
 
 
-def test_discord_webhook_image() -> None:
+def test_discord_webhook_file() -> None:
     discord = zz.api.DiscordWebhook(DISCORD_WEBHOOK_URL)
     time.sleep(random.randrange(TIME_SLEEP))
-    response = discord.image(f"{data}/test.jpg")
+    response = discord.file(os.path.join(data, "test.jpg"))
     assert response.status_code == 200
 
 
@@ -112,7 +112,7 @@ print([fibonacci(i) for i in range(10)])"""
 def test_discord_bot_file() -> None:
     discord = zz.api.DiscordBot(DISCORD_BOT_TOKEN, DISCORD_BOT_CHANNEL)
     time.sleep(random.randrange(TIME_SLEEP))
-    response = discord.file(f"{data}/test.jpg")
+    response = discord.file(os.path.join(data, "test.jpg"))
     assert response.status_code == 200
 
 
@@ -128,8 +128,8 @@ def test_discord_bot_create_thread() -> None:
 
     # 스레드 생성
     time.sleep(2)
-    thread_response = discord.create_thread("Test Thread", message_id)
-    assert thread_response.status_code in [200, 201]
+    thread_response = discord.create_thread(message_id, "Test Thread")
+    assert thread_response.status_code == 201
     time.sleep(random.randrange(TIME_SLEEP))
 
     # 스레드에 댓글 작성
@@ -140,7 +140,7 @@ def test_discord_bot_create_thread() -> None:
     assert reply_response.status_code == 200
 
 
-def test_github_release_note():
+def test_github_release_note() -> None:
     gh = zz.api.GitHub(token=GH_TOKEN)
     gh.release_note()
 
