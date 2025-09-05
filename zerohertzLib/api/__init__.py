@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
+
 """
 .. admonition:: API
     :class: hint
@@ -8,7 +11,6 @@
 from zerohertzLib.api.discord import DiscordBot, DiscordWebhook
 from zerohertzLib.api.github import GitHub
 from zerohertzLib.api.koreainvestment import KoreaInvestment
-from zerohertzLib.api.open_ai import OpenAI
 from zerohertzLib.api.slack import SlackBot, SlackWebhook
 
 __all__ = [
@@ -16,7 +18,6 @@ __all__ = [
     "DiscordWebhook",
     "GitHub",
     "KoreaInvestment",
-    "OpenAI",
     "SlackBot",
     "SlackWebhook",
 ]

@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
+
 import os
 import random
 import time
@@ -6,7 +9,6 @@ import pytest
 
 import zerohertzLib as zz
 
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
 DISCORD_BOT_TOKEN = os.environ.get("DISCORD_BOT_TOKEN")
 DISCORD_BOT_CHANNEL = os.environ.get("DISCORD_BOT_CHANNEL")
@@ -153,13 +155,3 @@ def test_discord_bot_create_thread() -> None:
 def test_github_release_note() -> None:
     gh = zz.api.GitHub(token=GH_TOKEN)
     gh.release_note()
-
-
-# def test_openai():
-#     client = zz.api.OpenAI(OPENAI_API_KEY)
-#     response = client("오늘 기분이 어때? 1줄로 대답해줘.", model="gpt3.5")
-#     assert isinstance(response, str)
-#     slack = zz.api.SlackBot(
-#         SLACK_BOT_TOKEN, "test", name="Test Bot", icon_emoji="hammer"
-#     )
-#     slack.message(response)
