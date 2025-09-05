@@ -33,7 +33,6 @@ from typing import Any
 
 import FinanceDataReader as fdr
 import pandas as pd
-from slack_sdk.web import SlackResponse
 
 from zerohertzLib.api import DiscordBot, SlackBot
 from zerohertzLib.api.base import MockedBot
@@ -548,7 +547,8 @@ class QuantBot(ABC):
         if self.mp_num == 0 or self.mp_num >= len(symbols):
             for symbol in symbols:
                 report, quant = self._run([symbol, mode])
-                self._send(report)
+                if report is not None:
+                    self._send(report)
                 if self.analysis and quant is not None:
                     self._analysis_update(quant)
         else:
@@ -556,7 +556,8 @@ class QuantBot(ABC):
             with mp.Pool(processes=self.mp_num) as pool:
                 results = pool.map(self._run, args)
             for report, quant in results:
-                self._send(report)
+                if report is not None:
+                    self._send(report)
                 if self.analysis and quant is not None:
                     self._analysis_update(quant)
         if self.analysis:
