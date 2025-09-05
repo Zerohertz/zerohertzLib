@@ -26,7 +26,7 @@ copyright = "2023, Zerohertz"
 author = "Zerohertz"
 
 # The full version, including alpha/beta/rc tags
-import zerohertzLib as zz
+import zerohertzLib as zz  # noqa: E402
 
 release = zz.__version__
 
