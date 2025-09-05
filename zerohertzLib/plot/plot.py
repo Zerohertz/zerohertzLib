@@ -45,7 +45,7 @@ def plot(
     title: str = "tmp",
     colors: str | list | None = None,
     markersize: int = 12,
-    figsize: tuple[int] = (15, 10),
+    figsize: tuple[int, int] = (15, 10),
     dpi: int = 300,
 ) -> str:
     """List와 Dictionary로 입력받은 data를 line chart로 시각화
@@ -62,7 +62,7 @@ def plot(
         title (``str``): Graph에 표시될 제목 및 file 이름
         colors (``str | list | None``): 각 요소의 색
         markersize (``int``): Graph에 표시될 marker의 size
-        figsize (``tuple[int]``): Graph의 가로, 세로 길이
+        figsize (``tuple[int, int]``): Graph의 가로, 세로 길이
         dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
@@ -139,9 +139,9 @@ def plot(
 def candle(
     data: pd.DataFrame,
     title: str = "tmp",
-    figsize: tuple[int] = (18, 10),
+    figsize: tuple[int, int] = (18, 10),
     signals: dict[str, Any] | None = None,
-    threshold: int | tuple[int] = 1,
+    threshold: int | tuple[int, int] = 1,
     dpi: int = 300,
 ) -> str:
     """OHLCV (Open, High, Low, Close, Volume) data에 따른 candle chart
@@ -156,9 +156,9 @@ def candle(
     Args:
         data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         title (``str``): Graph에 표시될 제목 및 file 이름
-        figsize (``tuple[int]``): Graph의 가로, 세로 길이
+        figsize (``tuple[int, int]``): Graph의 가로, 세로 길이
         signals (``dict[str, Any] | None``): 추가적으로 plot할 data
-        threshold (``int | tuple[int]``): 매수, 매도를 결정할 ``signals`` 경계값
+        threshold (``int | tuple[int, int]``): 매수, 매도를 결정할 ``signals`` 경계값
         dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:

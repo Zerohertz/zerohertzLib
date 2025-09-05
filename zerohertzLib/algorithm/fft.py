@@ -45,14 +45,14 @@ def fft(sig: list[complex], inv: bool = False) -> list[complex]:
     if length == 1:
         return sig
     if not inv:
-        sig_even = fft(sig[0::2], 0)
-        sig_odd = fft(sig[1::2], 0)
+        sig_even = fft(sig[0::2], False)
+        sig_odd = fft(sig[1::2], False)
         weight = [exp(2j * pi * i / length) for i in range(length // 2)]
         return [sig_even[i] + weight[i] * sig_odd[i] for i in range(length // 2)] + [
             sig_even[i] - weight[i] * sig_odd[i] for i in range(length // 2)
         ]
-    sig_even = fft(sig[0::2], 1)
-    sig_odd = fft(sig[1::2], 1)
+    sig_even = fft(sig[0::2], True)
+    sig_odd = fft(sig[1::2], True)
     weight = [exp(-2j * pi * i / length) for i in range(length // 2)]
     return [sig_even[i] + weight[i] * sig_odd[i] for i in range(length // 2)] + [
         sig_even[i] - weight[i] * sig_odd[i] for i in range(length // 2)

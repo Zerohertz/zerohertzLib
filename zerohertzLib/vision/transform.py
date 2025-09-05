@@ -33,16 +33,16 @@ from .util import _cvt_bgra
 
 def pad(
     img: NDArray[np.uint8],
-    shape: tuple[int],
-    color: tuple[int] = (255, 255, 255),
+    shape: tuple[int, int],
+    color: tuple[int, int, int] = (255, 255, 255),
     poly: NDArray[DTypeLike] | None = None,
 ) -> tuple[NDArray[np.uint8], tuple[float, int, int] | NDArray[DTypeLike]]:
     """입력 image를 원하는 shape로 resize 및 pad
 
     Args:
         img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
-        shape (``tuple[int]``): 출력의 shape ``(H, W)``
-        color (``tuple[int]``): Padding의 색
+        shape (``tuple[int, int]``): 출력의 shape ``(H, W)``
+        color (``tuple[int, int, int]``): Padding의 색
         poly (``NDArray[DTypeLike] | None``): Padding에 따라 변형될 좌표 (``[N, 2]``)
 
     Returns:

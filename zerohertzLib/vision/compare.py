@@ -112,7 +112,7 @@ def before_after(
 def grid(
     imgs: list[NDArray[np.uint8]],
     size: int = 1000,
-    color: tuple[int] = (255, 255, 255),
+    color: tuple[int, int, int] = (255, 255, 255),
     file_name: str = "tmp",
 ) -> None:
     """여러 image를 입력받아 정방형 image로 병합
@@ -120,7 +120,7 @@ def grid(
     Args:
         imgs (``list[NDArray[np.uint8]]``): 입력 image
         size (``int``): 출력 image의 크기
-        color (``tuple[int]``): Padding의 색
+        color (``tuple[int, int, int]``): Padding의 색
         file_name (``str``): 저장될 file의 이름
 
     Returns:

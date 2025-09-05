@@ -40,7 +40,7 @@ def barv(
     ylim: list[int | float] | None = None,
     title: str = "tmp",
     colors: str | list | None = None,
-    figsize: tuple[int] = (15, 10),
+    figsize: tuple[int, int] = (15, 10),
     rot: int = 0,
     dim: str | None = None,
     dimsize: float = 10,
@@ -57,7 +57,7 @@ def barv(
         ylim (``list[int | float] | None``): Graph에 출력될 Y축 limit
         title (``str``): Graph에 표시될 제목 및 file 이름
         colors (``str | list | None``): 각 요소의 색
-        figsize (``tuple[int]``): Graph의 가로, 세로 길이
+        figsize (``tuple[int, int]``): Graph의 가로, 세로 길이
         rot (``int``): X축의 눈금 회전 각도
         dim (``str | None``): 각 bar 상단에 표시될 값의 단위 (``%``: percentage)
         dimsize (``float``): 각 bar 상단에 표시될 값의 크기
@@ -188,7 +188,7 @@ def barh(
     ylim: list[int | float] | None = None,
     title: str = "tmp",
     colors: str | list | None = None,
-    figsize: tuple[int] = (10, 15),
+    figsize: tuple[int, int] = (10, 15),
     rot: int = 0,
     dim: str | None = None,
     dimsize: float = 10,
@@ -205,7 +205,7 @@ def barh(
         ylim (``list[int | float] | None``): Graph에 출력될 Y축 limit
         title (``str``): Graph에 표시될 제목 및 file 이름
         colors (``str | list | None``): 각 요소의 색
-        figsize (``tuple[int]``): Graph의 가로, 세로 길이
+        figsize (``tuple[int, int]``): Graph의 가로, 세로 길이
         rot (``int``): X축의 눈금 회전 각도
         dim (``str | None``): 각 bar 상단에 표시될 값의 단위 (``%``: percentage)
         dimsize (``float``): 각 bar 상단에 표시될 값의 크기
@@ -337,7 +337,7 @@ def hist(
     colors: str | list | None = None,
     cnt: int = 30,
     ovp: bool = True,
-    figsize: tuple[int] = (15, 10),
+    figsize: tuple[int, int] = (15, 10),
     dpi: int = 300,
 ) -> str:
     """Dictionary로 입력받은 data를 histogram으로 시각화
@@ -352,7 +352,7 @@ def hist(
         colors (``str | list | None``): 각 요소의 색
         cnt (``int``): Bin의 개수
         ovp (``bool``): Class에 따른 histogram overlap 여부
-        figsize (``tuple[int]``): Graph의 가로, 세로 길이
+        figsize (``tuple[int, int]``): Graph의 가로, 세로 길이
         dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:

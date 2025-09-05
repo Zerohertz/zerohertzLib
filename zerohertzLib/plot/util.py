@@ -34,11 +34,11 @@ from matplotlib.figure import Figure
 from . import config
 
 
-def figure(figsize: tuple[int] = (15, 10)) -> Figure:
+def figure(figsize: tuple[int, int] = (15, 10)) -> Figure:
     """Graph 생성을 위한 함수
 
     Args:
-        figsize (``tuple[int]``): Graph의 가로, 세로 길이
+        figsize (``tuple[int, int]``): Graph의 가로, 세로 길이
 
     Returns:
         ``matplotlib.figure.Figure``: Graph window 생성
@@ -102,7 +102,12 @@ def color(
     rand: bool = False,
     uint8: bool = False,
     palette: str = "husl",
-) -> tuple[float] | list[int] | list[tuple[float]] | list[list[int]]:
+) -> (
+    tuple[float, float, float]
+    | list[int]
+    | list[tuple[float, float, float]]
+    | list[list[int]]
+):
     """색 추출 함수
 
     Args:
@@ -112,7 +117,7 @@ def color(
         palette (``str``): 추출할 색들의 palette
 
     Returns:
-        ``tuple[float] | list[int] | list[tuple[float]] | list[list[int]]``: 단일 색 또는 list로 구성된 여러 색
+        ``tuple[float, float, float] | list[int] | list[tuple[float, float, float]] | list[list[int]]``: 단일 색 또는 list로 구성된 여러 색
 
     Examples:
         >>> zz.plot.color()
@@ -149,7 +154,7 @@ def color(
     return sns.color_palette(palette, n_colors=cnt)
 
 
-def _color(data: Any, colors: Any) -> list[tuple[float] | str]:
+def _color(data: Any, colors: Any) -> list[tuple[float, float, float] | str]:
     if isinstance(colors, list):
         if len(data) > len(colors):
             return colors + ["black" for _ in range(len(data) - len(colors))]

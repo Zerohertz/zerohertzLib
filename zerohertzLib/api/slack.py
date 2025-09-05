@@ -73,9 +73,7 @@ class SlackWebhook(AbstractWebhook):
             self.data["icon_url"] = icon_url
         self.timeout = timeout
 
-    def message(
-        self, message: str, codeblock: str | bool = False
-    ) -> requests.models.Response:
+    def message(self, message: str, codeblock: str | bool = False) -> requests.Response:
         """Slack Webhook을 통해 message 전송
 
         Args:

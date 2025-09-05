@@ -321,7 +321,7 @@ def _prc_curve(
 
 
 def _pr_curve(
-    pr_curve: dict[str, list[tuple[float]]], classes: set[str], map_: float
+    pr_curve: dict[str, list[tuple[float, float]]], classes: set[str], map_: float
 ) -> None:
     figure()
     if len(classes) == 1:

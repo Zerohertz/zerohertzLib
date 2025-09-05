@@ -60,7 +60,7 @@ def backtest(
     data: pd.DataFrame,
     signals: pd.DataFrame,
     ohlc: str = "",
-    threshold: int | tuple[int] = 1,
+    threshold: int | tuple[int, int] = 1,
     signal_key: str = "signals",
 ) -> dict[str, Any]:
     """전략에 의해 생성된 ``signals`` backtest
@@ -69,7 +69,7 @@ def backtest(
         data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         signals (``pd.DataFrame``): ``"signals"`` column이 포함된 data (다른 이름으로 지정했을 시 ``signal_key`` 사용)
         ohlc (``str``): 사용할 ``data`` 의 column 이름
-        threshold (``int | tuple[int]``): 매수, 매도를 결정할 ``signals`` 경계값
+        threshold (``int | tuple[int, int]``): 매수, 매도를 결정할 ``signals`` 경계값
         signal_key (``str``): ``"signals"`` 의 key 값
 
     Returns:

@@ -39,7 +39,7 @@ from .util import _cvt_bgra, _is_bbox
 def _bbox(
     img: NDArray[np.uint8],
     box_poly: NDArray[DTypeLike],
-    color: tuple[int],
+    color: tuple[int, int, int],
     thickness: int,
 ) -> NDArray[np.uint8]:
     """Bbox 시각화
@@ -47,7 +47,7 @@ def _bbox(
     Args:
         img (``NDArray[np.uint8]``): Input image (``[H, W, C]``)
         box_poly (``NDArray[DTypeLike]``): 하나의 bbox (``[4, 2]``)
-        color (``tuple[int]``): bbox의 색
+        color (``tuple[int, int, int]``): bbox의 색
         thickness (``int``): bbox 선의 두께
 
     Returns:
@@ -65,7 +65,7 @@ def _bbox(
 def bbox(
     img: NDArray[np.uint8],
     box: list[int | float] | NDArray[DTypeLike],
-    color: tuple[int] = (0, 0, 255),
+    color: tuple[int, int, int] = (0, 0, 255),
     thickness: int = 2,
 ) -> NDArray[np.uint8]:
     """여러 Bbox 시각화
@@ -73,7 +73,7 @@ def bbox(
     Args:
         img (``NDArray[np.uint8]``): Input image (``[H, W, C]``)
         box (``list[int | float] | NDArray[DTypeLike]``): 하나 혹은 여러 개의 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
-        color (``tuple[int]``): bbox의 색
+        color (``tuple[int, int, int]``): bbox의 색
         thickness (``int``): bbox 선의 두께
 
     Returns:
@@ -121,9 +121,9 @@ def mask(
     poly: (
         list[int | float] | NDArray[DTypeLike] | list[NDArray[DTypeLike]] | None
     ) = None,
-    color: tuple[int] = (0, 0, 255),
+    color: tuple[int, int, int] = (0, 0, 255),
     class_list: list[int | str] | None = None,
-    class_color: dict[int | str, tuple[int]] | None = None,
+    class_color: dict[int | str, tuple[int, int, int]] | None = None,
     border: bool = True,
     alpha: float = 0.5,
 ) -> NDArray[np.uint8]:
@@ -133,9 +133,9 @@ def mask(
         img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
         mks (``NDArray[bool] | None``): 입력 image 위에 병합할 mask (``[H, W]`` or ``[N, H, W]``)
         poly (``list[int | float] | NDArray[DTypeLike] | list[NDArray[DTypeLike]] | None``): 입력 image 위에 병합할 mask (``[M, 2]`` or ``[N, M, 2]``)
-        color (``tuple[int]``): Mask의 색
+        color (``tuple[int, int, int]``): Mask의 색
         class_list (``list[int | str] | None``): ``mks`` 의 index에 따른 class
-        class_color (``dict[int | str, tuple[int]] | None``): Class에 따른 색 (``color`` 무시)
+        class_color (``dict[int | str, tuple[int, int, int]] | None``): Class에 따른 색 (``color`` 무시)
         border (``bool``): Mask의 경계선 표시 여부
         alpha (``float``): Mask의 투명도
 
@@ -237,14 +237,14 @@ def _paste(img: NDArray[np.uint8], target: NDArray[np.uint8]) -> NDArray[np.uint
 
 
 def _make_text(
-    txt: str, shape: tuple[int], color: tuple[int], fontsize: int
+    txt: str, shape: tuple[int, int], color: tuple[int, int, int], fontsize: int
 ) -> NDArray[np.uint8]:
     """배경이 투명한 문자열 image 생성
 
     Args:
         txt (``str``): 입력 문자열
-        shape (``tuple[int]``): 출력 image의 shape
-        color (``tuple[int]``): 문자의 색
+        shape (``tuple[int, int]``): 출력 image의 shape
+        color (``tuple[int, int, int]``): 문자의 색
         fontsize (``int``): 문자의 크기
 
     Returns:
@@ -272,7 +272,7 @@ def _text(
     img: NDArray[np.uint8],
     box_cwh: NDArray[DTypeLike],
     txt: str,
-    color: tuple[int],
+    color: tuple[int, int, int],
     fontsize: int,
 ) -> NDArray[np.uint8]:
     """단일 text 시각화
@@ -281,7 +281,7 @@ def _text(
         img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
         box_cwh (``NDArray[DTypeLike]``): 문자열이 존재할 bbox (``[4]``)
         txt (``str``): Image에 추가할 문자열
-        color (``tuple[int]``): 문자의 색
+        color (``tuple[int, int, int]``): 문자의 색
         fontsize (``int``): 문자의 크기
 
     Returns:
@@ -298,7 +298,7 @@ def text(
     img: NDArray[np.uint8],
     box: list[int | float] | NDArray[DTypeLike],
     txt: str | list[str],
-    color: tuple[int] = (0, 0, 0),
+    color: tuple[int, int, int] = (0, 0, 0),
     vis: bool = False,
     fontsize: int = 100,
 ) -> NDArray[np.uint8]:
@@ -308,7 +308,7 @@ def text(
         img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
         box (``list[int | float] | NDArray[DTypeLike]``): 문자열이 존재할 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
         txt (``str | list[str]``): Image에 추가할 문자열
-        color (``tuple[int]``): 문자의 색
+        color (``tuple[int, int, int]``): 문자의 색
         vis (``bool``): 문자 영역의 시각화 여부
         fontsize (``int``): 문자의 크기
 

@@ -45,14 +45,14 @@ def _cvt_bgra(img: NDArray[np.uint8]) -> NDArray[np.uint8]:
     return img
 
 
-def _is_bbox(shape: tuple[int]) -> tuple[bool]:
+def _is_bbox(shape: tuple[int, ...]) -> tuple[bool, bool]:
     """Bbox 여부 검증
 
     Args:
-        shape (``tuple[int]``): Bbox의 `shape`
+        shape (``tuple[int, ...]``): Bbox의 `shape`
 
     Returns:
-        ``tuple[bool]``: 복수의 bbox 여부 및 format의 정보
+        ``tuple[bool, bool]``: 복수의 bbox 여부 및 format의 정보
     """
     if len(shape) == 1 and shape[0] == 4:
         # [cx, cy, w, h] or N * [x0, y0, x1, y1]

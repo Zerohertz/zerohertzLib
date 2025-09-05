@@ -84,7 +84,7 @@ def dfs(maps: list[list[int]], start: int) -> list[int]:
     return results
 
 
-def floyd_warshall(graph: list[list[tuple[int, int]]]) -> list[list[int]]:
+def floyd_warshall(graph: list[list[tuple[int, int]]]) -> list[list[int]] | None:
     """Graph에서 모든 node 쌍 간의 최단 경로 거리 계산
 
     Note:
@@ -93,7 +93,7 @@ def floyd_warshall(graph: list[list[tuple[int, int]]]) -> list[list[int]]:
         - :math:`V`: Node의 수
 
     Args:
-        graph (``list[list[tuple[int, int]]]``): Index (간선의 시작 node)에 따른 간선의 도착 node와 가중치 정보
+        graph (``list[list[tuple[int, int]]] | None``): Index (간선의 시작 node)에 따른 간선의 도착 node와 가중치 정보
 
     Returns:
         ``list[list[int]]``: 모든 node 쌍에 대한 최단 경로 거리 (음의 cycle을 가질 시 ``None`` return)

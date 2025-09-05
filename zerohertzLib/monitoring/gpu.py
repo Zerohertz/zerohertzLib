@@ -90,7 +90,7 @@ def gpu_usages(
             break
 
 
-def _get_gpu_memory() -> list[tuple[float]]:
+def _get_gpu_memory() -> list[tuple[float, float]]:
     result = subprocess.check_output(
         [
             "nvidia-smi",

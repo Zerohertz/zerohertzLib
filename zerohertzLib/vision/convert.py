@@ -282,7 +282,7 @@ def poly2xyxy(
     return _poly2xyxy(box)
 
 
-def _poly2mask(poly: NDArray[DTypeLike], shape: tuple[int]) -> NDArray[bool]:
+def _poly2mask(poly: NDArray[DTypeLike], shape: tuple[int, int]) -> NDArray[bool]:
     poly = Path(poly)
     pts_x, pts_y = np.meshgrid(np.arange(shape[1]), np.arange(shape[0]))
     pts_x, pts_y = pts_x.flatten(), pts_y.flatten()
@@ -294,13 +294,13 @@ def _poly2mask(poly: NDArray[DTypeLike], shape: tuple[int]) -> NDArray[bool]:
 
 def poly2mask(
     poly: list[int | float] | NDArray[DTypeLike] | list[NDArray[DTypeLike]],
-    shape: tuple[int],
+    shape: tuple[int, int],
 ) -> NDArray[bool]:
     """다각형 좌표를 입력받아 mask로 변환
 
     Args:
         poly (``list[int | float] | NDArray[DTypeLike] | list[NDArray[DTypeLike]]``): Mask의 꼭짓점 좌표 (``[M, 2]`` or ``[N, M, 2]``)
-        shape (``tuple[int]``): 출력될 mask의 shape ``(H, W)``
+        shape (``tuple[int, int]``): 출력될 mask의 shape ``(H, W)``
 
     Returns:
         ``NDArray[bool]``: 변환된 mask (``[H, W]`` or ``[N, H, W]``)

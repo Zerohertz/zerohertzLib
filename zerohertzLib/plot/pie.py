@@ -33,7 +33,7 @@ def pie(
     dim: str | None = None,
     title: str = "tmp",
     colors: str | list | None = None,
-    figsize: tuple[int] = (15, 10),
+    figsize: tuple[int, int] = (15, 10),
     int_label: bool = True,
     dpi: int = 300,
 ) -> str:
@@ -44,7 +44,7 @@ def pie(
         dim (``str | None``): 입력 ``data`` 의 단위
         title (``str``): Graph에 표시될 제목 및 file 이름
         colors (``str | list | None``): 각 요소의 색
-        figsize (``tuple[int]``): Graph의 가로, 세로 길이
+        figsize (``tuple[int, int]``): Graph의 가로, 세로 길이
         int_label (``bool``): Label 내 수치의 소수점 표기 여부
         dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
 

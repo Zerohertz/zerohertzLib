@@ -55,7 +55,7 @@ class Quant(Experiments):
 
     Attributes:
         signals (``pd.DataFrame``): 융합된 전략의 signal
-        methods (``tuple[str]``): 융합된 전략명
+        methods (``tuple[str, ...]``): 융합된 전략명
         profit (``float``): 융합된 전략의 backtest profit
         buy (``int | float``): 융합된 전략의 backtest 시 총 매수
         sell (``int | float``): 융합된 전략의 backtest 시 총 매도
@@ -315,7 +315,7 @@ class QuantBot(ABC):
         self.kor = kor
         self.report = report
 
-    def _plot(self, quant: Quant) -> tuple[str]:
+    def _plot(self, quant: Quant) -> tuple[str, str]:
         candle_path = candle(
             quant.data[-500:],
             quant.title,

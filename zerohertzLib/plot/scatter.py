@@ -39,7 +39,7 @@ def scatter(
     title: str = "tmp",
     colors: str | list | None = None,
     markersize: int = 36,
-    figsize: tuple[int] = (15, 10),
+    figsize: tuple[int, int] = (15, 10),
     dpi: int = 300,
 ) -> str:
     """Dictionary로 입력받은 data를 scatter plot으로 시각화
@@ -55,7 +55,7 @@ def scatter(
         title (``str``): Graph에 표시될 제목 및 file 이름
         colors (``str | list | None``): 각 요소의 색
         markersize (``int``): Graph에 출력될 marker의 크기
-        figsize (``tuple[int]``): Graph의 가로, 세로 길이
+        figsize (``tuple[int, int]``): Graph의 가로, 세로 길이
         dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
