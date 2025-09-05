@@ -106,9 +106,7 @@ class Json:
     def __getitem__(self, key: int | str) -> Any:
         return self.data[key]
 
-    def __get_keys(
-        self, data: Any, key: str = "", front: str = ""
-    ) -> None:
+    def __get_keys(self, data: Any, key: str = "", front: str = "") -> None:
         if isinstance(data, dict):
             for idx, (key_, val_) in enumerate(data.items()):
                 if idx + 1 == len(data):

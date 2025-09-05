@@ -103,9 +103,7 @@ class Balance(KoreaInvestment):
             000.000
     """
 
-    def __init__(
-        self, account_no: str, path: str = "./", kor: bool = True
-    ) -> None:
+    def __init__(self, account_no: str, path: str = "./", kor: bool = True) -> None:
         super().__init__(account_no, path)
         self.balance = {"stock": defaultdict(list)}
         self.kor = kor
