@@ -445,7 +445,7 @@ class QuantBot(ABC):
 
     def _send(self, report: dict[str, str]) -> None:
         response = self.bot.message(report["main"])
-        thread_id = self.bot.get_thread_id(response, name=report["name"])
+        thread_id = self.bot.get_thread_id(response, name=report["main"])
         self.bot.file(report["candle"], thread_id=thread_id)
         response = self.bot.message(report["backtest"], thread_id=thread_id)
         self.bot.file(report["hist"], thread_id=thread_id)
