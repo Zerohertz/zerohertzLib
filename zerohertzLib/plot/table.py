@@ -22,32 +22,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import List, Optional, Tuple, Union
-
 from matplotlib import pyplot as plt
 
 from .util import savefig
 
 
 def table(
-    data: List[List[Union[int, float, str]]],
-    col: Optional[List[Union[int, float, str]]] = None,
-    row: Optional[List[Union[int, float, str]]] = None,
-    title: Optional[str] = "tmp",
-    fontsize: Optional[int] = 35,
-    figsize: Optional[Tuple[int]] = (20, 8),
-    dpi: Optional[int] = 300,
+    data: list[list[int | float | str]],
+    col: list[int | float | str] | None = None,
+    row: list[int | float | str] | None = None,
+    title: str | None = "tmp",
+    fontsize: int | None = 35,
+    figsize: tuple[int] | None = (20, 8),
+    dpi: int | None = 300,
 ) -> str:
     """Dictionary로 입력받은 data를 scatter plot으로 시각화
 
     Args:
-        data (``List[List[Union[int, float, str]]]``): ``len(row) X len(col)`` 의 크기를 가지는 list
-        col (``Optional[List[Union[int, float, str]]]]``): 열 (column)의 label
-        row (``Optional[List[Union[int, float, str]]]]``): 행 (row)의 label
-        title (``Optional[str]``): 저장될 file의 이름
-        fontsize (``Optional[int]``): 문자의 크기
-        figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
-        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        data (``list[list[int | float | str]]``): ``len(row) X len(col)`` 의 크기를 가지는 list
+        col (``list[int | float | str] | None]``): 열 (column)의 label
+        row (``list[int | float | str] | None]``): 행 (row)의 label
+        title (``str | None``): 저장될 file의 이름
+        fontsize (``int | None``): 문자의 크기
+        figsize (``tuple[int] | None``): Graph의 가로, 세로 길이
+        dpi (``int | None``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``str``: 저장된 graph의 절대 경로

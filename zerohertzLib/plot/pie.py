@@ -22,8 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import Dict, List, Optional, Tuple, Union
-
 from matplotlib import pyplot as plt
 
 from . import config
@@ -31,24 +29,24 @@ from .util import _color, savefig
 
 
 def pie(
-    data: Dict[str, Union[int, float]],
-    dim: Optional[str] = None,
-    title: Optional[str] = "tmp",
-    colors: Optional[Union[str, List]] = None,
-    figsize: Optional[Tuple[int]] = (15, 10),
-    int_label: Optional[bool] = True,
-    dpi: Optional[int] = 300,
+    data: dict[str, int | float],
+    dim: str | None = None,
+    title: str | None = "tmp",
+    colors: str | list | None = None,
+    figsize: tuple[int] | None = (15, 10),
+    int_label: bool | None = True,
+    dpi: int | None = 300,
 ) -> str:
     """Dictionary로 입력받은 data를 pie chart로 시각화
 
     Args:
-        data (``Dict[str, Union[int, float]]``): 입력 data
-        dim (``Optional[str]``): 입력 ``data`` 의 단위
-        title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
-        colors (``Optional[Union[str, List]]``): 각 요소의 색
-        figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
-        int_label (``Optional[bool]``): Label 내 수치의 소수점 표기 여부
-        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        data (``dict[str, int | float]``): 입력 data
+        dim (``str | None``): 입력 ``data`` 의 단위
+        title (``str | None``): Graph에 표시될 제목 및 file 이름
+        colors (``str | list | None``): 각 요소의 색
+        figsize (``tuple[int] | None``): Graph의 가로, 세로 길이
+        int_label (``bool | None``): Label 내 수치의 소수점 표기 여부
+        dpi (``int | None``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``str``: 저장된 graph의 절대 경로

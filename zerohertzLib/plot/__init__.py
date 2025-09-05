@@ -6,7 +6,6 @@
 """
 
 import os
-from typing import Optional
 
 from matplotlib import font_manager
 from matplotlib import pyplot as plt
@@ -21,12 +20,12 @@ from zerohertzLib.plot.util import color, figure, savefig, subplot
 FONT_PATH = os.path.join(os.path.dirname(__file__), "fonts")
 
 
-def font(kor: Optional[bool] = False, size: Optional[int] = 20) -> None:
+def font(kor: bool | None = False, size: int | None = 20) -> None:
     """``plot`` submodule 내 사용될 font 및 크기 설정
 
     Args:
-        kor (``Optional[bool]``): 한국어 여부
-        size (``Optional[int]``): Font의 크기
+        kor (``bool | None``): 한국어 여부
+        size (``int | None``): Font의 크기
 
     Returns:
         ``None``: ``plt.rcParams`` 을 통한 전역적 설정

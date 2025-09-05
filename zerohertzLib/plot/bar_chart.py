@@ -23,7 +23,7 @@ SOFTWARE.
 """
 
 import sys
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any
 
 import numpy as np
 from matplotlib import pyplot as plt
@@ -33,36 +33,36 @@ from .util import _color, savefig
 
 
 def barv(
-    data: Dict[str, Any],
-    xlab: Optional[str] = None,
-    ylab: Optional[str] = None,
-    xlim: Optional[List[Union[int, float]]] = None,
-    ylim: Optional[List[Union[int, float]]] = None,
-    title: Optional[str] = "tmp",
-    colors: Optional[Union[str, List]] = None,
-    figsize: Optional[Tuple[int]] = (15, 10),
-    rot: Optional[int] = 0,
-    dim: Optional[str] = None,
-    dimsize: Optional[float] = 10,
-    sign: Optional[int] = 1,
-    dpi: Optional[int] = 300,
+    data: dict[str, Any],
+    xlab: str | None = None,
+    ylab: str | None = None,
+    xlim: list[int | float] | None = None,
+    ylim: list[int | float] | None = None,
+    title: str | None = "tmp",
+    colors: str | list | None = None,
+    figsize: tuple[int] | None = (15, 10),
+    rot: int | None = 0,
+    dim: str | None = None,
+    dimsize: float | None = 10,
+    sign: int | None = 1,
+    dpi: int | None = 300,
 ) -> str:
     """Dictionary로 입력받은 data를 가로 bar chart로 시각화
 
     Args:
-        data (``Dict[str, Any]``): 입력 data
-        xlab (``Optional[str]``): Graph에 출력될 X축 label
-        ylab (``Optional[str]``): Graph에 출력될 Y축 label
-        xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
-        ylim (``Optional[List[Union[int, float]]]``): Graph에 출력될 Y축 limit
-        title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
-        colors (``Optional[Union[str, List]]``): 각 요소의 색
-        figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
-        rot (``Optional[int]``): X축의 눈금 회전 각도
-        dim (``Optional[str]``): 각 bar 상단에 표시될 값의 단위 (``%``: percentage)
-        dimsize (``Optional[float]``): 각 bar 상단에 표시될 값의 크기
-        sign (``Optional[int]``): 각 bar 상단에 표시될 값의 유효숫자
-        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        data (``dict[str, Any]``): 입력 data
+        xlab (``str | None``): Graph에 출력될 X축 label
+        ylab (``str | None``): Graph에 출력될 Y축 label
+        xlim (``list[int | float] | None``): Graph에 출력될 X축 limit
+        ylim (``list[int | float] | None``): Graph에 출력될 Y축 limit
+        title (``str | None``): Graph에 표시될 제목 및 file 이름
+        colors (``str | list | None``): 각 요소의 색
+        figsize (``tuple[int] | None``): Graph의 가로, 세로 길이
+        rot (``int | None``): X축의 눈금 회전 각도
+        dim (``str | None``): 각 bar 상단에 표시될 값의 단위 (``%``: percentage)
+        dimsize (``float | None``): 각 bar 상단에 표시될 값의 크기
+        sign (``int | None``): 각 bar 상단에 표시될 값의 유효숫자
+        dpi (``int | None``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``str``: 저장된 graph의 절대 경로
@@ -181,36 +181,36 @@ def barv(
 
 
 def barh(
-    data: Dict[str, Any],
-    xlab: Optional[str] = None,
-    ylab: Optional[str] = None,
-    xlim: Optional[List[Union[int, float]]] = None,
-    ylim: Optional[List[Union[int, float]]] = None,
-    title: Optional[str] = "tmp",
-    colors: Optional[Union[str, List]] = None,
-    figsize: Optional[Tuple[int]] = (10, 15),
-    rot: Optional[int] = 0,
-    dim: Optional[str] = None,
-    dimsize: Optional[float] = 10,
-    sign: Optional[int] = 1,
-    dpi: Optional[int] = 300,
+    data: dict[str, Any],
+    xlab: str | None = None,
+    ylab: str | None = None,
+    xlim: list[int | float] | None = None,
+    ylim: list[int | float] | None = None,
+    title: str | None = "tmp",
+    colors: str | list | None = None,
+    figsize: tuple[int] | None = (10, 15),
+    rot: int | None = 0,
+    dim: str | None = None,
+    dimsize: float | None = 10,
+    sign: int | None = 1,
+    dpi: int | None = 300,
 ) -> str:
     """Dictionary로 입력받은 data를 세로 bar chart로 시각화
 
     Args:
-        data (``Dict[str, Any]``): 입력 data
-        xlab (``Optional[str]``): Graph에 출력될 X축 label
-        ylab (``Optional[str]``): Graph에 출력될 Y축 label
-        xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
-        ylim (``Optional[List[Union[int, float]]]``): Graph에 출력될 Y축 limit
-        title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
-        colors (``Optional[Union[str, List]]``): 각 요소의 색
-        figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
-        rot (``Optional[int]``): X축의 눈금 회전 각도
-        dim (``Optional[str]``): 각 bar 상단에 표시될 값의 단위 (``%``: percentage)
-        dimsize (``Optional[float]``): 각 bar 상단에 표시될 값의 크기
-        sign (``Optional[int]``): 각 bar 상단에 표시될 값의 유효숫자
-        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        data (``dict[str, Any]``): 입력 data
+        xlab (``str | None``): Graph에 출력될 X축 label
+        ylab (``str | None``): Graph에 출력될 Y축 label
+        xlim (``list[int | float] | None``): Graph에 출력될 X축 limit
+        ylim (``list[int | float] | None``): Graph에 출력될 Y축 limit
+        title (``str | None``): Graph에 표시될 제목 및 file 이름
+        colors (``str | list | None``): 각 요소의 색
+        figsize (``tuple[int] | None``): Graph의 가로, 세로 길이
+        rot (``int | None``): X축의 눈금 회전 각도
+        dim (``str | None``): 각 bar 상단에 표시될 값의 단위 (``%``: percentage)
+        dimsize (``float | None``): 각 bar 상단에 표시될 값의 크기
+        sign (``int | None``): 각 bar 상단에 표시될 값의 유효숫자
+        dpi (``int | None``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``str``: 저장된 graph의 절대 경로
@@ -329,31 +329,31 @@ def barh(
 
 def hist(
     data: Dict[str, List[Union[int, float]]],
-    xlab: Optional[str] = None,
-    ylab: Optional[str] = None,
-    xlim: Optional[List[Union[int, float]]] = None,
-    ylim: Optional[List[Union[int, float]]] = None,
-    title: Optional[str] = "tmp",
-    colors: Optional[Union[str, List]] = None,
-    cnt: Optional[int] = 30,
+    xlab: str | None = None,
+    ylab: str | None = None,
+    xlim: list[int | float] | None = None,
+    ylim: list[int | float] | None = None,
+    title: str | None = "tmp",
+    colors: str | list | None = None,
+    cnt: int | None = 30,
     ovp: Optional[bool] = True,
-    figsize: Optional[Tuple[int]] = (15, 10),
-    dpi: Optional[int] = 300,
+    figsize: tuple[int] | None = (15, 10),
+    dpi: int | None = 300,
 ) -> str:
     """Dictionary로 입력받은 data를 histogram으로 시각화
 
     Args:
         data (``Dict[str, List[Union[int, float]]]``): 입력 data
-        xlab (``Optional[str]``): Graph에 출력될 X축 label
-        ylab (``Optional[str]``): Graph에 출력될 Y축 label
-        xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
-        ylim (``Optional[List[Union[int, float]]]``): Graph에 출력될 Y축 limit
-        title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
-        colors (``Optional[Union[str, List]]``): 각 요소의 색
-        cnt (``Optional[int]``): Bin의 개수
+        xlab (``str | None``): Graph에 출력될 X축 label
+        ylab (``str | None``): Graph에 출력될 Y축 label
+        xlim (``list[int | float] | None``): Graph에 출력될 X축 limit
+        ylim (``list[int | float] | None``): Graph에 출력될 Y축 limit
+        title (``str | None``): Graph에 표시될 제목 및 file 이름
+        colors (``str | list | None``): 각 요소의 색
+        cnt (``int | None``): Bin의 개수
         ovp (``Optional[bool]``): Class에 따른 histogram overlap 여부
-        figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
-        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        figsize (``tuple[int] | None``): Graph의 가로, 세로 길이
+        dpi (``int | None``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``str``: 저장된 graph의 절대 경로

@@ -24,7 +24,7 @@ SOFTWARE.
 
 import os
 import random
-from typing import Any, List, Optional, Tuple, Union
+from typing import Any
 
 import seaborn as sns
 from matplotlib import pyplot as plt
@@ -34,11 +34,11 @@ from matplotlib.figure import Figure
 from . import config
 
 
-def figure(figsize: Optional[Tuple[int]] = (15, 10)) -> Figure:
+def figure(figsize: tuple[int] | None = (15, 10)) -> Figure:
     """Graph 생성을 위한 함수
 
     Args:
-        figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
+        figsize (``tuple[int] | None``): Graph의 가로, 세로 길이
 
     Returns:
         ``matplotlib.figure.Figure``: Graph window 생성
@@ -73,12 +73,12 @@ def subplot(*args, **kwargs) -> Axes:
     return plt.subplot(*args, **kwargs)
 
 
-def savefig(title: str, dpi: Optional[int] = 300) -> str:
+def savefig(title: str, dpi: int | None = 300) -> str:
     """Graph 저장 함수
 
     Args:
         title (``str``): Graph file 이름
-        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        dpi (``int | None``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``str``: 저장된 graph의 절대 경로
@@ -98,21 +98,21 @@ def savefig(title: str, dpi: Optional[int] = 300) -> str:
 
 
 def color(
-    cnt: Optional[int] = 1,
-    rand: Optional[bool] = False,
-    uint8: Optional[bool] = False,
-    palette: Optional[str] = "husl",
-) -> Union[Tuple[float], List[int], List[Tuple[float]], List[List[int]]]:
+    cnt: int | None = 1,
+    rand: bool | None = False,
+    uint8: bool | None = False,
+    palette: str | None = "husl",
+) -> tuple[float] | list[int] | list[tuple[float]] | list[list[int]]:
     """색 추출 함수
 
     Args:
-        cnt (``Optional[int]``): 추출할 색의 수
-        rand (``Optional[bool]``): Random 추출 여부
-        uint8 (``Optional[bool]``): 출력 색상의 type
-        palette (``Optional[str]``): 추출할 색들의 palette
+        cnt (``int | None``): 추출할 색의 수
+        rand (``bool | None``): Random 추출 여부
+        uint8 (``bool | None``): 출력 색상의 type
+        palette (``str | None``): 추출할 색들의 palette
 
     Returns:
-        ``Union[Tuple[float], List[int], List[Tuple[float]], List[List[int]]]``: 단일 색 또는 list로 구성된 여러 색
+        ``tuple[float] | list[int] | list[tuple[float]] | list[list[int]]``: 단일 색 또는 list로 구성된 여러 색
 
     Examples:
         >>> zz.plot.color()
@@ -149,7 +149,7 @@ def color(
     return sns.color_palette(palette, n_colors=cnt)
 
 
-def _color(data: Any, colors: Any) -> List[Union[Tuple[float], str]]:
+def _color(data: Any, colors: Any) -> list[tuple[float] | str]:
     if isinstance(colors, list):
         if len(data) > len(colors):
             return colors + ["black" for _ in range(len(data) - len(colors))]

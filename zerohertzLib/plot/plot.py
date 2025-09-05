@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any
 
 import mplfinance as mpf
 import numpy as np
@@ -34,36 +34,36 @@ from .util import _color, color, savefig
 
 
 def plot(
-    xdata: Union[List[Union[int, float]], Dict[str, Union[int, float]]],
-    ydata: Union[List[Union[int, float]], Dict[str, Union[int, float]]],
-    xlab: Optional[str] = None,
-    ylab: Optional[str] = None,
-    xlim: Optional[List[Union[int, float]]] = None,
-    ylim: Optional[List[Union[int, float]]] = None,
-    stacked: Optional[bool] = False,
-    ncol: Optional[int] = 1,
-    title: Optional[str] = "tmp",
-    colors: Optional[Union[str, List]] = None,
-    markersize: Optional[int] = 12,
-    figsize: Optional[Tuple[int]] = (15, 10),
-    dpi: Optional[int] = 300,
+    xdata: list[int | float] | dict[str, int | float],
+    ydata: list[int | float] | dict[str, int | float],
+    xlab: str | None = None,
+    ylab: str | None = None,
+    xlim: list[int | float] | None = None,
+    ylim: list[int | float] | None = None,
+    stacked: bool | None = False,
+    ncol: int | None = 1,
+    title: str | None = "tmp",
+    colors: str | list | None = None,
+    markersize: int | None = 12,
+    figsize: tuple[int] | None = (15, 10),
+    dpi: int | None = 300,
 ) -> str:
     """List와 Dictionary로 입력받은 data를 line chart로 시각화
 
     Args:
-        xdata (``Union[List[Union[int, float]], Dict[str, Union[int, float]]]``): 입력 data (X축)
-        ydata (``Union[List[Union[int, float]], Dict[str, Union[int, float]]]``): 입력 data (Y축)
-        xlab (``Optional[str]``): Graph에 출력될 X축 label
-        ylab (``Optional[str]``): Graph에 출력될 Y축 label
-        xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
-        ylim (``Optional[List[Union[int, float]]]``): Graph에 출력될 Y축 limit
-        stacked (``Optional[bool]``): Stacked plot 여부
-        ncol (``Optional[int]``): Graph에 표시될 legend 열의 수
-        title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
-        colors (``Optional[Union[str, List]]``): 각 요소의 색
-        markersize (``Optional[int]``): Graph에 표시될 marker의 size
-        figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
-        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        xdata (``list[int | float] | dict[str, int | float]``): 입력 data (X축)
+        ydata (``list[int | float] | dict[str, int | float]``): 입력 data (Y축)
+        xlab (``str | None``): Graph에 출력될 X축 label
+        ylab (``str | None``): Graph에 출력될 Y축 label
+        xlim (``list[int | float] | None``): Graph에 출력될 X축 limit
+        ylim (``list[int | float] | None``): Graph에 출력될 Y축 limit
+        stacked (``bool | None``): Stacked plot 여부
+        ncol (``int | None``): Graph에 표시될 legend 열의 수
+        title (``str | None``): Graph에 표시될 제목 및 file 이름
+        colors (``str | list | None``): 각 요소의 색
+        markersize (``int | None``): Graph에 표시될 marker의 size
+        figsize (``tuple[int] | None``): Graph의 가로, 세로 길이
+        dpi (``int | None``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``str``: 저장된 graph의 절대 경로
@@ -138,11 +138,11 @@ def plot(
 
 def candle(
     data: pd.DataFrame,
-    title: Optional[str] = "tmp",
-    figsize: Optional[Tuple[int]] = (18, 10),
+    title: str | None = "tmp",
+    figsize: tuple[int] | None = (18, 10),
     signals: Optional[Dict[str, Any]] = None,
     threshold: Optional[Union[int, Tuple[int]]] = 1,
-    dpi: Optional[int] = 300,
+    dpi: int | None = 300,
 ) -> str:
     """OHLCV (Open, High, Low, Close, Volume) data에 따른 candle chart
 
@@ -155,11 +155,11 @@ def candle(
 
     Args:
         data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
-        title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
-        figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
+        title (``str | None``): Graph에 표시될 제목 및 file 이름
+        figsize (``tuple[int] | None``): Graph의 가로, 세로 길이
         signals (``Optional[Dict[str, Any]]``): 추가적으로 plot할 data
         threshold (``Optional[Union[int, Tuple[int]]]``): 매수, 매도를 결정할 ``signals`` 경계값
-        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        dpi (``int | None``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``str``: 저장된 graph의 절대 경로
