@@ -25,7 +25,7 @@ SOFTWARE.
 import copy
 from collections import defaultdict
 from datetime import datetime, timedelta
-from typing import Any, ItemsView, TypeVar
+from typing import Any, ItemsView
 
 import FinanceDataReader as fdr
 import pandas as pd
@@ -38,16 +38,14 @@ from zerohertzLib.plot import barv, figure, pie, savefig, table
 from .quant import QuantBot
 from .util import _cash2str
 
-T = TypeVar("T", bound="Balance")
-
 
 class Balance(KoreaInvestment):
     """한국투자증권의 국내 계좌 정보 조회 class
 
     Args:
         account_no (``str``): API 호출 시 사용할 계좌 번호
-        path (``str | None``): ``secret.key`` 혹은 ``token.dat`` 이 포함된 경로
-        kor (``bool | None``): 국내 여부
+        path (``str``): ``secret.key`` 혹은 ``token.dat`` 이 포함된 경로
+        kor (``bool``): 국내 여부
 
     Attributes:
         balance (``dict[str, Any]``): 현재 보유 주식과 계좌의 금액 정보
@@ -172,7 +170,7 @@ class Balance(KoreaInvestment):
         data = fdr.DataReader("USD/KRW", now - timedelta(days=10))
         return float(data.Close[-1])
 
-    def merge(self, balance: T) -> None:
+    def merge(self, balance: "Balance") -> None:
         """현재 계좌와 입력 계좌의 정보를 병합하는 function
 
         Args:
@@ -400,19 +398,19 @@ class QuantBotKI(Balance, QuantBot):
     Args:
         account_no (``str``): API 호출 시 사용할 계좌 번호
         symbols (``list[str] | None``): 종목 code들
-        start_day (``str | None``): 조회 시작 일자 (``YYYYMMDD``)
-        ohlc (``str | None``): 사용할 ``data`` 의 column 이름
-        top (``int | None``): Experiment 과정에서 사용할 각 전략별 수
+        start_day (``str``): 조회 시작 일자 (``YYYYMMDD``)
+        ohlc (``str``): 사용할 ``data`` 의 column 이름
+        top (``int``): Experiment 과정에서 사용할 각 전략별 수
         methods (``dict[str, list[list[Any]]] | None``): 사용할 전략들의 function명 및 parameters
-        report (``bool | None``): Experiment 결과 출력 여부
+        report (``bool``): Experiment 결과 출력 여부
         token (``str | None``): Bot의 token (xoxb- prefix로 시작하면 SlackBot, 아니면 DiscordBot)
         channel (``str | None``): Bot이 전송할 channel
         name (``str | None``): Bot의 표시될 이름
         icon_emoji (``str | None``): Bot의 표시될 사진 (emoji)
-        mp_num (``int | None``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
-        analysis (``bool | None``): 각 전략의 보고서 전송 여부
-        kor (``bool | None``): 국내 여부
-        path (``str | None``): ``secret.key`` 혹은 ``token.dat`` 이 포함된 경로
+        mp_num (``int``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
+        analysis (``bool``): 각 전략의 보고서 전송 여부
+        kor (``bool``): 국내 여부
+        path (``str``): ``secret.key`` 혹은 ``token.dat`` 이 포함된 경로
 
     Attributes:
         exps (``dict[str, list[dict[str, int]]]``): 각 전략에 따른 parameter 분포
@@ -444,19 +442,19 @@ class QuantBotKI(Balance, QuantBot):
             symbols = []
         QuantBot.__init__(
             self,
-            symbols,
-            start_day,
-            ohlc,
-            top,
-            methods,
-            report,
-            token,
-            channel,
-            name,
-            icon_emoji,
-            mp_num,
-            analysis,
-            kor,
+            symbols=symbols,
+            start_day=start_day,
+            ohlc=ohlc,
+            top=top,
+            methods=methods,
+            report=report,
+            token=token,
+            channel=channel,
+            name=name,
+            icon_emoji=icon_emoji,
+            mp_num=mp_num,
+            analysis=analysis,
+            kor=kor,
         )
         self.symbols_bought = self.bought_symbols()
 
