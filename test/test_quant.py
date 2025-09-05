@@ -5,7 +5,10 @@ import FinanceDataReader as fdr
 
 import zerohertzLib as zz
 
+DISCORD_BOT_TOKEN = os.environ.get("DISCORD_BOT_TOKEN")
+DISCORD_BOT_CHANNEL = os.environ.get("DISCORD_BOT_CHANNEL")
 SLACK_BOT_TOKEN = os.environ.get("SLACK_BOT_TOKEN")
+SLACK_BOT_CHANNEL = "test"
 NOW = datetime.now()
 START_DAY = NOW - timedelta(days=30 * 18)
 START_DAY = START_DAY.strftime("%Y%m%d")
@@ -62,14 +65,39 @@ def test_quant():
     qnt()
 
 
+def test_quant_discord_bot_fdr_kor():
+    qsb = zz.quant.QuantBotFDR(
+        1,
+        start_day=START_DAY,
+        ohlc="Close",
+        top=4,
+        token=DISCORD_BOT_TOKEN,
+        channel=DISCORD_BOT_CHANNEL,
+        analysis=True,
+    )
+    qsb.index()
+
+
+def test_quant_discord_bot_fdr_ovs():
+    qsb = zz.quant.QuantBotFDR(
+        1,
+        start_day=START_DAY,
+        top=2,
+        token=DISCORD_BOT_TOKEN,
+        channel=DISCORD_BOT_CHANNEL,
+        kor=False,
+    )
+    qsb.buy()
+
+
 def test_quant_slack_bot_fdr_kor():
-    qsb = zz.quant.QuantSlackBotFDR(
+    qsb = zz.quant.QuantBotFDR(
         1,
         start_day=START_DAY,
         ohlc="Close",
         top=4,
         token=SLACK_BOT_TOKEN,
-        channel="test",
+        channel=SLACK_BOT_CHANNEL,
         name="Stock Test",
         icon_emoji="rocket",
         analysis=True,
@@ -78,12 +106,12 @@ def test_quant_slack_bot_fdr_kor():
 
 
 def test_quant_slack_bot_fdr_ovs():
-    qsb = zz.quant.QuantSlackBotFDR(
+    qsb = zz.quant.QuantBotFDR(
         1,
         start_day=START_DAY,
         top=2,
         token=SLACK_BOT_TOKEN,
-        channel="test",
+        channel=SLACK_BOT_CHANNEL,
         name="Stock Test",
         icon_emoji="rocket",
         kor=False,

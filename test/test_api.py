@@ -2,6 +2,8 @@ import os
 import random
 import time
 
+import pytest
+
 import zerohertzLib as zz
 
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
@@ -9,6 +11,7 @@ DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
 DISCORD_BOT_TOKEN = os.environ.get("DISCORD_BOT_TOKEN")
 DISCORD_BOT_CHANNEL = os.environ.get("DISCORD_BOT_CHANNEL")
 SLACK_WEBHOOK_URL = os.environ.get("SLACK_WEBHOOK_URL")
+SLACK_CHANNEL = "test"
 SLACK_BOT_TOKEN = os.environ.get("SLACK_BOT_TOKEN")
 GH_TOKEN = os.environ.get("GH_TOKEN")
 TIME_SLEEP = 20
@@ -19,25 +22,37 @@ data = os.path.join(tmp, "data")
 
 def test_slack_webhook() -> None:
     slack = zz.api.SlackWebhook(
-        SLACK_WEBHOOK_URL, "test", name="Test Webhook", icon_emoji="wrench"
+        SLACK_WEBHOOK_URL,
+        SLACK_CHANNEL,
+        name="Test Webhook",
+        icon_emoji="wrench",
     )
     time.sleep(random.randrange(TIME_SLEEP))
     response = slack.message("Testing...")
     assert response.status_code == 200
 
+    with pytest.raises(NotImplementedError):
+        response = slack.file(os.path.join(data, "test.jpg"))
+
 
 def test_slack_bot_message() -> None:
     slack = zz.api.SlackBot(
-        SLACK_BOT_TOKEN, "test", name="Test Bot", icon_emoji="hammer"
+        SLACK_BOT_TOKEN, SLACK_CHANNEL, name="Test Bot", icon_emoji="hammer"
     )
     time.sleep(random.randrange(TIME_SLEEP))
     response = slack.message("Testing...")
+    assert response.status_code == 200
+    thread_id = slack.get_thread_id(response)
+
+    response = slack.message("Thread reply test", codeblock=True, thread_id=thread_id)
+    assert response.status_code == 200
+    response = slack.file(os.path.join(data, "test.jpg"), thread_id=thread_id)
     assert response.status_code == 200
 
 
 def test_slack_bot_file() -> None:
     slack = zz.api.SlackBot(
-        SLACK_BOT_TOKEN, "test", name="Test Bot", icon_emoji="hammer"
+        SLACK_BOT_TOKEN, SLACK_CHANNEL, name="Test Bot", icon_emoji="hammer"
     )
     time.sleep(random.randrange(TIME_SLEEP))
     response = slack.file(os.path.join(data, "test.jpg"))
@@ -120,24 +135,19 @@ def test_discord_bot_create_thread() -> None:
     discord = zz.api.DiscordBot(DISCORD_BOT_TOKEN, DISCORD_BOT_CHANNEL)
 
     # 먼저 메시지 전송
-    message_response = discord.message("Testing thread creation...")
-    assert message_response.status_code == 200
+    response = discord.message("Testing thread creation...")
+    assert response.status_code == 200
     time.sleep(random.randrange(TIME_SLEEP))
-    message_data = message_response.json()
-    message_id = message_data.get("id")
 
     # 스레드 생성
-    time.sleep(2)
-    thread_response = discord.create_thread(message_id, "Test Thread")
-    assert thread_response.status_code == 201
+    thread_id = discord.get_thread_id(response=response)
     time.sleep(random.randrange(TIME_SLEEP))
 
-    # 스레드에 댓글 작성
-    thread_data = thread_response.json()
-    thread_id = thread_data.get("id")
-    time.sleep(2)
-    reply_response = discord.message("Thread reply test", thread_id=thread_id)
-    assert reply_response.status_code == 200
+    response = discord.message("Thread reply test", thread_id=thread_id)
+    assert response.status_code == 200
+
+    response = discord.file(os.path.join(data, "test.jpg"), thread_id=thread_id)
+    assert response.status_code == 200
 
 
 def test_github_release_note() -> None:

@@ -22,7 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import Optional
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    pass
 
 import numpy as np
 import pandas as pd
@@ -32,12 +35,12 @@ from .util import _bollinger_bands, _rsi
 
 def moving_average(
     data: pd.DataFrame,
-    short_window: Optional[int] = 40,
-    long_window: Optional[int] = 80,
-    threshold: Optional[float] = 0.0,
-    ohlc: Optional[str] = "",
+    short_window: int | None = 40,
+    long_window: int | None = 80,
+    threshold: float | None = 0.0,
+    ohlc: str | None = "",
 ) -> pd.DataFrame:
-    """단기 및 장기 이동 평균 기반 매수 및 매도 signal을 생성하는 함수
+    """단기 및 장기 이동 평균 기반 매수 및 매도 signal을 생성하는 function
 
     Note:
         Moving Average
@@ -49,10 +52,10 @@ def moving_average(
 
     Args:
         data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
-        short_window (``Optional[int]``): 단기 이동 평균을 계산하기 위한 window 크기
-        long_window (``Optional[int]``): 장기 이동 평균을 계산하기 위한 widnow 크기
-        threshold (``Optional[float]``): 신호를 발생 시킬 임계값
-        ohlc (``Optional[str]``): 이동 평균을 계산할 때 사용할 ``data`` 의 column 이름
+        short_window (``int | None``): 단기 이동 평균을 계산하기 위한 window 크기
+        long_window (``int | None``): 장기 이동 평균을 계산하기 위한 widnow 크기
+        threshold (``float | None``): 신호를 발생 시킬 임계값
+        ohlc (``str | None``): 이동 평균을 계산할 때 사용할 ``data`` 의 column 이름
 
     Returns:
         ``pd.DataFrame``: 각 날짜에 대한 signal (``"signals"``) 정보
@@ -100,12 +103,12 @@ def moving_average(
 
 def rsi(
     data: pd.DataFrame,
-    lower_bound: Optional[int] = 20,
-    upper_bound: Optional[int] = 80,
-    window: Optional[int] = 30,
-    ohlc: Optional[str] = "",
+    lower_bound: int | None = 20,
+    upper_bound: int | None = 80,
+    window: int | None = 30,
+    ohlc: str | None = "",
 ) -> pd.DataFrame:
-    r"""RSI 기반 매수 및 매도 signal을 생성하는 함수
+    r"""RSI 기반 매수 및 매도 signal을 생성하는 function
 
     Note:
         RSI (Relative Strength Index)
@@ -125,10 +128,10 @@ def rsi(
 
     Args:
         data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
-        lower_bound (``Optional[int]``): RSI 과매도 기준
-        upper_bound (``Optional[int]``): RSI 과매수 기준
-        window (``Optional[int]``): 이동 평균을 계산하기 위한 widnow 크기
-        ohlc (``Optional[str]``): RSI를 계산할 때 사용할 ``data`` 의 column 이름
+        lower_bound (``int | None``): RSI 과매도 기준
+        upper_bound (``int | None``): RSI 과매수 기준
+        window (``int | None``): 이동 평균을 계산하기 위한 widnow 크기
+        ohlc (``str | None``): RSI를 계산할 때 사용할 ``data`` 의 column 이름
 
     Returns:
         ``pd.DataFrame``: 각 날짜에 대한 signal (``"signals"``) 정보
@@ -160,11 +163,11 @@ def rsi(
 
 def bollinger_bands(
     data: pd.DataFrame,
-    window: Optional[int] = 60,
-    num_std_dev: Optional[float] = 2.5,
-    ohlc: Optional[str] = "",
+    window: int | None = 60,
+    num_std_dev: float | None = 2.5,
+    ohlc: str | None = "",
 ) -> pd.DataFrame:
-    """Bollinger band 기반 매수 및 매도 signal을 생성하는 함수
+    """Bollinger band 기반 매수 및 매도 signal을 생성하는 function
 
     Note:
         Bollinger Band
@@ -180,9 +183,9 @@ def bollinger_bands(
 
     Args:
         data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
-        window (``Optional[int]``): 이동 평균을 계산하기 위한 widnow 크기
-        num_std_dev (``Optional[float]``): 표준편차의 배수
-        ohlc (``Optional[str]``): 이동 평균을 계산할 때 사용할 ``data`` 의 column 이름
+        window (``int | None``): 이동 평균을 계산하기 위한 widnow 크기
+        num_std_dev (``float | None``): 표준편차의 배수
+        ohlc (``str | None``): 이동 평균을 계산할 때 사용할 ``data`` 의 column 이름
 
     Returns:
         ``pd.DataFrame``: 각 날짜에 대한 signal (``"signals"``) 정보
@@ -221,10 +224,10 @@ def bollinger_bands(
 
 def momentum(
     data: pd.DataFrame,
-    window: Optional[int] = 5,
-    ohlc: Optional[str] = "",
+    window: int | None = 5,
+    ohlc: str | None = "",
 ) -> pd.DataFrame:
-    """Momentum 기반 매수 및 매도 signal을 생성하는 함수
+    """Momentum 기반 매수 및 매도 signal을 생성하는 function
 
     Note:
         Momentum
@@ -240,8 +243,8 @@ def momentum(
 
     Args:
         data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
-        window (``Optional[int]``): Momentum을 계산하기 위한 widnow 크기
-        ohlc (``Optional[str]``): Momentum을 계산할 때 사용할 ``data`` 의 column 이름
+        window (``int | None``): Momentum을 계산하기 위한 widnow 크기
+        ohlc (``str | None``): Momentum을 계산할 때 사용할 ``data`` 의 column 이름
 
     Returns:
         ``pd.DataFrame``: 각 날짜에 대한 signal (``"signals"``) 정보
@@ -274,11 +277,11 @@ def momentum(
 
 def macd(
     data: pd.DataFrame,
-    n_fast: Optional[int] = 12,
-    n_signal: Optional[int] = 9,
-    ohlc: Optional[str] = "",
+    n_fast: int | None = 12,
+    n_signal: int | None = 9,
+    ohlc: str | None = "",
 ) -> pd.DataFrame:
-    """MACD 기반 매수 및 매도 signal을 생성하는 함수
+    """MACD 기반 매수 및 매도 signal을 생성하는 function
 
     Note:
         MACD (Moving Average Convergence Divergence)
@@ -294,9 +297,9 @@ def macd(
 
     Args:
         data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
-        n_fast (``Optional[int]``): 빠른 EMA 계산을 위한 기간
-        n_signal (``Optional[int]``): MACD signal line 계산을 위한 기간
-        ohlc (``Optional[str]``): Momentum을 계산할 때 사용할 ``data`` 의 column 이름
+        n_fast (``int | None``): 빠른 EMA 계산을 위한 기간
+        n_signal (``int | None``): MACD signal line 계산을 위한 기간
+        ohlc (``str | None``): Momentum을 계산할 때 사용할 ``data`` 의 column 이름
 
     Returns:
         ``pd.DataFrame``: 각 날짜에 대한 signal (``"signals"``) 정보

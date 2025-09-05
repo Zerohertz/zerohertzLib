@@ -34,7 +34,7 @@ def _get_codeblock(message: str, codeblock: str | bool = False) -> str:
     if not codeblock:
         return message
     if isinstance(codeblock, str):
-        message = f"```{codeblock}\n" + message + "\n```"
+        return f"```{codeblock}\n{message}\n```"
     return f"```{message}```"
 
 
@@ -68,3 +68,21 @@ class AbstractBot(ABC, Generic[ResponseType]):
 
     def _get_codeblock(self, message: str, codeblock: str | bool = False) -> str:
         return _get_codeblock(message=message, codeblock=codeblock)
+
+
+class MockBot(AbstractBot[None]):
+    def __init__(self) -> None: ...
+
+    def message(
+        self,
+        message: str,
+        codeblock: str | bool = False,
+        thread_id: str | None = None,
+    ) -> None:
+        return None
+
+    def get_thread_id(self, response: None, **kwargs) -> str:
+        return ""
+
+    def file(self, path: str, thread_id: str | None = None) -> None:
+        return None
