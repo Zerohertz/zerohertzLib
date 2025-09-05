@@ -641,13 +641,14 @@ class QuantBotFDR(QuantBot):
         else:
             market = os.getenv("QUANT_MARKET_OVS", "NASDAQ")
         self.market = fdr.StockListing(market)
-        self.market.columns[0]
         if isinstance(symbols, int):
             self.symbols = list(self.market[self.market.columns[0]])[:symbols]
 
     def _get_data(self, symbol: str) -> tuple[str, pd.DataFrame]:
         try:
-            title = self.market[self.market.columns[0] == symbol].iloc[0, 1]
+            title = self.market[self.market[self.market.columns[0]] == symbol].iloc[
+                0, 1
+            ]
         except IndexError:
             title = symbol
         data = fdr.DataReader(symbol, self.start_day)
