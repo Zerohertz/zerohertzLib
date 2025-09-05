@@ -149,6 +149,4 @@ zerohertzLib = ["plot/fonts/*.ttf", "plot/fonts/*.otf"]
 version = { attr = "zerohertzLib.__version__" }
 
 [tool.ruff.lint]
-ignore = [
-    "E402", # Module level import not at top of file
-]
+ignore = []
