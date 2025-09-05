@@ -23,7 +23,6 @@ SOFTWARE.
 """
 
 import base64
-from typing import List, Optional, Tuple, Union
 
 import cv2
 import numpy as np
@@ -34,7 +33,7 @@ from .util import _is_bbox
 
 
 def _list2np(
-    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
+    box: list[int | float] | NDArray[DTypeLike],
 ) -> NDArray[DTypeLike]:
     if isinstance(box, list):
         return np.array(box)
@@ -48,12 +47,12 @@ def _cwh2xyxy(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
 
 
 def cwh2xyxy(
-    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
+    box: list[int | float] | NDArray[DTypeLike],
 ) -> NDArray[DTypeLike]:
     """Bbox 변환
 
     Args:
-        box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): ``[cx, cy, w, h]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
+        box (``list[int | float] | NDArray[DTypeLike]``): ``[cx, cy, w, h]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
 
     Returns:
         ``NDArray[DTypeLike]``: ``[x0, y0, x1, y1]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
@@ -90,7 +89,7 @@ def cwh2poly(
     """Bbox 변환
 
     Args:
-        box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): ``[cx, cy, w, h]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
+        box (``list[int | float] | NDArray[DTypeLike]``): ``[cx, cy, w, h]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
 
     Returns:
         ``NDArray[DTypeLike]``: ``[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]`` 로 구성된 bbox (``[4, 2]`` or ``[N, 4, 2]``)
