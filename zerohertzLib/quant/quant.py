@@ -646,9 +646,9 @@ class QuantBotFDR(QuantBot):
 
     def _get_data(self, symbol: str) -> tuple[str, pd.DataFrame]:
         try:
-            title = self.market[self.market[self.market.columns[0]] == symbol].iloc[
-                0, 1
-            ]
+            title = self.market[
+                self.market[self.market.columns[0]] == symbol
+            ].Name.iloc[0]
         except IndexError:
             title = symbol
         data = fdr.DataReader(symbol, self.start_day)
