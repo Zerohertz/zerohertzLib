@@ -637,23 +637,17 @@ class QuantBotFDR(QuantBot):
             # FIXME:
             # FDR 의존성 내에서 KRX-DESC 코드 사용 시 오류 발생
             # https://github.com/FinanceData/FinanceDataReader/pull/254
-            self.market = fdr.StockListing(os.getenv("QUANT_MARKET_KOR", "ETF/KR"))
+            market = os.getenv("QUANT_MARKET_KOR", "ETF/KR")
         else:
-            self.market = fdr.StockListing("NASDAQ")
+            market = os.getenv("QUANT_MARKET_OVS", "NASDAQ")
+        self.market = fdr.StockListing(market)
+        self.market.columns[0]
         if isinstance(symbols, int):
-            if kor:
-                krx = fdr.StockListing("KRX")
-                krx = krx.sort_values("Marcap", ascending=False)
-                self.symbols = list(krx["Code"])[:symbols]
-            else:
-                self.symbols = list(self.market["Symbol"])[:symbols]
+            self.symbols = list(self.market[self.market.columns[0]])[:symbols]
 
     def _get_data(self, symbol: str) -> tuple[str, pd.DataFrame]:
         try:
-            if self.kor:
-                title = self.market[self.market["Code"] == symbol].iloc[0, 1]
-            else:
-                title = self.market[self.market["Symbol"] == symbol].iloc[0, 1]
+            title = self.market[self.market.columns[0] == symbol].iloc[0, 1]
         except IndexError:
             title = symbol
         data = fdr.DataReader(symbol, self.start_day)
