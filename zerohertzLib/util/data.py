@@ -27,7 +27,6 @@ import shutil
 from abc import ABC, abstractmethod
 from collections import defaultdict
 from glob import glob
-from typing import Dict, List, Optional
 
 from tqdm import tqdm
 
@@ -68,8 +67,8 @@ class MakeData(ABC):
         start_json_path (``str``): 목표 JSON file이 존재하는 directory 경로
         json_key (``str``): ``start_json`` 에서 data의 file 이름을 나타내는 key 값
         target_path (``str``): Data 구축 경로
-        end_data_dir (``Optional[str]``): 구축될 data file들의 directory 이름
-        end_json_dir (``Optional[str]``): 구축될 JSON file들의 directory 이름
+        end_data_dir (``str | None``): 구축될 data file들의 directory 이름
+        end_json_dir (``str | None``): 구축될 JSON file들의 directory 이름
 
     Attributes:
         json (``zerohertzLib.util.JsonDir``): JSON file들을 읽어 data 구축 시 활용
@@ -83,8 +82,8 @@ class MakeData(ABC):
         start_json_path: str,
         json_key: str,
         target_path: str,
-        end_data_dir: Optional[str] = "data",
-        end_json_dir: Optional[str] = "json",
+        end_data_dir: str | None = "data",
+        end_json_dir: str | None = "json",
     ) -> None:
         self.start_data_path = start_data_path
         self.start_json_path = start_json_path
@@ -233,14 +232,14 @@ class MakeData(ABC):
                 self.make_data(json_instance, data_name)
 
 
-def find_ext(path: Optional[str] = "") -> Dict[str, int]:
+def find_ext(path: str | None = "") -> dict[str, int]:
     """경로 내 확장자의 수 탐색
 
     Args:
-        path (``Optional[str]``): 확장자를 찾을 경로
+        path (``str | None``): 확장자를 찾을 경로
 
     Returns:
-        ``Dict[str, int]``: 확장자에 따른 file의 수
+        ``dict[str, int]``: 확장자에 따른 file의 수
 
     Examples:
         >>> zz.util.find_ext("test/data/")
@@ -255,15 +254,15 @@ def find_ext(path: Optional[str] = "") -> Dict[str, int]:
     return exts
 
 
-def sort_dict(target: Dict, order: Optional[List] = None) -> Dict:
+def sort_dict(target: dict, order: list | None = None) -> dict:
     """Dictionary를 순서에 맞춰 재배열하는 함수
 
     Args:
-        target (``Dict``): 입력 dictionary
-        order (``Optional[List]``): 재배열 순서
+        target (``dict``): 입력 dictionary
+        order (``list | None``): 재배열 순서
 
     Returns:
-        ``Dict``: 재배열이 완료된 dictionary
+        ``dict``: 재배열이 완료된 dictionary
 
     Examples:
         >>> zz.util.sort_dict({3: 6, 4: 2, 2: 7})

@@ -24,7 +24,7 @@ SOFTWARE.
 
 import os
 from glob import glob
-from typing import Any, Dict, List, Optional, Set, Union
+from typing import Any
 
 import orjson
 from tqdm import tqdm
@@ -36,11 +36,11 @@ class Json:
     객체 생성 시 ``path`` 를 입력하지 않을 시 현재 경로에 존재하는 JSON file을 읽고 ``path`` 를 경로로 입력하면 해당 경로에 존재하는 JSON file을 읽는다.
 
     Args:
-        path (``Optional[str]``): JSON file의 경로
+        path (``str | None``): JSON file의 경로
 
     Attributes:
         name (``str``): JSON file 이름
-        keys (``List[str]``): 직렬화된 JSON의 key 값들
+        keys (``list[str]``): 직렬화된 JSON의 key 값들
 
     Methods:
         __len__:
@@ -51,7 +51,7 @@ class Json:
             읽어온 JSON file에 key 값 입력
 
             Args:
-                key (``Union[int, str]``): 읽어온 JSON file에서 불러올 key 값
+                key (``int | str``): 읽어온 JSON file에서 불러올 key 값
 
             Returns:
                 ``Any``: Key에 따른 value 값
@@ -89,7 +89,7 @@ class Json:
         ['url', 'id', ..., 'assignees/LIST/login', ..., 'active_lock_reason']
     """
 
-    def __init__(self, path: Optional[str] = None) -> None:
+    def __init__(self, path: str | None = None) -> None:
         if path is None:
             path = glob("*.json")[0]
         elif not path.endswith(".json"):
@@ -103,11 +103,11 @@ class Json:
     def __len__(self) -> int:
         return len(self.data)
 
-    def __getitem__(self, key: Union[int, str]) -> Any:
+    def __getitem__(self, key: int | str) -> Any:
         return self.data[key]
 
     def __get_keys(
-        self, data: Any, key: Optional[str] = "", front: Optional[str] = ""
+        self, data: Any, key: str | None = "", front: str | None = ""
     ) -> None:
         if isinstance(data, dict):
             for idx, (key_, val_) in enumerate(data.items()):
@@ -131,7 +131,7 @@ class Json:
                 else:
                     self.__get_keys(data[0], "LIST", front + "    ")
 
-    def _get_keys(self) -> List[str]:
+    def _get_keys(self) -> list[str]:
         if not self.keys and not self.map:
             self.__get_keys(self.data)
         return self.keys
@@ -215,11 +215,11 @@ class JsonDir:
     객체 생성 시 ``path`` 를 입력하지 않을 시 현재 경로에 존재하는 JSON file들을 읽는다.
 
     Args:
-        path (``Optional[str]``): JSON file의 경로
+        path (``str | None``): JSON file의 경로
 
     Attributes:
         name (``str``): 읽어온 JSON file의 이름들
-        data (``Dict[str, zerohertzLib.util.Json]``): File 이름에 따른 `Json` 객체 배열
+        data (``dict[str, zerohertzLib.util.Json]``): File 이름에 따른 `Json` 객체 배열
 
     Methods:
         __len__:
@@ -257,7 +257,7 @@ class JsonDir:
         'labels/LIST/color'
     """
 
-    def __init__(self, path: Optional[str] = "") -> None:
+    def __init__(self, path: str | None = "") -> None:
         if path.endswith(".json"):
             raise ValueError("'path' ends with '*.json'")
         self.data = {}
@@ -303,14 +303,14 @@ class JsonDir:
         """
         self[0].tree()
 
-    def unique(self, key: str) -> Set[str]:
+    def unique(self, key: str) -> set[str]:
         """읽어온 JSON data들의 유일한 값을 return하는 method
 
         Args:
             key (``str``): 읽어온 JSON file에서 불러올 key 값
 
         Returns:
-            ``Set[str]``: Key에 따른 유일한 값들의 집합
+            ``set[str]``: Key에 따른 유일한 값들의 집합
 
         Examples:
             >>> jsd.unique("label")
@@ -326,11 +326,11 @@ class JsonDir:
         return uniq
 
 
-def write_json(data: Union[Dict[Any, Any], List[Dict[Any, Any]]], path: str) -> str:
+def write_json(data: dict[Any, Any] | list[dict[Any, Any]], path: str) -> str:
     """JSON (JavaScript Object Notation)을 작성하는 함수
 
     Args:
-        data (``Union[Dict[Any, Any], List[Dict[Any, Any]]]``): 입력 data (header 포함 무관)
+        data (``dict[Any, Any] | list[dict[Any, Any]]``): 입력 data (header 포함 무관)
         path (``str``): 출력될 JSON file의 경로 및 이름
 
     Returns:
