@@ -40,12 +40,12 @@ def table(
 
     Args:
         data (``list[list[int | float | str]]``): ``len(row) X len(col)`` 의 크기를 가지는 list
-        col (``list[int | float | str] | None]``): 열 (column)의 label
-        row (``list[int | float | str] | None]``): 행 (row)의 label
-        title (``str | None``): 저장될 file의 이름
-        fontsize (``int | None``): 문자의 크기
-        figsize (``tuple[int] | None``): Graph의 가로, 세로 길이
-        dpi (``int | None``): Graph 저장 시 DPI (Dots Per Inch)
+        col (``list[int | float | str] | None``): 열 (column)의 label
+        row (``list[int | float | str] | None``): 행 (row)의 label
+        title (``str``): 저장될 file의 이름
+        fontsize (``int``): 문자의 크기
+        figsize (``tuple[int]``): Graph의 가로, 세로 길이
+        dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``str``: 저장된 graph의 절대 경로

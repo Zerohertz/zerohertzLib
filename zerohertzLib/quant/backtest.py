@@ -184,7 +184,7 @@ def experiments(
         title (``str``): 종목 이름
         data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         method (``Callable[[Any], pd.DataFrame]``): Full factorial을 수행할 전략 function
-        exps (``list[list[Any]]``): 전략 function에 입력될 변수들의 범위
+        exps (``list[list[Any]] | None``): 전략 function에 입력될 변수들의 범위
         ohlc (``str``): 사용할 ``data`` 의 column 이름
         vis (``bool``): Candle chart 시각화 여부
         dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
@@ -347,7 +347,7 @@ class Experiments:
         """Moving average 전략 실험
 
         Args:
-            exps (``list[list[Any]]``): 전략 function에 입력될 변수들의 범위
+            exps (``list[list[Any]] | None``): 전략 function에 입력될 변수들의 범위
 
         Returns:
             ``dict[str, list[Any]]``: 손실 거래 비율에 따른 수익률, ``signals``, parameters
@@ -360,7 +360,7 @@ class Experiments:
         """RSI 전략 실험
 
         Args:
-            exps (``list[list[Any]]``): 전략 function에 입력될 변수들의 범위
+            exps (``list[list[Any]] | None``): 전략 function에 입력될 변수들의 범위
 
         Returns:
             ``dict[str, list[Any]]``: 손실 거래 비율에 따른 수익률, ``signals``, parameters
@@ -375,7 +375,7 @@ class Experiments:
         """Bollinger bands 전략 실험
 
         Args:
-            exps (``list[list[Any]]``): 전략 function에 입력될 변수들의 범위
+            exps (``list[list[Any]] | None``): 전략 function에 입력될 변수들의 범위
 
         Returns:
             ``dict[str, list[Any]]``: 손실 거래 비율에 따른 수익률, ``signals``, parameters
@@ -388,7 +388,7 @@ class Experiments:
         """Momentum 전략 실험
 
         Args:
-            exps (``list[list[Any]]``): 전략 function에 입력될 변수들의 범위
+            exps (``list[list[Any]] | None``): 전략 function에 입력될 변수들의 범위
 
         Returns:
             ``dict[str, list[Any]]``: 손실 거래 비율에 따른 수익률, ``signals``, parameters
@@ -401,7 +401,7 @@ class Experiments:
         """MACD 전략 실험
 
         Args:
-            exps (``list[list[Any]]``): 전략 function에 입력될 변수들의 범위
+            exps (``list[list[Any]] | None``): 전략 function에 입력될 변수들의 범위
 
         Returns:
             ``dict[str, list[Any]]``: 손실 거래 비율에 따른 수익률, ``signals``, parameters

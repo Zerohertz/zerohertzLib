@@ -64,7 +64,7 @@ def _bollinger_bands(
         data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         window (``int``): 이동 평균을 계산하기 위한 윈도우 크기. 기본값은 20.
         num_std_dev (``int``): 표준편차의 배수. 기본값은 2.
-        ohlc (``str | None``): 이동 평균을 계산할 때 사용할 ``data`` 의 column 이름
+        ohlc (``str``): 이동 평균을 계산할 때 사용할 ``data`` 의 column 이름
 
     Returns:
         ``pd.DataFrame``: Bollinger band

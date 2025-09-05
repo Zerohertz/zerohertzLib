@@ -42,11 +42,11 @@ def pie(
     Args:
         data (``dict[str, int | float]``): 입력 data
         dim (``str | None``): 입력 ``data`` 의 단위
-        title (``str | None``): Graph에 표시될 제목 및 file 이름
+        title (``str``): Graph에 표시될 제목 및 file 이름
         colors (``str | list | None``): 각 요소의 색
-        figsize (``tuple[int] | None``): Graph의 가로, 세로 길이
-        int_label (``bool | None``): Label 내 수치의 소수점 표기 여부
-        dpi (``int | None``): Graph 저장 시 DPI (Dots Per Inch)
+        figsize (``tuple[int]``): Graph의 가로, 세로 길이
+        int_label (``bool``): Label 내 수치의 소수점 표기 여부
+        dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``str``: 저장된 graph의 절대 경로

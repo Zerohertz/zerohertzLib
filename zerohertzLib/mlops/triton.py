@@ -45,8 +45,8 @@ class TritonClientURL(grpcclient.InferenceServerClient):
 
     Args:
         url (``str``): 호출할 triton inference server의 URL
-        port (``int | None``): triton inference server의 gRPC 통신 port 번호
-        verbose (``bool | None``): Verbose 출력 여부
+        port (``int``): triton inference server의 gRPC 통신 port 번호
+        verbose (``bool``): Verbose 출력 여부
 
     Methods:
         __call__:
@@ -191,18 +191,18 @@ class TritonClientURL(grpcclient.InferenceServerClient):
     def load_model(
         self,
         model_name: int | str,
-        headers: dict | None = None,
+        headers: str | None = None,
         config: str | None = None,
-        files: dict | None = None,
+        files: str | None = None,
         client_timeout: float | None = None,
     ) -> None:
         """Triton Inference Server 내 model을 load하는 함수
 
         Args:
             model_name (``int | str``): Load할 model의 이름 또는 ID
-            headers (``dict | None``): Request 전송 시 포함할 추가 HTTP header
+            headers (``str | None``): Request 전송 시 포함할 추가 HTTP header
             config (``str | None``): Model load 시 사용될 config
-            config (``dict | None``): Model load 시 override model directory에서 사용할 file
+            config (``str | None``): Model load 시 override model directory에서 사용할 file
             client_timeout (``float | None``): 초 단위의 timeout
 
         Examples:
@@ -216,7 +216,7 @@ class TritonClientURL(grpcclient.InferenceServerClient):
     def unload_model(
         self,
         model_name: int | str,
-        headers: dict | None = None,
+        headers: str | None = None,
         unload_dependents: bool = False,
         client_timeout: float | None = None,
     ) -> None:
@@ -224,7 +224,7 @@ class TritonClientURL(grpcclient.InferenceServerClient):
 
         Args:
             model_name (``int | str``): Unload할 model의 이름 또는 ID
-            headers (``dict | None``): Request 전송 시 포함할 추가 HTTP header
+            headers (``str | None``): Request 전송 시 포함할 추가 HTTP header
             unload_dependents (``bool | None``): Model unload 시 dependents의 unload 여부
             client_timeout (``float | None``): 초 단위의 timeout
 
@@ -243,8 +243,8 @@ class TritonClientK8s(TritonClientURL):
     Args:
         svc_name (``str``): 호출할 triton inference server의 Kubernetes service의 이름
         namespace (``str``): 호출할 triton inference server의 namespace
-        port (``int | None``): triton inference server의 gRPC 통신 port 번호
-        verbose (``bool | None``): Verbose 출력 여부
+        port (``int``): triton inference server의 gRPC 통신 port 번호
+        verbose (``bool``): Verbose 출력 여부
 
     Methods:
         __call__:
@@ -366,7 +366,7 @@ class BaseTritonPythonModel(ABC):
         """Triton Inference Server 호출 시 수행되는 method
 
         Args:
-            requests (``list[pb_utils.InferenceRequest]``): Client에서 전송된 model inputs
+            requests (``list[Any]``): Client에서 전송된 model inputs
 
         Returns:
             ``list[pb_utils.InferenceResponse]``: Client에 응답할 model의 추론 결과

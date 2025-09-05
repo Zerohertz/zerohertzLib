@@ -45,8 +45,8 @@ class ImageLoader:
     """경로와 image의 수를 지정하여 경로 내 image를 return하는 class
 
     Args:
-        path (``str | None``): Image들이 존재하는 경로
-        cnt (``int | None``): 호출 시 return 할 image의 수
+        path (``str``): Image들이 존재하는 경로
+        cnt (``int``): 호출 시 return 할 image의 수
 
     Attributes:
         image_paths (``list[str]``): 지정한 경로 내 image들의 경로
@@ -118,7 +118,7 @@ class JsonImageLoader:
         json_key (``str``): ``data_path`` 에서 data의 file 이름을 나타내는 key 값
 
     Attributes:
-        json (``zerohertzLib.util.JsonDir``): JSON file들을 읽어 data 구축 시 활용
+        json (``JsonDir``): JSON file들을 읽어 data 구축 시 활용
 
     Methods:
         __len__:
@@ -132,7 +132,7 @@ class JsonImageLoader:
                 idx (``int``): 입력 index
 
             Returns:
-                ``tuple[NDArray[np.uint8], zerohertzLib.util.Json]``: Image와 JSON 내 정보
+                ``tuple[NDArray[np.uint8], Json]``: Image와 JSON 내 정보
 
     Examples:
         >>> jil = zz.vision.JsonImageLoader(data_path, json_path, json_key)
@@ -171,11 +171,11 @@ class YoloLoader:
     """YOLO format의 dataset을 읽고 시각화하는 class
 
     Args:
-        data_path (``str | None``): Image가 존재하는 directory 경로
-        txt_path (``str | None``): YOLO format의 ``.txt`` 가 존재하는 directory 경로
+        data_path (``str``): Image가 존재하는 directory 경로
+        txt_path (``str``): YOLO format의 ``.txt`` 가 존재하는 directory 경로
         poly (``bool | None``): ``.txt`` file의 format (``False``: detection, ``True``: segmentation)
-        absolute (``bool | None``): ``.txt`` file의 절대 좌표계 여부 (``False``: relative coordinates, ``True``: absolute coordinates)
-        vis_path (``str | None``): 시각화 image들이 저장될 경로
+        absolute (``bool``): ``.txt`` file의 절대 좌표계 여부 (``False``: relative coordinates, ``True``: absolute coordinates)
+        vis_path (``str``): 시각화 image들이 저장될 경로
         class_color (``dict[int | str, tuple[int | None]]``): 시각화 결과에 적용될 class에 따른 색상
 
     Methods:
@@ -387,7 +387,7 @@ class CocoLoader:
 
     Args:
         data_path (``str``): Image 및 annotation이 존재하는 directory 경로
-        vis_path (``str | None``): 시각화 image들이 저장될 경로
+        vis_path (``str``): 시각화 image들이 저장될 경로
         class_color (``dict[int | str, tuple[int | None]]``): 시각화 결과에 적용될 class에 따른 색상
 
     Methods:
@@ -400,8 +400,8 @@ class CocoLoader:
 
             Args:
                 idx (``int``): 입력 index
-                read (``bool | None``): Image 읽음 여부
-                int_class (``bool | None``): 출력될 class의 type 지정
+                read (``bool``): Image 읽음 여부
+                int_class (``bool``): 출력될 class의 type 지정
 
             Returns:
                 ``tuple[str | NDArray[np.uint8], list[int | str], NDArray[DTypeLike], list[NDArray[DTypeLike]]]``: Image 경로 혹은 읽어온 image와 그에 따른 ``class_list``, ``bboxes``, ``polys``

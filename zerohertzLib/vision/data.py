@@ -61,7 +61,7 @@ class LabelStudio:
 
     Args:
         data_path (``str``): Image들이 존재하는 directory 경로
-        json_path (``str | None``): Label Studio에서 다른 format으로 변환할 시 사용될 annotation 정보가 담긴 JSON file
+        json_path (``str``): Label Studio에서 다른 format으로 변환할 시 사용될 annotation 정보가 담긴 JSON file
 
     Methods:
         __len__:

@@ -49,9 +49,9 @@ class OpenAI(openai.OpenAI):
 
             Args:
                 message (``str``): Model 호출 시 사용될 입력
-                prompt (``str | None``): Model 호출 시 사용될 prompt
-                model (``str | None``): 호출할 model 선택
-                stream (``bool | None``): 응답의 실시간 출력 여부
+                prompt (``str``): Model 호출 시 사용될 prompt
+                model (``str``): 호출할 model 선택
+                stream (``bool``): 응답의 실시간 출력 여부
 
             Returns:
                 ``str``: 호출된 model의 결과

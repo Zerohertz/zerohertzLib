@@ -55,14 +55,14 @@ def barv(
         ylab (``str | None``): Graph에 출력될 Y축 label
         xlim (``list[int | float] | None``): Graph에 출력될 X축 limit
         ylim (``list[int | float] | None``): Graph에 출력될 Y축 limit
-        title (``str | None``): Graph에 표시될 제목 및 file 이름
+        title (``str``): Graph에 표시될 제목 및 file 이름
         colors (``str | list | None``): 각 요소의 색
-        figsize (``tuple[int] | None``): Graph의 가로, 세로 길이
-        rot (``int | None``): X축의 눈금 회전 각도
+        figsize (``tuple[int]``): Graph의 가로, 세로 길이
+        rot (``int``): X축의 눈금 회전 각도
         dim (``str | None``): 각 bar 상단에 표시될 값의 단위 (``%``: percentage)
-        dimsize (``float | None``): 각 bar 상단에 표시될 값의 크기
-        sign (``int | None``): 각 bar 상단에 표시될 값의 유효숫자
-        dpi (``int | None``): Graph 저장 시 DPI (Dots Per Inch)
+        dimsize (``float``): 각 bar 상단에 표시될 값의 크기
+        sign (``int``): 각 bar 상단에 표시될 값의 유효숫자
+        dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``str``: 저장된 graph의 절대 경로
@@ -203,14 +203,14 @@ def barh(
         ylab (``str | None``): Graph에 출력될 Y축 label
         xlim (``list[int | float] | None``): Graph에 출력될 X축 limit
         ylim (``list[int | float] | None``): Graph에 출력될 Y축 limit
-        title (``str | None``): Graph에 표시될 제목 및 file 이름
+        title (``str``): Graph에 표시될 제목 및 file 이름
         colors (``str | list | None``): 각 요소의 색
-        figsize (``tuple[int] | None``): Graph의 가로, 세로 길이
-        rot (``int | None``): X축의 눈금 회전 각도
+        figsize (``tuple[int]``): Graph의 가로, 세로 길이
+        rot (``int``): X축의 눈금 회전 각도
         dim (``str | None``): 각 bar 상단에 표시될 값의 단위 (``%``: percentage)
-        dimsize (``float | None``): 각 bar 상단에 표시될 값의 크기
-        sign (``int | None``): 각 bar 상단에 표시될 값의 유효숫자
-        dpi (``int | None``): Graph 저장 시 DPI (Dots Per Inch)
+        dimsize (``float``): 각 bar 상단에 표시될 값의 크기
+        sign (``int``): 각 bar 상단에 표시될 값의 유효숫자
+        dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``str``: 저장된 graph의 절대 경로
@@ -348,12 +348,12 @@ def hist(
         ylab (``str | None``): Graph에 출력될 Y축 label
         xlim (``list[int | float] | None``): Graph에 출력될 X축 limit
         ylim (``list[int | float] | None``): Graph에 출력될 Y축 limit
-        title (``str | None``): Graph에 표시될 제목 및 file 이름
+        title (``str``): Graph에 표시될 제목 및 file 이름
         colors (``str | list | None``): 각 요소의 색
-        cnt (``int | None``): Bin의 개수
-        ovp (``bool | None``): Class에 따른 histogram overlap 여부
-        figsize (``tuple[int] | None``): Graph의 가로, 세로 길이
-        dpi (``int | None``): Graph 저장 시 DPI (Dots Per Inch)
+        cnt (``int``): Bin의 개수
+        ovp (``bool``): Class에 따른 histogram overlap 여부
+        figsize (``tuple[int]``): Graph의 가로, 세로 길이
+        dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``str``: 저장된 graph의 절대 경로

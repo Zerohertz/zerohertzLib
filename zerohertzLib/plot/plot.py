@@ -57,13 +57,13 @@ def plot(
         ylab (``str | None``): Graph에 출력될 Y축 label
         xlim (``list[int | float] | None``): Graph에 출력될 X축 limit
         ylim (``list[int | float] | None``): Graph에 출력될 Y축 limit
-        stacked (``bool | None``): Stacked plot 여부
-        ncol (``int | None``): Graph에 표시될 legend 열의 수
-        title (``str | None``): Graph에 표시될 제목 및 file 이름
+        stacked (``bool``): Stacked plot 여부
+        ncol (``int``): Graph에 표시될 legend 열의 수
+        title (``str``): Graph에 표시될 제목 및 file 이름
         colors (``str | list | None``): 각 요소의 색
-        markersize (``int | None``): Graph에 표시될 marker의 size
-        figsize (``tuple[int] | None``): Graph의 가로, 세로 길이
-        dpi (``int | None``): Graph 저장 시 DPI (Dots Per Inch)
+        markersize (``int``): Graph에 표시될 marker의 size
+        figsize (``tuple[int]``): Graph의 가로, 세로 길이
+        dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``str``: 저장된 graph의 절대 경로
@@ -155,11 +155,11 @@ def candle(
 
     Args:
         data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
-        title (``str | None``): Graph에 표시될 제목 및 file 이름
-        figsize (``tuple[int] | None``): Graph의 가로, 세로 길이
+        title (``str``): Graph에 표시될 제목 및 file 이름
+        figsize (``tuple[int]``): Graph의 가로, 세로 길이
         signals (``dict[str, Any] | None``): 추가적으로 plot할 data
-        threshold (``int | tuple[int] | None``): 매수, 매도를 결정할 ``signals`` 경계값
-        dpi (``int | None``): Graph 저장 시 DPI (Dots Per Inch)
+        threshold (``int | tuple[int]``): 매수, 매도를 결정할 ``signals`` 경계값
+        dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``str``: 저장된 graph의 절대 경로

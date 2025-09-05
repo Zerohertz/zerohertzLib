@@ -70,7 +70,7 @@ class KoreaInvestment:
 
     Args:
         account_no (``str``): API 호출 시 사용할 계좌 번호
-        path (``str | None``): ``secret.key`` 혹은 ``token.dat`` 이 포함된 경로
+        path (``str``): ``secret.key`` 혹은 ``token.dat`` 이 포함된 경로
 
     Attributes:
         api_key (``str``): API Key
@@ -585,7 +585,7 @@ class KoreaInvestment:
 
         Args:
             ctx_area_fk100 (``str | None``): 연속조회검색조건100
-            ctx_areak_nk100 (``str | None``): 연속조회키100
+            ctx_areak_nk100 (``str``): 연속조회키100
 
         Returns:
             ``dict[str, dict]``: 잔고 조회 결과
@@ -625,8 +625,8 @@ class KoreaInvestment:
     #     실전계좌의 경우, 한 번의 호출에 최대 100건까지 확인 가능하며, 이후의 값은 연속조회를 통해 확인하실 수 있습니다.
     #
     #     Args:
-    #         ctx_area_fk200 (``str | None``): 연속조회검색조건200
-    #         ctx_area_nk200 (``str | None``): 연속조회키200
+    #         ctx_area_fk200 (``str``): 연속조회검색조건200
+    #         ctx_area_nk200 (``str``): 연속조회키200
     #
     #     Returns:
     #         ``dict[str, dict]``: 잔고 조회 결과
@@ -708,7 +708,7 @@ class KoreaInvestment:
 
         Args:
             ctx_area_fk100 (``str | None``): 연속조회검색조건100
-            ctx_areak_nk100 (``str | None``): 연속조회키100
+            ctx_areak_nk100 (``str``): 연속조회키100
 
         Returns:
             ``dict[str, dict]``: 잔고 실현손익 조회 결과

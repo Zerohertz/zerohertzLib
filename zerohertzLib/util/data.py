@@ -37,7 +37,7 @@ def rmtree(path: str) -> None:
     """지정한 경로의 file을 삭제하고 다시 생성하는 함수
 
     Args:
-        path (``str``): 삭제 후 생성할 경로
+        path (``str | None``): 삭제 후 생성할 경로
 
     Returns:
         ``None``
@@ -63,17 +63,17 @@ class MakeData(ABC):
         Abstract Base Class: Data 구축 시 filtering 될 조건을 정의하는 abstract method ``condition`` 정의 후 사용
 
     Args:
-        start_data_path (``str``): 목표 data가 존재하는 directory 경로
-        start_json_path (``str``): 목표 JSON file이 존재하는 directory 경로
+        start_data_path (``str | None``): 목표 data가 존재하는 directory 경로
+        start_json_path (``str | None``): 목표 JSON file이 존재하는 directory 경로
         json_key (``str``): ``start_json`` 에서 data의 file 이름을 나타내는 key 값
-        target_path (``str``): Data 구축 경로
-        end_data_dir (``str | None``): 구축될 data file들의 directory 이름
-        end_json_dir (``str | None``): 구축될 JSON file들의 directory 이름
+        target_path (``str | None``): Data 구축 경로
+        end_data_dir (``str``): 구축될 data file들의 directory 이름
+        end_json_dir (``str``): 구축될 JSON file들의 directory 이름
 
     Attributes:
-        json (``zerohertzLib.util.JsonDir``): JSON file들을 읽어 data 구축 시 활용
-        end_data_path (``str``): ``{target_path}/{end_data_dir}``
-        end_json_path (``str``): ``{target_path}/{end_json_dir}``
+        json (``JsonDir``): JSON file들을 읽어 data 구축 시 활용
+        end_data_path (``str | None``): ``{target_path}/{end_data_dir}``
+        end_json_path (``str | None``): ``{target_path}/{end_json_dir}``
     """
 
     def __init__(
@@ -102,7 +102,7 @@ class MakeData(ABC):
         """Data 구축 시 filtering 될 조건
 
         Args:
-            json_instance (``zerohertzLib.util.Json``): ``Json`` instance
+            json_instance (``Json``): ``Json`` instance
 
         Returns:
             ``bool``: Data 포함 여부
@@ -184,7 +184,7 @@ class MakeData(ABC):
         """Data 구축 방법 정의
 
         Args:
-            json_instance (``zerohertzLib.util.Json``): ``Json`` instance
+            json_instance (``Json``): ``Json`` instance
             data_name (``str``): ``json_key`` 에 의해 출력된 data의 이름
 
         Returns:

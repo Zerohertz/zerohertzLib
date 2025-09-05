@@ -174,7 +174,7 @@ class Balance(KoreaInvestment):
         """현재 계좌와 입력 계좌의 정보를 병합하는 function
 
         Args:
-            balance (``zerohertzLib.quant.Balance``): 병합될 계좌 정보
+            balance (``'Balance'``): 병합될 계좌 정보
 
         Returns:
             ``None``: 현재 계좌에 정보 update
@@ -403,10 +403,10 @@ class QuantBotKI(Balance, QuantBot):
         top (``int``): Experiment 과정에서 사용할 각 전략별 수
         methods (``dict[str, list[list[Any]]] | None``): 사용할 전략들의 function명 및 parameters
         report (``bool``): Experiment 결과 출력 여부
-        token (``str | None``): Bot의 token (xoxb- prefix로 시작하면 SlackBot, 아니면 DiscordBot)
-        channel (``str | None``): Bot이 전송할 channel
-        name (``str | None``): Bot의 표시될 이름
-        icon_emoji (``str | None``): Bot의 표시될 사진 (emoji)
+        token (``str``): Bot의 token (xoxb- prefix로 시작하면 SlackBot, 아니면 DiscordBot)
+        channel (``str``): Bot이 전송할 channel
+        name (``str``): Bot의 표시될 이름
+        icon_emoji (``str``): Bot의 표시될 사진 (emoji)
         mp_num (``int``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
         analysis (``bool``): 각 전략의 보고서 전송 여부
         kor (``bool``): 국내 여부

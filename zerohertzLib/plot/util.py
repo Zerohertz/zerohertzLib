@@ -38,7 +38,7 @@ def figure(figsize: tuple[int] = (15, 10)) -> Figure:
     """Graph 생성을 위한 함수
 
     Args:
-        figsize (``tuple[int] | None``): Graph의 가로, 세로 길이
+        figsize (``tuple[int]``): Graph의 가로, 세로 길이
 
     Returns:
         ``matplotlib.figure.Figure``: Graph window 생성
@@ -78,7 +78,7 @@ def savefig(title: str, dpi: int = 300) -> str:
 
     Args:
         title (``str``): Graph file 이름
-        dpi (``int | None``): Graph 저장 시 DPI (Dots Per Inch)
+        dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``str``: 저장된 graph의 절대 경로
@@ -106,10 +106,10 @@ def color(
     """색 추출 함수
 
     Args:
-        cnt (``int | None``): 추출할 색의 수
-        rand (``bool | None``): Random 추출 여부
-        uint8 (``bool | None``): 출력 색상의 type
-        palette (``str | None``): 추출할 색들의 palette
+        cnt (``int``): 추출할 색의 수
+        rand (``bool``): Random 추출 여부
+        uint8 (``bool``): 출력 색상의 type
+        palette (``str``): 추출할 색들의 palette
 
     Returns:
         ``tuple[float] | list[int] | list[tuple[float]] | list[list[int]]``: 단일 색 또는 list로 구성된 여러 색

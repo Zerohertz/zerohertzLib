@@ -35,18 +35,18 @@ class GitHub:
     """GitHub API를 사용하기 위한 class
 
     Args:
-        user (``str | None``): GitHub API를 호출할 user
-        repo (``str | None``): GitHub API를 호출할 repository
-        token (``str | None``): GitHub의 token
-        issue (``bool | None``): ``True``: Issue & PR, ``False``: Only PR
+        user (``str``): GitHub API를 호출할 user
+        repo (``str``): GitHub API를 호출할 repository
+        token (``str``): GitHub의 token
+        issue (``bool``): ``True``: Issue & PR, ``False``: Only PR
 
     Methods:
         __call__:
             API 호출 수행
 
             Args:
-                lab (``str | None``): 선택할 GitHub repository의 label (``issue=False`` 시 error 발생)
-                per_page (``int | None``): 1회 호출 시 출력될 결과의 수
+                lab (``str``): 선택할 GitHub repository의 label (``issue=False`` 시 error 발생)
+                per_page (``int``): 1회 호출 시 출력될 결과의 수
 
             Returns:
                 ``list[dict[str, Any]]``: API 호출 결과

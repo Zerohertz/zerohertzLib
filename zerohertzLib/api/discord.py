@@ -92,7 +92,7 @@ class DiscordBot(AbstractBot[requests.Response]):
     Args:
         token (``str``): Discord Bot 토큰
         channel (``str``): Discord Bot이 전송할 channel
-        timeout (``int | None``): API 요청 시 사용될 timeout
+        timeout (``int``): API 요청 시 사용될 timeout
 
     Examples:
         >>> discord = zz.api.DiscordBot("YOUR_BOT_TOKEN", "1234567890")

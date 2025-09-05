@@ -51,12 +51,12 @@ def scatter(
         ylab (``str | None``): Graph에 출력될 Y축 label
         xlim (``list[int | float] | None``): Graph에 출력될 X축 limit
         ylim (``list[int | float] | None``): Graph에 출력될 Y축 limit
-        ncol (``int | None``): Graph에 표시될 legend 열의 수
-        title (``str | None``): Graph에 표시될 제목 및 file 이름
+        ncol (``int``): Graph에 표시될 legend 열의 수
+        title (``str``): Graph에 표시될 제목 및 file 이름
         colors (``str | list | None``): 각 요소의 색
-        markersize (``int | None``): Graph에 출력될 marker의 크기
-        figsize (``tuple[int] | None``): Graph의 가로, 세로 길이
-        dpi (``int | None``): Graph 저장 시 DPI (Dots Per Inch)
+        markersize (``int``): Graph에 출력될 marker의 크기
+        figsize (``tuple[int]``): Graph의 가로, 세로 길이
+        dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``str``: 저장된 graph의 절대 경로

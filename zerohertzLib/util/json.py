@@ -36,7 +36,7 @@ class Json:
     객체 생성 시 ``path`` 를 입력하지 않을 시 현재 경로에 존재하는 JSON file을 읽고 ``path`` 를 경로로 입력하면 해당 경로에 존재하는 JSON file을 읽는다.
 
     Args:
-        path (``str | None``): JSON file의 경로
+        path (``str``): JSON file의 경로
 
     Attributes:
         name (``str``): JSON file 이름
@@ -213,11 +213,11 @@ class JsonDir:
     객체 생성 시 ``path`` 를 입력하지 않을 시 현재 경로에 존재하는 JSON file들을 읽는다.
 
     Args:
-        path (``str | None``): JSON file의 경로
+        path (``str``): JSON file의 경로
 
     Attributes:
         name (``str``): 읽어온 JSON file의 이름들
-        data (``dict[str, zerohertzLib.util.Json]``): File 이름에 따른 `Json` 객체 배열
+        data (``dict[str, Json]``): File 이름에 따른 `Json` 객체 배열
 
     Methods:
         __len__:
@@ -231,7 +231,7 @@ class JsonDir:
                 idx (``int``): 입력 index
 
             Returns:
-                ``zerohertzLib.util.Json``: Index에 따른 ``Json`` instance
+                ``Json``: Index에 따른 ``Json`` instance
 
         _get_key:
             Key의 경로를 찾아주는 method

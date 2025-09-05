@@ -36,11 +36,11 @@ class SlackWebhook(AbstractWebhook):
 
     Args:
         webhook_url (``str``): Slack Webhook의 URL
-        channel (``str | None``): Slack Webhook이 전송할 channel
-        name (``str | None``): Slack Webhook의 표시될 이름
-        icon_emoji (``str | None``): Slack Webhook의 표시될 사진 (emoji)
-        icon_url (``str | None``): Slack Webhook의 표시될 사진 (photo)
-        timeout (``int | None``): ``message``, ``file`` method 사용 시 사용될 timeout
+        channel (``str``): Slack Webhook이 전송할 channel
+        name (``str``): Slack Webhook의 표시될 이름
+        icon_emoji (``str``): Slack Webhook의 표시될 사진 (emoji)
+        icon_url (``str``): Slack Webhook의 표시될 사진 (photo)
+        timeout (``int``): ``message``, ``file`` method 사용 시 사용될 timeout
 
     Examples:
         >>> slack = zz.api.SlackWebhook("https://hooks.slack.com/services/...")
@@ -80,7 +80,7 @@ class SlackWebhook(AbstractWebhook):
 
         Args:
             message (``str``): 전송할 message
-            codeblock (``bool``): 전송되는 message의 스타일
+            codeblock (``str | bool``): 전송되는 message의 스타일
 
         Returns:
             ``requests.Response``: Slack Webhook의 응답
@@ -128,10 +128,10 @@ class SlackBot(AbstractBot[SlackResponse]):
     Args:
         token (``str``): Slack Bot의 token
         channel (``str``): Slack Bot이 전송할 channel
-        timeout (``int | None``): ``message``, ``file`` method 사용 시 사용될 timeout
-        name (``str | None``): Slack Bot에 표시될 이름
-        icon_emoji (``str | None``): Slack Bot에 표시될 사진 (emoji)
-        icon_url (``str | None``): Slack Bot에 표시될 사진 (photo)
+        timeout (``int``): ``message``, ``file`` method 사용 시 사용될 timeout
+        name (``str``): Slack Bot에 표시될 이름
+        icon_emoji (``str``): Slack Bot에 표시될 사진 (emoji)
+        icon_url (``str``): Slack Bot에 표시될 사진 (photo)
 
     Examples:
         >>> slack = zz.api.SlackBot("xoxb-...", "test")
@@ -229,7 +229,7 @@ class SlackBot(AbstractBot[SlackResponse]):
 
         Args:
             path (``str``): 전송할 file 경로
-            thread_id (``thread_id: str | None``): 댓글을 전송할 thread의 timestamp
+            thread_id (``str | None``): 댓글을 전송할 thread의 timestamp
 
         Returns:
             ``slack_sdk.web.slack_response.SlackResponse``: Slack Bot의 응답
