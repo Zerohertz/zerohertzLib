@@ -65,6 +65,27 @@ def test_quant():
     qnt()
 
 
+def test_quant_mocked_bot_fdr_kor():
+    qsb = zz.quant.QuantBotFDR(
+        1,
+        start_day=START_DAY,
+        ohlc="Close",
+        top=4,
+        analysis=True,
+    )
+    qsb.index()
+
+
+def test_quant_mocked_bot_fdr_ovs():
+    qsb = zz.quant.QuantBotFDR(
+        1,
+        start_day=START_DAY,
+        top=2,
+        kor=False,
+    )
+    qsb.buy()
+
+
 def test_quant_discord_bot_fdr_kor():
     qsb = zz.quant.QuantBotFDR(
         1,

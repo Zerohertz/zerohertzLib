@@ -70,7 +70,7 @@ class AbstractBot(ABC, Generic[ResponseType]):
         return _get_codeblock(message=message, codeblock=codeblock)
 
 
-class MockBot(AbstractBot[None]):
+class MockedBot(AbstractBot[None]):
     def __init__(self) -> None: ...
 
     def message(

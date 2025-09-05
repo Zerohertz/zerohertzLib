@@ -35,7 +35,7 @@ import pandas as pd
 from slack_sdk.web import SlackResponse
 
 from zerohertzLib.api import DiscordBot, SlackBot
-from zerohertzLib.api.base import MockBot
+from zerohertzLib.api.base import MockedBot
 from zerohertzLib.plot import barh, barv, candle, figure, hist, savefig, subplot
 
 from .backtest import Experiments, backtest
@@ -295,7 +295,7 @@ class QuantBot(ABC):
         kor: bool = True,
     ) -> None:
         if token is None or channel is None:
-            self.bot = MockBot()
+            self.bot = MockedBot()
         elif token.startswith("xoxb-"):
             self.bot = SlackBot(
                 token=token, channel=channel, name=name, icon_emoji=icon_emoji
