@@ -33,11 +33,6 @@ component_management:
       paths:
         - test/test_api.py
         - zerohertzLib/api/**
-    - component_id: logging
-      name: logging
-      paths:
-        - test/test_logging.py
-        - zerohertzLib/logging/**
     - component_id: monitoring
       name: monitoring
       paths:

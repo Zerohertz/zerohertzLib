@@ -26,11 +26,10 @@ from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 import tritonclient.grpc as grpcclient
+from loguru import logger
 from numpy.typing import DTypeLike, NDArray
 from prettytable import PrettyTable
 from tritonclient.utils import triton_to_np_dtype
-
-from zerohertzLib.logging import Logger
 
 try:
     import json
@@ -77,7 +76,6 @@ class TritonClientURL(grpcclient.InferenceServerClient):
         self.models = []
         for model in self.get_model_repository_index(as_json=True)["models"]:
             self.models.append(model["name"])
-        self.logger = Logger("TritonClient", logger_level=20)
         self.emoji = {
             "LOADING": "🚀",
             "READY": "✅",
@@ -120,7 +118,7 @@ class TritonClientURL(grpcclient.InferenceServerClient):
         self, input_info: Dict[str, List[int]], value: NDArray[DTypeLike]
     ) -> grpcclient._infer_input.InferInput:
         if "dims" in input_info.keys() and len(input_info["dims"]) != len(value.shape):
-            self.logger.warning(
+            logger.warning(
                 "Expected dimension length of input (%d) does not match the input dimension length (%d) [input dimension: %s]",
                 len(input_info["dims"]),
                 len(value.shape),
@@ -190,7 +188,7 @@ class TritonClientURL(grpcclient.InferenceServerClient):
         if sortby:
             table.sortby = sortby
         table.reversesort = reverse
-        self.logger.info("\n%s", str(table))
+        logger.info("\n%s", str(table))
 
     def load_model(
         self,
@@ -309,9 +307,6 @@ class BaseTritonPythonModel(ABC):
                           value: "1"
                       ...
 
-    Attributes:
-        logger (``zerohertzLib.logging.Logger``): Triton Inference Server 내 log를 출력하기 위한 instance
-
     Methods:
         _inference:
             Model 추론을 수행하는 private method (상속을 통한 재정의 필수)
@@ -360,21 +355,14 @@ class BaseTritonPythonModel(ABC):
                                             ====================================================================================================
     """
 
-    def initialize(self, args: Dict[str, Any], level: Optional[int] = 20) -> None:
+    def initialize(self, args: Dict[str, Any]) -> None:
         """Triton Inference Server 시작 시 수행되는 method
 
         Args:
             args (``Dict[str, Any]``): ``config.pbtxt`` 에 포함된 model의 정보
-            level (``Optional[int]``): Logger의 level
         """
         self.cfg = json.loads(args["model_config"])
-        self.logger = Logger(
-            self.cfg["name"].upper(),
-            170,
-            file_name=self.cfg["name"],
-            logger_level=level,
-        )
-        self.logger.info("Initialize")
+        logger.info("Initialize")
 
     def execute(self, requests: List[Any]) -> List[Any]:
         """Triton Inference Server 호출 시 수행되는 method
@@ -388,19 +376,19 @@ class BaseTritonPythonModel(ABC):
         responses = []
         for request in requests:
             try:
-                self.logger.info("Called")
+                logger.info("Called")
                 inputs = self._get_inputs(request)
-                self.logger.debug(
+                logger.debug(
                     "inputs: %s", " ".join([str(input_.shape) for input_ in inputs])
                 )
-                self.logger.info("Inference start")
+                logger.info("Inference start")
                 outputs = self._inference(*inputs)
                 if not isinstance(outputs, tuple):
                     outputs = tuple([outputs])
-                self.logger.debug(
+                logger.debug(
                     "outputs: %s", " ".join([str(output.shape) for output in outputs])
                 )
-                self.logger.info("Inference completed")
+                logger.info("Inference completed")
                 response = self._set_outputs(outputs)
                 responses.append(response)
             except Exception as error:
@@ -412,7 +400,7 @@ class BaseTritonPythonModel(ABC):
                     + str(traceback.format_exc())
                     + "=" * 100
                 )
-                self.logger.critical(message)
+                logger.critical(message)
                 responses.append(
                     pb_utils.InferenceResponse(
                         output_tensors=[], error=pb_utils.TritonError(message)
@@ -447,4 +435,4 @@ class BaseTritonPythonModel(ABC):
 
     def finalize(self) -> None:
         """Triton Inference Server 종료 시 수행되는 method"""
-        self.logger.info("Finalize")
+        logger.info("Finalize")

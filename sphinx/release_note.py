@@ -1,6 +1,8 @@
 import argparse
 import os
 
+from loguru import logger
+
 import zerohertzLib as zz
 
 
@@ -18,5 +20,4 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--token")
     args = parser.parse_args()
-    logger = zz.logging.Logger("Release Note")
     main()

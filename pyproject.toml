@@ -59,7 +59,7 @@ dependencies = [
 
 [project.optional-dependencies]
 api = [
-    # api & logging & quant & mlops
+    # api & quant & mlops
     "requests",
 
     # api
@@ -67,7 +67,7 @@ api = [
     "slack_sdk",
 
     # logging
-    "rich",
+    "loguru",
 ]
 mlops = [
     # api & logging & quant & mlops
@@ -150,6 +150,6 @@ version = { attr = "zerohertzLib.__version__" }
 
 [tool.ruff.lint]
 ignore = [
-    "E402",  # Module level import not at top of file
-    "F401",  # imported but unused
+    "E402", # Module level import not at top of file
+    "F401", # imported but unused
 ]

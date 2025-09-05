@@ -31,11 +31,6 @@ except ImportError:
     pass
 
 try:
-    from zerohertzLib import logging
-except ImportError:
-    pass
-
-try:
     from zerohertzLib import mlops
 except ImportError:
     pass
