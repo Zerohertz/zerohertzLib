@@ -68,9 +68,9 @@ def backtest(
     Args:
         data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         signals (``pd.DataFrame``): ``"signals"`` column이 포함된 data (다른 이름으로 지정했을 시 ``signal_key`` 사용)
-        ohlc (``str | None``): 사용할 ``data`` 의 column 이름
-        threshold (``int | tuple[int] | None``): 매수, 매도를 결정할 ``signals`` 경계값
-        signal_key (``str | None``): ``"signals"`` 의 key 값
+        ohlc (``str``): 사용할 ``data`` 의 column 이름
+        threshold (``int | tuple[int]``): 매수, 매도를 결정할 ``signals`` 경계값
+        signal_key (``str``): ``"signals"`` 의 key 값
 
     Returns:
         ``dict[str, Any]``: 총 수익률 (단위: %), 손실 거래 비율 (단위: %), 손실 거래 비율에 따른 수익률, 거래 정보 (매수가, 매도가, 수익률, 거래 기간), 총 매수, 총 매도
@@ -185,10 +185,10 @@ def experiments(
         data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
         method (``Callable[[Any], pd.DataFrame]``): Full factorial을 수행할 전략 function
         exps (``list[list[Any]]``): 전략 function에 입력될 변수들의 범위
-        ohlc (``str | None``): 사용할 ``data`` 의 column 이름
-        vis (``bool | None``): Candle chart 시각화 여부
-        dpi (``int | None``): Graph 저장 시 DPI (Dots Per Inch)
-        report (``bool | None``): Experiment 결과 출력 여부
+        ohlc (``str``): 사용할 ``data`` 의 column 이름
+        vis (``bool``): Candle chart 시각화 여부
+        dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
+        report (``bool``): Experiment 결과 출력 여부
 
     Returns:
         ``dict[str, list[Any]]``: 손실 거래 비율에 따른 수익률, ``signals``, parameters
@@ -299,9 +299,9 @@ class Experiments:
     Args:
         title (``str``): 종목 이름
         data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
-        ohlc (``str | None``): 사용할 ``data`` 의 column 이름
-        vis (``bool | None``): Candle chart 시각화 여부
-        report (``bool | None``): Experiment 결과 출력 여부
+        ohlc (``str``): 사용할 ``data`` 의 column 이름
+        vis (``bool``): Candle chart 시각화 여부
+        report (``bool``): Experiment 결과 출력 여부
 
     Examples:
         >>> experiments = zz.quant.Experiments(title, data)
