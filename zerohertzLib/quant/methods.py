@@ -35,10 +35,10 @@ from .util import _bollinger_bands, _rsi
 
 def moving_average(
     data: pd.DataFrame,
-    short_window: int | None = 40,
-    long_window: int | None = 80,
-    threshold: float | None = 0.0,
-    ohlc: str | None = "",
+    short_window: int = 40,
+    long_window: int = 80,
+    threshold: float = 0.0,
+    ohlc: str = "",
 ) -> pd.DataFrame:
     """단기 및 장기 이동 평균 기반 매수 및 매도 signal을 생성하는 function
 
@@ -103,10 +103,10 @@ def moving_average(
 
 def rsi(
     data: pd.DataFrame,
-    lower_bound: int | None = 20,
-    upper_bound: int | None = 80,
-    window: int | None = 30,
-    ohlc: str | None = "",
+    lower_bound: int = 20,
+    upper_bound: int = 80,
+    window: int = 30,
+    ohlc: str = "",
 ) -> pd.DataFrame:
     r"""RSI 기반 매수 및 매도 signal을 생성하는 function
 
@@ -163,9 +163,9 @@ def rsi(
 
 def bollinger_bands(
     data: pd.DataFrame,
-    window: int | None = 60,
-    num_std_dev: float | None = 2.5,
-    ohlc: str | None = "",
+    window: int = 60,
+    num_std_dev: float = 2.5,
+    ohlc: str = "",
 ) -> pd.DataFrame:
     """Bollinger band 기반 매수 및 매도 signal을 생성하는 function
 
@@ -224,8 +224,8 @@ def bollinger_bands(
 
 def momentum(
     data: pd.DataFrame,
-    window: int | None = 5,
-    ohlc: str | None = "",
+    window: int = 5,
+    ohlc: str = "",
 ) -> pd.DataFrame:
     """Momentum 기반 매수 및 매도 signal을 생성하는 function
 
@@ -277,9 +277,9 @@ def momentum(
 
 def macd(
     data: pd.DataFrame,
-    n_fast: int | None = 12,
-    n_signal: int | None = 9,
-    ohlc: str | None = "",
+    n_fast: int = 12,
+    n_signal: int = 9,
+    ohlc: str = "",
 ) -> pd.DataFrame:
     """MACD 기반 매수 및 매도 signal을 생성하는 function
 

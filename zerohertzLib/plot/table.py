@@ -31,10 +31,10 @@ def table(
     data: list[list[int | float | str]],
     col: list[int | float | str] | None = None,
     row: list[int | float | str] | None = None,
-    title: str | None = "tmp",
-    fontsize: int | None = 35,
-    figsize: tuple[int] | None = (20, 8),
-    dpi: int | None = 300,
+    title: str = "tmp",
+    fontsize: int = 35,
+    figsize: tuple[int] = (20, 8),
+    dpi: int = 300,
 ) -> str:
     """Dictionary로 입력받은 data를 scatter plot으로 시각화
 

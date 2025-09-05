@@ -31,11 +31,11 @@ from .util import _color, savefig
 def pie(
     data: dict[str, int | float],
     dim: str | None = None,
-    title: str | None = "tmp",
+    title: str = "tmp",
     colors: str | list | None = None,
-    figsize: tuple[int] | None = (15, 10),
-    int_label: bool | None = True,
-    dpi: int | None = 300,
+    figsize: tuple[int] = (15, 10),
+    int_label: bool = True,
+    dpi: int = 300,
 ) -> str:
     """Dictionary로 입력받은 data를 pie chart로 시각화
 

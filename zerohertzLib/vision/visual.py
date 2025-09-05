@@ -23,7 +23,6 @@ SOFTWARE.
 """
 
 import os
-from typing import Dict, List, Optional, Tuple, Union
 
 import cv2
 import numpy as np
@@ -40,7 +39,7 @@ from .util import _cvt_bgra, _is_bbox
 def _bbox(
     img: NDArray[np.uint8],
     box_poly: NDArray[DTypeLike],
-    color: Tuple[int],
+    color: tuple[int],
     thickness: int,
 ) -> NDArray[np.uint8]:
     """Bbox 시각화
@@ -48,7 +47,7 @@ def _bbox(
     Args:
         img (``NDArray[np.uint8]``): Input image (``[H, W, C]``)
         box_poly (``NDArray[DTypeLike]``): 하나의 bbox (``[4, 2]``)
-        color (``Tuple[int]``): bbox의 색
+        color (``tuple[int]``): bbox의 색
         thickness (``int``): bbox 선의 두께
 
     Returns:
@@ -65,17 +64,17 @@ def _bbox(
 
 def bbox(
     img: NDArray[np.uint8],
-    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
-    color: Optional[Tuple[int]] = (0, 0, 255),
-    thickness: Optional[int] = 2,
+    box: list[int | float] | NDArray[DTypeLike],
+    color: tuple[int] = (0, 0, 255),
+    thickness: int = 2,
 ) -> NDArray[np.uint8]:
     """여러 Bbox 시각화
 
     Args:
         img (``NDArray[np.uint8]``): Input image (``[H, W, C]``)
-        box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): 하나 혹은 여러 개의 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
-        color (``Optional[Tuple[int]]``): bbox의 색
-        thickness (``Optional[int]``): bbox 선의 두께
+        box (``list[int | float] | NDArray[DTypeLike]``): 하나 혹은 여러 개의 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
+        color (``tuple[int]``): bbox의 색
+        thickness (``int``): bbox 선의 두께
 
     Returns:
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, C]``)
@@ -118,27 +117,27 @@ def bbox(
 
 def mask(
     img: NDArray[np.uint8],
-    mks: Optional[NDArray[bool]] = None,
-    poly: Optional[
-        Union[List[Union[int, float]], NDArray[DTypeLike], List[NDArray[DTypeLike]]]
-    ] = None,
-    color: Optional[Tuple[int]] = (0, 0, 255),
-    class_list: Optional[List[Union[int, str]]] = None,
-    class_color: Optional[Dict[Union[int, str], Tuple[int]]] = None,
-    border: Optional[bool] = True,
-    alpha: Optional[float] = 0.5,
+    mks: NDArray[bool] | None = None,
+    poly: (
+        list[int | float] | NDArray[DTypeLike] | list[NDArray[DTypeLike]] | None
+    ) = None,
+    color: tuple[int] = (0, 0, 255),
+    class_list: list[int | str] | None = None,
+    class_color: dict[int | str, tuple[int]] | None = None,
+    border: bool = True,
+    alpha: float = 0.5,
 ) -> NDArray[np.uint8]:
     """Mask 시각화
 
     Args:
         img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
-        mks (``Optional[NDArray[bool]]``): 입력 image 위에 병합할 mask (``[H, W]`` or ``[N, H, W]``)
-        poly (``Optional[Union[List[Union[int, float]], NDArray[DTypeLike], List[NDArray[DTypeLike]]]]``): 입력 image 위에 병합할 mask (``[M, 2]`` or ``[N, M, 2]``)
-        color (``Optional[Tuple[int]]``): Mask의 색
-        class_list (``Optional[List[Union[int, str]]]``): ``mks`` 의 index에 따른 class
-        class_color (``Optional[Dict[Union[int, str], Tuple[int]]]``): Class에 따른 색 (``color`` 무시)
-        border (``Optional[bool]``): Mask의 경계선 표시 여부
-        alpha (``Optional[float]``): Mask의 투명도
+        mks (``NDArray[bool] | None``): 입력 image 위에 병합할 mask (``[H, W]`` or ``[N, H, W]``)
+        poly (``list[int | float] | NDArray[DTypeLike] | list[NDArray[DTypeLike]] | None``): 입력 image 위에 병합할 mask (``[M, 2]`` or ``[N, M, 2]``)
+        color (``tuple[int]``): Mask의 색
+        class_list (``list[int | str] | None``): ``mks`` 의 index에 따른 class
+        class_color (``dict[int | str, tuple[int]] | None``): Class에 따른 색 (``color`` 무시)
+        border (``bool``): Mask의 경계선 표시 여부
+        alpha (``float``): Mask의 투명도
 
     Returns:
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, C]``)
@@ -238,14 +237,14 @@ def _paste(img: NDArray[np.uint8], target: NDArray[np.uint8]) -> NDArray[np.uint
 
 
 def _make_text(
-    txt: str, shape: Tuple[int], color: Tuple[int], fontsize: int
+    txt: str, shape: tuple[int], color: tuple[int], fontsize: int
 ) -> NDArray[np.uint8]:
     """배경이 투명한 문자열 image 생성
 
     Args:
         txt (``str``): 입력 문자열
-        shape (``Tuple[int]``): 출력 image의 shape
-        color (``Tuple[int]``): 문자의 색
+        shape (``tuple[int]``): 출력 image의 shape
+        color (``tuple[int]``): 문자의 색
         fontsize (``int``): 문자의 크기
 
     Returns:
@@ -273,7 +272,7 @@ def _text(
     img: NDArray[np.uint8],
     box_cwh: NDArray[DTypeLike],
     txt: str,
-    color: Tuple[int],
+    color: tuple[int],
     fontsize: int,
 ) -> NDArray[np.uint8]:
     """단일 text 시각화
@@ -282,7 +281,7 @@ def _text(
         img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
         box_cwh (``NDArray[DTypeLike]``): 문자열이 존재할 bbox (``[4]``)
         txt (``str``): Image에 추가할 문자열
-        color (``Tuple[int]``): 문자의 색
+        color (``tuple[int]``): 문자의 색
         fontsize (``int``): 문자의 크기
 
     Returns:
@@ -297,21 +296,21 @@ def _text(
 
 def text(
     img: NDArray[np.uint8],
-    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
-    txt: Union[str, List[str]],
-    color: Optional[Tuple[int]] = (0, 0, 0),
-    vis: Optional[bool] = False,
-    fontsize: Optional[int] = 100,
+    box: list[int | float] | NDArray[DTypeLike],
+    txt: str | list[str],
+    color: tuple[int] = (0, 0, 0),
+    vis: bool = False,
+    fontsize: int = 100,
 ) -> NDArray[np.uint8]:
     """Text 시각화
 
     Args:
         img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
-        box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): 문자열이 존재할 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
-        txt (``Union[str, List[str]]``): Image에 추가할 문자열
-        color (``Optional[Tuple[int]]``): 문자의 색
-        vis (``Optional[bool]``): 문자 영역의 시각화 여부
-        fontsize (``Optional[int]``): 문자의 크기
+        box (``list[int | float] | NDArray[DTypeLike]``): 문자열이 존재할 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
+        txt (``str | list[str]``): Image에 추가할 문자열
+        color (``tuple[int]``): 문자의 색
+        vis (``bool``): 문자 영역의 시각화 여부
+        fontsize (``int``): 문자의 크기
 
     Returns:
         ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
@@ -361,13 +360,13 @@ def text(
 def paste(
     img: NDArray[np.uint8],
     target: NDArray[np.uint8],
-    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
-    resize: Optional[bool] = False,
-    vis: Optional[bool] = False,
-    poly: Optional[NDArray[DTypeLike]] = None,
-    alpha: Optional[int] = None,
-    gaussian: Optional[int] = None,
-) -> Union[NDArray[np.uint8], Tuple[NDArray[np.uint8], NDArray[DTypeLike]]]:
+    box: list[int | float] | NDArray[DTypeLike],
+    resize: bool = False,
+    vis: bool = False,
+    poly: NDArray[DTypeLike] | None = None,
+    alpha: int | None = None,
+    gaussian: int | None = None,
+) -> NDArray[np.uint8] | tuple[NDArray[np.uint8], NDArray[DTypeLike]]:
     """``target`` image를 ``img`` 위에 투명도를 포함하여 병합
 
     Note:
@@ -380,15 +379,15 @@ def paste(
     Args:
         img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
         target (``NDArray[np.uint8]``): Target image (``[H, W, 4]``)
-        box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): 병합될 영역 (``xyxy`` 형식)
-        resize (``Optional[bool]``): Target image의 resize 여부
-        vis (``Optional[bool]``): 지정한 영역 (``box``)의 시각화 여부
-        poly (``Optional[NDArray[DTypeLike]]``): 변형된 좌표 (``[N, 2]``)
-        alpha (``Optional[int]``): ``target`` image의 투명도 변경
-        gaussian (``Optional[int]``): 자연스러운 병합을 위해 ``target`` 의 alpha channel에 적용될 Gaussian blur의 kernel size
+        box (``list[int | float] | NDArray[DTypeLike]``): 병합될 영역 (``xyxy`` 형식)
+        resize (``bool``): Target image의 resize 여부
+        vis (``bool``): 지정한 영역 (``box``)의 시각화 여부
+        poly (``NDArray[DTypeLike] | None``): 변형된 좌표 (``[N, 2]``)
+        alpha (``int | None``): ``target`` image의 투명도 변경
+        gaussian (``int | None``): 자연스러운 병합을 위해 ``target`` 의 alpha channel에 적용될 Gaussian blur의 kernel size
 
     Returns:
-        ``Union[NDArray[np.uint8], Tuple[NDArray[np.uint8], NDArray[DTypeLike]]]``: 시각화 결과 (``[H, W, 4]``) 및 ``poly`` 입력 시 변형된 좌표값
+        ``NDArray[np.uint8] | tuple[NDArray[np.uint8], NDArray[DTypeLike]]``: 시각화 결과 (``[H, W, 4]``) 및 ``poly`` 입력 시 변형된 좌표값
 
     Examples:
         Without Poly:

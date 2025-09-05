@@ -22,8 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import List, Tuple, Union
-
 import cv2
 import numpy as np
 from matplotlib.path import Path
@@ -47,14 +45,14 @@ def _cvt_bgra(img: NDArray[np.uint8]) -> NDArray[np.uint8]:
     return img
 
 
-def _is_bbox(shape: Tuple[int]) -> Tuple[bool]:
+def _is_bbox(shape: tuple[int]) -> tuple[bool]:
     """Bbox 여부 검증
 
     Args:
-        shape (``Tuple[int]``): Bbox의 `shape`
+        shape (``tuple[int]``): Bbox의 `shape`
 
     Returns:
-        ``Tuple[bool]``: 복수의 bbox 여부 및 format의 정보
+        ``tuple[bool]``: 복수의 bbox 여부 및 format의 정보
     """
     if len(shape) == 1 and shape[0] == 4:
         # [cx, cy, w, h] or N * [x0, y0, x1, y1]
@@ -83,16 +81,16 @@ def _is_bbox(shape: Tuple[int]) -> Tuple[bool]:
 
 
 def is_pts_in_poly(
-    poly: NDArray[DTypeLike], pts: Union[List[Union[int, float]], NDArray[DTypeLike]]
-) -> Union[bool, NDArray[bool]]:
+    poly: NDArray[DTypeLike], pts: list[int | float] | NDArray[DTypeLike]
+) -> bool | NDArray[bool]:
     """지점들의 좌표 내 존재 여부 확인 함수
 
     Args:
         poly (``NDArray[DTypeLike]``): 다각형 (``[N, 2]``)
-        pts (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): point (``[2]`` or ``[N, 2]``)
+        pts (``list[int | float] | NDArray[DTypeLike]``): point (``[2]`` or ``[N, 2]``)
 
     Returns:
-        ``Union[bool, NDArray[bool]]``: 입력 ``point`` 의 다각형 ``poly`` 내부 존재 여부
+        ``bool | NDArray[bool]``: 입력 ``point`` 의 다각형 ``poly`` 내부 존재 여부
 
     Examples:
         >>> poly = np.array([[10, 10], [20, 10], [30, 40], [20, 60], [10, 20]])

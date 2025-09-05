@@ -23,7 +23,7 @@ SOFTWARE.
 """
 
 from collections import defaultdict
-from typing import Any, Dict, List, Optional, Set, Tuple, Union
+from typing import Any
 
 import numpy as np
 import pandas as pd
@@ -61,10 +61,10 @@ def iou(poly1: NDArray[DTypeLike], poly2: NDArray[DTypeLike]) -> float:
 
 
 def _append(
-    logs: Dict[str, List[Any]],
+    logs: dict[str, list[Any]],
     instance: int,
     confidence: float,
-    class_: Union[int, str],
+    class_: int | str,
     iou_: float,
     results: str,
     gt: NDArray[DTypeLike],
@@ -116,22 +116,22 @@ def _append(
 def evaluation(
     ground_truths: NDArray[DTypeLike],
     inferences: NDArray[DTypeLike],
-    confidences: List[float],
-    gt_classes: Optional[List[str]] = None,
-    inf_classes: Optional[List[str]] = None,
-    file_name: Optional[str] = None,
-    threshold: Optional[float] = 0.5,
+    confidences: list[float],
+    gt_classes: list[str] | None = None,
+    inf_classes: list[str] | None = None,
+    file_name: str | None = None,
+    threshold: float = 0.5,
 ) -> pd.DataFrame:
     """단일 이미지 내 detection model의 추론 성능 평가
 
     Args:
         ground_truths (``NDArray[DTypeLike]``): Ground truth object들의 polygon (``[N, 4, 2]``, ``[[[x_0, y_0], [x_1, y_1], ...], ...]``)
         inferences (``NDArray[DTypeLike]``): Model이 추론한 각 object들의 polygon (``[M, 4, 2]``, ``[[[x_0, y_0], [x_1, y_1], ...], ...]``)
-        confidences (``List[float]``): Model이 추론한 각 object들의 confidence(``[M]``)
-        gt_classes (``Optional[List[str]]``): Ground truth object들의 class (``[N]``)
-        inf_classes (``Optional[List[str]]``): Model이 추론한 각 object들의 class (``[M]``)
-        file_name (``Optional[str]``): 평가 image의 이름
-        threshold (``Optional[float]``): IoU의 threshold
+        confidences (``list[float]``): Model이 추론한 각 object들의 confidence(``[M]``)
+        gt_classes (``list[str] | None``): Ground truth object들의 class (``[N]``)
+        inf_classes (``list[str] | None``): Model이 추론한 각 object들의 class (``[M]``)
+        file_name (``str | None``): 평가 image의 이름
+        threshold (``float``): IoU의 threshold
 
     Note:
         - `N`: 한 이미지의 ground truth 내 존재하는 object의 수
@@ -214,14 +214,14 @@ def evaluation(
     return logs
 
 
-def meanap(logs: pd.DataFrame) -> Tuple[float, Dict[str, float]]:
+def meanap(logs: pd.DataFrame) -> tuple[float, dict[str, float]]:
     """Detection model의 P-R curve 시각화 및 mAP 산출
 
     Args:
         logs (``pd.DataFrame``): ``zz.vision.evaluation`` 함수를 통해 평가된 결과
 
     Returns:
-        ``Tuple[float, Dict[str, float]]``: mAP 값 및 class에 따른 AP 값 (시각화 결과는 ``prc_curve.png``, ``pr_curve.png`` 로 현재 directory에 저장)
+        ``tuple[float, dict[str, float]]``: mAP 값 및 class에 따른 AP 값 (시각화 결과는 ``prc_curve.png``, ``pr_curve.png`` 로 현재 directory에 저장)
 
     Examples:
         >>> logs1 = zz.vision.evaluation(ground_truths_1, inferences_1, confidences_1, gt_classes, inf_classes, file_name="test_1.png")
@@ -288,10 +288,10 @@ def meanap(logs: pd.DataFrame) -> Tuple[float, Dict[str, float]]:
 
 
 def _prc_curve(
-    confidence_per_cls: Dict[str, List[float]],
-    recall_per_cls: Dict[str, List[float]],
-    precision_per_cls: Dict[str, List[float]],
-    classes: Set[str],
+    confidence_per_cls: dict[str, list[float]],
+    recall_per_cls: dict[str, list[float]],
+    precision_per_cls: dict[str, list[float]],
+    classes: set[str],
 ) -> None:
     xdata = {}
     ydata = {}
@@ -321,7 +321,7 @@ def _prc_curve(
 
 
 def _pr_curve(
-    pr_curve: Dict[str, List[Tuple[float]]], classes: Set[str], map_: float
+    pr_curve: dict[str, list[tuple[float]]], classes: set[str], map_: float
 ) -> None:
     figure()
     if len(classes) == 1:

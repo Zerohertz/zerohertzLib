@@ -58,7 +58,7 @@ class SlackWebhook(AbstractWebhook):
         name: str | None = None,
         icon_emoji: str | None = None,
         icon_url: str | None = None,
-        timeout: int | None = 10,
+        timeout: int = 10,
     ) -> None:
         self.webhook_url = webhook_url
         self.headers = {"Content-Type": "application/json"}

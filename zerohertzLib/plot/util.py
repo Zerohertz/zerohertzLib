@@ -34,7 +34,7 @@ from matplotlib.figure import Figure
 from . import config
 
 
-def figure(figsize: tuple[int] | None = (15, 10)) -> Figure:
+def figure(figsize: tuple[int] = (15, 10)) -> Figure:
     """Graph 생성을 위한 함수
 
     Args:
@@ -73,7 +73,7 @@ def subplot(*args, **kwargs) -> Axes:
     return plt.subplot(*args, **kwargs)
 
 
-def savefig(title: str, dpi: int | None = 300) -> str:
+def savefig(title: str, dpi: int = 300) -> str:
     """Graph 저장 함수
 
     Args:
@@ -98,10 +98,10 @@ def savefig(title: str, dpi: int | None = 300) -> str:
 
 
 def color(
-    cnt: int | None = 1,
-    rand: bool | None = False,
-    uint8: bool | None = False,
-    palette: str | None = "husl",
+    cnt: int = 1,
+    rand: bool = False,
+    uint8: bool = False,
+    palette: str = "husl",
 ) -> tuple[float] | list[int] | list[tuple[float]] | list[list[int]]:
     """색 추출 함수
 

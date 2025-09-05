@@ -40,13 +40,13 @@ def plot(
     ylab: str | None = None,
     xlim: list[int | float] | None = None,
     ylim: list[int | float] | None = None,
-    stacked: bool | None = False,
-    ncol: int | None = 1,
-    title: str | None = "tmp",
+    stacked: bool = False,
+    ncol: int = 1,
+    title: str = "tmp",
     colors: str | list | None = None,
-    markersize: int | None = 12,
-    figsize: tuple[int] | None = (15, 10),
-    dpi: int | None = 300,
+    markersize: int = 12,
+    figsize: tuple[int] = (15, 10),
+    dpi: int = 300,
 ) -> str:
     """List와 Dictionary로 입력받은 data를 line chart로 시각화
 
@@ -138,11 +138,11 @@ def plot(
 
 def candle(
     data: pd.DataFrame,
-    title: str | None = "tmp",
-    figsize: tuple[int] | None = (18, 10),
+    title: str = "tmp",
+    figsize: tuple[int] = (18, 10),
     signals: dict[str, Any] | None = None,
-    threshold: int | tuple[int] | None = 1,
-    dpi: int | None = 300,
+    threshold: int | tuple[int] = 1,
+    dpi: int = 300,
 ) -> str:
     """OHLCV (Open, High, Low, Close, Volume) data에 따른 candle chart
 

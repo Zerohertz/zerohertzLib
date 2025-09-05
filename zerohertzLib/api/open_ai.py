@@ -91,8 +91,8 @@ class OpenAI(openai.OpenAI):
         self,
         message: str,
         prompt: str | None = None,
-        model: str | None = "gpt4o",
-        stream: bool | None = False,
+        model: str = "gpt4o",
+        stream: bool = False,
     ) -> str:
         if prompt is None:
             messages = [{"role": "user", "content": message}]

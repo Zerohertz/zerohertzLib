@@ -22,8 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import List, Optional, Tuple, Union
-
 import cv2
 import numpy as np
 from numpy.typing import DTypeLike, NDArray
@@ -35,20 +33,20 @@ from .util import _cvt_bgra
 
 def pad(
     img: NDArray[np.uint8],
-    shape: Tuple[int],
-    color: Optional[Tuple[int]] = (255, 255, 255),
-    poly: Optional[NDArray[DTypeLike]] = None,
-) -> Tuple[NDArray[np.uint8], Union[Tuple[float, int, int], NDArray[DTypeLike]]]:
+    shape: tuple[int],
+    color: tuple[int] = (255, 255, 255),
+    poly: NDArray[DTypeLike] | None = None,
+) -> tuple[NDArray[np.uint8], tuple[float, int, int] | NDArray[DTypeLike]]:
     """입력 image를 원하는 shape로 resize 및 pad
 
     Args:
         img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
-        shape (``Tuple[int]``): 출력의 shape ``(H, W)``
-        color (``Optional[Tuple[int]]``): Padding의 색
-        poly (``Optional[NDArray[DTypeLike]]``): Padding에 따라 변형될 좌표 (``[N, 2]``)
+        shape (``tuple[int]``): 출력의 shape ``(H, W)``
+        color (``tuple[int]``): Padding의 색
+        poly (``NDArray[DTypeLike] | None``): Padding에 따라 변형될 좌표 (``[N, 2]``)
 
     Returns:
-        ``Tuple[NDArray[np.uint8], Union[Tuple[float, int, int], NDArray[DTypeLike]]]``: 출력 image (``[H, W, C]``) 및 padding에 따른 정보 또는 변형된 좌표값
+        ``tuple[NDArray[np.uint8], tuple[float, int, int] | NDArray[DTypeLike]]``: 출력 image (``[H, W, C]``) 및 padding에 따른 정보 또는 변형된 좌표값
 
     Note:
         ``poly`` 를 입력하지 않을 시 ``(ratio, left, top)`` 가 출력되며 ``poly * ratio + (left, top)`` 와 같이 차후에 변환 가능
@@ -127,19 +125,19 @@ def pad(
 
 def cutout(
     img: NDArray[np.uint8],
-    poly: Union[List[Union[int, float]], NDArray[DTypeLike]],
-    alpha: Optional[int] = 255,
-    crop: Optional[bool] = True,
-    background: Optional[int] = 0,
+    poly: list[int | float] | NDArray[DTypeLike],
+    alpha: int = 255,
+    crop: bool = True,
+    background: int = 0,
 ) -> NDArray[np.uint8]:
     """Image 내에서 지정한 좌표를 제외한 부분을 투명화
 
     Args:
         img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
-        poly (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): 지정할 좌표 (``[N, 2]``)
-        alpha (``Optional[int]``): 지정한 좌표 영역의 투명도
-        crop (``Optional[bool]``): 출력 image의 Crop 여부
-        background (``Optional[int]``): 지정한 좌표 외 배경의 투명도
+        poly (``list[int | float] | NDArray[DTypeLike]``): 지정할 좌표 (``[N, 2]``)
+        alpha (``int``): 지정한 좌표 영역의 투명도
+        crop (``bool``): 출력 image의 Crop 여부
+        background (``int``): 지정한 좌표 외 배경의 투명도
 
     Returns:
         ``NDArray[np.uint8]``: 출력 image (``[H, W, 4]``)
@@ -176,15 +174,15 @@ def cutout(
 
 def transparent(
     img: NDArray[np.uint8],
-    threshold: Optional[int] = 128,
-    reverse: Optional[bool] = False,
+    threshold: int = 128,
+    reverse: bool = False,
 ) -> NDArray[np.uint8]:
     """입력 image에 대해 ``threshold`` 미만의 pixel들을 투명화
 
     Args:
         img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
-        threshold (``Optional[int]``): Threshold
-        reverse (``Optional[bool]``): ``threshold`` 이상의 pixel 투명화 여부
+        threshold (``int``): Threshold
+        reverse (``bool``): ``threshold`` 이상의 pixel 투명화 여부
 
     Returns:
         ``NDArray[np.uint8]``: 출력 image (``[H, W, 4]``)

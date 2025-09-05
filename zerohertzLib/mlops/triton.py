@@ -68,7 +68,7 @@ class TritonClientURL(grpcclient.InferenceServerClient):
     """
 
     def __init__(
-        self, url: str, port: int | None = 8001, verbose: bool | None = False
+        self, url: str, port: int = 8001, verbose: bool = False
     ) -> None:
         self.url = f"{url}:{port}"
         super().__init__(url=self.url, verbose=verbose)
@@ -87,7 +87,7 @@ class TritonClientURL(grpcclient.InferenceServerClient):
         self,
         model: int | str,
         *args: NDArray[DTypeLike],
-        renew: bool | None = False,
+        renew: bool = False,
     ) -> dict[str, NDArray[DTypeLike]]:
         if isinstance(model, int):
             model = self.models[model]
@@ -133,9 +133,9 @@ class TritonClientURL(grpcclient.InferenceServerClient):
 
     def status(
         self,
-        renew: bool | None = False,
-        sortby: str | None = "STATE",
-        reverse: bool | None = False,
+        renew: bool = False,
+        sortby: str = "STATE",
+        reverse: bool = False,
     ) -> None:
         """Triton Inferece Server의 상태를 확인하는 함수
 
@@ -219,7 +219,7 @@ class TritonClientURL(grpcclient.InferenceServerClient):
         self,
         model_name: int | str,
         headers: dict | None = None,
-        unload_dependents: bool | None = False,
+        unload_dependents: bool = False,
         client_timeout: float | None = None,
     ) -> None:
         """Triton Inference Server 내 model을 unload하는 함수
@@ -279,8 +279,8 @@ class TritonClientK8s(TritonClientURL):
         self,
         svc_name: str,
         namespace: str,
-        port: int | None = 8001,
-        verbose: bool | None = False,
+        port: int = 8001,
+        verbose: bool = False,
     ) -> None:
         super().__init__(f"{svc_name}.{namespace}", port, verbose)
 
@@ -368,10 +368,10 @@ class BaseTritonPythonModel(ABC):
         """Triton Inference Server 호출 시 수행되는 method
 
         Args:
-            requests (``List[pb_utils.InferenceRequest]``): Client에서 전송된 model inputs
+            requests (``list[pb_utils.InferenceRequest]``): Client에서 전송된 model inputs
 
         Returns:
-            ``List[pb_utils.InferenceResponse]``: Client에 응답할 model의 추론 결과
+            ``list[pb_utils.InferenceResponse]``: Client에 응답할 model의 추론 결과
         """
         responses = []
         for request in requests:

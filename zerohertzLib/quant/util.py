@@ -56,7 +56,7 @@ def _bollinger_bands(
     data: pd.DataFrame,
     window: int = 20,
     num_std_dev: int = 2,
-    ohlc: str | None = "",
+    ohlc: str = "",
 ) -> pd.DataFrame:
     """Bollinger band 계산 function
 

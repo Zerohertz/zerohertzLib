@@ -104,7 +104,7 @@ class Balance(KoreaInvestment):
     """
 
     def __init__(
-        self, account_no: str, path: str | None = "./", kor: bool | None = True
+        self, account_no: str, path: str = "./", kor: bool = True
     ) -> None:
         super().__init__(account_no, path)
         self.balance = {"stock": defaultdict(list)}
@@ -427,19 +427,19 @@ class QuantBotKI(Balance, QuantBot):
         self,
         account_no: str,
         symbols: list[str] | None = None,
-        start_day: str | None = "",
-        ohlc: str | None = "",
-        top: int | None = 1,
+        start_day: str = "",
+        ohlc: str = "",
+        top: int = 1,
         methods: dict[str, list[list[Any]]] | None = None,
-        report: bool | None = False,
+        report: bool = False,
         token: str | None = None,
         channel: str | None = None,
         name: str | None = None,
         icon_emoji: str | None = None,
-        mp_num: int | None = 0,
-        analysis: bool | None = False,
-        kor: bool | None = True,
-        path: str | None = "./",
+        mp_num: int = 0,
+        analysis: bool = False,
+        kor: bool = True,
+        path: str = "./",
     ) -> None:
         Balance.__init__(self, account_no, path, kor)
         if symbols is None:

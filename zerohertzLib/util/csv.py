@@ -27,7 +27,7 @@ from collections import defaultdict
 from typing import Any
 
 
-def read_csv(path: str, header: bool | None = True) -> dict[int | str, list[str]]:
+def read_csv(path: str, header: bool = True) -> dict[int | str, list[str]]:
     """CSV (Comma-Separated Values) 혹은 TSV (Tab-Separated Values)를 작성하는 함수
 
     Args:
@@ -74,7 +74,7 @@ def read_csv(path: str, header: bool | None = True) -> dict[int | str, list[str]
     return data
 
 
-def write_csv(data: list[list[Any]], path: str, tsv: bool | None = False) -> str:
+def write_csv(data: list[list[Any]], path: str, tsv: bool = False) -> str:
     """CSV (Comma-Separated Values) 혹은 TSV (Tab-Separated Values)를 작성하는 함수
 
     Args:

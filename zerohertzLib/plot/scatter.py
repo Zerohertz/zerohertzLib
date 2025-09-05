@@ -35,12 +35,12 @@ def scatter(
     ylab: str | None = None,
     xlim: list[int | float] | None = None,
     ylim: list[int | float] | None = None,
-    ncol: int | None = 1,
-    title: str | None = "tmp",
+    ncol: int = 1,
+    title: str = "tmp",
     colors: str | list | None = None,
-    markersize: int | None = 36,
-    figsize: tuple[int] | None = (15, 10),
-    dpi: int | None = 300,
+    markersize: int = 36,
+    figsize: tuple[int] = (15, 10),
+    dpi: int = 300,
 ) -> str:
     """Dictionary로 입력받은 data를 scatter plot으로 시각화
 

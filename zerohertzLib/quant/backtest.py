@@ -59,9 +59,9 @@ def _backtest_sell(
 def backtest(
     data: pd.DataFrame,
     signals: pd.DataFrame,
-    ohlc: str | None = "",
-    threshold: int | tuple[int] | None = 1,
-    signal_key: str | None = "signals",
+    ohlc: str = "",
+    threshold: int | tuple[int] = 1,
+    signal_key: str = "signals",
 ) -> dict[str, Any]:
     """전략에 의해 생성된 ``signals`` backtest
 
@@ -173,10 +173,10 @@ def experiments(
     data: pd.DataFrame,
     method: Callable[[Any], pd.DataFrame],
     exps: list[list[Any]],
-    ohlc: str | None = "",
-    vis: bool | None = False,
-    dpi: int | None = 100,
-    report: bool | None = True,
+    ohlc: str = "",
+    vis: bool = False,
+    dpi: int = 100,
+    report: bool = True,
 ) -> dict[str, list[Any]]:
     """Full factorial design 기반의 backtest 수행 function
 
@@ -311,9 +311,9 @@ class Experiments:
         self,
         title: str,
         data: pd.DataFrame,
-        ohlc: str | None = "",
-        vis: bool | None = False,
-        report: bool | None = True,
+        ohlc: str = "",
+        vis: bool = False,
+        report: bool = True,
     ) -> None:
         self.title = title
         self.data = data

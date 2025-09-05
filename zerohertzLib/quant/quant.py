@@ -23,6 +23,7 @@ SOFTWARE.
 """
 
 import multiprocessing as mp
+import os
 import time
 import traceback
 from abc import ABC, abstractmethod
@@ -115,10 +116,10 @@ class Quant(Experiments):
         self,
         title: str,
         data: pd.DataFrame,
-        ohlc: str | None = "",
-        top: int | None = 1,
+        ohlc: str = "",
+        top: int = 1,
         methods: dict[str, list[list[Any]]] | None = None,
-        report: bool | None = False,
+        report: bool = False,
     ) -> None:
         super().__init__(title, data, ohlc, False, report)
         self.signals = pd.DataFrame(index=data.index)
@@ -208,7 +209,7 @@ class Quant(Experiments):
             self.transaction = backtests[0]["transaction"]
             self.threshold_sell, self.threshold_buy = backtests[0]["threshold"]
 
-    def __call__(self, day: str | None = -1) -> dict[str, Any]:
+    def __call__(self, day: str | int = -1) -> dict[str, Any]:
         if self.total_cnt < 1:
             return {"position": "NULL"}
         if day != -1 and "-" not in day:
@@ -602,18 +603,18 @@ class QuantBotFDR(QuantBot):
     def __init__(
         self,
         symbols: int | list[str],
-        start_day: str | None = "",
-        ohlc: str | None = "",
-        top: int | None = 1,
+        start_day: str = "",
+        ohlc: str = "",
+        top: int = 1,
         methods: dict[str, list[list[Any]]] | None = None,
-        report: bool | None = False,
+        report: bool = False,
         token: str | None = None,
         channel: str | None = None,
         name: str | None = None,
         icon_emoji: str | None = None,
-        mp_num: int | None = 0,
-        analysis: bool | None = False,
-        kor: bool | None = True,
+        mp_num: int = 0,
+        analysis: bool = False,
+        kor: bool = True,
     ) -> None:
         QuantBot.__init__(
             self,
@@ -634,7 +635,8 @@ class QuantBotFDR(QuantBot):
         if kor:
             # FIXME:
             # FDR 의존성 내에서 KRX-DESC 코드 사용 시 오류 발생
-            self.market = fdr.StockListing("KRX")
+            # https://github.com/FinanceData/FinanceDataReader/pull/254
+            self.market = fdr.StockListing(os.getenv("QUANT_MARKET_KOR", "ETF/KR"))
         else:
             self.market = fdr.StockListing("NASDAQ")
         if isinstance(symbols, int):

@@ -82,8 +82,8 @@ class MakeData(ABC):
         start_json_path: str,
         json_key: str,
         target_path: str,
-        end_data_dir: str | None = "data",
-        end_json_dir: str | None = "json",
+        end_data_dir: str = "data",
+        end_json_dir: str = "json",
     ) -> None:
         self.start_data_path = start_data_path
         self.start_json_path = start_json_path
@@ -232,7 +232,7 @@ class MakeData(ABC):
                 self.make_data(json_instance, data_name)
 
 
-def find_ext(path: str | None = "") -> dict[str, int]:
+def find_ext(path: str = "") -> dict[str, int]:
     """경로 내 확장자의 수 탐색
 
     Args:

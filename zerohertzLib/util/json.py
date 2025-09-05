@@ -107,7 +107,7 @@ class Json:
         return self.data[key]
 
     def __get_keys(
-        self, data: Any, key: str | None = "", front: str | None = ""
+        self, data: Any, key: str = "", front: str = ""
     ) -> None:
         if isinstance(data, dict):
             for idx, (key_, val_) in enumerate(data.items()):
@@ -257,7 +257,7 @@ class JsonDir:
         'labels/LIST/color'
     """
 
-    def __init__(self, path: str | None = "") -> None:
+    def __init__(self, path: str = "") -> None:
         if path.endswith(".json"):
             raise ValueError("'path' ends with '*.json'")
         self.data = {}

@@ -84,7 +84,7 @@ def _cwh2poly(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
 
 
 def cwh2poly(
-    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
+    box: list[int | float] | NDArray[DTypeLike],
 ) -> NDArray[DTypeLike]:
     """Bbox 변환
 
@@ -131,12 +131,12 @@ def _xyxy2cwh(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
 
 
 def xyxy2cwh(
-    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
+    box: list[int | float] | NDArray[DTypeLike],
 ) -> NDArray[DTypeLike]:
     """Bbox 변환
 
     Args:
-        box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): ``[x0, y0, x1, y1]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
+        box (``list[int | float] | NDArray[DTypeLike]``): ``[x0, y0, x1, y1]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
 
     Returns:
         ``NDArray[DTypeLike]``: ``[cx, cy, w, h]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
@@ -167,12 +167,12 @@ def _xyxy2poly(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
 
 
 def xyxy2poly(
-    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
+    box: list[int | float] | NDArray[DTypeLike],
 ) -> NDArray[DTypeLike]:
     """Bbox 변환
 
     Args:
-        box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): ``[x0, y0, x1, y1]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
+        box (``list[int | float] | NDArray[DTypeLike]``): ``[x0, y0, x1, y1]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
 
     Returns:
         ``NDArray[DTypeLike]``: ``[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]`` 로 구성된 bbox (``[4, 2]`` or ``[N, 4, 2]``)
@@ -215,12 +215,12 @@ def _poly2cwh(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
 
 
 def poly2cwh(
-    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
+    box: list[int | float] | NDArray[DTypeLike],
 ) -> NDArray[DTypeLike]:
     """Bbox 변환
 
     Args:
-        box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): ``[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]`` 로 구성된 bbox (``[4, 2]`` or ``[N, 4, 2]``)
+        box (``list[int | float] | NDArray[DTypeLike]``): ``[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]`` 로 구성된 bbox (``[4, 2]`` or ``[N, 4, 2]``)
 
     Returns:
         ``NDArray[DTypeLike]``: ``[cx, cy, w, h]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
@@ -252,12 +252,12 @@ def _poly2xyxy(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
 
 
 def poly2xyxy(
-    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
+    box: list[int | float] | NDArray[DTypeLike],
 ) -> NDArray[DTypeLike]:
     """Bbox 변환
 
     Args:
-        box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): ``[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]`` 로 구성된 bbox (``[4, 2]`` or ``[N, 4, 2]``)
+        box (``list[int | float] | NDArray[DTypeLike]``): ``[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]`` 로 구성된 bbox (``[4, 2]`` or ``[N, 4, 2]``)
 
     Returns:
         ``NDArray[DTypeLike]``: ``[x0, y0, x1, y1]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
@@ -282,7 +282,7 @@ def poly2xyxy(
     return _poly2xyxy(box)
 
 
-def _poly2mask(poly: NDArray[DTypeLike], shape: Tuple[int]) -> NDArray[bool]:
+def _poly2mask(poly: NDArray[DTypeLike], shape: tuple[int]) -> NDArray[bool]:
     poly = Path(poly)
     pts_x, pts_y = np.meshgrid(np.arange(shape[1]), np.arange(shape[0]))
     pts_x, pts_y = pts_x.flatten(), pts_y.flatten()
@@ -293,14 +293,14 @@ def _poly2mask(poly: NDArray[DTypeLike], shape: Tuple[int]) -> NDArray[bool]:
 
 
 def poly2mask(
-    poly: Union[List[Union[int, float]], NDArray[DTypeLike], List[NDArray[DTypeLike]]],
-    shape: Tuple[int],
+    poly: list[int | float] | NDArray[DTypeLike] | list[NDArray[DTypeLike]],
+    shape: tuple[int],
 ) -> NDArray[bool]:
     """다각형 좌표를 입력받아 mask로 변환
 
     Args:
-        poly (``Union[List[Union[int, float]], NDArray[DTypeLike], List[NDArray[DTypeLike]]]``): Mask의 꼭짓점 좌표 (``[M, 2]`` or ``[N, M, 2]``)
-        shape (``Tuple[int]``): 출력될 mask의 shape ``(H, W)``
+        poly (``list[int | float] | NDArray[DTypeLike] | list[NDArray[DTypeLike]]``): Mask의 꼭짓점 좌표 (``[M, 2]`` or ``[N, M, 2]``)
+        shape (``tuple[int]``): 출력될 mask의 shape ``(H, W)``
 
     Returns:
         ``NDArray[bool]``: 변환된 mask (``[H, W]`` or ``[N, H, W]``)
@@ -335,11 +335,11 @@ def poly2mask(
     return mks
 
 
-def poly2area(poly: Union[List[Union[int, float]], NDArray[DTypeLike]]) -> float:
+def poly2area(poly: list[int | float] | NDArray[DTypeLike]) -> float:
     """다각형의 면적을 산출하는 함수
 
     Args:
-        poly (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): 다각형 (``[N, 2]``)
+        poly (``list[int | float] | NDArray[DTypeLike]``): 다각형 (``[N, 2]``)
 
     Returns:
         ``float``: 다각형의 면적
@@ -360,11 +360,11 @@ def poly2area(poly: Union[List[Union[int, float]], NDArray[DTypeLike]]) -> float
     )
 
 
-def poly2ratio(poly: Union[List[Union[int, float]], NDArray[DTypeLike]]) -> float:
+def poly2ratio(poly: list[int | float] | NDArray[DTypeLike]) -> float:
     """다각형의 bbox 대비 다각형의 면적 비율을 산출하는 함수
 
     Args:
-        poly (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): 다각형 (``[N, 2]``)
+        poly (``list[int | float] | NDArray[DTypeLike]``): 다각형 (``[N, 2]``)
 
     Returns:
         ``float``: 다각형의 bbox 대비 다각형의 비율
@@ -383,12 +383,12 @@ def poly2ratio(poly: Union[List[Union[int, float]], NDArray[DTypeLike]]) -> floa
     return poly_area / bbox_area
 
 
-def encode(img: NDArray[np.uint8], ext: Optional[str] = "png") -> str:
+def encode(img: NDArray[np.uint8], ext: str = "png") -> str:
     """Base64 encoding
 
     Args:
         img (``NDArray[np.uint8]``): ``cv2.imread``로 읽어온 image
-        ext (``Optional[str]``): 출력 파일의 확장자
+        ext (``str``): 출력 파일의 확장자
 
     Returns:
         ``str``: Base64 encoding된 문자열

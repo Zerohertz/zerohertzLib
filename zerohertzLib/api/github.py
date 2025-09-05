@@ -62,10 +62,10 @@ class GitHub:
 
     def __init__(
         self,
-        user: str | None = "Zerohertz",
-        repo: str | None = "zerohertzLib",
+        user: str = "Zerohertz",
+        repo: str = "zerohertzLib",
         token: str | None = None,
-        issue: bool | None = True,
+        issue: bool = True,
     ) -> None:
         if token is None:
             self.headers = {
@@ -86,8 +86,8 @@ class GitHub:
 
     def __call__(
         self,
-        lab: str | None = "all",
-        per_page: int | None = 100,
+        lab: str = "all",
+        per_page: int = 100,
     ) -> list[dict[str, Any]]:
         results = []
         page = 1
@@ -128,7 +128,7 @@ class GitHub:
         # number: Issue 또는 PR의 번호                 64
         # title: Issue 또는 PR의 제목                  [Docs] Build by Sphinx for GitHub Pages
         # body: Issue 또는 PR의 MarkDown               #63 (Build: 6095f8f85a0d6d8936a2caa373e675c6f5368644)
-        # labels: Issue 또는 PR에 할당된 label들       List[dict_keys(['id', 'node_id', 'url', 'name', 'color', 'default', 'description'])]
+        # labels: Issue 또는 PR에 할당된 label들       list[dict_keys(['id', 'node_id', 'url', 'name', 'color', 'default', 'description'])]
         # closed_at: Issue 또는 PR이 종료된 시점       2023-11-16T07:48:51Z
         return results
 
@@ -208,8 +208,8 @@ class GitHub:
 
     def release_note(
         self,
-        name: str | None = "release",
-        sphinx_source_path: str | None = "sphinx/source",
+        name: str = "release",
+        sphinx_source_path: str = "sphinx/source",
     ) -> None:
         """
         Args:

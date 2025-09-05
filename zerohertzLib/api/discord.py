@@ -100,7 +100,7 @@ class DiscordBot(AbstractBot[requests.Response]):
         >>> discord = zz.api.DiscordBot("YOUR_BOT_TOKEN", "1234567890", timeout=30)
     """
 
-    def __init__(self, token: str, channel: str, timeout: int | None = 30) -> None:
+    def __init__(self, token: str, channel: str, timeout: int = 30) -> None:
         self.api_base = "https://discord.com/api/v10"
         self.headers = {
             "Authorization": f"Bot {token}",

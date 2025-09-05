@@ -23,14 +23,13 @@ SOFTWARE.
 """
 
 import os
-from typing import List, Optional
 
 import cv2
 from PIL import Image
 
 
 def _create_gif_from_frames(
-    frames: List[Image.Image], file_name: str, duration: int
+    frames: list[Image.Image], file_name: str, duration: int
 ) -> None:
     frames[0].save(
         f"{file_name}.gif",
@@ -43,15 +42,15 @@ def _create_gif_from_frames(
 
 def img2gif(
     path: str,
-    file_name: Optional[str] = "tmp",
-    duration: Optional[int] = 500,
+    file_name: str = "tmp",
+    duration: int = 500,
 ) -> None:
     """Directory 내 image들을 GIF로 변환
 
     Args:
         path (``str``): GIF로 변환할 image들이 존재하는 경로
-        file_name (``Optional[str]``): 출력될 GIF file 이름
-        duration (``Optional[int]``): ms 단위의 사진 간 간격
+        file_name (``str``): 출력될 GIF file 이름
+        duration (``int``): ms 단위의 사진 간 간격
 
     Returns:
         ``None``: 현재 directory에 바로 GIF 저장
@@ -83,19 +82,19 @@ def img2gif(
 
 def vid2gif(
     path: str,
-    file_name: Optional[str] = "tmp",
-    quality: Optional[int] = 100,
-    fps: Optional[int] = 15,
-    speed: Optional[float] = 1.0,
+    file_name: str = "tmp",
+    quality: int = 100,
+    fps: int = 15,
+    speed: float = 1.0,
 ) -> None:
     """동영상을 GIF로 변환
 
     Args:
         path (``str``): GIF로 변환할 동영상이 존재하는 경로
-        file_name (``Optional[str]``): 출력될 GIF file 이름
-        quality (``Optional[int]``): 출력될 GIF의 품질
-        fps (``Optional[int]``): 출력될 GIF의 FPS (Frames Per Second)
-        speed (``Optional[float]``): 출력될 GIF의 배속
+        file_name (``str``): 출력될 GIF file 이름
+        quality (``int``): 출력될 GIF의 품질
+        fps (``int``): 출력될 GIF의 FPS (Frames Per Second)
+        speed (``float``): 출력될 GIF의 배속
 
     Returns:
         ``None``: 현재 directory에 바로 GIF 저장

@@ -39,20 +39,20 @@ def _get_gpu_usages() -> list[float]:
 
 
 def gpu_usages(
-    tick: int | None = 1,
-    threshold: int | None = 10,
+    tick: int = 1,
+    threshold: int = 10,
     grep: list[int] | None = None,
-    path: str | None = "GPU Usages",
-    dpi: int | None = 100,
+    path: str = "GPU Usages",
+    dpi: int = 100,
 ) -> None:
     """시간에 따른 GPU의 사용량을 각 GPU에 따라 line chart로 시각화
 
     Args:
-        tick (``int | None``): Update 주기
-        threshold (``int | None``): 시각화할 총 시간
+        tick (``int``): Update 주기
+        threshold (``int``): 시각화할 총 시간
         grep (``list[int] | None``): 시각화할 GPU의 번호
-        path (``str | None``): Graph를 저장할 경로
-        dpi (``int | None``): Graph 저장 시 DPI (Dots Per Inch)
+        path (``str``): Graph를 저장할 경로
+        dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``None``: 지정한 경로에 바로 graph 저장
@@ -108,20 +108,20 @@ def _get_gpu_memory() -> list[tuple[float]]:
 
 
 def gpu_memory(
-    tick: int | None = 1,
-    threshold: int | None = 10,
+    tick: int = 1,
+    threshold: int = 10,
     grep: list[int] | None = None,
-    path: str | None = "GPU Memory",
-    dpi: int | None = 100,
+    path: str = "GPU Memory",
+    dpi: int = 100,
 ) -> None:
     """시간에 따른 GPU의 memory 사용량을 각 GPU에 따라 line chart로 시각화
 
     Args:
-        tick (``int | None``): Update 주기
-        threshold (``int | None``): 시각화할 총 시간
+        tick (``int``): Update 주기
+        threshold (``int``): 시각화할 총 시간
         grep (``list[int] | None``): 시각화할 GPU의 번호
-        path (``str | None``): Graph를 저장할 경로
-        dpi (``int | None``): Graph 저장 시 DPI (Dots Per Inch)
+        path (``str``): Graph를 저장할 경로
+        dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``None``: 지정한 경로에 바로 graph 저장

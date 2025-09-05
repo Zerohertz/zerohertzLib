@@ -83,7 +83,7 @@ class KoreaInvestment:
     def __init__(
         self,
         account_no: str,
-        path: str | None = "./",
+        path: str = "./",
     ) -> None:
         self.account_no = account_no
         self.account_no_prefix = self.account_no.split("-")[0]
@@ -177,7 +177,7 @@ class KoreaInvestment:
             data = pickle.load(file)
         self.access_token = f"Bearer {data['access_token']}"
 
-    def get_price(self, symbol: str, kor: bool | None = True) -> dict[str, dict]:
+    def get_price(self, symbol: str, kor: bool = True) -> dict[str, dict]:
         """주식 현재가 시세
 
         Args:
@@ -253,11 +253,11 @@ class KoreaInvestment:
     def get_ohlcv(
         self,
         symbol: str,
-        time_frame: str | None = "D",
-        start_day: str | None = "",
-        end_day: str | None = "",
-        adj_price: bool | None = True,
-        kor: bool | None = True,
+        time_frame: str = "D",
+        start_day: str = "",
+        end_day: str = "",
+        adj_price: bool = True,
+        kor: bool = True,
     ) -> dict[str, dict]:
         """종목 code에 따른 기간별 OHLCV (Open, High, Low, Close, Volume)
 
@@ -289,10 +289,10 @@ class KoreaInvestment:
     def _get_korea_ohlcv(
         self,
         symbol: str,
-        time_frame: str | None = "D",
-        start_day: str | None = "",
-        end_day: str | None = "",
-        adj_price: bool | None = True,
+        time_frame: str = "D",
+        start_day: str = "",
+        end_day: str = "",
+        adj_price: bool = True,
     ) -> dict[str, dict]:
         """국내 주식 기간별 시세 (일/주/월/년) [v1_국내주식-016]
 
@@ -353,10 +353,10 @@ class KoreaInvestment:
     def _get_oversea_ohlcv(
         self,
         symbol: str,
-        time_frame: str | None = "D",
-        start_day: str | None = "",
-        end_day: str | None = "",
-        adj_price: bool | None = True,
+        time_frame: str = "D",
+        start_day: str = "",
+        end_day: str = "",
+        adj_price: bool = True,
     ) -> dict[str, dict]:
         """해외 주식 기간별 시세 [v1_해외주식-010]
 
@@ -482,11 +482,11 @@ class KoreaInvestment:
     def get_ohlcvs(
         self,
         symbols: list[str],
-        time_frame: str | None = "D",
-        start_day: str | None = "",
-        end_day: str | None = "",
-        adj_price: bool | None = True,
-        kor: bool | None = True,
+        time_frame: str = "D",
+        start_day: str = "",
+        end_day: str = "",
+        adj_price: bool = True,
+        kor: bool = True,
     ) -> tuple[list[str], list[pd.DataFrame]]:
         """여러 종목 code에 따른 기간별 OHLCV (Open, High, Low, Close, Volume)
 
@@ -529,7 +529,7 @@ class KoreaInvestment:
                 print(f"'{symbol}' is not found")
         return title, data
 
-    def get_balance(self, kor: bool | None = True) -> dict[str, dict]:
+    def get_balance(self, kor: bool = True) -> dict[str, dict]:
         """주식 계좌 잔고 조회
 
         Args:
@@ -577,7 +577,7 @@ class KoreaInvestment:
         return self._get_oversea_balance()
 
     def _get_korea_balance(
-        self, ctx_area_fk100: str | None = "", ctx_area_nk100: str | None = ""
+        self, ctx_area_fk100: str = "", ctx_area_nk100: str = ""
     ) -> dict[str, dict]:
         """주식 잔고 조회 [v1_국내주식-006]
 
@@ -618,7 +618,7 @@ class KoreaInvestment:
         return data
 
     # def _get_oversea_balance(
-    #     self, ctx_area_fk200: str | None = "", ctx_area_nk200: str | None = ""
+    #     self, ctx_area_fk200: str = "", ctx_area_nk200: str = ""
     # ) -> dict[str, dict]:
     #     """해외 주식 잔고 [v1_해외주식-006]
     #
@@ -702,7 +702,7 @@ class KoreaInvestment:
         return output
 
     def _get_conclusion(
-        self, ctx_area_fk100: str | None = "", ctx_area_nk100: str | None = ""
+        self, ctx_area_fk100: str = "", ctx_area_nk100: str = ""
     ) -> dict[str, dict]:
         """주식 잔고 조회 실현손익 [v1_국내주식-041]
 

@@ -38,14 +38,14 @@ def barv(
     ylab: str | None = None,
     xlim: list[int | float] | None = None,
     ylim: list[int | float] | None = None,
-    title: str | None = "tmp",
+    title: str = "tmp",
     colors: str | list | None = None,
-    figsize: tuple[int] | None = (15, 10),
-    rot: int | None = 0,
+    figsize: tuple[int] = (15, 10),
+    rot: int = 0,
     dim: str | None = None,
-    dimsize: float | None = 10,
-    sign: int | None = 1,
-    dpi: int | None = 300,
+    dimsize: float = 10,
+    sign: int = 1,
+    dpi: int = 300,
 ) -> str:
     """Dictionary로 입력받은 data를 가로 bar chart로 시각화
 
@@ -186,14 +186,14 @@ def barh(
     ylab: str | None = None,
     xlim: list[int | float] | None = None,
     ylim: list[int | float] | None = None,
-    title: str | None = "tmp",
+    title: str = "tmp",
     colors: str | list | None = None,
-    figsize: tuple[int] | None = (10, 15),
-    rot: int | None = 0,
+    figsize: tuple[int] = (10, 15),
+    rot: int = 0,
     dim: str | None = None,
-    dimsize: float | None = 10,
-    sign: int | None = 1,
-    dpi: int | None = 300,
+    dimsize: float = 10,
+    sign: int = 1,
+    dpi: int = 300,
 ) -> str:
     """Dictionary로 입력받은 data를 세로 bar chart로 시각화
 
@@ -333,12 +333,12 @@ def hist(
     ylab: str | None = None,
     xlim: list[int | float] | None = None,
     ylim: list[int | float] | None = None,
-    title: str | None = "tmp",
+    title: str = "tmp",
     colors: str | list | None = None,
-    cnt: int | None = 30,
-    ovp: bool | None = True,
-    figsize: tuple[int] | None = (15, 10),
-    dpi: int | None = 300,
+    cnt: int = 30,
+    ovp: bool = True,
+    figsize: tuple[int] = (15, 10),
+    dpi: int = 300,
 ) -> str:
     """Dictionary로 입력받은 data를 histogram으로 시각화
 

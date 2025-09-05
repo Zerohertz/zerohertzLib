@@ -23,7 +23,6 @@ SOFTWARE.
 """
 
 import math
-from typing import List, Optional, Tuple, Union
 
 import cv2
 import numpy as np
@@ -35,7 +34,7 @@ from .visual import pad
 
 def _rel2abs(
     x_0: float, y_0: float, x_1: float, y_1: float, width: int, height: int
-) -> List[int]:
+) -> list[int]:
     return [
         int(x_0 * width / 100),
         int(y_0 * height / 100),
@@ -47,20 +46,20 @@ def _rel2abs(
 def before_after(
     before: NDArray[np.uint8],
     after: NDArray[np.uint8],
-    area: Optional[List[Union[int, float]]] = None,
-    per: Optional[bool] = True,
-    quality: Optional[int] = 100,
-    file_name: Optional[str] = "tmp",
+    area: list[int | float] | None = None,
+    per: bool = True,
+    quality: int = 100,
+    file_name: str = "tmp",
 ) -> None:
     """두 image를 비교하는 image 생성
 
     Args:
         before (``NDArray[np.uint8]``): 원본 image
         after (``NDArray[np.uint8]``): 영상 처리 혹은 모델 추론 후 image
-        area (``Optional[List[Union[int, float]]]``): 비교할 좌표 (``[x_0, y_0, x_1, y_1]``)
-        per (``Optional[bool]``): ``area`` 의 백분율 여부
-        quality (``Optional[int]``): 출력 image의 quality (단위: %)
-        file_name (``Optional[str]``): 저장될 file의 이름
+        area (``list[int | float] | None``): 비교할 좌표 (``[x_0, y_0, x_1, y_1]``)
+        per (``bool``): ``area`` 의 백분율 여부
+        quality (``int``): 출력 image의 quality (단위: %)
+        file_name (``str``): 저장될 file의 이름
 
     Returns:
         ``None``: 현재 directory에 바로 image 저장
@@ -111,18 +110,18 @@ def before_after(
 
 
 def grid(
-    imgs: List[NDArray[np.uint8]],
-    size: Optional[int] = 1000,
-    color: Optional[Tuple[int]] = (255, 255, 255),
-    file_name: Optional[str] = "tmp",
+    imgs: list[NDArray[np.uint8]],
+    size: int = 1000,
+    color: tuple[int] = (255, 255, 255),
+    file_name: str = "tmp",
 ) -> None:
     """여러 image를 입력받아 정방형 image로 병합
 
     Args:
-        imgs (``List[NDArray[np.uint8]]``): 입력 image
-        size (``Optional[int]``): 출력 image의 크기
-        color (``Optional[Tuple[int]]``): Padding의 색
-        file_name (``Optional[str]``): 저장될 file의 이름
+        imgs (``list[NDArray[np.uint8]]``): 입력 image
+        size (``int``): 출력 image의 크기
+        color (``tuple[int]``): Padding의 색
+        file_name (``str``): 저장될 file의 이름
 
     Returns:
         ``None``: 현재 directory에 바로 image 저장
@@ -157,16 +156,16 @@ def grid(
 
 
 def vert(
-    imgs: List[NDArray[np.uint8]],
-    height: Optional[int] = 1000,
-    file_name: Optional[str] = "tmp",
+    imgs: list[NDArray[np.uint8]],
+    height: int = 1000,
+    file_name: str = "tmp",
 ) -> None:
     """여러 image를 입력받아 가로 image로 병합
 
     Args:
-        imgs (``List[NDArray[np.uint8]]``): 입력 image
-        height (``Optional[int]``): 출력 image의 높이
-        file_name (``Optional[str]``): 저장될 file의 이름
+        imgs (``list[NDArray[np.uint8]]``): 입력 image
+        height (``int``): 출력 image의 높이
+        file_name (``str``): 저장될 file의 이름
 
     Returns:
         ``None``: 현재 directory에 바로 image 저장
