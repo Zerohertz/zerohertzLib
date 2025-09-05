@@ -328,7 +328,7 @@ def barh(
 
 
 def hist(
-    data: Dict[str, List[Union[int, float]]],
+    data: dict[str, list[int | float]],
     xlab: str | None = None,
     ylab: str | None = None,
     xlim: list[int | float] | None = None,
@@ -336,14 +336,14 @@ def hist(
     title: str | None = "tmp",
     colors: str | list | None = None,
     cnt: int | None = 30,
-    ovp: Optional[bool] = True,
+    ovp: bool | None = True,
     figsize: tuple[int] | None = (15, 10),
     dpi: int | None = 300,
 ) -> str:
     """Dictionary로 입력받은 data를 histogram으로 시각화
 
     Args:
-        data (``Dict[str, List[Union[int, float]]]``): 입력 data
+        data (``dict[str, list[int | float]]``): 입력 data
         xlab (``str | None``): Graph에 출력될 X축 label
         ylab (``str | None``): Graph에 출력될 Y축 label
         xlim (``list[int | float] | None``): Graph에 출력될 X축 limit
@@ -351,7 +351,7 @@ def hist(
         title (``str | None``): Graph에 표시될 제목 및 file 이름
         colors (``str | list | None``): 각 요소의 색
         cnt (``int | None``): Bin의 개수
-        ovp (``Optional[bool]``): Class에 따른 histogram overlap 여부
+        ovp (``bool | None``): Class에 따른 histogram overlap 여부
         figsize (``tuple[int] | None``): Graph의 가로, 세로 길이
         dpi (``int | None``): Graph 저장 시 DPI (Dots Per Inch)
 
