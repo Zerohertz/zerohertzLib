@@ -22,8 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import Optional
-
 
 class DisjointSet:
     r"""Vanilla disjoint set
@@ -42,10 +40,10 @@ class DisjointSet:
 
     Args:
         size (``int``): Node의 수
-        compression (``Optional[bool]``): Path compression 여부
+        compression (``bool``): Path compression 여부
 
     Attributes:
-        parent (``List[int]``): Node에 따른 부모 node의 index
+        parent (``list[int]``): Node에 따른 부모 node의 index
 
     Examples:
         >>> disjointset = zz.algorithm.DisjointSet(5)
@@ -62,7 +60,7 @@ class DisjointSet:
         [0, 0, 0, 2, 4]
     """
 
-    def __init__(self, size: int, compression: Optional[bool] = False) -> None:
+    def __init__(self, size: int, compression: bool = False) -> None:
         self.parent = list(range(size))
         self.compression = compression
 
@@ -111,8 +109,8 @@ class DisjointSetRank(DisjointSet):
         size (``int``): Node의 수
 
     Attributes:
-        parent (``List[int]``): Node에 따른 부모 node의 index
-        rank (``List[int]``): Node에 따른 rank
+        parent (``list[int]``): Node에 따른 부모 node의 index
+        rank (``list[int]``): Node에 따른 rank
 
     Examples:
         >>> disjointset = zz.algorithm.DisjointSetRank(5)
@@ -164,8 +162,8 @@ class DisjointSetSize(DisjointSet):
         size (``int``): Node의 수
 
     Attributes:
-        parent (``List[int]``): Node에 따른 부모 node의 index
-        size (``List[int]``): Node에 따른 size
+        parent (``list[int]``): Node에 따른 부모 node의 index
+        size (``list[int]``): Node에 따른 size
 
     Examples:
         >>> disjointset = zz.algorithm.DisjointSetSize(5)

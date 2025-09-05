@@ -24,7 +24,6 @@ SOFTWARE.
 
 import time
 from collections import defaultdict
-from typing import Optional
 
 import psutil
 
@@ -32,20 +31,20 @@ from zerohertzLib.plot import plot
 
 
 def cpu(
-    tick: Optional[int] = 1,
-    threshold: Optional[int] = 10,
-    path: Optional[str] = "CPU",
-    dpi: Optional[int] = 100,
-    per: Optional[bool] = True,
+    tick: int | None = 1,
+    threshold: int | None = 10,
+    path: str | None = "CPU",
+    dpi: int | None = 100,
+    per: bool | None = True,
 ) -> None:
     """시간에 따른 CPU의 사용량을 각 코어에 따라 line chart로 시각화
 
     Args:
-        tick (``Optional[int]``): Update 주기
-        threshold (``Optional[int]``): 시각화할 총 시간
-        path (``Optional[str]``): Graph를 저장할 경로
-        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
-        per (``Optional[bool]``): CPU 개별 사용량 시각화 여부
+        tick (``int | None``): Update 주기
+        threshold (``int | None``): 시각화할 총 시간
+        path (``str | None``): Graph를 저장할 경로
+        dpi (``int | None``): Graph 저장 시 DPI (Dots Per Inch)
+        per (``bool | None``): CPU 개별 사용량 시각화 여부
 
     Returns:
         ``None``: 지정한 경로에 바로 graph 저장

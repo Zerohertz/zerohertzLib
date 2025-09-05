@@ -22,8 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import Optional
-
 import openai
 
 
@@ -43,7 +41,7 @@ class OpenAI(openai.OpenAI):
         api_key (``str``): 위에서 등록한 OpenAI의 API key
 
     Attributes:
-        model (``List[str]``): 사용 가능한 model의 이름
+        model (``list[str]``): 사용 가능한 model의 이름
 
     Methods:
         __call__:
@@ -51,9 +49,9 @@ class OpenAI(openai.OpenAI):
 
             Args:
                 message (``str``): Model 호출 시 사용될 입력
-                prompt (``Optional[str]``): Model 호출 시 사용될 prompt
-                model (``Optional[str]``): 호출할 model 선택
-                stream (``Optional[bool]``): 응답의 실시간 출력 여부
+                prompt (``str | None``): Model 호출 시 사용될 prompt
+                model (``str | None``): 호출할 model 선택
+                stream (``bool | None``): 응답의 실시간 출력 여부
 
             Returns:
                 ``str``: 호출된 model의 결과
@@ -92,9 +90,9 @@ class OpenAI(openai.OpenAI):
     def __call__(
         self,
         message: str,
-        prompt: Optional[str] = None,
-        model: Optional[str] = "gpt4o",
-        stream: Optional[bool] = False,
+        prompt: str | None = None,
+        model: str | None = "gpt4o",
+        stream: bool | None = False,
     ) -> str:
         if prompt is None:
             messages = [{"role": "user", "content": message}]

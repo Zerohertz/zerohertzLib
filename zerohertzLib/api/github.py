@@ -24,7 +24,7 @@ SOFTWARE.
 
 import re
 from collections import defaultdict
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import requests
 
@@ -35,21 +35,21 @@ class GitHub:
     """GitHub API를 사용하기 위한 class
 
     Args:
-        user (``Optional[str]``): GitHub API를 호출할 user
-        repo (``Optional[str]``): GitHub API를 호출할 repository
-        token (``Optional[str]``): GitHub의 token
-        issue (``Optional[bool]``): ``True``: Issue & PR, ``False``: Only PR
+        user (``str | None``): GitHub API를 호출할 user
+        repo (``str | None``): GitHub API를 호출할 repository
+        token (``str | None``): GitHub의 token
+        issue (``bool | None``): ``True``: Issue & PR, ``False``: Only PR
 
     Methods:
         __call__:
             API 호출 수행
 
             Args:
-                lab (``Optional[str]``): 선택할 GitHub repository의 label (``issue=False`` 시 error 발생)
-                per_page (``Optional[int]``): 1회 호출 시 출력될 결과의 수
+                lab (``str | None``): 선택할 GitHub repository의 label (``issue=False`` 시 error 발생)
+                per_page (``int | None``): 1회 호출 시 출력될 결과의 수
 
             Returns:
-                ``List[Dict[str, Any]]``: API 호출 결과
+                ``list[dict[str, Any]]``: API 호출 결과
 
     Examples:
         >>> gh = zz.api.GitHub("Zerohertz", "zerohertzLib", token="ghp_...")
@@ -62,10 +62,10 @@ class GitHub:
 
     def __init__(
         self,
-        user: Optional[str] = "Zerohertz",
-        repo: Optional[str] = "zerohertzLib",
-        token: Optional[str] = None,
-        issue: Optional[bool] = True,
+        user: str | None = "Zerohertz",
+        repo: str | None = "zerohertzLib",
+        token: str | None = None,
+        issue: bool | None = True,
     ) -> None:
         if token is None:
             self.headers = {
@@ -86,9 +86,9 @@ class GitHub:
 
     def __call__(
         self,
-        lab: Optional[str] = "all",
-        per_page: Optional[int] = 100,
-    ) -> List[Dict[str, Any]]:
+        lab: str | None = "all",
+        per_page: int | None = 100,
+    ) -> list[dict[str, Any]]:
         results = []
         page = 1
         total_fetched = 0
@@ -135,7 +135,7 @@ class GitHub:
     def _shield_icon(self, tag: str, color: str, href: str) -> str:
         return f"""<a href="{href}"><img src="https://img.shields.io/badge/{tag}-{color}?style=flat-square&logo=github" alt="{tag}"/></a>\n"""
 
-    def _labels_markdown(self, labels: List[Dict[str, Any]]) -> str:
+    def _labels_markdown(self, labels: list[dict[str, Any]]) -> str:
         labels_markdown = """<p align="center">\n"""
         for label in labels:
             tag, color, href = (
@@ -160,7 +160,7 @@ class GitHub:
     def _replace_pr_title(self, body: str) -> str:
         return re.sub(r"### (.*?)\n", r"<h4>\1</h4>\n", body)
 
-    def _merge_release_note_version(self, version: str, data: List[List[Any]]) -> str:
+    def _merge_release_note_version(self, version: str, data: list[list[Any]]) -> str:
         merge_release_note = f"## {version}\n\n"
         for number, html_url, labels, title, updated_at, closed_at, body in data:
             merge_release_note += (
@@ -195,7 +195,7 @@ class GitHub:
             file.writelines(f"# {version}\n\n" + body)
 
     def _write_release_note(
-        self, name: str, sphinx_source_path: str, versions: List[str]
+        self, name: str, sphinx_source_path: str, versions: list[str]
     ) -> None:
         release_note_body = (
             "# Release Notes\n\n```{eval-rst}\n.. toctree::\n\t:maxdepth: 1\n\n"
@@ -208,13 +208,13 @@ class GitHub:
 
     def release_note(
         self,
-        name: Optional[str] = "release",
-        sphinx_source_path: Optional[str] = "sphinx/source",
+        name: str | None = "release",
+        sphinx_source_path: str | None = "sphinx/source",
     ) -> None:
         """
         Args:
-            name (``Optional[str]``): Release note file 및 directory의 이름
-            sphinx_source_path (``Optional[str]``): Sphinx의 ``source`` 경로
+            name (``str | None``): Release note file 및 directory의 이름
+            sphinx_source_path (``str | None``): Sphinx의 ``source`` 경로
 
         Examples:
             >>> gh = zz.api.GitHub("Zerohertz", "zerohertzLib", token="ghp_...")

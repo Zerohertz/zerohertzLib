@@ -22,17 +22,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import List
 
-
-def soe(n_max: int) -> List[int]:
+def soe(n_max: int) -> list[int]:
     """Sieve of Eratosthenes
 
     Args:
         n_max (``int``): 구하고자 하는 소수 범위의 최댓값
 
     Returns:
-        ``List[int]``: N까지 존재하는 소수 list
+        ``list[int]``: N까지 존재하는 소수 list
 
     Examples:
         >>> zz.algorithm.soe(10)

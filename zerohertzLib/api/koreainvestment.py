@@ -50,7 +50,6 @@ import os
 import pickle
 import time
 from collections import defaultdict
-from typing import Dict, List, Optional, Tuple
 
 import pandas as pd
 import requests
@@ -71,7 +70,7 @@ class KoreaInvestment:
 
     Args:
         account_no (``str``): API 호출 시 사용할 계좌 번호
-        path (``Optional[str]``): ``secret.key`` 혹은 ``token.dat`` 이 포함된 경로
+        path (``str | None``): ``secret.key`` 혹은 ``token.dat`` 이 포함된 경로
 
     Attributes:
         api_key (``str``): API Key
@@ -84,7 +83,7 @@ class KoreaInvestment:
     def __init__(
         self,
         account_no: str,
-        path: Optional[str] = "./",
+        path: str | None = "./",
     ) -> None:
         self.account_no = account_no
         self.account_no_prefix = self.account_no.split("-")[0]
@@ -178,15 +177,15 @@ class KoreaInvestment:
             data = pickle.load(file)
         self.access_token = f"Bearer {data['access_token']}"
 
-    def get_price(self, symbol: str, kor: Optional[bool] = True) -> Dict[str, Dict]:
+    def get_price(self, symbol: str, kor: bool | None = True) -> dict[str, dict]:
         """주식 현재가 시세
 
         Args:
             symbol (``str``): 종목 code
-            kor (``Optional[bool]``): 국내 여부
+            kor (``bool | None``): 국내 여부
 
         Returns:
-            ``Dict[str, Dict]``: 주식 현재가 시세
+            ``dict[str, dict]``: 주식 현재가 시세
 
         Examples:
             >>> samsung = broker.get_price("005930")
@@ -205,14 +204,14 @@ class KoreaInvestment:
             return self._get_korea_price(symbol)
         return self._get_oversea_price(symbol)
 
-    def _get_korea_price(self, symbol: str) -> Dict[str, Dict]:
+    def _get_korea_price(self, symbol: str) -> dict[str, dict]:
         """주식 현재가 시세 [v1_국내주식-008]
 
         Args:
             symbol (``str``): 종목 code
 
         Returns:
-            ``Dict[str, Dict]``: 국내 주식 현재가 시세
+            ``dict[str, dict]``: 국내 주식 현재가 시세
         """
         path = "uapi/domestic-stock/v1/quotations/inquire-price"
         url = f"{self.base_url}/{path}"
@@ -227,7 +226,7 @@ class KoreaInvestment:
         response = requests.get(url, headers=headers, params=params, timeout=10)
         return response.json()
 
-    def _get_oversea_price(self, symbol: str) -> Dict[str, Dict]:
+    def _get_oversea_price(self, symbol: str) -> dict[str, dict]:
         """해외 주식 현재체결가 [v1_해외주식-009]
 
         해외주식 시세는 무료시세(지연체결가)만이 제공되며, API로는 유료시세(실시간체결가)를 받아보실 수 없습니다.
@@ -236,7 +235,7 @@ class KoreaInvestment:
             symbol (``str``): 종목 code
 
         Returns:
-            ``Dict[str, Dict]``: 해외 주식 현재가 시세
+            ``dict[str, dict]``: 해외 주식 현재가 시세
         """
         path = "uapi/overseas-price/v1/quotations/price"
         url = f"{self.base_url}/{path}"
@@ -254,24 +253,24 @@ class KoreaInvestment:
     def get_ohlcv(
         self,
         symbol: str,
-        time_frame: Optional[str] = "D",
-        start_day: Optional[str] = "",
-        end_day: Optional[str] = "",
-        adj_price: Optional[bool] = True,
-        kor: Optional[bool] = True,
-    ) -> Dict[str, Dict]:
+        time_frame: str | None = "D",
+        start_day: str | None = "",
+        end_day: str | None = "",
+        adj_price: bool | None = True,
+        kor: bool | None = True,
+    ) -> dict[str, dict]:
         """종목 code에 따른 기간별 OHLCV (Open, High, Low, Close, Volume)
 
         Args:
             symbol (``str``): 종목 code
-            time_frame (``Optional[str]``): 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월, ``"Y"``: 년)
-            start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
-            end_day (``Optional[str]``): 조회 종료 일자 (``YYYYMMDD``)
-            adj_price (``Optional[bool]``): 수정 주가 반영 여부
-            kor (``Optional[bool]``): 국내 여부
+            time_frame (``str | None``): 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월, ``"Y"``: 년)
+            start_day (``str | None``): 조회 시작 일자 (``YYYYMMDD``)
+            end_day (``str | None``): 조회 종료 일자 (``YYYYMMDD``)
+            adj_price (``bool | None``): 수정 주가 반영 여부
+            kor (``bool | None``): 국내 여부
 
         Returns:
-            ``Dict[str, Dict]``: OHLCV (Open, High, Low, Close, Volume)
+            ``dict[str, dict]``: OHLCV (Open, High, Low, Close, Volume)
 
         Examples:
             >>> broker.get_ohlcv("005930")
@@ -290,24 +289,24 @@ class KoreaInvestment:
     def _get_korea_ohlcv(
         self,
         symbol: str,
-        time_frame: Optional[str] = "D",
-        start_day: Optional[str] = "",
-        end_day: Optional[str] = "",
-        adj_price: Optional[bool] = True,
-    ) -> Dict[str, Dict]:
+        time_frame: str | None = "D",
+        start_day: str | None = "",
+        end_day: str | None = "",
+        adj_price: bool | None = True,
+    ) -> dict[str, dict]:
         """국내 주식 기간별 시세 (일/주/월/년) [v1_국내주식-016]
 
         한 번의 호출에 최대 100건까지 확인 가능합니다.
 
         Args:
             symbol (``str``): 종목 code
-            time_frame (``Optional[str]``): 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월, ``"Y"``: 년)
-            start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
-            end_day (``Optional[str]``): 조회 종료 일자 (``YYYYMMDD``)
-            adj_price (``Optional[bool]``): 수정 주가 반영 여부
+            time_frame (``str | None``): 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월, ``"Y"``: 년)
+            start_day (``str | None``): 조회 시작 일자 (``YYYYMMDD``)
+            end_day (``str | None``): 조회 종료 일자 (``YYYYMMDD``)
+            adj_price (``bool | None``): 수정 주가 반영 여부
 
         Returns:
-            ``Dict[str, Dict]``: 국내 주식의 기간별 시세
+            ``dict[str, dict]``: 국내 주식의 기간별 시세
         """
         path = "uapi/domestic-stock/v1/quotations/inquire-daily-itemchartprice"
         url = f"{self.base_url}/{path}"
@@ -354,11 +353,11 @@ class KoreaInvestment:
     def _get_oversea_ohlcv(
         self,
         symbol: str,
-        time_frame: Optional[str] = "D",
-        start_day: Optional[str] = "",
-        end_day: Optional[str] = "",
-        adj_price: Optional[bool] = True,
-    ) -> Dict[str, Dict]:
+        time_frame: str | None = "D",
+        start_day: str | None = "",
+        end_day: str | None = "",
+        adj_price: bool | None = True,
+    ) -> dict[str, dict]:
         """해외 주식 기간별 시세 [v1_해외주식-010]
 
         한 번의 호출에 최대 100건까지 확인 가능합니다.
@@ -366,13 +365,13 @@ class KoreaInvestment:
 
         Args:
             symbol (``str``): 종목 code
-            time_frame (``Optional[str]``): 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월)
-            start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
-            end_day (``Optional[str]``): 조회 종료 일자 (``YYYYMMDD``)
-            adj_price (``Optional[bool]``): 수정 주가 반영 여부
+            time_frame (``str | None``): 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월)
+            start_day (``str | None``): 조회 시작 일자 (``YYYYMMDD``)
+            end_day (``str | None``): 조회 종료 일자 (``YYYYMMDD``)
+            adj_price (``bool | None``): 수정 주가 반영 여부
 
         Returns:
-            ``Dict[str, Dict]``: 해외 주식의 기간별 시세
+            ``dict[str, dict]``: 해외 주식의 기간별 시세
         """
         path = "uapi/overseas-price/v1/quotations/dailyprice"
         url = f"{self.base_url}/{path}"
@@ -411,14 +410,14 @@ class KoreaInvestment:
                 time.sleep(0.02)
         return data
 
-    def response2ohlcv(self, response: Dict[str, Dict]) -> Tuple[str, pd.DataFrame]:
+    def response2ohlcv(self, response: dict[str, dict]) -> tuple[str, pd.DataFrame]:
         """``get_ohlcv`` 에 의한 응답을 ``pd.DataFrame`` 으로 변환
 
         Args:
-            response (``Dict[str, Dict]``): ``get_ohlcv`` 의 출력
+            response (``dict[str, dict]``): ``get_ohlcv`` 의 출력
 
         Returns:
-            ``Tuple[str, pd.DataFrame]``: 종목의 이름과 OHLCV (Open, High, Low, Close, Volume)
+            ``tuple[str, pd.DataFrame]``: 종목의 이름과 OHLCV (Open, High, Low, Close, Volume)
 
         Examples:
             >>> samsung = broker.get_ohlcv("005930")
@@ -482,25 +481,25 @@ class KoreaInvestment:
 
     def get_ohlcvs(
         self,
-        symbols: List[str],
-        time_frame: Optional[str] = "D",
-        start_day: Optional[str] = "",
-        end_day: Optional[str] = "",
-        adj_price: Optional[bool] = True,
-        kor: Optional[bool] = True,
-    ) -> Tuple[List[str], List[pd.DataFrame]]:
+        symbols: list[str],
+        time_frame: str | None = "D",
+        start_day: str | None = "",
+        end_day: str | None = "",
+        adj_price: bool | None = True,
+        kor: bool | None = True,
+    ) -> tuple[list[str], list[pd.DataFrame]]:
         """여러 종목 code에 따른 기간별 OHLCV (Open, High, Low, Close, Volume)
 
         Args:
-            symbols (``List[str]``): 종목 code들
-            time_frame (``Optional[str]``): 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월, ``"Y"``: 년)
-            start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
-            end_day (``Optional[str]``): 조회 종료 일자 (``YYYYMMDD``)
-            adj_price (``Optional[bool]``): 수정 주가 반영 여부
-            kor (``Optional[bool]``): 국내 여부
+            symbols (``list[str]``): 종목 code들
+            time_frame (``str | None``): 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월, ``"Y"``: 년)
+            start_day (``str | None``): 조회 시작 일자 (``YYYYMMDD``)
+            end_day (``str | None``): 조회 종료 일자 (``YYYYMMDD``)
+            adj_price (``bool | None``): 수정 주가 반영 여부
+            kor (``bool | None``): 국내 여부
 
         Returns:
-            ``Tuple[List[str], List[pd.DataFrame]]``: Code들에 따른 종목의 이름과 OHLCV (Open, High, Low, Close, Volume)
+            ``tuple[list[str], list[pd.DataFrame]]``: Code들에 따른 종목의 이름과 OHLCV (Open, High, Low, Close, Volume)
 
         Examples:
             >>> broker.get_ohlcvs(["005930", "035420"], start_day="20221205")
@@ -530,14 +529,14 @@ class KoreaInvestment:
                 print(f"'{symbol}' is not found")
         return title, data
 
-    def get_balance(self, kor: Optional[bool] = True) -> Dict[str, Dict]:
+    def get_balance(self, kor: bool | None = True) -> dict[str, dict]:
         """주식 계좌 잔고 조회
 
         Args:
-            kor (``Optional[bool]``): 국내 여부
+            kor (``bool | None``): 국내 여부
 
         Returns:
-            ``Dict[str, Dict]``: 계좌 내역
+            ``dict[str, dict]``: 계좌 내역
 
         Examples:
             >>> balance = broker.get_balance()
@@ -578,18 +577,18 @@ class KoreaInvestment:
         return self._get_oversea_balance()
 
     def _get_korea_balance(
-        self, ctx_area_fk100: Optional[str] = "", ctx_area_nk100: Optional[str] = ""
-    ) -> Dict[str, Dict]:
+        self, ctx_area_fk100: str | None = "", ctx_area_nk100: str | None = ""
+    ) -> dict[str, dict]:
         """주식 잔고 조회 [v1_국내주식-006]
 
         실전계좌의 경우, 한 번의 호출에 최대 50건까지 확인 가능하며, 이후의 값은 연속조회를 통해 확인하실 수 있습니다.
 
         Args:
-            ctx_area_fk100 (``Optional[str]``): 연속조회검색조건100
-            ctx_areak_nk100 (``Optional[str]``): 연속조회키100
+            ctx_area_fk100 (``str | None``): 연속조회검색조건100
+            ctx_areak_nk100 (``str | None``): 연속조회키100
 
         Returns:
-            ``Dict[str, Dict]``: 잔고 조회 결과
+            ``dict[str, dict]``: 잔고 조회 결과
         """
         path = "uapi/domestic-stock/v1/trading/inquire-balance"
         url = f"{self.base_url}/{path}"
@@ -619,18 +618,18 @@ class KoreaInvestment:
         return data
 
     # def _get_oversea_balance(
-    #     self, ctx_area_fk200: Optional[str] = "", ctx_area_nk200: Optional[str] = ""
-    # ) -> Dict[str, Dict]:
+    #     self, ctx_area_fk200: str | None = "", ctx_area_nk200: str | None = ""
+    # ) -> dict[str, dict]:
     #     """해외 주식 잔고 [v1_해외주식-006]
     #
     #     실전계좌의 경우, 한 번의 호출에 최대 100건까지 확인 가능하며, 이후의 값은 연속조회를 통해 확인하실 수 있습니다.
     #
     #     Args:
-    #         ctx_area_fk200 (``Optional[str]``): 연속조회검색조건200
-    #         ctx_area_nk200 (``Optional[str]``): 연속조회키200
+    #         ctx_area_fk200 (``str | None``): 연속조회검색조건200
+    #         ctx_area_nk200 (``str | None``): 연속조회키200
     #
     #     Returns:
-    #         ``Dict[str, Dict]``: 잔고 조회 결과
+    #         ``dict[str, dict]``: 잔고 조회 결과
     #     """
     #     path = "uapi/overseas-stock/v1/trading/inquire-balance"
     #     url = f"{self.base_url}/{path}"
@@ -654,11 +653,11 @@ class KoreaInvestment:
     #     data["tr_cont"] = response.headers["tr_cont"]
     #     return data
 
-    def _get_oversea_balance(self) -> Dict[str, Dict]:
+    def _get_oversea_balance(self) -> dict[str, dict]:
         """해외 주식 체결기준현재잔고[v1_해외주식-008]
 
         Returns:
-            ``Dict[str, Dict]``: 잔고 조회 결과
+            ``dict[str, dict]``: 잔고 조회 결과
         """
         path = "uapi/overseas-stock/v1/trading/inquire-present-balance"
         url = f"{self.base_url}/{path}"
@@ -681,11 +680,11 @@ class KoreaInvestment:
         data = response.json()
         return data
 
-    def get_conclusion(self) -> Dict[str, Dict]:
+    def get_conclusion(self) -> dict[str, dict]:
         """주식 계좌 잔고의 국내 실현손익 조회
 
         Returns:
-            ``Dict[str, Dict]``: 잔고 실현손익 조회 결과
+            ``dict[str, dict]``: 잔고 실현손익 조회 결과
 
         Examples:
             >>> conclusion = broker.get_conclusion()
@@ -703,16 +702,16 @@ class KoreaInvestment:
         return output
 
     def _get_conclusion(
-        self, ctx_area_fk100: Optional[str] = "", ctx_area_nk100: Optional[str] = ""
-    ) -> Dict[str, Dict]:
+        self, ctx_area_fk100: str | None = "", ctx_area_nk100: str | None = ""
+    ) -> dict[str, dict]:
         """주식 잔고 조회 실현손익 [v1_국내주식-041]
 
         Args:
-            ctx_area_fk100 (``Optional[str]``): 연속조회검색조건100
-            ctx_areak_nk100 (``Optional[str]``): 연속조회키100
+            ctx_area_fk100 (``str | None``): 연속조회검색조건100
+            ctx_areak_nk100 (``str | None``): 연속조회키100
 
         Returns:
-            ``Dict[str, Dict]``: 잔고 실현손익 조회 결과
+            ``dict[str, dict]``: 잔고 실현손익 조회 결과
         """
         path = "uapi/domestic-stock/v1/trading/inquire-balance-rlz-pl"
         url = f"{self.base_url}/{path}"

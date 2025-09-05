@@ -23,7 +23,6 @@ SOFTWARE.
 """
 
 import os
-from typing import Optional
 
 from zerohertzLib.plot import pie
 
@@ -41,12 +40,12 @@ def _get_size(path: str) -> int:
     return total
 
 
-def storage(path: Optional[str] = ".", threshold: Optional[int] = 1) -> str:
+def storage(path: str | None = ".", threshold: int | None = 1) -> str:
     """지정한 경로에 존재하는 file에 따른 용량을 pie graph로 시각화
 
     Args:
-        path (``Optional[str]``): 용량을 시각화할 경로
-        threshold (``Optional[int]``): Etc.로 분류될 임계값 (단위: %)
+        path (``str | None``): 용량을 시각화할 경로
+        threshold (``int | None``): Etc.로 분류될 임계값 (단위: %)
 
     Returns:
         ``str``: 저장된 graph의 절대 경로

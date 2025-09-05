@@ -25,12 +25,11 @@ SOFTWARE.
 import subprocess
 import time
 from collections import defaultdict
-from typing import List, Optional, Tuple
 
 from zerohertzLib.plot import plot
 
 
-def _get_gpu_usages() -> List[float]:
+def _get_gpu_usages() -> list[float]:
     result = subprocess.check_output(
         ["nvidia-smi", "--query-gpu=utilization.gpu", "--format=csv,nounits,noheader"],
         encoding="utf-8",
@@ -40,20 +39,20 @@ def _get_gpu_usages() -> List[float]:
 
 
 def gpu_usages(
-    tick: Optional[int] = 1,
-    threshold: Optional[int] = 10,
-    grep: Optional[List[int]] = None,
-    path: Optional[str] = "GPU Usages",
-    dpi: Optional[int] = 100,
+    tick: int | None = 1,
+    threshold: int | None = 10,
+    grep: list[int] | None = None,
+    path: str | None = "GPU Usages",
+    dpi: int | None = 100,
 ) -> None:
     """시간에 따른 GPU의 사용량을 각 GPU에 따라 line chart로 시각화
 
     Args:
-        tick (``Optional[int]``): Update 주기
-        threshold (``Optional[int]``): 시각화할 총 시간
-        grep (``Optional[List[int]]``): 시각화할 GPU의 번호
-        path (``Optional[str]``): Graph를 저장할 경로
-        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        tick (``int | None``): Update 주기
+        threshold (``int | None``): 시각화할 총 시간
+        grep (``list[int] | None``): 시각화할 GPU의 번호
+        path (``str | None``): Graph를 저장할 경로
+        dpi (``int | None``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``None``: 지정한 경로에 바로 graph 저장
@@ -91,7 +90,7 @@ def gpu_usages(
             break
 
 
-def _get_gpu_memory() -> List[Tuple[float]]:
+def _get_gpu_memory() -> list[tuple[float]]:
     result = subprocess.check_output(
         [
             "nvidia-smi",
@@ -109,20 +108,20 @@ def _get_gpu_memory() -> List[Tuple[float]]:
 
 
 def gpu_memory(
-    tick: Optional[int] = 1,
-    threshold: Optional[int] = 10,
-    grep: Optional[List[int]] = None,
-    path: Optional[str] = "GPU Memory",
-    dpi: Optional[int] = 100,
+    tick: int | None = 1,
+    threshold: int | None = 10,
+    grep: list[int] | None = None,
+    path: str | None = "GPU Memory",
+    dpi: int | None = 100,
 ) -> None:
     """시간에 따른 GPU의 memory 사용량을 각 GPU에 따라 line chart로 시각화
 
     Args:
-        tick (``Optional[int]``): Update 주기
-        threshold (``Optional[int]``): 시각화할 총 시간
-        grep (``Optional[List[int]]``): 시각화할 GPU의 번호
-        path (``Optional[str]``): Graph를 저장할 경로
-        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        tick (``int | None``): Update 주기
+        threshold (``int | None``): 시각화할 총 시간
+        grep (``list[int] | None``): 시각화할 GPU의 번호
+        path (``str | None``): Graph를 저장할 경로
+        dpi (``int | None``): Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
         ``None``: 지정한 경로에 바로 graph 저장

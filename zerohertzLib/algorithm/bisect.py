@@ -22,15 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import List, Union
 
-
-def bisect_right(sorted_list: List[Union[int, float]], value: Union[int, float]) -> int:
+def bisect_right(sorted_list: list[int | float], value: int | float) -> int:
     """Binary Search (right)
 
     Args:
-        sorted_list (``List[Union[int, float]]``): 정렬된 list
-        value (``Union[int, float]``): 찾고자하는 값
+        sorted_list (``list[int | float]``): 정렬된 list
+        value (``int | float``): 찾고자하는 값
 
     Returns:
         ``int``: ``value`` 값이 ``sorted_list`` 에 삽입될 때 index
@@ -53,12 +51,12 @@ def bisect_right(sorted_list: List[Union[int, float]], value: Union[int, float])
     return low
 
 
-def bisect_left(sorted_list: List[Union[int, float]], value: Union[int, float]) -> int:
+def bisect_left(sorted_list: list[int | float], value: int | float) -> int:
     """Binary Search (left)
 
     Args:
-        sorted_list (``List[Union[int, float]]``): 정렬된 list
-        value (``Union[int, float]``): 찾고자하는 값
+        sorted_list (``list[int | float]``): 정렬된 list
+        value (``int | float``): 찾고자하는 값
 
     Returns:
         ``int``: ``value`` 값이 ``sorted_list`` 에 삽입될 때 index

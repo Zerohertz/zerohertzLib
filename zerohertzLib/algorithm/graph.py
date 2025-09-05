@@ -25,18 +25,17 @@ SOFTWARE.
 import heapq
 import sys
 from collections import deque
-from typing import List, Tuple
 
 
-def bfs(maps: List[List[int]], start: int) -> List[int]:
+def bfs(maps: list[list[int]], start: int) -> list[int]:
     """BFS를 수행하기 위한 함수
 
     Args:
-        maps (``List[List[int]]``): 입력 graph
+        maps (``list[list[int]]``): 입력 graph
         start (``int``): Graph의 시작 지점
 
     Returns:
-        ``List[int]``: 방문 순서
+        ``list[int]``: 방문 순서
 
     Examples:
         >>> zz.algorithm.bfs([[], [2, 3, 4], [1, 4], [1, 4], [1, 2, 3]], 1)
@@ -57,15 +56,15 @@ def bfs(maps: List[List[int]], start: int) -> List[int]:
     return results
 
 
-def dfs(maps: List[List[int]], start: int) -> List[int]:
+def dfs(maps: list[list[int]], start: int) -> list[int]:
     """DFS를 수행하기 위한 함수
 
     Args:
-        maps (``List[List[int]]``): 입력 graph
+        maps (``list[list[int]]``): 입력 graph
         start (``int``): Graph의 시작 지점
 
     Returns:
-        ``List[int]``: 방문 순서
+        ``list[int]``: 방문 순서
 
     Examples:
         >>> zz.algorithm.dfs([[], [2, 3, 4], [1, 4], [1, 4], [1, 2, 3]], 1)
@@ -85,7 +84,7 @@ def dfs(maps: List[List[int]], start: int) -> List[int]:
     return results
 
 
-def floyd_warshall(graph: List[List[Tuple[int, int]]]) -> List[List[int]]:
+def floyd_warshall(graph: list[list[tuple[int, int]]]) -> list[list[int]]:
     """Graph에서 모든 node 쌍 간의 최단 경로 거리 계산
 
     Note:
@@ -94,10 +93,10 @@ def floyd_warshall(graph: List[List[Tuple[int, int]]]) -> List[List[int]]:
         - :math:`V`: Node의 수
 
     Args:
-        graph (``List[List[Tuple[int, int]]]``): Index (간선의 시작 node)에 따른 간선의 도착 node와 가중치 정보
+        graph (``list[list[tuple[int, int]]]``): Index (간선의 시작 node)에 따른 간선의 도착 node와 가중치 정보
 
     Returns:
-        ``List[List[int]]``: 모든 node 쌍에 대한 최단 경로 거리 (음의 cycle을 가질 시 ``None`` return)
+        ``list[list[int]]``: 모든 node 쌍에 대한 최단 경로 거리 (음의 cycle을 가질 시 ``None`` return)
 
     Examples:
         >>> graph = [[(1, 4), (2, 2), (3, 7)], [(0, 1), (2, 5)], [(0, 2), (3, 4)], [(1, 3)]]
@@ -125,7 +124,7 @@ def floyd_warshall(graph: List[List[Tuple[int, int]]]) -> List[List[int]]:
     return distance
 
 
-def bellman_ford(graph: List[List[Tuple[int, int]]], start: int) -> List[int]:
+def bellman_ford(graph: list[list[tuple[int, int]]], start: int) -> list[int]:
     """Graph에서 시작 node로부터 모든 다른 node까지의 최단 경로 거리 계산
 
     Note:
@@ -135,11 +134,11 @@ def bellman_ford(graph: List[List[Tuple[int, int]]], start: int) -> List[int]:
         - :math:`E`: 간선의 수
 
     Args:
-        graph (``List[List[Tuple[int, int]]]``): Index (간선의 시작 node)에 따른 간선의 도착 node와 가중치 정보
+        graph (``list[list[tuple[int, int]]]``): Index (간선의 시작 node)에 따른 간선의 도착 node와 가중치 정보
         start (``int``): 최단 경로 거리가 계신될 시작 node
 
     Returns:
-        ``List[int]``: ``start`` 에서 graph 내 모든 다른 node 까지의 최단 경로 거리 (음의 cycle을 가질 시 ``None`` return)
+        ``list[int]``: ``start`` 에서 graph 내 모든 다른 node 까지의 최단 경로 거리 (음의 cycle을 가질 시 ``None`` return)
 
     Examples:
         >>> graph = [[(1, 4), (2, 2), (3, 7)], [(0, 1), (2, 5)], [(0, 2), (3, 4)], [(1, 3)]]
@@ -170,7 +169,7 @@ def bellman_ford(graph: List[List[Tuple[int, int]]], start: int) -> List[int]:
     return distance
 
 
-def dijkstra(graph: List[List[Tuple[int, int]]], start: int) -> List[int]:
+def dijkstra(graph: list[list[tuple[int, int]]], start: int) -> list[int]:
     r"""Graph에서 시작 node로부터 모든 다른 node까지의 최단 경로 거리 계산
 
     Note:
@@ -180,11 +179,11 @@ def dijkstra(graph: List[List[Tuple[int, int]]], start: int) -> List[int]:
         - :math:`E`: 간선의 수
 
     Args:
-        graph (``List[List[Tuple[int, int]]]``): Index (간선의 시작 node)에 따른 간선의 도착 node와 가중치 정보
+        graph (``list[list[tuple[int, int]]]``): Index (간선의 시작 node)에 따른 간선의 도착 node와 가중치 정보
         start (``int``): 최단 경로 거리가 계신될 시작 node
 
     Returns:
-        ``List[int]``: ``start`` 에서 graph 내 모든 다른 node 까지의 최단 경로 거리 (음의 가중치에서는 정확하지 않음)
+        ``list[int]``: ``start`` 에서 graph 내 모든 다른 node 까지의 최단 경로 거리 (음의 가중치에서는 정확하지 않음)
 
     Examples:
         >>> graph = [[(1, 4), (2, 2), (3, 7)], [(0, 1), (2, 5)], [(0, 2), (3, 4)], [(1, 3)]]

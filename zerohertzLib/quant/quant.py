@@ -270,7 +270,7 @@ class QuantBot(ABC):
         exps (``dict[str, list[dict[str, int]]]``): 각 전략에 따른 parameter 분포
 
     Examples:
-        >>> qsb = zz.quant.QuantSlackBot(symbols, token=token, channel=channel)
+        >>> qsb = zz.quant.QuantBot(symbols, token=token, channel=channel)
         >>> qsb.index()
 
         .. image:: _static/examples/static/quant.QuantSlackBot.png
