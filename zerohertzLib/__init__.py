@@ -24,23 +24,33 @@ SOFTWARE.
 
 from zerohertzLib import algorithm, monitoring, plot, util
 
+__all__ = ["algorithm", "monitoring", "plot", "util"]
+
 try:
-    from zerohertzLib import api
+    from zerohertzLib import api  # noqa: F401
+
+    __all__.append("api")
 except ImportError:
     pass
 
 try:
-    from zerohertzLib import mlops
+    from zerohertzLib import mlops  # noqa: F401
+
+    __all__.append("mlops")
 except ImportError:
     pass
 
 try:
-    from zerohertzLib import quant
+    from zerohertzLib import quant  # noqa: F401
+
+    __all__.append("quant")
 except ImportError:
     pass
 
 try:
-    from zerohertzLib import vision
+    from zerohertzLib import vision  # noqa: F401
+
+    __all__.append("vision")
 except ImportError as error:
     print("=" * 100)
     print(f"[Warning] {error}")
