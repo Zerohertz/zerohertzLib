@@ -159,7 +159,7 @@ class DiscordBot(AbstractBot[requests.Response]):
             <Response [200]>
         """
         payload = {
-            "name": kwargs.get("name", "New thread"),
+            "name": kwargs.get("name", "New thread")[:100],
             "type": 11,
         }
         message_id = response.json()["id"]
