@@ -96,14 +96,14 @@ jobs:
       - name: Upload test results to Codecov
         uses: codecov/test-results-action@v1
         with:
-          flags: python3.11
+          flags: python${{ matrix.python-version }}
           token: ${{ secrets.CODECOV_TOKEN }}
         if: always()
 
       - name: Upload results to Codecov
         uses: codecov/codecov-action@v4
         with:
-          flags: python3.11
+          flags: python${{ matrix.python-version }}
           token: ${{ secrets.CODECOV_TOKEN }}
         if: always()
 
