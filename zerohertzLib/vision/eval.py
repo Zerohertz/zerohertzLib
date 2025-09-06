@@ -223,7 +223,7 @@ def meanap(logs: pd.DataFrame) -> tuple[float, dict[str, float]]:
                 & ((logs["results"] == "TP") | (logs["results"] == "FN"))
             ]
         )
-        for confidence in set:
+        for confidence in set(logs[logs["class"] == cls]["confidence"]):
             true_positive = len(
                 logs[
                     (logs["class"] == cls)
