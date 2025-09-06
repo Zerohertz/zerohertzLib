@@ -205,7 +205,7 @@ def experiments(
         reports.align["EXP"] = "l"
         reports.align["PROFIT"] = "r"
         reports.align["LOSS RATIO"] = "r"
-    for exp in product:
+    for exp in product(*exps):
         signals = method(data, *exp, ohlc=ohlc)
         backtest_results = backtest(data, signals, ohlc=ohlc)
         exp_str = "-".join(list(map(str, exp)))

@@ -17,11 +17,11 @@ from zerohertzLib.api import DiscordBot, SlackBot
 from zerohertzLib.api.base import MockedBot
 from zerohertzLib.plot import barh, barv, candle, figure, hist, savefig, subplot
 
-from .backtest import backtest
+from .backtest import Experiments, backtest
 from .util import _cash2str, _method2str, _seconds_to_hms
 
 
-class Quant:
+class Quant(Experiments):
     """한 가지 종목에 대해 full factorial design 기반의 backtest를 수행하고 최적의 전략을 융합하는 class
 
     Args:
