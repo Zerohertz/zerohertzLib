@@ -26,7 +26,7 @@ def plot(
     markersize: int = 12,
     figsize: tuple[int, int] = (15, 10),
     dpi: int = 300,
-) -> str:
+) -> str | None:
     """List와 Dictionary로 입력받은 data를 line chart로 시각화
 
     Args:
@@ -48,27 +48,27 @@ def plot(
         저장된 graph의 절대 경로
 
     Examples:
-        ``stacked=False``:
+        `stacked=False`:
             >>> xdata = [i for i in range(20)]
             >>> ydata = {"Terran": list(np.random.rand(20) * 10), "Zerg": list(np.random.rand(20) * 10 + 1), "Protoss": list(np.random.rand(20) * 10 + 2)}
             >>> zz.plot.plot(xdata, ydata, xlab="Time [Sec]", ylab="Scores", title="Star Craft")
 
-            ![Plot example 1](../assets/plot/plot.1.png){ width="500" }
+            ![Plot example 1](../../../assets/plot/plot.1.png){ width="500" }
 
-        ``stacked=True:
+        `stacked=True`:
             >>> ydata["Total"] = [sum(data) + 10 for data in zip(ydata["Terran"], ydata["Protoss"], ydata["Zerg"])]
             >>> zz.plot.plot(xdata, ydata, xlab="Time [Sec]", ylab="Scores", stacked=True, title="Star Craft")
 
-            ![Plot example 2](../assets/plot/plot.2.png){ width="500" }
+            ![Plot example 2](../../../assets/plot/plot.2.png){ width="500" }
     """
     if config.SAVE:
         plt.figure(figsize=figsize)
     if stacked:
         bias = np.zeros(len(xdata))
         assert not isinstance(xdata, dict)
-    if not isinstance:
+    if not isinstance(ydata, dict):
         ydata = {"": ydata}
-    if not isinstance:
+    if not isinstance(xdata, dict):
         _xdata = {}
         for key in ydata.keys():
             _xdata[key] = xdata
@@ -118,7 +118,7 @@ def candle(
     signals: dict[str, Any] | None = None,
     threshold: int | tuple[int, int] = 1,
     dpi: int = 300,
-) -> str:
+) -> str | None:
     """OHLCV (Open, High, Low, Close, Volume) data에 따른 candle chart
 
     Note:
@@ -144,9 +144,9 @@ def candle(
         >>> signals = zz.quant.macd(data)
         >>> zz.plot.candle(data, "MACD", signals=signals)
 
-        ![Candle chart example](../assets/plot/candle.png){ width="600" }
+        ![Candle chart example](../../../assets/plot/candle.png){ width="600" }
     """
-    if not isinstance:
+    if not isinstance(threshold, int):
         threshold_sell, threshold_buy = threshold
     else:
         threshold_sell, threshold_buy = -threshold, threshold
@@ -237,7 +237,7 @@ def candle(
             )
         colors = color(len(signals.columns), palette="Set1")
         if len(signals.columns) > 1:
-            for idx, col in enumerate:
+            for idx, col in enumerate(signals.columns[:-2]):
                 new_axis.plot(
                     xdata,
                     signals[col],
@@ -264,7 +264,7 @@ def candle(
 def _method2str(method: str) -> str:
     if "_" in method:
         methods = method.split("_")
-        for idx, met in enumerate:
+        for idx, met in enumerate(methods):
             methods[idx] = met[0].upper() + met[1:]
         return " ".join(methods)
     if "momentum" == method:

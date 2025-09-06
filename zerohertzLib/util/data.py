@@ -91,8 +91,8 @@ class MakeData:
         Examples:
             Condition:
                 ```python
-                class MakeDataCar:
-                    def condition:
+                class MakeDataCar(zz.util.MakeData):
+                    def condition(self, json_instance):
                         key = json_instance._get_key("supercategory_name")
                         category = json_instance._get_value(key)
                         return category == "CityCar" or category == "Mid-size car"
@@ -100,15 +100,15 @@ class MakeData:
 
             Condition & Make Data:
                 ```python
-                class MakeDataCarDamage:
-                    def condition:
+                class MakeDataCarDamage(zz.util.MakeData):
+                    def condition(self, json_instance):
                         annotations = json_instance.get("annotations")
                         return (annotations[0]["color"] in ["White", "Black"]) and (
                             json_instance.get("supercategory_name") == "CityCar"
                         )
-                    def make_data:
+                    def make_data(self, json_instance, data_name):
                         img = cv2.imread(os.path.join(self.start_data_path, data_name))
-                        for i, ant in enumerate:
+                        for i, ant in enumerate(json_instance["annotations"]):
                             label = ant["damage"]
                             if not label is None:
                                 poly = ant["segmentation"]
@@ -134,8 +134,8 @@ class MakeData:
 
             Make Data:
                 ```python
-                class MakeDataCarAugment:
-                    def make_data:
+                class MakeDataCarAugment(zz.util.MakeData):
+                    def make_data(self, json_instance, data_name):
                         img = cv2.imread(
                             random.choice(glob("*"))
                         )

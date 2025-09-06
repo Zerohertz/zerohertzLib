@@ -29,7 +29,7 @@ def font(kor: bool = False, size: int = 20) -> None:
         size: Font의 크기
 
     Returns:
-        ``plt.rcParams`` 을 통한 전역적 설정
+        `plt.rcParams` 을 통한 전역적 설정
     """
     plt.rcParams["font.size"] = size
     # font_path = os.path.join(os.path.dirname(__file__), "fonts")

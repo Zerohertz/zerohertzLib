@@ -1,6 +1,8 @@
 # SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
+import json
+import traceback
 from abc import abstractmethod
 from typing import Any
 
@@ -11,9 +13,6 @@ from prettytable import PrettyTable
 from tritonclient.utils import triton_to_np_dtype
 
 try:
-    import json
-    import traceback
-
     import triton_python_backend_utils as pb_utils
 except ImportError:
     pass
@@ -26,18 +25,6 @@ class TritonClientURL:
         url: 호출할 triton inference server의 URL
         port: triton inference server의 gRPC 통신 port 번호
         verbose: Verbose 출력 여부
-
-    Methods:
-        __call__:
-            Model 호출 수행
-
-            Args:
-                model: 호출할 model의 이름 및 ID
-                *args (NDArray[DTypeLike]): Model 호출 시 사용될 입력
-                renew: (bool | None): 각 모델의 상태 조회 시 갱신 여부
-
-            Returns:
-                호출된 model의 결과
 
     Examples:
         >>> tc = zz.mlops.TritonClientURL("localhost")
@@ -66,14 +53,25 @@ class TritonClientURL:
         *args: NDArray[DTypeLike],
         renew: bool = False,
     ) -> dict[str, NDArray[DTypeLike]]:
-        if isinstance:
+        """
+        Model 호출 수행
+
+        Args:
+            model: 호출할 model의 이름 및 ID
+            *args: Model 호출 시 사용될 입력
+            renew: 각 모델의 상태 조회 시 갱신 여부
+
+        Returns:
+            호출된 model의 결과
+        """
+        if isinstance(model, int):
             model = self.models[model]
         self._update_configs(model, renew)
         inputs = self.configs[model]["config"]["input"]
         outputs = self.configs[model]["config"]["output"]
         assert len(inputs) == len(args)
         triton_inputs = []
-        for input_info, arg in zip:
+        for input_info, arg in zip(inputs, args):
             triton_inputs.append(self._set_input(input_info, arg))
         triton_outputs = []
         for output in outputs:
@@ -124,7 +122,7 @@ class TritonClientURL:
         Examples:
             >>> tc.status()
 
-            ![Status GIF](../assets/mlops/TritonClientURL.status.gif)
+            ![Status GIF](../../../assets/mlops/TritonClientURL.status.gif)
         """
         table = PrettyTable(
             ["STATE", "ID", "MODEL", "VERSION", "BACKEND", "INPUT", "OUTPUT"],
@@ -186,7 +184,7 @@ class TritonClientURL:
             >>> tc.load_model(0)
             >>> tc.load_model("MODEL_NAME")
         """
-        if isinstance:
+        if isinstance(model_name, int):
             model_name = self.models[model_name]
         super().load_model(model_name, headers, config, files, client_timeout)
 
@@ -209,7 +207,7 @@ class TritonClientURL:
             >>> tc.unload_model(0)
             >>> tc.unload_model("MODEL_NAME")
         """
-        if isinstance:
+        if isinstance(model_name, int):
             model_name = self.models[model_name]
         super().unload_model(model_name, headers, unload_dependents, client_timeout)
 
@@ -223,31 +221,22 @@ class TritonClientK8s:
         port: triton inference server의 gRPC 통신 port 번호
         verbose: Verbose 출력 여부
 
-    Methods:
-        __call__:
-            Model 호출 수행
-
-            Args:
-                model: 호출할 model의 이름 또는 ID
-                *args (NDArray[DTypeLike]): Model 호출 시 사용될 입력
-                renew: (bool | None): 각 모델의 상태 조회 시 갱신 여부
-
-            Returns:
-                호출된 model의 결과
-
     Examples:
         Kubernetes:
-            >>> kubectl get svc -n yolo
-            NAME                          TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
-            fastapi-svc                   ClusterIP   10.106.72.126   <none>        80/TCP     90s
-            triton-inference-server-svc   ClusterIP   10.96.28.172    <none>        8001/TCP   90s
-            >>> docker exec -it ${API_CONTAINER} bash
-
+        ```bash
+        $ kubectl get svc -n yolo
+        NAME                          TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+        fastapi-svc                   ClusterIP   10.106.72.126   <none>        80/TCP     90s
+        triton-inference-server-svc   ClusterIP   10.96.28.172    <none>        8001/TCP   90s
+        $ docker exec -it ${API_CONTAINER} bash
+        ```
         Python:
-            >>> tc = zz.mlops.TritonClientK8s("triton-inference-server-svc", "yolo")
-            >>> tc("YOLO", np.zeros((1, 3, 640, 640)))
-            {'output0': array([[[3.90108061e+00, 3.51982164e+00, 7.49971962e+00, ...,
-            2.21481919e-03, 1.17585063e-03, 1.36753917e-03]]], dtype=float32)}
+        ```python
+        >>> tc = zz.mlops.TritonClientK8s("triton-inference-server-svc", "yolo")
+        >>> tc("YOLO", np.zeros((1, 3, 640, 640)))
+        {'output0': array([[[3.90108061e+00, 3.51982164e+00, 7.49971962e+00, ...,
+        2.21481919e-03, 1.17585063e-03, 1.36753917e-03]]], dtype=float32)}
+        ```
     """
 
     def __init__(
@@ -266,7 +255,7 @@ class BaseTritonPythonModel:
     Note:
         Abstract Base Class: Model의 추론을 수행하는 abstract method `_inference` 정의 후 사용
 
-    Hint:
+    Tip:
         Logger의 색상 적용을 위해 아래와 같은 환경 변수 정의 필요
 
         ```yaml
@@ -281,16 +270,6 @@ class BaseTritonPythonModel:
                       value: "1"
                   ...
         ```
-
-    Methods:
-        _inference:
-            Model 추론을 수행하는 private method (상속을 통한 재정의 필수)
-
-            Args:
-                inputs: Model 추론 시 사용될 입력 (`config.pbtxt` 의 입력에 따라 입력 결정)
-
-            Returns:
-                Model의 추론 결과
 
     Examples:
         `model.py`:
@@ -358,7 +337,7 @@ class BaseTritonPythonModel:
                 )
                 logger.info("Inference start")
                 outputs = self._inference(*inputs)
-                if not isinstance:
+                if not isinstance(outputs, tuple):
                     outputs = tuple([outputs])
                 logger.debug(
                     "outputs: %s", " ".join([str(output.shape) for output in outputs])
@@ -406,7 +385,16 @@ class BaseTritonPythonModel:
     def _inference(
         self, *inputs: NDArray[DTypeLike]
     ) -> NDArray[DTypeLike] | tuple[NDArray[DTypeLike]]:
-        return inputs
+        """
+        Model 추론을 수행하는 private method (상속을 통한 재정의 필수)
+
+        Args:
+            inputs: Model 추론 시 사용될 입력 (`config.pbtxt` 의 입력에 따라 입력 결정)
+
+        Returns:
+            Model의 추론 결과
+        """
+        ...
 
     def finalize(self) -> None:
         """Triton Inference Server 종료 시 수행되는 method"""

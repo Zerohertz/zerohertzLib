@@ -35,7 +35,7 @@ def before_after(
     Args:
         before: 원본 image
         after: 영상 처리 혹은 모델 추론 후 image
-        area: 비교할 좌표 (``[x_0, y_0, x_1, y_1]``)
+        area: 비교할 좌표 (`[x_0, y_0, x_1, y_1]`)
         per: `area` 의 백분율 여부
         quality: 출력 image의 quality (단위: %)
         file_name: 저장될 file의 이름
@@ -45,17 +45,18 @@ def before_after(
 
     Examples:
         BGR, GRAY:
+            ```python
             >>> after = cv2.GaussianBlur(before, (0, 0), 25)
             >>> after = cv2.cvtColor(after, cv2.COLOR_BGR2GRAY)
             >>> zz.vision.before_after(before, after, quality=10)
-
-            ![Before after comparison 1](../assets/vision/before_after.1.png){ width="300" }
-
+            ```
+        ![Before after comparison 1](../../../assets/vision/before_after.1.png){ width="300" }
         BGR, Resize:
+            ```python
             >>> after = cv2.resize(before, (100, 100))
             >>> zz.vision.before_after(before, after, [20, 40, 30, 60])
-
-            ![Before after comparison 2](../assets/vision/before_after.2.png){ width="300" }
+            ```
+        ![Before after comparison 2](../../../assets/vision/before_after.2.png){ width="300" }
     """
     before_shape = before.shape
     if area is None:
@@ -109,13 +110,13 @@ def grid(
         >>> zz.vision.grid(imgs, color=(0, 255, 0))
         >>> zz.vision.grid(imgs, color=(0, 0, 0, 0))
 
-        ![Image grid example](../assets/vision/grid.png){ width="600" }
+        ![Image grid example](../../../assets/vision/grid.png){ width="600" }
     """
     cnt = math.ceil(math.sqrt(len(imgs)))
     length = size // cnt
     size = int(length * cnt)
     palette = np.full((size, size, 4), 0, dtype=np.uint8)
-    for idx, img in enumerate:
+    for idx, img in enumerate(imgs):
         d_y, d_x = divmod(idx, cnt)
         x_0, y_0, x_1, y_1 = (
             d_x * length,
@@ -147,7 +148,7 @@ def vert(
         >>> imgs = [cv2.resize(img, (random.randrange(300, 600), random.randrange(300, 600))) for _ in range(5)]
         >>> zz.vision.vert(imgs)
 
-        ![Vertical image alignment example](../assets/vision/vert.png){ width="600" }
+        ![Vertical image alignment example](../../../assets/vision/vert.png){ width="600" }
     """
     resized_imgs = []
     width = 0

@@ -123,7 +123,7 @@ class DiscordBot(AbstractBot[requests.Response]):
         )
 
     def get_thread_id(self, response: requests.Response, **kwargs: Any) -> str:
-        """Discord Bot 응답에서 스레드를 생성하고 thread ID 반환
+        """Discord Bot 응답에서 thread를 생성하고 thread ID 반환
 
         Args:
             response: Thread를 생성할 메시지 response

@@ -21,38 +21,6 @@ class Json:
         name: JSON file 이름
         keys: 직렬화된 JSON의 key 값들
 
-    Methods:
-        __len__:
-            Returns:
-                읽어온 JSON file의 길이
-
-        __getitem__:
-            읽어온 JSON file에 key 값 입력
-
-            Args:
-                key: 읽어온 JSON file에서 불러올 key 값
-
-            Returns:
-                Key에 따른 value 값
-
-        _get_key:
-            Key의 경로를 찾아주는 method
-
-            Args:
-                key: 읽어온 JSON file에서 불러올 key 값 (깊이 무관)
-
-            Returns:
-                ``/`` 으로 깊이를 표시한 key 값
-
-        _get_value:
-            ``Json._get_key`` 로 생성된 key 값을 입력 받아 value return
-
-            Args:
-                key: ``Json._get_key 로 생성된 key 값
-
-            Returns:
-                Key에 따른 value
-
     Examples:
         >>> js = zz.util.Json()
         >>> js["title"]
@@ -80,15 +48,28 @@ class Json:
         self.map = []
 
     def __len__(self) -> int:
+        """
+        Returns:
+            읽어온 JSON file의 길이
+        """
         return len(self.data)
 
     def __getitem__(self, key: int | str) -> Any:
+        """
+        읽어온 JSON file에 key 값 입력
+
+        Args:
+            key: 읽어온 JSON file에서 불러올 key 값
+
+        Returns:
+            Key에 따른 value 값
+        """
         return self.data[key]
 
     def __get_keys(self, data: Any, key: str = "", front: str = "") -> None:
-        if isinstance:
+        if isinstance(data, dict):
             for idx, (key_, val_) in enumerate(data.items()):
-                if idx + 1 == len:
+                if idx + 1 == len(data):
                     self.map.append(front + "└── " + str(key_))
                     front_ = " "
                 else:
@@ -100,7 +81,7 @@ class Json:
                 else:
                     self.keys.append(f"{key_}")
                     self.__get_keys(val_, f"{key_}", front + f"{front_}   ")
-        elif isinstance:
+        elif isinstance(data, list):
             self.map.append(front + "└── " + "LIST")
             if data:
                 if key:
@@ -114,6 +95,15 @@ class Json:
         return self.keys
 
     def _get_key(self, key: str) -> str:
+        """
+        Key의 경로를 찾아주는 method
+
+        Args:
+            key: 읽어온 JSON file에서 불러올 key 값 (깊이 무관)
+
+        Returns:
+            `/` 으로 깊이를 표시한 key 값
+        """
         keys = self._get_keys()
         if key in keys:
             return key
@@ -125,6 +115,15 @@ class Json:
         return key
 
     def _get_value(self, key: str) -> Any:
+        """
+        `Json._get_key` 로 생성된 key 값을 입력 받아 value return
+
+        Args:
+            key: `Json._get_key` 로 생성된 key 값
+
+        Returns:
+            Key에 따른 value
+        """
         value = self.data
         for key_ in key.split("/"):
             if key_ == "LIST":
@@ -134,7 +133,7 @@ class Json:
         return value
 
     def get(self, key: str) -> Any:
-        """Json._get_key`` 로 생성된 key 값을 입력 받아 value return
+        """`Json._get_key` 로 생성된 key 값을 입력 받아 value return
 
         Args:
             key: 읽어온 JSON file에서 불러올 key 값 (깊이 무관)
@@ -198,29 +197,6 @@ class JsonDir:
         name: 읽어온 JSON file의 이름들
         data: File 이름에 따른 `Json` 객체 배열
 
-    Methods:
-        __len__:
-            Returns:
-                읽어온 JSON file들의 수
-
-        __getitem__:
-            읽어온 JSON file들을 list와 같이 indexing
-
-            Args:
-                idx: 입력 index
-
-            Returns:
-                Index에 따른 `Json` instance
-
-        _get_key:
-            Key의 경로를 찾아주는 method
-
-            Args:
-                key: 읽어온 JSON file에서 불러올 key 값 (깊이 무관)
-
-            Returns:
-                ``/`` 으로 깊이를 표시한 key 값
-
     Examples:
         >>> jsd = zz.util.JsonDir()
         100%|█████████████| 5/5 [00:00<00:00, 3640.26it/s]
@@ -245,12 +221,34 @@ class JsonDir:
             self.name.append(name)
 
     def __len__(self) -> int:
+        """
+        Returns:
+            읽어온 JSON file들의 수
+        """
         return len(self.data)
 
     def __getitem__(self, idx: int) -> Json:
+        """
+        읽어온 JSON file들을 list와 같이 indexing
+
+        Args:
+            idx: 입력 index
+
+        Returns:
+            Index에 따른 `Json` instance
+        """
         return self.data[self.name[idx]]
 
     def _get_key(self, key: str) -> str:
+        """
+        Key의 경로를 찾아주는 method
+
+        Args:
+            key: 읽어온 JSON file에서 불러올 key 값 (깊이 무관)
+
+        Returns:
+            `/` 으로 깊이를 표시한 key 값
+        """
         return self[0]._get_key(key)
 
     def tree(self) -> None:

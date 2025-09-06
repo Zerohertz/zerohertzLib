@@ -32,7 +32,7 @@ def storage(path: str = ".", threshold: int = 1) -> str:
     Examples:
         >>> zz.monitoring.storage(".")
 
-        ![Storage monitoring example](../assets/monitoring/storage.png){ width="600" }
+        ![Storage monitoring example](../../../assets/monitoring/storage.png){ width="600" }
     """
     sizes = {}
     for file_name in os.listdir(path):

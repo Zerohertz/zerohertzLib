@@ -25,7 +25,7 @@ def barv(
     dimsize: float = 10,
     sign: int = 1,
     dpi: int = 300,
-) -> str:
+) -> str | None:
     """Dictionary로 입력받은 data를 가로 bar chart로 시각화
 
     Args:
@@ -38,7 +38,7 @@ def barv(
         colors: 각 요소의 색
         figsize: Graph의 가로, 세로 길이
         rot: X축의 눈금 회전 각도
-        dim: 각 bar 상단에 표시될 값의 단위 (``%: percentage)
+        dim: 각 bar 상단에 표시될 값의 단위 (`%`: percentage)
         dimsize: 각 bar 상단에 표시될 값의 크기
         sign: 각 bar 상단에 표시될 값의 유효숫자
         dpi: Graph 저장 시 DPI (Dots Per Inch)
@@ -52,7 +52,7 @@ def barv(
         >>> data = {"xticks": ["Terran", "Zerg", "Protoss"], "Type A": [4, 5, 6], "Type B": [4, 3, 2], "Type C": [8, 5, 12], "Type D": [6, 3, 2]}
         >>> zz.plot.barv(data, xlab="Races", ylab="Time [sec]", title="Star Craft", dim="%", sign=2)
 
-        ![Vertical bar chart example](../assets/plot/barv.png){ width="600" }
+        ![Vertical bar chart example](../../../assets/plot/barv.png){ width="600" }
     """
     colors = _color(data, colors)
     if config.SAVE:
@@ -76,7 +76,7 @@ def barv(
         elif dim == "%":
             maximum = bottom.max()
             total = bottom.sum()
-            for bar_, bot in zip:
+            for bar_, bot in zip(bars, bottom):
                 percentage = (bot / total) * 100
                 plt.text(
                     bar_.get_x() + bar_.get_width() / 2,
@@ -88,7 +88,7 @@ def barv(
                 )
         else:
             maximum = bottom.max()
-            for bar_, bot in zip:
+            for bar_, bot in zip(bars, bottom):
                 plt.text(
                     bar_.get_x() + bar_.get_width() / 2,
                     bot + maximum * 0.01,
@@ -171,7 +171,7 @@ def barh(
     dimsize: float = 10,
     sign: int = 1,
     dpi: int = 300,
-) -> str:
+) -> str | None:
     """Dictionary로 입력받은 data를 세로 bar chart로 시각화
 
     Args:
@@ -184,7 +184,7 @@ def barh(
         colors: 각 요소의 색
         figsize: Graph의 가로, 세로 길이
         rot: X축의 눈금 회전 각도
-        dim: 각 bar 상단에 표시될 값의 단위 (``%: percentage)
+        dim: 각 bar 상단에 표시될 값의 단위 (`%`: percentage)
         dimsize: 각 bar 상단에 표시될 값의 크기
         sign: 각 bar 상단에 표시될 값의 유효숫자
         dpi: Graph 저장 시 DPI (Dots Per Inch)
@@ -198,7 +198,7 @@ def barh(
         >>> data = {"yticks": ["Terran", "Zerg", "Protoss"], "Type A": [4, 5, 6], "Type B": [4, 3, 2], "Type C": [8, 5, 12], "Type D": [6, 3, 2]}
         >>> zz.plot.barh(data, xlab="Time [Sec]", ylab="Races", title="Star Craft", dim="%", sign=2)
 
-        ![Horizontal bar chart example](../assets/plot/barh.png){ width="450" }
+        ![Horizontal bar chart example](../../../assets/plot/barh.png){ width="450" }
     """
     colors = _color(data, colors)
     if config.SAVE:
@@ -222,7 +222,7 @@ def barh(
         elif dim == "%":
             maximum = left.max()
             total = left.sum()
-            for bar_, left_ in zip:
+            for bar_, left_ in zip(bars, left):
                 percentage = (left_ / total) * 100
                 plt.text(
                     left_ + maximum * 0.01,
@@ -235,7 +235,7 @@ def barh(
                 )
         else:
             maximum = left.max()
-            for bar_, left_ in zip:
+            for bar_, left_ in zip(bars, left):
                 plt.text(
                     left_ + maximum * 0.01,
                     bar_.get_y() + bar_.get_height() / 2,
@@ -314,7 +314,7 @@ def hist(
     ovp: bool = True,
     figsize: tuple[int, int] = (15, 10),
     dpi: int = 300,
-) -> str:
+) -> str | None:
     """Dictionary로 입력받은 data를 histogram으로 시각화
 
     Args:
@@ -337,7 +337,7 @@ def hist(
         >>> data = {"Terran": list(np.random.rand(1000) * 10), "Zerg": list(np.random.rand(1000) * 10 + 1), "Protoss": list(np.random.rand(1000) * 10 + 2)}
         >>> zz.plot.hist(data, xlab="Scores", ylab="Population", title="Star Craft")
 
-        ![Histogram example](../assets/plot/hist.png){ width="600" }
+        ![Histogram example](../../../assets/plot/hist.png){ width="600" }
     """
     colors = _color(data, colors)
     minimum, maximum = sys.maxsize, -sys.maxsize

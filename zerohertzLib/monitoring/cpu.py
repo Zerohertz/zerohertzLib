@@ -32,7 +32,7 @@ def cpu(
         >>> zz.monitoring.cpu(threshold=15)
         >>> zz.monitoring.cpu(per=False)
 
-        ![CPU monitoring example](../assets/monitoring/cpu.png){ width="600" }
+        ![CPU monitoring example](../../../assets/monitoring/cpu.png){ width="600" }
     """
     tmp = 0
     time_list = []

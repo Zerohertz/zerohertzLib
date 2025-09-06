@@ -59,7 +59,7 @@ class KoreaInvestment:
             )
 
     def _load_secret(self) -> None:
-        """``secret.key`` load
+        """`secret.key` load
 
         Returns:
             Attribute에 API 속성들 추가
@@ -70,10 +70,10 @@ class KoreaInvestment:
         self.api_secret = secrets[1].strip()
 
     def _check_token(self) -> bool:
-        """``token.dat`` check
+        """`token.dat` check
 
         Returns:
-            ``token.dat`` 존재 및 유효성 여부
+            `token.dat` 존재 및 유효성 여부
         """
         try:
             with open(os.path.join(self.path, "token.dat"), "rb") as file:
@@ -94,10 +94,10 @@ class KoreaInvestment:
             return False
 
     def _issue_token(self) -> None:
-        """``token.dat`` 발급
+        """`token.dat` 발급
 
         Returns:
-            ``token.dat`` 발급 후 attribute에 추가
+            `token.dat` 발급 후 attribute에 추가
         """
         print("=" * 100)
         print(
@@ -124,10 +124,10 @@ class KoreaInvestment:
             pickle.dump(response, file)
 
     def _load_token(self) -> None:
-        """``token.dat`` load
+        """`token.dat` load
 
         Returns:
-            ``token.dat`` attribute에 추가
+            `token.dat` attribute에 추가
         """
         with open(os.path.join(self.path, "token.dat"), "rb") as file:
             data = pickle.load(file)
@@ -219,7 +219,7 @@ class KoreaInvestment:
 
         Args:
             symbol: 종목 code
-            time_frame: 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월, ``"Y"``: 년)
+            time_frame: 시간 window size (`"D"`: 일, `"W"`: 주, `"M"`: 월, `"Y"`: 년)
             start_day: 조회 시작 일자 (`YYYYMMDD`)
             end_day: 조회 종료 일자 (`YYYYMMDD`)
             adj_price: 수정 주가 반영 여부
@@ -256,7 +256,7 @@ class KoreaInvestment:
 
         Args:
             symbol: 종목 code
-            time_frame: 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월, ``"Y"``: 년)
+            time_frame: 시간 window size (`"D"`: 일, `"W"`: 주, `"M"`: 월, `"Y"`: 년)
             start_day: 조회 시작 일자 (`YYYYMMDD`)
             end_day: 조회 종료 일자 (`YYYYMMDD`)
             adj_price: 수정 주가 반영 여부
@@ -321,7 +321,7 @@ class KoreaInvestment:
 
         Args:
             symbol: 종목 code
-            time_frame: 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월)
+            time_frame: 시간 window size (`"D"`: 일, `"W"`: 주, `"M"`: 월)
             start_day: 조회 시작 일자 (`YYYYMMDD`)
             end_day: 조회 종료 일자 (`YYYYMMDD`)
             adj_price: 수정 주가 반영 여부
@@ -367,7 +367,7 @@ class KoreaInvestment:
         return data
 
     def response2ohlcv(self, response: dict[str, dict]) -> tuple[str, pd.DataFrame]:
-        """`get_ohlcv` 에 의한 응답을 ``pd.DataFrame`` 으로 변환
+        """`get_ohlcv` 에 의한 응답을 `pd.DataFrame` 으로 변환
 
         Args:
             response: `get_ohlcv` 의 출력
@@ -448,7 +448,7 @@ class KoreaInvestment:
 
         Args:
             symbols: 종목 code들
-            time_frame: 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월, ``"Y"``: 년)
+            time_frame: 시간 window size (`"D"`: 일, `"W"`: 주, `"M"`: 월, `"Y"`: 년)
             start_day: 조회 시작 일자 (`YYYYMMDD`)
             end_day: 조회 종료 일자 (`YYYYMMDD`)
             adj_price: 수정 주가 반영 여부
@@ -541,7 +541,7 @@ class KoreaInvestment:
 
         Args:
             ctx_area_fk100: 연속조회검색조건100
-            ctx_areak_nk100: 연속조회키100
+            ctx_area_nk100: 연속조회키100
 
         Returns:
             잔고 조회 결과
@@ -664,7 +664,7 @@ class KoreaInvestment:
 
         Args:
             ctx_area_fk100: 연속조회검색조건100
-            ctx_areak_nk100: 연속조회키100
+            ctx_area_nk100: 연속조회키100
 
         Returns:
             잔고 실현손익 조회 결과

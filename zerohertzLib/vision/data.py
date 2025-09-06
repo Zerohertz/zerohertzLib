@@ -42,28 +42,18 @@ class LabelStudio:
         data_path: Image들이 존재하는 directory 경로
         json_path: Label Studio에서 다른 format으로 변환할 시 사용될 annotation 정보가 담긴 JSON file
 
-    Methods:
-        __len__:
-            Returns:
-                읽어온 image file 혹은 annotation들의 수
-
-        __getitem__:
-            Args:
-                idx: 입력 index
-
-            Returns:
-                Index에 따른 image file 이름 또는 경로와 JSON file에 포함될 dictionary 또는 annotation 정보
-
     Examples:
         Without `json_path`:
+            ```python
             >>> ls = zz.vision.LabelStudio(data_path)
             >>> ls[0]
             ('0000007864.png', {'data': {'image': 'data/local-files/?d=/label-studio/data/local/tmp/0000007864.png'}})
             >>> ls[1]
             ('0000008658.png', {'data': {'image': 'data/local-files/?d=/label-studio/data/local/tmp/0000008658.png'}})
-
+            ```
         With `json_path`:
             Bbox:
+                ```python
                 >>> ls = zz.vision.LabelStudio(data_path, json_path)
                 >>> ls[0]
                 >>> ls[0]
@@ -74,8 +64,9 @@ class LabelStudio:
                 {'label1', 'label2'}
                 >>> ls.type
                 'rectanglelabels'
-
+                ```
             Poly:
+                ```python
                 >>> ls = zz.vision.LabelStudio(data_path, json_path)
                 >>> ls[0]
                 ('/PATH/TO/IMAGE', {'labels': ['label1', ...], 'polys': [array([[0.4531892 , 0.32880674], ..., [0.46119428, 0.32580483]]), ...], 'whs': [(3024, 4032), ...]})
@@ -85,6 +76,7 @@ class LabelStudio:
                 {'label1', 'label2'}
                 >>> ls.type
                 'polygonlabels'
+                ```
     """
 
     def __init__(
@@ -103,6 +95,10 @@ class LabelStudio:
         self.labels = set()
 
     def __len__(self) -> int:
+        """
+        Returns:
+            읽어온 image file 혹은 annotation들의 수
+        """
         if self.annotations is None:
             return len(self.data_paths)
         return len(self.annotations)
@@ -110,6 +106,13 @@ class LabelStudio:
     def __getitem__(
         self, idx: int
     ) -> tuple[str, dict[str, dict[str, str]]] | tuple[str, dict[str, list[Any]]]:
+        """
+        Args:
+            idx: 입력 index
+
+        Returns:
+            Index에 따른 image file 이름 또는 경로와 JSON file에 포함될 dictionary 또는 annotation 정보
+        """
         if self.annotations is None:
             file_name = os.path.basename(self.data_paths[idx])
             return (
@@ -200,15 +203,15 @@ class LabelStudio:
             `Projects` → `{PROJECT_NAME}` → `Settings` → `Cloud Storage` → `Add Source Storage` 클릭 후 아래와 같이 정보를 기재하고 `Sync Storage` 를 누른다.
 
             + Storage Type: `Local files`
-            + Absolute local path: `/label-studio/data/local/${PATH}` (`data_path`: ``${PWD}/data/local``)
+            + Absolute local path: `/label-studio/data/local/${PATH}` (`data_path`: `${PWD}/data/local`)
             + File Filter Regex: `^.*\.(jpe?g|JPE?G|png|PNG|tiff?|TIFF?)$`
             + Treat every bucket object as a source file: `True`
 
-            ![Label Studio Setup 1](../assets/vision/LabelStudio.json.1.png)
+            ![Label Studio Setup 1](../../../assets/vision/LabelStudio.json.1.png)
 
             Sync 이후 `LabelStudio` class로 생성된 JSON file을 Label Studio에 import하면 아래와 같이 setup 할 수 있다.
 
-            ![Label Studio Setup 2](../assets/vision/LabelStudio.json.2.png)
+            ![Label Studio Setup 2](../../../assets/vision/LabelStudio.json.2.png)
 
         Args:
             path: Local files의 경로
@@ -219,10 +222,11 @@ class LabelStudio:
 
         Examples:
             Default:
+                ```python
                 >>> ls = zz.vision.LabelStudio(data_path)
                 >>> ls.json()
                 100%|█████████████| 476/476 [00:00<00:00, 259993.32it/s
-
+                ```
                 ```json
                 [
                     {
@@ -237,17 +241,16 @@ class LabelStudio:
                     },
                 ]
                 ```
-
             With `data_function`:
                 ```python
                 def data_function:
                     return data_store[file_name]
                 ```
-
+                ```python
                 >>> ls = zz.vision.LabelStudio(data_path)
                 >>> ls.json(data_function)
                 100%|█████████████| 476/476 [00:00<00:00, 78794.25it/s]
-
+                ```
                 ```json
                 [
                     {

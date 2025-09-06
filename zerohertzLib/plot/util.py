@@ -133,8 +133,8 @@ def color(
 
 
 def _color(data: Any, colors: Any) -> list[tuple[float, float, float] | str]:
-    if isinstance:
-        if len(data) > len:
+    if isinstance(colors, list):
+        if len(data) > len(colors):
             return colors + ["black" for _ in range(len(data) - len(colors))]
         return colors
     if colors is None:

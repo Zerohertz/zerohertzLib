@@ -7,12 +7,13 @@ class DisjointSet:
 
     Note:
         Time Complexity:
-            - Without path compression:
-                - Worst: $O(V)$
-                - Average: $O(V)$
-            - With path compression:
-                - Worst: $O(\log{V})$
-                - Average: $O(\alpha(V))$
+
+        - Without path compression:
+            - Worst: $O(V)$
+            - Average: $O(V)$
+        - With path compression:
+            - Worst: $O(\log{V})$
+            - Average: $O(\alpha(V))$
 
         - $V$: Node의 수
         - $\alpha(V)$: [Ackermann function](https://ko.wikipedia.org/wiki/%EC%95%84%EC%BB%A4%EB%A7%8C_%ED%95%A8%EC%88%98) 의 역함수 ($O(\alpha(V))\simeq O(1)$)
@@ -73,13 +74,14 @@ class DisjointSet:
             self.parent[root2] = root1
 
 
-class DisjointSetRank:
+class DisjointSetRank(DisjointSet):
     r"""Disjoint set (union by rank)
 
     Note:
         Time Complexity:
-            - Worst: $O(\log{V})$
-            - Average: $O(\alpha(V))$
+
+        - Worst: $O(\log{V})$
+        - Average: $O(\alpha(V))$
 
         - $V$: Node의 수
         - $\alpha(V)$: [Ackermann function](https://ko.wikipedia.org/wiki/%EC%95%84%EC%BB%A4%EB%A7%8C_%ED%95%A8%EC%88%98) 의 역함수 ($O(\alpha(V))\simeq O(1)$)
@@ -126,13 +128,14 @@ class DisjointSetRank:
                 self.rank[root1] += 1
 
 
-class DisjointSetSize:
+class DisjointSetSize(DisjointSet):
     r"""Disjoint set (union by size)
 
     Note:
         Time Complexity:
-            - Worst: $O(\log{V})$
-            - Average: $O(\alpha(V))$
+
+        - Worst: $O(\log{V})$
+        - Average: $O(\alpha(V))$
 
         - $V$: Node의 수
         - $\alpha(V)$: [Ackermann function](https://ko.wikipedia.org/wiki/%EC%95%84%EC%BB%A4%EB%A7%8C_%ED%95%A8%EC%88%98) 의 역함수 ($O(\alpha(V))\simeq O(1)$)

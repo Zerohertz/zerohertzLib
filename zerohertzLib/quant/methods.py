@@ -37,7 +37,7 @@ def moving_average(
         ohlc: 이동 평균을 계산할 때 사용할 `data` 의 column 이름
 
     Returns:
-        각 날짜에 대한 signal (``"signals"``) 정보
+        각 날짜에 대한 signal (`"signals"`) 정보
 
     Examples:
         >>> zz.quant.moving_average(data)
@@ -48,7 +48,7 @@ def moving_average(
         2023-12-19  102450.000  102337.1875        0
         [485 rows x 3 columns]
 
-        ![Moving average example](../assets/quant/moving_average.png){ width="500" }
+        ![Moving average example](../../../assets/quant/moving_average.png){ width="500" }
     """
     signals = pd.DataFrame(index=data.index)
     if ohlc == "":
@@ -95,10 +95,10 @@ def rsi(
             - $RSI = 100 - \frac{100}{1+RS}$
 
         - Mean
-            - ``-1`` → ``0``: 과매수 상태에서 중립 상태로 변화 (매도 position 청산)
-            - ``0`` → ``-1``: 과매수 상태로의 진입 (새로운 매도 position)
-            - ``+1`` → ``0``: 과매도 상태에서 중립 상태로 변화 (매수 position 청산)
-            - ``0`` → ``+1``: 과매도 상태로의 진입 (새로운 매수 position)
+            - `-1` → `0`: 과매수 상태에서 중립 상태로 변화 (매도 position 청산)
+            - `0` → `-1`: 과매수 상태로의 진입 (새로운 매도 position)
+            - `+1` → `0`: 과매도 상태에서 중립 상태로 변화 (매수 position 청산)
+            - `0` → `+1`: 과매도 상태로의 진입 (새로운 매수 position)
 
     - 매수 신호: RSI 값이 `lower_bound` 보다 낮을 때 생성 (과매도 상태)
     - 매도 신호: RSI 값이 `upper_bound` 보다 높을 때 생성 (과매수 상태)
@@ -111,7 +111,7 @@ def rsi(
         ohlc: RSI를 계산할 때 사용할 `data` 의 column 이름
 
     Returns:
-        각 날짜에 대한 signal (``"signals"``) 정보
+        각 날짜에 대한 signal (`"signals"`) 정보
 
     Examples:
         >>> zz.quant.rsi(data)
@@ -122,7 +122,7 @@ def rsi(
         2023-12-19  35.671343        0
         [485 rows x 2 columns]
 
-        ![RSI example](../assets/quant/rsi.png){ width="500" }
+        ![RSI example](../../../assets/quant/rsi.png){ width="500" }
     """
     signals = pd.DataFrame(index=data.index)
     if ohlc == "":
@@ -163,7 +163,7 @@ def bollinger_bands(
         ohlc: 이동 평균을 계산할 때 사용할 `data` 의 column 이름
 
     Returns:
-        각 날짜에 대한 signal (``"signals"``) 정보
+        각 날짜에 대한 signal (`"signals"`) 정보
 
     Examples:
         >>> zz.quant.bollinger_bands(data)
@@ -174,7 +174,7 @@ def bollinger_bands(
         2023-12-19  102771.666667  111527.577705  94015.755629        0
         [485 rows x 4 columns]
 
-        ![Bollinger bands example](../assets/quant/bollinger_bands.png){ width="500" }
+        ![Bollinger bands example](../../../assets/quant/bollinger_bands.png){ width="500" }
     """
     signals = _bollinger_bands(data, window, num_std_dev, ohlc)
     signals["signals"] = 0
@@ -205,7 +205,7 @@ def momentum(
     Note:
         Momentum
 
-        - Definition: ``data[ohlc].diff(window)`` 를 통해 `window` 일 전 가격 사이의 차이 계산
+        - Definition: `data[ohlc].diff(window)` 를 통해 `window` 일 전 가격 사이의 차이 계산
         - Mean
             - 양의 momentum: 가격 상승
             - 음의 momentum: 가격 하락
@@ -220,7 +220,7 @@ def momentum(
         ohlc: Momentum을 계산할 때 사용할 `data` 의 column 이름
 
     Returns:
-        각 날짜에 대한 signal (``"signals"``) 정보
+        각 날짜에 대한 signal (`"signals"`) 정보
 
     Examples:
         >>> zz.quant.momentum(data)
@@ -231,7 +231,7 @@ def momentum(
         2023-12-19     550.0        0
         [485 rows x 2 columns]
 
-        ![Momentum example](../assets/quant/momentum.png){ width="500" }
+        ![Momentum example](../../../assets/quant/momentum.png){ width="500" }
     """
     signals = pd.DataFrame(index=data.index)
     if ohlc == "":
@@ -258,7 +258,7 @@ def macd(
         MACD (Moving Average Convergence Divergence)
 
         - Definition: 빠른 EMA (`n_fast`)와 느린 EMA (`n_slow`)의 차이
-            - ``n_slow = n_fast * 2``
+            - `n_slow = n_fast * 2`
         - Mean
             - EMA: 최근 가격에 더 많은 가중치를 두어 계산하는 이동 평균
             - Signal line: MACD의 추세를 평활화하여 추세의 방향과 강도를 파악
@@ -273,7 +273,7 @@ def macd(
         ohlc: Momentum을 계산할 때 사용할 `data` 의 column 이름
 
     Returns:
-        각 날짜에 대한 signal (``"signals"``) 정보
+        각 날짜에 대한 signal (`"signals"`) 정보
 
     Examples:
         >>> zz.quant.macd(data)
@@ -284,7 +284,7 @@ def macd(
         2023-12-19 -1950.006134        0
         [485 rows x 2 columns]
 
-        ![MACD example](../assets/quant/macd.png){ width="500" }
+        ![MACD example](../../../assets/quant/macd.png){ width="500" }
     """
     n_slow = n_fast * 2
     signals = pd.DataFrame(index=data.index)

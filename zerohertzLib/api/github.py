@@ -20,17 +20,6 @@ class GitHub:
         token: GitHub의 token
         issue: `True`: Issue & PR, `False`: Only PR
 
-    Methods:
-        __call__:
-            API 호출 수행
-
-            Args:
-                lab: 선택할 GitHub repository의 label (``issue=False`` 시 error 발생)
-                per_page: 1회 호출 시 출력될 결과의 수
-
-            Returns:
-                API 호출 결과
-
     Examples:
         >>> gh = zz.api.GitHub("Zerohertz", "zerohertzLib", token="ghp_...")
         >>> fix = gh("fix", 20)
@@ -69,6 +58,16 @@ class GitHub:
         lab: str = "all",
         per_page: int = 100,
     ) -> list[dict[str, Any]]:
+        """
+        API 호출 수행
+
+        Args:
+            lab: 선택할 GitHub repository의 label (`issue=False` 시 error 발생)
+            per_page: 1회 호출 시 출력될 결과의 수
+
+        Returns:
+            API 호출 결과
+        """
         results = []
         page = 1
         total_fetched = 0

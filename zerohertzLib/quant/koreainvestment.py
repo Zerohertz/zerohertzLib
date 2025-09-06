@@ -11,48 +11,27 @@ import pandas as pd
 from matplotlib import pyplot as plt
 from matplotlib import ticker
 
+from zerohertzLib.api import KoreaInvestment
 from zerohertzLib.plot import barv, figure, pie, savefig, table
 
 from .quant import QuantBot
 from .util import _cash2str
 
 
-class Balance:
+class Balance(KoreaInvestment):
     """한국투자증권의 국내 계좌 정보 조회 class
 
     Args:
         account_no: API 호출 시 사용할 계좌 번호
-        path: ``secret.key`` 혹은 ``token.dat 이 포함된 경로
+        path: `secret.key` 혹은 `token.dat` 이 포함된 경로
         kor: 국내 여부
 
     Attributes:
         balance: 현재 보유 주식과 계좌의 금액 정보
 
-    Methods:
-        __contains__:
-            Args:
-                item: 보유 여부를 판단할 종목명
-
-            Returns:
-                입력 종목명의 보유 여부
-
-        __len__:
-            Returns:
-                보유 주식 종류의 수
-
-        __getitem__:
-            Args:
-                idx: Index
-
-            Returns:
-                Index에 따른 주식의 매수 시점과 현재의 정보
-
-        __call__:
-            Returns:
-                현재 보유 금액
-
     Examples:
-        kor=True``:
+        `kor=True`:
+            ```python
             >>> balance = zz.quant.Balance("00000000-00")
             >>> "LG전자" in balance
             True
@@ -64,8 +43,9 @@ class Balance:
             ['066570', 102200.0, 100200, 1, -1.95, -2000]
             >>> balance()
             000
-
-        ``kor=False:
+            ```
+        `kor=False`:
+            ```python
             >>> balance = zz.quant.Balance("00000000-00", kor=False)
             >>> "아마존닷컴" in balance
             True
@@ -77,6 +57,7 @@ class Balance:
             ['META', 488.74, 510.92, 1, 4.53, 22.18]
             >>> balance()
             000.000
+            ```
     """
 
     def __init__(self, account_no: str, path: str = "./", kor: bool = True) -> None:
@@ -127,15 +108,37 @@ class Balance:
         self.symbols = list(self.balance["stock"].keys())
 
     def __contains__(self, item: Any) -> bool:
+        """
+        Args:
+            item: 보유 여부를 판단할 종목명
+
+        Returns:
+            입력 종목명의 보유 여부
+        """
         return item in self.balance["stock"]
 
     def __len__(self) -> int:
+        """
+        Returns:
+            보유 주식 종류의 수
+        """
         return len(self.balance["stock"])
 
     def __getitem__(self, idx: int) -> list[int | float | str]:
+        """
+        Args:
+            idx: Index
+
+        Returns:
+            Index에 따른 주식의 매수 시점과 현재의 정보
+        """
         return self.balance["stock"][self.symbols[idx]]
 
     def __call__(self) -> int:
+        """
+        Returns:
+            현재 보유 금액
+        """
         return self.balance["cash"]
 
     def _exchange(self) -> float:
@@ -376,19 +379,19 @@ class QuantBotKI:
     Args:
         account_no: API 호출 시 사용할 계좌 번호
         symbols: 종목 code들
-        start_day: 조회 시작 일자 (YYYYMMDD``)
+        start_day: 조회 시작 일자 (`YYYYMMDD`)
         ohlc: 사용할 `data` 의 column 이름
         top: Experiment 과정에서 사용할 각 전략별 수
         methods: 사용할 전략들의 function명 및 parameters
         report: Experiment 결과 출력 여부
-        token: Bot의 token (xoxb- prefix로 시작하면 SlackBot, 아니면 DiscordBot)
+        token: Bot의 token (`xoxb-` prefix로 시작하면 `SlackBot`, 아니면 `DiscordBot`)
         channel: Bot이 전송할 channel
         name: Bot의 표시될 이름
         icon_emoji: Bot의 표시될 사진 (emoji)
-        mp_num: 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
+        mp_num: 병렬 처리에 사용될 process의 수 (`0`: 직렬 처리)
         analysis: 각 전략의 보고서 전송 여부
         kor: 국내 여부
-        path: ``secret.key`` 혹은 ``token.dat`` 이 포함된 경로
+        path: `secret.key` 혹은 `token.dat` 이 포함된 경로
 
     Attributes:
         exps: 각 전략에 따른 parameter 분포

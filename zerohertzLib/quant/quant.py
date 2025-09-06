@@ -46,16 +46,6 @@ class Quant:
         exps_cnt: 각 전략과 parameter에 따른 이익이 존재하는 수
         exps_str: 각 전략에 따른 이익이 존재하는 paramter 문자열
 
-    Methods:
-        __call__:
-            입력된 날짜에 대해 분석 정보 return
-
-            Args:
-                day: 분석할 날짜
-
-            Returns:
-                각 전략에 따른 분석 정보 및 결론
-
     Examples:
         >>> qnt = zz.quant.Quant(title, data, top=3)
         >>> qnt.signals.columns
@@ -188,6 +178,15 @@ class Quant:
             self.threshold_sell, self.threshold_buy = backtests[0]["threshold"]
 
     def __call__(self, day: str | int = -1) -> dict[str, Any]:
+        """
+        입력된 날짜에 대해 분석 정보 return
+
+        Args:
+            day: 분석할 날짜
+
+        Returns:
+            각 전략에 따른 분석 정보 및 결론
+        """
         if self.total_cnt < 1:
             return {"position": "NULL"}
         if day != -1 and "-" not in day:
@@ -232,12 +231,12 @@ class QuantBot:
 
     Args:
         symbols: 종목 code들
-        start_day: 조회 시작 일자 (YYYYMMDD)
+        start_day: 조회 시작 일자 (`YYYYMMDD`)
         ohlc: 사용할 data의 column 이름
         top: Experiment 과정에서 사용할 각 전략별 수
         methods: 사용할 전략들의 function명 및 parameters
         report: Experiment 결과 출력 여부
-        token: Bot의 token (xoxb- prefix로 시작하면 SlackBot, 아니면 DiscordBot)
+        token: Bot의 token (`xoxb-` prefix로 시작하면 `SlackBot`, 아니면 `DiscordBot`)
         channel: Bot이 전송할 channel
         name: Bot의 표시될 이름
         icon_emoji: Bot의 표시될 사진 (emoji)
@@ -252,7 +251,7 @@ class QuantBot:
         >>> qsb = zz.quant.QuantBot(symbols, token=token, channel=channel)
         >>> qsb.index()
 
-        ![QuantSlackBot example](../assets/quant/QuantSlackBot.png){ width="800" }
+        ![QuantSlackBot example](../../../assets/quant/QuantSlackBot.png){ width="800" }
     """
 
     def __init__(
@@ -556,12 +555,12 @@ class QuantBotFDR:
 
     Args:
         symbols: 종목 code들 혹은 시가 총액 순위
-        start_day: 조회 시작 일자 (YYYYMMDD)
+        start_day: 조회 시작 일자 (`YYYYMMDD`)
         ohlc: 사용할 data의 column 이름
         top: Experiment 과정에서 사용할 각 전략별 수
         methods: 사용할 전략들의 function명 및 parameters
         report: Experiment 결과 출력 여부
-        token: Bot의 token (xoxb- prefix로 시작하면 SlackBot, 아니면 DiscordBot)
+        token: Bot의 token (`xoxb-` prefix로 시작하면 `SlackBot`, 아니면 `DiscordBot`)
         channel: Bot이 전송할 channel
         name: Bot의 표시될 이름
         icon_emoji: Bot의 표시될 사진 (emoji)

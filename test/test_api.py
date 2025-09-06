@@ -136,12 +136,10 @@ def test_discord_bot_file() -> None:
 def test_discord_bot_create_thread() -> None:
     discord = zz.api.DiscordBot(DISCORD_BOT_TOKEN, DISCORD_BOT_CHANNEL)
 
-    # 먼저 메시지 전송
     response = discord.message("Testing thread creation...")
     assert response.status_code == 200
     time.sleep(random.randrange(TIME_SLEEP))
 
-    # 스레드 생성
     thread_id = discord.get_thread_id(response=response)
     time.sleep(random.randrange(TIME_SLEEP))
 

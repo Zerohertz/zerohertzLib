@@ -20,13 +20,13 @@ class SlackWebhook(AbstractWebhook):
         name: Slack Webhook의 표시될 이름
         icon_emoji: Slack Webhook의 표시될 사진 (emoji)
         icon_url: Slack Webhook의 표시될 사진 (photo)
-        timeout: `message`, ``file method 사용 시 사용될 timeout
+        timeout: `message`, `file` method 사용 시 사용될 timeout
 
     Examples:
         >>> slack = zz.api.SlackWebhook("https://hooks.slack.com/services/...")
         >>> slack = zz.api.SlackWebhook("https://hooks.slack.com/services/...", name="TEST", icon_emoji="ghost")
 
-        ![Slack Webhook example](../assets/api/SlackWebhook.png){ width="300" }
+        ![Slack Webhook example](../../../assets/api/SlackWebhook.png){ width="300" }
     """
 
     def __init__(
@@ -97,12 +97,12 @@ class SlackWebhook(AbstractWebhook):
 class SlackBot(AbstractBot[SlackResponse]):
     """Slack Bot의 data 전송을 위한 class
 
-    ![Slack Bot scope setup](../assets/api/SlackBot.scope.png){ width="300" }
+    ![Slack Bot scope setup](../../../assets/api/SlackBot.scope.png){ width="300" }
 
     Args:
         token: Slack Bot의 token
         channel: Slack Bot이 전송할 channel
-        timeout: `message`, ``file method 사용 시 사용될 timeout
+        timeout: `message`, `file` method 사용 시 사용될 timeout
         name: Slack Bot에 표시될 이름
         icon_emoji: Slack Bot에 표시될 사진 (emoji)
         icon_url: Slack Bot에 표시될 사진 (photo)
@@ -113,7 +113,7 @@ class SlackBot(AbstractBot[SlackResponse]):
         >>> slack = zz.api.SlackBot("xoxb-...", "test", icon_emoji="sparkles")
         >>> slack = zz.api.SlackBot("xoxb-...", "test", name="zerohertzLib", icon_url="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284166558-0ba4b755-39cc-48ee-ba3b-5c02f54c4ca7.png")
 
-        ![Slack Bot example](../assets/api/SlackBot.png){ width="300" }
+        ![Slack Bot example](../../../assets/api/SlackBot.png){ width="300" }
     """
 
     def __init__(
@@ -197,7 +197,7 @@ class SlackBot(AbstractBot[SlackResponse]):
         """Slack Bot을 통해 file 전송
 
         Note:
-            name`` 과 ``icon_* 의 적용 불가
+            `name` 과 `icon_*` 의 적용 불가
 
         Args:
             path: 전송할 file 경로

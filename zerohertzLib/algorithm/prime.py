@@ -17,9 +17,9 @@ def soe(n_max: int) -> list[int]:
     """
     visited = [False, False] + [True] * (n_max - 1)
     prime_numbers = []
-    for i in range:
+    for i in range(2, n_max + 1):
         if visited[i]:
             prime_numbers.append(i)
-            for idx in range:
+            for idx in range(2 * i, n_max + 1, i):
                 visited[idx] = False
     return prime_numbers

@@ -11,10 +11,10 @@ def _cvt_bgra(img: NDArray[np.uint8]) -> NDArray[np.uint8]:
     """cv2로 읽어온 image를 BGRA 채널로 전환
 
     Args:
-        img: 입력 image (``[H, W, C]``)
+        img: 입력 image (`[H, W, C]`)
 
     Returns:
-        BGRA image (``[H, W, 4]``)
+        BGRA image (`[H, W, 4]`)
     """
     shape = img.shape
     if len(shape) == 2:
@@ -65,8 +65,8 @@ def is_pts_in_poly(
     """지점들의 좌표 내 존재 여부 확인 함수
 
     Args:
-        poly: 다각형 (``[N, 2]``)
-        pts: point (``[2]`` or ``[N, 2]``)
+        poly: 다각형 (`[N, 2]`)
+        pts: point (`[2]` or `[N, 2]`)
 
     Returns:
         입력 `point` 의 다각형 `poly` 내부 존재 여부
@@ -83,11 +83,11 @@ def is_pts_in_poly(
         array([ True, False])
     """
     poly = Path(poly)
-    if isinstance:
-        if isinstance:
+    if isinstance(pts, list):
+        if isinstance(pts[0], list):
             return poly.contains_points(pts)
         return poly.contains_point(pts)
-    if isinstance:
+    if isinstance(pts, np.ndarray):
         shape = pts.shape
         if len(shape) == 1:
             return poly.contains_point(pts)

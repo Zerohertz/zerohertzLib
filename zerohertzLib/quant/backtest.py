@@ -46,10 +46,10 @@ def backtest(
 
     Args:
         data: OHLCV (Open, High, Low, Close, Volume) data
-        signals: ``"signals"`` column이 포함된 data (다른 이름으로 지정했을 시 `signal_key` 사용)
+        signals: `"signals"` column이 포함된 data (다른 이름으로 지정했을 시 `signal_key` 사용)
         ohlc: 사용할 `data` 의 column 이름
         threshold: 매수, 매도를 결정할 `signals` 경계값
-        signal_key: ``"signals"`` 의 key 값
+        signal_key: `"signals"` 의 key 값
 
     Returns:
         %), 손실 거래 비율 (단위: %), 손실 거래 비율에 따른 수익률, 거래 정보 (매수가, 매도가, 수익률, 거래 기간), 총 매수, 총 매도
@@ -61,7 +61,7 @@ def backtest(
         >>> results["transaction"].keys()
         dict_keys(['buy', 'sell', 'profit', 'period'])
     """
-    if isinstance:
+    if isinstance(threshold, int):
         threshold_sell, threshold_buy = -threshold, threshold
     else:
         threshold_sell, threshold_buy = threshold
@@ -170,7 +170,7 @@ def experiments(
         report: Experiment 결과 출력 여부
 
     Returns:
-        손실 거래 비율에 따른 수익률, ``signals, parameters
+        손실 거래 비율에 따른 수익률, `signals`, parameters
 
     Examples:
         >>> exps = [[10, 20, 25, 30], [70, 75, 80, 85, 90], [14, 21, 31]]
@@ -278,7 +278,7 @@ class Experiments:
     Args:
         title: 종목 이름
         data: OHLCV (Open, High, Low, Close, Volume) data
-        ohlc: 사용할 ``data 의 column 이름
+        ohlc: 사용할 `data` 의 column 이름
         vis: Candle chart 시각화 여부
         report: Experiment 결과 출력 여부
 
@@ -329,7 +329,7 @@ class Experiments:
             exps: 전략 function에 입력될 변수들의 범위
 
         Returns:
-            손실 거래 비율에 따른 수익률, ``signals, parameters
+            손실 거래 비율에 따른 수익률, `signals`, parameters
         """
         if exps is None:
             exps = self.exps_moving_average
@@ -342,7 +342,7 @@ class Experiments:
             exps: 전략 function에 입력될 변수들의 범위
 
         Returns:
-            손실 거래 비율에 따른 수익률, ``signals, parameters
+            손실 거래 비율에 따른 수익률, `signals`, parameters
         """
         if exps is None:
             exps = self.exps_rsi
@@ -357,7 +357,7 @@ class Experiments:
             exps: 전략 function에 입력될 변수들의 범위
 
         Returns:
-            손실 거래 비율에 따른 수익률, ``signals, parameters
+            손실 거래 비율에 따른 수익률, `signals`, parameters
         """
         if exps is None:
             exps = self.exps_bollinger_bands
@@ -370,7 +370,7 @@ class Experiments:
             exps: 전략 function에 입력될 변수들의 범위
 
         Returns:
-            손실 거래 비율에 따른 수익률, ``signals, parameters
+            손실 거래 비율에 따른 수익률, `signals`, parameters
         """
         if exps is None:
             exps = self.exps_momentum

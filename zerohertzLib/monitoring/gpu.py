@@ -39,7 +39,7 @@ def gpu_usages(
     Examples:
         >>> zz.monitoring.gpu_usages(threshold=15)
 
-        ![GPU usage monitoring example](../assets/monitoring/gpu_usages.png){ width="600" }
+        ![GPU usage monitoring example](../../../assets/monitoring/gpu_usages.png){ width="600" }
     """
     tmp = 0
     time_list = []
@@ -106,7 +106,7 @@ def gpu_memory(
     Examples:
         >>> zz.monitoring.gpu_memory(threshold=15)
 
-        ![GPU memory monitoring example](../assets/monitoring/gpu_memory.png){ width="600" }
+        ![GPU memory monitoring example](../../../assets/monitoring/gpu_memory.png){ width="600" }
     """
     tmp = 0
     time_list = []

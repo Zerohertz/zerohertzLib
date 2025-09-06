@@ -18,7 +18,7 @@ def table(
     """Dictionary로 입력받은 data를 scatter plot으로 시각화
 
     Args:
-        data: ``len(row) X len(col)`` 의 크기를 가지는 list
+        data: `len(row) X len(col)` 의 크기를 가지는 list
         col: 열 (column)의 label
         row: 행 (row)의 label
         title: 저장될 file의 이름
@@ -36,7 +36,7 @@ def table(
         >>> zz.plot.table(data, col, row, title="Star Craft")
         >>> zz.plot.table(data, col, row, title="Star Craft2", fontsize=50)
 
-        ![Table example](../assets/plot/table.png){ width="500" }
+        ![Table example](../../../assets/plot/table.png){ width="500" }
     """
     fig, ax = plt.subplots(figsize=figsize)
     tbl = ax.table(cellText=data, colLabels=col, rowLabels=row, loc="center")

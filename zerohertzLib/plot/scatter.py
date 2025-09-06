@@ -20,7 +20,7 @@ def scatter(
     markersize: int = 36,
     figsize: tuple[int, int] = (15, 10),
     dpi: int = 300,
-) -> str:
+) -> str | None:
     """Dictionary로 입력받은 data를 scatter plot으로 시각화
 
     Args:
@@ -45,13 +45,13 @@ def scatter(
         >>> ydata = {"Terran": [list(np.random.rand(200) * 10)], "Zerg": [list(np.random.rand(200) * 5 - 1)], "Protoss": [list(np.random.rand(200) * 10 + 3)]}
         >>> zz.plot.scatter(xdata, ydata, xlab="Cost [Mineral]", ylab="Scores", title="Star Craft", markersize=400)
 
-        ![Scatter plot example](../assets/plot/scatter.png){ width="500" }
+        ![Scatter plot example](../../../assets/plot/scatter.png){ width="500" }
     """
     if config.SAVE:
         plt.figure(figsize=figsize)
-    if not isinstance:
+    if not isinstance(ydata, dict):
         ydata = {"": ydata}
-    if not isinstance:
+    if not isinstance(xdata, dict):
         _xdata = {}
         for key in ydata.keys():
             _xdata[key] = xdata

@@ -19,48 +19,54 @@ def pad(
     """입력 image를 원하는 shape로 resize 및 pad
 
     Args:
-        img: 입력 image (``[H, W, C]``)
-        shape: 출력의 shape ``(H, W)``
+        img: 입력 image (`[H, W, C]`)
+        shape: 출력의 shape `(H, W)`
         color: Padding의 색
-        poly: Padding에 따라 변형될 좌표 (``[N, 2]``)
+        poly: Padding에 따라 변형될 좌표 (`[N, 2]`)
 
     Returns:
-        출력 image (``[H, W, C]``) 및 padding에 따른 정보 또는 변형된 좌표값
+        출력 image (`[H, W, C]`) 및 padding에 따른 정보 또는 변형된 좌표값
 
     Note:
-        `poly` 를 입력하지 않을 시 ``(ratio, left, top)`` 가 출력되며 ``poly * ratio + (left, top) 와 같이 차후에 변환 가능
+        `poly` 를 입력하지 않을 시 `(ratio, left, top)` 가 출력되며 `poly * ratio + (left, top)` 와 같이 차후에 변환 가능
 
     Examples:
         GRAY:
+            ```python
             >>> img = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
             >>> res1 = cv2.resize(img, (500, 1000))
             >>> res1, _ = zz.vision.pad(res1, (1000, 1000), color=(0, 255, 0))
-
+            ```
         BGR:
+            ```python
             >>> res2 = cv2.resize(img, (1000, 500))
             >>> res2, _ = zz.vision.pad(res2, (1000, 1000))
-
+            ```
         BGRA:
+            ```python
             >>> img = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
             >>> res3 = cv2.resize(img, (500, 1000))
             >>> res3, _ = zz.vision.pad(res3, (1000, 1000), color=(0, 0, 255, 128))
-
+            ```
         Poly:
+            ```python
             >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
             >>> res4 = cv2.resize(img, (2000, 1000))
             >>> res4 = zz.vision.bbox(res4, poly, color=(255, 0, 0), thickness=20)
             >>> res4, poly = zz.vision.pad(res4, (1000, 1000), poly=poly)
             >>> res4 = zz.vision.bbox(res4, poly, color=(0, 0, 255))
-
+            ```
         Transformation:
+            ```python
             >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
             >>> res5 = cv2.resize(img, (2000, 1000))
             >>> res5 = zz.vision.bbox(res5, poly, color=(255, 0, 0), thickness=20)
             >>> res5, info = zz.vision.pad(res5, (1000, 1000), color=(128, 128, 128))
             >>> poly = poly * info[0] + info[1:]
             >>> res5 = zz.vision.bbox(res5, poly, color=(0, 0, 255))
+            ```
 
-        ![Image padding example](../assets/vision/pad.png){ width="700" }
+        ![Image padding example](../../../assets/vision/pad.png){ width="700" }
     """
     if len(img.shape) == 2:
         img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
@@ -110,14 +116,14 @@ def cutout(
     """Image 내에서 지정한 좌표를 제외한 부분을 투명화
 
     Args:
-        img: 입력 image ([H, W, C]``)
-        poly: 지정할 좌표 (``[N, 2]``)
+        img: 입력 image (`[H, W, C]`)
+        poly: 지정할 좌표 (`[N, 2]`)
         alpha: 지정한 좌표 영역의 투명도
         crop: 출력 image의 Crop 여부
         background: 지정한 좌표 외 배경의 투명도
 
     Returns:
-        출력 image (``[H, W, 4]``)
+        출력 image (`[H, W, 4]`)
 
     Examples:
         >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
@@ -125,7 +131,7 @@ def cutout(
         >>> res2 = zz.vision.cutout(img, poly, 128, False)
         >>> res3 = zz.vision.cutout(img, poly, background=128)
 
-        ![Image cutout example](../assets/vision/cutout.png){ width="600" }
+        ![Image cutout example](../../../assets/vision/cutout.png){ width="600" }
     """
     shape = img.shape[:2]
     poly = _list2np(poly)
@@ -155,18 +161,18 @@ def transparent(
     """입력 image에 대해 `threshold` 미만의 pixel들을 투명화
 
     Args:
-        img: 입력 image (``[H, W, C]``)
+        img: 입력 image (`[H, W, C]`)
         threshold: Threshold
         reverse: `threshold` 이상의 pixel 투명화 여부
 
     Returns:
-        출력 image (``[H, W, 4]``)
+        출력 image (`[H, W, 4]`)
 
     Examples:
         >>> res1 = zz.vision.transparent(img)
         >>> res2 = zz.vision.transparent(img, reverse=True)
 
-        ![Transparent background example](../assets/vision/transparent.png){ width="600" }
+        ![Transparent background example](../../../assets/vision/transparent.png){ width="600" }
     """
     img = img.copy()
     img = _cvt_bgra(img)

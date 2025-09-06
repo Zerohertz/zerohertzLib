@@ -15,7 +15,7 @@ def pie(
     figsize: tuple[int, int] = (15, 10),
     int_label: bool = True,
     dpi: int = 300,
-) -> str:
+) -> str | None:
     """Dictionary로 입력받은 data를 pie chart로 시각화
 
     Args:
@@ -34,7 +34,7 @@ def pie(
         >>> data = {"Terran": 27, "Zerg": 40, "Protoss": 30}
         >>> zz.plot.pie(data, dim="$", title="Star Craft")
 
-        ![Pie chart example](../assets/plot/pie.png){ width="500" }
+        ![Pie chart example](../../../assets/plot/pie.png){ width="500" }
     """
     colors = _color(data, colors)
     if config.SAVE:

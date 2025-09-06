@@ -37,7 +37,7 @@ def img2gif(
     Examples:
         >>> zz.vision.img2gif("./")
 
-        ![Images to GIF conversion example](../assets/vision/img2gif.gif){ width="200" }
+        ![Images to GIF conversion example](../../../assets/vision/img2gif.gif){ width="200" }
     """
     ext = (
         "jpg",
@@ -79,7 +79,7 @@ def vid2gif(
     Examples:
         >>> zz.vision.vid2gif("test.mp4")
 
-        ![Video to GIF conversion example](../assets/vision/vid2gif.gif){ width="300" }
+        ![Video to GIF conversion example](../../../assets/vision/vid2gif.gif){ width="300" }
     """
     frames = []
     cap = cv2.VideoCapture(path)

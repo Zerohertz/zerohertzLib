@@ -14,7 +14,7 @@ from .util import _is_bbox
 def _list2np(
     box: list[int | float] | NDArray[DTypeLike],
 ) -> NDArray[DTypeLike]:
-    if isinstance:
+    if isinstance(box, list):
         return np.array(box)
     return box
 
@@ -31,10 +31,10 @@ def cwh2xyxy(
     """Bbox 변환
 
     Args:
-        box: ``[cx, cy, w, h]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
+        box: `[cx, cy, w, h]` 로 구성된 bbox (`[4]` or `[N, 4]`)
 
     Returns:
-        ``[x0, y0, x1, y1]`` 로 구성된 bbox (``[4]`` or ``[N, 4])
+        `[x0, y0, x1, y1]` 로 구성된 bbox (`[4]` or `[N, 4])
 
     Examples:
         >>> zz.vision.cwh2xyxy([20, 30, 20, 20])
@@ -50,7 +50,7 @@ def cwh2xyxy(
         raise ValueError("The 'cwh' must be of shape [4], [N, 4]")
     if multi:
         boxes = np.zeros((shape[0], 4), dtype=box.dtype)
-        for i, box_ in enumerate:
+        for i, box_ in enumerate(box):
             boxes[i] = _cwh2xyxy(box_)
         return boxes
     return _cwh2xyxy(box)
@@ -68,10 +68,10 @@ def cwh2poly(
     """Bbox 변환
 
     Args:
-        box: ``[cx, cy, w, h]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
+        box: `[cx, cy, w, h]` 로 구성된 bbox (`[4]` or `[N, 4]`)
 
     Returns:
-        ``[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]`` 로 구성된 bbox (``[4, 2]`` or ``[N, 4, 2])
+        `[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]` 로 구성된 bbox (`[4, 2]` or `[N, 4, 2]`)
 
     Examples:
         >>> zz.vision.cwh2poly([20, 30, 20, 20])
@@ -96,7 +96,7 @@ def cwh2poly(
         raise ValueError("The 'cwh' must be of shape [4], [N, 4]")
     if multi:
         boxes = np.zeros((shape[0], 4, 2), dtype=box.dtype)
-        for i, box_ in enumerate:
+        for i, box_ in enumerate(box):
             boxes[i] = _cwh2poly(box_)
         return boxes
     return _cwh2poly(box)
@@ -115,10 +115,10 @@ def xyxy2cwh(
     """Bbox 변환
 
     Args:
-        box: ``[x0, y0, x1, y1]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
+        box: `[x0, y0, x1, y1]` 로 구성된 bbox (`[4]` or `[N, 4]`)
 
     Returns:
-        ``[cx, cy, w, h]`` 로 구성된 bbox (``[4]`` or ``[N, 4])
+        `[cx, cy, w, h]` 로 구성된 bbox (`[4]` or `[N, 4]`)
 
     Examples:
         >>> zz.vision.xyxy2cwh([10, 20, 30, 40])
@@ -134,7 +134,7 @@ def xyxy2cwh(
         raise ValueError("The 'xyxy' must be of shape [4], [N, 4]")
     if multi:
         boxes = np.zeros((shape[0], 4), dtype=box.dtype)
-        for i, box_ in enumerate:
+        for i, box_ in enumerate(box):
             boxes[i] = _xyxy2cwh(box_)
         return boxes
     return _xyxy2cwh(box)
@@ -151,10 +151,10 @@ def xyxy2poly(
     """Bbox 변환
 
     Args:
-        box: ``[x0, y0, x1, y1]`` 로 구성된 bbox (``[4]`` or ``[N, 4]``)
+        box: `[x0, y0, x1, y1]` 로 구성된 bbox (`[4]` or `[N, 4]`)
 
     Returns:
-        ``[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]`` 로 구성된 bbox (``[4, 2]`` or ``[N, 4, 2])
+        `[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]` 로 구성된 bbox (`[4, 2]` or `[N, 4, 2]`)
 
     Examples:
         >>> zz.vision.xyxy2poly([10, 20, 30, 40])
@@ -179,7 +179,7 @@ def xyxy2poly(
         raise ValueError("The 'xyxy' must be of shape [4], [N, 4]")
     if multi:
         boxes = np.zeros((shape[0], 4, 2), dtype=box.dtype)
-        for i, box_ in enumerate:
+        for i, box_ in enumerate(box):
             boxes[i] = _xyxy2poly(box_)
         return boxes
     return _xyxy2poly(box)
@@ -199,10 +199,10 @@ def poly2cwh(
     """Bbox 변환
 
     Args:
-        box: ``[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]`` 로 구성된 bbox (``[4, 2]`` or ``[N, 4, 2]``)
+        box: `[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]` 로 구성된 bbox (`[4, 2]` or `[N, 4, 2]`)
 
     Returns:
-        ``[cx, cy, w, h]`` 로 구성된 bbox (``[4]`` or ``[N, 4])
+        `[cx, cy, w, h]` 로 구성된 bbox (`[4]` or `[N, 4]`)
 
     Examples:
         >>> zz.vision.poly2cwh([[10, 20], [30, 20], [30, 40], [10, 40]])
@@ -218,7 +218,7 @@ def poly2cwh(
         raise ValueError("The 'poly' must be of shape [4, 2], [N, 4, 2]")
     if multi:
         boxes = np.zeros((shape[0], 4), dtype=box.dtype)
-        for i, box_ in enumerate:
+        for i, box_ in enumerate(box):
             boxes[i] = _poly2cwh(box_)
         return boxes
     return _poly2cwh(box)
@@ -236,10 +236,10 @@ def poly2xyxy(
     """Bbox 변환
 
     Args:
-        box: ``[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]`` 로 구성된 bbox (``[4, 2]`` or ``[N, 4, 2]``)
+        box: `[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]` 로 구성된 bbox (`[4, 2]` or `[N, 4, 2]`)
 
     Returns:
-        ``[x0, y0, x1, y1]`` 로 구성된 bbox (``[4]`` or ``[N, 4])
+        `[x0, y0, x1, y1]` 로 구성된 bbox (`[4]` or `[N, 4]`)
 
     Examples:
         >>> zz.vision.poly2xyxy([[10, 20], [30, 20], [30, 40], [10, 40]])
@@ -255,7 +255,7 @@ def poly2xyxy(
         raise ValueError("The 'poly' must be of shape [4, 2], [N, 4, 2]")
     if multi:
         boxes = np.zeros((shape[0], 4), dtype=box.dtype)
-        for i, box_ in enumerate:
+        for i, box_ in enumerate(box):
             boxes[i] = _poly2xyxy(box_)
         return boxes
     return _poly2xyxy(box)
@@ -278,11 +278,11 @@ def poly2mask(
     """다각형 좌표를 입력받아 mask로 변환
 
     Args:
-        poly: Mask의 꼭짓점 좌표 (``[M, 2]`` or ``[N, M, 2]``)
-        shape: 출력될 mask의 shape ``(H, W)``
+        poly: Mask의 꼭짓점 좌표 (`[M, 2]` or `[N, M, 2]`)
+        shape: 출력될 mask의 shape `(H, W)`
 
     Returns:
-        변환된 mask (``[H, W]`` or ``[N, H, W])
+        변환된 mask (`[H, W]` or `[N, H, W]`)
 
     Examples:
         >>> poly = [[10, 10], [20, 10], [30, 40], [20, 60], [10, 20]]
@@ -298,7 +298,7 @@ def poly2mask(
         >>> mask2.dtype
         dtype('bool')
 
-        ![Polygon to mask conversion example](../assets/vision/poly2mask.png){ width="300" }
+        ![Polygon to mask conversion example](../../../assets/vision/poly2mask.png){ width="300" }
     """
     if (isinstance(poly, list) and isinstance(poly[0], np.ndarray)) or (
         isinstance(poly, np.ndarray) and len(poly.shape) == 3
@@ -316,7 +316,7 @@ def poly2area(poly: list[int | float] | NDArray[DTypeLike]) -> float:
     """다각형의 면적을 산출하는 함수
 
     Args:
-        poly: 다각형 (``[N, 2])
+        poly: 다각형 (`[N, 2]`)
 
     Returns:
         다각형의 면적
@@ -341,7 +341,7 @@ def poly2ratio(poly: list[int | float] | NDArray[DTypeLike]) -> float:
     """다각형의 bbox 대비 다각형의 면적 비율을 산출하는 함수
 
     Args:
-        poly: 다각형 (``[N, 2]``)
+        poly: 다각형 (`[N, 2]`)
 
     Returns:
         다각형의 bbox 대비 다각형의 비율
@@ -364,7 +364,7 @@ def encode(img: NDArray[np.uint8], ext: str = "png") -> str:
     """Base64 encoding
 
     Args:
-        img: ``cv2.imread``로 읽어온 image
+        img: `cv2.imread`로 읽어온 image
         ext: 출력 파일의 확장자
 
     Returns:
@@ -381,7 +381,7 @@ def decode(img: str) -> NDArray[np.uint8]:
     """Base64 decoding
 
     Args:
-        img: ``zz.vision.encode``로 encoding된 문자열
+        img: `zz.vision.encode`로 encoding된 문자열
 
     Returns:
         Base64 decoding image

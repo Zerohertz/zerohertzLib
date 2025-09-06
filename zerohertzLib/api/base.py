@@ -66,10 +66,7 @@ class AbstractWebhook:
 
 
 class AbstractBot(Generic[ResponseType]):
-    """Bot 기반 messaging을 위한 abstract base class
-
-    Bot API의 추상 기본 클래스
-    """
+    """Bot 기반 messaging을 위한 abstract base class"""
 
     @abstractmethod
     def message(
@@ -127,7 +124,7 @@ class AbstractBot(Generic[ResponseType]):
 
 
 class MockedBot:
-    """Testing을 위한 mock bot implementation
+    """Testing을 위한 mocked bot implementation
 
     실제 API 호출 없이 bot interface를 테스트할 때 사용
     """
@@ -141,38 +138,10 @@ class MockedBot:
         codeblock: str | bool = False,
         thread_id: str | None = None,
     ) -> None:
-        """Mock message 전송 (실제로는 아무것도 하지 않음)
-
-        Args:
-            message: 전송할 message
-            codeblock: 전송되는 message의 style
-            thread_id: Thread ID (댓글 전송용)
-
-        Returns:
-            항상 None 반환
-        """
         return None
 
     def get_thread_id(self, response: None, **kwargs: Any) -> str:
-        """Mock thread ID 반환 (빈 문자열)
-
-        Args:
-            response: Mock 응답 (None)
-            **kwargs: 추가 매개변수
-
-        Returns:
-            빈 문자열
-        """
         return ""
 
     def file(self, path: str, thread_id: str | None = None) -> None:
-        """Mock file 전송 (실제로는 아무것도 하지 않음)
-
-        Args:
-            path: 전송할 file 경로
-            thread_id: Thread ID (댓글 전송용)
-
-        Returns:
-            항상 None 반환
-        """
         return None

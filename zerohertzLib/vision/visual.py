@@ -24,13 +24,13 @@ def _bbox(
     """Bbox 시각화
 
     Args:
-        img: Input image (``[H, W, C]``)
-        box_poly: 하나의 bbox (``[4, 2]``)
+        img: Input image (`[H, W, C]`)
+        box_poly: 하나의 bbox (`[4, 2]`)
         color: bbox의 색
         thickness: bbox 선의 두께
 
     Returns:
-        시각화 결과 (``[H, W, C])
+        시각화 결과 (`[H, W, C]`)
     """
     return cv2.polylines(
         img,
@@ -50,13 +50,13 @@ def bbox(
     """여러 Bbox 시각화
 
     Args:
-        img: Input image ([H, W, C]``)
-        box: 하나 혹은 여러 개의 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
+        img: Input image (`[H, W, C]`)
+        box: 하나 혹은 여러 개의 bbox (`[4]`, `[N, 4]`, `[4, 2]`, `[N, 4, 2]`)
         color: bbox의 색
         thickness: bbox 선의 두께
 
     Returns:
-        시각화 결과 (``[H, W, C])
+        시각화 결과 (`[H, W, C]`)
 
     Examples:
         Bbox:
@@ -71,7 +71,7 @@ def bbox(
             (3, 4)
             >>> res2 = zz.vision.bbox(img, boxes, (0, 255, 0), thickness=10)
 
-        ![Bounding box visualization example](../assets/vision/bbox.png){ width="600" }
+        ![Bounding box visualization example](../../../assets/vision/bbox.png){ width="600" }
     """
     box = _list2np(box)
     img = img.copy()
@@ -107,9 +107,9 @@ def mask(
     """Mask 시각화
 
     Args:
-        img: 입력 image ([H, W, C]``)
-        mks: 입력 image 위에 병합할 mask (``[H, W]`` or ``[N, H, W]``)
-        poly: 입력 image 위에 병합할 mask (``[M, 2]`` or ``[N, M, 2]``)
+        img: 입력 image (`[H, W, C]`)
+        mks: 입력 image 위에 병합할 mask (`[H, W]` or `[N, H, W]`)
+        poly: 입력 image 위에 병합할 mask (`[M, 2]` or `[N, M, 2]`)
         color: Mask의 색
         class_list: `mks` 의 index에 따른 class
         class_color: Class에 따른 색 (`color` 무시)
@@ -117,10 +117,11 @@ def mask(
         alpha: Mask의 투명도
 
     Returns:
-        시각화 결과 (``[H, W, C]``)
+        시각화 결과 (`[H, W, C]`)
 
     Examples:
         Mask:
+            ```python
             >>> H, W, _ = img.shape
             >>> cnt = 30
             >>> mks = np.zeros((cnt, H, W), np.uint8)
@@ -131,24 +132,28 @@ def mask(
             >>>     cv2.circle(mks_, (center_x, center_y), radius, (True), -1)
             >>> mks = mks.astype(bool)
             >>> res1 = zz.vision.mask(img, mks)
-
+            ```
         Mask:
+            ```python
             >>> cls = [i for i in range(cnt)]
             >>> class_list = [cls[random.randint(0, 5)] for _ in range(cnt)]
             >>> class_color = {}
             >>> for c in cls:
             >>>     class_color[c] = [random.randint(0, 255) for _ in range(3)]
             >>> res2 = zz.vision.mask(img, mks, class_list=class_list, class_color=class_color)
-
+            ```
         Poly:
+            ```python
             >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
             >>> res3 = zz.vision.mask(img, poly=poly)
-
+            ```
         Poly:
+            ```python
             >>> poly = zz.vision.xyxy2poly(zz.vision.poly2xyxy((np.random.rand(cnt, 4, 2) * (W, H))))
             >>> res4 = zz.vision.mask(img, poly=poly, class_list=class_list, class_color=class_color)
+            ```
 
-        ![Mask visualization example](../assets/vision/mask.png){ width="600" }
+        ![Mask visualization example](../../../assets/vision/mask.png){ width="600" }
     """
     assert (mks is None) ^ (poly is None)
     shape = img.shape
@@ -171,7 +176,7 @@ def mask(
             edges = cv2.Canny(mks.astype(np.uint8) * 255, 100, 200)
             overlay[edges > 0] = color
     elif len(shape) == 3:
-        for idx, mks_ in enumerate:
+        for idx, mks_ in enumerate(mks):
             if class_list is not None and class_color is not None:
                 color = class_color[class_list[idx]]
             overlapping = cumulative_mask & mks_
@@ -195,11 +200,11 @@ def _paste(img: NDArray[np.uint8], target: NDArray[np.uint8]) -> NDArray[np.uint
     """`target` image를 `img` 위에 투명도를 포함하여 병합
 
     Args:
-        img: 입력 image (``[H, W, 4]``)
-        target: Target image (``[H, W, 4]``)
+        img: 입력 image (`[H, W, 4]`)
+        target: Target image (`[H, W, 4]`)
 
     Returns:
-        시각화 결과 (``[H, W, 4]``)
+        시각화 결과 (`[H, W, 4]`)
     """
     alpha_overlay = target[:, :, 3] / 255.0
     alpha_background = 1.0 - alpha_overlay
@@ -223,7 +228,7 @@ def _make_text(
         fontsize: 문자의 크기
 
     Returns:
-        시각화 결과 (``[H, W, 4]``)
+        시각화 결과 (`[H, W, 4]`)
     """
     size = (1000, 1000)
     palette = Image.new("RGBA", size, (255, 255, 255, 0))
@@ -253,14 +258,14 @@ def _text(
     """단일 text 시각화
 
     Args:
-        img: 입력 image (``[H, W, C]``)
-        box_cwh: 문자열이 존재할 bbox (``[4]``)
+        img: 입력 image (`[H, W, C]`)
+        box_cwh: 문자열이 존재할 bbox (`[4]`)
         txt: Image에 추가할 문자열
         color: 문자의 색
         fontsize: 문자의 크기
 
     Returns:
-        시각화 결과 (``[H, W, 4])
+        시각화 결과 (`[H, W, 4]`)
     """
     x_0, y_0, x_1, y_1 = cwh2xyxy(box_cwh).astype(np.int32)
     width, height = x_1 - x_0, y_1 - y_0
@@ -280,30 +285,33 @@ def text(
     """Text 시각화
 
     Args:
-        img: 입력 image ([H, W, C]``)
-        box: 문자열이 존재할 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
+        img: 입력 image (`[H, W, C]`)
+        box: 문자열이 존재할 bbox (`[4]`, `[N, 4]`, `[4, 2]`, `[N, 4, 2]`)
         txt: Image에 추가할 문자열
         color: 문자의 색
         vis: 문자 영역의 시각화 여부
         fontsize: 문자의 크기
 
     Returns:
-        시각화 결과 (``[H, W, 4])
+        시각화 결과 (`[H, W, 4]`)
 
     Examples:
         Bbox:
+            ```python
             >>> box = np.array([[100, 200], [100, 1000], [1200, 1000], [1200, 200]])
             >>> box.shape
             (4, 2)
             >>> res1 = zz.vision.text(img, box, "먼지야")
-
+            ```
         Bboxes:
+            ```python
             >>> boxes = np.array([[250, 200, 100, 100], [600, 600, 800, 200], [900, 300, 300, 400]])
             >>> boxes.shape
             (3, 4)
             >>> res2 = zz.vision.text(img, boxes, ["먼지야", "먼지야", "먼지야"], vis=True)
+            ```
 
-        ![Text on image example](../assets/vision/text.png){ width="600" }
+        ![Text on image example](../../../assets/vision/text.png){ width="600" }
     """
     box = _list2np(box)
     img = img.copy()
@@ -340,36 +348,40 @@ def paste(
     alpha: int | None = None,
     gaussian: int | None = None,
 ) -> NDArray[np.uint8] | tuple[NDArray[np.uint8], NDArray[DTypeLike]]:
-    """target`` image를 `img` 위에 투명도를 포함하여 병합
+    """`target` image를 `img` 위에 투명도를 포함하여 병합
 
     Note:
-        ``PIL.Image.paste`` 를 `numpy` 와 `cv2` 기반으로 구현
+        `PIL.Image.paste` 를 `numpy` 와 `cv2` 기반으로 구현
 
+        ```python
         >>> img = Image.open("test.png").convert("RGBA")
         >>> target = Image.open("target.png").convert("RGBA")
         >>> img.paste(target, (0, 0), target)
+        ```
 
     Args:
-        img: 입력 image (``[H, W, C]``)
-        target: Target image (``[H, W, 4]``)
+        img: 입력 image (`[H, W, C]`)
+        target: Target image (`[H, W, 4]`)
         box: 병합될 영역 (`xyxy` 형식)
         resize: Target image의 resize 여부
         vis: 지정한 영역 (`box`)의 시각화 여부
-        poly: 변형된 좌표 (``[N, 2]``)
+        poly: 변형된 좌표 (`[N, 2]`)
         alpha: `target` image의 투명도 변경
         gaussian: 자연스러운 병합을 위해 `target` 의 alpha channel에 적용될 Gaussian blur의 kernel size
 
     Returns:
-        시각화 결과 (``[H, W, 4]``) 및 `poly` 입력 시 변형된 좌표값
+        시각화 결과 (`[H, W, 4]`) 및 `poly` 입력 시 변형된 좌표값
 
     Examples:
         Without Poly:
+            ```python
             >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
             >>> target = zz.vision.cutout(img, poly, 200)
             >>> res1 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=False, vis=True)
             >>> res2 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, vis=True, alpha=255)
-
+            ```
         With Poly:
+            ```python
             >>> poly -= zz.vision.poly2xyxy(poly)[:2]
             >>> target = zz.vision.bbox(target, poly, color=(255, 0, 0), thickness=20)
             >>> res3, poly3 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=False, poly=poly)
@@ -388,12 +400,14 @@ def paste(
                    [ 542.85714286,  800.        ],
                    [ 200.        ,  542.85714286]])
             >>> res4 = zz.vision.bbox(res4, poly4)
-
+            ```
         Gaussian Blur:
+            ```python
             >>> res5, poly5 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, poly=poly, gaussian=501)
             >>> res5 = zz.vision.bbox(res5, poly5)
+            ```
 
-        ![Image pasting example](../assets/vision/paste.png){ width="600" }
+        ![Image pasting example](../../../assets/vision/paste.png){ width="600" }
     """
     x_0, y_0, x_1, y_1 = map(int, box)
     box_height, box_width = y_1 - y_0, x_1 - x_0
