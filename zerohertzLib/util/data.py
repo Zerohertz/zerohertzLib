@@ -205,7 +205,7 @@ class MakeData:
         print("=" * 100)
         os.makedirs(self.end_data_path, exist_ok=True)
         os.makedirs(self.end_json_path, exist_ok=True)
-        for json_instance in tqdm:
+        for json_instance in tqdm(self.json):
             data_name = json_instance._get_value(self.json_key)
             if self.condition(json_instance):
                 self.make_data(json_instance, data_name)

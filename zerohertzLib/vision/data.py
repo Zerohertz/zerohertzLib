@@ -271,7 +271,7 @@ class LabelStudio:
         """
         self.path = path
         json_data = []
-        for file_name, data in tqdm:
+        for file_name, data in tqdm(self):
             if "aug" in file_name:
                 continue
             if data_function is not None:
@@ -301,11 +301,11 @@ class LabelStudio:
             label = []
         rmtree(os.path.join(target_path, "images"))
         rmtree(os.path.join(target_path, "labels"))
-        for file_path, result in tqdm:
+        for file_path, result in tqdm(self):
             img_file_name = os.path.basename(file_path)
             txt_file_name = ".".join(img_file_name.split(".")[:-1]) + ".txt"
             converted_gt = []
-            for lab, poly in zip:
+            for lab, poly in zip(result["labels"], result["polys"]):
                 if self.type == "rectanglelabels":
                     poly[:2] += poly[2:] / 2
                     box_cwh = poly
@@ -353,11 +353,11 @@ class LabelStudio:
             label = {}
         rmtree(os.path.join(target_path, "images"))
         rmtree(os.path.join(target_path, "labels"))
-        for file_path, result in tqdm:
+        for file_path, result in tqdm(self):
             img_file_name = file_path.split("/")[-1]
             json_file_name = ".".join(img_file_name.split(".")[:-1])
             converted_gt = []
-            for lab, poly, wh in zip:
+            for lab, poly, wh in zip(result["labels"], result["polys"], result["whs"]):
                 if self.type == "rectanglelabels":
                     box_xyxy = poly * (wh * 2)
                     box_xyxy[2:] += box_xyxy[:2]
@@ -414,7 +414,7 @@ class LabelStudio:
         """
         if label is None:
             label = {}
-        for file_path, result in tqdm:
+        for file_path, result in tqdm(self):
             img = cv2.imread(file_path)
             if img is None:
                 print(f"'{file_path}' is not found")
@@ -436,7 +436,7 @@ class LabelStudio:
                 os.makedirs(
                     os.path.join(target_path, label.get(lab, lab)), exist_ok=True
                 )
-                for i in range:
+                for i in range(aug):
                     bias = (2 * rand * (np.random.rand(4) - 0.5)).astype(np.int32)
                     if not shrink:
                         bias[:2] = -abs(bias[:2])

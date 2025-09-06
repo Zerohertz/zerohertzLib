@@ -208,7 +208,7 @@ def _paste(img: NDArray[np.uint8], target: NDArray[np.uint8]) -> NDArray[np.uint
     """
     alpha_overlay = target[:, :, 3] / 255.0
     alpha_background = 1.0 - alpha_overlay
-    for channel in range:
+    for channel in range(0, 3):
         img[:, :, channel] = (
             alpha_overlay * target[:, :, channel]
             + alpha_background * img[:, :, channel]
@@ -325,9 +325,9 @@ def text(
         box_poly = cwh2poly(box)
         box_cwh = box
     if multi:
-        if not shape[0] == len:
+        if not shape[0] == len(txt):
             raise ValueError("'box.shape[0]' and 'len(txt)' must be equal")
-        for b_poly, b_cwh, txt_ in zip:
+        for b_poly, b_cwh, txt_ in zip(box_poly, box_cwh, txt):
             img = _text(img, b_cwh, txt_, color, fontsize)
             if vis:
                 img = _bbox(img, b_poly, (0, 0, 255, 255), 2)

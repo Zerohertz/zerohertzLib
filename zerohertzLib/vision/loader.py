@@ -318,7 +318,7 @@ class YoloLoader:
             "data": {"image": f"data/local-files/?d={directory}/{data_file_name}"}
         }
         result_data = []
-        for cls, obj in zip:
+        for cls, obj in zip(class_list, objects):
             result_data.append(self._value(img, obj, labels, cls))
         annotation["annotations"] = [{"result": result_data}]
         return annotation

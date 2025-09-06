@@ -92,7 +92,7 @@ class TritonClientURL:
     def _set_input(
         self, input_info: dict[str, list[int]], value: NDArray[DTypeLike]
     ) -> grpcclient._infer_input.InferInput:
-        if "dims" in input_info.keys() and len(input_info["dims"]) != len:
+        if "dims" in input_info.keys() and len(input_info["dims"]) != len(value.shape):
             logger.warning(
                 "Expected dimension length of input (%d) does not match the input dimension length (%d) [input dimension: %s]",
                 len(input_info["dims"]),
@@ -372,7 +372,7 @@ class BaseTritonPythonModel:
 
     def _set_outputs(self, outputs: tuple[NDArray[DTypeLike]]) -> Any:
         output_tensors = []
-        for output, value in zip:
+        for output, value in zip(self.cfg["output"], outputs):
             output_tensors.append(
                 pb_utils.Tensor(
                     output["name"],
