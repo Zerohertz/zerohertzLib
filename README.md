@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://github.com/Zerohertz/Zerohertz/assets/42334717/90adcc0f-c6ec-4aca-af41-856931956093">
+    <img src="docs/assets/props/zerohertzLib-tp-red.png">
 </p>
 
 <h2 align = "center">
@@ -55,7 +55,7 @@ pip install zerohertzLib[all]
 ```
 
 <p align="center">
-    <img src="https://github.com/user-attachments/assets/43d754e0-b4e9-4b6d-b79c-d4988105858e" width="600">
+    <img src="docs/assets/props/schematic.png" width="600">
 </p>
 
 ```python
