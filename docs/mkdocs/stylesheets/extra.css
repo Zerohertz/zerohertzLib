@@ -32,6 +32,10 @@
   --md-default-fg-color--light: #ffffff;
 }
 
+.md-nav__source {
+  background-color: var(--primary);
+}
+
 .md-nav__link--passed {
   color: var(--third);
 }
