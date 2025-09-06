@@ -47,8 +47,7 @@ theme:
     - search.share
     - toc.follow
 
-hooks:
-  - docs/mkdocs/hooks/sort_releases.py
+hooks: []
 
 plugins:
   - meta

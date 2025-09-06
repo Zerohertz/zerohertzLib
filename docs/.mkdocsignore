@@ -1,2 +1,0 @@
-# Ignore license headers in docstrings
-*.py:1-25
