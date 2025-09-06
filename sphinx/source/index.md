@@ -20,7 +20,7 @@
     <a href="https://github.com/Zerohertz/zerohertzLib">
         <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"/>
     </a>
-    <a href="https://zerohertz.github.io/zerohertzLib/">
+    <a href="https://zerohertzlib.readthedocs.io/">
         <img src="https://img.shields.io/badge/Sphinx-Docs-000000?style=for-the-badge&logo=Sphinx&logoColor=white"/>
     </a>
     </br>
