@@ -1,4 +1,4 @@
-site_name: ⚡ zerohertzLib ⚡
+site_name: zerohertzLib
 site_url: https://zerohertzlib.readthedocs.io/
 repo_url: https://github.com/Zerohertz/zerohertzLib
 repo_name: Zerohertz/zerohertzLib
@@ -10,7 +10,7 @@ theme:
   logo: assets/props/favicon.png
   favicon: assets/props/favicon.png
   icon:
-    repo: fontawesome/brands/github-alt
+    repo: fontawesome/brands/github
   palette:
     # Palette toggle for automatic mode
     - media: "(prefers-color-scheme)"
@@ -128,7 +128,7 @@ copyright: Copyright &copy; 2023 Zerohertz
 
 extra:
   social:
-    - icon: fontawesome/brands/github-alt
+    - icon: fontawesome/brands/github
       link: https://github.com/Zerohertz
   analytics:
     provider: google
@@ -138,7 +138,7 @@ extra_css:
   - mkdocs/stylesheets/extra.css
 
 extra_javascript:
-  - javascripts/mathjax.js
+  - mkdocs/javascript/mathjax.js
   - https://unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js
 
 use_directory_urls: true
