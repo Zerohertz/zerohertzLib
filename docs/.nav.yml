@@ -3,7 +3,7 @@ nav:
   - API Reference:
       - api/*
   - Release Notes:
-      - glob: release/*
-        sorting: natural
-        reverse: true
+      - glob: "release/v*.*.md"
+        sort:
+          direction: desc
   - CI/CD: cicd/README.md
