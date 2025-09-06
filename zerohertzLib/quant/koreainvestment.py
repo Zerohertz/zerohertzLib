@@ -373,7 +373,7 @@ class Balance(KoreaInvestment):
         return savefig("ProfitLoss", 100)
 
 
-class QuantBotKI:
+class QuantBotKI(Balance, QuantBot):
     """한국투자증권 API를 기반으로 입력된 여러 종목에 대해 매수, 매도 signal을 판단하고 Bot을 통해 message와 graph를 전송하는 class
 
     Args:
