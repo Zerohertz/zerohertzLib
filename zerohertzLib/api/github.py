@@ -1,9 +1,10 @@
 # SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
+import os
 import re
 from collections import defaultdict
-from typing import Any
+from typing import Any, Literal
 
 import requests
 
@@ -129,6 +130,24 @@ class GitHub:
     def _replace_cancel_line(self, body: str) -> str:
         return re.sub(r"~(.*?)~", r"<s>\1</s>", body)
 
+    def _adjust_mkdocs_indent(self, body: str) -> str:
+        """MkDocs format에 맞게 indent를 4칸 단위로 조정"""
+        lines = body.split("\n")
+        adjusted_lines = []
+        for line in lines:
+            stripped = line.lstrip()
+            if line == stripped:  # indent가 없는 경우
+                adjusted_lines.append(line)
+                continue
+            current_indent = len(line) - len(stripped)
+            if current_indent % 4 == 0:
+                adjusted_lines.append(line)
+            else:
+                target_level = (current_indent + 3) // 4  # 올림 처리
+                new_indent = "    " * target_level
+                adjusted_lines.append(new_indent + stripped)
+        return "\n".join(adjusted_lines)
+
     def _replace_issue(self, body: str) -> str:
         return re.sub(
             r"#(\d+)",
@@ -139,7 +158,9 @@ class GitHub:
     def _replace_pr_title(self, body: str) -> str:
         return re.sub(r"### (.*?)\n", r"<h4>\1</h4>\n", body)
 
-    def _merge_release_note_version(self, version: str, data: list[list[Any]]) -> str:
+    def _merge_release_note_version(
+        self, version: str, data: list[list[Any]], tool: Literal["sphinx", "mkdocs"]
+    ) -> str:
         merge_release_note = f"## {version}\n\n"
         for number, html_url, labels, title, updated_at, closed_at, body in data:
             merge_release_note += (
@@ -149,12 +170,18 @@ class GitHub:
                 date = updated_at.split("T")[0].replace("-", "/")
             else:
                 date = closed_at.split("T")[0].replace("-", "/")
-            merge_release_note += "`{admonition} Release Date\n"
-            merge_release_note += f":class: tip\n\n{date}\n```\n\n"
+            if tool == "sphinx":
+                merge_release_note += "`{admonition} Release Date\n"
+                merge_release_note += f":class: tip\n\n{date}\n```\n\n"
+            else:
+                merge_release_note += '!!! tip "Release Date"\n'
+                merge_release_note += f"    {date}\n\n"
             merge_release_note += f"{self._labels_markdown(labels)}\n\n"
             if body is not None:
                 body = body.replace("\r\n", "\n")
                 body = self._replace_cancel_line(body)
+                if tool == "mkdocs":
+                    body = self._adjust_mkdocs_indent(body)
                 body = self._replace_issue(body)
                 body = self._replace_pr_title(body)
                 merge_release_note += body + "\n"
@@ -185,11 +212,13 @@ class GitHub:
         self,
         name: str = "release",
         path: str = "docs",
+        tool: Literal["sphinx", "mkdocs"] = "mkdocs",
     ) -> None:
         """
         Args:
             name: Release note file 및 directory의 이름
-            path: Sphinx의 `source` 경로
+            path: Release note를 작성할 경로
+            tool: Release note를 배포할 tool
 
         Examples:
             >>> gh = zz.api.GitHub("Zerohertz", "zerohertzLib", token="ghp_...")
@@ -223,11 +252,12 @@ class GitHub:
             )
         for data in bodies_version.values():
             data.sort(reverse=True)
-        rmtree(f"{path}/{name}")
+        rmtree(os.path.join(path, name))
         for version, data in bodies_version.items():
             ver = ".".join(version.split(".")[:-1])
-            body = self._merge_release_note_version(version, data)
+            body = self._merge_release_note_version(version, data, tool)
             versions[ver] += body
         for version, body in versions.items():
             self._write_release_note_version(name, path, version, body)
-        self._write_release_note(name, path, list(versions.keys()))
+        if tool == "sphinx":
+            self._write_release_note(name, path, list(versions.keys()))
