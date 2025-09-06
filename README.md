@@ -18,8 +18,11 @@
     <a href="https://github.com/Zerohertz/zerohertzLib">
         <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"/>
     </a>
-    <a href="https://zerohertz.github.io/zerohertzLib/">
-        <img src="https://img.shields.io/badge/Sphinx-Docs-000000?style=for-the-badge&logo=Sphinx&logoColor=white"/>
+    <a href="https://app.readthedocs.org/projects/zerohertzlib/">
+        <img src="https://img.shields.io/badge/Read the Docs-8CA1AF?style=for-the-badge&logo=readthedocs&logoColor=white"/>
+    </a>
+    <a href="https://zerohertzlib.readthedocs.io/">
+        <img src="https://img.shields.io/badge/Material for MkDocs-526CFE?style=for-the-badge&logo=materialformkdocs&logoColor=white"/>
     </a>
     <br/>
     <a href="https://pypi.org/project/zerohertzLib/">
