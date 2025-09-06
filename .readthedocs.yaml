@@ -8,15 +8,12 @@ version: 2
 build:
   os: ubuntu-24.04
   tools:
-    python: "3.13"
+    python: "3.12"
   jobs:
     pre_build:
-      - python -m pip install --upgrade pip
       - pip install .'[all]'
-      - sudo apt-get update
-      - sudo apt-get install -y python3-opencv libopencv-dev
-      - cd docs/scripts && python example_images.py
-      - cd docs/scripts && python release_note.py
+      - apt-get update
+      - apt-get install -y python3-opencv
 
 # Build documentation with Mkdocs
 mkdocs:
