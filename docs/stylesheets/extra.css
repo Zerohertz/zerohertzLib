@@ -15,23 +15,26 @@
   /* Accent color shades */
   --md-accent-fg-color: var(--primary);
   --md-accent-fg-color--transparent: #ff0000;
-
-  /* --md-default-fg-color--light: #ff0000; */
-  --md-default-fg-color--light: #a0a0a0;
 }
 
 [data-md-color-scheme="default"] {
   /* Default color shades */
   --md-default-bg-color: #ffffff;
+  --md-default-fg-color--light: #000000;
 }
 
 [data-md-color-scheme="slate"] {
   /* Default color shades */
   --md-default-bg-color: #101010;
+  --md-default-fg-color--light: #ffffff;
 }
 
 .md-nav__link--passed {
   color: var(--third);
+}
+
+.md-top {
+  box-shadow: 0 1px 3px var(--primary);
 }
 
 .md-typeset a img[src*="shields.io"],
