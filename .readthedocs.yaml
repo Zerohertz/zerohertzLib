@@ -12,8 +12,6 @@ build:
   jobs:
     pre_build:
       - pip install .'[all]'
-      - apt-get update
-      - apt-get install -y python3-opencv
 
 # Build documentation with Mkdocs
 mkdocs:
