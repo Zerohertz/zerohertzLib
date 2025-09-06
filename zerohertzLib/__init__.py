@@ -29,4 +29,4 @@ except ImportError as error:
     print("=" * 100)
 
 __all__ = ["algorithm", "monitoring", "plot", "util", "api", "mlops", "quant", "vision"]
-__version__ = "v1.2.0"
+__version__ = "v1.2.1"
