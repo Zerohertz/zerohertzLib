@@ -130,7 +130,7 @@ jobs:
           sudo apt install python3-opencv -y
           uv sync --extra all
           uv pip install pytest pytest-cov
-          PYTHONPATH=. uv run pytest --cov=zerohertzLib --cov-report=xml --junitxml=junit.xml -o junit_family=legacy
+          uv run pytest --cov=zerohertzLib --cov-report=xml --junitxml=junit.xml -o junit_family=legacy
 
       - name: Upload test results to Codecov
         uses: codecov/test-results-action@v1
@@ -176,13 +176,12 @@ jobs:
           VERSION=${HEAD_REF#dev-}
           sed -i "s/^__version__ = .*/__version__ = \"$VERSION\"/" zerohertzLib/__init__.py
 
-      - name: Build docs
+      - name: Build example images
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           uv sync --extra all
-          uv pip install -r requirements/requirements-docs.txt
-          uv run mkdocs build
+          uv run python docs/mkdocs/scripts/example_images.py
 
       - name: Commit and push on docs branch
         env:
@@ -200,8 +199,8 @@ jobs:
             git add zerohertzLib/__init__.py
             git commit -m ":hammer: update: version (#${{ github.event.pull_request.number }})"
           fi
-          git add site
-          git commit -m ':memo: docs: build mkdocs (#${{ github.event.pull_request.number }})'
+          git add docs/assets
+          git commit -m ':memo: docs: build example images (#${{ github.event.pull_request.number }})'
           git push origin docs
           echo '{
             "title": "[Docs] Build by MkDocs for GitHub Pages",
