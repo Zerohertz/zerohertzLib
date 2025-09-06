@@ -1,93 +1,43 @@
-/* Custom styles for zerohertzLib documentation */
+/* NOTE: https://github.com/squidfunk/mkdocs-material/blob/master/src/templates/assets/stylesheets/main/_colors.scss */
 
-/* Custom color variables - Material theme approach */
-:root {
-  /* Primary color variants */
-  --md-primary-fg-color: #800a0a;
-  --md-primary-fg-color--light: #a00c0c;
-  --md-primary-fg-color--dark: #600808;
-  
-  /* Accent color */
-  --md-accent-fg-color: #c04545;
-  
-  /* Additional customizations */
-  --md-typeset-a-color: #800a0a;
+/* High specificity CSS variable overrides to match Material's internal rules */
+:root > * {
+  --primary: #800a0a;
+  --secondary: #c04545;
+  --third: #ff8080;
+
+  /* Primary color shades */
+  --md-primary-fg-color: var(--primary);
+
+  /* Typeset `a` color shades */
+  --md-typeset-a-color: var(--secondary);
+
+  /* Accent color shades */
+  --md-accent-fg-color: var(--primary);
+  --md-accent-fg-color--transparent: #ff0000;
+
+  /* --md-default-fg-color--light: #ff0000; */
+  --md-default-fg-color--light: #a0a0a0;
 }
 
-/* Basic theming - Material Design variables handle most styling automatically */
+[data-md-color-scheme="default"] {
+  /* Default color shades */
+  --md-default-bg-color: #ffffff;
+}
 
-/* TOC scroll indicator (passed sections) */
+[data-md-color-scheme="slate"] {
+  /* Default color shades */
+  --md-default-bg-color: #101010;
+}
+
 .md-nav__link--passed {
-  color: var(--md-accent-fg-color);
+  color: var(--third);
 }
 
-/* Right sidebar TOC current item highlight */
-.md-nav--secondary .md-nav__item--active > .md-nav__link,
-.md-nav--secondary .md-nav__link--active {
-  color: var(--md-primary-fg-color);
-}
-
-/* TOC hover effects */
-.md-nav--secondary .md-nav__link:hover,
-.md-nav--secondary .md-nav__link:focus {
-  color: var(--md-primary-fg-color);
-}
-
-/* Custom scrollbar styling */
-/* Light mode scrollbars */
-[data-md-color-scheme="default"] ::-webkit-scrollbar-thumb {
-  background-color: #9ca3af;
-  border-radius: 0.2rem;
-}
-
-[data-md-color-scheme="default"] ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--md-accent-fg-color);
-}
-
-[data-md-color-scheme="default"] .md-sidebar--secondary ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--md-primary-fg-color);
-}
-
-[data-md-color-scheme="default"] ::-webkit-scrollbar-track {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-/* Dark mode scrollbars */
-[data-md-color-scheme="slate"] ::-webkit-scrollbar-thumb {
-  background-color: #6b7280;
-  border-radius: 0.2rem;
-}
-
-[data-md-color-scheme="slate"] ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--md-accent-fg-color);
-}
-
-[data-md-color-scheme="slate"] .md-sidebar--secondary ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--md-primary-fg-color);
-}
-
-/* Logo styling */
-.md-header__button.md-logo img {
-  width: 2rem;
-  height: 2rem;
-}
-
-.md-header__button.md-logo {
-  margin: 0.2rem;
-}
-
-/* Badge styling */
-.md-typeset p img[alt*="PyPI"] {
-  margin: 0.2rem;
-}
-
-/* Math rendering */
-.arithmatex {
-  overflow: auto;
-}
-
-/* Image centering */
-.md-typeset img {
-  display: block;
-  margin: 1rem auto;
+.md-typeset a img[src*="shields.io"],
+.md-typeset a img[src*="badge"],
+.md-typeset a img[alt*="badge"],
+.md-typeset a img[alt*="Badge"] {
+  display: inline;
+  margin: 0;
 }
