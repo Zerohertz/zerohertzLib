@@ -60,7 +60,7 @@ def pad(
             >>> poly = poly * info[0] + info[1:]
             >>> res5 = zz.vision.bbox(res5, poly, color=(0, 0, 255))
 
-        ![Image padding example](../assets/images/vision.pad.png){ width="700" }
+        ![Image padding example](../assets/vision/pad.png){ width="700" }
     """
     if len(img.shape) == 2:
         img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
@@ -125,7 +125,7 @@ def cutout(
         >>> res2 = zz.vision.cutout(img, poly, 128, False)
         >>> res3 = zz.vision.cutout(img, poly, background=128)
 
-        ![Image cutout example](../assets/images/vision.cutout.png){ width="600" }
+        ![Image cutout example](../assets/vision/cutout.png){ width="600" }
     """
     shape = img.shape[:2]
     poly = _list2np(poly)
@@ -166,7 +166,7 @@ def transparent(
         >>> res1 = zz.vision.transparent(img)
         >>> res2 = zz.vision.transparent(img, reverse=True)
 
-        ![Transparent background example](../assets/images/vision.transparent.png){ width="600" }
+        ![Transparent background example](../assets/vision/transparent.png){ width="600" }
     """
     img = img.copy()
     img = _cvt_bgra(img)

@@ -45,7 +45,7 @@ def scatter(
         >>> ydata = {"Terran": [list(np.random.rand(200) * 10)], "Zerg": [list(np.random.rand(200) * 5 - 1)], "Protoss": [list(np.random.rand(200) * 10 + 3)]}
         >>> zz.plot.scatter(xdata, ydata, xlab="Cost [Mineral]", ylab="Scores", title="Star Craft", markersize=400)
 
-        ![Scatter plot example](../assets/images/plot.scatter.png){ width="500" }
+        ![Scatter plot example](../assets/plot/scatter.png){ width="500" }
     """
     if config.SAVE:
         plt.figure(figsize=figsize)

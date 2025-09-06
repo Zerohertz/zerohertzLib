@@ -49,13 +49,13 @@ def before_after(
             >>> after = cv2.cvtColor(after, cv2.COLOR_BGR2GRAY)
             >>> zz.vision.before_after(before, after, quality=10)
 
-            ![Before after comparison 1](../assets/images/vision.before_after.1.png){ width="300" }
+            ![Before after comparison 1](../assets/vision/before_after.1.png){ width="300" }
 
         BGR, Resize:
             >>> after = cv2.resize(before, (100, 100))
             >>> zz.vision.before_after(before, after, [20, 40, 30, 60])
 
-            ![Before after comparison 2](../assets/images/vision.before_after.2.png){ width="300" }
+            ![Before after comparison 2](../assets/vision/before_after.2.png){ width="300" }
     """
     before_shape = before.shape
     if area is None:
@@ -109,7 +109,7 @@ def grid(
         >>> zz.vision.grid(imgs, color=(0, 255, 0))
         >>> zz.vision.grid(imgs, color=(0, 0, 0, 0))
 
-        ![Image grid example](../assets/images/vision.grid.png){ width="600" }
+        ![Image grid example](../assets/vision/grid.png){ width="600" }
     """
     cnt = math.ceil(math.sqrt(len(imgs)))
     length = size // cnt
@@ -147,7 +147,7 @@ def vert(
         >>> imgs = [cv2.resize(img, (random.randrange(300, 600), random.randrange(300, 600))) for _ in range(5)]
         >>> zz.vision.vert(imgs)
 
-        ![Vertical image alignment example](../assets/images/vision.vert.png){ width="600" }
+        ![Vertical image alignment example](../assets/vision/vert.png){ width="600" }
     """
     resized_imgs = []
     width = 0

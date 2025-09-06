@@ -190,7 +190,6 @@ class GitHub:
         Args:
             name: Release note file 및 directory의 이름
             path: Sphinx의 `source` 경로
-            platform: 사용할 문서화 도구
 
         Examples:
             >>> gh = zz.api.GitHub("Zerohertz", "zerohertzLib", token="ghp_...")

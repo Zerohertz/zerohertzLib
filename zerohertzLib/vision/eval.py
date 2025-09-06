@@ -116,7 +116,7 @@ def evaluation(
         - `N`: 한 이미지의 ground truth 내 존재하는 object의 수
         - `M`: 한 이미지의 inference 결과 내 존재하는 object의 수
 
-        ![Model evaluation visualization](../assets/images/vision.evaluation.png){ width="600" }
+        ![Model evaluation visualization](../assets/vision/evaluation.png){ width="600" }
 
     Returns:
         단일 이미지의 model 성능 평가 결과
@@ -207,7 +207,7 @@ def meanap(logs: pd.DataFrame) -> tuple[float, dict[str, float]]:
         >>> zz.vision.meanap(logs)
         (0.7030629916206652, defaultdict(<class 'float'>, {'dog': 0.7177078883735305, 'cat': 0.6884180948677999}))
 
-        ![Mean Average Precision curves](../assets/images/vision.meanap.png){ width="600" }
+        ![Mean Average Precision curves](../assets/vision/meanap.png){ width="600" }
     """
     logs = logs.sort_values(by="confidence", ascending=False)
     confidence_per_cls = defaultdict(list)

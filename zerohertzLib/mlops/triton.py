@@ -124,7 +124,7 @@ class TritonClientURL:
         Examples:
             >>> tc.status()
 
-            ![Status GIF](_static/examples/static/mlops.TritonClientURL.status.gif)
+            ![Status GIF](../assets/mlops/TritonClientURL.status.gif)
         """
         table = PrettyTable(
             ["STATE", "ID", "MODEL", "VERSION", "BACKEND", "INPUT", "OUTPUT"],

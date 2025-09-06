@@ -52,7 +52,7 @@ def barv(
         >>> data = {"xticks": ["Terran", "Zerg", "Protoss"], "Type A": [4, 5, 6], "Type B": [4, 3, 2], "Type C": [8, 5, 12], "Type D": [6, 3, 2]}
         >>> zz.plot.barv(data, xlab="Races", ylab="Time [sec]", title="Star Craft", dim="%", sign=2)
 
-        ![Vertical bar chart example](../assets/images/plot.barv.png){ width="600" }
+        ![Vertical bar chart example](../assets/plot/barv.png){ width="600" }
     """
     colors = _color(data, colors)
     if config.SAVE:
@@ -198,7 +198,7 @@ def barh(
         >>> data = {"yticks": ["Terran", "Zerg", "Protoss"], "Type A": [4, 5, 6], "Type B": [4, 3, 2], "Type C": [8, 5, 12], "Type D": [6, 3, 2]}
         >>> zz.plot.barh(data, xlab="Time [Sec]", ylab="Races", title="Star Craft", dim="%", sign=2)
 
-        ![Horizontal bar chart example](../assets/images/plot.barh.png){ width="450" }
+        ![Horizontal bar chart example](../assets/plot/barh.png){ width="450" }
     """
     colors = _color(data, colors)
     if config.SAVE:
@@ -337,7 +337,7 @@ def hist(
         >>> data = {"Terran": list(np.random.rand(1000) * 10), "Zerg": list(np.random.rand(1000) * 10 + 1), "Protoss": list(np.random.rand(1000) * 10 + 2)}
         >>> zz.plot.hist(data, xlab="Scores", ylab="Population", title="Star Craft")
 
-        ![Histogram example](../assets/images/plot.hist.png){ width="600" }
+        ![Histogram example](../assets/plot/hist.png){ width="600" }
     """
     colors = _color(data, colors)
     minimum, maximum = sys.maxsize, -sys.maxsize

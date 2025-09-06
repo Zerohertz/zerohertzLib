@@ -3,33 +3,23 @@
 
 from zerohertzLib import algorithm, monitoring, plot, util
 
-__all__ = ["algorithm", "monitoring", "plot", "util"]
-
 try:
-    from zerohertzLib import api  # noqa: F401
-
-    __all__.append("api")
+    from zerohertzLib import api
 except ImportError:
     pass
 
 try:
-    from zerohertzLib import mlops  # noqa: F401
-
-    __all__.append("mlops")
+    from zerohertzLib import mlops
 except ImportError:
     pass
 
 try:
-    from zerohertzLib import quant  # noqa: F401
-
-    __all__.append("quant")
+    from zerohertzLib import quant
 except ImportError:
     pass
 
 try:
-    from zerohertzLib import vision  # noqa: F401
-
-    __all__.append("vision")
+    from zerohertzLib import vision
 except ImportError as error:
     print("=" * 100)
     print(f"[Warning] {error}")
@@ -38,4 +28,5 @@ except ImportError as error:
     print("(but you can use other submodules except zerohertzLib.vision)")
     print("=" * 100)
 
+__all__ = ["algorithm", "monitoring", "plot", "util", "api", "mlops", "quant", "vision"]
 __version__ = "v1.2.0"

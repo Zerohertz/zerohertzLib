@@ -53,13 +53,13 @@ def plot(
             >>> ydata = {"Terran": list(np.random.rand(20) * 10), "Zerg": list(np.random.rand(20) * 10 + 1), "Protoss": list(np.random.rand(20) * 10 + 2)}
             >>> zz.plot.plot(xdata, ydata, xlab="Time [Sec]", ylab="Scores", title="Star Craft")
 
-            ![Plot example 1](../assets/images/plot.plot.1.png){ width="500" }
+            ![Plot example 1](../assets/plot/plot.1.png){ width="500" }
 
         ``stacked=True:
             >>> ydata["Total"] = [sum(data) + 10 for data in zip(ydata["Terran"], ydata["Protoss"], ydata["Zerg"])]
             >>> zz.plot.plot(xdata, ydata, xlab="Time [Sec]", ylab="Scores", stacked=True, title="Star Craft")
 
-            ![Plot example 2](../assets/images/plot.plot.2.png){ width="500" }
+            ![Plot example 2](../assets/plot/plot.2.png){ width="500" }
     """
     if config.SAVE:
         plt.figure(figsize=figsize)
@@ -144,7 +144,7 @@ def candle(
         >>> signals = zz.quant.macd(data)
         >>> zz.plot.candle(data, "MACD", signals=signals)
 
-        ![Candle chart example](../assets/images/plot.candle.png){ width="600" }
+        ![Candle chart example](../assets/plot/candle.png){ width="600" }
     """
     if not isinstance:
         threshold_sell, threshold_buy = threshold

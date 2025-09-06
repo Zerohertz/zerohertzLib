@@ -33,13 +33,12 @@ def figure(figsize: tuple[int, int] = (15, 10)) -> Figure:
     return fig
 
 
-def subplot(*args, **kwargs) -> Axes:
+def subplot(*args: Any, **kwargs: Any) -> Axes:
     """Subplot 생성을 위한 함수
 
     Args:
-        nrows: Subplot grid의 행 개수
-        ncols: Subplot grid의 열 개수
-        index: Grid에서 subplot의 위치를 지정하는 index
+        *args: matplotlib.pyplot.subplot의 위치 인수들
+        **kwargs: matplotlib.pyplot.subplot의 키워드 인수들
 
     Returns:
         Subplot axes 생성

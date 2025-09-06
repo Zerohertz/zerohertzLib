@@ -298,7 +298,7 @@ def poly2mask(
         >>> mask2.dtype
         dtype('bool')
 
-        ![Polygon to mask conversion example](../assets/images/vision.poly2mask.png){ width="300" }
+        ![Polygon to mask conversion example](../assets/vision/poly2mask.png){ width="300" }
     """
     if (isinstance(poly, list) and isinstance(poly[0], np.ndarray)) or (
         isinstance(poly, np.ndarray) and len(poly.shape) == 3

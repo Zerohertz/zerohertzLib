@@ -9,7 +9,7 @@ def on_nav(nav, config, files):
     # Find the Release Notes section
     for item in nav:
         if hasattr(item, "title") and item.title == "Release Notes":
-            if hasattr(item, "children"):
+            if hasattr(item, "children") and item.children is not None:
                 # Sort children by version number in descending order
                 def version_key(nav_item):
                     if hasattr(nav_item, "file") and nav_item.file:

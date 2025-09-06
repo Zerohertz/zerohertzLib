@@ -71,7 +71,7 @@ def bbox(
             (3, 4)
             >>> res2 = zz.vision.bbox(img, boxes, (0, 255, 0), thickness=10)
 
-        ![Bounding box visualization example](../assets/images/vision.bbox.png){ width="600" }
+        ![Bounding box visualization example](../assets/vision/bbox.png){ width="600" }
     """
     box = _list2np(box)
     img = img.copy()
@@ -148,7 +148,7 @@ def mask(
             >>> poly = zz.vision.xyxy2poly(zz.vision.poly2xyxy((np.random.rand(cnt, 4, 2) * (W, H))))
             >>> res4 = zz.vision.mask(img, poly=poly, class_list=class_list, class_color=class_color)
 
-        ![Mask visualization example](../assets/images/vision.mask.png){ width="600" }
+        ![Mask visualization example](../assets/vision/mask.png){ width="600" }
     """
     assert (mks is None) ^ (poly is None)
     shape = img.shape
@@ -303,7 +303,7 @@ def text(
             (3, 4)
             >>> res2 = zz.vision.text(img, boxes, ["먼지야", "먼지야", "먼지야"], vis=True)
 
-        ![Text on image example](../assets/images/vision.text.png){ width="600" }
+        ![Text on image example](../assets/vision/text.png){ width="600" }
     """
     box = _list2np(box)
     img = img.copy()
@@ -393,7 +393,7 @@ def paste(
             >>> res5, poly5 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, poly=poly, gaussian=501)
             >>> res5 = zz.vision.bbox(res5, poly5)
 
-        ![Image pasting example](../assets/images/vision.paste.png){ width="600" }
+        ![Image pasting example](../assets/vision/paste.png){ width="600" }
     """
     x_0, y_0, x_1, y_1 = map(int, box)
     box_height, box_width = y_1 - y_0, x_1 - x_0

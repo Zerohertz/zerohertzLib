@@ -2,11 +2,14 @@
 # SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
 import json
+from typing import Any
 
 import requests
 
+from zerohertzLib.api.base import AbstractBot, AbstractWebhook
 
-class DiscordWebhook:
+
+class DiscordWebhook(AbstractWebhook):
     """Discord Webhook의 data 전송을 위한 class
 
     Args:
@@ -63,7 +66,7 @@ class DiscordWebhook:
         return response
 
 
-class DiscordBot:
+class DiscordBot(AbstractBot[requests.Response]):
     """Discord Bot의 data 전송을 위한 class
 
     Args:
@@ -119,7 +122,7 @@ class DiscordBot:
             timeout=self.timeout,
         )
 
-    def get_thread_id(self, response: requests.Response, **kwargs) -> str:
+    def get_thread_id(self, response: requests.Response, **kwargs: Any) -> str:
         """Discord Bot 응답에서 스레드를 생성하고 thread ID 반환
 
         Args:

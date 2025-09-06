@@ -252,7 +252,7 @@ class QuantBot:
         >>> qsb = zz.quant.QuantBot(symbols, token=token, channel=channel)
         >>> qsb.index()
 
-        ![QuantSlackBot example](../assets/images/quant.QuantSlackBot.png){ width="800" }
+        ![QuantSlackBot example](../assets/quant/QuantSlackBot.png){ width="800" }
     """
 
     def __init__(

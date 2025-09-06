@@ -204,11 +204,11 @@ class LabelStudio:
             + File Filter Regex: `^.*\.(jpe?g|JPE?G|png|PNG|tiff?|TIFF?)$`
             + Treat every bucket object as a source file: `True`
 
-            ![Label Studio Setup 1](_static/examples/static/vision.LabelStudio.json.1.png)
+            ![Label Studio Setup 1](../assets/vision/LabelStudio.json.1.png)
 
             Sync 이후 `LabelStudio` class로 생성된 JSON file을 Label Studio에 import하면 아래와 같이 setup 할 수 있다.
 
-            ![Label Studio Setup 2](_static/examples/static/vision.LabelStudio.json.2.png)
+            ![Label Studio Setup 2](../assets/vision/LabelStudio.json.2.png)
 
         Args:
             path: Local files의 경로

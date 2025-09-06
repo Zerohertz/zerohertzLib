@@ -34,7 +34,7 @@ def pie(
         >>> data = {"Terran": 27, "Zerg": 40, "Protoss": 30}
         >>> zz.plot.pie(data, dim="$", title="Star Craft")
 
-        ![Pie chart example](../assets/images/plot.pie.png){ width="500" }
+        ![Pie chart example](../assets/plot/pie.png){ width="500" }
     """
     colors = _color(data, colors)
     if config.SAVE:

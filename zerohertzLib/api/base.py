@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
 from abc import abstractmethod
-from typing import TypeVar
+from typing import Any, Generic, TypeVar
 
 import requests
 
@@ -21,9 +21,9 @@ def _get_codeblock(message: str, codeblock: str | bool = False) -> str:
     """
     if not codeblock:
         return message
-    if isinstance:
+    if isinstance(codeblock, str):
         return f"```{codeblock}\n{message}\n```"
-    return f"``{message}"
+    return f"```{message}```"
 
 
 class AbstractWebhook:
@@ -65,11 +65,10 @@ class AbstractWebhook:
         return _get_codeblock(message=message, codeblock=codeblock)
 
 
-class AbstractBot:
+class AbstractBot(Generic[ResponseType]):
     """Bot 기반 messaging을 위한 abstract base class
 
-    Args:
-        ResponseType: Bot API 응답의 type
+    Bot API의 추상 기본 클래스
     """
 
     @abstractmethod
@@ -91,7 +90,7 @@ class AbstractBot:
         """
 
     @abstractmethod
-    def get_thread_id(self, response: ResponseType, **kwargs) -> str:
+    def get_thread_id(self, response: ResponseType, **kwargs: Any) -> str:
         """Bot 응답에서 thread ID 추출
 
         Args:
@@ -154,7 +153,7 @@ class MockedBot:
         """
         return None
 
-    def get_thread_id(self, response: None, **kwargs) -> str:
+    def get_thread_id(self, response: None, **kwargs: Any) -> str:
         """Mock thread ID 반환 (빈 문자열)
 
         Args:

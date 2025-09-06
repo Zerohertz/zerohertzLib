@@ -48,7 +48,7 @@ def moving_average(
         2023-12-19  102450.000  102337.1875        0
         [485 rows x 3 columns]
 
-        ![Moving average example](../assets/images/quant.moving_average.png){ width="500" }
+        ![Moving average example](../assets/quant/moving_average.png){ width="500" }
     """
     signals = pd.DataFrame(index=data.index)
     if ohlc == "":
@@ -122,7 +122,7 @@ def rsi(
         2023-12-19  35.671343        0
         [485 rows x 2 columns]
 
-        ![RSI example](../assets/images/quant.rsi.png){ width="500" }
+        ![RSI example](../assets/quant/rsi.png){ width="500" }
     """
     signals = pd.DataFrame(index=data.index)
     if ohlc == "":
@@ -174,7 +174,7 @@ def bollinger_bands(
         2023-12-19  102771.666667  111527.577705  94015.755629        0
         [485 rows x 4 columns]
 
-        ![Bollinger bands example](../assets/images/quant.bollinger_bands.png){ width="500" }
+        ![Bollinger bands example](../assets/quant/bollinger_bands.png){ width="500" }
     """
     signals = _bollinger_bands(data, window, num_std_dev, ohlc)
     signals["signals"] = 0
@@ -231,7 +231,7 @@ def momentum(
         2023-12-19     550.0        0
         [485 rows x 2 columns]
 
-        ![Momentum example](../assets/images/quant.momentum.png){ width="500" }
+        ![Momentum example](../assets/quant/momentum.png){ width="500" }
     """
     signals = pd.DataFrame(index=data.index)
     if ohlc == "":
@@ -284,7 +284,7 @@ def macd(
         2023-12-19 -1950.006134        0
         [485 rows x 2 columns]
 
-        ![MACD example](../assets/images/quant.macd.png){ width="500" }
+        ![MACD example](../assets/quant/macd.png){ width="500" }
     """
     n_slow = n_fast * 2
     signals = pd.DataFrame(index=data.index)

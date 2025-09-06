@@ -2,13 +2,16 @@
 # SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
 import json
+from typing import Any
 
 import requests
 from slack_sdk import WebClient
 from slack_sdk.web import SlackResponse
 
+from zerohertzLib.api.base import AbstractBot, AbstractWebhook
 
-class SlackWebhook:
+
+class SlackWebhook(AbstractWebhook):
     """Slack Webhook의 data 전송을 위한 class
 
     Args:
@@ -23,7 +26,7 @@ class SlackWebhook:
         >>> slack = zz.api.SlackWebhook("https://hooks.slack.com/services/...")
         >>> slack = zz.api.SlackWebhook("https://hooks.slack.com/services/...", name="TEST", icon_emoji="ghost")
 
-        ![Slack Webhook example](../assets/images/api.SlackWebhook.png){ width="300" }
+        ![Slack Webhook example](../assets/api/SlackWebhook.png){ width="300" }
     """
 
     def __init__(
@@ -91,10 +94,10 @@ class SlackWebhook:
         )
 
 
-class SlackBot:
+class SlackBot(AbstractBot[SlackResponse]):
     """Slack Bot의 data 전송을 위한 class
 
-    ![Slack Bot scope setup](../assets/images/api.SlackBot.scope.png){ width="300" }
+    ![Slack Bot scope setup](../assets/api/SlackBot.scope.png){ width="300" }
 
     Args:
         token: Slack Bot의 token
@@ -110,7 +113,7 @@ class SlackBot:
         >>> slack = zz.api.SlackBot("xoxb-...", "test", icon_emoji="sparkles")
         >>> slack = zz.api.SlackBot("xoxb-...", "test", name="zerohertzLib", icon_url="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284166558-0ba4b755-39cc-48ee-ba3b-5c02f54c4ca7.png")
 
-        ![Slack Bot example](../assets/images/api.SlackBot.png){ width="300" }
+        ![Slack Bot example](../assets/api/SlackBot.png){ width="300" }
     """
 
     def __init__(
@@ -172,7 +175,7 @@ class SlackBot:
             username=self.username,
         )
 
-    def get_thread_id(self, response: SlackResponse, **kwargs) -> str:
+    def get_thread_id(self, response: SlackResponse, **kwargs: Any) -> str:
         """Slack Bot 응답에서 thread ID 추출
 
         Args:

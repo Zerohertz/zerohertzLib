@@ -36,7 +36,7 @@ def table(
         >>> zz.plot.table(data, col, row, title="Star Craft")
         >>> zz.plot.table(data, col, row, title="Star Craft2", fontsize=50)
 
-        ![Table example](../assets/images/plot.table.png){ width="500" }
+        ![Table example](../assets/plot/table.png){ width="500" }
     """
     fig, ax = plt.subplots(figsize=figsize)
     tbl = ax.table(cellText=data, colLabels=col, rowLabels=row, loc="center")
