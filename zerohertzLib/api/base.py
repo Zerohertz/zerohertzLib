@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
-from abc import ABC, abstractmethod
-from typing import Generic, TypeVar
+from abc import abstractmethod
+from typing import TypeVar
 
 import requests
 
@@ -13,20 +13,20 @@ def _get_codeblock(message: str, codeblock: str | bool = False) -> str:
     """Code block formatting을 위한 helper function
 
     Args:
-        message (``str``): Formatting할 message
-        codeblock (``str | bool``): Code block 언어 지정 또는 적용 여부
+        message: Formatting할 message
+        codeblock: Code block 언어 지정 또는 적용 여부
 
     Returns:
-        ``str``: Formatting된 message
+        Formatting된 message
     """
     if not codeblock:
         return message
-    if isinstance(codeblock, str):
+    if isinstance:
         return f"```{codeblock}\n{message}\n```"
-    return f"```{message}```"
+    return f"``{message}"
 
 
-class AbstractWebhook(ABC):
+class AbstractWebhook:
     """Webhook 기반 messaging을 위한 abstract base class"""
 
     @abstractmethod
@@ -34,11 +34,11 @@ class AbstractWebhook(ABC):
         """Webhook을 통해 message 전송
 
         Args:
-            message (``str``): 전송할 message
-            codeblock (``str | bool``): 전송되는 message의 style
+            message: 전송할 message
+            codeblock: 전송되는 message의 style
 
         Returns:
-            ``requests.Response``: Webhook의 응답
+            Webhook의 응답
         """
 
     @abstractmethod
@@ -46,26 +46,26 @@ class AbstractWebhook(ABC):
         """Webhook을 통해 file 전송
 
         Args:
-            path (``str``): 전송할 file 경로
+            path: 전송할 file 경로
 
         Returns:
-            ``requests.Response``: Webhook의 응답
+            Webhook의 응답
         """
 
     def _get_codeblock(self, message: str, codeblock: str | bool = False) -> str:
         """Code block formatting을 위한 helper method
 
         Args:
-            message (``str``): Formatting할 message
-            codeblock (``str | bool``): Code block 언어 지정 또는 적용 여부
+            message: Formatting할 message
+            codeblock: Code block 언어 지정 또는 적용 여부
 
         Returns:
-            ``str``: Formatting된 message
+            Formatting된 message
         """
         return _get_codeblock(message=message, codeblock=codeblock)
 
 
-class AbstractBot(ABC, Generic[ResponseType]):
+class AbstractBot:
     """Bot 기반 messaging을 위한 abstract base class
 
     Args:
@@ -82,12 +82,12 @@ class AbstractBot(ABC, Generic[ResponseType]):
         """Bot을 통해 message 전송
 
         Args:
-            message (``str``): 전송할 message
-            codeblock (``str | bool``): 전송되는 message의 style
-            thread_id (``str | None``): Thread ID (댓글 전송용)
+            message: 전송할 message
+            codeblock: 전송되는 message의 style
+            thread_id: Thread ID (댓글 전송용)
 
         Returns:
-            ``ResponseType``: Bot의 응답
+            Bot의 응답
         """
 
     @abstractmethod
@@ -95,11 +95,11 @@ class AbstractBot(ABC, Generic[ResponseType]):
         """Bot 응답에서 thread ID 추출
 
         Args:
-            response (``ResponseType``): Bot의 응답
+            response: Bot의 응답
             **kwargs: 추가 매개변수
 
         Returns:
-            ``str``: Thread ID
+            Thread ID
         """
 
     @abstractmethod
@@ -107,27 +107,27 @@ class AbstractBot(ABC, Generic[ResponseType]):
         """Bot을 통해 file 전송
 
         Args:
-            path (``str``): 전송할 file 경로
-            thread_id (``str | None``): Thread ID (댓글 전송용)
+            path: 전송할 file 경로
+            thread_id: Thread ID (댓글 전송용)
 
         Returns:
-            ``ResponseType``: Bot의 응답
+            Bot의 응답
         """
 
     def _get_codeblock(self, message: str, codeblock: str | bool = False) -> str:
         """Code block formatting을 위한 helper method
 
         Args:
-            message (``str``): Formatting할 message
-            codeblock (``str | bool``): Code block 언어 지정 또는 적용 여부
+            message: Formatting할 message
+            codeblock: Code block 언어 지정 또는 적용 여부
 
         Returns:
-            ``str``: Formatting된 message
+            Formatting된 message
         """
         return _get_codeblock(message=message, codeblock=codeblock)
 
 
-class MockedBot(AbstractBot[None]):
+class MockedBot:
     """Testing을 위한 mock bot implementation
 
     실제 API 호출 없이 bot interface를 테스트할 때 사용
@@ -145,12 +145,12 @@ class MockedBot(AbstractBot[None]):
         """Mock message 전송 (실제로는 아무것도 하지 않음)
 
         Args:
-            message (``str``): 전송할 message
-            codeblock (``str | bool``): 전송되는 message의 style
-            thread_id (``str | None``): Thread ID (댓글 전송용)
+            message: 전송할 message
+            codeblock: 전송되는 message의 style
+            thread_id: Thread ID (댓글 전송용)
 
         Returns:
-            ``None``: 항상 None 반환
+            항상 None 반환
         """
         return None
 
@@ -158,11 +158,11 @@ class MockedBot(AbstractBot[None]):
         """Mock thread ID 반환 (빈 문자열)
 
         Args:
-            response (``None``): Mock 응답 (None)
+            response: Mock 응답 (None)
             **kwargs: 추가 매개변수
 
         Returns:
-            ``str``: 빈 문자열
+            빈 문자열
         """
         return ""
 
@@ -170,10 +170,10 @@ class MockedBot(AbstractBot[None]):
         """Mock file 전송 (실제로는 아무것도 하지 않음)
 
         Args:
-            path (``str``): 전송할 file 경로
-            thread_id (``str | None``): Thread ID (댓글 전송용)
+            path: 전송할 file 경로
+            thread_id: Thread ID (댓글 전송용)
 
         Returns:
-            ``None``: 항상 None 반환
+            항상 None 반환
         """
         return None

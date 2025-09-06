@@ -10,11 +10,11 @@ def read_csv(path: str, header: bool = True) -> dict[int | str, list[str]]:
     """CSV (Comma-Separated Values) 혹은 TSV (Tab-Separated Values)를 작성하는 함수
 
     Args:
-        path (``str``): 입력될 CSV 혹은 TSV 경로 및 file 이름
-        header (``bool``): Header의 존재 유무
+        path: 입력될 CSV 혹은 TSV 경로 및 file 이름
+        header: Header의 존재 유무
 
     Returns:
-        ``dict[int | str, list[str]]``: Header의 값을 기반으로 column에 따라 `list` 로 구성
+        Header의 값을 기반으로 column에 따라 `list` 로 구성
 
     Note:
         Header가 존재하지 않는 경우 `0` 부터 차례대로 key 값 정의
@@ -57,12 +57,12 @@ def write_csv(data: list[list[Any]], path: str, tsv: bool = False) -> str:
     """CSV (Comma-Separated Values) 혹은 TSV (Tab-Separated Values)를 작성하는 함수
 
     Args:
-        data (``list[list[Any]]``): 입력 data (header 포함 무관)
-        path (``str``): 출력될 CSV 혹은 TSV 경로 및 file 이름
-        tsv (``bool``): TSV 작성 여부
+        data: 입력 data (header 포함 무관)
+        path: 출력될 CSV 혹은 TSV 경로 및 file 이름
+        tsv: TSV 작성 여부
 
     Returns:
-        ``str``: File의 절대 경로
+        File의 절대 경로
 
     Examples:
         >>> zz.util.write_csv([["id", "Races", "Scores"], ["5hi9", "Protoss", 1248], ["gor2", "Terran", 2309], ["gk03", "Zerg", 291]], "zerohertzLib/star_craft")

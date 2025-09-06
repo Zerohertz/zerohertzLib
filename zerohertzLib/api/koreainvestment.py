@@ -16,22 +16,21 @@ class KoreaInvestment:
     """한국투자증권 API를 호출하는 class
 
     Note:
-        `공식 API 문서 <https://apiportal.koreainvestment.com/apiservice>`_ 및 `mojito <https://github.com/sharebook-kr/mojito>`_ 참고
+        [공식 API 문서](https://apiportal.koreainvestment.com/apiservice) 및 [mojito](https://github.com/sharebook-kr/mojito) 참고
 
-        ``secret.key`` 는 아래와 같이 구성
-
-        .. code-block::
-
-            zero... (API Key)
-            hertz... (API Secret)
+        secret.key 파일은 아래와 같이 구성:
+        ```
+        zero... (API Key)
+        hertz... (API Secret)
+        ```
 
     Args:
-        account_no (``str``): API 호출 시 사용할 계좌 번호
-        path (``str``): ``secret.key`` 혹은 ``token.dat`` 이 포함된 경로
+        account_no: API 호출 시 사용할 계좌 번호
+        path: secret.key 혹은 token.dat이 포함된 경로
 
     Attributes:
-        api_key (``str``): API Key
-        api_secret (``str``): API Secret
+        api_key: API Key
+        api_secret: API Secret
 
     Examples:
         >>> broker = zz.api.KoreaInvestment("00000000-00")
@@ -63,7 +62,7 @@ class KoreaInvestment:
         """``secret.key`` load
 
         Returns:
-            ``None``: Attribute에 API 속성들 추가
+            Attribute에 API 속성들 추가
         """
         with open(os.path.join(self.path, "secret.key"), "r", encoding="utf-8") as file:
             secrets = file.readlines()
@@ -74,7 +73,7 @@ class KoreaInvestment:
         """``token.dat`` check
 
         Returns:
-            ``bool``: ``token.dat`` 존재 및 유효성 여부
+            ``token.dat`` 존재 및 유효성 여부
         """
         try:
             with open(os.path.join(self.path, "token.dat"), "rb") as file:
@@ -98,7 +97,7 @@ class KoreaInvestment:
         """``token.dat`` 발급
 
         Returns:
-            ``None``: ``token.dat`` 발급 후 attribute에 추가
+            ``token.dat`` 발급 후 attribute에 추가
         """
         print("=" * 100)
         print(
@@ -128,7 +127,7 @@ class KoreaInvestment:
         """``token.dat`` load
 
         Returns:
-            ``None``: ``token.dat`` attribute에 추가
+            ``token.dat`` attribute에 추가
         """
         with open(os.path.join(self.path, "token.dat"), "rb") as file:
             data = pickle.load(file)
@@ -138,11 +137,11 @@ class KoreaInvestment:
         """주식 현재가 시세
 
         Args:
-            symbol (``str``): 종목 code
-            kor (``bool``): 국내 여부
+            symbol: 종목 code
+            kor: 국내 여부
 
         Returns:
-            ``dict[str, dict]``: 주식 현재가 시세
+            주식 현재가 시세
 
         Examples:
             >>> samsung = broker.get_price("005930")
@@ -165,10 +164,10 @@ class KoreaInvestment:
         """주식 현재가 시세 [v1_국내주식-008]
 
         Args:
-            symbol (``str``): 종목 code
+            symbol: 종목 code
 
         Returns:
-            ``dict[str, dict]``: 국내 주식 현재가 시세
+            국내 주식 현재가 시세
         """
         path = "uapi/domestic-stock/v1/quotations/inquire-price"
         url = f"{self.base_url}/{path}"
@@ -189,10 +188,10 @@ class KoreaInvestment:
         해외주식 시세는 무료시세(지연체결가)만이 제공되며, API로는 유료시세(실시간체결가)를 받아보실 수 없습니다.
 
         Args:
-            symbol (``str``): 종목 code
+            symbol: 종목 code
 
         Returns:
-            ``dict[str, dict]``: 해외 주식 현재가 시세
+            해외 주식 현재가 시세
         """
         path = "uapi/overseas-price/v1/quotations/price"
         url = f"{self.base_url}/{path}"
@@ -219,15 +218,15 @@ class KoreaInvestment:
         """종목 code에 따른 기간별 OHLCV (Open, High, Low, Close, Volume)
 
         Args:
-            symbol (``str``): 종목 code
-            time_frame (``str``): 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월, ``"Y"``: 년)
-            start_day (``str``): 조회 시작 일자 (``YYYYMMDD``)
-            end_day (``str``): 조회 종료 일자 (``YYYYMMDD``)
-            adj_price (``bool``): 수정 주가 반영 여부
-            kor (``bool``): 국내 여부
+            symbol: 종목 code
+            time_frame: 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월, ``"Y"``: 년)
+            start_day: 조회 시작 일자 (`YYYYMMDD`)
+            end_day: 조회 종료 일자 (`YYYYMMDD`)
+            adj_price: 수정 주가 반영 여부
+            kor: 국내 여부
 
         Returns:
-            ``dict[str, dict]``: OHLCV (Open, High, Low, Close, Volume)
+            OHLCV (Open, High, Low, Close, Volume)
 
         Examples:
             >>> broker.get_ohlcv("005930")
@@ -256,14 +255,14 @@ class KoreaInvestment:
         한 번의 호출에 최대 100건까지 확인 가능합니다.
 
         Args:
-            symbol (``str``): 종목 code
-            time_frame (``str``): 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월, ``"Y"``: 년)
-            start_day (``str``): 조회 시작 일자 (``YYYYMMDD``)
-            end_day (``str``): 조회 종료 일자 (``YYYYMMDD``)
-            adj_price (``bool``): 수정 주가 반영 여부
+            symbol: 종목 code
+            time_frame: 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월, ``"Y"``: 년)
+            start_day: 조회 시작 일자 (`YYYYMMDD`)
+            end_day: 조회 종료 일자 (`YYYYMMDD`)
+            adj_price: 수정 주가 반영 여부
 
         Returns:
-            ``dict[str, dict]``: 국내 주식의 기간별 시세
+            국내 주식의 기간별 시세
         """
         path = "uapi/domestic-stock/v1/quotations/inquire-daily-itemchartprice"
         url = f"{self.base_url}/{path}"
@@ -321,14 +320,14 @@ class KoreaInvestment:
         해외주식 시세는 무료시세 (지연체결가)만이 제공되며, API로는 유료시세 (실시간체결가)를 받아보실 수 없습니다.
 
         Args:
-            symbol (``str``): 종목 code
-            time_frame (``str``): 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월)
-            start_day (``str``): 조회 시작 일자 (``YYYYMMDD``)
-            end_day (``str``): 조회 종료 일자 (``YYYYMMDD``)
-            adj_price (``bool``): 수정 주가 반영 여부
+            symbol: 종목 code
+            time_frame: 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월)
+            start_day: 조회 시작 일자 (`YYYYMMDD`)
+            end_day: 조회 종료 일자 (`YYYYMMDD`)
+            adj_price: 수정 주가 반영 여부
 
         Returns:
-            ``dict[str, dict]``: 해외 주식의 기간별 시세
+            해외 주식의 기간별 시세
         """
         path = "uapi/overseas-price/v1/quotations/dailyprice"
         url = f"{self.base_url}/{path}"
@@ -368,13 +367,13 @@ class KoreaInvestment:
         return data
 
     def response2ohlcv(self, response: dict[str, dict]) -> tuple[str, pd.DataFrame]:
-        """``get_ohlcv`` 에 의한 응답을 ``pd.DataFrame`` 으로 변환
+        """`get_ohlcv` 에 의한 응답을 ``pd.DataFrame`` 으로 변환
 
         Args:
-            response (``dict[str, dict]``): ``get_ohlcv`` 의 출력
+            response: `get_ohlcv` 의 출력
 
         Returns:
-            ``tuple[str, pd.DataFrame]``: 종목의 이름과 OHLCV (Open, High, Low, Close, Volume)
+            종목의 이름과 OHLCV (Open, High, Low, Close, Volume)
 
         Examples:
             >>> samsung = broker.get_ohlcv("005930")
@@ -448,15 +447,15 @@ class KoreaInvestment:
         """여러 종목 code에 따른 기간별 OHLCV (Open, High, Low, Close, Volume)
 
         Args:
-            symbols (``list[str]``): 종목 code들
-            time_frame (``str``): 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월, ``"Y"``: 년)
-            start_day (``str``): 조회 시작 일자 (``YYYYMMDD``)
-            end_day (``str``): 조회 종료 일자 (``YYYYMMDD``)
-            adj_price (``bool``): 수정 주가 반영 여부
-            kor (``bool``): 국내 여부
+            symbols: 종목 code들
+            time_frame: 시간 window size (``"D"``: 일, ``"W"``: 주, ``"M"``: 월, ``"Y"``: 년)
+            start_day: 조회 시작 일자 (`YYYYMMDD`)
+            end_day: 조회 종료 일자 (`YYYYMMDD`)
+            adj_price: 수정 주가 반영 여부
+            kor: 국내 여부
 
         Returns:
-            ``tuple[list[str], list[pd.DataFrame]]``: Code들에 따른 종목의 이름과 OHLCV (Open, High, Low, Close, Volume)
+            Code들에 따른 종목의 이름과 OHLCV (Open, High, Low, Close, Volume)
 
         Examples:
             >>> broker.get_ohlcvs(["005930", "035420"], start_day="20221205")
@@ -490,10 +489,10 @@ class KoreaInvestment:
         """주식 계좌 잔고 조회
 
         Args:
-            kor (``bool``): 국내 여부
+            kor: 국내 여부
 
         Returns:
-            ``dict[str, dict]``: 계좌 내역
+            계좌 내역
 
         Examples:
             >>> balance = broker.get_balance()
@@ -541,11 +540,11 @@ class KoreaInvestment:
         실전계좌의 경우, 한 번의 호출에 최대 50건까지 확인 가능하며, 이후의 값은 연속조회를 통해 확인하실 수 있습니다.
 
         Args:
-            ctx_area_fk100 (``str``): 연속조회검색조건100
-            ctx_areak_nk100 (``str``): 연속조회키100
+            ctx_area_fk100: 연속조회검색조건100
+            ctx_areak_nk100: 연속조회키100
 
         Returns:
-            ``dict[str, dict]``: 잔고 조회 결과
+            잔고 조회 결과
         """
         path = "uapi/domestic-stock/v1/trading/inquire-balance"
         url = f"{self.base_url}/{path}"
@@ -582,11 +581,11 @@ class KoreaInvestment:
     #     실전계좌의 경우, 한 번의 호출에 최대 100건까지 확인 가능하며, 이후의 값은 연속조회를 통해 확인하실 수 있습니다.
     #
     #     Args:
-    #         ctx_area_fk200 (``str``): 연속조회검색조건200
-    #         ctx_area_nk200 (``str``): 연속조회키200
+    #         ctx_area_fk200: 연속조회검색조건200
+    #         ctx_area_nk200: 연속조회키200
     #
     #     Returns:
-    #         ``dict[str, dict]``: 잔고 조회 결과
+    #         잔고 조회 결과
     #     """
     #     path = "uapi/overseas-stock/v1/trading/inquire-balance"
     #     url = f"{self.base_url}/{path}"
@@ -614,7 +613,7 @@ class KoreaInvestment:
         """해외 주식 체결기준현재잔고[v1_해외주식-008]
 
         Returns:
-            ``dict[str, dict]``: 잔고 조회 결과
+            잔고 조회 결과
         """
         path = "uapi/overseas-stock/v1/trading/inquire-present-balance"
         url = f"{self.base_url}/{path}"
@@ -641,7 +640,7 @@ class KoreaInvestment:
         """주식 계좌 잔고의 국내 실현손익 조회
 
         Returns:
-            ``dict[str, dict]``: 잔고 실현손익 조회 결과
+            잔고 실현손익 조회 결과
 
         Examples:
             >>> conclusion = broker.get_conclusion()
@@ -664,11 +663,11 @@ class KoreaInvestment:
         """주식 잔고 조회 실현손익 [v1_국내주식-041]
 
         Args:
-            ctx_area_fk100 (``str``): 연속조회검색조건100
-            ctx_areak_nk100 (``str``): 연속조회키100
+            ctx_area_fk100: 연속조회검색조건100
+            ctx_areak_nk100: 연속조회키100
 
         Returns:
-            ``dict[str, dict]``: 잔고 실현손익 조회 결과
+            잔고 실현손익 조회 결과
         """
         path = "uapi/domestic-stock/v1/trading/inquire-balance-rlz-pl"
         url = f"{self.base_url}/{path}"

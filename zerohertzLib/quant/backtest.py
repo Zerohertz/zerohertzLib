@@ -42,17 +42,17 @@ def backtest(
     threshold: int | tuple[int, int] = 1,
     signal_key: str = "signals",
 ) -> dict[str, Any]:
-    """전략에 의해 생성된 ``signals`` backtest
+    """전략에 의해 생성된 `signals` backtest
 
     Args:
-        data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
-        signals (``pd.DataFrame``): ``"signals"`` column이 포함된 data (다른 이름으로 지정했을 시 ``signal_key`` 사용)
-        ohlc (``str``): 사용할 ``data`` 의 column 이름
-        threshold (``int | tuple[int, int]``): 매수, 매도를 결정할 ``signals`` 경계값
-        signal_key (``str``): ``"signals"`` 의 key 값
+        data: OHLCV (Open, High, Low, Close, Volume) data
+        signals: ``"signals"`` column이 포함된 data (다른 이름으로 지정했을 시 `signal_key` 사용)
+        ohlc: 사용할 `data` 의 column 이름
+        threshold: 매수, 매도를 결정할 `signals` 경계값
+        signal_key: ``"signals"`` 의 key 값
 
     Returns:
-        ``dict[str, Any]``: 총 수익률 (단위: %), 손실 거래 비율 (단위: %), 손실 거래 비율에 따른 수익률, 거래 정보 (매수가, 매도가, 수익률, 거래 기간), 총 매수, 총 매도
+        %), 손실 거래 비율 (단위: %), 손실 거래 비율에 따른 수익률, 거래 정보 (매수가, 매도가, 수익률, 거래 기간), 총 매수, 총 매도
 
     Examples:
         >>> results = zz.quant.backtest(data, signals)
@@ -61,7 +61,7 @@ def backtest(
         >>> results["transaction"].keys()
         dict_keys(['buy', 'sell', 'profit', 'period'])
     """
-    if isinstance(threshold, int):
+    if isinstance:
         threshold_sell, threshold_buy = -threshold, threshold
     else:
         threshold_sell, threshold_buy = threshold
@@ -160,17 +160,17 @@ def experiments(
     """Full factorial design 기반의 backtest 수행 function
 
     Args:
-        title (``str``): 종목 이름
-        data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
-        method (``Callable[[Any], pd.DataFrame]``): Full factorial을 수행할 전략 function
-        exps (``list[list[Any]]``): 전략 function에 입력될 변수들의 범위
-        ohlc (``str``): 사용할 ``data`` 의 column 이름
-        vis (``bool``): Candle chart 시각화 여부
-        dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
-        report (``bool``): Experiment 결과 출력 여부
+        title: 종목 이름
+        data: OHLCV (Open, High, Low, Close, Volume) data
+        method: Full factorial을 수행할 전략 function
+        exps: 전략 function에 입력될 변수들의 범위
+        ohlc: 사용할 `data` 의 column 이름
+        vis: Candle chart 시각화 여부
+        dpi: Graph 저장 시 DPI (Dots Per Inch)
+        report: Experiment 결과 출력 여부
 
     Returns:
-        ``dict[str, list[Any]]``: 손실 거래 비율에 따른 수익률, ``signals``, parameters
+        손실 거래 비율에 따른 수익률, ``signals, parameters
 
     Examples:
         >>> exps = [[10, 20, 25, 30], [70, 75, 80, 85, 90], [14, 21, 31]]
@@ -205,7 +205,7 @@ def experiments(
         reports.align["EXP"] = "l"
         reports.align["PROFIT"] = "r"
         reports.align["LOSS RATIO"] = "r"
-    for exp in product(*exps):
+    for exp in product:
         signals = method(data, *exp, ohlc=ohlc)
         backtest_results = backtest(data, signals, ohlc=ohlc)
         exp_str = "-".join(list(map(str, exp)))
@@ -276,11 +276,11 @@ class Experiments:
     """Full factorial design 기반의 backtest 수행 class
 
     Args:
-        title (``str``): 종목 이름
-        data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
-        ohlc (``str``): 사용할 ``data`` 의 column 이름
-        vis (``bool``): Candle chart 시각화 여부
-        report (``bool``): Experiment 결과 출력 여부
+        title: 종목 이름
+        data: OHLCV (Open, High, Low, Close, Volume) data
+        ohlc: 사용할 ``data 의 column 이름
+        vis: Candle chart 시각화 여부
+        report: Experiment 결과 출력 여부
 
     Examples:
         >>> experiments = zz.quant.Experiments(title, data)
@@ -326,10 +326,10 @@ class Experiments:
         """Moving average 전략 실험
 
         Args:
-            exps (``list[list[Any]] | None``): 전략 function에 입력될 변수들의 범위
+            exps: 전략 function에 입력될 변수들의 범위
 
         Returns:
-            ``dict[str, list[Any]]``: 손실 거래 비율에 따른 수익률, ``signals``, parameters
+            손실 거래 비율에 따른 수익률, ``signals, parameters
         """
         if exps is None:
             exps = self.exps_moving_average
@@ -339,10 +339,10 @@ class Experiments:
         """RSI 전략 실험
 
         Args:
-            exps (``list[list[Any]] | None``): 전략 function에 입력될 변수들의 범위
+            exps: 전략 function에 입력될 변수들의 범위
 
         Returns:
-            ``dict[str, list[Any]]``: 손실 거래 비율에 따른 수익률, ``signals``, parameters
+            손실 거래 비율에 따른 수익률, ``signals, parameters
         """
         if exps is None:
             exps = self.exps_rsi
@@ -354,10 +354,10 @@ class Experiments:
         """Bollinger bands 전략 실험
 
         Args:
-            exps (``list[list[Any]] | None``): 전략 function에 입력될 변수들의 범위
+            exps: 전략 function에 입력될 변수들의 범위
 
         Returns:
-            ``dict[str, list[Any]]``: 손실 거래 비율에 따른 수익률, ``signals``, parameters
+            손실 거래 비율에 따른 수익률, ``signals, parameters
         """
         if exps is None:
             exps = self.exps_bollinger_bands
@@ -367,10 +367,10 @@ class Experiments:
         """Momentum 전략 실험
 
         Args:
-            exps (``list[list[Any]] | None``): 전략 function에 입력될 변수들의 범위
+            exps: 전략 function에 입력될 변수들의 범위
 
         Returns:
-            ``dict[str, list[Any]]``: 손실 거래 비율에 따른 수익률, ``signals``, parameters
+            손실 거래 비율에 따른 수익률, ``signals, parameters
         """
         if exps is None:
             exps = self.exps_momentum
@@ -380,10 +380,10 @@ class Experiments:
         """MACD 전략 실험
 
         Args:
-            exps (``list[list[Any]] | None``): 전략 function에 입력될 변수들의 범위
+            exps: 전략 function에 입력될 변수들의 범위
 
         Returns:
-            ``dict[str, list[Any]]``: 손실 거래 비율에 따른 수익률, ``signals``, parameters
+            손실 거래 비율에 따른 수익률, `signals`, parameters
         """
         if exps is None:
             exps = self.exps_macd

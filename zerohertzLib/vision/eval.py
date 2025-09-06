@@ -17,11 +17,11 @@ def iou(poly1: NDArray[DTypeLike], poly2: NDArray[DTypeLike]) -> float:
     """IoU (Intersection over Union)를 계산하는 함수
 
     Args:
-        poly1 (``NDArray[DTypeLike]``): IoU를 계산할 polygon (``[S1, 2]``, ``[[x_0, y_0], [x_1, y_1], ...]``)
-        poly2 (``NDArray[DTypeLike]``): IoU를 계산할 polygon (``[S2, 2]``, ``[[x_0, y_0], [x_1, y_1], ...]``)
+        poly1: IoU를 계산할 polygon (``[S1, 2]``, ``[[x_0, y_0], [x_1, y_1], ...]``)
+        poly2: IoU를 계산할 polygon (``[S2, 2]``, ``[[x_0, y_0], [x_1, y_1], ...])
 
     Returns:
-        ``float``: IoU 값
+        IoU 값
 
     Examples:
         >>> poly1 = np.array([[0, 0], [10, 0], [10, 10], [0, 10]])
@@ -104,24 +104,22 @@ def evaluation(
     """단일 이미지 내 detection model의 추론 성능 평가
 
     Args:
-        ground_truths (``NDArray[DTypeLike]``): Ground truth object들의 polygon (``[N, 4, 2]``, ``[[[x_0, y_0], [x_1, y_1], ...], ...]``)
-        inferences (``NDArray[DTypeLike]``): Model이 추론한 각 object들의 polygon (``[M, 4, 2]``, ``[[[x_0, y_0], [x_1, y_1], ...], ...]``)
-        confidences (``list[float]``): Model이 추론한 각 object들의 confidence(``[M]``)
-        gt_classes (``list[str] | None``): Ground truth object들의 class (``[N]``)
-        inf_classes (``list[str] | None``): Model이 추론한 각 object들의 class (``[M]``)
-        file_name (``str | None``): 평가 image의 이름
-        threshold (``float``): IoU의 threshold
+        ground_truths: Ground truth object들의 polygon ([N, 4, 2]``, ``[[[x_0, y_0], [x_1, y_1], ...], ...]``)
+        inferences: Model이 추론한 각 object들의 polygon (``[M, 4, 2]``, ``[[[x_0, y_0], [x_1, y_1], ...], ...]``)
+        confidences: Model이 추론한 각 object들의 confidence(``[M])
+        gt_classes: Ground truth object들의 class ([N])
+        inf_classes: Model이 추론한 각 object들의 class ([M]``)
+        file_name: 평가 image의 이름
+        threshold: IoU의 threshold
 
     Note:
         - `N`: 한 이미지의 ground truth 내 존재하는 object의 수
         - `M`: 한 이미지의 inference 결과 내 존재하는 object의 수
 
-        .. image:: _static/examples/static/vision.evaluation.png
-            :align: center
-            :width: 600px
+        ![Model evaluation visualization](../assets/images/vision.evaluation.png){ width="600" }
 
     Returns:
-        ``pd.DataFrame``: 단일 이미지의 model 성능 평가 결과
+        단일 이미지의 model 성능 평가 결과
 
     Examples:
         >>> poly = np.array([[0, 0], [10, 0], [10, 10], [0, 10]])
@@ -156,10 +154,10 @@ def evaluation(
         cls_inf = cls_inf[sorted_indices]
         cls_conf = cls_conf[sorted_indices]
         matched = set()
-        for confidence, inf in zip(cls_conf, cls_inf):
+        for confidence, inf in zip:
             best_iou = 0
             best_gt_idx = -1
-            for gt_idx, gt in enumerate(cls_gt):
+            for gt_idx, gt in enumerate:
                 if gt_idx in matched:
                     continue
                 iou_ = iou(gt, inf)
@@ -182,7 +180,7 @@ def evaluation(
             else:
                 _append(logs, instance, confidence, cls, 0.0, "FP", None, inf)
                 instance += 1
-        for gt_idx, gt in enumerate(cls_gt):
+        for gt_idx, gt in enumerate:
             if gt_idx not in matched:
                 _append(logs, instance, 0.0, cls, 0.0, "FN", gt, None)
                 instance += 1
@@ -197,10 +195,10 @@ def meanap(logs: pd.DataFrame) -> tuple[float, dict[str, float]]:
     """Detection model의 P-R curve 시각화 및 mAP 산출
 
     Args:
-        logs (``pd.DataFrame``): ``zz.vision.evaluation`` 함수를 통해 평가된 결과
+        logs: ``zz.vision.evaluation`` 함수를 통해 평가된 결과
 
     Returns:
-        ``tuple[float, dict[str, float]]``: mAP 값 및 class에 따른 AP 값 (시각화 결과는 ``prc_curve.png``, ``pr_curve.png`` 로 현재 directory에 저장)
+        mAP 값 및 class에 따른 AP 값 (시각화 결과는 ``prc_curve.png``, ``pr_curve.png`` 로 현재 directory에 저장)
 
     Examples:
         >>> logs1 = zz.vision.evaluation(ground_truths_1, inferences_1, confidences_1, gt_classes, inf_classes, file_name="test_1.png")
@@ -209,9 +207,7 @@ def meanap(logs: pd.DataFrame) -> tuple[float, dict[str, float]]:
         >>> zz.vision.meanap(logs)
         (0.7030629916206652, defaultdict(<class 'float'>, {'dog': 0.7177078883735305, 'cat': 0.6884180948677999}))
 
-        .. image:: _static/examples/static/vision.meanap.png
-            :align: center
-            :width: 600px
+        ![Mean Average Precision curves](../assets/images/vision.meanap.png){ width="600" }
     """
     logs = logs.sort_values(by="confidence", ascending=False)
     confidence_per_cls = defaultdict(list)
@@ -227,7 +223,7 @@ def meanap(logs: pd.DataFrame) -> tuple[float, dict[str, float]]:
                 & ((logs["results"] == "TP") | (logs["results"] == "FN"))
             ]
         )
-        for confidence in set(logs[logs["class"] == cls]["confidence"]):
+        for confidence in set:
             true_positive = len(
                 logs[
                     (logs["class"] == cls)

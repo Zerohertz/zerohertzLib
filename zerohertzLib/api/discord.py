@@ -5,14 +5,12 @@ import json
 
 import requests
 
-from zerohertzLib.api.base import AbstractBot, AbstractWebhook
 
-
-class DiscordWebhook(AbstractWebhook):
+class DiscordWebhook:
     """Discord Webhook의 data 전송을 위한 class
 
     Args:
-        webhook_url (``str``): Discord Webhook의 URL
+        webhook_url: Discord Webhook의 URL
 
     Examples:
         >>> discord = zz.api.DiscordWebhook("https://discord.com/api/webhooks/...")
@@ -25,11 +23,11 @@ class DiscordWebhook(AbstractWebhook):
         """Discord Webhook을 통해 message 전송
 
         Args:
-            message (``str``): 전송할 message
-            codeblock (``str | bool``): 전송되는 message의 스타일
+            message: 전송할 message
+            codeblock: 전송되는 message의 스타일
 
         Returns:
-            ``requests.Response``: Discord Webhook의 응답
+            Discord Webhook의 응답
 
         Examples:
             >>> discord = zz.api.DiscordWebhook("https://discord.com/api/webhooks/...")
@@ -47,10 +45,10 @@ class DiscordWebhook(AbstractWebhook):
         """Discord Webhook을 통해 file 전송
 
         Args:
-            path (``str``): 전송할 file 경로
+            path: 전송할 file 경로
 
         Returns:
-            ``requests.Response``: Discord Webhook의 응답
+            Discord Webhook의 응답
 
         Examples:
             >>> discord = zz.api.DiscordWebhook("https://discord.com/api/webhooks/...")
@@ -65,13 +63,13 @@ class DiscordWebhook(AbstractWebhook):
         return response
 
 
-class DiscordBot(AbstractBot[requests.Response]):
+class DiscordBot:
     """Discord Bot의 data 전송을 위한 class
 
     Args:
-        token (``str``): Discord Bot 토큰
-        channel (``str``): Discord Bot이 전송할 channel
-        timeout (``int``): API 요청 시 사용될 timeout
+        token: Discord Bot 토큰
+        channel: Discord Bot이 전송할 channel
+        timeout: API 요청 시 사용될 timeout
 
     Examples:
         >>> discord = zz.api.DiscordBot("YOUR_BOT_TOKEN", "1234567890")
@@ -96,12 +94,12 @@ class DiscordBot(AbstractBot[requests.Response]):
         """Discord Bot을 통해 message 전송
 
         Args:
-            message (``str``): 전송할 message
-            codeblock (``str | bool``): 전송되는 message의 스타일
-            thread_id (``str | None``): 댓글을 전송할 thread의 ID
+            message: 전송할 message
+            codeblock: 전송되는 message의 스타일
+            thread_id: 댓글을 전송할 thread의 ID
 
         Returns:
-            ``requests.Response``: Discord Bot의 응답
+            Discord Bot의 응답
 
         Examples:
             >>> response = discord.message("test")
@@ -125,11 +123,11 @@ class DiscordBot(AbstractBot[requests.Response]):
         """Discord Bot 응답에서 스레드를 생성하고 thread ID 반환
 
         Args:
-            response (``requests.Response``): Thread를 생성할 메시지 response
+            response: Thread를 생성할 메시지 response
             **kwargs: 추가 매개변수 (name 포함 가능)
 
         Returns:
-            ``str``: 생성된 thread ID
+            생성된 thread ID
 
         Examples:
             >>> response = discord.message("test")
@@ -153,11 +151,11 @@ class DiscordBot(AbstractBot[requests.Response]):
         """Discord Bot을 통해 file 전송
 
         Args:
-            path (``str``): 전송할 file 경로
-            thread_id (``str | None``): 댓글을 전송할 thread의 ID
+            path: 전송할 file 경로
+            thread_id: 댓글을 전송할 thread의 ID
 
         Returns:
-            ``requests.Response``: Discord Bot의 응답
+            Discord Bot의 응답
 
         Examples:
             >>> response = discord.file("test.jpg")

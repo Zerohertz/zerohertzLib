@@ -11,10 +11,10 @@ def _cvt_bgra(img: NDArray[np.uint8]) -> NDArray[np.uint8]:
     """cv2로 읽어온 image를 BGRA 채널로 전환
 
     Args:
-        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
+        img: 입력 image (``[H, W, C]``)
 
     Returns:
-        ``NDArray[np.uint8]``: BGRA image (``[H, W, 4]``)
+        BGRA image (``[H, W, 4]``)
     """
     shape = img.shape
     if len(shape) == 2:
@@ -28,10 +28,10 @@ def _is_bbox(shape: tuple[int, ...]) -> tuple[bool, bool]:
     """Bbox 여부 검증
 
     Args:
-        shape (``tuple[int, ...]``): Bbox의 `shape`
+        shape: Bbox의 `shape`
 
     Returns:
-        ``tuple[bool, bool]``: 복수의 bbox 여부 및 format의 정보
+        복수의 bbox 여부 및 format의 정보
     """
     if len(shape) == 1 and shape[0] == 4:
         # [cx, cy, w, h] or N * [x0, y0, x1, y1]
@@ -65,11 +65,11 @@ def is_pts_in_poly(
     """지점들의 좌표 내 존재 여부 확인 함수
 
     Args:
-        poly (``NDArray[DTypeLike]``): 다각형 (``[N, 2]``)
-        pts (``list[int | float] | NDArray[DTypeLike]``): point (``[2]`` or ``[N, 2]``)
+        poly: 다각형 (``[N, 2]``)
+        pts: point (``[2]`` or ``[N, 2]``)
 
     Returns:
-        ``bool | NDArray[bool]``: 입력 ``point`` 의 다각형 ``poly`` 내부 존재 여부
+        입력 `point` 의 다각형 `poly` 내부 존재 여부
 
     Examples:
         >>> poly = np.array([[10, 10], [20, 10], [30, 40], [20, 60], [10, 20]])
@@ -83,11 +83,11 @@ def is_pts_in_poly(
         array([ True, False])
     """
     poly = Path(poly)
-    if isinstance(pts, list):
-        if isinstance(pts[0], list):
+    if isinstance:
+        if isinstance:
             return poly.contains_points(pts)
         return poly.contains_point(pts)
-    if isinstance(pts, np.ndarray):
+    if isinstance:
         shape = pts.shape
         if len(shape) == 1:
             return poly.contains_point(pts)

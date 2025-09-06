@@ -27,21 +27,19 @@ def gpu_usages(
     """시간에 따른 GPU의 사용량을 각 GPU에 따라 line chart로 시각화
 
     Args:
-        tick (``int``): Update 주기
-        threshold (``int``): 시각화할 총 시간
-        grep (``list[int] | None``): 시각화할 GPU의 번호
-        path (``str``): Graph를 저장할 경로
-        dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
+        tick: Update 주기
+        threshold: 시각화할 총 시간
+        grep: 시각화할 GPU의 번호
+        path: Graph를 저장할 경로
+        dpi: Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
-        ``None``: 지정한 경로에 바로 graph 저장
+        지정한 경로에 바로 graph 저장
 
     Examples:
         >>> zz.monitoring.gpu_usages(threshold=15)
 
-        .. image:: _static/examples/static/monitoring.gpu_usages.png
-            :align: center
-            :width: 600px
+        ![GPU usage monitoring example](../assets/images/monitoring.gpu_usages.png){ width="600" }
     """
     tmp = 0
     time_list = []
@@ -96,21 +94,19 @@ def gpu_memory(
     """시간에 따른 GPU의 memory 사용량을 각 GPU에 따라 line chart로 시각화
 
     Args:
-        tick (``int``): Update 주기
-        threshold (``int``): 시각화할 총 시간
-        grep (``list[int] | None``): 시각화할 GPU의 번호
-        path (``str``): Graph를 저장할 경로
-        dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
+        tick: Update 주기
+        threshold: 시각화할 총 시간
+        grep: 시각화할 GPU의 번호
+        path: Graph를 저장할 경로
+        dpi: Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
-        ``None``: 지정한 경로에 바로 graph 저장
+        지정한 경로에 바로 graph 저장
 
     Examples:
         >>> zz.monitoring.gpu_memory(threshold=15)
 
-        .. image:: _static/examples/static/monitoring.gpu_memory.png
-            :align: center
-            :width: 600px
+        ![GPU memory monitoring example](../assets/images/monitoring.gpu_memory.png){ width="600" }
     """
     tmp = 0
     time_list = []

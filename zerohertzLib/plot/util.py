@@ -17,10 +17,10 @@ def figure(figsize: tuple[int, int] = (15, 10)) -> Figure:
     """Graph 생성을 위한 함수
 
     Args:
-        figsize (``tuple[int, int]``): Graph의 가로, 세로 길이
+        figsize: Graph의 가로, 세로 길이
 
     Returns:
-        ``matplotlib.figure.Figure``: Graph window 생성
+        Graph window 생성
 
     Examples:
         >>> zz.plot.figure()
@@ -37,12 +37,12 @@ def subplot(*args, **kwargs) -> Axes:
     """Subplot 생성을 위한 함수
 
     Args:
-        nrows (``int``): Subplot grid의 행 개수
-        ncols (``int``): Subplot grid의 열 개수
-        index (``int``): Grid에서 subplot의 위치를 지정하는 index
+        nrows: Subplot grid의 행 개수
+        ncols: Subplot grid의 열 개수
+        index: Grid에서 subplot의 위치를 지정하는 index
 
     Returns:
-        ``matplotlib.axes.Axes``: Subplot axes 생성
+        Subplot axes 생성
 
     Examples:
         >>> zz.plot.subplot(nrows, ncols, index, **kwargs)
@@ -56,11 +56,11 @@ def savefig(title: str, dpi: int = 300) -> str:
     """Graph 저장 함수
 
     Args:
-        title (``str``): Graph file 이름
-        dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
+        title: Graph file 이름
+        dpi: Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
-        ``str``: 저장된 graph의 절대 경로
+        저장된 graph의 절대 경로
 
     Examples:
         >>> zz.plot.savefig("Star Craft")
@@ -90,13 +90,13 @@ def color(
     """색 추출 함수
 
     Args:
-        cnt (``int``): 추출할 색의 수
-        rand (``bool``): Random 추출 여부
-        uint8 (``bool``): 출력 색상의 type
-        palette (``str``): 추출할 색들의 palette
+        cnt: 추출할 색의 수
+        rand: Random 추출 여부
+        uint8: 출력 색상의 type
+        palette: 추출할 색들의 palette
 
     Returns:
-        ``tuple[float, float, float] | list[int] | list[tuple[float, float, float]] | list[list[int]]``: 단일 색 또는 list로 구성된 여러 색
+        단일 색 또는 list로 구성된 여러 색
 
     Examples:
         >>> zz.plot.color()
@@ -134,8 +134,8 @@ def color(
 
 
 def _color(data: Any, colors: Any) -> list[tuple[float, float, float] | str]:
-    if isinstance(colors, list):
-        if len(data) > len(colors):
+    if isinstance:
+        if len(data) > len:
             return colors + ["black" for _ in range(len(data) - len(colors))]
         return colors
     if colors is None:

@@ -23,18 +23,16 @@ def storage(path: str = ".", threshold: int = 1) -> str:
     """지정한 경로에 존재하는 file에 따른 용량을 pie graph로 시각화
 
     Args:
-        path (``str``): 용량을 시각화할 경로
-        threshold (``int``): Etc.로 분류될 임계값 (단위: %)
+        path: 용량을 시각화할 경로
+        threshold: Etc.로 분류될 임계값 (단위: %)
 
     Returns:
-        ``str``: 저장된 graph의 절대 경로
+        저장된 graph의 절대 경로
 
     Examples:
         >>> zz.monitoring.storage(".")
 
-        .. image:: _static/examples/dynamic/monitoring.storage.png
-            :align: center
-            :width: 600px
+        ![Storage monitoring example](../assets/images/monitoring.storage.png){ width="600" }
     """
     sizes = {}
     for file_name in os.listdir(path):

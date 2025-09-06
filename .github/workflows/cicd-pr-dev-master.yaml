@@ -33,12 +33,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: [check-commit]
     # [`master` PR] "Merge pull request*/docs"
-    # [`master` PR] "Merge pull request*[Docs] Build by Sphinx for GitHub Pages"
+    # [`master` PR] "Merge pull request*[Docs] Build by MkDocs for GitHub Pages"
     steps:
       - name: Check commit message and set status
         run: |
           COMMIT_MESSAGE="${{ needs.check-commit.outputs.commit-message }}"
-          if [[ "$COMMIT_MESSAGE" == Merge\ pull\ request* && ( "$COMMIT_MESSAGE" == *docs* || "$COMMIT_MESSAGE" == *'[Docs] Build by Sphinx for GitHub Pages'* ) ]]; then
+          if [[ "$COMMIT_MESSAGE" == Merge\ pull\ request* && ( "$COMMIT_MESSAGE" == *docs* || "$COMMIT_MESSAGE" == *'[Docs] Build by MkDocs for GitHub Pages'* ) ]]; then
             echo "Commit message meets the criteria."
           else
             echo "Commit message does not meet the criteria."
@@ -51,11 +51,11 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.10", "3.11", "3.12", "3.13"]
-    # [`master` PR] (Except "Merge pull request*/docs" && "Merge pull request*[Docs] Build by Sphinx for GitHub Pages")
+    # [`master` PR] (Except "Merge pull request*/docs" && "Merge pull request*[Docs] Build by MkDocs for GitHub Pages")
     if: |
       !(startsWith(needs.check-commit.outputs.commit-message, 'Merge pull request') &&
       (contains(needs.check-commit.outputs.commit-message, 'docs') ||
-      contains(needs.check-commit.outputs.commit-message, '[Docs] Build by Sphinx for GitHub Pages')))
+      contains(needs.check-commit.outputs.commit-message, '[Docs] Build by MkDocs for GitHub Pages')))
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -204,16 +204,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           source venv/bin/activate
-          sudo apt update
-          sudo apt install build-essential -y
           pip install -r requirements/requirements-docs.txt
-          python sphinx/release_note.py --token ${GH_TOKEN}
-          python sphinx/example_images.py
-          cd sphinx && make html
-          cd ..
-          rm -rf docs
-          mv sphinx/build/html docs
-          touch docs/.nojekyll
+          python scripts/gen_ref_pages.py
+          mkdocs build
 
       - name: Commit and push on docs branch
         env:
@@ -231,12 +224,11 @@ jobs:
             git add zerohertzLib/__init__.py
             git commit -m ":hammer: update: version (#${{ github.event.pull_request.number }})"
           fi
-          git add docs
-          git add sphinx/source
-          git commit -m ':memo: docs: build sphinx (#${{ github.event.pull_request.number }})'
+          git add site
+          git commit -m ':memo: docs: build mkdocs (#${{ github.event.pull_request.number }})'
           git push origin docs
           echo '{
-            "title": "[Docs] Build by Sphinx for GitHub Pages",
+            "title": "[Docs] Build by MkDocs for GitHub Pages",
             "head": "docs",
             "base": "${{ github.head_ref }}",
             "body": "#${{ github.event.pull_request.number }} (Build: ${{ github.sha }})"

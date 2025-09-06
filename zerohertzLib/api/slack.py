@@ -7,27 +7,23 @@ import requests
 from slack_sdk import WebClient
 from slack_sdk.web import SlackResponse
 
-from zerohertzLib.api.base import AbstractBot, AbstractWebhook
 
-
-class SlackWebhook(AbstractWebhook):
+class SlackWebhook:
     """Slack Webhook의 data 전송을 위한 class
 
     Args:
-        webhook_url (``str``): Slack Webhook의 URL
-        channel (``str``): Slack Webhook이 전송할 channel
-        name (``str``): Slack Webhook의 표시될 이름
-        icon_emoji (``str``): Slack Webhook의 표시될 사진 (emoji)
-        icon_url (``str``): Slack Webhook의 표시될 사진 (photo)
-        timeout (``int``): ``message``, ``file`` method 사용 시 사용될 timeout
+        webhook_url: Slack Webhook의 URL
+        channel: Slack Webhook이 전송할 channel
+        name: Slack Webhook의 표시될 이름
+        icon_emoji: Slack Webhook의 표시될 사진 (emoji)
+        icon_url: Slack Webhook의 표시될 사진 (photo)
+        timeout: `message`, ``file method 사용 시 사용될 timeout
 
     Examples:
         >>> slack = zz.api.SlackWebhook("https://hooks.slack.com/services/...")
         >>> slack = zz.api.SlackWebhook("https://hooks.slack.com/services/...", name="TEST", icon_emoji="ghost")
 
-        .. image:: _static/examples/static/api.SlackWebhook.png
-            :align: center
-            :width: 300px
+        ![Slack Webhook example](../assets/images/api.SlackWebhook.png){ width="300" }
     """
 
     def __init__(
@@ -56,18 +52,18 @@ class SlackWebhook(AbstractWebhook):
         """Slack Webhook을 통해 message 전송
 
         Args:
-            message (``str``): 전송할 message
-            codeblock (``str | bool``): 전송되는 message의 스타일
+            message: 전송할 message
+            codeblock: 전송되는 message의 스타일
 
         Returns:
-            ``requests.Response``: Slack Webhook의 응답
+            Slack Webhook의 응답
 
         Examples:
             >>> slack.message("test")
             <Response [200]>
         """
         if codeblock:
-            message = f"```{message}```"
+            message = f"``{message}``"
         self.data["text"] = message
         return requests.post(
             self.webhook_url,
@@ -85,7 +81,7 @@ class SlackWebhook(AbstractWebhook):
             File upload가 필요한 경우 SlackBot을 사용
 
         Args:
-            path (``str``): 전송할 file 경로
+            path: 전송할 file 경로
 
         Raises:
             NotImplementedError: Slack Webhook은 File upload를 지원하지 않음
@@ -95,20 +91,18 @@ class SlackWebhook(AbstractWebhook):
         )
 
 
-class SlackBot(AbstractBot[SlackResponse]):
+class SlackBot:
     """Slack Bot의 data 전송을 위한 class
 
-    .. image:: _static/examples/static/api.SlackBot.scope.png
-        :align: center
-        :width: 300px
+    ![Slack Bot scope setup](../assets/images/api.SlackBot.scope.png){ width="300" }
 
     Args:
-        token (``str``): Slack Bot의 token
-        channel (``str``): Slack Bot이 전송할 channel
-        timeout (``int``): ``message``, ``file`` method 사용 시 사용될 timeout
-        name (``str``): Slack Bot에 표시될 이름
-        icon_emoji (``str``): Slack Bot에 표시될 사진 (emoji)
-        icon_url (``str``): Slack Bot에 표시될 사진 (photo)
+        token: Slack Bot의 token
+        channel: Slack Bot이 전송할 channel
+        timeout: `message`, ``file method 사용 시 사용될 timeout
+        name: Slack Bot에 표시될 이름
+        icon_emoji: Slack Bot에 표시될 사진 (emoji)
+        icon_url: Slack Bot에 표시될 사진 (photo)
 
     Examples:
         >>> slack = zz.api.SlackBot("xoxb-...", "test")
@@ -116,9 +110,7 @@ class SlackBot(AbstractBot[SlackResponse]):
         >>> slack = zz.api.SlackBot("xoxb-...", "test", icon_emoji="sparkles")
         >>> slack = zz.api.SlackBot("xoxb-...", "test", name="zerohertzLib", icon_url="https://github-production-user-asset-6210df.s3.amazonaws.com/42334717/284166558-0ba4b755-39cc-48ee-ba3b-5c02f54c4ca7.png")
 
-        .. image:: _static/examples/static/api.SlackBot.png
-            :align: center
-            :width: 300px
+        ![Slack Bot example](../assets/images/api.SlackBot.png){ width="300" }
     """
 
     def __init__(
@@ -157,12 +149,12 @@ class SlackBot(AbstractBot[SlackResponse]):
         """Slack Bot을 통해 message 전송
 
         Args:
-            message (``str``): 전송할 message
-            codeblock (``str | bool``): 전송되는 message의 스타일
-            thread_id (``str | None``): 댓글을 전송할 thread의 timestamp
+            message: 전송할 message
+            codeblock: 전송되는 message의 스타일
+            thread_id: 댓글을 전송할 thread의 timestamp
 
         Returns:
-            ``slack_sdk.web.slack_response.SlackResponse``: Slack Bot의 응답
+            Slack Bot의 응답
 
         Examples:
             >>> response = slack.message("test")
@@ -184,11 +176,11 @@ class SlackBot(AbstractBot[SlackResponse]):
         """Slack Bot 응답에서 thread ID 추출
 
         Args:
-            response (``SlackResponse``): Slack Bot의 응답
+            response: Slack Bot의 응답
             **kwargs: 추가 매개변수 (사용되지 않음)
 
         Returns:
-            ``str``: Thread ID (timestamp)
+            Thread ID (timestamp)
 
         Examples:
             >>> response = slack.message("test")
@@ -202,14 +194,14 @@ class SlackBot(AbstractBot[SlackResponse]):
         """Slack Bot을 통해 file 전송
 
         Note:
-            ``name`` 과 ``icon_*`` 의 적용 불가
+            name`` 과 ``icon_* 의 적용 불가
 
         Args:
-            path (``str``): 전송할 file 경로
-            thread_id (``str | None``): 댓글을 전송할 thread의 timestamp
+            path: 전송할 file 경로
+            thread_id: 댓글을 전송할 thread의 timestamp
 
         Returns:
-            ``slack_sdk.web.slack_response.SlackResponse``: Slack Bot의 응답
+            Slack Bot의 응답
 
         Examples:
             >>> response = slack.file("test.jpg")

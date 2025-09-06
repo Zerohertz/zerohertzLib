@@ -2,13 +2,10 @@
 # SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
 """
-.. admonition:: Quant
-    :class: hint
+!!! hint "Quant"
+    `FinanceDataReader` 및 `KoreaInvestment` 를 통해 수집한 data를 이용해 매수, 매도 signal을 포착하고 test하는 quant function 및 class들
 
-    ``FinanceDataReader`` 및 ``KoreaInvestment`` 를 통해 수집한 data를 이용해 매수, 매도 signal을 포착하고 test하는 quant function 및 class들
-
-.. important::
-
+!!! important
     ``signals["signals"]`` 부호의 의미
 
     - ``+1``: 매수

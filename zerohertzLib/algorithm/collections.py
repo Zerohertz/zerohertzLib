@@ -8,21 +8,21 @@ class DisjointSet:
     Note:
         Time Complexity:
             - Without path compression:
-                - Worst: :math:`O(V)`
-                - Average: :math:`O(V)`
+                - Worst: $O(V)$
+                - Average: $O(V)$
             - With path compression:
-                - Worst: :math:`O(\log{V})`
-                - Average: :math:`O(\alpha(V))`
+                - Worst: $O(\log{V})$
+                - Average: $O(\alpha(V))$
 
-        - :math:`V`: Node의 수
-        - :math:`\alpha(V)`: `Ackermann function <https://ko.wikipedia.org/wiki/%EC%95%84%EC%BB%A4%EB%A7%8C_%ED%95%A8%EC%88%98>`_ 의 역함수 (:math:`O(\alpha(V))\simeq O(1)`)
+        - $V$: Node의 수
+        - $\alpha(V)$: [Ackermann function](https://ko.wikipedia.org/wiki/%EC%95%84%EC%BB%A4%EB%A7%8C_%ED%95%A8%EC%88%98) 의 역함수 ($O(\alpha(V))\simeq O(1)$)
 
     Args:
-        size (``int``): Node의 수
-        compression (``bool``): Path compression 여부
+        size: Node의 수
+        compression: Path compression 여부
 
     Attributes:
-        parent (``list[int]``): Node에 따른 부모 node의 index
+        parent: Node에 따른 부모 node의 index
 
     Examples:
         >>> disjointset = zz.algorithm.DisjointSet(5)
@@ -46,10 +46,10 @@ class DisjointSet:
     def find(self, node: int) -> int:
         """
         Args:
-            node (``int``): 목표 node의 index
+            node: 목표 node의 index
 
         Returns:
-            ``int``: 목표 node에 대한 root node의 index
+            목표 node에 대한 root node의 index
         """
         if not self.compression:
             while node != self.parent[node]:
@@ -62,34 +62,34 @@ class DisjointSet:
     def union(self, node1: int, node2: int) -> None:
         """
         Args:
-            node1 (``int``): 목표 node의 index
-            node2 (``int``): 목표 node의 index
+            node1: 목표 node의 index
+            node2: 목표 node의 index
 
         Returns:
-            ``None``: ``self.parent`` 에 root node의 index를 update
+            `self.parent` 에 root node의 index를 update
         """
         root1, root2 = self.find(node1), self.find(node2)
         if root1 != root2:
             self.parent[root2] = root1
 
 
-class DisjointSetRank(DisjointSet):
+class DisjointSetRank:
     r"""Disjoint set (union by rank)
 
     Note:
         Time Complexity:
-            - Worst: :math:`O(\log{V})`
-            - Average: :math:`O(\alpha(V))`
+            - Worst: $O(\log{V})$
+            - Average: $O(\alpha(V))$
 
-        - :math:`V`: Node의 수
-        - :math:`\alpha(V)`: `Ackermann function <https://ko.wikipedia.org/wiki/%EC%95%84%EC%BB%A4%EB%A7%8C_%ED%95%A8%EC%88%98>`_ 의 역함수 (:math:`O(\alpha(V))\simeq O(1)`)
+        - $V$: Node의 수
+        - $\alpha(V)$: [Ackermann function](https://ko.wikipedia.org/wiki/%EC%95%84%EC%BB%A4%EB%A7%8C_%ED%95%A8%EC%88%98) 의 역함수 ($O(\alpha(V))\simeq O(1)$)
 
     Args:
-        size (``int``): Node의 수
+        size: Node의 수
 
     Attributes:
-        parent (``list[int]``): Node에 따른 부모 node의 index
-        rank (``list[int]``): Node에 따른 rank
+        parent: Node에 따른 부모 node의 index
+        rank: Node에 따른 rank
 
     Examples:
         >>> disjointset = zz.algorithm.DisjointSetRank(5)
@@ -109,11 +109,11 @@ class DisjointSetRank(DisjointSet):
     def union(self, node1: int, node2: int) -> None:
         """
         Args:
-            node1 (``int``): 목표 node의 index
-            node2 (``int``): 목표 node의 index
+            node1: 목표 node의 index
+            node2: 목표 node의 index
 
         Returns:
-            ``None``: ``self.parent`` 에 root node의 index를 update
+            `self.parent` 에 root node의 index를 update
         """
         root1, root2 = self.find(node1), self.find(node2)
         if root1 != root2:
@@ -126,23 +126,23 @@ class DisjointSetRank(DisjointSet):
                 self.rank[root1] += 1
 
 
-class DisjointSetSize(DisjointSet):
+class DisjointSetSize:
     r"""Disjoint set (union by size)
 
     Note:
         Time Complexity:
-            - Worst: :math:`O(\log{V})`
-            - Average: :math:`O(\alpha(V))`
+            - Worst: $O(\log{V})$
+            - Average: $O(\alpha(V))$
 
-        - :math:`V`: Node의 수
-        - :math:`\alpha(V)`: `Ackermann function <https://ko.wikipedia.org/wiki/%EC%95%84%EC%BB%A4%EB%A7%8C_%ED%95%A8%EC%88%98>`_ 의 역함수 (:math:`O(\alpha(V))\simeq O(1)`)
+        - $V$: Node의 수
+        - $\alpha(V)$: [Ackermann function](https://ko.wikipedia.org/wiki/%EC%95%84%EC%BB%A4%EB%A7%8C_%ED%95%A8%EC%88%98) 의 역함수 ($O(\alpha(V))\simeq O(1)$)
 
     Args:
-        size (``int``): Node의 수
+        size: Node의 수
 
     Attributes:
-        parent (``list[int]``): Node에 따른 부모 node의 index
-        size (``list[int]``): Node에 따른 size
+        parent: Node에 따른 부모 node의 index
+        size: Node에 따른 size
 
     Examples:
         >>> disjointset = zz.algorithm.DisjointSetSize(5)
@@ -164,11 +164,11 @@ class DisjointSetSize(DisjointSet):
     def union(self, node1: int, node2: int) -> None:
         """
         Args:
-            node1 (``int``): 목표 node의 index
-            node2 (``int``): 목표 node의 index
+            node1: 목표 node의 index
+            node2: 목표 node의 index
 
         Returns:
-            ``None``: ``self.parent`` 에 root node의 index를 update
+            `self.parent` 에 root node의 index를 update
         """
         root1, root2 = self.find(node1), self.find(node2)
         if self.size[root1] < self.size[root2]:

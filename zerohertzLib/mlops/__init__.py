@@ -2,9 +2,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
 """
-.. admonition:: MLOps
-    :class: hint
-
+!!! hint "MLOps"
     MLOps에서 사용되는 class들
 """
 

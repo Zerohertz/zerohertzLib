@@ -19,24 +19,22 @@ def pie(
     """Dictionary로 입력받은 data를 pie chart로 시각화
 
     Args:
-        data (``dict[str, int | float]``): 입력 data
-        dim (``str | None``): 입력 ``data`` 의 단위
-        title (``str``): Graph에 표시될 제목 및 file 이름
-        colors (``str | list | None``): 각 요소의 색
-        figsize (``tuple[int, int]``): Graph의 가로, 세로 길이
-        int_label (``bool``): Label 내 수치의 소수점 표기 여부
-        dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
+        data: 입력 data
+        dim: 입력 `data` 의 단위
+        title: Graph에 표시될 제목 및 file 이름
+        colors: 각 요소의 색
+        figsize: Graph의 가로, 세로 길이
+        int_label: Label 내 수치의 소수점 표기 여부
+        dpi: Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
-        ``str``: 저장된 graph의 절대 경로
+        저장된 graph의 절대 경로
 
     Examples:
         >>> data = {"Terran": 27, "Zerg": 40, "Protoss": 30}
         >>> zz.plot.pie(data, dim="$", title="Star Craft")
 
-        .. image:: _static/examples/dynamic/plot.pie.png
-            :align: center
-            :width: 500px
+        ![Pie chart example](../assets/images/plot.pie.png){ width="500" }
     """
     colors = _color(data, colors)
     if config.SAVE:

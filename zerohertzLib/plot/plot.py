@@ -30,22 +30,22 @@ def plot(
     """List와 Dictionary로 입력받은 data를 line chart로 시각화
 
     Args:
-        xdata (``list[int | float] | dict[str, int | float]``): 입력 data (X축)
-        ydata (``list[int | float] | dict[str, int | float]``): 입력 data (Y축)
-        xlab (``str | None``): Graph에 출력될 X축 label
-        ylab (``str | None``): Graph에 출력될 Y축 label
-        xlim (``list[int | float] | None``): Graph에 출력될 X축 limit
-        ylim (``list[int | float] | None``): Graph에 출력될 Y축 limit
-        stacked (``bool``): Stacked plot 여부
-        ncol (``int``): Graph에 표시될 legend 열의 수
-        title (``str``): Graph에 표시될 제목 및 file 이름
-        colors (``str | list | None``): 각 요소의 색
-        markersize (``int``): Graph에 표시될 marker의 size
-        figsize (``tuple[int, int]``): Graph의 가로, 세로 길이
-        dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
+        xdata: 입력 data (X축)
+        ydata: 입력 data (Y축)
+        xlab: Graph에 출력될 X축 label
+        ylab: Graph에 출력될 Y축 label
+        xlim: Graph에 출력될 X축 limit
+        ylim: Graph에 출력될 Y축 limit
+        stacked: Stacked plot 여부
+        ncol: Graph에 표시될 legend 열의 수
+        title: Graph에 표시될 제목 및 file 이름
+        colors: 각 요소의 색
+        markersize: Graph에 표시될 marker의 size
+        figsize: Graph의 가로, 세로 길이
+        dpi: Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
-        ``str``: 저장된 graph의 절대 경로
+        저장된 graph의 절대 경로
 
     Examples:
         ``stacked=False``:
@@ -53,26 +53,22 @@ def plot(
             >>> ydata = {"Terran": list(np.random.rand(20) * 10), "Zerg": list(np.random.rand(20) * 10 + 1), "Protoss": list(np.random.rand(20) * 10 + 2)}
             >>> zz.plot.plot(xdata, ydata, xlab="Time [Sec]", ylab="Scores", title="Star Craft")
 
-            .. image:: _static/examples/dynamic/plot.plot.1.png
-                :align: center
-                :width: 500px
+            ![Plot example 1](../assets/images/plot.plot.1.png){ width="500" }
 
-        ``stacked=True``:
+        ``stacked=True:
             >>> ydata["Total"] = [sum(data) + 10 for data in zip(ydata["Terran"], ydata["Protoss"], ydata["Zerg"])]
             >>> zz.plot.plot(xdata, ydata, xlab="Time [Sec]", ylab="Scores", stacked=True, title="Star Craft")
 
-            .. image:: _static/examples/dynamic/plot.plot.2.png
-                :align: center
-                :width: 500px
+            ![Plot example 2](../assets/images/plot.plot.2.png){ width="500" }
     """
     if config.SAVE:
         plt.figure(figsize=figsize)
     if stacked:
         bias = np.zeros(len(xdata))
         assert not isinstance(xdata, dict)
-    if not isinstance(ydata, dict):
+    if not isinstance:
         ydata = {"": ydata}
-    if not isinstance(xdata, dict):
+    if not isinstance:
         _xdata = {}
         for key in ydata.keys():
             _xdata[key] = xdata
@@ -128,31 +124,29 @@ def candle(
     Note:
         - 적색: 매수
         - 청색: 매도
-        - 실선 (``-``): Backtest 시 signal이 존재하는 매수, 매도
-        - 파선 (``--``): Backtest 시 사용하지 않은 signal의 매수, 매도
-        - 일점쇄선 (``-.``): Backtest logic에 의한 매수, 매도
+        - 실선: Backtest 시 signal이 존재하는 매수, 매도
+        - 파선: Backtest 시 사용하지 않은 signal의 매수, 매도
+        - 일점쇄선: Backtest logic에 의한 매수, 매도
 
     Args:
-        data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
-        title (``str``): Graph에 표시될 제목 및 file 이름
-        figsize (``tuple[int, int]``): Graph의 가로, 세로 길이
-        signals (``dict[str, Any] | None``): 추가적으로 plot할 data
-        threshold (``int | tuple[int, int]``): 매수, 매도를 결정할 ``signals`` 경계값
-        dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
+        data: OHLCV (Open, High, Low, Close, Volume) data
+        title: Graph에 표시될 제목 및 file 이름
+        figsize: Graph의 가로, 세로 길이
+        signals: 추가적으로 plot할 data
+        threshold: 매수, 매도를 결정할 `signals` 경계값
+        dpi: Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
-        ``str``: 저장된 graph의 절대 경로
+        저장된 graph의 절대 경로
 
     Examples:
         >>> zz.plot.candle(data, title)
         >>> signals = zz.quant.macd(data)
         >>> zz.plot.candle(data, "MACD", signals=signals)
 
-        .. image:: _static/examples/dynamic/plot.candle.png
-            :align: center
-            :width: 600px
+        ![Candle chart example](../assets/images/plot.candle.png){ width="600" }
     """
-    if not isinstance(threshold, int):
+    if not isinstance:
         threshold_sell, threshold_buy = threshold
     else:
         threshold_sell, threshold_buy = -threshold, threshold
@@ -243,7 +237,7 @@ def candle(
             )
         colors = color(len(signals.columns), palette="Set1")
         if len(signals.columns) > 1:
-            for idx, col in enumerate(signals.columns[:-2]):
+            for idx, col in enumerate:
                 new_axis.plot(
                     xdata,
                     signals[col],
@@ -270,7 +264,7 @@ def candle(
 def _method2str(method: str) -> str:
     if "_" in method:
         methods = method.split("_")
-        for idx, met in enumerate(methods):
+        for idx, met in enumerate:
             methods[idx] = met[0].upper() + met[1:]
         return " ".join(methods)
     if "momentum" == method:

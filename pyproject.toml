@@ -63,7 +63,6 @@ api = [
     "requests",
 
     # api
-    "openai",
     "slack_sdk",
 
     # logging
@@ -74,7 +73,6 @@ mlops = [
     "requests",
 
     # api
-    "openai",
     "slack_sdk",
 
     # logging
@@ -90,7 +88,6 @@ quant = [
     "requests",
 
     # api
-    "openai",
     "slack_sdk",
 
     # logging
@@ -107,7 +104,6 @@ all = [
     "requests",
 
     # api
-    "openai",
     "slack_sdk",
 
     # logging

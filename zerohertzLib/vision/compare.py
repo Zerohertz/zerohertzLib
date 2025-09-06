@@ -33,15 +33,15 @@ def before_after(
     """두 image를 비교하는 image 생성
 
     Args:
-        before (``NDArray[np.uint8]``): 원본 image
-        after (``NDArray[np.uint8]``): 영상 처리 혹은 모델 추론 후 image
-        area (``list[int | float] | None``): 비교할 좌표 (``[x_0, y_0, x_1, y_1]``)
-        per (``bool``): ``area`` 의 백분율 여부
-        quality (``int``): 출력 image의 quality (단위: %)
-        file_name (``str``): 저장될 file의 이름
+        before: 원본 image
+        after: 영상 처리 혹은 모델 추론 후 image
+        area: 비교할 좌표 (``[x_0, y_0, x_1, y_1]``)
+        per: `area` 의 백분율 여부
+        quality: 출력 image의 quality (단위: %)
+        file_name: 저장될 file의 이름
 
     Returns:
-        ``None``: 현재 directory에 바로 image 저장
+        현재 directory에 바로 image 저장
 
     Examples:
         BGR, GRAY:
@@ -49,17 +49,13 @@ def before_after(
             >>> after = cv2.cvtColor(after, cv2.COLOR_BGR2GRAY)
             >>> zz.vision.before_after(before, after, quality=10)
 
-            .. image:: _static/examples/dynamic/vision.before_after.1.png
-                :align: center
-                :width: 300px
+            ![Before after comparison 1](../assets/images/vision.before_after.1.png){ width="300" }
 
         BGR, Resize:
             >>> after = cv2.resize(before, (100, 100))
             >>> zz.vision.before_after(before, after, [20, 40, 30, 60])
 
-            .. image:: _static/examples/dynamic/vision.before_after.2.png
-                :align: center
-                :width: 300px
+            ![Before after comparison 2](../assets/images/vision.before_after.2.png){ width="300" }
     """
     before_shape = before.shape
     if area is None:
@@ -97,13 +93,13 @@ def grid(
     """여러 image를 입력받아 정방형 image로 병합
 
     Args:
-        imgs (``list[NDArray[np.uint8]]``): 입력 image
-        size (``int``): 출력 image의 크기
-        color (``tuple[int, int, int]``): Padding의 색
-        file_name (``str``): 저장될 file의 이름
+        imgs: 입력 image
+        size: 출력 image의 크기
+        color: Padding의 색
+        file_name: 저장될 file의 이름
 
     Returns:
-        ``None``: 현재 directory에 바로 image 저장
+        현재 directory에 바로 image 저장
 
     Examples:
         >>> imgs = [cv2.resize(img, (random.randrange(300, 1000), random.randrange(300, 1000))) for _ in range(8)]
@@ -113,15 +109,13 @@ def grid(
         >>> zz.vision.grid(imgs, color=(0, 255, 0))
         >>> zz.vision.grid(imgs, color=(0, 0, 0, 0))
 
-        .. image:: _static/examples/dynamic/vision.grid.png
-            :align: center
-            :width: 600px
+        ![Image grid example](../assets/images/vision.grid.png){ width="600" }
     """
     cnt = math.ceil(math.sqrt(len(imgs)))
     length = size // cnt
     size = int(length * cnt)
     palette = np.full((size, size, 4), 0, dtype=np.uint8)
-    for idx, img in enumerate(imgs):
+    for idx, img in enumerate:
         d_y, d_x = divmod(idx, cnt)
         x_0, y_0, x_1, y_1 = (
             d_x * length,
@@ -142,20 +136,18 @@ def vert(
     """여러 image를 입력받아 가로 image로 병합
 
     Args:
-        imgs (``list[NDArray[np.uint8]]``): 입력 image
-        height (``int``): 출력 image의 높이
-        file_name (``str``): 저장될 file의 이름
+        imgs: 입력 image
+        height: 출력 image의 높이
+        file_name: 저장될 file의 이름
 
     Returns:
-        ``None``: 현재 directory에 바로 image 저장
+        현재 directory에 바로 image 저장
 
     Examples:
         >>> imgs = [cv2.resize(img, (random.randrange(300, 600), random.randrange(300, 600))) for _ in range(5)]
         >>> zz.vision.vert(imgs)
 
-        .. image:: _static/examples/dynamic/vision.vert.png
-            :align: center
-            :width: 600px
+        ![Vertical image alignment example](../assets/images/vision.vert.png){ width="600" }
     """
     resized_imgs = []
     width = 0

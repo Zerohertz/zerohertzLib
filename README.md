@@ -7,18 +7,24 @@
 </h2>
 
 <p align="center">
-    </br>
+    <br/>
     <a href="https://pypi.org/project/zerohertzLib/">
         <img src="https://img.shields.io/pypi/v/zerohertzLib?style=for-the-badge&logo=PyPI&logoColor=FFFFFF&labelColor=3775A9&color=007EC6" alt="PyPI version"/>
     </a>
-    </br>
+    <a href="https://pypi.org/project/zerohertzLib/">
+        <img src="https://img.shields.io/pypi/pyversions/zerohertzLib?style=for-the-badge&logo=PyPI&logoColor=FFFFFF&labelColor=3775A9&color=007EC6" alt="Python"/>
+    </a>
+    <br/>
     <a href="https://github.com/Zerohertz/zerohertzLib">
         <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"/>
     </a>
     <a href="https://zerohertz.github.io/zerohertzLib/">
         <img src="https://img.shields.io/badge/Sphinx-Docs-000000?style=for-the-badge&logo=Sphinx&logoColor=white"/>
     </a>
-    </br>
+    <br/>
+    <a href="https://pypi.org/project/zerohertzLib/">
+        <img src="https://img.shields.io/pypi/dm/zerohertzLib" alt="Downloads"/>
+    </a>
     <a href="https://github.com/Zerohertz/zerohertzLib/blob/master/LICENSE">
         <img src="https://img.shields.io/pypi/l/zerohertzLib" alt="LICENSE"/>
     </a>
@@ -34,6 +40,9 @@
     <a href="https://codecov.io/github/Zerohertz/zerohertzLib" >
         <img src="https://codecov.io/github/Zerohertz/zerohertzLib/graph/badge.svg?token=6OAPJIZ2NX"/>
     </a>
+    <a href="https://deepwiki.com/Zerohertz/zerohertzLib">
+        <img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki">
+    </a>
 </p>
 
 ```bash
@@ -47,7 +56,6 @@ pip install zerohertzLib[all]
 
 <p align="center">
     <img src="https://github.com/user-attachments/assets/43d754e0-b4e9-4b6d-b79c-d4988105858e" width="600">
-    %s|github.com/Zerohertz/Zerohertz/assets/42334717/85c44efa-1440-4962-a6e5-7453b0bdc689|github.com/user-attachments/assets/43d754e0-b4e9-4b6d-b79c-d4988105858e|g
 </p>
 
 ```python

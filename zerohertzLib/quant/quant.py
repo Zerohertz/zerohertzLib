@@ -5,7 +5,7 @@ import multiprocessing as mp
 import os
 import time
 import traceback
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 from collections import defaultdict
 from itertools import combinations
 from typing import Any
@@ -17,44 +17,44 @@ from zerohertzLib.api import DiscordBot, SlackBot
 from zerohertzLib.api.base import MockedBot
 from zerohertzLib.plot import barh, barv, candle, figure, hist, savefig, subplot
 
-from .backtest import Experiments, backtest
+from .backtest import backtest
 from .util import _cash2str, _method2str, _seconds_to_hms
 
 
-class Quant(Experiments):
+class Quant:
     """한 가지 종목에 대해 full factorial design 기반의 backtest를 수행하고 최적의 전략을 융합하는 class
 
     Args:
-        title (``str``): 종목 이름
-        data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
-        ohlc (``str``): 사용할 ``data`` 의 column 이름
-        top (``int``): Experiment 과정에서 사용할 각 전략별 수
-        methods (``dict[str, list[list[Any]]] | None``): 사용할 전략들의 function명 및 parameters
-        report (``bool``): Experiment 결과 출력 여부
+        title: 종목 이름
+        data: OHLCV (Open, High, Low, Close, Volume) data
+        ohlc: 사용할 data의 column 이름
+        top: Experiment 과정에서 사용할 각 전략별 수
+        methods: 사용할 전략들의 function명 및 parameters
+        report: Experiment 결과 출력 여부
 
     Attributes:
-        signals (``pd.DataFrame``): 융합된 전략의 signal
-        methods (``tuple[str, ...]``): 융합된 전략명
-        profit (``float``): 융합된 전략의 backtest profit
-        buy (``int | float``): 융합된 전략의 backtest 시 총 매수
-        sell (``int | float``): 융합된 전략의 backtest 시 총 매도
-        transaction (``dict[str, int | float]``): 융합된 전략의 backtest 시 거래 정보 (매수가, 매도가, 수익률, 거래 기간)
-        threshold_buy (``int``): 융합된 전략의 매수 signal threshold
-        threshold_sell (``int``): 융합된 전략의 매도 signal threshold
-        total_cnt (``int``): 융합된 전략의 수
-        methods_cnt (``dict[str, int]``): 각 전략에 따른 이익이 존재하는 수
-        exps_cnt (``dict[str, list[dict[str, int]]]``): 각 전략과 parameter에 따른 이익이 존재하는 수
-        exps_str (``dict[str, list[str]]``): 각 전략에 따른 이익이 존재하는 paramter 문자열
+        signals: 융합된 전략의 signal
+        methods: 융합된 전략명
+        profit: 융합된 전략의 backtest profit
+        buy: 융합된 전략의 backtest 시 총 매수
+        sell: 융합된 전략의 backtest 시 총 매도
+        transaction: 융합된 전략의 backtest 시 거래 정보 (매수가, 매도가, 수익률, 거래 기간)
+        threshold_buy: 융합된 전략의 매수 signal threshold
+        threshold_sell: 융합된 전략의 매도 signal threshold
+        total_cnt: 융합된 전략의 수
+        methods_cnt: 각 전략에 따른 이익이 존재하는 수
+        exps_cnt: 각 전략과 parameter에 따른 이익이 존재하는 수
+        exps_str: 각 전략에 따른 이익이 존재하는 paramter 문자열
 
     Methods:
         __call__:
             입력된 날짜에 대해 분석 정보 return
 
             Args:
-                day (``str | int``): 분석할 날짜
+                day: 분석할 날짜
 
             Returns:
-                ``dict[str, Any]``: 각 전략에 따른 분석 정보 및 결론
+                각 전략에 따른 분석 정보 및 결론
 
     Examples:
         >>> qnt = zz.quant.Quant(title, data, top=3)
@@ -127,7 +127,7 @@ class Quant(Experiments):
                 )
                 exps_cnt = [defaultdict(int) for _ in range(len(exps_tup[0]))]
                 for profit, signal, exp_str, exp_tup in zip(
-                    profits[:top], signals[:top], exps_str[:top], exps_tup[:top]
+                    profits, signals, exps_str, exps_tup
                 ):
                     if profit > 0:
                         self.signals[method] += signal["signals"]
@@ -218,43 +218,41 @@ class Quant(Experiments):
         return possibility
 
 
-class QuantBot(ABC):
+class QuantBot:
     """입력된 여러 종목에 대해 매수, 매도 signal을 판단하고 Slack으로 message와 graph를 전송하는 class
 
     Note:
-        Abstract Base Class: 종목 code에 따른 종목명과 data를 불러오는 abstract method ``_get_data`` 정의 후 사용
+        Abstract Base Class: 종목 code에 따른 종목명과 data를 불러오는 abstract method `_get_data` 정의 후 사용
 
-        .. code-block:: python
-
-            def _get_data(self, symbol: str) -> tuple[str, pd.DataFrame]:
-                title = data = None
-                return title, data
+        ```python
+        def _get_data(self, symbol: str) -> tuple[str, pd.DataFrame]:
+            title = data = None
+            return title, data
+        ```
 
     Args:
-        symbols (``int | list[str]``): 종목 code들
-        start_day (``str``): 조회 시작 일자 (``YYYYMMDD``)
-        ohlc (``str``): 사용할 ``data`` 의 column 이름
-        top (``int``): Experiment 과정에서 사용할 각 전략별 수
-        methods (``dict[str, list[list[Any]]] | None``): 사용할 전략들의 function명 및 parameters
-        report (``bool``): Experiment 결과 출력 여부
-        token (``str``): Bot의 token (``xoxb-`` prefix로 시작하면 SlackBot, 아니면 DiscordBot)
-        channel (``str``): Bot이 전송할 channel
-        name (``str``): Bot의 표시될 이름
-        icon_emoji (``str``): Bot의 표시될 사진 (emoji)
-        mp_num (``int``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
-        analysis (``bool``): 각 전략의 보고서 전송 여부
-        kor (``bool``): 국내 여부
+        symbols: 종목 code들
+        start_day: 조회 시작 일자 (YYYYMMDD)
+        ohlc: 사용할 data의 column 이름
+        top: Experiment 과정에서 사용할 각 전략별 수
+        methods: 사용할 전략들의 function명 및 parameters
+        report: Experiment 결과 출력 여부
+        token: Bot의 token (xoxb- prefix로 시작하면 SlackBot, 아니면 DiscordBot)
+        channel: Bot이 전송할 channel
+        name: Bot의 표시될 이름
+        icon_emoji: Bot의 표시될 사진 (emoji)
+        mp_num: 병렬 처리에 사용될 process의 수 (0: 직렬 처리)
+        analysis: 각 전략의 보고서 전송 여부
+        kor: 국내 여부
 
     Attributes:
-        exps (``dict[str, list[dict[str, int]]]``): 각 전략에 따른 parameter 분포
+        exps: 각 전략에 따른 parameter 분포
 
     Examples:
         >>> qsb = zz.quant.QuantBot(symbols, token=token, channel=channel)
         >>> qsb.index()
 
-        .. image:: _static/examples/static/quant.QuantSlackBot.png
-            :align: center
-            :width: 800px
+        ![QuantSlackBot example](../assets/images/quant.QuantSlackBot.png){ width="800" }
     """
 
     def __init__(
@@ -553,27 +551,27 @@ class QuantBot(ABC):
         self._inference(self.symbols, "All")
 
 
-class QuantBotFDR(QuantBot):
-    """`FinanceDataReader <https://github.com/FinanceData/FinanceDataReader>`_ module 기반으로 입력된 여러 종목에 대해 매수, 매도 signal을 판단하고 Bot을 통해 message와 graph를 전송하는 class
+class QuantBotFDR:
+    """[FinanceDataReader](https://github.com/FinanceData/FinanceDataReader) module 기반으로 입력된 여러 종목에 대해 매수, 매도 signal을 판단하고 Bot을 통해 message와 graph를 전송하는 class
 
     Args:
-        symbols (``int | list[str]``): 종목 code들 혹은 시가 총액 순위
-        start_day (``str``): 조회 시작 일자 (``YYYYMMDD``)
-        ohlc (``str``): 사용할 ``data`` 의 column 이름
-        top (``int``): Experiment 과정에서 사용할 각 전략별 수
-        methods (``dict[str, list[list[Any]]] | None``): 사용할 전략들의 function명 및 parameters
-        report (``bool``): Experiment 결과 출력 여부
-        token (``str``): Bot의 token (xoxb- prefix로 시작하면 SlackBot, 아니면 DiscordBot)
-        channel (``str``): Bot이 전송할 channel
-        name (``str``): Bot의 표시될 이름
-        icon_emoji (``str``): Bot의 표시될 사진 (emoji)
-        mp_num (``int``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
-        analysis (``bool``): 각 전략의 보고서 전송 여부
-        kor (``bool``): 국내 여부
+        symbols: 종목 code들 혹은 시가 총액 순위
+        start_day: 조회 시작 일자 (YYYYMMDD)
+        ohlc: 사용할 data의 column 이름
+        top: Experiment 과정에서 사용할 각 전략별 수
+        methods: 사용할 전략들의 function명 및 parameters
+        report: Experiment 결과 출력 여부
+        token: Bot의 token (xoxb- prefix로 시작하면 SlackBot, 아니면 DiscordBot)
+        channel: Bot이 전송할 channel
+        name: Bot의 표시될 이름
+        icon_emoji: Bot의 표시될 사진 (emoji)
+        mp_num: 병렬 처리에 사용될 process의 수 (0: 직렬 처리)
+        analysis: 각 전략의 보고서 전송 여부
+        kor: 국내 여부
 
     Attributes:
-        exps (``dict[str, list[dict[str, int]]]``): 각 전략에 따른 parameter 분포
-        market (``pd.DataFrame``): ``kor`` 에 따른 시장 목록
+        exps: 각 전략에 따른 parameter 분포
+        market: kor에 따른 시장 목록
 
     Examples:
         >>> qbf = zz.quant.QuantBotFDR(symbols, token=token, channel=channel)

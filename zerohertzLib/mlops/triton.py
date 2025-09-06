@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 from typing import Any
 
 import tritonclient.grpc as grpcclient
@@ -19,25 +19,25 @@ except ImportError:
     pass
 
 
-class TritonClientURL(grpcclient.InferenceServerClient):
+class TritonClientURL:
     """외부에서 실행되는 triton inference server의 호출을 위한 class
 
     Args:
-        url (``str``): 호출할 triton inference server의 URL
-        port (``int``): triton inference server의 gRPC 통신 port 번호
-        verbose (``bool``): Verbose 출력 여부
+        url: 호출할 triton inference server의 URL
+        port: triton inference server의 gRPC 통신 port 번호
+        verbose: Verbose 출력 여부
 
     Methods:
         __call__:
             Model 호출 수행
 
             Args:
-                model (``int | str``): 호출할 model의 이름 및 ID
-                *args (``NDArray[DTypeLike]``): Model 호출 시 사용될 입력
-                renew: (``bool | None``): 각 모델의 상태 조회 시 갱신 여부
+                model: 호출할 model의 이름 및 ID
+                *args (NDArray[DTypeLike]): Model 호출 시 사용될 입력
+                renew: (bool | None): 각 모델의 상태 조회 시 갱신 여부
 
             Returns:
-                ``dict[str, NDArray[DTypeLike]]``: 호출된 model의 결과
+                호출된 model의 결과
 
     Examples:
         >>> tc = zz.mlops.TritonClientURL("localhost")
@@ -66,14 +66,14 @@ class TritonClientURL(grpcclient.InferenceServerClient):
         *args: NDArray[DTypeLike],
         renew: bool = False,
     ) -> dict[str, NDArray[DTypeLike]]:
-        if isinstance(model, int):
+        if isinstance:
             model = self.models[model]
         self._update_configs(model, renew)
         inputs = self.configs[model]["config"]["input"]
         outputs = self.configs[model]["config"]["output"]
         assert len(inputs) == len(args)
         triton_inputs = []
-        for input_info, arg in zip(inputs, args):
+        for input_info, arg in zip:
             triton_inputs.append(self._set_input(input_info, arg))
         triton_outputs = []
         for output in outputs:
@@ -94,7 +94,7 @@ class TritonClientURL(grpcclient.InferenceServerClient):
     def _set_input(
         self, input_info: dict[str, list[int]], value: NDArray[DTypeLike]
     ) -> grpcclient._infer_input.InferInput:
-        if "dims" in input_info.keys() and len(input_info["dims"]) != len(value.shape):
+        if "dims" in input_info.keys() and len(input_info["dims"]) != len:
             logger.warning(
                 "Expected dimension length of input (%d) does not match the input dimension length (%d) [input dimension: %s]",
                 len(input_info["dims"]),
@@ -117,16 +117,14 @@ class TritonClientURL(grpcclient.InferenceServerClient):
         """Triton Inferece Server의 상태를 확인하는 함수
 
         Args:
-            renew: (``bool``): 각 모델의 상태 조회 시 갱신 여부
-            sortby (``str``): 정렬 기준
-            reverse (``bool``): 정렬 역순 여부
+            renew: 각 모델의 상태 조회 시 갱신 여부
+            sortby: 정렬 기준
+            reverse: 정렬 역순 여부
 
         Examples:
             >>> tc.status()
 
-            .. image:: _static/examples/static/mlops.TritonClientURL.status.gif
-                :align: center
-                :width: 700px
+            ![Status GIF](_static/examples/static/mlops.TritonClientURL.status.gif)
         """
         table = PrettyTable(
             ["STATE", "ID", "MODEL", "VERSION", "BACKEND", "INPUT", "OUTPUT"],
@@ -178,17 +176,17 @@ class TritonClientURL(grpcclient.InferenceServerClient):
         """Triton Inference Server 내 model을 load하는 함수
 
         Args:
-            model_name (``int | str``): Load할 model의 이름 또는 ID
-            headers (``str | None``): Request 전송 시 포함할 추가 HTTP header
-            config (``str | None``): Model load 시 사용될 config
-            files (``str | None``): Model load 시 override model directory에서 사용할 file
-            client_timeout (``float | None``): 초 단위의 timeout
+            model_name: Load할 model의 이름 또는 ID
+            headers: Request 전송 시 포함할 추가 HTTP header
+            config: Model load 시 사용될 config
+            files: Model load 시 override model directory에서 사용할 file
+            client_timeout: 초 단위의 timeout
 
         Examples:
             >>> tc.load_model(0)
             >>> tc.load_model("MODEL_NAME")
         """
-        if isinstance(model_name, int):
+        if isinstance:
             model_name = self.models[model_name]
         super().load_model(model_name, headers, config, files, client_timeout)
 
@@ -202,40 +200,40 @@ class TritonClientURL(grpcclient.InferenceServerClient):
         """Triton Inference Server 내 model을 unload하는 함수
 
         Args:
-            model_name (``int | str``): Unload할 model의 이름 또는 ID
-            headers (``str | None``): Request 전송 시 포함할 추가 HTTP header
-            unload_dependents (``bool``): Model unload 시 dependents의 unload 여부
-            client_timeout (``float | None``): 초 단위의 timeout
+            model_name: Unload할 model의 이름 또는 ID
+            headers: Request 전송 시 포함할 추가 HTTP header
+            unload_dependents: Model unload 시 dependents의 unload 여부
+            client_timeout: 초 단위의 timeout
 
         Examples:
             >>> tc.unload_model(0)
             >>> tc.unload_model("MODEL_NAME")
         """
-        if isinstance(model_name, int):
+        if isinstance:
             model_name = self.models[model_name]
         super().unload_model(model_name, headers, unload_dependents, client_timeout)
 
 
-class TritonClientK8s(TritonClientURL):
+class TritonClientK8s:
     """Kubernetes에서 실행되는 triton inference server의 호출을 위한 class
 
     Args:
-        svc_name (``str``): 호출할 triton inference server의 Kubernetes service의 이름
-        namespace (``str``): 호출할 triton inference server의 namespace
-        port (``int``): triton inference server의 gRPC 통신 port 번호
-        verbose (``bool``): Verbose 출력 여부
+        svc_name: 호출할 triton inference server의 Kubernetes service의 이름
+        namespace: 호출할 triton inference server의 namespace
+        port: triton inference server의 gRPC 통신 port 번호
+        verbose: Verbose 출력 여부
 
     Methods:
         __call__:
             Model 호출 수행
 
             Args:
-                model (``int | str``): 호출할 model의 이름 또는 ID
-                *args (``NDArray[DTypeLike]``): Model 호출 시 사용될 입력
-                renew: (``bool | None``): 각 모델의 상태 조회 시 갱신 여부
+                model: 호출할 model의 이름 또는 ID
+                *args (NDArray[DTypeLike]): Model 호출 시 사용될 입력
+                renew: (bool | None): 각 모델의 상태 조회 시 갱신 여부
 
             Returns:
-                ``dict[str, NDArray[DTypeLike]]``: 호출된 model의 결과
+                호출된 model의 결과
 
     Examples:
         Kubernetes:
@@ -262,81 +260,81 @@ class TritonClientK8s(TritonClientURL):
         super().__init__(f"{svc_name}.{namespace}", port, verbose)
 
 
-class BaseTritonPythonModel(ABC):
+class BaseTritonPythonModel:
     """Triton Inference Server에서 Python backend 사용을 위한 class
 
     Note:
-        Abstract Base Class: Model의 추론을 수행하는 abstract method ``_inference`` 정의 후 사용
+        Abstract Base Class: Model의 추론을 수행하는 abstract method `_inference` 정의 후 사용
 
     Hint:
         Logger의 색상 적용을 위해 아래와 같은 환경 변수 정의 필요
 
-        .. code-block:: yaml
-
+        ```yaml
+        spec:
+          template:
             spec:
-              template:
-                spec:
-                  containers:
-                    - name: ${NAME}
-                      ...
-                      env:
-                        - name: "FORCE_COLOR"
-                          value: "1"
-                      ...
+              containers:
+                - name: ${NAME}
+                  ...
+                  env:
+                    - name: "FORCE_COLOR"
+                      value: "1"
+                  ...
+        ```
 
     Methods:
         _inference:
             Model 추론을 수행하는 private method (상속을 통한 재정의 필수)
 
             Args:
-                inputs (``NDArray[DTypeLike]``): Model 추론 시 사용될 입력 (``config.pbtxt`` 의 입력에 따라 입력 결정)
+                inputs: Model 추론 시 사용될 입력 (`config.pbtxt` 의 입력에 따라 입력 결정)
 
             Returns:
-                ``NDArray[DTypeLike] | tuple[NDArray[DTypeLike]]``: Model의 추론 결과
+                Model의 추론 결과
 
     Examples:
-        ``model.py``:
-            .. code-block:: python
+        `model.py`:
+            ```python
+            class TritonPythonModel:
+                def initialize:
+                    super().initialize(args, 10)
+                    self.model = Model(cfg)
 
-                class TritonPythonModel(zz.mlops.BaseTritonPythonModel):
-                    def initialize(self, args):
-                        super().initialize(args, 10)
-                        self.model = Model(cfg)
-
-                    def _inference(self, input_image):
-                        return self.model(input_image)
+                def _inference:
+                    return self.model(input_image)
+            ```
 
         Normal Logs:
-            .. code-block:: apl
-
-                [04/04/24 00:00:00] INFO     [MODEL] Initialize                        triton.py:*
-                [04/04/24 00:00:00] INFO     [MODEL] Called                            triton.py:*
-                                    DEBUG    [MODEL] inputs: (3, 3, 3)                 triton.py:*
-                                    INFO     [MODEL] Inference start                   triton.py:*
-                                    DEBUG    [MODEL] outputs: (10,) (20,)              triton.py:*
-                                    INFO     [MODEL] Inference completed               triton.py:*
+            ```
+            [04/04/24 00:00:00] INFO     [MODEL] Initialize                        triton.py:*
+            [04/04/24 00:00:00] INFO     [MODEL] Called                            triton.py:*
+                                DEBUG    [MODEL] inputs: (3, 3, 3)                 triton.py:*
+                                INFO     [MODEL] Inference start                   triton.py:*
+                                DEBUG    [MODEL] outputs: (10,) (20,)              triton.py:*
+                                INFO     [MODEL] Inference completed               triton.py:*
+            ```
 
         Error Logs:
-            .. code-block:: apl
-
-                [04/04/24 00:00:00] INFO     [MODEL] Called                            triton.py:*
-                                    INFO     [MODEL] Inference start                   triton.py:*
-                                    CRITICAL [MODEL] Hello, World!                     triton.py:*
-                                            ====================================================================================================
-                                            Traceback (most recent call last):
-                                            File "/usr/local/lib/python3.8/dist-packages/zerohertzLib/mlops/triton.py", line *, in execute
-                                                outputs = self._inference(*inputs)
-                                            File "/models/model/*/model.py", line *, in _inference
-                                                raise Exception("Hello, World!")
-                                            Exception: Hello, World!
-                                            ====================================================================================================
+            ```
+            [04/04/24 00:00:00] INFO     [MODEL] Called                            triton.py:*
+                                INFO     [MODEL] Inference start                   triton.py:*
+                                CRITICAL [MODEL] Hello, World!                     triton.py:*
+                                        ====================================================================================================
+                                        Traceback:
+                                        File "/usr/local/lib/python3.8/dist-packages/zerohertzLib/mlops/triton.py", line *, in execute
+                                            outputs = self._inference(*inputs)
+                                        File "/models/model/*/model.py", line *, in _inference
+                                            raise Exception("Hello, World!")
+                                        Exception: Hello, World!
+                                        ====================================================================================================
+            ```
     """
 
     def initialize(self, args: dict[str, Any]) -> None:
         """Triton Inference Server 시작 시 수행되는 method
 
         Args:
-            args (``dict[str, Any]``): ``config.pbtxt`` 에 포함된 model의 정보
+            args: `config.pbtxt` 에 포함된 model의 정보
         """
         self.cfg = json.loads(args["model_config"])
         logger.info("Initialize")
@@ -345,10 +343,10 @@ class BaseTritonPythonModel(ABC):
         """Triton Inference Server 호출 시 수행되는 method
 
         Args:
-            requests (``list[Any]``): Client에서 전송된 model inputs
+            requests: Client에서 전송된 model inputs
 
         Returns:
-            ``list[pb_utils.InferenceResponse]``: Client에 응답할 model의 추론 결과
+            Client에 응답할 model의 추론 결과
         """
         responses = []
         for request in requests:
@@ -360,7 +358,7 @@ class BaseTritonPythonModel(ABC):
                 )
                 logger.info("Inference start")
                 outputs = self._inference(*inputs)
-                if not isinstance(outputs, tuple):
+                if not isinstance:
                     outputs = tuple([outputs])
                 logger.debug(
                     "outputs: %s", " ".join([str(output.shape) for output in outputs])
@@ -395,7 +393,7 @@ class BaseTritonPythonModel(ABC):
 
     def _set_outputs(self, outputs: tuple[NDArray[DTypeLike]]) -> Any:
         output_tensors = []
-        for output, value in zip(self.cfg["output"], outputs):
+        for output, value in zip:
             output_tensors.append(
                 pb_utils.Tensor(
                     output["name"],

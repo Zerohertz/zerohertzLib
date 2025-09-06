@@ -14,21 +14,21 @@ class GitHub:
     """GitHub API를 사용하기 위한 class
 
     Args:
-        user (``str``): GitHub API를 호출할 user
-        repo (``str``): GitHub API를 호출할 repository
-        token (``str``): GitHub의 token
-        issue (``bool``): ``True``: Issue & PR, ``False``: Only PR
+        user: GitHub API를 호출할 user
+        repo: GitHub API를 호출할 repository
+        token: GitHub의 token
+        issue: `True`: Issue & PR, `False`: Only PR
 
     Methods:
         __call__:
             API 호출 수행
 
             Args:
-                lab (``str``): 선택할 GitHub repository의 label (``issue=False`` 시 error 발생)
-                per_page (``int``): 1회 호출 시 출력될 결과의 수
+                lab: 선택할 GitHub repository의 label (``issue=False`` 시 error 발생)
+                per_page: 1회 호출 시 출력될 결과의 수
 
             Returns:
-                ``list[dict[str, Any]]``: API 호출 결과
+                API 호출 결과
 
     Examples:
         >>> gh = zz.api.GitHub("Zerohertz", "zerohertzLib", token="ghp_...")
@@ -149,7 +149,7 @@ class GitHub:
                 date = updated_at.split("T")[0].replace("-", "/")
             else:
                 date = closed_at.split("T")[0].replace("-", "/")
-            merge_release_note += "```{admonition} Release Date\n"
+            merge_release_note += "`{admonition} Release Date\n"
             merge_release_note += f":class: tip\n\n{date}\n```\n\n"
             merge_release_note += f"{self._labels_markdown(labels)}\n\n"
             if body is not None:
@@ -166,38 +166,35 @@ class GitHub:
         return version[0]
 
     def _write_release_note_version(
-        self, name: str, sphinx_source_path: str, version: str, body: str
+        self, name: str, path: str, version: str, body: str
     ) -> None:
-        with open(
-            f"{sphinx_source_path}/{name}/{version}.md", "w", encoding="utf-8"
-        ) as file:
+        with open(f"{path}/{name}/{version}.md", "w", encoding="utf-8") as file:
             file.writelines(f"# {version}\n\n" + body)
 
-    def _write_release_note(
-        self, name: str, sphinx_source_path: str, versions: list[str]
-    ) -> None:
+    def _write_release_note(self, name: str, path: str, versions: list[str]) -> None:
         release_note_body = (
             "# Release Notes\n\n```{eval-rst}\n.. toctree::\n\t:maxdepth: 1\n\n"
         )
         for version in versions:
             release_note_body += f"\t{name}/{version}\n"
         release_note_body += "```\n"
-        with open(f"{sphinx_source_path}/{name}.md", "w", encoding="utf-8") as file:
+        with open(f"{path}/{name}.md", "w", encoding="utf-8") as file:
             file.writelines(release_note_body)
 
     def release_note(
         self,
         name: str = "release",
-        sphinx_source_path: str = "sphinx/source",
+        path: str = "docs",
     ) -> None:
         """
         Args:
-            name (``str``): Release note file 및 directory의 이름
-            sphinx_source_path (``str``): Sphinx의 ``source`` 경로
+            name: Release note file 및 directory의 이름
+            path: Sphinx의 `source` 경로
+            platform: 사용할 문서화 도구
 
         Examples:
             >>> gh = zz.api.GitHub("Zerohertz", "zerohertzLib", token="ghp_...")
-            >>> gh.release_note(sphinx_source_path=os.path.join(sphinx, "source"))
+            >>> gh.release_note()
         """
         releases = self("release") + self("release/chore")
         bodies_version = defaultdict(list)
@@ -227,11 +224,11 @@ class GitHub:
             )
         for data in bodies_version.values():
             data.sort(reverse=True)
-        rmtree(f"{sphinx_source_path}/{name}")
+        rmtree(f"{path}/{name}")
         for version, data in bodies_version.items():
             ver = ".".join(version.split(".")[:-1])
             body = self._merge_release_note_version(version, data)
             versions[ver] += body
         for version, body in versions.items():
-            self._write_release_note_version(name, sphinx_source_path, version, body)
-        self._write_release_note(name, sphinx_source_path, list(versions.keys()))
+            self._write_release_note_version(name, path, version, body)
+        self._write_release_note(name, path, list(versions.keys()))

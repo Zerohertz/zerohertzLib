@@ -19,16 +19,16 @@ def pad(
     """입력 image를 원하는 shape로 resize 및 pad
 
     Args:
-        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
-        shape (``tuple[int, int]``): 출력의 shape ``(H, W)``
-        color (``tuple[int, int, int]``): Padding의 색
-        poly (``NDArray[DTypeLike] | None``): Padding에 따라 변형될 좌표 (``[N, 2]``)
+        img: 입력 image (``[H, W, C]``)
+        shape: 출력의 shape ``(H, W)``
+        color: Padding의 색
+        poly: Padding에 따라 변형될 좌표 (``[N, 2]``)
 
     Returns:
-        ``tuple[NDArray[np.uint8], tuple[float, int, int] | NDArray[DTypeLike]]``: 출력 image (``[H, W, C]``) 및 padding에 따른 정보 또는 변형된 좌표값
+        출력 image (``[H, W, C]``) 및 padding에 따른 정보 또는 변형된 좌표값
 
     Note:
-        ``poly`` 를 입력하지 않을 시 ``(ratio, left, top)`` 가 출력되며 ``poly * ratio + (left, top)`` 와 같이 차후에 변환 가능
+        `poly` 를 입력하지 않을 시 ``(ratio, left, top)`` 가 출력되며 ``poly * ratio + (left, top) 와 같이 차후에 변환 가능
 
     Examples:
         GRAY:
@@ -60,9 +60,7 @@ def pad(
             >>> poly = poly * info[0] + info[1:]
             >>> res5 = zz.vision.bbox(res5, poly, color=(0, 0, 255))
 
-        .. image:: _static/examples/dynamic/vision.pad.png
-            :align: center
-            :width: 700px
+        ![Image padding example](../assets/images/vision.pad.png){ width="700" }
     """
     if len(img.shape) == 2:
         img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
@@ -112,14 +110,14 @@ def cutout(
     """Image 내에서 지정한 좌표를 제외한 부분을 투명화
 
     Args:
-        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
-        poly (``list[int | float] | NDArray[DTypeLike]``): 지정할 좌표 (``[N, 2]``)
-        alpha (``int``): 지정한 좌표 영역의 투명도
-        crop (``bool``): 출력 image의 Crop 여부
-        background (``int``): 지정한 좌표 외 배경의 투명도
+        img: 입력 image ([H, W, C]``)
+        poly: 지정할 좌표 (``[N, 2]``)
+        alpha: 지정한 좌표 영역의 투명도
+        crop: 출력 image의 Crop 여부
+        background: 지정한 좌표 외 배경의 투명도
 
     Returns:
-        ``NDArray[np.uint8]``: 출력 image (``[H, W, 4]``)
+        출력 image (``[H, W, 4]``)
 
     Examples:
         >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
@@ -127,9 +125,7 @@ def cutout(
         >>> res2 = zz.vision.cutout(img, poly, 128, False)
         >>> res3 = zz.vision.cutout(img, poly, background=128)
 
-        .. image:: _static/examples/dynamic/vision.cutout.png
-            :align: center
-            :width: 600px
+        ![Image cutout example](../assets/images/vision.cutout.png){ width="600" }
     """
     shape = img.shape[:2]
     poly = _list2np(poly)
@@ -156,23 +152,21 @@ def transparent(
     threshold: int = 128,
     reverse: bool = False,
 ) -> NDArray[np.uint8]:
-    """입력 image에 대해 ``threshold`` 미만의 pixel들을 투명화
+    """입력 image에 대해 `threshold` 미만의 pixel들을 투명화
 
     Args:
-        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
-        threshold (``int``): Threshold
-        reverse (``bool``): ``threshold`` 이상의 pixel 투명화 여부
+        img: 입력 image (``[H, W, C]``)
+        threshold: Threshold
+        reverse: `threshold` 이상의 pixel 투명화 여부
 
     Returns:
-        ``NDArray[np.uint8]``: 출력 image (``[H, W, 4]``)
+        출력 image (``[H, W, 4]``)
 
     Examples:
         >>> res1 = zz.vision.transparent(img)
         >>> res2 = zz.vision.transparent(img, reverse=True)
 
-        .. image:: _static/examples/dynamic/vision.transparent.png
-            :align: center
-            :width: 600px
+        ![Transparent background example](../assets/images/vision.transparent.png){ width="600" }
     """
     img = img.copy()
     img = _cvt_bgra(img)

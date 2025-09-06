@@ -24,23 +24,23 @@ class ImageLoader:
     """경로와 image의 수를 지정하여 경로 내 image를 return하는 class
 
     Args:
-        path (``str``): Image들이 존재하는 경로
-        cnt (``int``): 호출 시 return 할 image의 수
+        path: Image들이 존재하는 경로
+        cnt: 호출 시 return 할 image의 수
 
     Attributes:
-        image_paths (``list[str]``): 지정한 경로 내 image들의 경로
+        image_paths: 지정한 경로 내 image들의 경로
 
     Methods:
         __len__:
             Returns:
-                ``int``: ``cnt`` 에 해당하는 image들의 수
+                `cnt` 에 해당하는 image들의 수
 
         __getitem__:
             Args:
-                idx (``int``): 입력 index
+                idx: 입력 index
 
             Returns:
-                ``tuple[str | NDArray[np.uint8], tuple[list[str], list[NDArray[np.uint8]]]``: ``cnt`` 에 따른 file 경로 및 image 값
+                `cnt` 에 따른 file 경로 및 image 값
 
     Examples:
         >>> il = zz.vision.ImageLoader()
@@ -92,26 +92,26 @@ class JsonImageLoader:
     """JSON file을 통해 image와 JSON file 내 정보를 불러오는 class
 
     Args:
-        data_path (``str``): 목표 data가 존재하는 directory 경로
-        json_path (``str``): 목표 JSON file이 존재하는 directory 경로
-        json_key (``str``): ``data_path`` 에서 data의 file 이름을 나타내는 key 값
+        data_path: 목표 data가 존재하는 directory 경로
+        json_path: 목표 JSON file이 존재하는 directory 경로
+        json_key: `data_path` 에서 data의 file 이름을 나타내는 key 값
 
     Attributes:
-        json (``JsonDir``): JSON file들을 읽어 data 구축 시 활용
+        json: JSON file들을 읽어 data 구축 시 활용
 
     Methods:
         __len__:
             Returns:
-                ``int``: 읽어온 JSON file들의 수
+                읽어온 JSON file들의 수
 
         __getitem__:
             읽어온 JSON file들을 list와 같이 indexing 후 해당하는 image return
 
             Args:
-                idx (``int``): 입력 index
+                idx: 입력 index
 
             Returns:
-                ``tuple[NDArray[np.uint8], Json]``: Image와 JSON 내 정보
+                Image와 JSON 내 정보
 
     Examples:
         >>> jil = zz.vision.JsonImageLoader(data_path, json_path, json_key)
@@ -150,26 +150,26 @@ class YoloLoader:
     """YOLO format의 dataset을 읽고 시각화하는 class
 
     Args:
-        data_path (``str``): Image가 존재하는 directory 경로
-        txt_path (``str``): YOLO format의 ``.txt`` 가 존재하는 directory 경로
-        poly (``bool | None``): ``.txt`` file의 format (``False``: detection, ``True``: segmentation)
-        absolute (``bool``): ``.txt`` file의 절대 좌표계 여부 (``False``: relative coordinates, ``True``: absolute coordinates)
-        vis_path (``str``): 시각화 image들이 저장될 경로
-        class_color (``dict[int | str, tuple[int | None]]``): 시각화 결과에 적용될 class에 따른 색상
+        data_path: Image가 존재하는 directory 경로
+        txt_path: YOLO format의 ``.txt`` 가 존재하는 directory 경로
+        poly: ``.txt`` file의 format (`False`: detection, `True`: segmentation)
+        absolute: ``.txt`` file의 절대 좌표계 여부 (`False`: relative coordinates, `True`: absolute coordinates)
+        vis_path: 시각화 image들이 저장될 경로
+        class_color: 시각화 결과에 적용될 class에 따른 색상
 
     Methods:
         __len__:
             Returns:
-                ``int``: 읽어온 image file들의 수
+                읽어온 image file들의 수
 
         __getitem__:
-            Index에 따른 image와 ``.txt`` file에 대한 정보 return (``vis_path`` 와 ``class_color`` 입력 시 시각화 image ``vis_path`` 에 저장)
+            Index에 따른 image와 ``.txt`` file에 대한 정보 return (`vis_path` 와 `class_color` 입력 시 시각화 image `vis_path` 에 저장)
 
             Args:
-                idx (``int``): 입력 index
+                idx: 입력 index
 
             Returns:
-                ``tuple[NDArray[np.uint8], list[int], list[NDArray[DTypeLike]]]``: 읽어온 image와 그에 따른 ``class_list`` 및 ``bbox`` 혹은 ``poly``
+                읽어온 image와 그에 따른 `class_list` 및 `bbox` 혹은 `poly`
 
     Examples:
         >>> data_path = ".../images"
@@ -259,11 +259,11 @@ class YoloLoader:
     ) -> None:
         if self.poly:
             mks = np.zeros((len(objects), *img.shape[:2]), bool)
-            for idx, poly in enumerate(objects):
+            for idx, poly in enumerate:
                 mks[idx] = poly2mask(poly, img.shape[:2])
             img = mask(img, mks, class_list=class_list, class_color=self.class_color)
         else:
-            for cls, box in zip(class_list, objects):
+            for cls, box in zip:
                 img = bbox(img, box, self.class_color[cls])
         cv2.imwrite(os.path.join(self.vis_path, file_name), img)
 
@@ -321,7 +321,7 @@ class YoloLoader:
             "data": {"image": f"data/local-files/?d={directory}/{data_file_name}"}
         }
         result_data = []
-        for cls, obj in zip(class_list, objects):
+        for cls, obj in zip:
             result_data.append(self._value(img, obj, labels, cls))
         annotation["annotations"] = [{"result": result_data}]
         return annotation
@@ -336,12 +336,12 @@ class YoloLoader:
         YOLO format의 data를 Label Studio에서 확인 및 수정할 수 있게 변환
 
         Args:
-            directory (``str``): Label Studio 내 ``/home/user/{directory}`` 의 이름
-            labels (``list[str | None]``): YOLO format의 ``.txt`` 상에서 index에 따른 label의 이름
-            mp_num (``int``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
+            directory: Label Studio 내 `/home/user/{directory}` 의 이름
+            labels: YOLO format의 ``.txt`` 상에서 index에 따른 label의 이름
+            mp_num: 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
 
         Returns:
-            ``None``: ``{path}.json`` 으로 결과 저장
+            `{path}.json` 으로 결과 저장
 
         Examples
             >>> yolo.labelstudio("images", mp_num=10, labels=["t1", "t2", "t3", "t4"])
@@ -365,34 +365,34 @@ class CocoLoader:
     """COCO format의 dataset을 읽고 시각화하는 class
 
     Args:
-        data_path (``str``): Image 및 annotation이 존재하는 directory 경로
-        vis_path (``str``): 시각화 image들이 저장될 경로
-        class_color (``dict[int | str, tuple[int | None]]``): 시각화 결과에 적용될 class에 따른 색상
+        data_path: Image 및 annotation이 존재하는 directory 경로
+        vis_path: 시각화 image들이 저장될 경로
+        class_color: 시각화 결과에 적용될 class에 따른 색상
 
     Methods:
         __len__:
             Returns:
-                ``int``: 읽어온 image file들의 수
+                읽어온 image file들의 수
 
         __call__:
-            Index에 따른 image와 annotation에 대한 정보 return (``vis_path`` 와 ``class_color`` 입력 시 시각화 image ``vis_path`` 에 저장)
+            Index에 따른 image와 annotation에 대한 정보 return (`vis_path` 와 `class_color` 입력 시 시각화 image `vis_path` 에 저장)
 
             Args:
-                idx (``int``): 입력 index
-                read (``bool``): Image 읽음 여부
-                int_class (``bool``): 출력될 class의 type 지정
+                idx: 입력 index
+                read: Image 읽음 여부
+                int_class: 출력될 class의 type 지정
 
             Returns:
-                ``tuple[str | NDArray[np.uint8], list[int | str], NDArray[DTypeLike], list[NDArray[DTypeLike]]]``: Image 경로 혹은 읽어온 image와 그에 따른 ``class_list``, ``bboxes``, ``polys``
+                Image 경로 혹은 읽어온 image와 그에 따른 `class_list`, `bboxes`, `polys`
 
         __getitem__:
-            Index에 따른 image와 annotation에 대한 정보 return (``vis_path`` 와 ``class_color`` 입력 시 시각화 image ``vis_path`` 에 저장)
+            Index에 따른 image와 annotation에 대한 정보 return (`vis_path` 와 `class_color` 입력 시 시각화 image `vis_path` 에 저장)
 
             Args:
-                idx (``int``): 입력 index
+                idx: 입력 index
 
             Returns:
-                ``tuple[NDArray[np.uint8], list[str], NDArray[DTypeLike], list[NDArray[DTypeLike]]]``: 읽어온 image와 그에 따른 ``class_list``, ``bboxes``, ``polys``
+                읽어온 image와 그에 따른 `class_list`, `bboxes`, `polys`
 
     Examples:
         >>> data_path = "train"
@@ -435,10 +435,10 @@ class CocoLoader:
         self.images.sort(key=lambda x: x["id"])
         self.annotations.sort(key=lambda x: x["image_id"])
         self.image2annotation = defaultdict(list)
-        for idx, annotation in enumerate(self.annotations):
+        for idx, annotation in enumerate:
             self.image2annotation[annotation["image_id"]].append(idx)
         self.classes = {}
-        for idx, cls in enumerate(data["categories"]):
+        for idx, cls in enumerate:
             self.classes[cls["id"]] = (idx, cls["name"])
         self.vis_path = vis_path
         if vis_path is not None:
@@ -513,11 +513,11 @@ class CocoLoader:
         bboxes: NDArray[DTypeLike],
         polys: list[NDArray[DTypeLike]],
     ) -> None:
-        for cls, box in zip(class_list, bboxes):
+        for cls, box in zip:
             img = bbox(img, box, self.class_color[cls])
         if polys:
             mks = np.zeros((len(polys), *img.shape[:2]), bool)
-            for idx, poly in enumerate(polys):
+            for idx, poly in enumerate:
                 mks[idx] = poly2mask(poly, img.shape[:2])
             img = mask(img, mks, class_list=class_list, class_color=self.class_color)
         cv2.imwrite(os.path.join(self.vis_path, file_name), img)
@@ -531,12 +531,12 @@ class CocoLoader:
         """COCO format을 YOLO format으로 변환
 
         Args:
-            target_path (``str``): YOLO format data가 저장될 경로
-            label (``list[str | None]``): COCO에서 사용한 label을 정수로 변환하는 list (index 사용)
-            poly (``bool``): Segmentation format 유무
+            target_path: YOLO format data가 저장될 경로
+            label: COCO에서 사용한 label을 정수로 변환하는 list (index 사용)
+            poly: Segmentation format 유무
 
         Returns:
-            ``None``: ``{target_path}/images`` 및 ``{target_path}/labels`` 에 image와 `.txt` file 저장
+            `{target_path}/images` 및 `{target_path}/labels` 에 image와 `.txt` file 저장
 
         Examples:
             >>> coco = zz.vision.CocoLoader(data_path)
@@ -554,7 +554,7 @@ class CocoLoader:
             )
             converted_gt = []
             if poly:
-                for cls, poly_ in zip(class_list, polys):
+                for cls, poly_ in zip:
                     poly_ /= (self.images[idx]["width"], self.images[idx]["height"])
                     if label:
                         cls = label.index(cls)
@@ -562,7 +562,7 @@ class CocoLoader:
                         f"{cls} " + " ".join(map(str, poly_.reshape(-1)))
                     )
             else:
-                for cls, box in zip(class_list, bboxes):
+                for cls, box in zip:
                     box /= (self.images[idx]["width"], self.images[idx]["height"]) * 2
                     if label:
                         cls = label.index(cls)

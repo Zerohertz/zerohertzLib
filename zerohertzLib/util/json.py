@@ -12,46 +12,46 @@ from tqdm import tqdm
 class Json:
     """JSON 형식 file을 읽고 사용하기 위한 class
 
-    객체 생성 시 ``path`` 를 입력하지 않을 시 현재 경로에 존재하는 JSON file을 읽고 ``path`` 를 경로로 입력하면 해당 경로에 존재하는 JSON file을 읽는다.
+    객체 생성 시 `path` 를 입력하지 않을 시 현재 경로에 존재하는 JSON file을 읽고 `path` 를 경로로 입력하면 해당 경로에 존재하는 JSON file을 읽는다.
 
     Args:
-        path (``str``): JSON file의 경로
+        path: JSON file의 경로
 
     Attributes:
-        name (``str``): JSON file 이름
-        keys (``list[str]``): 직렬화된 JSON의 key 값들
+        name: JSON file 이름
+        keys: 직렬화된 JSON의 key 값들
 
     Methods:
         __len__:
             Returns:
-                ``int``: 읽어온 JSON file의 길이
+                읽어온 JSON file의 길이
 
         __getitem__:
             읽어온 JSON file에 key 값 입력
 
             Args:
-                key (``int | str``): 읽어온 JSON file에서 불러올 key 값
+                key: 읽어온 JSON file에서 불러올 key 값
 
             Returns:
-                ``Any``: Key에 따른 value 값
+                Key에 따른 value 값
 
         _get_key:
             Key의 경로를 찾아주는 method
 
             Args:
-                key (``str``): 읽어온 JSON file에서 불러올 key 값 (깊이 무관)
+                key: 읽어온 JSON file에서 불러올 key 값 (깊이 무관)
 
             Returns:
-                ``str``: ``/`` 으로 깊이를 표시한 key 값
+                ``/`` 으로 깊이를 표시한 key 값
 
         _get_value:
             ``Json._get_key`` 로 생성된 key 값을 입력 받아 value return
 
             Args:
-                key (``str``): ``Json._get_key`` 로 생성된 key 값
+                key: ``Json._get_key 로 생성된 key 값
 
             Returns:
-                ``Any``: Key에 따른 value
+                Key에 따른 value
 
     Examples:
         >>> js = zz.util.Json()
@@ -86,9 +86,9 @@ class Json:
         return self.data[key]
 
     def __get_keys(self, data: Any, key: str = "", front: str = "") -> None:
-        if isinstance(data, dict):
+        if isinstance:
             for idx, (key_, val_) in enumerate(data.items()):
-                if idx + 1 == len(data):
+                if idx + 1 == len:
                     self.map.append(front + "└── " + str(key_))
                     front_ = " "
                 else:
@@ -100,7 +100,7 @@ class Json:
                 else:
                     self.keys.append(f"{key_}")
                     self.__get_keys(val_, f"{key_}", front + f"{front_}   ")
-        elif isinstance(data, list):
+        elif isinstance:
             self.map.append(front + "└── " + "LIST")
             if data:
                 if key:
@@ -134,13 +134,13 @@ class Json:
         return value
 
     def get(self, key: str) -> Any:
-        """``Json._get_key`` 로 생성된 key 값을 입력 받아 value return
+        """Json._get_key`` 로 생성된 key 값을 입력 받아 value return
 
         Args:
-            key (``str``): 읽어온 JSON file에서 불러올 key 값 (깊이 무관)
+            key: 읽어온 JSON file에서 불러올 key 값 (깊이 무관)
 
         Returns:
-            ``Any``: Key에 따른 value
+            Key에 따른 value
 
         Examples:
             >>> js["title"]
@@ -148,7 +148,7 @@ class Json:
             >>> js.get("title")
             '[v0.2.3] Release'
             >>> js["color"]
-            Traceback (most recent call last):
+            Traceback:
               File "<stdin>", line 1, in <module>
               File "/home/zerohertz/Zerohertz/zerohertzLib/zerohertzLib/util/json.py", line 107, in __getitem__
             KeyError: 'color'
@@ -189,37 +189,37 @@ class Json:
 class JsonDir:
     """입력된 경로에 존재하는 JSON 형식 file들을 읽고 사용하기 위한 class
 
-    객체 생성 시 ``path`` 를 입력하지 않을 시 현재 경로에 존재하는 JSON file들을 읽는다.
+    객체 생성 시 `path` 를 입력하지 않을 시 현재 경로에 존재하는 JSON file들을 읽는다.
 
     Args:
-        path (``str``): JSON file의 경로
+        path: JSON file의 경로
 
     Attributes:
-        name (``str``): 읽어온 JSON file의 이름들
-        data (``dict[str, Json]``): File 이름에 따른 `Json` 객체 배열
+        name: 읽어온 JSON file의 이름들
+        data: File 이름에 따른 `Json` 객체 배열
 
     Methods:
         __len__:
             Returns:
-                ``int``: 읽어온 JSON file들의 수
+                읽어온 JSON file들의 수
 
         __getitem__:
             읽어온 JSON file들을 list와 같이 indexing
 
             Args:
-                idx (``int``): 입력 index
+                idx: 입력 index
 
             Returns:
-                ``Json``: Index에 따른 ``Json`` instance
+                Index에 따른 `Json` instance
 
         _get_key:
             Key의 경로를 찾아주는 method
 
             Args:
-                key (``str``): 읽어온 JSON file에서 불러올 key 값 (깊이 무관)
+                key: 읽어온 JSON file에서 불러올 key 값 (깊이 무관)
 
             Returns:
-                ``str``: ``/`` 으로 깊이를 표시한 key 값
+                ``/`` 으로 깊이를 표시한 key 값
 
     Examples:
         >>> jsd = zz.util.JsonDir()
@@ -284,10 +284,10 @@ class JsonDir:
         """읽어온 JSON data들의 유일한 값을 return하는 method
 
         Args:
-            key (``str``): 읽어온 JSON file에서 불러올 key 값
+            key: 읽어온 JSON file에서 불러올 key 값
 
         Returns:
-            ``set[str]``: Key에 따른 유일한 값들의 집합
+            Key에 따른 유일한 값들의 집합
 
         Examples:
             >>> jsd.unique("label")
@@ -307,11 +307,11 @@ def write_json(data: dict[Any, Any] | list[dict[Any, Any]], path: str) -> str:
     """JSON (JavaScript Object Notation)을 작성하는 함수
 
     Args:
-        data (``dict[Any, Any] | list[dict[Any, Any]]``): 입력 data (header 포함 무관)
-        path (``str``): 출력될 JSON file의 경로 및 이름
+        data: 입력 data (header 포함 무관)
+        path: 출력될 JSON file의 경로 및 이름
 
     Returns:
-        ``str``: File의 절대 경로
+        File의 절대 경로
 
     Examples:
         >>> zz.util.write_json([{"id": "4169", "전투력": 4209, "정보": ["아무", "거나"]}]*100, "zerohertzLib/star_craft")

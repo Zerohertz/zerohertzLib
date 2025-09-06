@@ -19,22 +19,20 @@ def cpu(
     """시간에 따른 CPU의 사용량을 각 코어에 따라 line chart로 시각화
 
     Args:
-        tick (``int``): Update 주기
-        threshold (``int``): 시각화할 총 시간
-        path (``str``): Graph를 저장할 경로
-        dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
-        per (``bool``): CPU 개별 사용량 시각화 여부
+        tick: Update 주기
+        threshold: 시각화할 총 시간
+        path: Graph를 저장할 경로
+        dpi: Graph 저장 시 DPI (Dots Per Inch)
+        per: CPU 개별 사용량 시각화 여부
 
     Returns:
-        ``None``: 지정한 경로에 바로 graph 저장
+        지정한 경로에 바로 graph 저장
 
     Examples:
         >>> zz.monitoring.cpu(threshold=15)
         >>> zz.monitoring.cpu(per=False)
 
-        .. image:: _static/examples/static/monitoring.cpu.png
-            :align: center
-            :width: 600px
+        ![CPU monitoring example](../assets/images/monitoring.cpu.png){ width="600" }
     """
     tmp = 0
     time_list = []

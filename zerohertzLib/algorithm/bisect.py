@@ -6,11 +6,11 @@ def bisect_right(sorted_list: list[int | float], value: int | float) -> int:
     """Binary Search (right)
 
     Args:
-        sorted_list (``list[int | float]``): 정렬된 list
-        value (``int | float``): 찾고자하는 값
+        sorted_list: 정렬된 list
+        value: 찾고자하는 값
 
     Returns:
-        ``int``: ``value`` 값이 ``sorted_list`` 에 삽입될 때 index
+        `value` 값이 `sorted_list` 에 삽입될 때 index
 
     Examples:
         >>> zz.algorithm.bisect_right([1, 3, 5], 2.7)
@@ -34,11 +34,11 @@ def bisect_left(sorted_list: list[int | float], value: int | float) -> int:
     """Binary Search (left)
 
     Args:
-        sorted_list (``list[int | float]``): 정렬된 list
-        value (``int | float``): 찾고자하는 값
+        sorted_list: 정렬된 list
+        value: 찾고자하는 값
 
     Returns:
-        ``int``: ``value`` 값이 ``sorted_list`` 에 삽입될 때 index
+        `value` 값이 `sorted_list` 에 삽입될 때 index
 
     Examples:
         >>> zz.algorithm.bisect_left([1, 3, 5], 2.7)

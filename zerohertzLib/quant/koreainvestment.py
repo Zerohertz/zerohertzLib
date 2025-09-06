@@ -11,49 +11,48 @@ import pandas as pd
 from matplotlib import pyplot as plt
 from matplotlib import ticker
 
-from zerohertzLib.api import KoreaInvestment
 from zerohertzLib.plot import barv, figure, pie, savefig, table
 
 from .quant import QuantBot
 from .util import _cash2str
 
 
-class Balance(KoreaInvestment):
+class Balance:
     """한국투자증권의 국내 계좌 정보 조회 class
 
     Args:
-        account_no (``str``): API 호출 시 사용할 계좌 번호
-        path (``str``): ``secret.key`` 혹은 ``token.dat`` 이 포함된 경로
-        kor (``bool``): 국내 여부
+        account_no: API 호출 시 사용할 계좌 번호
+        path: ``secret.key`` 혹은 ``token.dat 이 포함된 경로
+        kor: 국내 여부
 
     Attributes:
-        balance (``dict[str, Any]``): 현재 보유 주식과 계좌의 금액 정보
+        balance: 현재 보유 주식과 계좌의 금액 정보
 
     Methods:
         __contains__:
             Args:
-                item (``Any``): 보유 여부를 판단할 종목명
+                item: 보유 여부를 판단할 종목명
 
             Returns:
-                ``bool``: 입력 종목명의 보유 여부
+                입력 종목명의 보유 여부
 
         __len__:
             Returns:
-                ``int``: 보유 주식 종류의 수
+                보유 주식 종류의 수
 
         __getitem__:
             Args:
-                idx (``int``): Index
+                idx: Index
 
             Returns:
-                ``list[int | float | str]``: Index에 따른 주식의 매수 시점과 현재의 정보
+                Index에 따른 주식의 매수 시점과 현재의 정보
 
         __call__:
             Returns:
-                ``int``: 현재 보유 금액
+                현재 보유 금액
 
     Examples:
-        ``kor=True``:
+        kor=True``:
             >>> balance = zz.quant.Balance("00000000-00")
             >>> "LG전자" in balance
             True
@@ -66,7 +65,7 @@ class Balance(KoreaInvestment):
             >>> balance()
             000
 
-        ``kor=False``:
+        ``kor=False:
             >>> balance = zz.quant.Balance("00000000-00", kor=False)
             >>> "아마존닷컴" in balance
             True
@@ -143,7 +142,7 @@ class Balance(KoreaInvestment):
         """USD/KRW의 현재 시세
 
         Returns:
-            ``float``: USD/KRW의 현재 시세
+            USD/KRW의 현재 시세
         """
         now = datetime.now()
         data = fdr.DataReader("USD/KRW", now - timedelta(days=10))
@@ -153,10 +152,10 @@ class Balance(KoreaInvestment):
         """현재 계좌와 입력 계좌의 정보를 병합하는 function
 
         Args:
-            balance (``'Balance'``): 병합될 계좌 정보
+            balance: 병합될 계좌 정보
 
         Returns:
-            ``None``: 현재 계좌에 정보 update
+            현재 계좌에 정보 update
 
         Examples:
             >>> balance_1.merge(balance_2)
@@ -228,7 +227,7 @@ class Balance(KoreaInvestment):
         """보유 주식의 반복문 사용을 위한 method
 
         Returns:
-            ``ItemsView[str, list[int | float | str]]``: 보유 종목 code와 그에 따른 정보들
+            보유 종목 code와 그에 따른 정보들
 
         Examples:
             >>> for k, v in balance.items():
@@ -240,7 +239,7 @@ class Balance(KoreaInvestment):
         """보유 주식의 종목 code return
 
         Returns:
-            ``list[str]``: 보유 주식의 종목 code들
+            보유 주식의 종목 code들
 
         Examples:
             >>> balance.bought_symbols():
@@ -252,7 +251,7 @@ class Balance(KoreaInvestment):
         """현재 계좌의 상태를 image로 저장
 
         Returns:
-            ``str``: 저장된 image의 절대 경로
+            저장된 image의 절대 경로
 
         Examples:
             >>> balance.table()
@@ -320,7 +319,7 @@ class Balance(KoreaInvestment):
         """현재 보유 종목을 pie chart로 시각화
 
         Returns:
-            ``str``: 저장된 graph의 절대 경로
+            저장된 graph의 절대 경로
 
         Examples:
             >>> balance.pie()
@@ -344,7 +343,7 @@ class Balance(KoreaInvestment):
         """현재 보유 종목의 이익과 손실을 bar chart로 시각화
 
         Returns:
-            ``str``: 저장된 graph의 절대 경로
+            저장된 graph의 절대 경로
 
         Examples:
             >>> balance.barv()
@@ -371,28 +370,28 @@ class Balance(KoreaInvestment):
         return savefig("ProfitLoss", 100)
 
 
-class QuantBotKI(Balance, QuantBot):
+class QuantBotKI:
     """한국투자증권 API를 기반으로 입력된 여러 종목에 대해 매수, 매도 signal을 판단하고 Bot을 통해 message와 graph를 전송하는 class
 
     Args:
-        account_no (``str``): API 호출 시 사용할 계좌 번호
-        symbols (``list[str] | None``): 종목 code들
-        start_day (``str``): 조회 시작 일자 (``YYYYMMDD``)
-        ohlc (``str``): 사용할 ``data`` 의 column 이름
-        top (``int``): Experiment 과정에서 사용할 각 전략별 수
-        methods (``dict[str, list[list[Any]]] | None``): 사용할 전략들의 function명 및 parameters
-        report (``bool``): Experiment 결과 출력 여부
-        token (``str``): Bot의 token (xoxb- prefix로 시작하면 SlackBot, 아니면 DiscordBot)
-        channel (``str``): Bot이 전송할 channel
-        name (``str``): Bot의 표시될 이름
-        icon_emoji (``str``): Bot의 표시될 사진 (emoji)
-        mp_num (``int``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
-        analysis (``bool``): 각 전략의 보고서 전송 여부
-        kor (``bool``): 국내 여부
-        path (``str``): ``secret.key`` 혹은 ``token.dat`` 이 포함된 경로
+        account_no: API 호출 시 사용할 계좌 번호
+        symbols: 종목 code들
+        start_day: 조회 시작 일자 (YYYYMMDD``)
+        ohlc: 사용할 `data` 의 column 이름
+        top: Experiment 과정에서 사용할 각 전략별 수
+        methods: 사용할 전략들의 function명 및 parameters
+        report: Experiment 결과 출력 여부
+        token: Bot의 token (xoxb- prefix로 시작하면 SlackBot, 아니면 DiscordBot)
+        channel: Bot이 전송할 channel
+        name: Bot의 표시될 이름
+        icon_emoji: Bot의 표시될 사진 (emoji)
+        mp_num: 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
+        analysis: 각 전략의 보고서 전송 여부
+        kor: 국내 여부
+        path: ``secret.key`` 혹은 ``token.dat`` 이 포함된 경로
 
     Attributes:
-        exps (``dict[str, list[dict[str, int]]]``): 각 전략에 따른 parameter 분포
+        exps: 각 전략에 따른 parameter 분포
 
     Examples:
         >>> qbki = zz.quant.QuantBotKI("00000000-00", token=token, channel=channel)

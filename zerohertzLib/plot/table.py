@@ -18,16 +18,16 @@ def table(
     """Dictionary로 입력받은 data를 scatter plot으로 시각화
 
     Args:
-        data (``list[list[int | float | str]]``): ``len(row) X len(col)`` 의 크기를 가지는 list
-        col (``list[int | float | str] | None``): 열 (column)의 label
-        row (``list[int | float | str] | None``): 행 (row)의 label
-        title (``str``): 저장될 file의 이름
-        fontsize (``int``): 문자의 크기
-        figsize (``tuple[int, int]``): Graph의 가로, 세로 길이
-        dpi (``int``): Graph 저장 시 DPI (Dots Per Inch)
+        data: ``len(row) X len(col)`` 의 크기를 가지는 list
+        col: 열 (column)의 label
+        row: 행 (row)의 label
+        title: 저장될 file의 이름
+        fontsize: 문자의 크기
+        figsize: Graph의 가로, 세로 길이
+        dpi: Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
-        ``str``: 저장된 graph의 절대 경로
+        저장된 graph의 절대 경로
 
     Examples:
         >>> data = [["123", 123, 123.4], [123.4, "123", 123], [123, 123.4, "123"], ["123", 123, 123.4]]
@@ -36,9 +36,7 @@ def table(
         >>> zz.plot.table(data, col, row, title="Star Craft")
         >>> zz.plot.table(data, col, row, title="Star Craft2", fontsize=50)
 
-        .. image:: _static/examples/dynamic/plot.table.png
-            :align: center
-            :width: 500px
+        ![Table example](../assets/images/plot.table.png){ width="500" }
     """
     fig, ax = plt.subplots(figsize=figsize)
     tbl = ax.table(cellText=data, colLabels=col, rowLabels=row, loc="center")

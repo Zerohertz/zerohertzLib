@@ -2,9 +2,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
 """
-.. admonition:: Algorithm
-    :class: hint
-
+!!! hint "Algorithm"
     Algorithm과 관련된 다양한 함수들
 """
 

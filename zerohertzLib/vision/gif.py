@@ -27,19 +27,17 @@ def img2gif(
     """Directory 내 image들을 GIF로 변환
 
     Args:
-        path (``str``): GIF로 변환할 image들이 존재하는 경로
-        file_name (``str``): 출력될 GIF file 이름
-        duration (``int``): ms 단위의 사진 간 간격
+        path: GIF로 변환할 image들이 존재하는 경로
+        file_name: 출력될 GIF file 이름
+        duration: ms 단위의 사진 간 간격
 
     Returns:
-        ``None``: 현재 directory에 바로 GIF 저장
+        현재 directory에 바로 GIF 저장
 
     Examples:
         >>> zz.vision.img2gif("./")
 
-        .. image:: _static/examples/static/vision.img2gif.gif
-            :align: center
-            :width: 200px
+        ![Images to GIF conversion example](../assets/images/vision.img2gif.gif){ width="200" }
     """
     ext = (
         "jpg",
@@ -69,21 +67,19 @@ def vid2gif(
     """동영상을 GIF로 변환
 
     Args:
-        path (``str``): GIF로 변환할 동영상이 존재하는 경로
-        file_name (``str``): 출력될 GIF file 이름
-        quality (``int``): 출력될 GIF의 품질
-        fps (``int``): 출력될 GIF의 FPS (Frames Per Second)
-        speed (``float``): 출력될 GIF의 배속
+        path: GIF로 변환할 동영상이 존재하는 경로
+        file_name: 출력될 GIF file 이름
+        quality: 출력될 GIF의 품질
+        fps: 출력될 GIF의 FPS (Frames Per Second)
+        speed: 출력될 GIF의 배속
 
     Returns:
-        ``None``: 현재 directory에 바로 GIF 저장
+        현재 directory에 바로 GIF 저장
 
     Examples:
         >>> zz.vision.vid2gif("test.mp4")
 
-        .. image:: _static/examples/static/vision.vid2gif.gif
-            :align: center
-            :width: 300px
+        ![Video to GIF conversion example](../assets/images/vision.vid2gif.gif){ width="300" }
     """
     frames = []
     cap = cv2.VideoCapture(path)

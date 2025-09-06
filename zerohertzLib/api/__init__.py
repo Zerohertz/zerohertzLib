@@ -2,9 +2,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
 """
-.. admonition:: API
-    :class: hint
-
+!!! hint "API"
     다양한 API를 쉽게 사용할 수 있는 class들
 """
 

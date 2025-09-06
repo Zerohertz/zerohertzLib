@@ -13,11 +13,11 @@ def _rsi(data: pd.DataFrame, window: int) -> pd.DataFrame:
     """RSI (Relative Strength Index)를 계산하는 function
 
     Args:
-        data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
-        window (``int``): Window의 크기
+        data: OHLCV (Open, High, Low, Close, Volume) data
+        window: Window의 크기
 
     Returns:
-        ``pd.DataFrame``: RSI 값
+        RSI 값
     """
     delta = data.diff()
     up, down = delta.copy(), delta.copy()
@@ -40,13 +40,13 @@ def _bollinger_bands(
     """Bollinger band 계산 function
 
     Args:
-        data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
-        window (``int``): 이동 평균을 계산하기 위한 윈도우 크기. 기본값은 20.
-        num_std_dev (``int``): 표준편차의 배수. 기본값은 2.
-        ohlc (``str``): 이동 평균을 계산할 때 사용할 ``data`` 의 column 이름
+        data: OHLCV (Open, High, Low, Close, Volume) data
+        window: 이동 평균을 계산하기 위한 윈도우 크기. 기본값은 20.
+        num_std_dev: 표준편차의 배수. 기본값은 2.
+        ohlc: 이동 평균을 계산할 때 사용할 `data` 의 column 이름
 
     Returns:
-        ``pd.DataFrame``: Bollinger band
+        Bollinger band
     """
     bands = pd.DataFrame(index=data.index)
     if ohlc == "":
