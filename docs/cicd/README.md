@@ -86,10 +86,10 @@ hide:
 ## MkDocs Documentation Deployment
 
 !!! note "MkDocs Documentation"
-    Documents created and built using MkDocs are deployed via GitHub Actions and GitHub Pages
+    Documents created and built using MkDocs are deployed via [Read the Docs](https://app.readthedocs.org/projects/zerohertzlib/)
 
 <p align="center">
-   <img width="872" alt="pages-build-and-deployment" src="../assets/cicd/pages-build-and-deployment.png">
+   <img width="872" alt="read-the-docs" src="../assets/cicd/read-the-docs.png">
 </p>
 
 ---
