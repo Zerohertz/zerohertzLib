@@ -1,29 +1,8 @@
-"""
-MIT License
-
-Copyright (c) 2023 Hyogeun Oh
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
 import sys
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any
 
 import numpy as np
 from matplotlib import pyplot as plt
@@ -33,39 +12,39 @@ from .util import _color, savefig
 
 
 def barv(
-    data: Dict[str, Any],
-    xlab: Optional[str] = None,
-    ylab: Optional[str] = None,
-    xlim: Optional[List[Union[int, float]]] = None,
-    ylim: Optional[List[Union[int, float]]] = None,
-    title: Optional[str] = "tmp",
-    colors: Optional[Union[str, List]] = None,
-    figsize: Optional[Tuple[int]] = (15, 10),
-    rot: Optional[int] = 0,
-    dim: Optional[str] = None,
-    dimsize: Optional[float] = 10,
-    sign: Optional[int] = 1,
-    dpi: Optional[int] = 300,
-) -> str:
+    data: dict[str, Any],
+    xlab: str | None = None,
+    ylab: str | None = None,
+    xlim: list[int | float] | None = None,
+    ylim: list[int | float] | None = None,
+    title: str = "tmp",
+    colors: str | list | None = None,
+    figsize: tuple[int, int] = (15, 10),
+    rot: int = 0,
+    dim: str | None = None,
+    dimsize: float = 10,
+    sign: int = 1,
+    dpi: int = 300,
+) -> str | None:
     """Dictionary로 입력받은 data를 가로 bar chart로 시각화
 
     Args:
-        data (``Dict[str, Any]``): 입력 data
-        xlab (``Optional[str]``): Graph에 출력될 X축 label
-        ylab (``Optional[str]``): Graph에 출력될 Y축 label
-        xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
-        ylim (``Optional[List[Union[int, float]]]``): Graph에 출력될 Y축 limit
-        title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
-        colors (``Optional[Union[str, List]]``): 각 요소의 색
-        figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
-        rot (``Optional[int]``): X축의 눈금 회전 각도
-        dim (``Optional[str]``): 각 bar 상단에 표시될 값의 단위 (``%``: percentage)
-        dimsize (``Optional[float]``): 각 bar 상단에 표시될 값의 크기
-        sign (``Optional[int]``): 각 bar 상단에 표시될 값의 유효숫자
-        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        data: 입력 data
+        xlab: Graph에 출력될 X축 label
+        ylab: Graph에 출력될 Y축 label
+        xlim: Graph에 출력될 X축 limit
+        ylim: Graph에 출력될 Y축 limit
+        title: Graph에 표시될 제목 및 file 이름
+        colors: 각 요소의 색
+        figsize: Graph의 가로, 세로 길이
+        rot: X축의 눈금 회전 각도
+        dim: 각 bar 상단에 표시될 값의 단위 (`%`: percentage)
+        dimsize: 각 bar 상단에 표시될 값의 크기
+        sign: 각 bar 상단에 표시될 값의 유효숫자
+        dpi: Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
-        ``str``: 저장된 graph의 절대 경로
+        저장된 graph의 절대 경로
 
     Examples:
         >>> data = {"Terran": 27, "Zerg": 40, "Protoss": -30}
@@ -73,9 +52,7 @@ def barv(
         >>> data = {"xticks": ["Terran", "Zerg", "Protoss"], "Type A": [4, 5, 6], "Type B": [4, 3, 2], "Type C": [8, 5, 12], "Type D": [6, 3, 2]}
         >>> zz.plot.barv(data, xlab="Races", ylab="Time [sec]", title="Star Craft", dim="%", sign=2)
 
-        .. image:: _static/examples/dynamic/plot.barv.png
-            :align: center
-            :width: 600px
+        ![Vertical bar chart example](../../../assets/plot/barv.png){ width="600" }
     """
     colors = _color(data, colors)
     if config.SAVE:
@@ -181,39 +158,39 @@ def barv(
 
 
 def barh(
-    data: Dict[str, Any],
-    xlab: Optional[str] = None,
-    ylab: Optional[str] = None,
-    xlim: Optional[List[Union[int, float]]] = None,
-    ylim: Optional[List[Union[int, float]]] = None,
-    title: Optional[str] = "tmp",
-    colors: Optional[Union[str, List]] = None,
-    figsize: Optional[Tuple[int]] = (10, 15),
-    rot: Optional[int] = 0,
-    dim: Optional[str] = None,
-    dimsize: Optional[float] = 10,
-    sign: Optional[int] = 1,
-    dpi: Optional[int] = 300,
-) -> str:
+    data: dict[str, Any],
+    xlab: str | None = None,
+    ylab: str | None = None,
+    xlim: list[int | float] | None = None,
+    ylim: list[int | float] | None = None,
+    title: str = "tmp",
+    colors: str | list | None = None,
+    figsize: tuple[int, int] = (10, 15),
+    rot: int = 0,
+    dim: str | None = None,
+    dimsize: float = 10,
+    sign: int = 1,
+    dpi: int = 300,
+) -> str | None:
     """Dictionary로 입력받은 data를 세로 bar chart로 시각화
 
     Args:
-        data (``Dict[str, Any]``): 입력 data
-        xlab (``Optional[str]``): Graph에 출력될 X축 label
-        ylab (``Optional[str]``): Graph에 출력될 Y축 label
-        xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
-        ylim (``Optional[List[Union[int, float]]]``): Graph에 출력될 Y축 limit
-        title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
-        colors (``Optional[Union[str, List]]``): 각 요소의 색
-        figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
-        rot (``Optional[int]``): X축의 눈금 회전 각도
-        dim (``Optional[str]``): 각 bar 상단에 표시될 값의 단위 (``%``: percentage)
-        dimsize (``Optional[float]``): 각 bar 상단에 표시될 값의 크기
-        sign (``Optional[int]``): 각 bar 상단에 표시될 값의 유효숫자
-        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        data: 입력 data
+        xlab: Graph에 출력될 X축 label
+        ylab: Graph에 출력될 Y축 label
+        xlim: Graph에 출력될 X축 limit
+        ylim: Graph에 출력될 Y축 limit
+        title: Graph에 표시될 제목 및 file 이름
+        colors: 각 요소의 색
+        figsize: Graph의 가로, 세로 길이
+        rot: X축의 눈금 회전 각도
+        dim: 각 bar 상단에 표시될 값의 단위 (`%`: percentage)
+        dimsize: 각 bar 상단에 표시될 값의 크기
+        sign: 각 bar 상단에 표시될 값의 유효숫자
+        dpi: Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
-        ``str``: 저장된 graph의 절대 경로
+        저장된 graph의 절대 경로
 
     Examples:
         >>> data = {"Terran": 27, "Zerg": 40, "Protoss": -30}
@@ -221,9 +198,7 @@ def barh(
         >>> data = {"yticks": ["Terran", "Zerg", "Protoss"], "Type A": [4, 5, 6], "Type B": [4, 3, 2], "Type C": [8, 5, 12], "Type D": [6, 3, 2]}
         >>> zz.plot.barh(data, xlab="Time [Sec]", ylab="Races", title="Star Craft", dim="%", sign=2)
 
-        .. image:: _static/examples/dynamic/plot.barh.png
-            :align: center
-            :width: 450px
+        ![Horizontal bar chart example](../../../assets/plot/barh.png){ width="450" }
     """
     colors = _color(data, colors)
     if config.SAVE:
@@ -328,43 +303,41 @@ def barh(
 
 
 def hist(
-    data: Dict[str, List[Union[int, float]]],
-    xlab: Optional[str] = None,
-    ylab: Optional[str] = None,
-    xlim: Optional[List[Union[int, float]]] = None,
-    ylim: Optional[List[Union[int, float]]] = None,
-    title: Optional[str] = "tmp",
-    colors: Optional[Union[str, List]] = None,
-    cnt: Optional[int] = 30,
-    ovp: Optional[bool] = True,
-    figsize: Optional[Tuple[int]] = (15, 10),
-    dpi: Optional[int] = 300,
-) -> str:
+    data: dict[str, list[int | float]],
+    xlab: str | None = None,
+    ylab: str | None = None,
+    xlim: list[int | float] | None = None,
+    ylim: list[int | float] | None = None,
+    title: str = "tmp",
+    colors: str | list | None = None,
+    cnt: int = 30,
+    ovp: bool = True,
+    figsize: tuple[int, int] = (15, 10),
+    dpi: int = 300,
+) -> str | None:
     """Dictionary로 입력받은 data를 histogram으로 시각화
 
     Args:
-        data (``Dict[str, List[Union[int, float]]]``): 입력 data
-        xlab (``Optional[str]``): Graph에 출력될 X축 label
-        ylab (``Optional[str]``): Graph에 출력될 Y축 label
-        xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
-        ylim (``Optional[List[Union[int, float]]]``): Graph에 출력될 Y축 limit
-        title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
-        colors (``Optional[Union[str, List]]``): 각 요소의 색
-        cnt (``Optional[int]``): Bin의 개수
-        ovp (``Optional[bool]``): Class에 따른 histogram overlap 여부
-        figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
-        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        data: 입력 data
+        xlab: Graph에 출력될 X축 label
+        ylab: Graph에 출력될 Y축 label
+        xlim: Graph에 출력될 X축 limit
+        ylim: Graph에 출력될 Y축 limit
+        title: Graph에 표시될 제목 및 file 이름
+        colors: 각 요소의 색
+        cnt: Bin의 개수
+        ovp: Class에 따른 histogram overlap 여부
+        figsize: Graph의 가로, 세로 길이
+        dpi: Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
-        ``str``: 저장된 graph의 절대 경로
+        저장된 graph의 절대 경로
 
     Examples:
         >>> data = {"Terran": list(np.random.rand(1000) * 10), "Zerg": list(np.random.rand(1000) * 10 + 1), "Protoss": list(np.random.rand(1000) * 10 + 2)}
         >>> zz.plot.hist(data, xlab="Scores", ylab="Population", title="Star Craft")
 
-        .. image:: _static/examples/dynamic/plot.hist.png
-            :align: center
-            :width: 600px
+        ![Histogram example](../../../assets/plot/hist.png){ width="600" }
     """
     colors = _color(data, colors)
     minimum, maximum = sys.maxsize, -sys.maxsize

@@ -1,7 +1,8 @@
-"""
-.. admonition:: Algorithm
-    :class: hint
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
+"""
+!!! hint "Algorithm"
     Algorithm과 관련된 다양한 함수들
 """
 

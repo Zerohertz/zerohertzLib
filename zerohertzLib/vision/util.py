@@ -1,28 +1,5 @@
-"""
-MIT License
-
-Copyright (c) 2023 Hyogeun Oh
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
-
-from typing import List, Tuple, Union
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
 import cv2
 import numpy as np
@@ -34,10 +11,10 @@ def _cvt_bgra(img: NDArray[np.uint8]) -> NDArray[np.uint8]:
     """cv2로 읽어온 image를 BGRA 채널로 전환
 
     Args:
-        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
+        img: 입력 image (`[H, W, C]`)
 
     Returns:
-        ``NDArray[np.uint8]``: BGRA image (``[H, W, 4]``)
+        BGRA image (`[H, W, 4]`)
     """
     shape = img.shape
     if len(shape) == 2:
@@ -47,14 +24,14 @@ def _cvt_bgra(img: NDArray[np.uint8]) -> NDArray[np.uint8]:
     return img
 
 
-def _is_bbox(shape: Tuple[int]) -> Tuple[bool]:
+def _is_bbox(shape: tuple[int, ...]) -> tuple[bool, bool]:
     """Bbox 여부 검증
 
     Args:
-        shape (``Tuple[int]``): Bbox의 `shape`
+        shape: Bbox의 `shape`
 
     Returns:
-        ``Tuple[bool]``: 복수의 bbox 여부 및 format의 정보
+        복수의 bbox 여부 및 format의 정보
     """
     if len(shape) == 1 and shape[0] == 4:
         # [cx, cy, w, h] or N * [x0, y0, x1, y1]
@@ -83,16 +60,16 @@ def _is_bbox(shape: Tuple[int]) -> Tuple[bool]:
 
 
 def is_pts_in_poly(
-    poly: NDArray[DTypeLike], pts: Union[List[Union[int, float]], NDArray[DTypeLike]]
-) -> Union[bool, NDArray[bool]]:
+    poly: NDArray[DTypeLike], pts: list[int | float] | NDArray[DTypeLike]
+) -> bool | NDArray[bool]:
     """지점들의 좌표 내 존재 여부 확인 함수
 
     Args:
-        poly (``NDArray[DTypeLike]``): 다각형 (``[N, 2]``)
-        pts (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): point (``[2]`` or ``[N, 2]``)
+        poly: 다각형 (`[N, 2]`)
+        pts: point (`[2]` or `[N, 2]`)
 
     Returns:
-        ``Union[bool, NDArray[bool]]``: 입력 ``point`` 의 다각형 ``poly`` 내부 존재 여부
+        입력 `point` 의 다각형 `poly` 내부 존재 여부
 
     Examples:
         >>> poly = np.array([[10, 10], [20, 10], [30, 40], [20, 60], [10, 20]])

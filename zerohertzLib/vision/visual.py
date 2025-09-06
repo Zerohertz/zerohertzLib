@@ -1,29 +1,7 @@
-"""
-MIT License
-
-Copyright (c) 2023 Hyogeun Oh
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
 import os
-from typing import Dict, List, Optional, Tuple, Union
 
 import cv2
 import numpy as np
@@ -40,19 +18,19 @@ from .util import _cvt_bgra, _is_bbox
 def _bbox(
     img: NDArray[np.uint8],
     box_poly: NDArray[DTypeLike],
-    color: Tuple[int],
+    color: tuple[int, int, int],
     thickness: int,
 ) -> NDArray[np.uint8]:
     """Bbox 시각화
 
     Args:
-        img (``NDArray[np.uint8]``): Input image (``[H, W, C]``)
-        box_poly (``NDArray[DTypeLike]``): 하나의 bbox (``[4, 2]``)
-        color (``Tuple[int]``): bbox의 색
-        thickness (``int``): bbox 선의 두께
+        img: Input image (`[H, W, C]`)
+        box_poly: 하나의 bbox (`[4, 2]`)
+        color: bbox의 색
+        thickness: bbox 선의 두께
 
     Returns:
-        ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, C]``)
+        시각화 결과 (`[H, W, C]`)
     """
     return cv2.polylines(
         img,
@@ -65,20 +43,20 @@ def _bbox(
 
 def bbox(
     img: NDArray[np.uint8],
-    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
-    color: Optional[Tuple[int]] = (0, 0, 255),
-    thickness: Optional[int] = 2,
+    box: list[int | float] | NDArray[DTypeLike],
+    color: tuple[int, int, int] = (0, 0, 255),
+    thickness: int = 2,
 ) -> NDArray[np.uint8]:
     """여러 Bbox 시각화
 
     Args:
-        img (``NDArray[np.uint8]``): Input image (``[H, W, C]``)
-        box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): 하나 혹은 여러 개의 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
-        color (``Optional[Tuple[int]]``): bbox의 색
-        thickness (``Optional[int]``): bbox 선의 두께
+        img: Input image (`[H, W, C]`)
+        box: 하나 혹은 여러 개의 bbox (`[4]`, `[N, 4]`, `[4, 2]`, `[N, 4, 2]`)
+        color: bbox의 색
+        thickness: bbox 선의 두께
 
     Returns:
-        ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, C]``)
+        시각화 결과 (`[H, W, C]`)
 
     Examples:
         Bbox:
@@ -93,9 +71,7 @@ def bbox(
             (3, 4)
             >>> res2 = zz.vision.bbox(img, boxes, (0, 255, 0), thickness=10)
 
-        .. image:: _static/examples/dynamic/vision.bbox.png
-            :align: center
-            :width: 600px
+        ![Bounding box visualization example](../../../assets/vision/bbox.png){ width="600" }
     """
     box = _list2np(box)
     img = img.copy()
@@ -118,33 +94,34 @@ def bbox(
 
 def mask(
     img: NDArray[np.uint8],
-    mks: Optional[NDArray[bool]] = None,
-    poly: Optional[
-        Union[List[Union[int, float]], NDArray[DTypeLike], List[NDArray[DTypeLike]]]
-    ] = None,
-    color: Optional[Tuple[int]] = (0, 0, 255),
-    class_list: Optional[List[Union[int, str]]] = None,
-    class_color: Optional[Dict[Union[int, str], Tuple[int]]] = None,
-    border: Optional[bool] = True,
-    alpha: Optional[float] = 0.5,
+    mks: NDArray[bool] | None = None,
+    poly: (
+        list[int | float] | NDArray[DTypeLike] | list[NDArray[DTypeLike]] | None
+    ) = None,
+    color: tuple[int, int, int] = (0, 0, 255),
+    class_list: list[int | str] | None = None,
+    class_color: dict[int | str, tuple[int, int, int]] | None = None,
+    border: bool = True,
+    alpha: float = 0.5,
 ) -> NDArray[np.uint8]:
     """Mask 시각화
 
     Args:
-        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
-        mks (``Optional[NDArray[bool]]``): 입력 image 위에 병합할 mask (``[H, W]`` or ``[N, H, W]``)
-        poly (``Optional[Union[List[Union[int, float]], NDArray[DTypeLike], List[NDArray[DTypeLike]]]]``): 입력 image 위에 병합할 mask (``[M, 2]`` or ``[N, M, 2]``)
-        color (``Optional[Tuple[int]]``): Mask의 색
-        class_list (``Optional[List[Union[int, str]]]``): ``mks`` 의 index에 따른 class
-        class_color (``Optional[Dict[Union[int, str], Tuple[int]]]``): Class에 따른 색 (``color`` 무시)
-        border (``Optional[bool]``): Mask의 경계선 표시 여부
-        alpha (``Optional[float]``): Mask의 투명도
+        img: 입력 image (`[H, W, C]`)
+        mks: 입력 image 위에 병합할 mask (`[H, W]` or `[N, H, W]`)
+        poly: 입력 image 위에 병합할 mask (`[M, 2]` or `[N, M, 2]`)
+        color: Mask의 색
+        class_list: `mks` 의 index에 따른 class
+        class_color: Class에 따른 색 (`color` 무시)
+        border: Mask의 경계선 표시 여부
+        alpha: Mask의 투명도
 
     Returns:
-        ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, C]``)
+        시각화 결과 (`[H, W, C]`)
 
     Examples:
-        Mask (without class):
+        Mask:
+            ```python
             >>> H, W, _ = img.shape
             >>> cnt = 30
             >>> mks = np.zeros((cnt, H, W), np.uint8)
@@ -155,26 +132,28 @@ def mask(
             >>>     cv2.circle(mks_, (center_x, center_y), radius, (True), -1)
             >>> mks = mks.astype(bool)
             >>> res1 = zz.vision.mask(img, mks)
-
-        Mask (with class):
+            ```
+        Mask:
+            ```python
             >>> cls = [i for i in range(cnt)]
             >>> class_list = [cls[random.randint(0, 5)] for _ in range(cnt)]
             >>> class_color = {}
             >>> for c in cls:
             >>>     class_color[c] = [random.randint(0, 255) for _ in range(3)]
             >>> res2 = zz.vision.mask(img, mks, class_list=class_list, class_color=class_color)
-
-        Poly (without class):
+            ```
+        Poly:
+            ```python
             >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
             >>> res3 = zz.vision.mask(img, poly=poly)
-
-        Poly (with class):
+            ```
+        Poly:
+            ```python
             >>> poly = zz.vision.xyxy2poly(zz.vision.poly2xyxy((np.random.rand(cnt, 4, 2) * (W, H))))
             >>> res4 = zz.vision.mask(img, poly=poly, class_list=class_list, class_color=class_color)
+            ```
 
-        .. image:: _static/examples/dynamic/vision.mask.png
-            :align: center
-            :width: 600px
+        ![Mask visualization example](../../../assets/vision/mask.png){ width="600" }
     """
     assert (mks is None) ^ (poly is None)
     shape = img.shape
@@ -218,14 +197,14 @@ def mask(
 
 
 def _paste(img: NDArray[np.uint8], target: NDArray[np.uint8]) -> NDArray[np.uint8]:
-    """``target`` image를 ``img`` 위에 투명도를 포함하여 병합
+    """`target` image를 `img` 위에 투명도를 포함하여 병합
 
     Args:
-        img (``NDArray[np.uint8]``): 입력 image (``[H, W, 4]``)
-        target (``NDArray[np.uint8]``): Target image (``[H, W, 4]``)
+        img: 입력 image (`[H, W, 4]`)
+        target: Target image (`[H, W, 4]`)
 
     Returns:
-        ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
+        시각화 결과 (`[H, W, 4]`)
     """
     alpha_overlay = target[:, :, 3] / 255.0
     alpha_background = 1.0 - alpha_overlay
@@ -238,18 +217,18 @@ def _paste(img: NDArray[np.uint8], target: NDArray[np.uint8]) -> NDArray[np.uint
 
 
 def _make_text(
-    txt: str, shape: Tuple[int], color: Tuple[int], fontsize: int
+    txt: str, shape: tuple[int, int], color: tuple[int, int, int], fontsize: int
 ) -> NDArray[np.uint8]:
     """배경이 투명한 문자열 image 생성
 
     Args:
-        txt (``str``): 입력 문자열
-        shape (``Tuple[int]``): 출력 image의 shape
-        color (``Tuple[int]``): 문자의 색
-        fontsize (``int``): 문자의 크기
+        txt: 입력 문자열
+        shape: 출력 image의 shape
+        color: 문자의 색
+        fontsize: 문자의 크기
 
     Returns:
-        ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
+        시각화 결과 (`[H, W, 4]`)
     """
     size = (1000, 1000)
     palette = Image.new("RGBA", size, (255, 255, 255, 0))
@@ -273,20 +252,20 @@ def _text(
     img: NDArray[np.uint8],
     box_cwh: NDArray[DTypeLike],
     txt: str,
-    color: Tuple[int],
+    color: tuple[int, int, int],
     fontsize: int,
 ) -> NDArray[np.uint8]:
     """단일 text 시각화
 
     Args:
-        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
-        box_cwh (``NDArray[DTypeLike]``): 문자열이 존재할 bbox (``[4]``)
-        txt (``str``): Image에 추가할 문자열
-        color (``Tuple[int]``): 문자의 색
-        fontsize (``int``): 문자의 크기
+        img: 입력 image (`[H, W, C]`)
+        box_cwh: 문자열이 존재할 bbox (`[4]`)
+        txt: Image에 추가할 문자열
+        color: 문자의 색
+        fontsize: 문자의 크기
 
     Returns:
-        ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
+        시각화 결과 (`[H, W, 4]`)
     """
     x_0, y_0, x_1, y_1 = cwh2xyxy(box_cwh).astype(np.int32)
     width, height = x_1 - x_0, y_1 - y_0
@@ -297,41 +276,42 @@ def _text(
 
 def text(
     img: NDArray[np.uint8],
-    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
-    txt: Union[str, List[str]],
-    color: Optional[Tuple[int]] = (0, 0, 0),
-    vis: Optional[bool] = False,
-    fontsize: Optional[int] = 100,
+    box: list[int | float] | NDArray[DTypeLike],
+    txt: str | list[str],
+    color: tuple[int, int, int] = (0, 0, 0),
+    vis: bool = False,
+    fontsize: int = 100,
 ) -> NDArray[np.uint8]:
     """Text 시각화
 
     Args:
-        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
-        box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): 문자열이 존재할 bbox (``[4]``, ``[N, 4]``, ``[4, 2]``, ``[N, 4, 2]``)
-        txt (``Union[str, List[str]]``): Image에 추가할 문자열
-        color (``Optional[Tuple[int]]``): 문자의 색
-        vis (``Optional[bool]``): 문자 영역의 시각화 여부
-        fontsize (``Optional[int]``): 문자의 크기
+        img: 입력 image (`[H, W, C]`)
+        box: 문자열이 존재할 bbox (`[4]`, `[N, 4]`, `[4, 2]`, `[N, 4, 2]`)
+        txt: Image에 추가할 문자열
+        color: 문자의 색
+        vis: 문자 영역의 시각화 여부
+        fontsize: 문자의 크기
 
     Returns:
-        ``NDArray[np.uint8]``: 시각화 결과 (``[H, W, 4]``)
+        시각화 결과 (`[H, W, 4]`)
 
     Examples:
         Bbox:
+            ```python
             >>> box = np.array([[100, 200], [100, 1000], [1200, 1000], [1200, 200]])
             >>> box.shape
             (4, 2)
             >>> res1 = zz.vision.text(img, box, "먼지야")
-
+            ```
         Bboxes:
+            ```python
             >>> boxes = np.array([[250, 200, 100, 100], [600, 600, 800, 200], [900, 300, 300, 400]])
             >>> boxes.shape
             (3, 4)
             >>> res2 = zz.vision.text(img, boxes, ["먼지야", "먼지야", "먼지야"], vis=True)
+            ```
 
-        .. image:: _static/examples/dynamic/vision.text.png
-            :align: center
-            :width: 600px
+        ![Text on image example](../../../assets/vision/text.png){ width="600" }
     """
     box = _list2np(box)
     img = img.copy()
@@ -361,43 +341,47 @@ def text(
 def paste(
     img: NDArray[np.uint8],
     target: NDArray[np.uint8],
-    box: Union[List[Union[int, float]], NDArray[DTypeLike]],
-    resize: Optional[bool] = False,
-    vis: Optional[bool] = False,
-    poly: Optional[NDArray[DTypeLike]] = None,
-    alpha: Optional[int] = None,
-    gaussian: Optional[int] = None,
-) -> Union[NDArray[np.uint8], Tuple[NDArray[np.uint8], NDArray[DTypeLike]]]:
-    """``target`` image를 ``img`` 위에 투명도를 포함하여 병합
+    box: list[int | float] | NDArray[DTypeLike],
+    resize: bool = False,
+    vis: bool = False,
+    poly: NDArray[DTypeLike] | None = None,
+    alpha: int | None = None,
+    gaussian: int | None = None,
+) -> NDArray[np.uint8] | tuple[NDArray[np.uint8], NDArray[DTypeLike]]:
+    """`target` image를 `img` 위에 투명도를 포함하여 병합
 
     Note:
-        ``PIL.Image.paste`` 를 ``numpy`` 와 ``cv2`` 기반으로 구현
+        `PIL.Image.paste` 를 `numpy` 와 `cv2` 기반으로 구현
 
+        ```python
         >>> img = Image.open("test.png").convert("RGBA")
         >>> target = Image.open("target.png").convert("RGBA")
         >>> img.paste(target, (0, 0), target)
+        ```
 
     Args:
-        img (``NDArray[np.uint8]``): 입력 image (``[H, W, C]``)
-        target (``NDArray[np.uint8]``): Target image (``[H, W, 4]``)
-        box (``Union[List[Union[int, float]], NDArray[DTypeLike]]``): 병합될 영역 (``xyxy`` 형식)
-        resize (``Optional[bool]``): Target image의 resize 여부
-        vis (``Optional[bool]``): 지정한 영역 (``box``)의 시각화 여부
-        poly (``Optional[NDArray[DTypeLike]]``): 변형된 좌표 (``[N, 2]``)
-        alpha (``Optional[int]``): ``target`` image의 투명도 변경
-        gaussian (``Optional[int]``): 자연스러운 병합을 위해 ``target`` 의 alpha channel에 적용될 Gaussian blur의 kernel size
+        img: 입력 image (`[H, W, C]`)
+        target: Target image (`[H, W, 4]`)
+        box: 병합될 영역 (`xyxy` 형식)
+        resize: Target image의 resize 여부
+        vis: 지정한 영역 (`box`)의 시각화 여부
+        poly: 변형된 좌표 (`[N, 2]`)
+        alpha: `target` image의 투명도 변경
+        gaussian: 자연스러운 병합을 위해 `target` 의 alpha channel에 적용될 Gaussian blur의 kernel size
 
     Returns:
-        ``Union[NDArray[np.uint8], Tuple[NDArray[np.uint8], NDArray[DTypeLike]]]``: 시각화 결과 (``[H, W, 4]``) 및 ``poly`` 입력 시 변형된 좌표값
+        시각화 결과 (`[H, W, 4]`) 및 `poly` 입력 시 변형된 좌표값
 
     Examples:
         Without Poly:
+            ```python
             >>> poly = np.array([[100, 400], [400, 400], [800, 900], [400, 1100], [100, 800]])
             >>> target = zz.vision.cutout(img, poly, 200)
             >>> res1 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=False, vis=True)
             >>> res2 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, vis=True, alpha=255)
-
+            ```
         With Poly:
+            ```python
             >>> poly -= zz.vision.poly2xyxy(poly)[:2]
             >>> target = zz.vision.bbox(target, poly, color=(255, 0, 0), thickness=20)
             >>> res3, poly3 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=False, poly=poly)
@@ -416,14 +400,14 @@ def paste(
                    [ 542.85714286,  800.        ],
                    [ 200.        ,  542.85714286]])
             >>> res4 = zz.vision.bbox(res4, poly4)
-
+            ```
         Gaussian Blur:
+            ```python
             >>> res5, poly5 = zz.vision.paste(img, target, [200, 200, 1000, 800], resize=True, poly=poly, gaussian=501)
             >>> res5 = zz.vision.bbox(res5, poly5)
+            ```
 
-        .. image:: _static/examples/dynamic/vision.paste.png
-            :align: center
-            :width: 600px
+        ![Image pasting example](../../../assets/vision/paste.png){ width="600" }
     """
     x_0, y_0, x_1, y_1 = map(int, box)
     box_height, box_width = y_1 - y_0, x_1 - x_0

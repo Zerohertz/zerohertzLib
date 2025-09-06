@@ -1,28 +1,5 @@
-"""
-MIT License
-
-Copyright (c) 2023 Hyogeun Oh
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
-
-from typing import Dict, List, Optional, Tuple, Union
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
 from matplotlib import pyplot as plt
 
@@ -31,46 +8,44 @@ from .util import _color, savefig
 
 
 def scatter(
-    xdata: Union[List[Union[int, float]], Dict[str, Union[int, float]]],
-    ydata: Union[List[Union[int, float]], Dict[str, Union[int, float]]],
-    xlab: Optional[str] = None,
-    ylab: Optional[str] = None,
-    xlim: Optional[List[Union[int, float]]] = None,
-    ylim: Optional[List[Union[int, float]]] = None,
-    ncol: Optional[int] = 1,
-    title: Optional[str] = "tmp",
-    colors: Optional[Union[str, List]] = None,
-    markersize: Optional[int] = 36,
-    figsize: Optional[Tuple[int]] = (15, 10),
-    dpi: Optional[int] = 300,
-) -> str:
+    xdata: list[int | float] | dict[str, int | float],
+    ydata: list[int | float] | dict[str, int | float],
+    xlab: str | None = None,
+    ylab: str | None = None,
+    xlim: list[int | float] | None = None,
+    ylim: list[int | float] | None = None,
+    ncol: int = 1,
+    title: str = "tmp",
+    colors: str | list | None = None,
+    markersize: int = 36,
+    figsize: tuple[int, int] = (15, 10),
+    dpi: int = 300,
+) -> str | None:
     """Dictionary로 입력받은 data를 scatter plot으로 시각화
 
     Args:
-        xdata (``Union[List[Union[int, float]], Dict[str, Union[int, float]]]``): 입력 data (X축)
-        ydata (``Union[List[Union[int, float]], Dict[str, Union[int, float]]]``): 입력 data (Y축)
-        xlab (``Optional[str]``): Graph에 출력될 X축 label
-        ylab (``Optional[str]``): Graph에 출력될 Y축 label
-        xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
-        ylim (``Optional[List[Union[int, float]]]``): Graph에 출력될 Y축 limit
-        ncol (``Optional[int]``): Graph에 표시될 legend 열의 수
-        title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
-        colors (``Optional[Union[str, List]]``): 각 요소의 색
-        markersize (``Optional[int]``): Graph에 출력될 marker의 크기
-        figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
-        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        xdata: 입력 data (X축)
+        ydata: 입력 data (Y축)
+        xlab: Graph에 출력될 X축 label
+        ylab: Graph에 출력될 Y축 label
+        xlim: Graph에 출력될 X축 limit
+        ylim: Graph에 출력될 Y축 limit
+        ncol: Graph에 표시될 legend 열의 수
+        title: Graph에 표시될 제목 및 file 이름
+        colors: 각 요소의 색
+        markersize: Graph에 출력될 marker의 크기
+        figsize: Graph의 가로, 세로 길이
+        dpi: Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
-        ``str``: 저장된 graph의 절대 경로
+        저장된 graph의 절대 경로
 
     Examples:
         >>> xdata = {"Terran": [list(np.random.rand(200) * 10)], "Zerg": [list(np.random.rand(200) * 5 + 1)], "Protoss": [list(np.random.rand(200) * 10 - 2)]}
         >>> ydata = {"Terran": [list(np.random.rand(200) * 10)], "Zerg": [list(np.random.rand(200) * 5 - 1)], "Protoss": [list(np.random.rand(200) * 10 + 3)]}
         >>> zz.plot.scatter(xdata, ydata, xlab="Cost [Mineral]", ylab="Scores", title="Star Craft", markersize=400)
 
-        .. image:: _static/examples/dynamic/plot.scatter.png
-            :align: center
-            :width: 500px
+        ![Scatter plot example](../../../assets/plot/scatter.png){ width="500" }
     """
     if config.SAVE:
         plt.figure(figsize=figsize)

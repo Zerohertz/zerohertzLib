@@ -1,42 +1,20 @@
-"""
-MIT License
-
-Copyright (c) 2023 Hyogeun Oh
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
 import heapq
 import sys
 from collections import deque
-from typing import List, Tuple
 
 
-def bfs(maps: List[List[int]], start: int) -> List[int]:
+def bfs(maps: list[list[int]], start: int) -> list[int]:
     """BFS를 수행하기 위한 함수
 
     Args:
-        maps (``List[List[int]]``): 입력 graph
-        start (``int``): Graph의 시작 지점
+        maps: 입력 graph
+        start: Graph의 시작 지점
 
     Returns:
-        ``List[int]``: 방문 순서
+        방문 순서
 
     Examples:
         >>> zz.algorithm.bfs([[], [2, 3, 4], [1, 4], [1, 4], [1, 2, 3]], 1)
@@ -57,15 +35,15 @@ def bfs(maps: List[List[int]], start: int) -> List[int]:
     return results
 
 
-def dfs(maps: List[List[int]], start: int) -> List[int]:
+def dfs(maps: list[list[int]], start: int) -> list[int]:
     """DFS를 수행하기 위한 함수
 
     Args:
-        maps (``List[List[int]]``): 입력 graph
-        start (``int``): Graph의 시작 지점
+        maps: 입력 graph
+        start: Graph의 시작 지점
 
     Returns:
-        ``List[int]``: 방문 순서
+        방문 순서
 
     Examples:
         >>> zz.algorithm.dfs([[], [2, 3, 4], [1, 4], [1, 4], [1, 2, 3]], 1)
@@ -85,19 +63,19 @@ def dfs(maps: List[List[int]], start: int) -> List[int]:
     return results
 
 
-def floyd_warshall(graph: List[List[Tuple[int, int]]]) -> List[List[int]]:
+def floyd_warshall(graph: list[list[tuple[int, int]]]) -> list[list[int]] | None:
     """Graph에서 모든 node 쌍 간의 최단 경로 거리 계산
 
     Note:
-        Time Complexity: :math:`O(V^3)`
+        Time Complexity: $O(V^3)$
 
-        - :math:`V`: Node의 수
+        - $V$: Node의 수
 
     Args:
-        graph (``List[List[Tuple[int, int]]]``): Index (간선의 시작 node)에 따른 간선의 도착 node와 가중치 정보
+        graph: Index (간선의 시작 node)에 따른 간선의 도착 node와 가중치 정보
 
     Returns:
-        ``List[List[int]]``: 모든 node 쌍에 대한 최단 경로 거리 (음의 cycle을 가질 시 ``None`` return)
+        모든 node 쌍에 대한 최단 경로 거리 (음의 cycle을 가질 시 None return)
 
     Examples:
         >>> graph = [[(1, 4), (2, 2), (3, 7)], [(0, 1), (2, 5)], [(0, 2), (3, 4)], [(1, 3)]]
@@ -125,21 +103,21 @@ def floyd_warshall(graph: List[List[Tuple[int, int]]]) -> List[List[int]]:
     return distance
 
 
-def bellman_ford(graph: List[List[Tuple[int, int]]], start: int) -> List[int]:
+def bellman_ford(graph: list[list[tuple[int, int]]], start: int) -> list[int] | None:
     """Graph에서 시작 node로부터 모든 다른 node까지의 최단 경로 거리 계산
 
     Note:
-        Time Complexity: :math:`O(VE)`
+        Time Complexity: $O(VE)$
 
-        - :math:`V`: Node의 수
-        - :math:`E`: 간선의 수
+        - $V$: Node의 수
+        - $E$: 간선의 수
 
     Args:
-        graph (``List[List[Tuple[int, int]]]``): Index (간선의 시작 node)에 따른 간선의 도착 node와 가중치 정보
-        start (``int``): 최단 경로 거리가 계신될 시작 node
+        graph: Index (간선의 시작 node)에 따른 간선의 도착 node와 가중치 정보
+        start: 최단 경로 거리가 계신될 시작 node
 
     Returns:
-        ``List[int]``: ``start`` 에서 graph 내 모든 다른 node 까지의 최단 경로 거리 (음의 cycle을 가질 시 ``None`` return)
+        `start` 에서 graph 내 모든 다른 node 까지의 최단 경로 거리 (음의 cycle을 가질 시 None return)
 
     Examples:
         >>> graph = [[(1, 4), (2, 2), (3, 7)], [(0, 1), (2, 5)], [(0, 2), (3, 4)], [(1, 3)]]
@@ -170,21 +148,21 @@ def bellman_ford(graph: List[List[Tuple[int, int]]], start: int) -> List[int]:
     return distance
 
 
-def dijkstra(graph: List[List[Tuple[int, int]]], start: int) -> List[int]:
+def dijkstra(graph: list[list[tuple[int, int]]], start: int) -> list[int]:
     r"""Graph에서 시작 node로부터 모든 다른 node까지의 최단 경로 거리 계산
 
     Note:
-        Time Complexity: :math:`O((V+E)\log{V})`
+        Time Complexity: $O((V+E)\log{V})$
 
-        - :math:`V`: Node의 수
-        - :math:`E`: 간선의 수
+        - $V$: Node의 수
+        - $E$: 간선의 수
 
     Args:
-        graph (``List[List[Tuple[int, int]]]``): Index (간선의 시작 node)에 따른 간선의 도착 node와 가중치 정보
-        start (``int``): 최단 경로 거리가 계신될 시작 node
+        graph: Index (간선의 시작 node)에 따른 간선의 도착 node와 가중치 정보
+        start: 최단 경로 거리가 계신될 시작 node
 
     Returns:
-        ``List[int]``: ``start`` 에서 graph 내 모든 다른 node 까지의 최단 경로 거리 (음의 가중치에서는 정확하지 않음)
+        `start` 에서 graph 내 모든 다른 node 까지의 최단 경로 거리 (음의 가중치에서는 정확하지 않음)
 
     Examples:
         >>> graph = [[(1, 4), (2, 2), (3, 7)], [(0, 1), (2, 5)], [(0, 2), (3, 4)], [(1, 3)]]

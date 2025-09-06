@@ -1,38 +1,15 @@
-"""
-MIT License
-
-Copyright (c) 2023 Hyogeun Oh
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
-
-from typing import List
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
 
-def bubble_sort(arr: List[int]) -> List[int]:
+def bubble_sort(arr: list[int]) -> list[int]:
     """Bubble Sort Algorithm: 연속된 값들을 비교하여 가장 큰 값을 배열의 끝으로 이동시키는 방식으로 정렬
 
     Args:
-        arr (``List[int]``): 정렬할 정수 list
+        arr: 정렬할 정수 list
 
     Returns:
-        ``List[int]``: 오름차순으로 정렬된 list
+        오름차순으로 정렬된 list
 
     Examples:
         >>> zz.algorithm.bubble_sort([64, 34, 25, 12, 22, 11, 90])
@@ -46,14 +23,14 @@ def bubble_sort(arr: List[int]) -> List[int]:
     return arr
 
 
-def selection_sort(arr: List[int]) -> List[int]:
+def selection_sort(arr: list[int]) -> list[int]:
     """Selection Sort Algorithm: 배열에서 가장 작은 값을 찾아 해당 값을 배열의 앞부분으로 이동시키는 방식으로 정렬
 
     Args:
-        arr (``List[int]``): 정렬할 정수 list
+        arr: 정렬할 정수 list
 
     Returns:
-        ``List[int]``: 오름차순으로 정렬된 list
+        오름차순으로 정렬된 list
 
     Examples:
         >>> zz.algorithm.selection_sort([64, 34, 25, 12, 22, 11, 90])
@@ -68,14 +45,14 @@ def selection_sort(arr: List[int]) -> List[int]:
     return arr
 
 
-def insertion_sort(arr: List[int]) -> List[int]:
+def insertion_sort(arr: list[int]) -> list[int]:
     """Insertion Sort Algorithm: 각 값들을 이미 정렬된 부분의 올바른 위치에 삽입하는 방식으로 정렬
 
     Args:
-        arr (``List[int]``): 정렬할 정수 list
+        arr: 정렬할 정수 list
 
     Returns:
-        ``List[int]``: 오름차순으로 정렬된 list
+        오름차순으로 정렬된 list
 
     Examples:
         >>> zz.algorithm.insertion_sort([64, 34, 25, 12, 22, 11, 90])
@@ -91,14 +68,14 @@ def insertion_sort(arr: List[int]) -> List[int]:
     return arr
 
 
-def merge_sort(arr: List[int]) -> List[int]:
+def merge_sort(arr: list[int]) -> list[int]:
     """Merge Sort Algorithm: 분할 정복 방법을 사용하여 배열을 절반으로 나누고, 각 부분을 정렬한 다음 합치는 방식으로 정렬
 
     Args:
-        arr (``List[int]``): 정렬할 정수 list
+        arr: 정렬할 정수 list
 
     Returns:
-        ``List[int]``: 오름차순으로 정렬된 list
+        오름차순으로 정렬된 list
 
     Examples:
         >>> zz.algorithm.merge_sort([64, 34, 25, 12, 22, 11, 90])
@@ -130,14 +107,14 @@ def merge_sort(arr: List[int]) -> List[int]:
     return arr
 
 
-def quick_sort(arr: List[int]) -> List[int]:
+def quick_sort(arr: list[int]) -> list[int]:
     """Quick Sort Algorithm: Pivot을 선택하여 이보다 작은 요소는 왼쪽, 큰 요소는 오른쪽에 위치시키는 방식으로 분할 정복을 사용하여 정렬
 
     Args:
-        arr (``List[int]``): 정렬할 정수 list
+        arr: 정렬할 정수 list
 
     Returns:
-        ``List[int]``: 오름차순으로 정렬된 list
+        오름차순으로 정렬된 list
 
     Examples:
         >>> zz.algorithm.quick_sort([64, 34, 25, 12, 22, 11, 90])
@@ -152,13 +129,13 @@ def quick_sort(arr: List[int]) -> List[int]:
     return quick_sort(left) + middle + quick_sort(right)
 
 
-def _heapify(arr: List[int], n: int, i: int) -> None:
+def _heapify(arr: list[int], n: int, i: int) -> None:
     """Helper function for Heap Sort: 주어진 node를 root로 하는 subtree를 heap 속성을 만족하도록 재구성
 
     Args:
-        arr (``List[int]``): 힙을 구성하는 list
-        n (``int``): List의 크기
-        i (``int``): 재구성할 subtree의 root node index
+        arr: 힙을 구성하는 list
+        n: List의 크기
+        i: 재구성할 subtree의 root node index
     """
     largest = i
     left = 2 * i + 1
@@ -172,14 +149,14 @@ def _heapify(arr: List[int], n: int, i: int) -> None:
         _heapify(arr, n, largest)
 
 
-def heap_sort(arr: List[int]) -> List[int]:
+def heap_sort(arr: list[int]) -> list[int]:
     """Heap Sort Algorithm: 배열 요소들을 heap으로 구성한 다음, 최대 heap 속성을 이용하여 정렬
 
     Args:
-        arr (``List[int]``): 정렬할 정수 list
+        arr: 정렬할 정수 list
 
     Returns:
-        ``List[int]``: 오름차순으로 정렬된 list
+        오름차순으로 정렬된 list
 
     Examples:
         >>> zz.algorithm.heap_sort([64, 34, 25, 12, 22, 11, 90])
@@ -194,14 +171,14 @@ def heap_sort(arr: List[int]) -> List[int]:
     return arr
 
 
-def counting_sort(arr: List[int]) -> List[int]:
+def counting_sort(arr: list[int]) -> list[int]:
     """Counting Sort Algorithm: 각 숫자의 개수를 세어 정렬
 
     Args:
-        arr (``List[int]``): 정렬할 정수 list
+        arr: 정렬할 정수 list
 
     Returns:
-        ``List[int]``: 오름차순으로 정렬된 list
+        오름차순으로 정렬된 list
 
     Examples:
         >>> zz.algorithm.counting_sort([64, 34, 25, 12, 22, 11, 90])
@@ -219,12 +196,12 @@ def counting_sort(arr: List[int]) -> List[int]:
     return arr
 
 
-def _counting_sort_for_radix(arr: List[int], exp: int) -> None:
-    """Helper function for Radix Sort: 기수 정렬을 위해 주어진 자릿수 (``exp``)에 따라 각 요소를 정렬
+def _counting_sort_for_radix(arr: list[int], exp: int) -> None:
+    """Helper function for Radix Sort: 기수 정렬을 위해 주어진 자릿수 (`exp`)에 따라 각 요소를 정렬
 
     Args:
-        arr (``List[int]``): 정렬할 정수 list
-        exp (``int``): 현재 정렬할 자릿수
+        arr: 정렬할 정수 list
+        exp: 현재 정렬할 자릿수
     """
     n = len(arr)
     output = [0] * n
@@ -244,14 +221,14 @@ def _counting_sort_for_radix(arr: List[int], exp: int) -> None:
         arr[i] = output[i]
 
 
-def radix_sort(arr: List[int]) -> List[int]:
+def radix_sort(arr: list[int]) -> list[int]:
     """Radix Sort Algorithm: 각 자릿수에 대해 개별적으로 정렬
 
     Args:
-        arr (``List[int]``): 정렬할 정수 list
+        arr: 정렬할 정수 list
 
     Returns:
-        ``List[int]``: 오름차순으로 정렬된 list
+        오름차순으로 정렬된 list
 
     Examples:
         >>> zz.algorithm.radix_sort([64, 34, 25, 12, 22, 11, 90])

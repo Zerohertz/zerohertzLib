@@ -1,7 +1,8 @@
-"""
-.. admonition:: Monitoring
-    :class: hint
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
+"""
+!!! hint "Monitoring"
     현재 기기의 상태를 살펴볼 수 있는 함수들
 """
 

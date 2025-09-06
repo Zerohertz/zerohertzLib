@@ -1,36 +1,14 @@
-"""
-MIT License
-
-Copyright (c) 2023 Hyogeun Oh
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
 import os
-from typing import List, Optional
 
 import cv2
 from PIL import Image
 
 
 def _create_gif_from_frames(
-    frames: List[Image.Image], file_name: str, duration: int
+    frames: list[Image.Image], file_name: str, duration: int
 ) -> None:
     frames[0].save(
         f"{file_name}.gif",
@@ -43,25 +21,23 @@ def _create_gif_from_frames(
 
 def img2gif(
     path: str,
-    file_name: Optional[str] = "tmp",
-    duration: Optional[int] = 500,
+    file_name: str = "tmp",
+    duration: int = 500,
 ) -> None:
     """Directory 내 image들을 GIF로 변환
 
     Args:
-        path (``str``): GIF로 변환할 image들이 존재하는 경로
-        file_name (``Optional[str]``): 출력될 GIF file 이름
-        duration (``Optional[int]``): ms 단위의 사진 간 간격
+        path: GIF로 변환할 image들이 존재하는 경로
+        file_name: 출력될 GIF file 이름
+        duration: ms 단위의 사진 간 간격
 
     Returns:
-        ``None``: 현재 directory에 바로 GIF 저장
+        현재 directory에 바로 GIF 저장
 
     Examples:
         >>> zz.vision.img2gif("./")
 
-        .. image:: _static/examples/static/vision.img2gif.gif
-            :align: center
-            :width: 200px
+        ![Images to GIF conversion example](../../../assets/vision/img2gif.gif){ width="200" }
     """
     ext = (
         "jpg",
@@ -83,29 +59,27 @@ def img2gif(
 
 def vid2gif(
     path: str,
-    file_name: Optional[str] = "tmp",
-    quality: Optional[int] = 100,
-    fps: Optional[int] = 15,
-    speed: Optional[float] = 1.0,
+    file_name: str = "tmp",
+    quality: int = 100,
+    fps: int = 15,
+    speed: float = 1.0,
 ) -> None:
     """동영상을 GIF로 변환
 
     Args:
-        path (``str``): GIF로 변환할 동영상이 존재하는 경로
-        file_name (``Optional[str]``): 출력될 GIF file 이름
-        quality (``Optional[int]``): 출력될 GIF의 품질
-        fps (``Optional[int]``): 출력될 GIF의 FPS (Frames Per Second)
-        speed (``Optional[float]``): 출력될 GIF의 배속
+        path: GIF로 변환할 동영상이 존재하는 경로
+        file_name: 출력될 GIF file 이름
+        quality: 출력될 GIF의 품질
+        fps: 출력될 GIF의 FPS (Frames Per Second)
+        speed: 출력될 GIF의 배속
 
     Returns:
-        ``None``: 현재 directory에 바로 GIF 저장
+        현재 directory에 바로 GIF 저장
 
     Examples:
         >>> zz.vision.vid2gif("test.mp4")
 
-        .. image:: _static/examples/static/vision.vid2gif.gif
-            :align: center
-            :width: 300px
+        ![Video to GIF conversion example](../../../assets/vision/vid2gif.gif){ width="300" }
     """
     frames = []
     cap = cv2.VideoCapture(path)

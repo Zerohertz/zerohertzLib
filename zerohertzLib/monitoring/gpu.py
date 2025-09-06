@@ -1,36 +1,14 @@
-"""
-MIT License
-
-Copyright (c) 2023 Hyogeun Oh
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
 import subprocess
 import time
 from collections import defaultdict
-from typing import List, Optional, Tuple
 
 from zerohertzLib.plot import plot
 
 
-def _get_gpu_usages() -> List[float]:
+def _get_gpu_usages() -> list[float]:
     result = subprocess.check_output(
         ["nvidia-smi", "--query-gpu=utilization.gpu", "--format=csv,nounits,noheader"],
         encoding="utf-8",
@@ -40,30 +18,28 @@ def _get_gpu_usages() -> List[float]:
 
 
 def gpu_usages(
-    tick: Optional[int] = 1,
-    threshold: Optional[int] = 10,
-    grep: Optional[List[int]] = None,
-    path: Optional[str] = "GPU Usages",
-    dpi: Optional[int] = 100,
+    tick: int = 1,
+    threshold: int = 10,
+    grep: list[int] | None = None,
+    path: str = "GPU Usages",
+    dpi: int = 100,
 ) -> None:
     """시간에 따른 GPU의 사용량을 각 GPU에 따라 line chart로 시각화
 
     Args:
-        tick (``Optional[int]``): Update 주기
-        threshold (``Optional[int]``): 시각화할 총 시간
-        grep (``Optional[List[int]]``): 시각화할 GPU의 번호
-        path (``Optional[str]``): Graph를 저장할 경로
-        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        tick: Update 주기
+        threshold: 시각화할 총 시간
+        grep: 시각화할 GPU의 번호
+        path: Graph를 저장할 경로
+        dpi: Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
-        ``None``: 지정한 경로에 바로 graph 저장
+        지정한 경로에 바로 graph 저장
 
     Examples:
         >>> zz.monitoring.gpu_usages(threshold=15)
 
-        .. image:: _static/examples/static/monitoring.gpu_usages.png
-            :align: center
-            :width: 600px
+        ![GPU usage monitoring example](../../../assets/monitoring/gpu_usages.png){ width="600" }
     """
     tmp = 0
     time_list = []
@@ -91,7 +67,7 @@ def gpu_usages(
             break
 
 
-def _get_gpu_memory() -> List[Tuple[float]]:
+def _get_gpu_memory() -> list[tuple[float, float]]:
     result = subprocess.check_output(
         [
             "nvidia-smi",
@@ -109,30 +85,28 @@ def _get_gpu_memory() -> List[Tuple[float]]:
 
 
 def gpu_memory(
-    tick: Optional[int] = 1,
-    threshold: Optional[int] = 10,
-    grep: Optional[List[int]] = None,
-    path: Optional[str] = "GPU Memory",
-    dpi: Optional[int] = 100,
+    tick: int = 1,
+    threshold: int = 10,
+    grep: list[int] | None = None,
+    path: str = "GPU Memory",
+    dpi: int = 100,
 ) -> None:
     """시간에 따른 GPU의 memory 사용량을 각 GPU에 따라 line chart로 시각화
 
     Args:
-        tick (``Optional[int]``): Update 주기
-        threshold (``Optional[int]``): 시각화할 총 시간
-        grep (``Optional[List[int]]``): 시각화할 GPU의 번호
-        path (``Optional[str]``): Graph를 저장할 경로
-        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        tick: Update 주기
+        threshold: 시각화할 총 시간
+        grep: 시각화할 GPU의 번호
+        path: Graph를 저장할 경로
+        dpi: Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
-        ``None``: 지정한 경로에 바로 graph 저장
+        지정한 경로에 바로 graph 저장
 
     Examples:
         >>> zz.monitoring.gpu_memory(threshold=15)
 
-        .. image:: _static/examples/static/monitoring.gpu_memory.png
-            :align: center
-            :width: 600px
+        ![GPU memory monitoring example](../../../assets/monitoring/gpu_memory.png){ width="600" }
     """
     tmp = 0
     time_list = []

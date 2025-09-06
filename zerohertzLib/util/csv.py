@@ -1,43 +1,20 @@
-"""
-MIT License
-
-Copyright (c) 2023 Hyogeun Oh
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
 import os
 from collections import defaultdict
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 
-def read_csv(
-    path: str, header: Optional[bool] = True
-) -> Dict[Union[int, str], List[str]]:
+def read_csv(path: str, header: bool = True) -> dict[int | str, list[str]]:
     """CSV (Comma-Separated Values) 혹은 TSV (Tab-Separated Values)를 작성하는 함수
 
     Args:
-        path (``str``): 입력될 CSV 혹은 TSV 경로 및 file 이름
-        header (``Optional[bool]``): Header의 존재 유무
+        path: 입력될 CSV 혹은 TSV 경로 및 file 이름
+        header: Header의 존재 유무
 
     Returns:
-        ``Dict[Union[int, str], List[str]]``: Header의 값을 기반으로 column에 따라 `List` 로 구성
+        Header의 값을 기반으로 column에 따라 `list` 로 구성
 
     Note:
         Header가 존재하지 않는 경우 `0` 부터 차례대로 key 값 정의
@@ -76,16 +53,16 @@ def read_csv(
     return data
 
 
-def write_csv(data: List[List[Any]], path: str, tsv: Optional[bool] = False) -> str:
+def write_csv(data: list[list[Any]], path: str, tsv: bool = False) -> str:
     """CSV (Comma-Separated Values) 혹은 TSV (Tab-Separated Values)를 작성하는 함수
 
     Args:
-        data (``List[List[Any]]``): 입력 data (header 포함 무관)
-        path (``str``): 출력될 CSV 혹은 TSV 경로 및 file 이름
-        tsv (``Optional[bool]``): TSV 작성 여부
+        data: 입력 data (header 포함 무관)
+        path: 출력될 CSV 혹은 TSV 경로 및 file 이름
+        tsv: TSV 작성 여부
 
     Returns:
-        ``str``: File의 절대 경로
+        File의 절대 경로
 
     Examples:
         >>> zz.util.write_csv([["id", "Races", "Scores"], ["5hi9", "Protoss", 1248], ["gor2", "Terran", 2309], ["gk03", "Zerg", 291]], "zerohertzLib/star_craft")

@@ -1,28 +1,5 @@
-"""
-MIT License
-
-Copyright (c) 2023 Hyogeun Oh
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
-
-from typing import Dict, List, Optional, Tuple, Union
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
 from matplotlib import pyplot as plt
 
@@ -31,35 +8,33 @@ from .util import _color, savefig
 
 
 def pie(
-    data: Dict[str, Union[int, float]],
-    dim: Optional[str] = None,
-    title: Optional[str] = "tmp",
-    colors: Optional[Union[str, List]] = None,
-    figsize: Optional[Tuple[int]] = (15, 10),
-    int_label: Optional[bool] = True,
-    dpi: Optional[int] = 300,
-) -> str:
+    data: dict[str, int | float],
+    dim: str | None = None,
+    title: str = "tmp",
+    colors: str | list | None = None,
+    figsize: tuple[int, int] = (15, 10),
+    int_label: bool = True,
+    dpi: int = 300,
+) -> str | None:
     """Dictionary로 입력받은 data를 pie chart로 시각화
 
     Args:
-        data (``Dict[str, Union[int, float]]``): 입력 data
-        dim (``Optional[str]``): 입력 ``data`` 의 단위
-        title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
-        colors (``Optional[Union[str, List]]``): 각 요소의 색
-        figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
-        int_label (``Optional[bool]``): Label 내 수치의 소수점 표기 여부
-        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        data: 입력 data
+        dim: 입력 `data` 의 단위
+        title: Graph에 표시될 제목 및 file 이름
+        colors: 각 요소의 색
+        figsize: Graph의 가로, 세로 길이
+        int_label: Label 내 수치의 소수점 표기 여부
+        dpi: Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
-        ``str``: 저장된 graph의 절대 경로
+        저장된 graph의 절대 경로
 
     Examples:
         >>> data = {"Terran": 27, "Zerg": 40, "Protoss": 30}
         >>> zz.plot.pie(data, dim="$", title="Star Craft")
 
-        .. image:: _static/examples/dynamic/plot.pie.png
-            :align: center
-            :width: 500px
+        ![Pie chart example](../../../assets/plot/pie.png){ width="500" }
     """
     colors = _color(data, colors)
     if config.SAVE:

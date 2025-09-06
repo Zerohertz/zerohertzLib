@@ -1,7 +1,8 @@
-"""
-.. admonition:: Util
-    :class: hint
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
+"""
+!!! hint "Util"
     다양한 format의 data를 hadling하는 함수 및 class들
 """
 

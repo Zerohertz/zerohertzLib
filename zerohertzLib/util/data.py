@@ -1,33 +1,11 @@
-"""
-MIT License
-
-Copyright (c) 2023 Hyogeun Oh
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
 import os
 import shutil
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 from collections import defaultdict
 from glob import glob
-from typing import Dict, List, Optional
 
 from tqdm import tqdm
 
@@ -38,10 +16,10 @@ def rmtree(path: str) -> None:
     """지정한 경로의 file을 삭제하고 다시 생성하는 함수
 
     Args:
-        path (``str``): 삭제 후 생성할 경로
+        path: 삭제 후 생성할 경로
 
     Returns:
-        ``None``
+        None
 
     Examples:
         >>> os.listdir("tmp")
@@ -57,24 +35,24 @@ def rmtree(path: str) -> None:
     os.makedirs(path, exist_ok=True)
 
 
-class MakeData(ABC):
+class MakeData:
     """JSON file 내 값에 따라 data를 구축하는 class
 
     Note:
-        Abstract Base Class: Data 구축 시 filtering 될 조건을 정의하는 abstract method ``condition`` 정의 후 사용
+        Abstract Base Class: Data 구축 시 filtering 될 조건을 정의하는 abstract method `condition` 정의 후 사용
 
     Args:
-        start_data_path (``str``): 목표 data가 존재하는 directory 경로
-        start_json_path (``str``): 목표 JSON file이 존재하는 directory 경로
-        json_key (``str``): ``start_json`` 에서 data의 file 이름을 나타내는 key 값
-        target_path (``str``): Data 구축 경로
-        end_data_dir (``Optional[str]``): 구축될 data file들의 directory 이름
-        end_json_dir (``Optional[str]``): 구축될 JSON file들의 directory 이름
+        start_data_path: 목표 data가 존재하는 directory 경로
+        start_json_path: 목표 JSON file이 존재하는 directory 경로
+        json_key: `start_json` 에서 data의 file 이름을 나타내는 key 값
+        target_path: Data 구축 경로
+        end_data_dir: 구축될 data file들의 directory 이름
+        end_json_dir: 구축될 JSON file들의 directory 이름
 
     Attributes:
-        json (``zerohertzLib.util.JsonDir``): JSON file들을 읽어 data 구축 시 활용
-        end_data_path (``str``): ``{target_path}/{end_data_dir}``
-        end_json_path (``str``): ``{target_path}/{end_json_dir}``
+        json: JSON file들을 읽어 data 구축 시 활용
+        end_data_path: `{target_path}/{end_data_dir}`
+        end_json_path: `{target_path}/{end_json_dir}`
     """
 
     def __init__(
@@ -83,8 +61,8 @@ class MakeData(ABC):
         start_json_path: str,
         json_key: str,
         target_path: str,
-        end_data_dir: Optional[str] = "data",
-        end_json_dir: Optional[str] = "json",
+        end_data_dir: str = "data",
+        end_json_dir: str = "json",
     ) -> None:
         self.start_data_path = start_data_path
         self.start_json_path = start_json_path
@@ -103,81 +81,81 @@ class MakeData(ABC):
         """Data 구축 시 filtering 될 조건
 
         Args:
-            json_instance (``zerohertzLib.util.Json``): ``Json`` instance
+            json_instance: `Json` instance
 
         Returns:
-            ``bool``: Data 포함 여부
+            Data 포함 여부
 
         아래와 같이 상속을 통해 조건을 설정할 수 있다.
 
         Examples:
             Condition:
-                .. code-block:: python
-
-                    class MakeDataCar(zz.util.MakeData):
-                        def condition(self, json_instance):
-                            key = json_instance._get_key("supercategory_name")
-                            category = json_instance._get_value(key)
-                            return category == "CityCar" or category == "Mid-size car"
+                ```python
+                class MakeDataCar(zz.util.MakeData):
+                    def condition(self, json_instance):
+                        key = json_instance._get_key("supercategory_name")
+                        category = json_instance._get_value(key)
+                        return category == "CityCar" or category == "Mid-size car"
+                ```
 
             Condition & Make Data:
-                .. code-block:: python
-
-                    class MakeDataCarDamage(zz.util.MakeData):
-                        def condition(self, json_instance):
-                            annotations = json_instance.get("annotations")
-                            return (annotations[0]["color"] in ["White", "Black"]) and (
-                                json_instance.get("supercategory_name") == "CityCar"
-                            )
-                        def make_data(self, json_instance, data_name):
-                            img = cv2.imread(os.path.join(self.start_data_path, data_name))
-                            for i, ant in enumerate(json_instance["annotations"]):
-                                label = ant["damage"]
-                                if not label is None:
-                                    poly = ant["segmentation"]
-                                    poly = np.array(poly[0][0])
-                                    tmp = zz.vision.cutout(img, poly)
-                                    h, w, _ = tmp.shape
-                                    if 100 <= h <= 300 and 100 <= w <= 300:
-                                        file_name = ".".join(data_name.split(".")[:-1]) + f"_{i}"
-                                        xm, ym = poly[:, 0].min(), poly[:, 1].min()
-                                        poly -= (xm, ym)
-                                        cv2.imwrite(
-                                            os.path.join(
-                                                self.end_data_path,
-                                                f"{file_name}.png",
-                                            ),
-                                            tmp,
-                                        )
-                                        zz.util.write_json(
-                                            {"name": f"{file_name}.png", "poly": poly.tolist()},
-                                            os.path.join(self.end_json_path, file_name),
-                                        )
+                ```python
+                class MakeDataCarDamage(zz.util.MakeData):
+                    def condition(self, json_instance):
+                        annotations = json_instance.get("annotations")
+                        return (annotations[0]["color"] in ["White", "Black"]) and (
+                            json_instance.get("supercategory_name") == "CityCar"
+                        )
+                    def make_data(self, json_instance, data_name):
+                        img = cv2.imread(os.path.join(self.start_data_path, data_name))
+                        for i, ant in enumerate(json_instance["annotations"]):
+                            label = ant["damage"]
+                            if not label is None:
+                                poly = ant["segmentation"]
+                                poly = np.array(poly[0][0])
+                                tmp = zz.vision.cutout(img, poly)
+                                h, w, _ = tmp.shape
+                                if 100 <= h <= 300 and 100 <= w <= 300:
+                                    file_name = ".".join(data_name.split(".")[:-1]) + f"_{i}"
+                                    xm, ym = poly[:, 0].min(), poly[:, 1].min()
+                                    poly -= (xm, ym)
+                                    cv2.imwrite(
+                                        os.path.join(
+                                            self.end_data_path,
+                                            f"{file_name}.png",
+                                        ),
+                                        tmp,
+                                    )
+                                    zz.util.write_json(
+                                        {"name": f"{file_name}.png", "poly": poly.tolist()},
+                                        os.path.join(self.end_json_path, file_name),
+                                    )
+                ```
 
             Make Data:
-                .. code-block:: python
-
-                    class MakeDataCarAugment(zz.util.MakeData):
-                        def make_data(self, json_instance, data_name):
-                            img = cv2.imread(
-                                random.choice(glob("*"))
-                            )
-                            target = cv2.imread(
-                                os.path.join(self.start_data_path, data_name), cv2.IMREAD_UNCHANGED
-                            )
-                            H, W, _ = img.shape
-                            h, w, _ = target.shape
-                            x, y = random.randrange(100, W - w - 100), random.randrange(100, H - h - 100)
-                            box = [x, y, x + w, y + h]
-                            img = zz.vision.paste(img, target, box, False, False)
-                            file_name = ".".join(data_name.split(".")[:-1])
-                            cv2.imwrite(
-                                os.path.join(
-                                    self.end_data_path,
-                                    f"{file_name}.png",
-                                ),
-                                img,
-                            )
+                ```python
+                class MakeDataCarAugment(zz.util.MakeData):
+                    def make_data(self, json_instance, data_name):
+                        img = cv2.imread(
+                            random.choice(glob("*"))
+                        )
+                        target = cv2.imread(
+                            os.path.join(self.start_data_path, data_name), cv2.IMREAD_UNCHANGED
+                        )
+                        H, W, _ = img.shape
+                        h, w, _ = target.shape
+                        x, y = random.randrange(100, W - w - 100), random.randrange(100, H - h - 100)
+                        box = [x, y, x + w, y + h]
+                        img = zz.vision.paste(img, target, box, False, False)
+                        file_name = ".".join(data_name.split(".")[:-1])
+                        cv2.imwrite(
+                            os.path.join(
+                                self.end_data_path,
+                                f"{file_name}.png",
+                            ),
+                            img,
+                        )
+                ```
         """
         return True
 
@@ -185,11 +163,11 @@ class MakeData(ABC):
         """Data 구축 방법 정의
 
         Args:
-            json_instance (``zerohertzLib.util.Json``): ``Json`` instance
-            data_name (``str``): ``json_key`` 에 의해 출력된 data의 이름
+            json_instance: `Json` instance
+            data_name: `json_key` 에 의해 출력된 data의 이름
 
         Returns:
-            ``None``: ``end_data_path``, ``end_json_path`` 와 본 함수를 통해 data 구축
+            `end_data_path`, `end_json_path` 와 본 method를 통해 data 구축
         """
         try:
             shutil.copy(
@@ -208,7 +186,7 @@ class MakeData(ABC):
 
         .. warning::
 
-            실행 시 ``target_path`` 삭제 후 구축 진행
+            실행 시 `target_path` 삭제 후 구축 진행
 
         Examples:
             >>> md = MakeData(start_data_path, start_json_path, json_key, target_path)
@@ -233,14 +211,14 @@ class MakeData(ABC):
                 self.make_data(json_instance, data_name)
 
 
-def find_ext(path: Optional[str] = "") -> Dict[str, int]:
+def find_ext(path: str = "") -> dict[str, int]:
     """경로 내 확장자의 수 탐색
 
     Args:
-        path (``Optional[str]``): 확장자를 찾을 경로
+        path: 확장자를 찾을 경로
 
     Returns:
-        ``Dict[str, int]``: 확장자에 따른 file의 수
+        확장자에 따른 file의 수
 
     Examples:
         >>> zz.util.find_ext("test/data/")
@@ -255,15 +233,15 @@ def find_ext(path: Optional[str] = "") -> Dict[str, int]:
     return exts
 
 
-def sort_dict(target: Dict, order: Optional[List] = None) -> Dict:
+def sort_dict(target: dict, order: list | None = None) -> dict:
     """Dictionary를 순서에 맞춰 재배열하는 함수
 
     Args:
-        target (``Dict``): 입력 dictionary
-        order (``Optional[List]``): 재배열 순서
+        target: 입력 dictionary
+        order: 재배열 순서
 
     Returns:
-        ``Dict``: 재배열이 완료된 dictionary
+        재배열이 완료된 dictionary
 
     Examples:
         >>> zz.util.sort_dict({3: 6, 4: 2, 2: 7})

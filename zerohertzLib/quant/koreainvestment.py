@@ -1,31 +1,10 @@
-"""
-MIT License
-
-Copyright (c) 2023 Hyogeun Oh
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
 import copy
 from collections import defaultdict
 from datetime import datetime, timedelta
-from typing import Any, Dict, ItemsView, List, Optional, Tuple, TypeVar, Union
+from typing import Any, ItemsView
 
 import FinanceDataReader as fdr
 import pandas as pd
@@ -35,48 +14,24 @@ from matplotlib import ticker
 from zerohertzLib.api import KoreaInvestment
 from zerohertzLib.plot import barv, figure, pie, savefig, table
 
-from .quant import QuantSlackBot
+from .quant import QuantBot
 from .util import _cash2str
-
-T = TypeVar("T", bound="Balance")
 
 
 class Balance(KoreaInvestment):
     """한국투자증권의 국내 계좌 정보 조회 class
 
     Args:
-        account_no (``str``): API 호출 시 사용할 계좌 번호
-        path (``Optional[str]``): ``secret.key`` 혹은 ``token.dat`` 이 포함된 경로
-        kor (``Optional[bool]``): 국내 여부
+        account_no: API 호출 시 사용할 계좌 번호
+        path: `secret.key` 혹은 `token.dat` 이 포함된 경로
+        kor: 국내 여부
 
     Attributes:
-        balance (``Dict[str, Any]``): 현재 보유 주식과 계좌의 금액 정보
-
-    Methods:
-        __contains__:
-            Args:
-                item (``Any``): 보유 여부를 판단할 종목명
-
-            Returns:
-                ``bool``: 입력 종목명의 보유 여부
-
-        __len__:
-            Returns:
-                ``int``: 보유 주식 종류의 수
-
-        __getitem__:
-            Args:
-                idx (``int``): Index
-
-            Returns:
-                ``List[Union[int, float, str]]``: Index에 따른 주식의 매수 시점과 현재의 정보
-
-        __call__:
-            Returns:
-                ``int``: 현재 보유 금액
+        balance: 현재 보유 주식과 계좌의 금액 정보
 
     Examples:
-        ``kor=True``:
+        `kor=True`:
+            ```python
             >>> balance = zz.quant.Balance("00000000-00")
             >>> "LG전자" in balance
             True
@@ -88,8 +43,9 @@ class Balance(KoreaInvestment):
             ['066570', 102200.0, 100200, 1, -1.95, -2000]
             >>> balance()
             000
-
-        ``kor=False``:
+            ```
+        `kor=False`:
+            ```python
             >>> balance = zz.quant.Balance("00000000-00", kor=False)
             >>> "아마존닷컴" in balance
             True
@@ -101,11 +57,10 @@ class Balance(KoreaInvestment):
             ['META', 488.74, 510.92, 1, 4.53, 22.18]
             >>> balance()
             000.000
+            ```
     """
 
-    def __init__(
-        self, account_no: str, path: Optional[str] = "./", kor: Optional[bool] = True
-    ) -> None:
+    def __init__(self, account_no: str, path: str = "./", kor: bool = True) -> None:
         super().__init__(account_no, path)
         self.balance = {"stock": defaultdict(list)}
         self.kor = kor
@@ -153,35 +108,57 @@ class Balance(KoreaInvestment):
         self.symbols = list(self.balance["stock"].keys())
 
     def __contains__(self, item: Any) -> bool:
+        """
+        Args:
+            item: 보유 여부를 판단할 종목명
+
+        Returns:
+            입력 종목명의 보유 여부
+        """
         return item in self.balance["stock"]
 
     def __len__(self) -> int:
+        """
+        Returns:
+            보유 주식 종류의 수
+        """
         return len(self.balance["stock"])
 
-    def __getitem__(self, idx: int) -> List[Union[int, float, str]]:
+    def __getitem__(self, idx: int) -> list[int | float | str]:
+        """
+        Args:
+            idx: Index
+
+        Returns:
+            Index에 따른 주식의 매수 시점과 현재의 정보
+        """
         return self.balance["stock"][self.symbols[idx]]
 
     def __call__(self) -> int:
+        """
+        Returns:
+            현재 보유 금액
+        """
         return self.balance["cash"]
 
     def _exchange(self) -> float:
         """USD/KRW의 현재 시세
 
         Returns:
-            ``float``: USD/KRW의 현재 시세
+            USD/KRW의 현재 시세
         """
         now = datetime.now()
         data = fdr.DataReader("USD/KRW", now - timedelta(days=10))
         return float(data.Close[-1])
 
-    def merge(self, balance: T) -> None:
-        """현재 계좌와 입력 계좌의 정보를 병합하는 함수
+    def merge(self, balance: "Balance") -> None:
+        """현재 계좌와 입력 계좌의 정보를 병합하는 function
 
         Args:
-            balance (``zerohertzLib.quant.Balance``): 병합될 계좌 정보
+            balance: 병합될 계좌 정보
 
         Returns:
-            ``None``: 현재 계좌에 정보 update
+            현재 계좌에 정보 update
 
         Examples:
             >>> balance_1.merge(balance_2)
@@ -249,11 +226,11 @@ class Balance(KoreaInvestment):
         )
         self.symbols = list(self.balance["stock"].keys())
 
-    def items(self) -> ItemsView[str, List[Union[int, float, str]]]:
+    def items(self) -> ItemsView[str, list[int | float | str]]:
         """보유 주식의 반복문 사용을 위한 method
 
         Returns:
-            ``ItemsView[str, List[Union[int, float, str]]]``: 보유 종목 code와 그에 따른 정보들
+            보유 종목 code와 그에 따른 정보들
 
         Examples:
             >>> for k, v in balance.items():
@@ -261,11 +238,11 @@ class Balance(KoreaInvestment):
         """
         return self.balance["stock"].items()
 
-    def bought_symbols(self) -> List[str]:
+    def bought_symbols(self) -> list[str]:
         """보유 주식의 종목 code return
 
         Returns:
-            ``List[str]``: 보유 주식의 종목 code들
+            보유 주식의 종목 code들
 
         Examples:
             >>> balance.bought_symbols():
@@ -277,7 +254,7 @@ class Balance(KoreaInvestment):
         """현재 계좌의 상태를 image로 저장
 
         Returns:
-            ``str``: 저장된 image의 절대 경로
+            저장된 image의 절대 경로
 
         Examples:
             >>> balance.table()
@@ -345,7 +322,7 @@ class Balance(KoreaInvestment):
         """현재 보유 종목을 pie chart로 시각화
 
         Returns:
-            ``str``: 저장된 graph의 절대 경로
+            저장된 graph의 절대 경로
 
         Examples:
             >>> balance.pie()
@@ -369,7 +346,7 @@ class Balance(KoreaInvestment):
         """현재 보유 종목의 이익과 손실을 bar chart로 시각화
 
         Returns:
-            ``str``: 저장된 graph의 절대 경로
+            저장된 graph의 절대 경로
 
         Examples:
             >>> balance.barv()
@@ -396,73 +373,73 @@ class Balance(KoreaInvestment):
         return savefig("ProfitLoss", 100)
 
 
-class QuantSlackBotKI(Balance, QuantSlackBot):
-    """한국투자증권 API를 기반으로 입력된 여러 종목에 대해 매수, 매도 signal을 판단하고 Slack으로 message와 graph를 전송하는 class
+class QuantBotKI(Balance, QuantBot):
+    """한국투자증권 API를 기반으로 입력된 여러 종목에 대해 매수, 매도 signal을 판단하고 Bot을 통해 message와 graph를 전송하는 class
 
     Args:
-        account_no (``str``): API 호출 시 사용할 계좌 번호
-        symbols (``Optional[List[str]]``): 종목 code들
-        start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
-        ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
-        top (``Optional[int]``): Experiment 과정에서 사용할 각 전략별 수
-        methods (``Optional[Dict[str, List[List[Any]]]]``): 사용할 전략들의 함수명 및 parameters
-        report (``Optional[bool]``): Experiment 결과 출력 여부
-        token (``Optional[str]``): Slack Bot의 token
-        channel (``Optional[str]``): Slack Bot이 전송할 channel
-        name (``Optional[str]``): Slack Bot의 표시될 이름
-        icon_emoji (``Optional[str]``): Slack Bot의 표시될 사진 (emoji)
-        mp_num (``Optional[int]``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
-        analysis (``Optional[bool]``): 각 전략의 보고서 전송 여부
-        kor (``Optional[bool]``): 국내 여부
-        path (``Optional[str]``): ``secret.key`` 혹은 ``token.dat`` 이 포함된 경로
+        account_no: API 호출 시 사용할 계좌 번호
+        symbols: 종목 code들
+        start_day: 조회 시작 일자 (`YYYYMMDD`)
+        ohlc: 사용할 `data` 의 column 이름
+        top: Experiment 과정에서 사용할 각 전략별 수
+        methods: 사용할 전략들의 function명 및 parameters
+        report: Experiment 결과 출력 여부
+        token: Bot의 token (`xoxb-` prefix로 시작하면 `SlackBot`, 아니면 `DiscordBot`)
+        channel: Bot이 전송할 channel
+        name: Bot의 표시될 이름
+        icon_emoji: Bot의 표시될 사진 (emoji)
+        mp_num: 병렬 처리에 사용될 process의 수 (`0`: 직렬 처리)
+        analysis: 각 전략의 보고서 전송 여부
+        kor: 국내 여부
+        path: `secret.key` 혹은 `token.dat` 이 포함된 경로
 
     Attributes:
-        exps (``Dict[str, List[Dict[str, int]]]``): 각 전략에 따른 parameter 분포
+        exps: 각 전략에 따른 parameter 분포
 
     Examples:
-        >>> qsb = zz.quant.QuantSlackBotKI("00000000-00", token=token, channel=channel)
+        >>> qbki = zz.quant.QuantBotKI("00000000-00", token=token, channel=channel)
     """
 
     def __init__(
         self,
         account_no: str,
-        symbols: Optional[List[str]] = None,
-        start_day: Optional[str] = "",
-        ohlc: Optional[str] = "",
-        top: Optional[int] = 1,
-        methods: Optional[Dict[str, List[List[Any]]]] = None,
-        report: Optional[bool] = False,
-        token: Optional[str] = None,
-        channel: Optional[str] = None,
-        name: Optional[str] = None,
-        icon_emoji: Optional[str] = None,
-        mp_num: Optional[int] = 0,
-        analysis: Optional[bool] = False,
-        kor: Optional[bool] = True,
-        path: Optional[str] = "./",
+        symbols: list[str] | None = None,
+        start_day: str = "",
+        ohlc: str = "",
+        top: int = 1,
+        methods: dict[str, list[list[Any]]] | None = None,
+        report: bool = False,
+        token: str | None = None,
+        channel: str | None = None,
+        name: str | None = None,
+        icon_emoji: str | None = None,
+        mp_num: int = 0,
+        analysis: bool = False,
+        kor: bool = True,
+        path: str = "./",
     ) -> None:
         Balance.__init__(self, account_no, path, kor)
         if symbols is None:
             symbols = []
-        QuantSlackBot.__init__(
+        QuantBot.__init__(
             self,
-            symbols,
-            start_day,
-            ohlc,
-            top,
-            methods,
-            report,
-            token,
-            channel,
-            name,
-            icon_emoji,
-            mp_num,
-            analysis,
-            kor,
+            symbols=symbols,
+            start_day=start_day,
+            ohlc=ohlc,
+            top=top,
+            methods=methods,
+            report=report,
+            token=token,
+            channel=channel,
+            name=name,
+            icon_emoji=icon_emoji,
+            mp_num=mp_num,
+            analysis=analysis,
+            kor=kor,
         )
         self.symbols_bought = self.bought_symbols()
 
-    def _get_data(self, symbol: str) -> Tuple[str, pd.DataFrame]:
+    def _get_data(self, symbol: str) -> tuple[str, pd.DataFrame]:
         response = self.get_ohlcv(symbol, start_day=self.start_day, kor=self.kor)
         title, data = self.response2ohlcv(response)
         return title, data
@@ -474,11 +451,11 @@ class QuantSlackBotKI(Balance, QuantSlackBot):
         """
         path_balance, path_portfolio = self.table(), self.pie()
         if path_balance is None:
-            self.message("Balance: NULL", True)
+            self.bot.message("Balance: NULL", True)
             return None
-        response = self.message("> :bank: Balance")
-        thread_ts = response.get("ts")
-        self.file(path_balance, thread_ts)
-        self.file(path_portfolio, thread_ts)
+        response = self.bot.message("> :bank: Balance")
+        thread_id = self.bot.get_thread_id(response)
+        self.bot.file(path_balance, thread_id=thread_id)
+        self.bot.file(path_portfolio, thread_id=thread_id)
         self._inference(self.symbols_bought, "Sell")
         return None

@@ -1,28 +1,5 @@
-"""
-MIT License
-
-Copyright (c) 2023 Hyogeun Oh
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
-
-from typing import List, Optional, Tuple, Union
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
 from matplotlib import pyplot as plt
 
@@ -30,27 +7,27 @@ from .util import savefig
 
 
 def table(
-    data: List[List[Union[int, float, str]]],
-    col: Optional[List[Union[int, float, str]]] = None,
-    row: Optional[List[Union[int, float, str]]] = None,
-    title: Optional[str] = "tmp",
-    fontsize: Optional[int] = 35,
-    figsize: Optional[Tuple[int]] = (20, 8),
-    dpi: Optional[int] = 300,
+    data: list[list[int | float | str]],
+    col: list[int | float | str] | None = None,
+    row: list[int | float | str] | None = None,
+    title: str = "tmp",
+    fontsize: int = 35,
+    figsize: tuple[int, int] = (20, 8),
+    dpi: int = 300,
 ) -> str:
     """Dictionary로 입력받은 data를 scatter plot으로 시각화
 
     Args:
-        data (``List[List[Union[int, float, str]]]``): ``len(row) X len(col)`` 의 크기를 가지는 list
-        col (``Optional[List[Union[int, float, str]]]]``): 열 (column)의 label
-        row (``Optional[List[Union[int, float, str]]]]``): 행 (row)의 label
-        title (``Optional[str]``): 저장될 file의 이름
-        fontsize (``Optional[int]``): 문자의 크기
-        figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
-        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        data: `len(row) X len(col)` 의 크기를 가지는 list
+        col: 열 (column)의 label
+        row: 행 (row)의 label
+        title: 저장될 file의 이름
+        fontsize: 문자의 크기
+        figsize: Graph의 가로, 세로 길이
+        dpi: Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
-        ``str``: 저장된 graph의 절대 경로
+        저장된 graph의 절대 경로
 
     Examples:
         >>> data = [["123", 123, 123.4], [123.4, "123", 123], [123, 123.4, "123"], ["123", 123, 123.4]]
@@ -59,9 +36,7 @@ def table(
         >>> zz.plot.table(data, col, row, title="Star Craft")
         >>> zz.plot.table(data, col, row, title="Star Craft2", fontsize=50)
 
-        .. image:: _static/examples/dynamic/plot.table.png
-            :align: center
-            :width: 500px
+        ![Table example](../../../assets/plot/table.png){ width="500" }
     """
     fig, ax = plt.subplots(figsize=figsize)
     tbl = ax.table(cellText=data, colLabels=col, rowLabels=row, loc="center")

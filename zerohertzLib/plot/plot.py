@@ -1,28 +1,7 @@
-"""
-MIT License
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
-Copyright (c) 2023 Hyogeun Oh
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
-
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any
 
 import mplfinance as mpf
 import numpy as np
@@ -34,57 +13,53 @@ from .util import _color, color, savefig
 
 
 def plot(
-    xdata: Union[List[Union[int, float]], Dict[str, Union[int, float]]],
-    ydata: Union[List[Union[int, float]], Dict[str, Union[int, float]]],
-    xlab: Optional[str] = None,
-    ylab: Optional[str] = None,
-    xlim: Optional[List[Union[int, float]]] = None,
-    ylim: Optional[List[Union[int, float]]] = None,
-    stacked: Optional[bool] = False,
-    ncol: Optional[int] = 1,
-    title: Optional[str] = "tmp",
-    colors: Optional[Union[str, List]] = None,
-    markersize: Optional[int] = 12,
-    figsize: Optional[Tuple[int]] = (15, 10),
-    dpi: Optional[int] = 300,
-) -> str:
+    xdata: list[int | float] | dict[str, int | float],
+    ydata: list[int | float] | dict[str, int | float],
+    xlab: str | None = None,
+    ylab: str | None = None,
+    xlim: list[int | float] | None = None,
+    ylim: list[int | float] | None = None,
+    stacked: bool = False,
+    ncol: int = 1,
+    title: str = "tmp",
+    colors: str | list | None = None,
+    markersize: int = 12,
+    figsize: tuple[int, int] = (15, 10),
+    dpi: int = 300,
+) -> str | None:
     """List와 Dictionary로 입력받은 data를 line chart로 시각화
 
     Args:
-        xdata (``Union[List[Union[int, float]], Dict[str, Union[int, float]]]``): 입력 data (X축)
-        ydata (``Union[List[Union[int, float]], Dict[str, Union[int, float]]]``): 입력 data (Y축)
-        xlab (``Optional[str]``): Graph에 출력될 X축 label
-        ylab (``Optional[str]``): Graph에 출력될 Y축 label
-        xlim (``Optional[List[Union[int, float]]]``): Graph에 출력될 X축 limit
-        ylim (``Optional[List[Union[int, float]]]``): Graph에 출력될 Y축 limit
-        stacked (``Optional[bool]``): Stacked plot 여부
-        ncol (``Optional[int]``): Graph에 표시될 legend 열의 수
-        title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
-        colors (``Optional[Union[str, List]]``): 각 요소의 색
-        markersize (``Optional[int]``): Graph에 표시될 marker의 size
-        figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
-        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        xdata: 입력 data (X축)
+        ydata: 입력 data (Y축)
+        xlab: Graph에 출력될 X축 label
+        ylab: Graph에 출력될 Y축 label
+        xlim: Graph에 출력될 X축 limit
+        ylim: Graph에 출력될 Y축 limit
+        stacked: Stacked plot 여부
+        ncol: Graph에 표시될 legend 열의 수
+        title: Graph에 표시될 제목 및 file 이름
+        colors: 각 요소의 색
+        markersize: Graph에 표시될 marker의 size
+        figsize: Graph의 가로, 세로 길이
+        dpi: Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
-        ``str``: 저장된 graph의 절대 경로
+        저장된 graph의 절대 경로
 
     Examples:
-        ``stacked=False``:
+        `stacked=False`:
             >>> xdata = [i for i in range(20)]
             >>> ydata = {"Terran": list(np.random.rand(20) * 10), "Zerg": list(np.random.rand(20) * 10 + 1), "Protoss": list(np.random.rand(20) * 10 + 2)}
             >>> zz.plot.plot(xdata, ydata, xlab="Time [Sec]", ylab="Scores", title="Star Craft")
 
-            .. image:: _static/examples/dynamic/plot.plot.1.png
-                :align: center
-                :width: 500px
+            ![Plot example 1](../../../assets/plot/plot.1.png){ width="500" }
 
-        ``stacked=True``:
+        `stacked=True`:
             >>> ydata["Total"] = [sum(data) + 10 for data in zip(ydata["Terran"], ydata["Protoss"], ydata["Zerg"])]
             >>> zz.plot.plot(xdata, ydata, xlab="Time [Sec]", ylab="Scores", stacked=True, title="Star Craft")
 
-            .. image:: _static/examples/dynamic/plot.plot.2.png
-                :align: center
-                :width: 500px
+            ![Plot example 2](../../../assets/plot/plot.2.png){ width="500" }
     """
     if config.SAVE:
         plt.figure(figsize=figsize)
@@ -138,40 +113,38 @@ def plot(
 
 def candle(
     data: pd.DataFrame,
-    title: Optional[str] = "tmp",
-    figsize: Optional[Tuple[int]] = (18, 10),
-    signals: Optional[Dict[str, Any]] = None,
-    threshold: Optional[Union[int, Tuple[int]]] = 1,
-    dpi: Optional[int] = 300,
-) -> str:
+    title: str = "tmp",
+    figsize: tuple[int, int] = (18, 10),
+    signals: dict[str, Any] | None = None,
+    threshold: int | tuple[int, int] = 1,
+    dpi: int = 300,
+) -> str | None:
     """OHLCV (Open, High, Low, Close, Volume) data에 따른 candle chart
 
     Note:
         - 적색: 매수
         - 청색: 매도
-        - 실선 (``-``): Backtest 시 signal이 존재하는 매수, 매도
-        - 파선 (``--``): Backtest 시 사용하지 않은 signal의 매수, 매도
-        - 일점쇄선 (``-.``): Backtest logic에 의한 매수, 매도
+        - 실선: Backtest 시 signal이 존재하는 매수, 매도
+        - 파선: Backtest 시 사용하지 않은 signal의 매수, 매도
+        - 일점쇄선: Backtest logic에 의한 매수, 매도
 
     Args:
-        data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
-        title (``Optional[str]``): Graph에 표시될 제목 및 file 이름
-        figsize (``Optional[Tuple[int]]``): Graph의 가로, 세로 길이
-        signals (``Optional[Dict[str, Any]]``): 추가적으로 plot할 data
-        threshold (``Optional[Union[int, Tuple[int]]]``): 매수, 매도를 결정할 ``signals`` 경계값
-        dpi (``Optional[int]``): Graph 저장 시 DPI (Dots Per Inch)
+        data: OHLCV (Open, High, Low, Close, Volume) data
+        title: Graph에 표시될 제목 및 file 이름
+        figsize: Graph의 가로, 세로 길이
+        signals: 추가적으로 plot할 data
+        threshold: 매수, 매도를 결정할 `signals` 경계값
+        dpi: Graph 저장 시 DPI (Dots Per Inch)
 
     Returns:
-        ``str``: 저장된 graph의 절대 경로
+        저장된 graph의 절대 경로
 
     Examples:
         >>> zz.plot.candle(data, title)
         >>> signals = zz.quant.macd(data)
         >>> zz.plot.candle(data, "MACD", signals=signals)
 
-        .. image:: _static/examples/dynamic/plot.candle.png
-            :align: center
-            :width: 600px
+        ![Candle chart example](../../../assets/plot/candle.png){ width="600" }
     """
     if not isinstance(threshold, int):
         threshold_sell, threshold_buy = threshold

@@ -1,29 +1,8 @@
-"""
-MIT License
-
-Copyright (c) 2023 Hyogeun Oh
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
 from collections import defaultdict
-from typing import Any, Dict, List, Optional, Set, Tuple, Union
+from typing import Any
 
 import numpy as np
 import pandas as pd
@@ -38,11 +17,11 @@ def iou(poly1: NDArray[DTypeLike], poly2: NDArray[DTypeLike]) -> float:
     """IoU (Intersection over Union)를 계산하는 함수
 
     Args:
-        poly1 (``NDArray[DTypeLike]``): IoU를 계산할 polygon (``[S1, 2]``, ``[[x_0, y_0], [x_1, y_1], ...]``)
-        poly2 (``NDArray[DTypeLike]``): IoU를 계산할 polygon (``[S2, 2]``, ``[[x_0, y_0], [x_1, y_1], ...]``)
+        poly1: IoU를 계산할 polygon (`[S1, 2]`, `[[x_0, y_0], [x_1, y_1], ...]`)
+        poly2: IoU를 계산할 polygon (`[S2, 2]`, `[[x_0, y_0], [x_1, y_1], ...]`)
 
     Returns:
-        ``float``: IoU 값
+        IoU 값
 
     Examples:
         >>> poly1 = np.array([[0, 0], [10, 0], [10, 10], [0, 10]])
@@ -61,14 +40,14 @@ def iou(poly1: NDArray[DTypeLike], poly2: NDArray[DTypeLike]) -> float:
 
 
 def _append(
-    logs: Dict[str, List[Any]],
+    logs: dict[str, list[Any]],
     instance: int,
     confidence: float,
-    class_: Union[int, str],
+    class_: int | str,
     iou_: float,
     results: str,
-    gt: NDArray[DTypeLike],
-    inf: NDArray[DTypeLike],
+    gt: NDArray[DTypeLike] | None,
+    inf: NDArray[DTypeLike] | None,
 ) -> None:
     logs["instance"].append(instance)
     logs["confidence"].append(confidence)
@@ -116,33 +95,31 @@ def _append(
 def evaluation(
     ground_truths: NDArray[DTypeLike],
     inferences: NDArray[DTypeLike],
-    confidences: List[float],
-    gt_classes: Optional[List[str]] = None,
-    inf_classes: Optional[List[str]] = None,
-    file_name: Optional[str] = None,
-    threshold: Optional[float] = 0.5,
+    confidences: list[float],
+    gt_classes: list[str] | None = None,
+    inf_classes: list[str] | None = None,
+    file_name: str | None = None,
+    threshold: float = 0.5,
 ) -> pd.DataFrame:
     """단일 이미지 내 detection model의 추론 성능 평가
 
     Args:
-        ground_truths (``NDArray[DTypeLike]``): Ground truth object들의 polygon (``[N, 4, 2]``, ``[[[x_0, y_0], [x_1, y_1], ...], ...]``)
-        inferences (``NDArray[DTypeLike]``): Model이 추론한 각 object들의 polygon (``[M, 4, 2]``, ``[[[x_0, y_0], [x_1, y_1], ...], ...]``)
-        confidences (``List[float]``): Model이 추론한 각 object들의 confidence(``[M]``)
-        gt_classes (``Optional[List[str]]``): Ground truth object들의 class (``[N]``)
-        inf_classes (``Optional[List[str]]``): Model이 추론한 각 object들의 class (``[M]``)
-        file_name (``Optional[str]``): 평가 image의 이름
-        threshold (``Optional[float]``): IoU의 threshold
+        ground_truths: Ground truth object들의 polygon (`[N, 4, 2]`, `[[[x_0, y_0], [x_1, y_1], ...], ...]`)
+        inferences: Model이 추론한 각 object들의 polygon (`[M, 4, 2]`, `[[[x_0, y_0], [x_1, y_1], ...], ...]`)
+        confidences: Model이 추론한 각 object들의 confidence(`[M]`)
+        gt_classes: Ground truth object들의 class (`[N]`)
+        inf_classes: Model이 추론한 각 object들의 class (`[M]`)
+        file_name: 평가 image의 이름
+        threshold: IoU의 threshold
 
     Note:
         - `N`: 한 이미지의 ground truth 내 존재하는 object의 수
         - `M`: 한 이미지의 inference 결과 내 존재하는 object의 수
 
-        .. image:: _static/examples/static/vision.evaluation.png
-            :align: center
-            :width: 600px
+        ![Model evaluation visualization](../../../assets/vision/evaluation.png){ width="600" }
 
     Returns:
-        ``pd.DataFrame``: 단일 이미지의 model 성능 평가 결과
+        단일 이미지의 model 성능 평가 결과
 
     Examples:
         >>> poly = np.array([[0, 0], [10, 0], [10, 10], [0, 10]])
@@ -214,14 +191,14 @@ def evaluation(
     return logs
 
 
-def meanap(logs: pd.DataFrame) -> Tuple[float, Dict[str, float]]:
+def meanap(logs: pd.DataFrame) -> tuple[float, dict[str, float]]:
     """Detection model의 P-R curve 시각화 및 mAP 산출
 
     Args:
-        logs (``pd.DataFrame``): ``zz.vision.evaluation`` 함수를 통해 평가된 결과
+        logs: `zz.vision.evaluation` 함수를 통해 평가된 결과
 
     Returns:
-        ``Tuple[float, Dict[str, float]]``: mAP 값 및 class에 따른 AP 값 (시각화 결과는 ``prc_curve.png``, ``pr_curve.png`` 로 현재 directory에 저장)
+        mAP 값 및 class에 따른 AP 값 (시각화 결과는 `prc_curve.png`, `pr_curve.png` 로 현재 directory에 저장)
 
     Examples:
         >>> logs1 = zz.vision.evaluation(ground_truths_1, inferences_1, confidences_1, gt_classes, inf_classes, file_name="test_1.png")
@@ -230,9 +207,7 @@ def meanap(logs: pd.DataFrame) -> Tuple[float, Dict[str, float]]:
         >>> zz.vision.meanap(logs)
         (0.7030629916206652, defaultdict(<class 'float'>, {'dog': 0.7177078883735305, 'cat': 0.6884180948677999}))
 
-        .. image:: _static/examples/static/vision.meanap.png
-            :align: center
-            :width: 600px
+        ![Mean Average Precision curves](../../../assets/vision/meanap.png){ width="600" }
     """
     logs = logs.sort_values(by="confidence", ascending=False)
     confidence_per_cls = defaultdict(list)
@@ -288,10 +263,10 @@ def meanap(logs: pd.DataFrame) -> Tuple[float, Dict[str, float]]:
 
 
 def _prc_curve(
-    confidence_per_cls: Dict[str, List[float]],
-    recall_per_cls: Dict[str, List[float]],
-    precision_per_cls: Dict[str, List[float]],
-    classes: Set[str],
+    confidence_per_cls: dict[str, list[float]],
+    recall_per_cls: dict[str, list[float]],
+    precision_per_cls: dict[str, list[float]],
+    classes: set[str],
 ) -> None:
     xdata = {}
     ydata = {}
@@ -321,7 +296,7 @@ def _prc_curve(
 
 
 def _pr_curve(
-    pr_curve: Dict[str, List[Tuple[float]]], classes: Set[str], map_: float
+    pr_curve: dict[str, list[tuple[float, float]]], classes: set[str], map_: float
 ) -> None:
     figure()
     if len(classes) == 1:

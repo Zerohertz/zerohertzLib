@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
+
 import os
 from datetime import datetime, timedelta
 
@@ -5,42 +8,46 @@ import FinanceDataReader as fdr
 
 import zerohertzLib as zz
 
+DISCORD_BOT_TOKEN = os.environ.get("DISCORD_BOT_TOKEN")
+DISCORD_BOT_CHANNEL = os.environ.get("DISCORD_BOT_CHANNEL")
 SLACK_BOT_TOKEN = os.environ.get("SLACK_BOT_TOKEN")
+SLACK_BOT_CHANNEL = "test"
+
 NOW = datetime.now()
-START_DAY = NOW - timedelta(days=30 * 18)
-START_DAY = START_DAY.strftime("%Y%m%d")
-DATA = fdr.DataReader("066570", START_DAY)
+QUANT_START_DAY = (NOW - timedelta(days=30 * 18)).strftime("%Y%m%d")
+QUANT_TEST_DATA = fdr.DataReader("066570", QUANT_START_DAY)
+QUANT_SYMBOL_INT = 4
 
 zz.plot.font(kor=True)
 
 
 def test_moving_average_backtest():
-    signals = zz.quant.moving_average(DATA)
-    zz.quant.backtest(DATA, signals)
+    signals = zz.quant.moving_average(QUANT_TEST_DATA)
+    zz.quant.backtest(QUANT_TEST_DATA, signals)
 
 
 def test_rsi_backtest():
-    signals = zz.quant.rsi(DATA)
-    zz.quant.backtest(DATA, signals)
+    signals = zz.quant.rsi(QUANT_TEST_DATA)
+    zz.quant.backtest(QUANT_TEST_DATA, signals)
 
 
 def test_bollinger_bands_backtest():
-    signals = zz.quant.bollinger_bands(DATA)
-    zz.quant.backtest(DATA, signals)
+    signals = zz.quant.bollinger_bands(QUANT_TEST_DATA)
+    zz.quant.backtest(QUANT_TEST_DATA, signals)
 
 
 def test_momentum_backtest():
-    signals = zz.quant.momentum(DATA)
-    zz.quant.backtest(DATA, signals)
+    signals = zz.quant.momentum(QUANT_TEST_DATA)
+    zz.quant.backtest(QUANT_TEST_DATA, signals)
 
 
 def test_macd_backtest():
-    signals = zz.quant.macd(DATA)
-    zz.quant.backtest(DATA, signals)
+    signals = zz.quant.macd(QUANT_TEST_DATA)
+    zz.quant.backtest(QUANT_TEST_DATA, signals)
 
 
 def test_experiments():
-    experiments = zz.quant.Experiments("Test", DATA)
+    experiments = zz.quant.Experiments("Test", QUANT_TEST_DATA)
     experiments.moving_average()
     experiments.rsi()
     experiments.bollinger_bands()
@@ -49,10 +56,10 @@ def test_experiments():
 
 
 def test_quant():
-    qnt = zz.quant.Quant("Test", DATA, top=3, report=True)
+    qnt = zz.quant.Quant("Test", QUANT_TEST_DATA, top=3, report=True)
     qnt_signals = qnt.signals.copy()
     results = zz.quant.backtest(
-        DATA, qnt_signals, threshold=(qnt.threshold_sell, qnt.threshold_buy)
+        QUANT_TEST_DATA, qnt_signals, threshold=(qnt.threshold_sell, qnt.threshold_buy)
     )
     assert qnt.buy == results["buy"]
     assert qnt.sell == results["sell"]
@@ -62,14 +69,60 @@ def test_quant():
     qnt()
 
 
+def test_quant_mocked_bot_fdr_kor():
+    qsb = zz.quant.QuantBotFDR(
+        QUANT_SYMBOL_INT,
+        start_day=QUANT_START_DAY,
+        ohlc="Close",
+        top=4,
+        analysis=True,
+    )
+    qsb.index()
+
+
+def test_quant_mocked_bot_fdr_ovs():
+    qsb = zz.quant.QuantBotFDR(
+        QUANT_SYMBOL_INT,
+        start_day=QUANT_START_DAY,
+        top=4,
+        kor=False,
+    )
+    qsb.buy()
+
+
+def test_quant_discord_bot_fdr_kor():
+    qsb = zz.quant.QuantBotFDR(
+        QUANT_SYMBOL_INT,
+        start_day=QUANT_START_DAY,
+        ohlc="Close",
+        top=4,
+        token=DISCORD_BOT_TOKEN,
+        channel=DISCORD_BOT_CHANNEL,
+        analysis=True,
+    )
+    qsb.index()
+
+
+def test_quant_discord_bot_fdr_ovs():
+    qsb = zz.quant.QuantBotFDR(
+        QUANT_SYMBOL_INT,
+        start_day=QUANT_START_DAY,
+        top=4,
+        token=DISCORD_BOT_TOKEN,
+        channel=DISCORD_BOT_CHANNEL,
+        kor=False,
+    )
+    qsb.buy()
+
+
 def test_quant_slack_bot_fdr_kor():
-    qsb = zz.quant.QuantSlackBotFDR(
-        1,
-        start_day=START_DAY,
+    qsb = zz.quant.QuantBotFDR(
+        QUANT_SYMBOL_INT,
+        start_day=QUANT_START_DAY,
         ohlc="Close",
         top=4,
         token=SLACK_BOT_TOKEN,
-        channel="test",
+        channel=SLACK_BOT_CHANNEL,
         name="Stock Test",
         icon_emoji="rocket",
         analysis=True,
@@ -78,12 +131,12 @@ def test_quant_slack_bot_fdr_kor():
 
 
 def test_quant_slack_bot_fdr_ovs():
-    qsb = zz.quant.QuantSlackBotFDR(
-        1,
-        start_day=START_DAY,
-        top=2,
+    qsb = zz.quant.QuantBotFDR(
+        QUANT_SYMBOL_INT,
+        start_day=QUANT_START_DAY,
+        top=4,
         token=SLACK_BOT_TOKEN,
-        channel="test",
+        channel=SLACK_BOT_CHANNEL,
         name="Stock Test",
         icon_emoji="rocket",
         kor=False,

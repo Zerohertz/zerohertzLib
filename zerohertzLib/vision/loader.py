@@ -1,33 +1,12 @@
-"""
-MIT License
-
-Copyright (c) 2023 Hyogeun Oh
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
 import math
 import multiprocessing as mp
 import os
 import shutil
 from collections import defaultdict
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any
 
 import cv2
 import numpy as np
@@ -45,23 +24,11 @@ class ImageLoader:
     """경로와 image의 수를 지정하여 경로 내 image를 return하는 class
 
     Args:
-        path (``Optional[str]``): Image들이 존재하는 경로
-        cnt (``Optional[int]``): 호출 시 return 할 image의 수
+        path: Image들이 존재하는 경로
+        cnt: 호출 시 return 할 image의 수
 
     Attributes:
-        image_paths (``List[str]``): 지정한 경로 내 image들의 경로
-
-    Methods:
-        __len__:
-            Returns:
-                ``int``: ``cnt`` 에 해당하는 image들의 수
-
-        __getitem__:
-            Args:
-                idx (``int``): 입력 index
-
-            Returns:
-                ``Union[Tuple[str, NDArray[np.uint8]], Tuple[List[str], List[NDArray[np.uint8]]]``: ``cnt`` 에 따른 file 경로 및 image 값
+        image_paths: 지정한 경로 내 image들의 경로
 
     Examples:
         >>> il = zz.vision.ImageLoader()
@@ -84,19 +51,28 @@ class ImageLoader:
         4
     """
 
-    def __init__(self, path: Optional[str] = "./", cnt: Optional[int] = 1) -> None:
+    def __init__(self, path: str = "./", cnt: int = 1) -> None:
         self.cnt = cnt
         self.image_paths = _get_image_paths(path)
         self.image_paths.sort()
 
     def __len__(self) -> int:
+        """
+        Returns:
+            `cnt` 에 해당하는 image들의 수
+        """
         return math.ceil(len(self.image_paths) / self.cnt)
 
     def __getitem__(
         self, idx: int
-    ) -> Union[
-        Tuple[str, NDArray[np.uint8]], Tuple[List[str], List[NDArray[np.uint8]]]
-    ]:
+    ) -> tuple[str, NDArray[np.uint8]] | tuple[list[str], list[NDArray[np.uint8]]]:
+        """
+        Args:
+            idx: 입력 index
+
+        Returns:
+            `cnt` 에 따른 file 경로 및 image 값
+        """
         if self.cnt == 1:
             return (
                 self.image_paths[idx],
@@ -115,26 +91,12 @@ class JsonImageLoader:
     """JSON file을 통해 image와 JSON file 내 정보를 불러오는 class
 
     Args:
-        data_path (``str``): 목표 data가 존재하는 directory 경로
-        json_path (``str``): 목표 JSON file이 존재하는 directory 경로
-        json_key (``str``): ``data_path`` 에서 data의 file 이름을 나타내는 key 값
+        data_path: 목표 data가 존재하는 directory 경로
+        json_path: 목표 JSON file이 존재하는 directory 경로
+        json_key: `data_path` 에서 data의 file 이름을 나타내는 key 값
 
     Attributes:
-        json (``zerohertzLib.util.JsonDir``): JSON file들을 읽어 data 구축 시 활용
-
-    Methods:
-        __len__:
-            Returns:
-                ``int``: 읽어온 JSON file들의 수
-
-        __getitem__:
-            읽어온 JSON file들을 list와 같이 indexing 후 해당하는 image return
-
-            Args:
-                idx (``int``): 입력 index
-
-            Returns:
-                ``Tuple[NDArray[np.uint8], zerohertzLib.util.Json]``: Image와 JSON 내 정보
+        json: JSON file들을 읽어 data 구축 시 활용
 
     Examples:
         >>> jil = zz.vision.JsonImageLoader(data_path, json_path, json_key)
@@ -161,9 +123,22 @@ class JsonImageLoader:
         self.json_key = self.json._get_key(json_key)
 
     def __len__(self) -> int:
+        """
+        Returns:
+            읽어온 JSON file들의 수
+        """
         return len(self.json)
 
-    def __getitem__(self, idx: int) -> Tuple[NDArray[np.uint8], Json]:
+    def __getitem__(self, idx: int) -> tuple[NDArray[np.uint8], Json]:
+        """
+        읽어온 JSON file들을 list와 같이 indexing 후 해당하는 image return
+
+        Args:
+            idx: 입력 index
+
+        Returns:
+            Image와 JSON 내 정보
+        """
         data_name = self.json[idx].get(self.json_key)
         img = cv2.imread(os.path.join(self.data_path, data_name), cv2.IMREAD_UNCHANGED)
         return img, self.json[idx]
@@ -173,26 +148,12 @@ class YoloLoader:
     """YOLO format의 dataset을 읽고 시각화하는 class
 
     Args:
-        data_path (``Optional[str]``): Image가 존재하는 directory 경로
-        txt_path (``Optional[str]``): YOLO format의 ``.txt`` 가 존재하는 directory 경로
-        poly (``Optional[bool]``): ``.txt`` file의 format (``False``: detection, ``True``: segmentation)
-        absolute (``Optional[bool]``): ``.txt`` file의 절대 좌표계 여부 (``False``: relative coordinates, ``True``: absolute coordinates)
-        vis_path (``Optional[str]``): 시각화 image들이 저장될 경로
-        class_color (``Optional[Dict[Union[int, str], Tuple[int]]]``): 시각화 결과에 적용될 class에 따른 색상
-
-    Methods:
-        __len__:
-            Returns:
-                ``int``: 읽어온 image file들의 수
-
-        __getitem__:
-            Index에 따른 image와 ``.txt`` file에 대한 정보 return (``vis_path`` 와 ``class_color`` 입력 시 시각화 image ``vis_path`` 에 저장)
-
-            Args:
-                idx (``int``): 입력 index
-
-            Returns:
-                ``Tuple[NDArray[np.uint8], List[int], List[NDArray[DTypeLike]]]``: 읽어온 image와 그에 따른 ``class_list`` 및 ``bbox`` 혹은 ``poly``
+        data_path: Image가 존재하는 directory 경로
+        txt_path: YOLO format의 `.txt` 가 존재하는 directory 경로
+        poly: `.txt` file의 format (`False`: detection, `True`: segmentation)
+        absolute: `.txt` file의 절대 좌표계 여부 (`False`: relative coordinates, `True`: absolute coordinates)
+        vis_path: 시각화 image들이 저장될 경로
+        class_color: 시각화 결과에 적용될 class에 따른 색상
 
     Examples:
         >>> data_path = ".../images"
@@ -210,12 +171,12 @@ class YoloLoader:
 
     def __init__(
         self,
-        data_path: Optional[str] = "images",
-        txt_path: Optional[str] = "labels",
-        poly: Optional[bool] = False,
-        absolute: Optional[bool] = False,
-        vis_path: Optional[str] = None,
-        class_color: Optional[Dict[Union[int, str], Tuple[int]]] = None,
+        data_path: str = "images",
+        txt_path: str = "labels",
+        poly: bool = False,
+        absolute: bool = False,
+        vis_path: str | None = None,
+        class_color: dict[int | str, tuple[int, int, int]] | None = None,
     ) -> None:
         self.data_path = data_path
         self.data_paths = _get_image_paths(self.data_path)
@@ -232,11 +193,24 @@ class YoloLoader:
             self.class_color = class_color
 
     def __len__(self) -> int:
+        """
+        Returns:
+            읽어온 image file들의 수
+        """
         return len(self.data_paths)
 
     def __getitem__(
         self, idx: int
-    ) -> Tuple[NDArray[np.uint8], List[int], List[NDArray[DTypeLike]]]:
+    ) -> tuple[NDArray[np.uint8], list[int], list[NDArray[DTypeLike]]]:
+        """
+        Index에 따른 image와 `.txt` file에 대한 정보 return (`vis_path` 와 `class_color` 입력 시 시각화 image `vis_path` 에 저장)
+
+        Args:
+            idx: 입력 index
+
+        Returns:
+            읽어온 image와 그에 따른 `class_list` 및 `bbox` 혹은 `poly`
+        """
         data_path = self.data_paths[idx]
         data_file_name = data_path.split("/")[-1]
         txt_path = os.path.join(
@@ -254,7 +228,7 @@ class YoloLoader:
 
     def _convert(
         self, txt_path: str, img: NDArray[np.uint8]
-    ) -> Tuple[List[int], List[NDArray[DTypeLike]]]:
+    ) -> tuple[list[int], list[NDArray[DTypeLike]]]:
         class_list = []
         objects = []
         with open(txt_path, "r", encoding="utf-8") as file:
@@ -277,8 +251,8 @@ class YoloLoader:
         self,
         file_name: str,
         img: NDArray[np.uint8],
-        class_list: List[int],
-        objects: List[NDArray[DTypeLike]],
+        class_list: list[int],
+        objects: list[NDArray[DTypeLike]],
     ) -> None:
         if self.poly:
             mks = np.zeros((len(objects), *img.shape[:2]), bool)
@@ -294,7 +268,7 @@ class YoloLoader:
         self,
         img: NDArray[np.uint8],
         obj: NDArray[DTypeLike],
-        labels: List[str],
+        labels: list[str],
         cls: int,
     ):
         original_height, original_width = img.shape[:2]
@@ -335,7 +309,7 @@ class YoloLoader:
             "origin": "manual",
         }
 
-    def _annotation(self, args: List[Union[int, str, List[str]]]) -> Dict[str, Any]:
+    def _annotation(self, args: list[int | str | list[str]]) -> dict[str, Any]:
         idx, directory, labels = args
         img, class_list, objects = self[idx]
         data_path = self.data_paths[idx]
@@ -351,20 +325,20 @@ class YoloLoader:
 
     def labelstudio(
         self,
-        directory: Optional[str] = "image",
-        labels: Optional[List[str]] = None,
-        mp_num: Optional[int] = 0,
+        directory: str = "image",
+        labels: list[str | None] = None,
+        mp_num: int = 0,
     ) -> None:
         """
         YOLO format의 data를 Label Studio에서 확인 및 수정할 수 있게 변환
 
         Args:
-            directory (``Optional[str]``): Label Studio 내 ``/home/user/{directory}`` 의 이름
-            labels (``Optional[List[str]]``): YOLO format의 ``.txt`` 상에서 index에 따른 label의 이름
-            mp_num (``Optional[int]``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
+            directory: Label Studio 내 `/home/user/{directory}` 의 이름
+            labels: YOLO format의 `.txt` 상에서 index에 따른 label의 이름
+            mp_num: 병렬 처리에 사용될 process의 수 (`0`: 직렬 처리)
 
         Returns:
-            ``None``: ``{path}.json`` 으로 결과 저장
+            `{path}.json` 으로 결과 저장
 
         Examples
             >>> yolo.labelstudio("images", mp_num=10, labels=["t1", "t2", "t3", "t4"])
@@ -388,34 +362,9 @@ class CocoLoader:
     """COCO format의 dataset을 읽고 시각화하는 class
 
     Args:
-        data_path (``str``): Image 및 annotation이 존재하는 directory 경로
-        vis_path (``Optional[str]``): 시각화 image들이 저장될 경로
-        class_color (``Optional[Dict[Union[int, str], Tuple[int]]]``): 시각화 결과에 적용될 class에 따른 색상
-
-    Methods:
-        __len__:
-            Returns:
-                ``int``: 읽어온 image file들의 수
-
-        __call__:
-            Index에 따른 image와 annotation에 대한 정보 return (``vis_path`` 와 ``class_color`` 입력 시 시각화 image ``vis_path`` 에 저장)
-
-            Args:
-                idx (``int``): 입력 index
-                read (``Optional[bool]``): Image 읽음 여부
-                int_class (``Optional[bool]``): 출력될 class의 type 지정
-
-            Returns:
-                ``Tuple[Union[str, NDArray[np.uint8]], List[Union[int, str]], NDArray[DTypeLike], List[NDArray[DTypeLike]]]``: Image 경로 혹은 읽어온 image와 그에 따른 ``class_list``, ``bboxes``, ``polys``
-
-        __getitem__:
-            Index에 따른 image와 annotation에 대한 정보 return (``vis_path`` 와 ``class_color`` 입력 시 시각화 image ``vis_path`` 에 저장)
-
-            Args:
-                idx (``int``): 입력 index
-
-            Returns:
-                ``Tuple[NDArray[np.uint8], List[str], NDArray[DTypeLike], List[NDArray[DTypeLike]]]``: 읽어온 image와 그에 따른 ``class_list``, ``bboxes``, ``polys``
+        data_path: Image 및 annotation이 존재하는 directory 경로
+        vis_path: 시각화 image들이 저장될 경로
+        class_color: 시각화 결과에 적용될 class에 따른 색상
 
     Examples:
         >>> data_path = "train"
@@ -448,8 +397,8 @@ class CocoLoader:
     def __init__(
         self,
         data_path: str,
-        vis_path: Optional[str] = None,
-        class_color: Optional[Dict[Union[int, str], Tuple[int]]] = None,
+        vis_path: str | None = None,
+        class_color: dict[int | str, tuple[int, int, int]] | None = None,
     ) -> None:
         self.data_path = data_path
         data = Json(f"{data_path}.json")
@@ -473,16 +422,31 @@ class CocoLoader:
             self.class_color = class_color
 
     def __len__(self) -> int:
+        """
+        Returns:
+            읽어온 image file들의 수
+        """
         return len(self.images)
 
     def __call__(
-        self, idx: int, read: Optional[bool] = False, int_class: Optional[bool] = False
-    ) -> Tuple[
-        Union[str, NDArray[np.uint8]],
-        List[Union[int, str]],
+        self, idx: int, read: bool = False, int_class: bool = False
+    ) -> tuple[
+        str | NDArray[np.uint8],
+        list[int | str],
         NDArray[DTypeLike],
-        List[NDArray[DTypeLike]],
+        list[NDArray[DTypeLike]],
     ]:
+        """
+        Index에 따른 image와 annotation에 대한 정보 return (`vis_path` 와 `class_color` 입력 시 시각화 image `vis_path` 에 저장)
+
+        Args:
+            idx: 입력 index
+            read: Image 읽음 여부
+            int_class: 출력될 class의 type 지정
+
+        Returns:
+            Image 경로 혹은 읽어온 image와 그에 따른 `class_list`, `bboxes`, `polys`
+        """
         img_path = os.path.join(
             self.data_path, os.path.basename(self.images[idx]["file_name"])
         )
@@ -514,9 +478,18 @@ class CocoLoader:
 
     def __getitem__(
         self, idx: int
-    ) -> Tuple[
-        NDArray[np.uint8], List[str], NDArray[DTypeLike], List[NDArray[DTypeLike]]
+    ) -> tuple[
+        NDArray[np.uint8], list[str], NDArray[DTypeLike], list[NDArray[DTypeLike]]
     ]:
+        """
+        Index에 따른 image와 annotation에 대한 정보 return (`vis_path` 와 `class_color` 입력 시 시각화 image `vis_path` 에 저장)
+
+        Args:
+            idx: 입력 index
+
+        Returns:
+            읽어온 image와 그에 따른 `class_list`, `bboxes`, `polys`
+        """
         img, class_list, bboxes, polys = self(idx, read=True)
         if self.vis_path is not None:
             self._visualization(
@@ -532,9 +505,9 @@ class CocoLoader:
         self,
         file_name: str,
         img: NDArray[np.uint8],
-        class_list: List[str],
+        class_list: list[str],
         bboxes: NDArray[DTypeLike],
-        polys: List[NDArray[DTypeLike]],
+        polys: list[NDArray[DTypeLike]],
     ) -> None:
         for cls, box in zip(class_list, bboxes):
             img = bbox(img, box, self.class_color[cls])
@@ -548,18 +521,18 @@ class CocoLoader:
     def yolo(
         self,
         target_path: str,
-        label: Optional[List[str]] = None,
-        poly: Optional[bool] = False,
+        label: list[str] | None = None,
+        poly: bool = False,
     ) -> None:
         """COCO format을 YOLO format으로 변환
 
         Args:
-            target_path (``str``): YOLO format data가 저장될 경로
-            label (``Optional[List[str]]``): COCO에서 사용한 label을 정수로 변환하는 list (index 사용)
-            poly (``Optional[bool]``): Segmentation format 유무
+            target_path: YOLO format data가 저장될 경로
+            label: COCO에서 사용한 label을 정수로 변환하는 list (index 사용)
+            poly: Segmentation format 유무
 
         Returns:
-            ``None``: ``{target_path}/images`` 및 ``{target_path}/labels`` 에 image와 `.txt` file 저장
+            `{target_path}/images` 및 `{target_path}/labels` 에 image와 `.txt` file 저장
 
         Examples:
             >>> coco = zz.vision.CocoLoader(data_path)

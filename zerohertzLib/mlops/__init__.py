@@ -1,7 +1,8 @@
-"""
-.. admonition:: MLOps
-    :class: hint
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
+"""
+!!! hint "MLOps"
     MLOps에서 사용되는 class들
 """
 

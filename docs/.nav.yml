@@ -1,0 +1,9 @@
+nav:
+  - Home: README.md
+  - API Reference:
+      - api/*
+  - Release Notes:
+      - glob: "release/v*.*.md"
+        sort:
+          direction: desc
+  - CI/CD: cicd/README.md

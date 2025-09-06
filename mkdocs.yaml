@@ -1,0 +1,145 @@
+site_name: zerohertzLib
+site_url: https://zerohertzlib.readthedocs.io/
+repo_url: https://github.com/Zerohertz/zerohertzLib
+repo_name: Zerohertz/zerohertzLib
+edit_uri: edit/master/docs/
+
+theme:
+  name: material
+  language: en
+  logo: assets/props/favicon.png
+  favicon: assets/props/favicon.png
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      toggle:
+        icon: material/brightness-2
+        name: Switch to system preference
+  features:
+    - content.action.edit
+    - content.code.copy
+    - content.tabs.link
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - search.highlight
+    - search.share
+    - toc.follow
+
+hooks: []
+
+plugins:
+  - meta
+  - search
+  - autorefs
+  - awesome-nav
+  - glightbox
+  - git-revision-date-localized:
+      type: timeago
+      timezone: Asia/Seoul
+      locale: en
+      fallback_to_build_date: true
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+      cache_safe: true
+      css_files: [docs/stylesheets/*.css]
+  - api-autonav:
+      modules: ["zerohertzLib"]
+      api_root_uri: "api"
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_source: true
+            show_bases: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            show_if_no_docstring: true
+            show_signature_annotations: true
+            show_overloads: true
+            filters: []
+            summary:
+              modules: true
+              classes: true
+              attributes: true
+              functions: true
+            signature_crossrefs: true
+            separate_signature: true
+            merge_init_into_class: true
+          inventories:
+            - https://docs.python.org/3/objects.inv
+            - https://typing-extensions.readthedocs.io/en/latest/objects.inv
+            - https://numpy.org/doc/stable/objects.inv
+            - https://pandas.pydata.org/docs/objects.inv
+            - https://pillow.readthedocs.io/en/stable/objects.inv
+            - https://matplotlib.org/stable/objects.inv
+            - https://psutil.readthedocs.io/en/stable/objects.inv
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: Zerohertz
+      repo: zerohertzLib
+  - toc:
+      permalink: true
+
+copyright: Copyright &copy; 2023 Zerohertz
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Zerohertz
+  analytics:
+    provider: google
+    property: G-ZCW0CR8M8X
+
+extra_css:
+  - mkdocs/stylesheets/extra.css
+
+extra_javascript:
+  - mkdocs/javascript/mathjax.js
+  - https://unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js
+
+use_directory_urls: true

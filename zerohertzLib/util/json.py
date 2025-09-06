@@ -1,30 +1,9 @@
-"""
-MIT License
-
-Copyright (c) 2023 Hyogeun Oh
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
 import os
 from glob import glob
-from typing import Any, Dict, List, Optional, Set, Union
+from typing import Any
 
 import orjson
 from tqdm import tqdm
@@ -33,46 +12,14 @@ from tqdm import tqdm
 class Json:
     """JSON 형식 file을 읽고 사용하기 위한 class
 
-    객체 생성 시 ``path`` 를 입력하지 않을 시 현재 경로에 존재하는 JSON file을 읽고 ``path`` 를 경로로 입력하면 해당 경로에 존재하는 JSON file을 읽는다.
+    객체 생성 시 `path` 를 입력하지 않을 시 현재 경로에 존재하는 JSON file을 읽고 `path` 를 경로로 입력하면 해당 경로에 존재하는 JSON file을 읽는다.
 
     Args:
-        path (``Optional[str]``): JSON file의 경로
+        path: JSON file의 경로
 
     Attributes:
-        name (``str``): JSON file 이름
-        keys (``List[str]``): 직렬화된 JSON의 key 값들
-
-    Methods:
-        __len__:
-            Returns:
-                ``int``: 읽어온 JSON file의 길이
-
-        __getitem__:
-            읽어온 JSON file에 key 값 입력
-
-            Args:
-                key (``Union[int, str]``): 읽어온 JSON file에서 불러올 key 값
-
-            Returns:
-                ``Any``: Key에 따른 value 값
-
-        _get_key:
-            Key의 경로를 찾아주는 method
-
-            Args:
-                key (``str``): 읽어온 JSON file에서 불러올 key 값 (깊이 무관)
-
-            Returns:
-                ``str``: ``/`` 으로 깊이를 표시한 key 값
-
-        _get_value:
-            ``Json._get_key`` 로 생성된 key 값을 입력 받아 value return
-
-            Args:
-                key (``str``): ``Json._get_key`` 로 생성된 key 값
-
-            Returns:
-                ``Any``: Key에 따른 value
+        name: JSON file 이름
+        keys: 직렬화된 JSON의 key 값들
 
     Examples:
         >>> js = zz.util.Json()
@@ -89,7 +36,7 @@ class Json:
         ['url', 'id', ..., 'assignees/LIST/login', ..., 'active_lock_reason']
     """
 
-    def __init__(self, path: Optional[str] = None) -> None:
+    def __init__(self, path: str | None = None) -> None:
         if path is None:
             path = glob("*.json")[0]
         elif not path.endswith(".json"):
@@ -101,14 +48,25 @@ class Json:
         self.map = []
 
     def __len__(self) -> int:
+        """
+        Returns:
+            읽어온 JSON file의 길이
+        """
         return len(self.data)
 
-    def __getitem__(self, key: Union[int, str]) -> Any:
+    def __getitem__(self, key: int | str) -> Any:
+        """
+        읽어온 JSON file에 key 값 입력
+
+        Args:
+            key: 읽어온 JSON file에서 불러올 key 값
+
+        Returns:
+            Key에 따른 value 값
+        """
         return self.data[key]
 
-    def __get_keys(
-        self, data: Any, key: Optional[str] = "", front: Optional[str] = ""
-    ) -> None:
+    def __get_keys(self, data: Any, key: str = "", front: str = "") -> None:
         if isinstance(data, dict):
             for idx, (key_, val_) in enumerate(data.items()):
                 if idx + 1 == len(data):
@@ -131,12 +89,21 @@ class Json:
                 else:
                     self.__get_keys(data[0], "LIST", front + "    ")
 
-    def _get_keys(self) -> List[str]:
+    def _get_keys(self) -> list[str]:
         if not self.keys and not self.map:
             self.__get_keys(self.data)
         return self.keys
 
     def _get_key(self, key: str) -> str:
+        """
+        Key의 경로를 찾아주는 method
+
+        Args:
+            key: 읽어온 JSON file에서 불러올 key 값 (깊이 무관)
+
+        Returns:
+            `/` 으로 깊이를 표시한 key 값
+        """
         keys = self._get_keys()
         if key in keys:
             return key
@@ -148,6 +115,15 @@ class Json:
         return key
 
     def _get_value(self, key: str) -> Any:
+        """
+        `Json._get_key` 로 생성된 key 값을 입력 받아 value return
+
+        Args:
+            key: `Json._get_key` 로 생성된 key 값
+
+        Returns:
+            Key에 따른 value
+        """
         value = self.data
         for key_ in key.split("/"):
             if key_ == "LIST":
@@ -157,13 +133,13 @@ class Json:
         return value
 
     def get(self, key: str) -> Any:
-        """``Json._get_key`` 로 생성된 key 값을 입력 받아 value return
+        """`Json._get_key` 로 생성된 key 값을 입력 받아 value return
 
         Args:
-            key (``str``): 읽어온 JSON file에서 불러올 key 값 (깊이 무관)
+            key: 읽어온 JSON file에서 불러올 key 값 (깊이 무관)
 
         Returns:
-            ``Any``: Key에 따른 value
+            Key에 따른 value
 
         Examples:
             >>> js["title"]
@@ -171,7 +147,7 @@ class Json:
             >>> js.get("title")
             '[v0.2.3] Release'
             >>> js["color"]
-            Traceback (most recent call last):
+            Traceback:
               File "<stdin>", line 1, in <module>
               File "/home/zerohertz/Zerohertz/zerohertzLib/zerohertzLib/util/json.py", line 107, in __getitem__
             KeyError: 'color'
@@ -212,37 +188,14 @@ class Json:
 class JsonDir:
     """입력된 경로에 존재하는 JSON 형식 file들을 읽고 사용하기 위한 class
 
-    객체 생성 시 ``path`` 를 입력하지 않을 시 현재 경로에 존재하는 JSON file들을 읽는다.
+    객체 생성 시 `path` 를 입력하지 않을 시 현재 경로에 존재하는 JSON file들을 읽는다.
 
     Args:
-        path (``Optional[str]``): JSON file의 경로
+        path: JSON file의 경로
 
     Attributes:
-        name (``str``): 읽어온 JSON file의 이름들
-        data (``Dict[str, zerohertzLib.util.Json]``): File 이름에 따른 `Json` 객체 배열
-
-    Methods:
-        __len__:
-            Returns:
-                ``int``: 읽어온 JSON file들의 수
-
-        __getitem__:
-            읽어온 JSON file들을 list와 같이 indexing
-
-            Args:
-                idx (``int``): 입력 index
-
-            Returns:
-                ``zerohertzLib.util.Json``: Index에 따른 ``Json`` instance
-
-        _get_key:
-            Key의 경로를 찾아주는 method
-
-            Args:
-                key (``str``): 읽어온 JSON file에서 불러올 key 값 (깊이 무관)
-
-            Returns:
-                ``str``: ``/`` 으로 깊이를 표시한 key 값
+        name: 읽어온 JSON file의 이름들
+        data: File 이름에 따른 `Json` 객체 배열
 
     Examples:
         >>> jsd = zz.util.JsonDir()
@@ -257,7 +210,7 @@ class JsonDir:
         'labels/LIST/color'
     """
 
-    def __init__(self, path: Optional[str] = "") -> None:
+    def __init__(self, path: str = "") -> None:
         if path.endswith(".json"):
             raise ValueError("'path' ends with '*.json'")
         self.data = {}
@@ -268,12 +221,34 @@ class JsonDir:
             self.name.append(name)
 
     def __len__(self) -> int:
+        """
+        Returns:
+            읽어온 JSON file들의 수
+        """
         return len(self.data)
 
     def __getitem__(self, idx: int) -> Json:
+        """
+        읽어온 JSON file들을 list와 같이 indexing
+
+        Args:
+            idx: 입력 index
+
+        Returns:
+            Index에 따른 `Json` instance
+        """
         return self.data[self.name[idx]]
 
     def _get_key(self, key: str) -> str:
+        """
+        Key의 경로를 찾아주는 method
+
+        Args:
+            key: 읽어온 JSON file에서 불러올 key 값 (깊이 무관)
+
+        Returns:
+            `/` 으로 깊이를 표시한 key 값
+        """
         return self[0]._get_key(key)
 
     def tree(self) -> None:
@@ -303,14 +278,14 @@ class JsonDir:
         """
         self[0].tree()
 
-    def unique(self, key: str) -> Set[str]:
+    def unique(self, key: str) -> set[str]:
         """읽어온 JSON data들의 유일한 값을 return하는 method
 
         Args:
-            key (``str``): 읽어온 JSON file에서 불러올 key 값
+            key: 읽어온 JSON file에서 불러올 key 값
 
         Returns:
-            ``Set[str]``: Key에 따른 유일한 값들의 집합
+            Key에 따른 유일한 값들의 집합
 
         Examples:
             >>> jsd.unique("label")
@@ -326,15 +301,15 @@ class JsonDir:
         return uniq
 
 
-def write_json(data: Union[Dict[Any, Any], List[Dict[Any, Any]]], path: str) -> str:
+def write_json(data: dict[Any, Any] | list[dict[Any, Any]], path: str) -> str:
     """JSON (JavaScript Object Notation)을 작성하는 함수
 
     Args:
-        data (``Union[Dict[Any, Any], List[Dict[Any, Any]]]``): 입력 data (header 포함 무관)
-        path (``str``): 출력될 JSON file의 경로 및 이름
+        data: 입력 data (header 포함 무관)
+        path: 출력될 JSON file의 경로 및 이름
 
     Returns:
-        ``str``: File의 절대 경로
+        File의 절대 경로
 
     Examples:
         >>> zz.util.write_json([{"id": "4169", "전투력": 4209, "정보": ["아무", "거나"]}]*100, "zerohertzLib/star_craft")

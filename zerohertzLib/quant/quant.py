@@ -1,40 +1,20 @@
-"""
-MIT License
-
-Copyright (c) 2023 Hyogeun Oh
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
 import multiprocessing as mp
+import os
 import time
 import traceback
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 from collections import defaultdict
 from itertools import combinations
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any
 
 import FinanceDataReader as fdr
 import pandas as pd
-from slack_sdk.web import SlackResponse
 
-from zerohertzLib.api import SlackBot
+from zerohertzLib.api import DiscordBot, SlackBot
+from zerohertzLib.api.base import MockedBot
 from zerohertzLib.plot import barh, barv, candle, figure, hist, savefig, subplot
 
 from .backtest import Experiments, backtest
@@ -45,36 +25,26 @@ class Quant(Experiments):
     """한 가지 종목에 대해 full factorial design 기반의 backtest를 수행하고 최적의 전략을 융합하는 class
 
     Args:
-        title (``str``): 종목 이름
-        data (``pd.DataFrame``): OHLCV (Open, High, Low, Close, Volume) data
-        ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
-        top (``Optional[int]``): Experiment 과정에서 사용할 각 전략별 수
-        methods (``Optional[Dict[str, List[List[Any]]]]``): 사용할 전략들의 함수명 및 parameters
-        report (``Optional[bool]``): Experiment 결과 출력 여부
+        title: 종목 이름
+        data: OHLCV (Open, High, Low, Close, Volume) data
+        ohlc: 사용할 data의 column 이름
+        top: Experiment 과정에서 사용할 각 전략별 수
+        methods: 사용할 전략들의 function명 및 parameters
+        report: Experiment 결과 출력 여부
 
     Attributes:
-        signals (``pd.DataFrame``): 융합된 전략의 signal
-        methods (``Tuple[str]``): 융합된 전략명
-        profit (``float``): 융합된 전략의 backtest profit
-        buy (``Union[int, float]``): 융합된 전략의 backtest 시 총 매수
-        sell (``Union[int, float]``): 융합된 전략의 backtest 시 총 매도
-        transaction (``Dict[str, Union[int, float]]``): 융합된 전략의 backtest 시 거래 정보 (매수가, 매도가, 수익률, 거래 기간)
-        threshold_buy (``int``): 융합된 전략의 매수 signal threshold
-        threshold_sell (``int``): 융합된 전략의 매도 signal threshold
-        total_cnt (``int``): 융합된 전략의 수
-        methods_cnt (``Dict[str, int]``): 각 전략에 따른 이익이 존재하는 수
-        exps_cnt (``Dict[str, List[Dict[str, int]]]``): 각 전략과 parameter에 따른 이익이 존재하는 수
-        exps_str (``Dict[str, List[str]]``): 각 전략에 따른 이익이 존재하는 paramter 문자열
-
-    Methods:
-        __call__:
-            입력된 날짜에 대해 분석 정보 return
-
-            Args:
-                day (``Optional[str]``): 분석할 날짜
-
-            Returns:
-                ``Dict[str, Any]``: 각 전략에 따른 분석 정보 및 결론
+        signals: 융합된 전략의 signal
+        methods: 융합된 전략명
+        profit: 융합된 전략의 backtest profit
+        buy: 융합된 전략의 backtest 시 총 매수
+        sell: 융합된 전략의 backtest 시 총 매도
+        transaction: 융합된 전략의 backtest 시 거래 정보 (매수가, 매도가, 수익률, 거래 기간)
+        threshold_buy: 융합된 전략의 매수 signal threshold
+        threshold_sell: 융합된 전략의 매도 signal threshold
+        total_cnt: 융합된 전략의 수
+        methods_cnt: 각 전략에 따른 이익이 존재하는 수
+        exps_cnt: 각 전략과 parameter에 따른 이익이 존재하는 수
+        exps_str: 각 전략에 따른 이익이 존재하는 paramter 문자열
 
     Examples:
         >>> qnt = zz.quant.Quant(title, data, top=3)
@@ -114,10 +84,10 @@ class Quant(Experiments):
         self,
         title: str,
         data: pd.DataFrame,
-        ohlc: Optional[str] = "",
-        top: Optional[int] = 1,
-        methods: Optional[Dict[str, List[List[Any]]]] = None,
-        report: Optional[bool] = False,
+        ohlc: str = "",
+        top: int = 1,
+        methods: dict[str, list[list[Any]]] | None = None,
+        report: bool = False,
     ) -> None:
         super().__init__(title, data, ohlc, False, report)
         self.signals = pd.DataFrame(index=data.index)
@@ -147,7 +117,7 @@ class Quant(Experiments):
                 )
                 exps_cnt = [defaultdict(int) for _ in range(len(exps_tup[0]))]
                 for profit, signal, exp_str, exp_tup in zip(
-                    profits[:top], signals[:top], exps_str[:top], exps_tup[:top]
+                    profits, signals, exps_str, exps_tup
                 ):
                     if profit > 0:
                         self.signals[method] += signal["signals"]
@@ -207,7 +177,16 @@ class Quant(Experiments):
             self.transaction = backtests[0]["transaction"]
             self.threshold_sell, self.threshold_buy = backtests[0]["threshold"]
 
-    def __call__(self, day: Optional[str] = -1) -> Dict[str, Any]:
+    def __call__(self, day: str | int = -1) -> dict[str, Any]:
+        """
+        입력된 날짜에 대해 분석 정보 return
+
+        Args:
+            day: 분석할 날짜
+
+        Returns:
+            각 전략에 따른 분석 정보 및 결론
+        """
         if self.total_cnt < 1:
             return {"position": "NULL"}
         if day != -1 and "-" not in day:
@@ -238,67 +217,67 @@ class Quant(Experiments):
         return possibility
 
 
-class QuantSlackBot(ABC, SlackBot):
+class QuantBot:
     """입력된 여러 종목에 대해 매수, 매도 signal을 판단하고 Slack으로 message와 graph를 전송하는 class
 
     Note:
-        Abstract Base Class: 종목 code에 따른 종목명과 data를 불러오는 abstract method ``_get_data`` 정의 후 사용
+        Abstract Base Class: 종목 code에 따른 종목명과 data를 불러오는 abstract method `_get_data` 정의 후 사용
 
-        .. code-block:: python
-
-            def _get_data(self, symbol: str) -> Tuple[str, pd.DataFrame]:
-                title = data = None
-                return title, data
+        ```python
+        def _get_data(self, symbol: str) -> tuple[str, pd.DataFrame]:
+            title = data = None
+            return title, data
+        ```
 
     Args:
-        symbols (``List[str]``): 종목 code들
-        start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
-        ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
-        top (``Optional[int]``): Experiment 과정에서 사용할 각 전략별 수
-        methods (``Optional[Dict[str, List[List[Any]]]]``): 사용할 전략들의 함수명 및 parameters
-        report (``Optional[bool]``): Experiment 결과 출력 여부
-        token (``Optional[str]``): Slack Bot의 token
-        channel (``Optional[str]``): Slack Bot이 전송할 channel
-        name (``Optional[str]``): Slack Bot의 표시될 이름
-        icon_emoji (``Optional[str]``): Slack Bot의 표시될 사진 (emoji)
-        mp_num (``Optional[int]``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
-        analysis (``Optional[bool]``): 각 전략의 보고서 전송 여부
-        kor (``Optional[bool]``): 국내 여부
+        symbols: 종목 code들
+        start_day: 조회 시작 일자 (`YYYYMMDD`)
+        ohlc: 사용할 data의 column 이름
+        top: Experiment 과정에서 사용할 각 전략별 수
+        methods: 사용할 전략들의 function명 및 parameters
+        report: Experiment 결과 출력 여부
+        token: Bot의 token (`xoxb-` prefix로 시작하면 `SlackBot`, 아니면 `DiscordBot`)
+        channel: Bot이 전송할 channel
+        name: Bot의 표시될 이름
+        icon_emoji: Bot의 표시될 사진 (emoji)
+        mp_num: 병렬 처리에 사용될 process의 수 (0: 직렬 처리)
+        analysis: 각 전략의 보고서 전송 여부
+        kor: 국내 여부
 
     Attributes:
-        exps (``Dict[str, List[Dict[str, int]]]``): 각 전략에 따른 parameter 분포
+        exps: 각 전략에 따른 parameter 분포
 
     Examples:
-        >>> qsb = zz.quant.QuantSlackBot(symbols, token=token, channel=channel)
+        >>> qsb = zz.quant.QuantBot(symbols, token=token, channel=channel)
         >>> qsb.index()
 
-        .. image:: _static/examples/static/quant.QuantSlackBot.png
-            :align: center
-            :width: 800px
+    ![QuantSlackBot example](../../../assets/quant/QuantSlackBot.png){ width="800" }
     """
 
     def __init__(
         self,
-        symbols: List[str],
-        start_day: Optional[str] = "",
-        ohlc: Optional[str] = "",
-        top: Optional[int] = 1,
-        methods: Optional[Dict[str, List[List[Any]]]] = None,
-        report: Optional[bool] = False,
-        token: Optional[str] = None,
-        channel: Optional[str] = None,
-        name: Optional[str] = None,
-        icon_emoji: Optional[str] = None,
-        mp_num: Optional[int] = 0,
-        analysis: Optional[bool] = False,
-        kor: Optional[bool] = True,
+        symbols: int | list[str],
+        start_day: str = "",
+        ohlc: str = "",
+        top: int = 1,
+        methods: dict[str, list[list[Any]]] | None = None,
+        report: bool = False,
+        token: str | None = None,
+        channel: str | None = None,
+        name: str | None = None,
+        icon_emoji: str | None = None,
+        mp_num: int = 0,
+        analysis: bool = False,
+        kor: bool = True,
     ) -> None:
         if token is None or channel is None:
-            self.slack = False
-            token = ""
+            self.bot = MockedBot()
+        elif token.startswith("xoxb-"):
+            self.bot = SlackBot(
+                token=token, channel=channel, name=name, icon_emoji=icon_emoji
+            )
         else:
-            self.slack = True
-        SlackBot.__init__(self, token, channel, name, icon_emoji)
+            self.bot = DiscordBot(token=token, channel=channel)
         self.symbols = symbols
         self.start_day = start_day
         self.ohlc = ohlc
@@ -312,41 +291,7 @@ class QuantSlackBot(ABC, SlackBot):
         self.kor = kor
         self.report = report
 
-    def message(
-        self,
-        message: str,
-        codeblock: Optional[bool] = False,
-        thread_ts: Optional[str] = None,
-    ) -> SlackResponse:
-        """``token`` 혹은 ``channel`` 이 입력되지 않을 시 전송 불가
-
-        Args:
-            message (``str``): 전송할 message
-            codeblock (``Optional[bool]``): 전송되는 message의 스타일
-            thread_ts (``Optional[str]``): 댓글을 전송할 thread의 timestamp
-
-        Returns:
-            ``slack_sdk.web.slack_response.SlackResponse``: Slack Bot의 응답
-        """
-        if self.slack:
-            return super().message(message, codeblock, thread_ts)
-        return None
-
-    def file(self, path: str, thread_ts: Optional[str] = None) -> SlackResponse:
-        """``token`` 혹은 ``channel`` 이 입력되지 않을 시 전송 불가
-
-        Args:
-            path (``str``): 전송할 file 경로
-            thread_ts (``Optional[str]``): 댓글을 전송할 thread의 timestamp
-
-        Returns:
-            ``slack_sdk.web.slack_response.SlackResponse``: Slack Bot의 응답
-        """
-        if self.slack:
-            return super().file(path, thread_ts)
-        return None
-
-    def _plot(self, quant: Quant) -> Tuple[str]:
+    def _plot(self, quant: Quant) -> tuple[str, str]:
         candle_path = candle(
             quant.data[-500:],
             quant.title,
@@ -383,8 +328,8 @@ class QuantSlackBot(ABC, SlackBot):
         return candle_path, hist_path
 
     def _report(
-        self, symbol: str, quant: Quant, today: Dict[str, Any]
-    ) -> Dict[str, str]:
+        self, symbol: str, quant: Quant, today: dict[str, Any]
+    ) -> dict[str, str]:
         logic = {-2: "손절", -1: "매도", 0: "중립", 1: "매수", 2: "추가 매수"}
         report = defaultdict(str)
         if today["position"] == "Buy":
@@ -422,21 +367,25 @@ class QuantSlackBot(ABC, SlackBot):
         return report
 
     @abstractmethod
-    def _get_data(self, symbol: str) -> Tuple[str, pd.DataFrame]:
+    def _get_data(self, symbol: str) -> tuple[str, pd.DataFrame]:
         title = data = None
         return title, data
 
-    def _run(self, args: List[str]) -> Tuple[Dict[str, str], Quant]:
+    def _run(self, args: list[str]) -> tuple[dict[str, str] | None, Quant | None]:
         symbol, mode = args
         try:
             title, data = self._get_data(symbol)
             if len(data) < 20:
                 return None, None
         except KeyError as error:
-            response = self.message(f":x: `{symbol}` was not found")
-            thread_ts = response.get("ts")
-            self.message(str(error), True, thread_ts)
-            self.message(traceback.format_exc(), True, thread_ts)
+            response = self.bot.message(f":x: `{symbol}` was not found")
+            thread_id = self.bot.get_thread_id(
+                response, name=f"`{symbol}` was not found"
+            )
+            self.bot.message(str(error), codeblock=True, thread_id=thread_id)
+            self.bot.message(
+                traceback.format_exc(), codeblock=True, thread_id=thread_id
+            )
             return None, None
         try:
             quant = Quant(
@@ -449,17 +398,19 @@ class QuantSlackBot(ABC, SlackBot):
             )
             today = quant()
         except IndexError as error:
-            response = self.message(
+            response = self.bot.message(
                 f":x: `{symbol}` ({title}): {data.index[0]} ({len(data)})"
             )
-            thread_ts = response.get("ts")
-            self.message(str(error), True, thread_ts)
-            self.message(traceback.format_exc(), True, thread_ts)
+            thread_id = self.bot.get_thread_id(
+                response, name=f"`{symbol}` ({title}): {data.index[0]} ({len(data)})"
+            )
+            self.bot.message(str(error), codeblock=True, thread_id=thread_id)
+            self.bot.message(
+                traceback.format_exc(), codeblock=True, thread_id=thread_id
+            )
             return None, None
         if today["position"] == "NULL":
             return None, None
-        if not self.slack:
-            return None, quant
         if mode == "Buy":
             positions = ["Buy"]
         else:
@@ -468,15 +419,13 @@ class QuantSlackBot(ABC, SlackBot):
             return self._report(symbol, quant, today), quant
         return None, quant
 
-    def _send(self, report: Dict[str, str]) -> None:
-        if report is None:
-            return
-        response = self.message(report["main"])
-        thread_ts = response.get("ts")
-        self.file(report["candle"], thread_ts)
-        response = self.message(report["backtest"], thread_ts=thread_ts)
-        self.file(report["hist"], thread_ts)
-        response = self.message(report["param"], thread_ts=thread_ts)
+    def _send(self, report: dict[str, str]) -> None:
+        response = self.bot.message(report["main"])
+        thread_id = self.bot.get_thread_id(response, name=report["main"])
+        self.bot.file(report["candle"], thread_id=thread_id)
+        response = self.bot.message(report["backtest"], thread_id=thread_id)
+        self.bot.file(report["hist"], thread_id=thread_id)
+        response = self.bot.message(report["param"], thread_id=thread_id)
 
     def _analysis_update(
         self,
@@ -498,13 +447,13 @@ class QuantSlackBot(ABC, SlackBot):
         for method, cnt in exps_cnt.items():
             if method not in self.exps_cnt.keys():
                 self.exps_cnt[method] = [defaultdict(int) for _ in range(len(cnt))]
-            for idx, cnt_ in enumerate(cnt):
-                for param, cnt__ in cnt_.items():
-                    self.exps_cnt[method][idx][param] += cnt__
+            for idx, _cnt in enumerate(cnt):
+                for param, __cnt in _cnt.items():
+                    self.exps_cnt[method][idx][param] += __cnt
 
     def _analysis_send(self) -> None:
-        response = self.message("> :memo: Parameter Analysis")
-        thread_ts = response.get("ts")
+        response = self.bot.message("> :memo: Parameter Analysis")
+        thread_id = self.bot.get_thread_id(response, name="Parameter Analysis")
         figure((30, 20))
         subplot(2, 2, 1)
         barv(
@@ -535,7 +484,7 @@ class QuantSlackBot(ABC, SlackBot):
             ovp=False,
         )
         path = savefig("Methods", 100)
-        self.file(path, thread_ts)
+        self.bot.file(path, thread_id=thread_id)
         for method, cnt in self.exps_cnt.items():
             figure((18, 8))
             stg = True
@@ -549,13 +498,13 @@ class QuantSlackBot(ABC, SlackBot):
                     break
             if stg:
                 path = savefig(method, dpi=100)
-                self.file(path, thread_ts)
+                self.bot.file(path, thread_id=thread_id)
             else:
-                self.message(
-                    f":no_bell: '{method}' was not available", thread_ts=thread_ts
+                self.bot.message(
+                    f":no_bell: '{method}' was not available", thread_id=thread_id
                 )
 
-    def _inference(self, symbols: List[str], mode: str) -> None:
+    def _inference(self, symbols: list[str], mode: str) -> None:
         start = time.time()
         if self.analysis:
             # 유효한 Quant instance의 수
@@ -568,12 +517,14 @@ class QuantSlackBot(ABC, SlackBot):
             self.methods_cnt = defaultdict(list)
             # [Methods in Use: X] 전략과 parameter에 따른 이익이 존재하는 수
             self.exps_cnt = defaultdict(list)
-        response = self.message(f"> :moneybag: Check {mode} Signals")
-        self.message(", ".join(symbols), True, response.get("ts"))
+        response = self.bot.message(f"> :moneybag: Check {mode} Signals")
+        thread_id = self.bot.get_thread_id(response, name=f"Check {mode} Signals")
+        self.bot.message(", ".join(symbols), codeblock=True, thread_id=thread_id)
         if self.mp_num == 0 or self.mp_num >= len(symbols):
             for symbol in symbols:
                 report, quant = self._run([symbol, mode])
-                self._send(report)
+                if report is not None:
+                    self._send(report)
                 if self.analysis and quant is not None:
                     self._analysis_update(quant)
         else:
@@ -581,13 +532,14 @@ class QuantSlackBot(ABC, SlackBot):
             with mp.Pool(processes=self.mp_num) as pool:
                 results = pool.map(self._run, args)
             for report, quant in results:
-                self._send(report)
+                if report is not None:
+                    self._send(report)
                 if self.analysis and quant is not None:
                     self._analysis_update(quant)
         if self.analysis:
             self._analysis_send()
         end = time.time()
-        self.message(f"> :tada: Done! (`{_seconds_to_hms(end - start)}`)")
+        self.bot.message(f"> :tada: Done! (`{_seconds_to_hms(end - start)}`)")
 
     def buy(self) -> None:
         """매수 signals 탐색"""
@@ -598,85 +550,81 @@ class QuantSlackBot(ABC, SlackBot):
         self._inference(self.symbols, "All")
 
 
-class QuantSlackBotFDR(QuantSlackBot):
-    """`FinanceDataReader <https://github.com/FinanceData/FinanceDataReader>`_ module 기반으로 입력된 여러 종목에 대해 매수, 매도 signal을 판단하고 Slack으로 message와 graph를 전송하는 class
+class QuantBotFDR(QuantBot):
+    """[FinanceDataReader](https://github.com/FinanceData/FinanceDataReader) module 기반으로 입력된 여러 종목에 대해 매수, 매도 signal을 판단하고 Bot을 통해 message와 graph를 전송하는 class
 
     Args:
-        symbols (``Union[int, List[str]]``): 종목 code들 혹은 시가 총액 순위
-        start_day (``Optional[str]``): 조회 시작 일자 (``YYYYMMDD``)
-        ohlc (``Optional[str]``): 사용할 ``data`` 의 column 이름
-        top (``Optional[int]``): Experiment 과정에서 사용할 각 전략별 수
-        methods (``Optional[Dict[str, List[List[Any]]]]``): 사용할 전략들의 함수명 및 parameters
-        report (``Optional[bool]``): Experiment 결과 출력 여부
-        token (``Optional[str]``): Slack Bot의 token
-        channel (``Optional[str]``): Slack Bot이 전송할 channel
-        name (``Optional[str]``): Slack Bot의 표시될 이름
-        icon_emoji (``Optional[str]``): Slack Bot의 표시될 사진 (emoji)
-        mp_num (``Optional[int]``): 병렬 처리에 사용될 process의 수 (``0``: 직렬 처리)
-        analysis (``Optional[bool]``): 각 전략의 보고서 전송 여부
-        kor (``Optional[bool]``): 국내 여부
+        symbols: 종목 code들 혹은 시가 총액 순위
+        start_day: 조회 시작 일자 (`YYYYMMDD`)
+        ohlc: 사용할 data의 column 이름
+        top: Experiment 과정에서 사용할 각 전략별 수
+        methods: 사용할 전략들의 function명 및 parameters
+        report: Experiment 결과 출력 여부
+        token: Bot의 token (`xoxb-` prefix로 시작하면 `SlackBot`, 아니면 `DiscordBot`)
+        channel: Bot이 전송할 channel
+        name: Bot의 표시될 이름
+        icon_emoji: Bot의 표시될 사진 (emoji)
+        mp_num: 병렬 처리에 사용될 process의 수 (0: 직렬 처리)
+        analysis: 각 전략의 보고서 전송 여부
+        kor: 국내 여부
 
     Attributes:
-        exps (``Dict[str, List[Dict[str, int]]]``): 각 전략에 따른 parameter 분포
-        market (``pd.DataFrame``): ``kor`` 에 따른 시장 목록
+        exps: 각 전략에 따른 parameter 분포
+        market: kor에 따른 시장 목록
 
     Examples:
-        >>> qsb = zz.quant.QuantSlackBotFDR(symbols, token=token, channel=channel)
-        >>> qsb = zz.quant.QuantSlackBotFDR(10, token=token, channel=channel)
+        >>> qbf = zz.quant.QuantBotFDR(symbols, token=token, channel=channel)
+        >>> qbf = zz.quant.QuantBotFDR(10, token=token, channel=channel)
     """
 
     def __init__(
         self,
-        symbols: Union[int, List[str]],
-        start_day: Optional[str] = "",
-        ohlc: Optional[str] = "",
-        top: Optional[int] = 1,
-        methods: Optional[Dict[str, List[List[Any]]]] = None,
-        report: Optional[bool] = False,
-        token: Optional[str] = None,
-        channel: Optional[str] = None,
-        name: Optional[str] = None,
-        icon_emoji: Optional[str] = None,
-        mp_num: Optional[int] = 0,
-        analysis: Optional[bool] = False,
-        kor: Optional[bool] = True,
+        symbols: int | list[str],
+        start_day: str = "",
+        ohlc: str = "",
+        top: int = 1,
+        methods: dict[str, list[list[Any]]] | None = None,
+        report: bool = False,
+        token: str | None = None,
+        channel: str | None = None,
+        name: str | None = None,
+        icon_emoji: str | None = None,
+        mp_num: int = 0,
+        analysis: bool = False,
+        kor: bool = True,
     ) -> None:
-        QuantSlackBot.__init__(
+        QuantBot.__init__(
             self,
-            symbols,
-            start_day,
-            ohlc,
-            top,
-            methods,
-            report,
-            token,
-            channel,
-            name,
-            icon_emoji,
-            mp_num,
-            analysis,
-            kor,
+            symbols=symbols,
+            start_day=start_day,
+            ohlc=ohlc,
+            top=top,
+            methods=methods,
+            report=report,
+            token=token,
+            channel=channel,
+            name=name,
+            icon_emoji=icon_emoji,
+            mp_num=mp_num,
+            analysis=analysis,
+            kor=kor,
         )
         if kor:
             # FIXME:
             # FDR 의존성 내에서 KRX-DESC 코드 사용 시 오류 발생
-            self.market = fdr.StockListing("KRX")
+            # https://github.com/FinanceData/FinanceDataReader/pull/254
+            market = os.getenv("QUANT_MARKET_KOR", "ETF/KR")
         else:
-            self.market = fdr.StockListing("NASDAQ")
+            market = os.getenv("QUANT_MARKET_OVS", "NASDAQ")
+        self.market = fdr.StockListing(market)
         if isinstance(symbols, int):
-            if kor:
-                krx = fdr.StockListing("KRX")
-                krx = krx.sort_values("Marcap", ascending=False)
-                self.symbols = list(krx["Code"])[:symbols]
-            else:
-                self.symbols = list(self.market["Symbol"])[:symbols]
+            self.symbols = list(self.market[self.market.columns[0]])[:symbols]
 
-    def _get_data(self, symbol: str) -> Tuple[str, pd.DataFrame]:
+    def _get_data(self, symbol: str) -> tuple[str, pd.DataFrame]:
         try:
-            if self.kor:
-                title = self.market[self.market["Code"] == symbol].iloc[0, 1]
-            else:
-                title = self.market[self.market["Symbol"] == symbol].iloc[0, 1]
+            title = self.market[
+                self.market[self.market.columns[0]] == symbol
+            ].Name.iloc[0]
         except IndexError:
             title = symbol
         data = fdr.DataReader(symbol, self.start_day)

@@ -1,30 +1,10 @@
-"""
-MIT License
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
-Copyright (c) 2023 Hyogeun Oh
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
-
+import os
 import re
 from collections import defaultdict
-from typing import Any, Dict, List, Optional
+from typing import Any, Literal
 
 import requests
 
@@ -35,21 +15,10 @@ class GitHub:
     """GitHub API를 사용하기 위한 class
 
     Args:
-        user (``Optional[str]``): GitHub API를 호출할 user
-        repo (``Optional[str]``): GitHub API를 호출할 repository
-        token (``Optional[str]``): GitHub의 token
-        issue (``Optional[bool]``): ``True``: Issue & PR, ``False``: Only PR
-
-    Methods:
-        __call__:
-            API 호출 수행
-
-            Args:
-                lab (``Optional[str]``): 선택할 GitHub repository의 label (``issue=False`` 시 error 발생)
-                per_page (``Optional[int]``): 1회 호출 시 출력될 결과의 수
-
-            Returns:
-                ``List[Dict[str, Any]]``: API 호출 결과
+        user: GitHub API를 호출할 user
+        repo: GitHub API를 호출할 repository
+        token: GitHub의 token
+        issue: `True`: Issue & PR, `False`: Only PR
 
     Examples:
         >>> gh = zz.api.GitHub("Zerohertz", "zerohertzLib", token="ghp_...")
@@ -62,10 +31,10 @@ class GitHub:
 
     def __init__(
         self,
-        user: Optional[str] = "Zerohertz",
-        repo: Optional[str] = "zerohertzLib",
-        token: Optional[str] = None,
-        issue: Optional[bool] = True,
+        user: str = "Zerohertz",
+        repo: str = "zerohertzLib",
+        token: str | None = None,
+        issue: bool = True,
     ) -> None:
         if token is None:
             self.headers = {
@@ -86,9 +55,19 @@ class GitHub:
 
     def __call__(
         self,
-        lab: Optional[str] = "all",
-        per_page: Optional[int] = 100,
-    ) -> List[Dict[str, Any]]:
+        lab: str = "all",
+        per_page: int = 100,
+    ) -> list[dict[str, Any]]:
+        """
+        API 호출 수행
+
+        Args:
+            lab: 선택할 GitHub repository의 label (`issue=False` 시 error 발생)
+            per_page: 1회 호출 시 출력될 결과의 수
+
+        Returns:
+            API 호출 결과
+        """
         results = []
         page = 1
         total_fetched = 0
@@ -128,14 +107,14 @@ class GitHub:
         # number: Issue 또는 PR의 번호                 64
         # title: Issue 또는 PR의 제목                  [Docs] Build by Sphinx for GitHub Pages
         # body: Issue 또는 PR의 MarkDown               #63 (Build: 6095f8f85a0d6d8936a2caa373e675c6f5368644)
-        # labels: Issue 또는 PR에 할당된 label들       List[dict_keys(['id', 'node_id', 'url', 'name', 'color', 'default', 'description'])]
+        # labels: Issue 또는 PR에 할당된 label들       list[dict_keys(['id', 'node_id', 'url', 'name', 'color', 'default', 'description'])]
         # closed_at: Issue 또는 PR이 종료된 시점       2023-11-16T07:48:51Z
         return results
 
     def _shield_icon(self, tag: str, color: str, href: str) -> str:
         return f"""<a href="{href}"><img src="https://img.shields.io/badge/{tag}-{color}?style=flat-square&logo=github" alt="{tag}"/></a>\n"""
 
-    def _labels_markdown(self, labels: List[Dict[str, Any]]) -> str:
+    def _labels_markdown(self, labels: list[dict[str, Any]]) -> str:
         labels_markdown = """<p align="center">\n"""
         for label in labels:
             tag, color, href = (
@@ -150,6 +129,24 @@ class GitHub:
     def _replace_cancel_line(self, body: str) -> str:
         return re.sub(r"~(.*?)~", r"<s>\1</s>", body)
 
+    def _adjust_mkdocs_indent(self, body: str) -> str:
+        """MkDocs format에 맞게 indent를 4칸 단위로 조정"""
+        lines = body.split("\n")
+        adjusted_lines = []
+        for line in lines:
+            stripped = line.lstrip()
+            if line == stripped:  # indent가 없는 경우
+                adjusted_lines.append(line)
+                continue
+            current_indent = len(line) - len(stripped)
+            if current_indent % 4 == 0:
+                adjusted_lines.append(line)
+            else:
+                target_level = (current_indent + 3) // 4  # 올림 처리
+                new_indent = "    " * target_level
+                adjusted_lines.append(new_indent + stripped)
+        return "\n".join(adjusted_lines)
+
     def _replace_issue(self, body: str) -> str:
         return re.sub(
             r"#(\d+)",
@@ -160,7 +157,9 @@ class GitHub:
     def _replace_pr_title(self, body: str) -> str:
         return re.sub(r"### (.*?)\n", r"<h4>\1</h4>\n", body)
 
-    def _merge_release_note_version(self, version: str, data: List[List[Any]]) -> str:
+    def _merge_release_note_version(
+        self, version: str, data: list[list[Any]], tool: Literal["sphinx", "mkdocs"]
+    ) -> str:
         merge_release_note = f"## {version}\n\n"
         for number, html_url, labels, title, updated_at, closed_at, body in data:
             merge_release_note += (
@@ -170,12 +169,18 @@ class GitHub:
                 date = updated_at.split("T")[0].replace("-", "/")
             else:
                 date = closed_at.split("T")[0].replace("-", "/")
-            merge_release_note += "```{admonition} Release Date\n"
-            merge_release_note += f":class: tip\n\n{date}\n```\n\n"
+            if tool == "sphinx":
+                merge_release_note += "`{admonition} Release Date\n"
+                merge_release_note += f":class: tip\n\n{date}\n```\n\n"
+            else:
+                merge_release_note += '!!! tip "Release Date"\n'
+                merge_release_note += f"    {date}\n\n"
             merge_release_note += f"{self._labels_markdown(labels)}\n\n"
             if body is not None:
                 body = body.replace("\r\n", "\n")
                 body = self._replace_cancel_line(body)
+                if tool == "mkdocs":
+                    body = self._adjust_mkdocs_indent(body)
                 body = self._replace_issue(body)
                 body = self._replace_pr_title(body)
                 merge_release_note += body + "\n"
@@ -187,38 +192,36 @@ class GitHub:
         return version[0]
 
     def _write_release_note_version(
-        self, name: str, sphinx_source_path: str, version: str, body: str
+        self, name: str, path: str, version: str, body: str
     ) -> None:
-        with open(
-            f"{sphinx_source_path}/{name}/{version}.md", "w", encoding="utf-8"
-        ) as file:
+        with open(f"{path}/{name}/{version}.md", "w", encoding="utf-8") as file:
             file.writelines(f"# {version}\n\n" + body)
 
-    def _write_release_note(
-        self, name: str, sphinx_source_path: str, versions: List[str]
-    ) -> None:
+    def _write_release_note(self, name: str, path: str, versions: list[str]) -> None:
         release_note_body = (
             "# Release Notes\n\n```{eval-rst}\n.. toctree::\n\t:maxdepth: 1\n\n"
         )
         for version in versions:
             release_note_body += f"\t{name}/{version}\n"
         release_note_body += "```\n"
-        with open(f"{sphinx_source_path}/{name}.md", "w", encoding="utf-8") as file:
+        with open(f"{path}/{name}.md", "w", encoding="utf-8") as file:
             file.writelines(release_note_body)
 
     def release_note(
         self,
-        name: Optional[str] = "release",
-        sphinx_source_path: Optional[str] = "sphinx/source",
+        name: str = "release",
+        path: str = "docs",
+        tool: Literal["sphinx", "mkdocs"] = "mkdocs",
     ) -> None:
         """
         Args:
-            name (``Optional[str]``): Release note file 및 directory의 이름
-            sphinx_source_path (``Optional[str]``): Sphinx의 ``source`` 경로
+            name: Release note file 및 directory의 이름
+            path: Release note를 작성할 경로
+            tool: Release note를 배포할 tool
 
         Examples:
             >>> gh = zz.api.GitHub("Zerohertz", "zerohertzLib", token="ghp_...")
-            >>> gh.release_note(sphinx_source_path=os.path.join(sphinx, "source"))
+            >>> gh.release_note()
         """
         releases = self("release") + self("release/chore")
         bodies_version = defaultdict(list)
@@ -248,11 +251,12 @@ class GitHub:
             )
         for data in bodies_version.values():
             data.sort(reverse=True)
-        rmtree(f"{sphinx_source_path}/{name}")
+        rmtree(os.path.join(path, name))
         for version, data in bodies_version.items():
             ver = ".".join(version.split(".")[:-1])
-            body = self._merge_release_note_version(version, data)
+            body = self._merge_release_note_version(version, data, tool)
             versions[ver] += body
         for version, body in versions.items():
-            self._write_release_note_version(name, sphinx_source_path, version, body)
-        self._write_release_note(name, sphinx_source_path, list(versions.keys()))
+            self._write_release_note_version(name, path, version, body)
+        if tool == "sphinx":
+            self._write_release_note(name, path, list(versions.keys()))
