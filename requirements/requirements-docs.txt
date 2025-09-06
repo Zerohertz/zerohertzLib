@@ -1,0 +1,10 @@
+sphinx
+furo
+sphinxcontrib-gtagjs
+sphinxcontrib-jquery
+sphinxext-opengraph
+sphinx-copybutton
+sphinx-favicon
+sphinx-paramlinks
+sphinx-sitemap
+myst-parser
