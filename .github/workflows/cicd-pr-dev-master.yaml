@@ -62,25 +62,17 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
         with:
-          python-version: ${{ matrix.python-version }}
+          version: "latest"
 
-      - name: Cache virtualenv
-        uses: actions/cache@v4
-        with:
-          path: venv
-          key: ${{ runner.os }}-python-venv-${{ matrix.python-version }}-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-python-venv-${{ matrix.python-version }}-
+      - name: Set up Python
+        run: uv python install ${{ matrix.python-version }}
 
       - name: Install dependencies
         run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip uninstall zerohertzLib -y
-          pip install .'[all]' --no-cache-dir
+          uv sync --extra all
 
   lint:
     runs-on: ubuntu-latest
@@ -91,25 +83,20 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "latest"
+
       - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
+        run: uv python install ${{ env.PYTHON_VERSION }}
 
-      - name: Cache virtualenv
-        uses: actions/cache@v4
-        with:
-          path: venv
-          key: ${{ runner.os }}-python-venv-${{ env.PYTHON_VERSION }}-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-python-venv-${{ env.PYTHON_VERSION }}-
-
-      - name: Lint code
+      - name: Install dependencies and lint
         run: |
-          source venv/bin/activate
-          pip install -r requirements/requirements-style.txt
-          ruff check .
-          ruff format --check .
+          uv sync --extra all
+          uv pip install -r requirements/requirements-style.txt
+          uv run ruff check .
+          uv run ruff format --check .
 
   test:
     runs-on: ubuntu-latest
@@ -123,18 +110,13 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
         with:
-          python-version: ${{ matrix.python-version }}
+          version: "latest"
 
-      - name: Cache virtualenv
-        uses: actions/cache@v4
-        with:
-          path: venv
-          key: ${{ runner.os }}-python-venv-${{ matrix.python-version }}-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-python-venv-${{ matrix.python-version }}-
+      - name: Set up Python
+        run: uv python install ${{ matrix.python-version }}
 
       - name: Run tests
         env:
@@ -144,11 +126,11 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         run: |
-          source venv/bin/activate
           sudo apt update
           sudo apt install python3-opencv -y
-          pip install pytest pytest-cov
-          PYTHONPATH=. pytest --cov=zerohertzLib --cov-report=xml --junitxml=junit.xml -o junit_family=legacy
+          uv sync --extra all
+          uv pip install pytest pytest-cov
+          PYTHONPATH=. uv run pytest --cov=zerohertzLib --cov-report=xml --junitxml=junit.xml -o junit_family=legacy
 
       - name: Upload test results to Codecov
         uses: codecov/test-results-action@v1
@@ -173,18 +155,13 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
+          version: "latest"
 
-      - name: Cache virtualenv
-        uses: actions/cache@v4
-        with:
-          path: venv
-          key: ${{ runner.os }}-python-venv-${{ env.PYTHON_VERSION }}-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-python-venv-${{ env.PYTHON_VERSION }}-
+      - name: Set up Python
+        run: uv python install ${{ env.PYTHON_VERSION }}
 
       - name: Align with latest branch
         run: |
@@ -203,10 +180,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          source venv/bin/activate
-          pip install -r requirements/requirements-docs.txt
-          python scripts/gen_ref_pages.py
-          mkdocs build
+          uv sync --extra all
+          uv pip install -r requirements/requirements-docs.txt
+          uv run mkdocs build
 
       - name: Commit and push on docs branch
         env:

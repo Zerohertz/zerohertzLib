@@ -25,27 +25,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "latest"
+
       - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
+        run: uv python install ${{ matrix.python-version }}
 
-      - name: Cache virtualenv
-        uses: actions/cache@v4
-        with:
-          path: venv
-          key: ${{ runner.os }}-python-venv-${{ matrix.python-version }}-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-python-venv-${{ matrix.python-version }}-
-
-      - name: Install build tools
+      - name: Build and install
         run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install build
-          pip uninstall zerohertzLib -y
-          python -m build .
-          pip install .'[all]' --no-cache-dir
+          uv sync --extra all
+          uv build
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
@@ -66,18 +57,13 @@ jobs:
         with:
           ref: ${{ github.ref }}
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
+          version: "latest"
 
-      - name: Cache virtualenv
-        uses: actions/cache@v4
-        with:
-          path: venv
-          key: ${{ runner.os }}-python-venv-${{ matrix.python-version }}-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-python-venv-${{ matrix.python-version }}-
+      - name: Set up Python
+        run: uv python install ${{ matrix.python-version }}
 
       - name: Run tests
         env:
@@ -87,11 +73,11 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         run: |
-          source venv/bin/activate
           sudo apt update
           sudo apt install python3-opencv -y
-          pip install pytest pytest-cov
-          PYTHONPATH=. pytest --cov=zerohertzLib --cov-report=xml --junitxml=junit.xml -o junit_family=legacy
+          uv sync --extra all
+          uv pip install pytest pytest-cov
+          PYTHONPATH=. uv run pytest --cov=zerohertzLib --cov-report=xml --junitxml=junit.xml -o junit_family=legacy
 
       - name: Upload test results to Codecov
         uses: codecov/test-results-action@v1
@@ -143,18 +129,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
+          version: "latest"
 
-      - name: Cache virtualenv
-        uses: actions/cache@v4
-        with:
-          path: venv
-          key: ${{ runner.os }}-python-venv-${{ env.PYTHON_VERSION }}-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-python-venv-${{ env.PYTHON_VERSION }}-
+      - name: Set up Python
+        run: uv python install ${{ env.PYTHON_VERSION }}
 
       - name: Download build artifacts
         uses: actions/download-artifact@v4
@@ -166,6 +147,5 @@ jobs:
         env:
           PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
         run: |
-          source venv/bin/activate
-          pip install twine
-          twine upload -u __token__ -p ${PYPI_TOKEN} dist/*
+          uv tool install twine
+          uv tool run twine upload -u __token__ -p ${PYPI_TOKEN} dist/*
