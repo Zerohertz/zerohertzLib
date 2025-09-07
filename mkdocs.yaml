@@ -1,6 +1,8 @@
 site_name: zerohertzLib
-site_url: https://zerohertzlib.readthedocs.io/
+site_url: !ENV READTHEDOCS_CANONICAL_URL
 repo_url: https://github.com/Zerohertz/zerohertzLib
+site_description: ⚡ Zerohertz's Library ⚡
+site_author: Zerohertz
 repo_name: Zerohertz/zerohertzLib
 edit_uri: edit/master/docs/
 
@@ -46,6 +48,7 @@ theme:
     - search.highlight
     - search.share
     - toc.follow
+  custom_dir: docs/mkdocs/overrides
 
 hooks: []
 
