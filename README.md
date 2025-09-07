@@ -20,7 +20,7 @@
     <a href = "https://zerohertz.github.io/python-pkg-cicd/">
         <img src="https://img.shields.io/badge/Zerohertz's%20Blog-800a0a?style=for-the-badge&logo=beatsbydre&logoColor=white"/>
     </a>
-    <a href="https://zerohertz.github.io/zerohertzLib/">
+    <a href="https://zerohertzlib.readthedocs.io/">
         <img src="https://img.shields.io/badge/Sphinx-000000?style=for-the-badge&logo=Sphinx&logoColor=white"/>
     </a>
     </br>
