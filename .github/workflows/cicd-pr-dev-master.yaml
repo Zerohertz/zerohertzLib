@@ -93,7 +93,6 @@ jobs:
 
       - name: Install dependencies and lint
         run: |
-          uv sync --extra all
           uv pip install -r requirements/requirements-style.txt
           uv run ruff check .
           uv run ruff format --check .
@@ -181,7 +180,6 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           uv sync --extra all
-          uv pip install loguru
           uv run docs/mkdocs/scripts/release_note.py --token ${GH_TOKEN}
           uv run docs/mkdocs/scripts/example_images.py
 
