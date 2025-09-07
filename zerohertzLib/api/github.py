@@ -205,7 +205,7 @@ class GitHub:
         self, name: str, path: str, version: str, body: str
     ) -> None:
         with open(f"{path}/{name}/{version}.md", "w", encoding="utf-8") as file:
-            file.writelines(f"# {version}\n\n" + body)
+            file.writelines(f"# {version}\n\n{body}")
 
     def _write_release_note(self, name: str, path: str, versions: list[str]) -> None:
         release_note_body = (
@@ -265,7 +265,10 @@ class GitHub:
         for version, data in bodies_version.items():
             ver = ".".join(version.split(".")[:-1])
             body = self._merge_release_note_version(version, data, tool)
-            versions[ver] += body
+            if ver in versions:
+                versions[ver] += "\n\n" + body
+            else:
+                versions[ver] = body
         for version, body in versions.items():
             self._write_release_note_version(name, path, version, body)
         if tool == "sphinx":
