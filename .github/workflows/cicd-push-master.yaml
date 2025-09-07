@@ -29,6 +29,7 @@ jobs:
         uses: astral-sh/setup-uv@v6
         with:
           version: "latest"
+          enable-cache: true
 
       - name: Set up Python
         run: uv python install ${{ matrix.python-version }}
@@ -61,6 +62,7 @@ jobs:
         uses: astral-sh/setup-uv@v6
         with:
           version: "latest"
+          enable-cache: true
 
       - name: Set up Python
         run: uv python install ${{ matrix.python-version }}
@@ -133,6 +135,7 @@ jobs:
         uses: astral-sh/setup-uv@v6
         with:
           version: "latest"
+          enable-cache: true
 
       - name: Set up Python
         run: uv python install ${{ env.PYTHON_VERSION }}
