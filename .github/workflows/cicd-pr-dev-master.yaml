@@ -180,7 +180,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          uv pip install .'[all]'
+          uv sync --extra all
+          uv pip install loguru
           uv run docs/mkdocs/scripts/release_note.py --token ${GH_TOKEN}
           uv run docs/mkdocs/scripts/example_images.py
 
