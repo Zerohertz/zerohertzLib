@@ -136,7 +136,7 @@ extra:
       link: https://github.com/Zerohertz
   analytics:
     provider: google
-    property: G-ZCW0CR8M8X
+    property: G-J25S5BY1L7
 
 extra_css:
   - mkdocs/stylesheets/extra.css
