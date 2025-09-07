@@ -117,6 +117,7 @@ jobs:
           DISCORD_BOT_CHANNEL: ${{ secrets.DISCORD_BOT_CHANNEL }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           uv sync --extra all
           uv pip install pytest pytest-cov
