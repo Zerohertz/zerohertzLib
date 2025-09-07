@@ -9,7 +9,7 @@
     <a href="https://jenkins.zerohertz.xyz/blue/organizations/jenkins/zerohertzLib/activity">
        <img src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=Jenkins&logoColor=white"/>
     </a>
-    <a href="https://zerohertz.github.io/zerohertzLib/">
+    <a href="https://zerohertzlib.readthedocs.io/">
         <img src="https://img.shields.io/badge/Sphinx-000000?style=for-the-badge&logo=Sphinx&logoColor=white"/>
     </a>
 </p>
