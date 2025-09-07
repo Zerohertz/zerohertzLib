@@ -13,14 +13,10 @@
 """
 
 from zerohertzLib.quant.backtest import Experiments, backtest, experiments
-from zerohertzLib.quant.quant import (
-    Balance,
-    Quant,
-    QuantSlackBot,
-    QuantSlackBotFDR,
-    QuantSlackBotKI,
-)
-from zerohertzLib.quant.strategies import bollinger_bands, momentum, moving_average, rsi
+from zerohertzLib.quant.quant import (Balance, Quant, QuantSlackBot,
+                                      QuantSlackBotFDR, QuantSlackBotKI)
+from zerohertzLib.quant.strategies import (bollinger_bands, momentum,
+                                           moving_average, rsi)
 
 __all__ = [
     "moving_average",
