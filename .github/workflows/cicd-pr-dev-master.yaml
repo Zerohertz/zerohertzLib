@@ -181,7 +181,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           uv sync --extra all
-          uv run python docs/mkdocs/scripts/example_images.py
+          uv run docs/mkdocs/scripts/release_note.py --token ${GH_TOKEN}
+          uv run docs/mkdocs/scripts/example_images.py
 
       - name: Commit and push on docs branch
         env:
@@ -199,8 +200,10 @@ jobs:
             git add zerohertzLib/__init__.py
             git commit -m ":hammer: update: version (#${{ github.event.pull_request.number }})"
           fi
+          git add docs/release
+          git commit -m ':memo: docs: release note (#${{ github.event.pull_request.number }})'
           git add docs/assets
-          git commit -m ':memo: docs: build example images (#${{ github.event.pull_request.number }})'
+          git commit -m ':memo: docs: example images (#${{ github.event.pull_request.number }})'
           git push origin docs
           echo '{
             "title": "[Docs] Build by MkDocs for GitHub Pages",
