@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="docs/assets/props/zerohertzLib-tp-red.png">
+    <img src="https://raw.githubusercontent.com/Zerohertz/zerohertzLib/refs/heads/master/docs/assets/props/zerohertzLib-tp-red.png" alt="zerohertzLib-tp-red"/>
 </p>
 
 <h2 align = "center">
@@ -44,7 +44,7 @@
         <img src="https://codecov.io/github/Zerohertz/zerohertzLib/graph/badge.svg?token=6OAPJIZ2NX"/>
     </a>
     <a href="https://deepwiki.com/Zerohertz/zerohertzLib">
-        <img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki">
+        <img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"/>
     </a>
 </p>
 
@@ -58,7 +58,7 @@ pip install zerohertzLib[all]
 ```
 
 <p align="center">
-    <img src="docs/assets/props/schematic.png" width="600">
+    <img src="https://raw.githubusercontent.com/Zerohertz/zerohertzLib/refs/heads/master/docs/assets/props/schematic.png" alt="schematic" width="600"/>
 </p>
 
 ```python
