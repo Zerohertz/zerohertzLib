@@ -33,12 +33,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: [check-commit]
     # [`master` PR] "Merge pull request*/docs"
-    # [`master` PR] "Merge pull request*[Docs] Build by MkDocs for GitHub Pages"
+    # [`master` PR] "Merge pull request*[Docs] Build Example Images & GitHub Release Note"
     steps:
       - name: Check commit message and set status
         run: |
           COMMIT_MESSAGE="${{ needs.check-commit.outputs.commit-message }}"
-          if [[ "$COMMIT_MESSAGE" == Merge\ pull\ request* && ( "$COMMIT_MESSAGE" == *docs* || "$COMMIT_MESSAGE" == *'[Docs] Build by MkDocs for GitHub Pages'* ) ]]; then
+          if [[ "$COMMIT_MESSAGE" == Merge\ pull\ request* && ( "$COMMIT_MESSAGE" == *docs* || "$COMMIT_MESSAGE" == *'[Docs] Build Example Images & GitHub Release Note'* ) ]]; then
             echo "Commit message meets the criteria."
           else
             echo "Commit message does not meet the criteria."
@@ -51,11 +51,11 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.10", "3.11", "3.12", "3.13"]
-    # [`master` PR] (Except "Merge pull request*/docs" && "Merge pull request*[Docs] Build by MkDocs for GitHub Pages")
+    # [`master` PR] (Except "Merge pull request*/docs" && "Merge pull request*[Docs] Build Example Images & GitHub Release Note")
     if: |
       !(startsWith(needs.check-commit.outputs.commit-message, 'Merge pull request') &&
       (contains(needs.check-commit.outputs.commit-message, 'docs') ||
-      contains(needs.check-commit.outputs.commit-message, '[Docs] Build by MkDocs for GitHub Pages')))
+      contains(needs.check-commit.outputs.commit-message, '[Docs] Build Example Images & GitHub Release Note')))
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -203,13 +203,13 @@ jobs:
             git add zerohertzLib/__init__.py
             git commit -m ":hammer: update: version (#${{ github.event.pull_request.number }})"
           fi
-          git add docs/release
-          git commit -m ':memo: docs: release note (#${{ github.event.pull_request.number }})'
           git add docs/assets
           git commit -m ':memo: docs: example images (#${{ github.event.pull_request.number }})'
+          git add docs/release
+          git commit -m ':memo: docs: release note (#${{ github.event.pull_request.number }})'
           git push origin docs
           echo '{
-            "title": "[Docs] Build by MkDocs for GitHub Pages",
+            "title": "[Docs] Build Example Images & GitHub Release Note",
             "head": "docs",
             "base": "${{ github.head_ref }}",
             "body": "#${{ github.event.pull_request.number }} (Build: ${{ github.sha }})"
