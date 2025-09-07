@@ -14,9 +14,10 @@ SLACK_BOT_TOKEN = os.environ.get("SLACK_BOT_TOKEN")
 SLACK_BOT_CHANNEL = "test"
 
 NOW = datetime.now()
-QUANT_START_DAY = (NOW - timedelta(days=30 * 18)).strftime("%Y%m%d")
-QUANT_TEST_DATA = fdr.DataReader("066570", QUANT_START_DAY)
-QUANT_SYMBOL_INT = 4
+QUANT_START_DAY = (NOW - timedelta(days=30 * 2)).strftime("%Y%m%d")
+QUANT_SYMBOL_STR = "379800"
+QUANT_SYMBOL_INT = 2
+QUANT_TEST_DATA = fdr.DataReader(QUANT_SYMBOL_STR, QUANT_START_DAY)
 
 zz.plot.font(kor=True)
 
@@ -71,10 +72,10 @@ def test_quant():
 
 def test_quant_mocked_bot_fdr_kor():
     qsb = zz.quant.QuantBotFDR(
-        QUANT_SYMBOL_INT,
+        [QUANT_SYMBOL_STR],
         start_day=QUANT_START_DAY,
         ohlc="Close",
-        top=4,
+        top=1,
         analysis=True,
     )
     qsb.index()
@@ -84,7 +85,7 @@ def test_quant_mocked_bot_fdr_ovs():
     qsb = zz.quant.QuantBotFDR(
         QUANT_SYMBOL_INT,
         start_day=QUANT_START_DAY,
-        top=4,
+        top=1,
         kor=False,
     )
     qsb.buy()
@@ -117,7 +118,7 @@ def test_quant_discord_bot_fdr_ovs():
 
 def test_quant_slack_bot_fdr_kor():
     qsb = zz.quant.QuantBotFDR(
-        QUANT_SYMBOL_INT,
+        [QUANT_SYMBOL_STR],
         start_day=QUANT_START_DAY,
         ohlc="Close",
         top=4,
