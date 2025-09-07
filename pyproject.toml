@@ -64,50 +64,37 @@ api = [
 
     # api
     "slack_sdk",
-
-    # logging
-    "loguru",
 ]
 mlops = [
-    # api & logging & quant & mlops
+    # api & quant & mlops
     "requests",
 
     # api
     "slack_sdk",
-
-    # logging
-    "rich",
 
     # mlops
     "protobuf",
     "tritonclient[grpc]>=2.44.0",
     "prettytable",
+    "loguru",
 ]
 quant = [
-    # api & logging & quant & mlops
+    # api & quant & mlops
     "requests",
 
     # api
     "slack_sdk",
 
-    # logging
-    "rich",
-
     # quant
-    "plotly",
-    "beautifulsoup4",
     "finance-datareader>=0.9.94",
     "prettytable",
 ]
 all = [
-    # api & logging & quant & mlops
+    # api & quant & mlops
     "requests",
 
     # api
     "slack_sdk",
-
-    # logging
-    "rich",
 
     # mlops & quant
     "prettytable",
@@ -115,11 +102,10 @@ all = [
     # mlops
     "protobuf",
     "tritonclient[grpc]>=2.44.0",
+    "loguru",
 
     # quant
-    "plotly",
-    "beautifulsoup4",
-    "finance-datareader",
+    "finance-datareader>=0.9.94",
 ]
 
 [project.urls]
