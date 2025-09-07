@@ -60,7 +60,7 @@ extensions = [
 autodoc_typehints = "none"
 todo_include_todos = True
 gtagjs_ids = [
-    "G-ZCW0CR8M8X",
+    "G-J25S5BY1L7",
 ]
 # add_module_names = False
 
@@ -88,7 +88,9 @@ exclude_patterns = []
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_theme = "furo"
-html_baseurl = "https://zerohertz.github.io/zerohertzLib/"
+html_baseurl = os.getenv(
+    "READTHEDOCS_CANONICAL_URL", "https://zerohertzlib.readthedocs.io/"
+)
 html_static_path = ["_static"]
 html_logo = "_static/logo.png"
 
@@ -131,7 +133,9 @@ html_theme_options = {
     ],
 }
 
-ogp_site_url = "https://zerohertz.github.io/zerohertzLib/"
+ogp_site_url = os.getenv(
+    "READTHEDOCS_CANONICAL_URL", "https://zerohertzlib.readthedocs.io/"
+)
 ogp_description_length = 200
 ogp_site_name = f"Zerohertz's Library {release} Documents"
 ogp_image = "_static/og.png"
@@ -168,7 +172,7 @@ def linkcode_resolve(domain, info):
 # html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 # https://sphinx-rtd-theme.readthedocs.io/en/stable/configuring.html
 # html_theme_options = {
-#     "analytics_id": "G-ZCW0CR8M8X",
+#     "analytics_id": "G-J25S5BY1L7",
 #     "analytics_anonymize_ip": False,
 #     "logo_only": True,
 #     "style_nav_header_background": "#000000",
