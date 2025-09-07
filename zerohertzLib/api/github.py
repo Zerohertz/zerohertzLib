@@ -161,7 +161,15 @@ class GitHub:
         self, version: str, data: list[list[Any]], tool: Literal["sphinx", "mkdocs"]
     ) -> str:
         merge_release_note = f"## {version}\n\n"
-        for number, html_url, labels, title, updated_at, closed_at, body in data:
+        for idx, (
+            number,
+            html_url,
+            labels,
+            title,
+            updated_at,
+            closed_at,
+            body,
+        ) in enumerate(data):
             merge_release_note += (
                 f"""<h3>{title} (<a href={html_url}>#{number}</a>)</h3>\n\n"""
             )
@@ -183,7 +191,9 @@ class GitHub:
                     body = self._adjust_mkdocs_indent(body)
                 body = self._replace_issue(body)
                 body = self._replace_pr_title(body)
-                merge_release_note += body + "\n"
+                merge_release_note += body
+                if idx < len(data) - 1:
+                    merge_release_note += "\n\n"
         return merge_release_note
 
     def _parse_version(self, title: str) -> str:
@@ -195,7 +205,7 @@ class GitHub:
         self, name: str, path: str, version: str, body: str
     ) -> None:
         with open(f"{path}/{name}/{version}.md", "w", encoding="utf-8") as file:
-            file.writelines(f"# {version}\n\n" + body)
+            file.writelines(f"# {version}\n\n{body}")
 
     def _write_release_note(self, name: str, path: str, versions: list[str]) -> None:
         release_note_body = (
@@ -255,7 +265,10 @@ class GitHub:
         for version, data in bodies_version.items():
             ver = ".".join(version.split(".")[:-1])
             body = self._merge_release_note_version(version, data, tool)
-            versions[ver] += body
+            if ver in versions:
+                versions[ver] += "\n\n" + body
+            else:
+                versions[ver] = body
         for version, body in versions.items():
             self._write_release_note_version(name, path, version, body)
         if tool == "sphinx":

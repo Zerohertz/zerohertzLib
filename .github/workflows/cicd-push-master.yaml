@@ -29,6 +29,7 @@ jobs:
         uses: astral-sh/setup-uv@v6
         with:
           version: "latest"
+          enable-cache: true
 
       - name: Set up Python
         run: uv python install ${{ matrix.python-version }}
@@ -61,6 +62,7 @@ jobs:
         uses: astral-sh/setup-uv@v6
         with:
           version: "latest"
+          enable-cache: true
 
       - name: Set up Python
         run: uv python install ${{ matrix.python-version }}
@@ -72,6 +74,7 @@ jobs:
           DISCORD_BOT_CHANNEL: ${{ secrets.DISCORD_BOT_CHANNEL }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           sudo apt update
           sudo apt install python3-opencv -y
@@ -133,6 +136,7 @@ jobs:
         uses: astral-sh/setup-uv@v6
         with:
           version: "latest"
+          enable-cache: true
 
       - name: Set up Python
         run: uv python install ${{ env.PYTHON_VERSION }}

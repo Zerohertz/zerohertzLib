@@ -52,6 +52,7 @@ jobs:
         uses: astral-sh/setup-uv@v6
         with:
           version: "latest"
+          enable-cache: true
 
       - name: Set up Python
         run: uv python install ${{ matrix.python-version }}
@@ -73,16 +74,15 @@ jobs:
         uses: astral-sh/setup-uv@v6
         with:
           version: "latest"
+          enable-cache: true
 
       - name: Set up Python
         run: uv python install ${{ env.PYTHON_VERSION }}
 
       - name: Install dependencies and lint
         run: |
-          uv sync --extra all
-          uv pip install -r requirements/requirements-style.txt
-          uv run ruff check .
-          uv run ruff format --check .
+          uvx ruff check .
+          uvx ruff format --check .
 
   test:
     runs-on: ubuntu-latest
@@ -100,9 +100,15 @@ jobs:
         uses: astral-sh/setup-uv@v6
         with:
           version: "latest"
+          enable-cache: true
 
       - name: Set up Python
         run: uv python install ${{ matrix.python-version }}
+
+      - name: Install system dependencies
+        run: |
+          sudo apt update
+          sudo apt install python3-opencv -y
 
       - name: Run tests
         env:
@@ -111,9 +117,8 @@ jobs:
           DISCORD_BOT_CHANNEL: ${{ secrets.DISCORD_BOT_CHANNEL }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          sudo apt update
-          sudo apt install python3-opencv -y
           uv sync --extra all
           uv pip install pytest pytest-cov
           uv run pytest -vv --durations 0 --cov=zerohertzLib --cov-report=xml --junitxml=junit.xml -o junit_family=legacy
