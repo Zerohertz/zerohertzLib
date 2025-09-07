@@ -265,7 +265,10 @@ class GitHub:
         for version, data in bodies_version.items():
             ver = ".".join(version.split(".")[:-1])
             body = self._merge_release_note_version(version, data, tool)
-            versions[ver] += body
+            if ver in versions:
+                versions[ver] += body
+            else:
+                versions[ver] += "\n\n" + body
         for version, body in versions.items():
             self._write_release_note_version(name, path, version, body)
         if tool == "sphinx":
