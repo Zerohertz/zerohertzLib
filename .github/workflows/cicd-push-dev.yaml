@@ -81,9 +81,8 @@ jobs:
 
       - name: Install dependencies and lint
         run: |
-          uv pip install -r requirements/requirements-style.txt
-          uv run ruff check .
-          uv run ruff format --check .
+          uvx ruff check .
+          uvx ruff format --check .
 
   test:
     runs-on: ubuntu-latest
