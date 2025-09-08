@@ -14,7 +14,7 @@ from . import config
 
 
 def figure(figsize: tuple[int, int] = (15, 10)) -> Figure:
-    """Graph 생성을 위한 함수
+    """Graph 생성을 위한 function
 
     Args:
         figsize: Graph의 가로, 세로 길이
@@ -34,7 +34,7 @@ def figure(figsize: tuple[int, int] = (15, 10)) -> Figure:
 
 
 def subplot(*args: Any, **kwargs: Any) -> Axes:
-    """Subplot 생성을 위한 함수
+    """Subplot 생성을 위한 function
 
     Args:
         *args: matplotlib.pyplot.subplot의 위치 인수들
@@ -52,7 +52,7 @@ def subplot(*args: Any, **kwargs: Any) -> Axes:
 
 
 def savefig(title: str, dpi: int = 300) -> str:
-    """Graph 저장 함수
+    """Graph 저장 function
 
     Args:
         title: Graph file 이름
@@ -86,7 +86,7 @@ def color(
     | list[tuple[float, float, float]]
     | list[list[int]]
 ):
-    """색 추출 함수
+    """색 추출 function
 
     Args:
         cnt: 추출할 색의 수
@@ -133,6 +133,15 @@ def color(
 
 
 def _color(data: Any, colors: Any) -> list[tuple[float, float, float] | str]:
+    """Data 시각화를 위한 색상 처리 helper function
+
+    Args:
+        data: 시각화할 data
+        colors: 사용할 색상 설정
+
+    Returns:
+        처리된 색상 리스트
+    """
     if isinstance(colors, list):
         if len(data) > len(colors):
             return colors + ["black" for _ in range(len(data) - len(colors))]

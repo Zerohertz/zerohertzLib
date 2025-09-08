@@ -7,6 +7,14 @@ from zerohertzLib.plot import pie
 
 
 def _get_size(path: str) -> int:
+    """File 또는 directory의 크기를 계산하는 helper function
+
+    Args:
+        path: 크기를 계산할 file 또는 directory 경로
+
+    Returns:
+        계산된 크기
+    """
     if os.path.isfile(path):
         return os.path.getsize(path)
     total = 0

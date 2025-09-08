@@ -14,12 +14,28 @@ from .util import _is_bbox
 def _list2np(
     box: list[int | float] | NDArray[DTypeLike],
 ) -> NDArray[DTypeLike]:
+    """List 타입의 bbox를 numpy array로 변환하는 helper function
+
+    Args:
+        box: 변환할 bbox
+
+    Returns:
+        numpy array로 변환된 bbox
+    """
     if isinstance(box, list):
         return np.array(box)
     return box
 
 
 def _cwh2xyxy(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
+    """단일 bbox를 `[cx, cy, w, h]`에서 `[x0, y0, x1, y1]`로 변환하는 helper function
+
+    Args:
+        box: `[cx, cy, w, h]` format의 bbox
+
+    Returns:
+        `[x0, y0, x1, y1]` format의 bbox
+    """
     x_0, y_0 = box[:2] - box[2:] / 2
     x_1, y_1 = box[:2] + box[2:] / 2
     return np.array([x_0, y_0, x_1, y_1], dtype=box.dtype)
@@ -57,6 +73,14 @@ def cwh2xyxy(
 
 
 def _cwh2poly(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
+    """단일 bbox를 `[cx, cy, w, h]`에서 polygon으로 변환하는 helper function
+
+    Args:
+        box: `[cx, cy, w, h]` format의 bbox
+
+    Returns:
+        `[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]` format의 polygon
+    """
     x_0, y_0 = box[:2] - box[2:] / 2
     x_1, y_1 = box[:2] + box[2:] / 2
     return np.array([[x_0, y_0], [x_1, y_0], [x_1, y_1], [x_0, y_1]], dtype=box.dtype)
@@ -103,6 +127,14 @@ def cwh2poly(
 
 
 def _xyxy2cwh(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
+    """단일 bbox를 `[x0, y0, x1, y1]`에서 `[cx, cy, w, h]`로 변환하는 helper function
+
+    Args:
+        box: `[x0, y0, x1, y1]` format의 bbox
+
+    Returns:
+        `[cx, cy, w, h]` format의 bbox
+    """
     x_0, y_0, x_1, y_1 = box
     return np.array(
         [(x_0 + x_1) / 2, (y_0 + y_1) / 2, x_1 - x_0, y_1 - y_0], dtype=box.dtype
@@ -141,6 +173,14 @@ def xyxy2cwh(
 
 
 def _xyxy2poly(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
+    """단일 bbox를 `[x0, y0, x1, y1]`에서 polygon으로 변환하는 helper function
+
+    Args:
+        box: `[x0, y0, x1, y1]` format의 bbox
+
+    Returns:
+        `[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]` format의 polygon
+    """
     x_0, y_0, x_1, y_1 = box
     return np.array([[x_0, y_0], [x_1, y_0], [x_1, y_1], [x_0, y_1]], dtype=box.dtype)
 
@@ -186,6 +226,14 @@ def xyxy2poly(
 
 
 def _poly2cwh(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
+    """단일 polygon을 `[cx, cy, w, h]`로 변환하는 helper function
+
+    Args:
+        box: `[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]` format의 polygon
+
+    Returns:
+        `[cx, cy, w, h]` format의 bbox
+    """
     x_0, x_1 = box[:, 0].min(), box[:, 0].max()
     y_0, y_1 = box[:, 1].min(), box[:, 1].max()
     return np.array(
@@ -225,6 +273,14 @@ def poly2cwh(
 
 
 def _poly2xyxy(box: NDArray[DTypeLike]) -> NDArray[DTypeLike]:
+    """단일 polygon을 `[x0, y0, x1, y1]`로 변환하는 helper function
+
+    Args:
+        box: `[[x0, y0], [x1, y1], [x2, y2], [x3, y3]]` format의 polygon
+
+    Returns:
+        `[x0, y0, x1, y1]` format의 bbox
+    """
     x_0, x_1 = box[:, 0].min(), box[:, 0].max()
     y_0, y_1 = box[:, 1].min(), box[:, 1].max()
     return np.array([x_0, y_0, x_1, y_1], dtype=box.dtype)
@@ -262,6 +318,15 @@ def poly2xyxy(
 
 
 def _poly2mask(poly: NDArray[DTypeLike], shape: tuple[int, int]) -> NDArray[bool]:
+    """Polygon을 mask로 변환하는 helper function
+
+    Args:
+        poly: polygon 좌표
+        shape: mask 크기 (height, width)
+
+    Returns:
+        polygon 영역에 대한 boolean mask
+    """
     poly = Path(poly)
     pts_x, pts_y = np.meshgrid(np.arange(shape[1]), np.arange(shape[0]))
     pts_x, pts_y = pts_x.flatten(), pts_y.flatten()
@@ -313,7 +378,7 @@ def poly2mask(
 
 
 def poly2area(poly: list[int | float] | NDArray[DTypeLike]) -> float:
-    """다각형의 면적을 산출하는 함수
+    """다각형의 면적을 산출하는 function
 
     Args:
         poly: 다각형 (`[N, 2]`)
@@ -338,7 +403,7 @@ def poly2area(poly: list[int | float] | NDArray[DTypeLike]) -> float:
 
 
 def poly2ratio(poly: list[int | float] | NDArray[DTypeLike]) -> float:
-    """다각형의 bbox 대비 다각형의 면적 비율을 산출하는 함수
+    """다각형의 bbox 대비 다각형의 면적 비율을 산출하는 function
 
     Args:
         poly: 다각형 (`[N, 2]`)
@@ -365,7 +430,7 @@ def encode(img: NDArray[np.uint8], ext: str = "png") -> str:
 
     Args:
         img: `cv2.imread`로 읽어온 image
-        ext: 출력 파일의 확장자
+        ext: 출력 file의 확장자
 
     Returns:
         Base64 encoding된 문자열

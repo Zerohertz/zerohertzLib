@@ -7,7 +7,7 @@ from collections import deque
 
 
 def bfs(maps: list[list[int]], start: int) -> list[int]:
-    """BFS를 수행하기 위한 함수
+    """BFS를 수행하기 위한 function
 
     Args:
         maps: 입력 graph
@@ -36,7 +36,7 @@ def bfs(maps: list[list[int]], start: int) -> list[int]:
 
 
 def dfs(maps: list[list[int]], start: int) -> list[int]:
-    """DFS를 수행하기 위한 함수
+    """DFS를 수행하기 위한 function
 
     Args:
         maps: 입력 graph

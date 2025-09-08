@@ -153,3 +153,73 @@ def test_discord_bot_create_thread() -> None:
 def test_github_release_note() -> None:
     gh = zz.api.GitHub(token=GH_TOKEN)
     gh.release_note()
+
+
+def test_replace_issue():
+    gh = zz.api.GitHub(token=GH_TOKEN)
+    test_cases = [
+        {
+            "input": "See issue #123 for details",
+            "expected": [
+                """<a href="https://github.com/Zerohertz/zerohertzLib/issues/123">#123</a>"""
+            ],
+        },
+        {
+            "input": "related: https://github.com/otheruser/otherrepo/issues/456",
+            "expected": [
+                """<a href="https://github.com/otheruser/otherrepo/issues/456">otheruser/otherrepo #456</a>"""
+            ],
+        },
+        {
+            "input": "Fixed in https://github.com/Zerohertz/zerohertzLib/pull/123",
+            "expected": [
+                """<a href="https://github.com/Zerohertz/zerohertzLib/pull/123">#123</a>"""
+            ],
+        },
+        {
+            "input": "Check [issue #40](https://github.com/user/repo/issues/40) here",
+            "expected": ["[issue #40](https://github.com/user/repo/issues/40)"],
+            "not_expected": [
+                """<a href="https://github.com/Zerohertz/zerohertzLib/issues/40">#40</a>"""
+            ],
+        },
+        {
+            "input": '<a href="https://somewhere.com">#123</a>',
+            "expected": ['<a href="https://somewhere.com">#123</a>'],
+            "not_expected": [
+                """<a href="https://github.com/Zerohertz/zerohertzLib/issues/123">#123</a>"""
+            ],
+        },
+        {
+            "input": "See #123 and https://github.com/other/repo/issues/456 for details",
+            "expected": [
+                """<a href="https://github.com/Zerohertz/zerohertzLib/issues/123">#123</a>""",
+                """<a href="https://github.com/other/repo/issues/456">other/repo #456</a>""",
+            ],
+        },
+        {
+            "input": "related: https://github.com/FinanceData/FinanceDataReader/issues/230",
+            "expected": ["#230"],
+            "not_expected": [
+                """<a href="https://github.com/Zerohertz/zerohertzLib/issues/230">#230</a>"""
+            ],
+        },
+        {
+            "input": "Visit https://example.com/page#section123",
+            "expected": ["https://example.com/page#section123"],
+            "not_expected": [
+                """<a href="https://github.com/Zerohertz/zerohertzLib/issues/section123">#section123</a>"""
+            ],
+        },
+    ]
+    for test_case in test_cases:
+        input_text = test_case["input"]
+        result = gh._replace_issue(input_text)
+        print(f"입력: {input_text}")
+        print(f"결과: {result}")
+        if "expected" in test_case:
+            for expected in test_case["expected"]:
+                assert expected in result
+        if "not_expected" in test_case:
+            for not_expected in test_case["not_expected"]:
+                assert not_expected not in result

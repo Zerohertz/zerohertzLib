@@ -8,10 +8,11 @@ import traceback
 from abc import abstractmethod
 from collections import defaultdict
 from itertools import combinations
-from typing import Any
+from typing import Any, Literal
 
 import FinanceDataReader as fdr
 import pandas as pd
+from requests import HTTPError
 
 from zerohertzLib.api import DiscordBot, SlackBot
 from zerohertzLib.api.base import MockedBot
@@ -338,7 +339,7 @@ class QuantBot:
             report["main"] += "> :chart_with_downwards_trend: [Sell Signal]"
         else:
             report["main"] += "> :egg: [None Signal]"
-        report["main"] += f" *{quant.title}* (`{symbol}`)\n"
+        report["main"] += f" **{quant.title}** (`{symbol}`)\n"
         report["main"] += (
             f"\t:technologist: Signal Info: {today['total'][1]:.2f}% ({int(today['total'][0])}/{int(quant.total_cnt)}) → {logic[today['logic']]}\n"
         )
@@ -377,7 +378,7 @@ class QuantBot:
             title, data = self._get_data(symbol)
             if len(data) < 20:
                 return None, None
-        except KeyError as error:
+        except (KeyError, HTTPError) as error:
             response = self.bot.message(f":x: `{symbol}` was not found")
             thread_id = self.bot.get_thread_id(
                 response, name=f"`{symbol}` was not found"
@@ -504,7 +505,9 @@ class QuantBot:
                     f":no_bell: '{method}' was not available", thread_id=thread_id
                 )
 
-    def _inference(self, symbols: list[str], mode: str) -> None:
+    def _inference(
+        self, symbols: list[str], mode: Literal["Buy", "Sell", "All"]
+    ) -> None:
         start = time.time()
         if self.analysis:
             # 유효한 Quant instance의 수

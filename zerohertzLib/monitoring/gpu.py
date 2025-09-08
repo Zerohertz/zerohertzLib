@@ -9,6 +9,11 @@ from zerohertzLib.plot import plot
 
 
 def _get_gpu_usages() -> list[float]:
+    """각 GPU의 사용량을 조회하는 helper function
+
+    Returns:
+        각 GPU의 사용량 리스트
+    """
     result = subprocess.check_output(
         ["nvidia-smi", "--query-gpu=utilization.gpu", "--format=csv,nounits,noheader"],
         encoding="utf-8",
@@ -68,6 +73,11 @@ def gpu_usages(
 
 
 def _get_gpu_memory() -> list[tuple[float, float]]:
+    """각 GPU의 memory 사용량과 전체 용량을 조회하는 helper function
+
+    Returns:
+        각 GPU의 (사용량, 전체용량) tuple 리스트
+    """
     result = subprocess.check_output(
         [
             "nvidia-smi",

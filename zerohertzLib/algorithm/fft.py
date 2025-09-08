@@ -5,7 +5,7 @@ from cmath import exp, pi
 
 
 def fft(sig: list[complex], inv: bool = False) -> list[complex]:
-    """FFT (Fast Fourier Transform)를 수행하기 위한 함수
+    """FFT (Fast Fourier Transform)를 수행하기 위한 function
 
     Args:
         sig: 입력 신호 (복소수 list)

@@ -14,7 +14,7 @@ from zerohertzLib.plot import figure, plot, savefig, scatter
 
 
 def iou(poly1: NDArray[DTypeLike], poly2: NDArray[DTypeLike]) -> float:
-    """IoU (Intersection over Union)를 계산하는 함수
+    """IoU (Intersection over Union)를 계산하는 function
 
     Args:
         poly1: IoU를 계산할 polygon (`[S1, 2]`, `[[x_0, y_0], [x_1, y_1], ...]`)
@@ -101,7 +101,7 @@ def evaluation(
     file_name: str | None = None,
     threshold: float = 0.5,
 ) -> pd.DataFrame:
-    """단일 이미지 내 detection model의 추론 성능 평가
+    """단일 image 내 detection model의 추론 성능 평가
 
     Args:
         ground_truths: Ground truth object들의 polygon (`[N, 4, 2]`, `[[[x_0, y_0], [x_1, y_1], ...], ...]`)
@@ -113,13 +113,13 @@ def evaluation(
         threshold: IoU의 threshold
 
     Note:
-        - `N`: 한 이미지의 ground truth 내 존재하는 object의 수
-        - `M`: 한 이미지의 inference 결과 내 존재하는 object의 수
+        - `N`: 한 image의 ground truth 내 존재하는 object의 수
+        - `M`: 한 image의 inference 결과 내 존재하는 object의 수
 
         ![Model evaluation visualization](../../../assets/vision/evaluation.png){ width="600" }
 
     Returns:
-        단일 이미지의 model 성능 평가 결과
+        단일 image의 model 성능 평가 결과
 
     Examples:
         >>> poly = np.array([[0, 0], [10, 0], [10, 10], [0, 10]])
@@ -195,7 +195,7 @@ def meanap(logs: pd.DataFrame) -> tuple[float, dict[str, float]]:
     """Detection model의 P-R curve 시각화 및 mAP 산출
 
     Args:
-        logs: `zz.vision.evaluation` 함수를 통해 평가된 결과
+        logs: `zz.vision.evaluation` function을 통해 평가된 결과
 
     Returns:
         mAP 값 및 class에 따른 AP 값 (시각화 결과는 `prc_curve.png`, `pr_curve.png` 로 현재 directory에 저장)

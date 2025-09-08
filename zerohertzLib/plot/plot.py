@@ -262,6 +262,14 @@ def candle(
 
 
 def _method2str(method: str) -> str:
+    """Method 이름을 표시용 문자열로 변환하는 helper function
+
+    Args:
+        method: 변환할 method 이름
+
+    Returns:
+        표시용으로 변환된 문자열
+    """
     if "_" in method:
         methods = method.split("_")
         for idx, met in enumerate(methods):

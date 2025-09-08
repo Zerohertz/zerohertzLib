@@ -148,11 +148,44 @@ class GitHub:
         return "\n".join(adjusted_lines)
 
     def _replace_issue(self, body: str) -> str:
-        return re.sub(
-            r"#(\d+)",
-            lambda match: f"""<a href="https://github.com/{self.user}/{self.repo}/issues/{match.group(1)}">#{match.group(1)}</a>""",
+        def replace_github_url(match):
+            url = match.group(0)
+            user = match.group(1)
+            repo = match.group(2)
+            _ = match.group(3)
+            from loguru import logger
+
+            logger.info(f"{match}")
+            logger.info(f"{url} {user} {repo}")
+            issue_no = match.group(4)
+            if user == self.user and repo == self.repo:
+                return f"""<a href="{url}">#{issue_no}</a>"""
+            else:
+                return f"""<a href="{url}">{user}/{repo} #{issue_no}</a>"""
+
+        protected_patterns = []
+
+        def protect_pattern(match):
+            protected_patterns.append(match.group(0))
+            return f"__PROTECTED_PATTERN_{len(protected_patterns) - 1}__"
+
+        body = re.sub(r"\[[^]]*\]\(([^)]*)\)", protect_pattern, body)
+        body = re.sub(r"<a[^>]*>.*?</a>", protect_pattern, body)
+        body = re.sub(r"[\w.-]+/[\w.-]+\s+#\d+", protect_pattern, body)
+        body = re.sub(
+            r"https://github\.com/([\w.-]+)/([\w.-]+)/(issues|pull)/(\d+)",
+            replace_github_url,
             body,
         )
+        body = re.sub(r"<a[^>]*>.*?</a>", protect_pattern, body)
+        body = re.sub(
+            r"""(?<![\w/="\'<>])#(\d+)(?!\d)""",
+            lambda m: f'<a href="https://github.com/{self.user}/{self.repo}/issues/{m.group(1)}">#{m.group(1)}</a>',
+            body,
+        )
+        for i, pattern in enumerate(protected_patterns):
+            body = body.replace(f"__PROTECTED_PATTERN_{i}__", pattern)
+        return body
 
     def _replace_pr_title(self, body: str) -> str:
         return re.sub(r"### (.*?)\n", r"<h4>\1</h4>\n", body)
