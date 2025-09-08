@@ -7,6 +7,7 @@ import os
 import pickle
 import time
 from collections import defaultdict
+from typing import Literal
 
 import pandas as pd
 import requests
@@ -209,7 +210,7 @@ class KoreaInvestment:
     def get_ohlcv(
         self,
         symbol: str,
-        time_frame: str = "D",
+        time_frame: Literal["D", "W", "M", "Y"] = "D",
         start_day: str = "",
         end_day: str = "",
         adj_price: bool = True,
@@ -245,7 +246,7 @@ class KoreaInvestment:
     def _get_korea_ohlcv(
         self,
         symbol: str,
-        time_frame: str = "D",
+        time_frame: Literal["D", "W", "M", "Y"] = "D",
         start_day: str = "",
         end_day: str = "",
         adj_price: bool = True,
@@ -309,7 +310,7 @@ class KoreaInvestment:
     def _get_oversea_ohlcv(
         self,
         symbol: str,
-        time_frame: str = "D",
+        time_frame: Literal["D", "W", "M"] = "D",
         start_day: str = "",
         end_day: str = "",
         adj_price: bool = True,
