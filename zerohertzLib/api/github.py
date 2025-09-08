@@ -160,13 +160,13 @@ class GitHub:
                 return f"""<a href="{url}">{user}/{repo} #{issue_no}</a>"""
 
         body = re.sub(
-            r"https://github\.com/([\w.-]+)/([\w.-]+)/(issues|pull)/(\d+)",
-            replace_github_url,
+            r"(?<![\w/=])#(\d+)(?!\d)",
+            lambda m: f"""<a href="https://github.com/{self.user}/{self.repo}/issues/{m.group(1)}">#{m.group(1)}</a>""",
             body,
         )
         body = re.sub(
-            r"#(\d+)",
-            lambda m: f"""<a href="https://github.com/{self.user}/{self.repo}/issues/{m.group(1)}">#{m.group(1)}</a>""",
+            r"https://github\.com/([\w.-]+)/([\w.-]+)/(issues|pull)/(\d+)",
+            replace_github_url,
             body,
         )
         return body
