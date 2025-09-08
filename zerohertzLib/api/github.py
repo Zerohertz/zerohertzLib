@@ -159,25 +159,28 @@ class GitHub:
             else:
                 return f"""<a href="{url}">{user}/{repo} #{issue_no}</a>"""
 
-        markdown_links = []
+        protected_patterns = []
 
-        def protect_markdown_links(match):
-            markdown_links.append(match.group(0))
-            return f"__MARKDOWN_LINK_{len(markdown_links) - 1}__"
+        def protect_pattern(match):
+            protected_patterns.append(match.group(0))
+            return f"__PROTECTED_PATTERN_{len(protected_patterns) - 1}__"
 
-        body = re.sub(r"\[([^\]]*)\]\(([^)]*)\)", protect_markdown_links, body)
-        body = re.sub(
-            r'(?<![\w/="\'<])#(\d+)(?!\d)',
-            lambda m: f"""<a href="https://github.com/{self.user}/{self.repo}/issues/{m.group(1)}">#{m.group(1)}</a>""",
-            body,
-        )
-        for i, link in enumerate(markdown_links):
-            body = body.replace(f"__MARKDOWN_LINK_{i}__", link)
+        body = re.sub(r"\[[^]]*\]\(([^)]*)\)", protect_pattern, body)
+        body = re.sub(r"<a[^>]*>.*?</a>", protect_pattern, body)
+        body = re.sub(r"[\w.-]+/[\w.-]+\s+#\d+", protect_pattern, body)
         body = re.sub(
             r"https://github\.com/([\w.-]+)/([\w.-]+)/(issues|pull)/(\d+)",
             replace_github_url,
             body,
         )
+        body = re.sub(r"<a[^>]*>.*?</a>", protect_pattern, body)
+        body = re.sub(
+            r'(?<![\w/="\'<>])#(\d+)(?!\d)',
+            lambda m: f'<a href="https://github.com/{self.user}/{self.repo}/issues/{m.group(1)}">#{m.group(1)}</a>',
+            body,
+        )
+        for i, pattern in enumerate(protected_patterns):
+            body = body.replace(f"__PROTECTED_PATTERN_{i}__", pattern)
         return body
 
     def _replace_pr_title(self, body: str) -> str:
