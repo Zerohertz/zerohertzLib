@@ -62,7 +62,7 @@ def _is_bbox(shape: tuple[int, ...]) -> tuple[bool, bool]:
 def is_pts_in_poly(
     poly: NDArray[DTypeLike], pts: list[int | float] | NDArray[DTypeLike]
 ) -> bool | NDArray[bool]:
-    """지점들의 좌표 내 존재 여부 확인 함수
+    """지점들의 좌표 내 존재 여부 확인 function
 
     Args:
         poly: 다각형 (`[N, 2]`)

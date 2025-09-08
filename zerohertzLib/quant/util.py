@@ -67,6 +67,15 @@ def _cash2str(
     cash: int | float,
     kor: bool,
 ) -> str:
+    """현금 금액을 문자열로 변환하는 function
+
+    Args:
+        cash: 변환할 금액
+        kor: 한국 원화 format 사용 여부
+
+    Returns:
+        Format된 금액 문자열
+    """
     if kor:
         if cash < 0:
             return f"-₩{abs(cash):,.0f}"
@@ -77,6 +86,14 @@ def _cash2str(
 
 
 def _seconds_to_hms(seconds: int) -> str:
+    """초 단위 시간을 `Xh Ym Zs` format으로 변환하는 function
+
+    Args:
+        seconds: 변환할 초 단위 시간
+
+    Returns:
+        `Xh Ym Zs` format의 시간 문자열
+    """
     hours = seconds // 3600
     minutes = (seconds % 3600) // 60
     seconds = seconds % 60
@@ -88,6 +105,14 @@ def _seconds_to_hms(seconds: int) -> str:
 
 
 def _method2str(method: str) -> str:
+    """Method 이름을 표시용 문자열로 변환하는 function
+
+    Args:
+        method: 변환할 method 이름
+
+    Returns:
+        표시용으로 변환된 문자열
+    """
     if "_" in method:
         return " ".join(word.capitalize() for word in method.split("_"))
     if method == "momentum":

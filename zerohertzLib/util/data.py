@@ -13,7 +13,7 @@ from .json import Json, JsonDir
 
 
 def rmtree(path: str) -> None:
-    """지정한 경로의 file을 삭제하고 다시 생성하는 함수
+    """지정한 경로의 file을 삭제하고 다시 생성하는 function
 
     Args:
         path: 삭제 후 생성할 경로
@@ -234,7 +234,7 @@ def find_ext(path: str = "") -> dict[str, int]:
 
 
 def sort_dict(target: dict, order: list | None = None) -> dict:
-    """Dictionary를 순서에 맞춰 재배열하는 함수
+    """Dictionary를 순서에 맞춰 재배열하는 function
 
     Args:
         target: 입력 dictionary

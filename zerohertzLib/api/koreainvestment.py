@@ -19,7 +19,7 @@ class KoreaInvestment:
     Note:
         [공식 API 문서](https://apiportal.koreainvestment.com/apiservice) 및 [mojito](https://github.com/sharebook-kr/mojito) 참고
 
-        secret.key 파일은 아래와 같이 구성:
+        secret.key file은 아래와 같이 구성:
         ```
         zero... (API Key)
         hertz... (API Secret)

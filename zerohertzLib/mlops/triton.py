@@ -112,7 +112,7 @@ class TritonClientURL:
         sortby: str = "STATE",
         reverse: bool = False,
     ) -> None:
-        """Triton Inferece Server의 상태를 확인하는 함수
+        """Triton Inferece Server의 상태를 확인하는 function
 
         Args:
             renew: 각 모델의 상태 조회 시 갱신 여부
@@ -171,7 +171,7 @@ class TritonClientURL:
         files: str | None = None,
         client_timeout: float | None = None,
     ) -> None:
-        """Triton Inference Server 내 model을 load하는 함수
+        """Triton Inference Server 내 model을 load하는 function
 
         Args:
             model_name: Load할 model의 이름 또는 ID
@@ -195,7 +195,7 @@ class TritonClientURL:
         unload_dependents: bool = False,
         client_timeout: float | None = None,
     ) -> None:
-        """Triton Inference Server 내 model을 unload하는 함수
+        """Triton Inference Server 내 model을 unload하는 function
 
         Args:
             model_name: Unload할 model의 이름 또는 ID

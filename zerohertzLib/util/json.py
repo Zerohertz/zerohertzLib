@@ -302,7 +302,7 @@ class JsonDir:
 
 
 def write_json(data: dict[Any, Any] | list[dict[Any, Any]], path: str) -> str:
-    """JSON (JavaScript Object Notation)을 작성하는 함수
+    """JSON (JavaScript Object Notation)을 작성하는 function
 
     Args:
         data: 입력 data (header 포함 무관)

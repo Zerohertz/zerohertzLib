@@ -17,6 +17,14 @@ from .convert import poly2cwh, poly2xyxy, xyxy2poly
 
 
 def _get_image_paths(path: str) -> list[str]:
+    """지정된 경로에서 지원되는 image file 경로들을 조회하는 helper function
+
+    Args:
+        path: image file들을 검색할 directory 경로
+
+    Returns:
+        지원되는 확장자의 image file 경로 리스트
+    """
     ext = (
         "jpg",
         "JPG",

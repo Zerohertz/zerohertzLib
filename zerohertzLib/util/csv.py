@@ -7,7 +7,7 @@ from typing import Any
 
 
 def read_csv(path: str, header: bool = True) -> dict[int | str, list[str]]:
-    """CSV (Comma-Separated Values) 혹은 TSV (Tab-Separated Values)를 작성하는 함수
+    """CSV (Comma-Separated Values) 혹은 TSV (Tab-Separated Values)를 작성하는 function
 
     Args:
         path: 입력될 CSV 혹은 TSV 경로 및 file 이름
@@ -54,7 +54,7 @@ def read_csv(path: str, header: bool = True) -> dict[int | str, list[str]]:
 
 
 def write_csv(data: list[list[Any]], path: str, tsv: bool = False) -> str:
-    """CSV (Comma-Separated Values) 혹은 TSV (Tab-Separated Values)를 작성하는 함수
+    """CSV (Comma-Separated Values) 혹은 TSV (Tab-Separated Values)를 작성하는 function
 
     Args:
         data: 입력 data (header 포함 무관)
