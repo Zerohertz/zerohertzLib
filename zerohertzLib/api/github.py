@@ -153,6 +153,10 @@ class GitHub:
             user = match.group(1)
             repo = match.group(2)
             _ = match.group(3)
+            from loguru import logger
+
+            logger.info(f"{match}")
+            logger.info(f"{url} {user} {repo}")
             issue_no = match.group(4)
             if user == self.user and repo == self.repo:
                 return f"""<a href="{url}">#{issue_no}</a>"""
@@ -175,7 +179,7 @@ class GitHub:
         )
         body = re.sub(r"<a[^>]*>.*?</a>", protect_pattern, body)
         body = re.sub(
-            r'(?<![\w/="\'<>])#(\d+)(?!\d)',
+            r"""(?<![\w/="\'<>])#(\d+)(?!\d)""",
             lambda m: f'<a href="https://github.com/{self.user}/{self.repo}/issues/{m.group(1)}">#{m.group(1)}</a>',
             body,
         )
