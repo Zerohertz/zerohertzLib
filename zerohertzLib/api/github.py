@@ -159,11 +159,20 @@ class GitHub:
             else:
                 return f"""<a href="{url}">{user}/{repo} #{issue_no}</a>"""
 
+        markdown_links = []
+
+        def protect_markdown_links(match):
+            markdown_links.append(match.group(0))
+            return f"__MARKDOWN_LINK_{len(markdown_links) - 1}__"
+
+        body = re.sub(r"\[([^\]]*)\]\(([^)]*)\)", protect_markdown_links, body)
         body = re.sub(
-            r"(?<![\w/=])#(\d+)(?!\d)",
+            r'(?<![\w/="\'<])#(\d+)(?!\d)',
             lambda m: f"""<a href="https://github.com/{self.user}/{self.repo}/issues/{m.group(1)}">#{m.group(1)}</a>""",
             body,
         )
+        for i, link in enumerate(markdown_links):
+            body = body.replace(f"__MARKDOWN_LINK_{i}__", link)
         body = re.sub(
             r"https://github\.com/([\w.-]+)/([\w.-]+)/(issues|pull)/(\d+)",
             replace_github_url,
