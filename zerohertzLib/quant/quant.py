@@ -339,7 +339,7 @@ class QuantBot:
             report["main"] += "> :chart_with_downwards_trend: [Sell Signal]"
         else:
             report["main"] += "> :egg: [None Signal]"
-        report["main"] += f" *{quant.title}* (`{symbol}`)\n"
+        report["main"] += f" **{quant.title}** (`{symbol}`)\n"
         report["main"] += (
             f"\t:technologist: Signal Info: {today['total'][1]:.2f}% ({int(today['total'][0])}/{int(quant.total_cnt)}) → {logic[today['logic']]}\n"
         )
