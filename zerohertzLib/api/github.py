@@ -160,7 +160,7 @@ class GitHub:
                 return f"""<a href="{url}">{user}/{repo} #{issue_no}</a>"""
 
         body = re.sub(
-            r"https://github\.com/(\w+)/(\w+)/(issues|pull)/(\d+)",
+            r"https://github\.com/([\w.-]+)/([\w.-]+)/(issues|pull)/(\d+)",
             replace_github_url,
             body,
         )
