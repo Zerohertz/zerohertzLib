@@ -274,7 +274,7 @@ class BaseTritonPythonModel:
     Examples:
         `model.py`:
             ```python
-            class TritonPythonModel:
+            class TritonPythonModel(zz.mlops.BaseTritonPythonModel):
                 def initialize:
                     super().initialize(args, 10)
                     self.model = Model(cfg)

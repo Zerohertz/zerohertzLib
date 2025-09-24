@@ -108,7 +108,8 @@ class Balance(KoreaInvestment):
         self.symbols = list(self.balance["stock"].keys())
 
     def __contains__(self, item: Any) -> bool:
-        """
+        """보유 종목 여부를 확인
+
         Args:
             item: 보유 여부를 판단할 종목명
 
@@ -118,14 +119,16 @@ class Balance(KoreaInvestment):
         return item in self.balance["stock"]
 
     def __len__(self) -> int:
-        """
+        """보유 주식 종류의 개수를 반환
+
         Returns:
             보유 주식 종류의 수
         """
         return len(self.balance["stock"])
 
     def __getitem__(self, idx: int) -> list[int | float | str]:
-        """
+        """Index에 따른 주식 정보를 반환
+
         Args:
             idx: Index
 
@@ -135,14 +138,15 @@ class Balance(KoreaInvestment):
         return self.balance["stock"][self.symbols[idx]]
 
     def __call__(self) -> int:
-        """
+        """현재 보유 금액을 반환
+
         Returns:
             현재 보유 금액
         """
         return self.balance["cash"]
 
     def _exchange(self) -> float:
-        """USD/KRW의 현재 시세
+        """USD/KRW의 현재 시세를 조회
 
         Returns:
             USD/KRW의 현재 시세

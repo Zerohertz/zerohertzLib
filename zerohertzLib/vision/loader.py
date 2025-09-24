@@ -57,7 +57,8 @@ class ImageLoader:
         self.image_paths.sort()
 
     def __len__(self) -> int:
-        """
+        """Image 수를 반환
+
         Returns:
             `cnt` 에 해당하는 image들의 수
         """
@@ -66,7 +67,8 @@ class ImageLoader:
     def __getitem__(
         self, idx: int
     ) -> tuple[str, NDArray[np.uint8]] | tuple[list[str], list[NDArray[np.uint8]]]:
-        """
+        """Index에 따른 image 정보를 반환
+
         Args:
             idx: 입력 index
 
@@ -123,7 +125,8 @@ class JsonImageLoader:
         self.json_key = self.json._get_key(json_key)
 
     def __len__(self) -> int:
-        """
+        """Image 수를 반환
+
         Returns:
             읽어온 JSON file들의 수
         """
@@ -193,7 +196,8 @@ class YoloLoader:
             self.class_color = class_color
 
     def __len__(self) -> int:
-        """
+        """Image 수를 반환
+
         Returns:
             읽어온 image file들의 수
         """
@@ -422,7 +426,8 @@ class CocoLoader:
             self.class_color = class_color
 
     def __len__(self) -> int:
-        """
+        """Image 수를 반환
+
         Returns:
             읽어온 image file들의 수
         """
