@@ -3,7 +3,7 @@
 
 import json
 import traceback
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 from typing import Any
 
 import tritonclient.grpc as grpcclient
@@ -18,7 +18,7 @@ except ImportError:
     pass
 
 
-class TritonClientURL:
+class TritonClientURL(grpcclient.InferenceServerClient):
     """외부에서 실행되는 triton inference server의 호출을 위한 class
 
     Args:
@@ -212,7 +212,7 @@ class TritonClientURL:
         super().unload_model(model_name, headers, unload_dependents, client_timeout)
 
 
-class TritonClientK8s:
+class TritonClientK8s(TritonClientURL):
     """Kubernetes에서 실행되는 triton inference server의 호출을 위한 class
 
     Args:
@@ -249,7 +249,7 @@ class TritonClientK8s:
         super().__init__(f"{svc_name}.{namespace}", port, verbose)
 
 
-class BaseTritonPythonModel:
+class BaseTritonPythonModel(ABC):
     """Triton Inference Server에서 Python backend 사용을 위한 class
 
     Note:
