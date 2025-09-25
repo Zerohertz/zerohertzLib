@@ -122,10 +122,12 @@ class TestTritonClientURL:
         assert result["batch_index"].ndim == 1
 
         # All outputs should have the same number of detections
-        num_detections = result["boxes"].shape[0]
-        assert result["scores"].shape[0] == num_detections
-        assert result["labels"].shape[0] == num_detections
-        assert result["batch_index"].shape[0] == num_detections
+        assert (
+            result["boxes"].shape[0]
+            == result["scores"].shape[0]
+            == result["labels"].shape[0]
+            == result["batch_index"].shape[0]
+        )
 
     def test_model_by_index(
         self,
