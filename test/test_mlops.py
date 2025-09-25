@@ -3,7 +3,7 @@ import pytest
 
 import zerohertzLib as zz
 
-TRITON_INFERENCE_SERVER_URL = "triton-inference-server"
+TRITON_INFERENCE_SERVER_URL = "localhost"
 TRITON_INFERENCE_SERVER_PORT = 8001
 
 
@@ -22,9 +22,8 @@ def triton_client() -> zz.mlops.TritonClientURL:
 
     yield client
 
-    client.status(renew=True, sortby="ID", reverse=True)
-
     # Teardown: Unload models
+    client.status(renew=True, sortby="ID", reverse=True)
     client.unload_model(0)
     client.unload_model(1)
     client.unload_model(2)
