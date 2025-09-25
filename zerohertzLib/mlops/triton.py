@@ -71,16 +71,11 @@ class TritonClientURL(grpcclient.InferenceServerClient):
         self._update_configs(model, renew)
         inputs = self.configs[model]["config"]["input"]
         outputs = self.configs[model]["config"]["output"]
+        max_batch_size = self.configs[model]["config"].get("max_batch_size", None)
         assert len(inputs) == len(args)
         triton_inputs = []
         for input_info, arg in zip(inputs, args):
-            triton_inputs.append(
-                self._set_input(
-                    input_info,
-                    arg,
-                    self.configs[model]["config"].get("max_batch_size", None),
-                )
-            )
+            triton_inputs.append(self._set_input(input_info, arg, max_batch_size))
         triton_outputs = []
         for output in outputs:
             triton_outputs.append(grpcclient.InferRequestedOutput(output["name"]))
@@ -90,7 +85,19 @@ class TritonClientURL(grpcclient.InferenceServerClient):
         response.get_response()
         triton_results = {}
         for output in outputs:
-            triton_results[output["name"]] = response.as_numpy(output["name"])
+            try:
+                triton_results[output["name"]] = response.as_numpy(output["name"])
+            except ValueError as e:
+                if "cannot reshape array of size 0" in str(e):
+                    shape = list(output["shape"])
+                    shape = [0 if dim == -1 else dim for dim in shape]
+                    if max_batch_size and 0 < max_batch_size:
+                        shape = [0] + shape
+                    triton_results[output["name"]] = np.empty(
+                        shape, dtype=triton_to_np_dtype(output["data_type"][5:])
+                    )
+                else:
+                    raise e
         return triton_results
 
     def _update_configs(self, model: str, renew: bool) -> None:
