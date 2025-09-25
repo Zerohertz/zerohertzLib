@@ -34,6 +34,11 @@ component_management:
         - test/test_api.py
         - zerohertzLib/api/**
     - component_id: monitoring
+      name: mlops
+      paths:
+        - test/test_mlops.py
+        - zerohertzLib/mlops/**
+    - component_id: monitoring
       name: monitoring
       paths:
         - test/test_monitoring.py
@@ -62,8 +67,6 @@ component_management:
 ignore:
   - zerohertzLib/__init__.py
   - zerohertzLib/api/koreainvestment.py
-  - zerohertzLib/api/open_ai.py
-  - zerohertzLib/mlops/triton.py
   - zerohertzLib/monitoring/gpu.py
   - zerohertzLib/quant/koreainvestment.py
   - "**/cli.py"

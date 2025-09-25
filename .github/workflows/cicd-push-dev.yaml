@@ -90,6 +90,16 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.10", "3.11", "3.12", "3.13"]
+    services:
+      triton-inference-server:
+        image: nvcr.io/nvidia/tritonserver:24.08-py3
+        ports:
+          - 8001:8001
+        volumes:
+          - ${{ github.workspace }}:/workspace
+          - ${{ github.workspace }}/test/data/triton-inference-server:/models
+        options: >-
+          bash -c "cd /workspace && pip install -e .[mlops] && tritonserver --model-repository /models" --model-control-mode=explicit
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
