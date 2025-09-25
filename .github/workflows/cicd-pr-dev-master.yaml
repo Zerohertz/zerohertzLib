@@ -104,16 +104,6 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.10", "3.11", "3.12", "3.13"]
-    services:
-      triton-inference-server:
-        image: nvcr.io/nvidia/tritonserver:24.08-py3
-        ports:
-          - 8001:8001
-        volumes:
-          - ${{ github.workspace }}:/workspace
-          - ${{ github.workspace }}/test/data/triton-inference-server:/models
-        options: >-
-          bash -c "cd /workspace && pip install -e .[mlops] && tritonserver --model-repository /models" --model-control-mode=explicit
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -128,6 +118,21 @@ jobs:
 
       - name: Set up Python
         run: uv python install ${{ matrix.python-version }}
+
+      - name: Start Triton Inference Server
+        run: |
+          docker run -d --name triton-server \
+            -p 8000:8000 -p 8001:8001 \
+            -v ${{ github.workspace }}:/workspace \
+            -v ${{ github.workspace }}/test/data/triton-inference-server:/models \
+            nvcr.io/nvidia/tritonserver:24.08-py3 \
+            bash -c "cd /workspace && pip install -e .[mlops] && tritonserver --model-repository /models --model-control-mode=explicit"
+
+      - name: Wait for Triton Inference Server to be ready
+        run: |
+          echo "Waiting for Triton Inference Server to be ready..."
+          timeout 60 bash -c 'until curl -f http://localhost:8000/v2/health/ready; do sleep 2; done'
+          echo "Triton Inference Server is ready!"
 
       - name: Run tests
         env:
