@@ -384,13 +384,13 @@ class BaseTritonPythonModel(ABC):
         batch_index = [0]
         _inputs = defaultdict(list)
         for request in requests:
-            for index, _input in enumerate(self.cfg["input"]):
+            for index, cfg_input in enumerate(self.cfg["input"]):
                 value = pb_utils.get_input_tensor_by_name(
-                    request, _input["name"]
+                    request, cfg_input["name"]
                 ).as_numpy()
                 if index == 0 and 0 < self.max_batch_size:
                     batch_index.append(batch_index[-1] + value.shape[0])
-                _inputs[_input["name"]].append(value)
+                _inputs[cfg_input["name"]].append(value)
         inputs = {}
         for key, value in _inputs.items():
             inputs[key] = np.concatenate(value, axis=0)
@@ -406,19 +406,19 @@ class BaseTritonPythonModel(ABC):
             for index in range(len(batch_index) - 1):
                 batch_tensors = defaultdict(list)
                 for batch in range(batch_index[index], batch_index[index + 1]):
-                    for _output, value in zip(self.cfg["output"], outputs):
+                    for cfg_output, value in zip(self.cfg["output"], outputs):
                         _value = value[batch]
-                        if _output["name"] == "batch_index":
+                        if cfg_output["name"] == "batch_index":
                             _value -= batch_index[index]
-                        batch_tensors[_output["name"]].append(_value)
+                        batch_tensors[cfg_output["name"]].append(_value)
                 output_tensors = []
-                for _output in self.cfg["output"]:
-                    value = np.concatenate(batch_tensors[_output["name"]], axis=0)
+                for cfg_output in self.cfg["output"]:
+                    value = np.concatenate(batch_tensors[cfg_output["name"]], axis=0)
                     output_tensors.append(
                         pb_utils.Tensor(
-                            _output["name"],
+                            cfg_output["name"],
                             value.astype(
-                                pb_utils.triton_string_to_numpy(_output["data_type"])
+                                pb_utils.triton_string_to_numpy(cfg_output["data_type"])
                             ),
                         )
                     )
@@ -437,10 +437,10 @@ class BaseTritonPythonModel(ABC):
                 )
             return responses
         output_tensors = []
-        for _output, value in zip(self.cfg["output"], outputs):
+        for cfg_output, value in zip(self.cfg["output"], outputs):
             output_tensors.append(
                 pb_utils.Tensor(
-                    _output["name"],
+                    cfg_output["name"],
                     value.astype(pb_utils.triton_string_to_numpy(_output["data_type"])),
                 )
             )
