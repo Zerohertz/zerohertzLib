@@ -441,7 +441,9 @@ class BaseTritonPythonModel(ABC):
             output_tensors.append(
                 pb_utils.Tensor(
                     cfg_output["name"],
-                    value.astype(pb_utils.triton_string_to_numpy(_output["data_type"])),
+                    value.astype(
+                        pb_utils.triton_string_to_numpy(cfg_output["data_type"])
+                    ),
                 )
             )
         responses.append(pb_utils.InferenceResponse(output_tensors=output_tensors))
