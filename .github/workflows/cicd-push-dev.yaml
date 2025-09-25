@@ -117,7 +117,7 @@ jobs:
             -v ${{ github.workspace }}:/workspace \
             -v ${{ github.workspace }}/test/data/triton-inference-server:/models \
             nvcr.io/nvidia/tritonserver:24.08-py3 \
-            bash -c "cd /workspace && pip install -e .[mlops] && tritonserver --model-repository /models --model-control-mode=explicit"
+            bash -c "cd /workspace && rm -rf *.egg-info build dist && pip install -e .[mlops] && rm -rf *.egg-info build dist && tritonserver --model-repository /models --model-control-mode=explicit"
 
       - name: Wait for Triton Inference Server to be ready
         run: |
