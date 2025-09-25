@@ -135,8 +135,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           uv sync --extra all
-          uv pip install pytest pytest-cov
-          uv run pytest -vv --durations 0 --cov=zerohertzLib --cov-report=xml --junitxml=junit.xml -o junit_family=legacy
+          uv pip install pytest pytest-xdist pytest-cov
+          uv run pytest -n auto --durations=0 -vv --cov=zerohertzLib --cov-report=xml --junitxml=junit.xml -o junit_family=legacy
 
       - name: Upload test results to Codecov
         uses: codecov/test-results-action@v1
