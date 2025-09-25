@@ -384,11 +384,11 @@ class BaseTritonPythonModel(ABC):
         batch_index = [0]
         _inputs = defaultdict(list)
         for request in requests:
-            for _input in self.cfg["input"]:
+            for i, _input in enumerate(self.cfg["input"]):
                 __input = pb_utils.get_input_tensor_by_name(
                     request, _input["name"]
                 ).as_numpy()
-                if 0 < self.max_batch_size:
+                if 0 < self.max_batch_size and i == 0:
                     batch_index.append(batch_index[-1] + __input.shape[0])
                 _inputs[_input["name"]].append(__input)
         inputs = {}
