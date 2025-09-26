@@ -1,4 +1,4 @@
-name: "load_test"
+name: "without_batching"
 backend: "python"
 max_batch_size: 0
 

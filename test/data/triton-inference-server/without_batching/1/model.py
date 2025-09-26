@@ -1,6 +1,11 @@
+import sys
+from pathlib import Path
+
 import numpy as np
 from numpy.typing import DTypeLike, NDArray
 
+sys.path.append(str(Path(__file__).parent.parent.parent.parent))
+# import zerohertzLib as zz
 from zerohertzLib.mlops import BaseTritonPythonModel
 
 

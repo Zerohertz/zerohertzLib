@@ -121,12 +121,12 @@ jobs:
 
       - name: Start Triton Inference Server
         run: |
-          docker run -d --name triton-server \
+          docker run -d --name triton-inference-server \
             -p 8000:8000 -p 8001:8001 \
-            -v ${{ github.workspace }}:/workspace \
+            -v ${{ github.workspace }}:/mnt/zerohertzLib \
             -v ${{ github.workspace }}/test/data/triton-inference-server:/models \
-            nvcr.io/nvidia/tritonserver:24.08-py3 \
-            bash -c "cd /workspace && rm -rf *.egg-info build dist && pip install -e .[mlops] && rm -rf *.egg-info build dist && tritonserver --model-repository /models --model-control-mode=explicit"
+            nvcr.io/nvidia/tritonserver:25.08-py3 \
+            bash -c "cp -r /mnt/zerohertzLib /tmp/zerohertzLib && echo hi && pip install /tmp/zerohertzLib[mlops] && tritonserver --model-repository /models --model-control-mode=explicit"
 
       - name: Wait for Triton Inference Server to be ready
         run: |
@@ -147,7 +147,7 @@ jobs:
           sudo apt install python3-opencv -y
           uv sync --extra all
           uv pip install pytest pytest-xdist pytest-cov
-          uv run pytest -n auto --durations=0 -vv --cov=zerohertzLib --cov-report=xml --junitxml=junit.xml -o junit_family=legacy
+          uv run pytest --durations=0 -vv -n auto --dist=loadfile --cov=zerohertzLib --cov-report=xml --junitxml=junit.xml -o junit_family=legacy
 
       - name: Upload test results to Codecov
         uses: codecov/test-results-action@v1
