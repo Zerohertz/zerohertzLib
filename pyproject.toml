@@ -109,10 +109,10 @@ all = [
 ]
 
 [project.urls]
-homepage = "https://zerohertz.github.io/zerohertzLib"
-documentation = "https://zerohertz.github.io/zerohertzLib"
+homepage = "https://zerohertzlib.readthedocs.io/"
+documentation = "https://zerohertzlib.readthedocs.io/"
 repository = "https://github.com/Zerohertz/zerohertzLib"
-changelog = "https://zerohertz.github.io/zerohertzLib/release.html"
+changelog = "https://zerohertzlib.readthedocs.io/"
 
 [project.scripts]
 trictl = "zerohertzLib.mlops.cli:_trictl"
