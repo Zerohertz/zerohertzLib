@@ -3,7 +3,7 @@
 
 import os
 import shutil
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 from collections import defaultdict
 from glob import glob
 
@@ -35,7 +35,7 @@ def rmtree(path: str) -> None:
     os.makedirs(path, exist_ok=True)
 
 
-class MakeData:
+class MakeData(ABC):
     """JSON file 내 값에 따라 data를 구축하는 class
 
     Note:

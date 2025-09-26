@@ -45,7 +45,8 @@ class DisjointSet:
         self.compression = compression
 
     def find(self, node: int) -> int:
-        """
+        """목표 node에 대한 root node 탐색
+
         Args:
             node: 목표 node의 index
 
@@ -61,13 +62,14 @@ class DisjointSet:
         return self.parent[node]
 
     def union(self, node1: int, node2: int) -> None:
-        """
+        """두 node 연결
+
         Args:
             node1: 목표 node의 index
             node2: 목표 node의 index
 
         Returns:
-            `self.parent` 에 root node의 index를 update
+            `self.parent` 에 root node의 index update
         """
         root1, root2 = self.find(node1), self.find(node2)
         if root1 != root2:
@@ -109,13 +111,14 @@ class DisjointSetRank(DisjointSet):
         self.rank = [0 for _ in range(size)]
 
     def union(self, node1: int, node2: int) -> None:
-        """
+        """두 node 연결
+
         Args:
             node1: 목표 node의 index
             node2: 목표 node의 index
 
         Returns:
-            `self.parent` 에 root node의 index를 update
+            `self.parent` 에 root node의 index update
         """
         root1, root2 = self.find(node1), self.find(node2)
         if root1 != root2:
@@ -165,13 +168,14 @@ class DisjointSetSize(DisjointSet):
         self.size = [1 for _ in range(size)]
 
     def union(self, node1: int, node2: int) -> None:
-        """
+        """두 node 연결
+
         Args:
             node1: 목표 node의 index
             node2: 목표 node의 index
 
         Returns:
-            `self.parent` 에 root node의 index를 update
+            `self.parent` 에 root node의 index update
         """
         root1, root2 = self.find(node1), self.find(node2)
         if self.size[root1] < self.size[root2]:

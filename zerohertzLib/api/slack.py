@@ -65,9 +65,7 @@ class SlackWebhook(AbstractWebhook):
             >>> slack.message("test")
             <Response [200]>
         """
-        if codeblock:
-            message = f"``{message}``"
-        self.data["text"] = message
+        self.data["text"] = self._get_codeblock(message=message, codeblock=codeblock)
         return requests.post(
             self.webhook_url,
             data=json.dumps(self.data),

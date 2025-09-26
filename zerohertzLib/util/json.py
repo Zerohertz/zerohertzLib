@@ -48,15 +48,15 @@ class Json:
         self.map = []
 
     def __len__(self) -> int:
-        """
+        """JSON file의 길이를 반환
+
         Returns:
             읽어온 JSON file의 길이
         """
         return len(self.data)
 
     def __getitem__(self, key: int | str) -> Any:
-        """
-        읽어온 JSON file에 key 값 입력
+        """JSON file에서 key에 해당하는 값을 반환
 
         Args:
             key: 읽어온 JSON file에서 불러올 key 값
@@ -221,15 +221,15 @@ class JsonDir:
             self.name.append(name)
 
     def __len__(self) -> int:
-        """
+        """JSON file의 길이를 반환
+
         Returns:
             읽어온 JSON file들의 수
         """
         return len(self.data)
 
     def __getitem__(self, idx: int) -> Json:
-        """
-        읽어온 JSON file들을 list와 같이 indexing
+        """Index를 사용하여 JSON file에 접근
 
         Args:
             idx: 입력 index

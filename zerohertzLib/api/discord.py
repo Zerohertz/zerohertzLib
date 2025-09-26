@@ -38,7 +38,7 @@ class DiscordWebhook(AbstractWebhook):
             <Response [204]>
         """
         headers = {"Content-Type": "application/json"}
-        message = self._get_codeblock(message, codeblock)
+        message = self._get_codeblock(message=message, codeblock=codeblock)
         data = {"content": message}
         return requests.post(
             self.webhook_url, data=json.dumps(data), headers=headers, timeout=10

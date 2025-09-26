@@ -103,7 +103,8 @@ class LabelStudio:
         self.labels = set()
 
     def __len__(self) -> int:
-        """
+        """데이터 개수를 반환
+
         Returns:
             읽어온 image file 혹은 annotation들의 수
         """
