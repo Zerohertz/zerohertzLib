@@ -3,7 +3,7 @@
 
 import argparse
 
-from .triton import TritonClientURL
+from .client import TritonClientURL
 
 
 def _trictl() -> None:

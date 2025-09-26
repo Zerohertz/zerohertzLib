@@ -67,6 +67,7 @@ component_management:
 ignore:
   - zerohertzLib/__init__.py
   - zerohertzLib/api/koreainvestment.py
+  - zerohertzLib/mlops/server.py
   - zerohertzLib/monitoring/gpu.py
   - zerohertzLib/quant/koreainvestment.py
   - "**/cli.py"

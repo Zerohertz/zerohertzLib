@@ -6,10 +6,7 @@
     MLOps에서 사용되는 class들
 """
 
-from zerohertzLib.mlops.triton import (
-    BaseTritonPythonModel,
-    TritonClientK8s,
-    TritonClientURL,
-)
+from zerohertzLib.mlops.client import TritonClientK8s, TritonClientURL
+from zerohertzLib.mlops.server import BaseTritonPythonModel
 
 __all__ = ["TritonClientK8s", "TritonClientURL", "BaseTritonPythonModel"]
