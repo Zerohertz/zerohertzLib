@@ -167,7 +167,7 @@ def test_replace_issue():
         {
             "input": "related: https://github.com/otheruser/otherrepo/issues/456",
             "expected": [
-                """<a href="https://github.com/otheruser/otherrepo/issues/456">otheruser/otherrepo #456</a>"""
+                """<a href="https://github.com/otheruser/otherrepo/issues/456">otheruser/otherrepo \\#456</a>"""
             ],
         },
         {
@@ -194,7 +194,7 @@ def test_replace_issue():
             "input": "See #123 and https://github.com/other/repo/issues/456 for details",
             "expected": [
                 """<a href="https://github.com/Zerohertz/zerohertzLib/issues/123">#123</a>""",
-                """<a href="https://github.com/other/repo/issues/456">other/repo #456</a>""",
+                """<a href="https://github.com/other/repo/issues/456">other/repo \\#456</a>""",
             ],
         },
         {

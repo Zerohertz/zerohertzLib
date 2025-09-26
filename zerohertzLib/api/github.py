@@ -135,14 +135,14 @@ class GitHub:
         adjusted_lines = []
         for line in lines:
             stripped = line.lstrip()
-            if line == stripped:  # indent가 없는 경우
+            if line == stripped:
                 adjusted_lines.append(line)
                 continue
             current_indent = len(line) - len(stripped)
             if current_indent % 4 == 0:
                 adjusted_lines.append(line)
             else:
-                target_level = (current_indent + 3) // 4  # 올림 처리
+                target_level = (current_indent + 3) // 4
                 new_indent = "    " * target_level
                 adjusted_lines.append(new_indent + stripped)
         return "\n".join(adjusted_lines)
@@ -161,7 +161,7 @@ class GitHub:
             if user == self.user and repo == self.repo:
                 return f"""<a href="{url}">#{issue_no}</a>"""
             else:
-                return f"""<a href="{url}">{user}/{repo} #{issue_no}</a>"""
+                return f"""<a href="{url}">{user}/{repo} \\#{issue_no}</a>"""
 
         protected_patterns = []
 
