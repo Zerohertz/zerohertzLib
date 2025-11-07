@@ -13,6 +13,16 @@ input [
     data_type: TYPE_FP32
     dims: [ -1, 4 ]
   }
+  {
+    name: "texts"
+    data_type: TYPE_STRING
+    dims: [ -1 ]
+  }
+  {
+    name: "checks"
+    data_type: TYPE_BOOL
+    dims: [ -1 ]
+  },
 ]
 
 output [
@@ -29,6 +39,11 @@ output [
   {
     name: "texts"
     data_type: TYPE_STRING
+    dims: [ -1 ]
+  },
+  {
+    name: "checks"
+    data_type: TYPE_BOOL
     dims: [ -1 ]
   },
   {
