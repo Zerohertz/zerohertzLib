@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
+
 import tritonclient.grpc as grpcclient
 from loguru import logger
 from numpy.typing import DTypeLike, NDArray
@@ -95,11 +96,14 @@ class TritonClientURL(grpcclient.InferenceServerClient):
                 logger.warning(
                     f"""Expected dimension length of input ({len(input_info["dims"]) + 1}) does not match the input dimension length ({len(value.shape)}) [input dimension: {value.shape}]""",
                 )
-        value = value.astype(triton_to_np_dtype(input_info["data_type"][5:]))
+        data_type = input_info["data_type"][5:]
+        if data_type == "STRING":
+            data_type = "BYTES"
+        value = value.astype(triton_to_np_dtype(data_type))
         return grpcclient.InferInput(
             input_info["name"],
             value.shape,
-            input_info["data_type"][5:],
+            data_type,
         ).set_data_from_numpy(value)
 
     def status(
