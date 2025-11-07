@@ -75,20 +75,20 @@ class TestTritonClientURL:
         assert isinstance(result, dict)
         assert "boxes" in result
         assert "scores" in result
-        assert "labels" in result
+        assert "texts" in result
 
         assert result["boxes"].dtype == np.float32
         assert result["scores"].dtype == np.float32
-        assert result["labels"].dtype == np.int64
+        assert result["texts"].dtype == np.object_
 
         assert result["boxes"].ndim == 2
         assert result["boxes"].shape[1] == 4
         assert result["scores"].ndim == 1
-        assert result["labels"].ndim == 1
+        assert result["texts"].ndim == 1
         assert (
             result["boxes"].shape[0]
             == result["scores"].shape[0]
-            == result["labels"].shape[0]
+            == result["texts"].shape[0]
         )
 
     def test_dynamic_batching_inference(
@@ -109,7 +109,7 @@ class TestTritonClientURL:
         assert isinstance(result, dict)
         assert "boxes" in result
         assert "scores" in result
-        assert "labels" in result
+        assert "texts" in result
         assert "batch_index" in result
 
         assert result["batch_index"].dtype == np.int64
@@ -117,13 +117,13 @@ class TestTritonClientURL:
         assert result["boxes"].ndim == 2
         assert result["boxes"].shape[1] == 4
         assert result["scores"].ndim == 1
-        assert result["labels"].ndim == 1
+        assert result["texts"].ndim == 1
         assert result["batch_index"].ndim == 1
 
         assert (
             result["boxes"].shape[0]
             == result["scores"].shape[0]
-            == result["labels"].shape[0]
+            == result["texts"].shape[0]
             == result["batch_index"].shape[0]
         )
         assert batch_size == len(np.unique(result["batch_index"]))
@@ -139,21 +139,21 @@ class TestTritonClientURL:
         assert isinstance(result, dict)
         assert "boxes" in result
         assert "scores" in result
-        assert "labels" in result
+        assert "texts" in result
 
         assert result["boxes"].dtype == np.float32
         assert result["scores"].dtype == np.float32
-        assert result["labels"].dtype == np.int64
+        assert result["texts"].dtype == np.object_
 
         assert result["boxes"].ndim == 2
         assert result["boxes"].shape[1] == 4
         assert result["scores"].ndim == 1
-        assert result["labels"].ndim == 1
+        assert result["texts"].ndim == 1
         assert (
             0
             == result["boxes"].shape[0]
             == result["scores"].shape[0]
-            == result["labels"].shape[0]
+            == result["texts"].shape[0]
         )
 
     def test_dynamic_batching_inference_empty_boxes(
@@ -174,7 +174,7 @@ class TestTritonClientURL:
         assert isinstance(result, dict)
         assert "boxes" in result
         assert "scores" in result
-        assert "labels" in result
+        assert "texts" in result
         assert "batch_index" in result
 
         assert result["batch_index"].dtype == np.int64
@@ -182,13 +182,13 @@ class TestTritonClientURL:
         assert result["boxes"].ndim == 2
         assert result["boxes"].shape[1] == 4
         assert result["scores"].ndim == 1
-        assert result["labels"].ndim == 1
+        assert result["texts"].ndim == 1
         assert result["batch_index"].ndim == 1
 
         assert (
             result["boxes"].shape[0]
             == result["scores"].shape[0]
-            == result["labels"].shape[0]
+            == result["texts"].shape[0]
             == result["batch_index"].shape[0]
         )
         assert batch_size == len(np.unique(result["batch_index"]))

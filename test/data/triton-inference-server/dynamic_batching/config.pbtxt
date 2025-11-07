@@ -27,8 +27,8 @@ output [
     dims: [ -1 ]
   },
   {
-    name: "labels"
-    data_type: TYPE_INT64
+    name: "texts"
+    data_type: TYPE_STRING
     dims: [ -1 ]
   },
   {
