@@ -1,6 +1,10 @@
 # SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: Copyright (c) 2023-2025 Zerohertz (Hyogeun Oh)
 
+
+from typing import Any
+
+import numpy as np
 import tritonclient.grpc as grpcclient
 from loguru import logger
 from numpy.typing import DTypeLike, NDArray
@@ -40,7 +44,7 @@ class TritonClientURL(grpcclient.InferenceServerClient):
     def __call__(
         self,
         model: int | str,
-        *args: NDArray[DTypeLike],
+        *args: list[Any] | NDArray[DTypeLike],
         renew: bool = False,
     ) -> dict[str, NDArray[DTypeLike]]:
         """
@@ -82,9 +86,11 @@ class TritonClientURL(grpcclient.InferenceServerClient):
     def _set_input(
         self,
         input_info: dict[str, list[int]],
-        value: NDArray[DTypeLike],
+        value: list[Any] | NDArray[DTypeLike],
         max_batch_size: int | None,
     ) -> grpcclient._infer_input.InferInput:
+        if not isinstance(value, np.ndarray):
+            value = np.array(value)
         if "dims" in input_info.keys():
             if max_batch_size is None:
                 if len(input_info["dims"]) != len(value.shape):
@@ -95,11 +101,14 @@ class TritonClientURL(grpcclient.InferenceServerClient):
                 logger.warning(
                     f"""Expected dimension length of input ({len(input_info["dims"]) + 1}) does not match the input dimension length ({len(value.shape)}) [input dimension: {value.shape}]""",
                 )
-        value = value.astype(triton_to_np_dtype(input_info["data_type"][5:]))
+        data_type = input_info["data_type"][5:]
+        if data_type == "STRING":
+            data_type = "BYTES"
+        value = value.astype(triton_to_np_dtype(data_type))
         return grpcclient.InferInput(
             input_info["name"],
             value.shape,
-            input_info["data_type"][5:],
+            data_type,
         ).set_data_from_numpy(value)
 
     def status(

@@ -58,13 +58,12 @@ class BaseTritonPythonModel(ABC):
 
         Normal Logs (With Batching):
             ```
-            2025-09-25 16:24:34.224 | INFO     | zerohertzLib.mlops.triton:execute:* - Called
-            2025-09-25 16:24:34.232 | DEBUG    | zerohertzLib.mlops.triton:_get_inputs:* - inputs: images=(9, 1000, 1000, 3)
-            2025-09-25 16:24:34.232 | INFO     | zerohertzLib.mlops.triton:execute:* - Inference start
-            2025-09-25 16:24:34.486 | INFO     | zerohertzLib.mlops.triton:execute:* - Inference completed (0.25s)
-            2025-09-25 16:24:34.486 | DEBUG    | zerohertzLib.mlops.triton:_set_outputs:* - outputs (0 ~ 3): boxes=(6, 4), (6, 4), (6, 4), scores=(6,), (6,), (6,), labels=(6,), (6,), (6,), batch_index=(6,), (6,), (6,)
-            2025-09-25 16:24:34.486 | DEBUG    | zerohertzLib.mlops.triton:_set_outputs:* - outputs (3 ~ 6): boxes=(6, 4), (6, 4), (6, 4), scores=(6,), (6,), (6,), labels=(6,), (6,), (6,), batch_index=(6,), (6,), (6,)
-            2025-09-25 16:24:34.486 | DEBUG    | zerohertzLib.mlops.triton:_set_outputs:* - outputs (6 ~ 9): boxes=(6, 4), (6, 4), (6, 4), scores=(6,), (6,), (6,), labels=(6,), (6,), (6,), batch_index=(6,), (6,), (6,)
+            2025-11-07 08:36:52.242 | INFO     | zerohertzLib.mlops.triton:execute:* - Called
+            2025-11-07 08:36:52.276 | DEBUG    | zerohertzLib.mlops.triton:_get_inputs:* - inputs: images=(5, 3000, 3000, 3)
+            2025-11-07 08:36:52.276 | INFO     | zerohertzLib.mlops.triton:execute:* - Inference start
+            2025-11-07 08:36:54.091 | INFO     | zerohertzLib.mlops.triton:execute:* - Inference completed (1.81s)
+            2025-11-07 08:36:54.092 | DEBUG    | zerohertzLib.mlops.triton:_set_outputs:* - outputs (0 ~ 1): bboxes=(235, 4, 2), (293, 4, 2), texts=(235,), (293,), scores=(235,), (293,), batch_index=(235,), (293,)
+            2025-11-07 08:36:54.092 | DEBUG    | zerohertzLib.mlops.triton:_set_outputs:* - outputs (2 ~ 4): bboxes=(293, 4, 2), (46, 4, 2), (235, 4, 2), texts=(293,), (46,), (235,), scores=(293,), (46,), (235,), batch_index=(293,), (46,), (235,)
             ```
 
         Error Logs:
@@ -180,7 +179,7 @@ class BaseTritonPythonModel(ABC):
                     pb_utils.InferenceResponse(output_tensors=output_tensors)
                 )
                 logger.debug(
-                    f"outputs ({batch_index[index]} ~ {batch_index[index + 1]}): "
+                    f"outputs ({batch_index[index]} ~ {batch_index[index + 1] - 1}): "
                     + ", ".join(
                         [
                             f"{key}="
