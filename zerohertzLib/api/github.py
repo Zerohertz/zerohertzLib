@@ -180,7 +180,9 @@ class GitHub:
         body = re.sub(r"<a[^>]*>.*?</a>", protect_pattern, body)
         body = re.sub(
             r"""(?<![\w/="\'<>])#(\d+)(?!\d)""",
-            lambda m: f'<a href="https://github.com/{self.user}/{self.repo}/issues/{m.group(1)}">#{m.group(1)}</a>',
+            lambda m: (
+                f'<a href="https://github.com/{self.user}/{self.repo}/issues/{m.group(1)}">#{m.group(1)}</a>'
+            ),
             body,
         )
         for i, pattern in enumerate(protected_patterns):
