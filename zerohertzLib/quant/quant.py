@@ -435,7 +435,7 @@ class QuantBot:
         try:
             title, data = self._get_data(symbol)
             if len(data) < 20:
-                return
+                raise KeyError(f"`data` is too short ({len(data)=})")
         except (KeyError, HTTPError) as error:
             self._traceback(
                 error=error,
@@ -464,8 +464,6 @@ class QuantBot:
                 progress_thread_id=progress_thread_id,
             )
             return
-        if today["position"] == "NULL":
-            return
         if mode == "Buy":
             positions = ["Buy"]
         else:
@@ -478,7 +476,7 @@ class QuantBot:
             progress_thread_id=progress_thread_id,
             status="completed",
         )
-        return quant
+        return quant if today["position"] != "NULL" else None
 
     def _run_mp(self, args: tuple[str, str, int, str]) -> Quant | None:
         symbol, mode, idx, progress_thread_id = args
