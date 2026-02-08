@@ -376,25 +376,6 @@ class QuantBot:
         self.bot.file(report["hist"], thread_id=thread_id)
         response = self.bot.message(report["param"], thread_id=thread_id)
 
-    def _traceback(
-        self,
-        error: Exception,
-        message: str,
-        symbol: str,
-        idx: int | ValueProxy,
-        progress_thread_id: str,
-    ) -> None:
-        response = self.bot.message(message=message)
-        thread_id = self.bot.get_thread_id(response, name=message)
-        self.bot.message(str(error), codeblock=True, thread_id=thread_id)
-        self.bot.message(traceback.format_exc(), codeblock=True, thread_id=thread_id)
-        self._progress(
-            symbol=symbol,
-            idx=idx,
-            progress_thread_id=progress_thread_id,
-            status="failed",
-        )
-
     def _progress(
         self,
         symbol: str,
@@ -423,6 +404,25 @@ class QuantBot:
         self.bot.message(
             message=progress_message,
             thread_id=progress_thread_id,
+        )
+
+    def _traceback(
+        self,
+        error: Exception,
+        message: str,
+        symbol: str,
+        idx: int | ValueProxy,
+        progress_thread_id: str,
+    ) -> None:
+        response = self.bot.message(message=message)
+        thread_id = self.bot.get_thread_id(response, name=message)
+        self.bot.message(str(error), codeblock=True, thread_id=thread_id)
+        self.bot.message(traceback.format_exc(), codeblock=True, thread_id=thread_id)
+        self._progress(
+            symbol=symbol,
+            idx=idx,
+            progress_thread_id=progress_thread_id,
+            status="failed",
         )
 
     def _run(
