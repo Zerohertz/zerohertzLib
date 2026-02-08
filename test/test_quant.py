@@ -14,10 +14,18 @@ SLACK_BOT_TOKEN = os.environ.get("SLACK_BOT_TOKEN")
 SLACK_BOT_CHANNEL = "test"
 
 NOW = datetime.now()
-QUANT_START_DAY = (NOW - timedelta(days=30 * 2)).strftime("%Y%m%d")
-QUANT_SYMBOL_STR = "379800"
-QUANT_SYMBOL_INT = 2
-QUANT_TEST_DATA = fdr.DataReader(QUANT_SYMBOL_STR, QUANT_START_DAY)
+QUANT_START_DAY = (NOW - timedelta(days=30 * 3)).strftime("%Y%m%d")
+QUANT_SYMBOL_STR = [
+    "360750",  # TIGER 미국S&P500
+    "379810",  # KODEX 미국나스닥100
+    "381170",  # TIGER 미국테크TOP10 INDXX
+    "0047A0",  # TIGER 차이나테크TOP10
+    "488770",  # KODEX 머니마켓액티브
+    "411060",  # ACE KRX금현물
+]
+QUANT_SYMBOL_INT = 8
+QUANT_SYMBOL_MIN = 2
+QUANT_TEST_DATA = fdr.DataReader(QUANT_SYMBOL_STR[0], QUANT_START_DAY)
 
 zz.plot.font(kor=True)
 
@@ -72,10 +80,11 @@ def test_quant():
 
 def test_quant_mocked_bot_fdr_kor():
     qsb = zz.quant.QuantBotFDR(
-        [QUANT_SYMBOL_STR],
+        QUANT_SYMBOL_STR,
         start_day=QUANT_START_DAY,
         ohlc="Close",
         top=1,
+        mp_num=4,
         analysis=True,
     )
     qsb.index()
@@ -86,6 +95,7 @@ def test_quant_mocked_bot_fdr_ovs():
         QUANT_SYMBOL_INT,
         start_day=QUANT_START_DAY,
         top=1,
+        mp_num=4,
         kor=False,
     )
     qsb.buy()
@@ -93,7 +103,7 @@ def test_quant_mocked_bot_fdr_ovs():
 
 def test_quant_discord_bot_fdr_kor():
     qsb = zz.quant.QuantBotFDR(
-        QUANT_SYMBOL_INT,
+        QUANT_SYMBOL_STR[:QUANT_SYMBOL_MIN],
         start_day=QUANT_START_DAY,
         ohlc="Close",
         top=4,
@@ -106,7 +116,7 @@ def test_quant_discord_bot_fdr_kor():
 
 def test_quant_discord_bot_fdr_ovs():
     qsb = zz.quant.QuantBotFDR(
-        QUANT_SYMBOL_INT,
+        QUANT_SYMBOL_MIN,
         start_day=QUANT_START_DAY,
         top=4,
         token=DISCORD_BOT_TOKEN,
@@ -118,10 +128,10 @@ def test_quant_discord_bot_fdr_ovs():
 
 def test_quant_slack_bot_fdr_kor():
     qsb = zz.quant.QuantBotFDR(
-        [QUANT_SYMBOL_STR],
+        QUANT_SYMBOL_STR[:QUANT_SYMBOL_MIN],
         start_day=QUANT_START_DAY,
         ohlc="Close",
-        top=4,
+        top=2,
         token=SLACK_BOT_TOKEN,
         channel=SLACK_BOT_CHANNEL,
         name="Stock Test",
@@ -133,9 +143,9 @@ def test_quant_slack_bot_fdr_kor():
 
 def test_quant_slack_bot_fdr_ovs():
     qsb = zz.quant.QuantBotFDR(
-        QUANT_SYMBOL_INT,
+        QUANT_SYMBOL_MIN,
         start_day=QUANT_START_DAY,
-        top=4,
+        top=2,
         token=SLACK_BOT_TOKEN,
         channel=SLACK_BOT_CHANNEL,
         name="Stock Test",
