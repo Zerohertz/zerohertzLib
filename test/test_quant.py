@@ -17,6 +17,7 @@ NOW = datetime.now()
 QUANT_START_DAY = (NOW - timedelta(days=30 * 3)).strftime("%Y%m%d")
 QUANT_SYMBOL_STR = [
     "360750",  # TIGER 미국S&P500
+    "RANDOM_SYMBOL_FOR_TEST",
     "379810",  # KODEX 미국나스닥100
     "381170",  # TIGER 미국테크TOP10 INDXX
     "0047A0",  # TIGER 차이나테크TOP10
@@ -109,6 +110,7 @@ def test_quant_discord_bot_fdr_kor():
         top=4,
         token=DISCORD_BOT_TOKEN,
         channel=DISCORD_BOT_CHANNEL,
+        mp_num=2,
         analysis=True,
     )
     qsb.index()
@@ -153,3 +155,37 @@ def test_quant_slack_bot_fdr_ovs():
         kor=False,
     )
     qsb.buy()
+
+
+def test_cash2str():
+    from zerohertzLib.quant.util import _cash2str
+
+    assert _cash2str(1000, kor=True) == "₩1,000"
+    assert _cash2str(1234567, kor=True) == "₩1,234,567"
+    assert _cash2str(0, kor=True) == "₩0"
+    assert _cash2str(-500, kor=True) == "-₩500"
+    assert _cash2str(-1234567, kor=True) == "-₩1,234,567"
+    assert _cash2str(1000.50, kor=True) == "₩1,000"
+    assert _cash2str(1000, kor=False) == "$1,000.00"
+    assert _cash2str(1234567.89, kor=False) == "$1,234,567.89"
+    assert _cash2str(0, kor=False) == "$0.00"
+    assert _cash2str(-500, kor=False) == "-$500.00"
+    assert _cash2str(-1234567.89, kor=False) == "-$1,234,567.89"
+    assert _cash2str(0.5, kor=False) == "$0.50"
+
+
+def test_seconds_to_hms():
+    from zerohertzLib.quant.util import _seconds_to_hms
+
+    assert _seconds_to_hms(0) == "0.00s"
+    assert _seconds_to_hms(30) == "30.00s"
+    assert _seconds_to_hms(59.5) == "59.50s"
+    assert _seconds_to_hms(60) == "1m 0.00s"
+    assert _seconds_to_hms(90) == "1m 30.00s"
+    assert _seconds_to_hms(3599) == "59m 59.00s"
+    assert _seconds_to_hms(3600) == "1h 0m 0.00s"
+    assert _seconds_to_hms(3661) == "1h 1m 1.00s"
+    assert _seconds_to_hms(7384) == "2h 3m 4.00s"
+    assert _seconds_to_hms(30, sign=0) == "30s"
+    assert _seconds_to_hms(90, sign=4) == "1m 30.0000s"
+    assert _seconds_to_hms(3661, sign=1) == "1h 1m 1.0s"
