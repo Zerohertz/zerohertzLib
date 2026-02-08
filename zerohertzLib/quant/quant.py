@@ -87,7 +87,7 @@ class Quant(Experiments):
         title: str,
         data: pd.DataFrame,
         ohlc: str = "",
-        top: int = 1,  # FIXME: top is not accessed
+        top: int = 1,
         methods: dict[str, list[list[Any]]] | None = None,
         report: bool = False,
     ) -> None:
@@ -119,7 +119,7 @@ class Quant(Experiments):
                 )
                 exps_cnt = [defaultdict(int) for _ in range(len(exps_tup[0]))]
                 for profit, signal, exp_str, exp_tup in zip(
-                    profits, signals, exps_str, exps_tup
+                    profits[:top], signals[:top], exps_str[:top], exps_tup[:top]
                 ):
                     if profit > 0:
                         self.signals[method] += signal["signals"]
