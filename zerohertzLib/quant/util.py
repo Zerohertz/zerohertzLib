@@ -85,7 +85,7 @@ def _cash2str(
     return f"${cash:,.2f}"
 
 
-def _seconds_to_hms(seconds: int) -> str:
+def _seconds_to_hms(seconds: int, sign: int = 2) -> str:
     """초 단위 시간을 `Xh Ym Zs` format으로 변환하는 function
 
     Args:
@@ -99,9 +99,9 @@ def _seconds_to_hms(seconds: int) -> str:
     seconds = seconds % 60
     if hours == 0:
         if minutes == 0:
-            return f"{seconds}s"
-        return f"{minutes}m {seconds}s"
-    return f"{hours}h {minutes}m {seconds}s"
+            return f"{seconds:.{sign}f}s"
+        return f"{minutes}m {seconds:.{sign}f}s"
+    return f"{hours}h {minutes}m {seconds:.{sign}f}s"
 
 
 def _method2str(method: str) -> str:

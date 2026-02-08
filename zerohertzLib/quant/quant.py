@@ -611,8 +611,9 @@ class QuantBot:
                 self._analysis_update(quant)
             self._analysis_send()
         end = time.time()
-        # TODO: sign (:.2f)
-        self.bot.message(f"# :tada: **Done!**\n> `{_seconds_to_hms(end - start)}`")
+        self.bot.message(
+            f"# :tada: **Done!**\n> `{_seconds_to_hms(end - start, sign=2)}`"
+        )
 
     def buy(self) -> None:
         """매수 signals 탐색"""
