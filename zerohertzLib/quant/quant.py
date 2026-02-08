@@ -386,23 +386,17 @@ class QuantBot:
         progress_message = "`{:.2f}%` (`{}/{}`) - `{}` analysis {}!"
         if isinstance(idx, ValueProxy):
             idx.value += 1
-            progress_message = progress_message.format(
-                idx.get() / len(self.symbols) * 100,
-                idx.get(),
-                len(self.symbols),
-                symbol,
-                status,
-            )
+            tmp_idx = idx.get()
         else:
-            progress_message = progress_message.format(
-                (idx + 1) / len(self.symbols) * 100,
-                idx + 1,
+            tmp_idx = idx + 1
+        self.bot.message(
+            message=progress_message.format(
+                tmp_idx / len(self.symbols) * 100,
+                tmp_idx,
                 len(self.symbols),
                 symbol,
                 status,
-            )
-        self.bot.message(
-            message=progress_message,
+            ),
             thread_id=progress_thread_id,
         )
 
