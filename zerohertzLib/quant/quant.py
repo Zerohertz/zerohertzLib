@@ -478,7 +478,7 @@ class QuantBot:
         )
         return quant if today["position"] != "NULL" else None
 
-    def _run_mp(self, args: tuple[str, str, int, str]) -> Quant | None:
+    def _run_mp(self, args: tuple[str, str, ValueProxy, str]) -> Quant | None:
         symbol, mode, idx, progress_thread_id = args
         return self._run(
             symbol=symbol,
