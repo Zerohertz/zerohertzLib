@@ -8,6 +8,7 @@ import traceback
 from abc import abstractmethod
 from collections import defaultdict
 from itertools import combinations
+from multiprocessing.managers import ValueProxy
 from typing import Any, Literal
 
 import FinanceDataReader as fdr
@@ -118,7 +119,7 @@ class Quant(Experiments):
                 )
                 exps_cnt = [defaultdict(int) for _ in range(len(exps_tup[0]))]
                 for profit, signal, exp_str, exp_tup in zip(
-                    profits, signals, exps_str, exps_tup
+                    profits[:top], signals[:top], exps_str[:top], exps_tup[:top]
                 ):
                     if profit > 0:
                         self.signals[method] += signal["signals"]
@@ -292,6 +293,11 @@ class QuantBot:
         self.kor = kor
         self.report = report
 
+    @abstractmethod
+    def _get_data(self, symbol: str) -> tuple[str, pd.DataFrame]:
+        title = data = None
+        return title, data
+
     def _plot(self, quant: Quant) -> tuple[str, str]:
         candle_path = candle(
             quant.data[-500:],
@@ -328,17 +334,15 @@ class QuantBot:
         hist_path = savefig(f"{quant.title}_backtest", 100)
         return candle_path, hist_path
 
-    def _report(
-        self, symbol: str, quant: Quant, today: dict[str, Any]
-    ) -> dict[str, str]:
+    def _report(self, symbol: str, quant: Quant, today: dict[str, Any]) -> None:
         logic = {-2: "손절", -1: "매도", 0: "중립", 1: "매수", 2: "추가 매수"}
         report = defaultdict(str)
         if today["position"] == "Buy":
-            report["main"] += "> :chart_with_upwards_trend: [Buy Signal]"
+            report["main"] += "## :chart_with_upwards_trend: [Buy Signal]"
         elif today["position"] == "Sell":
-            report["main"] += "> :chart_with_downwards_trend: [Sell Signal]"
+            report["main"] += "## :chart_with_downwards_trend: [Sell Signal]"
         else:
-            report["main"] += "> :egg: [None Signal]"
+            report["main"] += "## :egg: [None Signal]"
         report["main"] += f" **{quant.title}** (`{symbol}`)\n"
         report["main"] += (
             f"\t:technologist: Signal Info: {today['total'][1]:.2f}% ({int(today['total'][0])}/{int(quant.total_cnt)}) → {logic[today['logic']]}\n"
@@ -365,29 +369,76 @@ class QuantBot:
             f"\t:chart_with_downwards_trend: Total Sell:\t{_cash2str(quant.sell, self.kor)}\n"
         )
         report["candle"], report["hist"] = self._plot(quant)
-        return report
+        response = self.bot.message(report["main"])
+        thread_id = self.bot.get_thread_id(response, name=symbol)
+        self.bot.file(report["candle"], thread_id=thread_id)
+        response = self.bot.message(report["backtest"], thread_id=thread_id)
+        self.bot.file(report["hist"], thread_id=thread_id)
+        response = self.bot.message(report["param"], thread_id=thread_id)
 
-    @abstractmethod
-    def _get_data(self, symbol: str) -> tuple[str, pd.DataFrame]:
-        title = data = None
-        return title, data
+    def _progress(
+        self,
+        symbol: str,
+        idx: int | ValueProxy,
+        progress_thread_id: str,
+        status: Literal["completed", "failed"],
+    ) -> None:
+        progress_message = "`{:.2f}%` (`{}/{}`) - `{}` analysis {}!"
+        if isinstance(idx, ValueProxy):
+            idx.value += 1
+            tmp_idx = idx.get()
+        else:
+            tmp_idx = idx + 1
+        self.bot.message(
+            message=progress_message.format(
+                tmp_idx / len(self.symbols) * 100,
+                tmp_idx,
+                len(self.symbols),
+                symbol,
+                status,
+            ),
+            thread_id=progress_thread_id,
+        )
 
-    def _run(self, args: list[str]) -> tuple[dict[str, str] | None, Quant | None]:
-        symbol, mode = args
+    def _traceback(
+        self,
+        error: Exception,
+        message: str,
+        symbol: str,
+        idx: int | ValueProxy,
+        progress_thread_id: str,
+    ) -> None:
+        response = self.bot.message(message=message)
+        thread_id = self.bot.get_thread_id(response, name=message)
+        self.bot.message(str(error), codeblock=True, thread_id=thread_id)
+        self.bot.message(traceback.format_exc(), codeblock=True, thread_id=thread_id)
+        self._progress(
+            symbol=symbol,
+            idx=idx,
+            progress_thread_id=progress_thread_id,
+            status="failed",
+        )
+
+    def _run(
+        self,
+        symbol: str,
+        mode: str,
+        idx: int | ValueProxy,
+        progress_thread_id: str,
+    ) -> Quant | None:
         try:
             title, data = self._get_data(symbol)
             if len(data) < 20:
-                return None, None
+                raise KeyError(f"`data` is too short ({len(data)=})")
         except (KeyError, HTTPError) as error:
-            response = self.bot.message(f":x: `{symbol}` was not found")
-            thread_id = self.bot.get_thread_id(
-                response, name=f"`{symbol}` was not found"
+            self._traceback(
+                error=error,
+                message=f"## :x: `{symbol}` was not found",
+                symbol=symbol,
+                idx=idx,
+                progress_thread_id=progress_thread_id,
             )
-            self.bot.message(str(error), codeblock=True, thread_id=thread_id)
-            self.bot.message(
-                traceback.format_exc(), codeblock=True, thread_id=thread_id
-            )
-            return None, None
+            return
         try:
             quant = Quant(
                 title,
@@ -399,34 +450,36 @@ class QuantBot:
             )
             today = quant()
         except IndexError as error:
-            response = self.bot.message(
-                f":x: `{symbol}` ({title}): {data.index[0]} ({len(data)})"
+            self._traceback(
+                error=error,
+                message=f"## :x: `{symbol}` ({title}): {data.index[0]} ({len(data)})",
+                symbol=symbol,
+                idx=idx,
+                progress_thread_id=progress_thread_id,
             )
-            thread_id = self.bot.get_thread_id(
-                response, name=f"`{symbol}` ({title}): {data.index[0]} ({len(data)})"
-            )
-            self.bot.message(str(error), codeblock=True, thread_id=thread_id)
-            self.bot.message(
-                traceback.format_exc(), codeblock=True, thread_id=thread_id
-            )
-            return None, None
-        if today["position"] == "NULL":
-            return None, None
+            return
         if mode == "Buy":
             positions = ["Buy"]
         else:
             positions = ["Buy", "Sell", "None"]
         if today["position"] in positions:
-            return self._report(symbol, quant, today), quant
-        return None, quant
+            self._report(symbol, quant, today)
+        self._progress(
+            symbol=symbol,
+            idx=idx,
+            progress_thread_id=progress_thread_id,
+            status="completed",
+        )
+        return quant if today["position"] != "NULL" else None
 
-    def _send(self, report: dict[str, str]) -> None:
-        response = self.bot.message(report["main"])
-        thread_id = self.bot.get_thread_id(response, name=report["main"])
-        self.bot.file(report["candle"], thread_id=thread_id)
-        response = self.bot.message(report["backtest"], thread_id=thread_id)
-        self.bot.file(report["hist"], thread_id=thread_id)
-        response = self.bot.message(report["param"], thread_id=thread_id)
+    def _run_mp(self, args: tuple[str, str, ValueProxy, str]) -> Quant | None:
+        symbol, mode, idx, progress_thread_id = args
+        return self._run(
+            symbol=symbol,
+            mode=mode,
+            idx=idx,
+            progress_thread_id=progress_thread_id,
+        )
 
     def _analysis_update(
         self,
@@ -453,7 +506,7 @@ class QuantBot:
                     self.exps_cnt[method][idx][param] += __cnt
 
     def _analysis_send(self) -> None:
-        response = self.bot.message("> :memo: Parameter Analysis")
+        response = self.bot.message("## :memo: Parameter Analysis")
         thread_id = self.bot.get_thread_id(response, name="Parameter Analysis")
         figure((30, 20))
         subplot(2, 2, 1)
@@ -495,7 +548,6 @@ class QuantBot:
                     barh(count, title="", dim="%")
                 except IndexError:
                     stg = False
-                    print(f"'{method}' was not available: {count}")
                     break
             if stg:
                 path = savefig(method, dpi=100)
@@ -520,29 +572,40 @@ class QuantBot:
             self.methods_cnt = defaultdict(list)
             # [Methods in Use: X] 전략과 parameter에 따른 이익이 존재하는 수
             self.exps_cnt = defaultdict(list)
-        response = self.bot.message(f"> :moneybag: Check {mode} Signals")
-        thread_id = self.bot.get_thread_id(response, name=f"Check {mode} Signals")
-        self.bot.message(", ".join(symbols), codeblock=True, thread_id=thread_id)
+        response = self.bot.message(f"# :moneybag: **Check {mode} Signals**")
+        progress_thread_id = self.bot.get_thread_id(
+            response, name=f"Check {mode} Signals"
+        )
+        self.bot.message(
+            ", ".join(symbols), codeblock=True, thread_id=progress_thread_id
+        )
         if self.mp_num == 0 or self.mp_num >= len(symbols):
-            for symbol in symbols:
-                report, quant = self._run([symbol, mode])
-                if report is not None:
-                    self._send(report)
-                if self.analysis and quant is not None:
-                    self._analysis_update(quant)
+            quants = []
+            for idx, symbol in enumerate(symbols):
+                quants.append(
+                    self._run(
+                        symbol=symbol,
+                        mode=mode,
+                        idx=idx,
+                        progress_thread_id=progress_thread_id,
+                    )
+                )
         else:
-            args = [[symbol, mode] for symbol in symbols]
-            with mp.Pool(processes=self.mp_num) as pool:
-                results = pool.map(self._run, args)
-            for report, quant in results:
-                if report is not None:
-                    self._send(report)
-                if self.analysis and quant is not None:
-                    self._analysis_update(quant)
+            with mp.Manager() as manager:
+                idx = manager.Value("i", 0)
+                args = [(symbol, mode, idx, progress_thread_id) for symbol in symbols]
+                with mp.Pool(processes=self.mp_num) as pool:
+                    quants = pool.map(self._run_mp, args)
         if self.analysis:
+            for quant in quants:
+                if quant is None:
+                    continue
+                self._analysis_update(quant)
             self._analysis_send()
         end = time.time()
-        self.bot.message(f"> :tada: Done! (`{_seconds_to_hms(end - start)}`)")
+        self.bot.message(
+            f"# :tada: **Done!**\n> `{_seconds_to_hms(end - start, sign=2)}`"
+        )
 
     def buy(self) -> None:
         """매수 signals 탐색"""
